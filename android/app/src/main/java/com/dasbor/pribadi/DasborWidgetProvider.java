@@ -1,4 +1,4 @@
-﻿package com.dasbor.pribadi;
+package com.dasbor.pribadi;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;

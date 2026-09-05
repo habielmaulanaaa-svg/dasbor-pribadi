@@ -1,1 +1,1 @@
-﻿# Proguard rules
+# Proguard rules
