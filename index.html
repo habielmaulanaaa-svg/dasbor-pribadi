@@ -1156,17 +1156,51 @@
     </div>
 
     <script>
-        // SERVICE WORKER REGISTRATION (PWA OFFLINE CACHING)
+        // SERVICE WORKER REGISTRATION (PWA OFFLINE CACHING & INSTANT OTA UPDATES)
         let deferredPrompt = null;
+        let swRegistration = null;
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('./sw.js')
                     .then(function(reg) {
+                        swRegistration = reg;
                         console.log('[PWA] Service Worker terdaftar:', reg.scope);
+                        
+                        // Cek pembaruan segera saat aplikasi dimuat
+                        reg.update();
+
+                        // Deteksi jika ada file versi baru di GitHub
+                        reg.addEventListener('updatefound', function() {
+                            const newWorker = reg.installing;
+                            if (newWorker) {
+                                newWorker.addEventListener('statechange', function() {
+                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                        console.log('[PWA] Versi baru ditemukan! Memperbarui otomatis...');
+                                        newWorker.postMessage({ action: 'skipWaiting' });
+                                    }
+                                });
+                            }
+                        });
                     })
                     .catch(function(err) {
                         console.log('[PWA] Service Worker gagal:', err);
                     });
+            });
+
+            // Reload halaman secara halus begitu worker baru aktif
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', function() {
+                if (!refreshing) {
+                    refreshing = true;
+                    window.location.reload();
+                }
+            });
+
+            // Cek update otomatis saat user kembali membuka aplikasi dari recent apps
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible' && swRegistration) {
+                    swRegistration.update();
+                }
             });
         }
 

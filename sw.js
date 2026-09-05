@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dasbor-pwa-v29-71';
+const CACHE_NAME = 'dasbor-pwa-v29-72';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -20,14 +20,14 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate Event: Clean up previous cache versions
+// Activate Event: Clean up old caches immediately and claim clients
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheName !== CACHE_NAME) {
-            console.log('[ServiceWorker] Removing old cache:', cacheName);
+            console.log('[ServiceWorker] Menghapus cache lama:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -36,30 +36,54 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event: Cache First, Network Fallback + Dynamic Caching
+// Fetch Event
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
+  const url = new URL(event.request.url);
+
+  // 1. NAVIGATION / HTML REQUESTS: Network-First Strategy (OTA Updates Always Fresh)
+  if (event.request.mode === 'navigate' || event.request.destination === 'document' || url.pathname.endsWith('.html') || url.pathname.endsWith('/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const copy = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // Offline fallback
+          return caches.match(event.request).then((cached) => {
+            return cached || caches.match('./index.html');
+          });
+        })
+    );
+    return;
+  }
+
+  // 2. STATIC ASSETS: Stale-While-Revalidate (Fast response + background update)
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).then((networkResponse) => {
-        if (!networkResponse || networkResponse.status !== 200) {
-          return networkResponse;
+      const fetchPromise = fetch(event.request).then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const copy = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
         }
-        const responseToCache = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
         return networkResponse;
       }).catch(() => {
-        // Fallback for offline if not in cache
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
+        // Network failed (offline), do nothing since cache was already considered
       });
+
+      return cachedResponse || fetchPromise;
     })
   );
+});
+
+// Listen for message to skip waiting
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
 });
