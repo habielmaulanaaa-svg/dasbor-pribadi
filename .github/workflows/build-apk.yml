@@ -31,9 +31,18 @@ jobs:
 
       - name: Build Android APK with Gradle
         run: |
+          sed -i 's/\r$//' android/gradlew
+          chmod +x android/gradlew
           cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee gradle-build.log
+
+      - name: Report Build Log on Failure
+        if: failure()
+        run: |
+          echo "### Gradle Build Log" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -n 120 android/gradle-build.log >> $GITHUB_STEP_SUMMARY || true
+          echo '```' >> $GITHUB_STEP_SUMMARY
 
       - name: Prepare APK File
         run: |

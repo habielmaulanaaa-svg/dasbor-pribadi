@@ -1,6 +1,6 @@
-﻿package com.dasbor.pribadi;
+package com.dasbor.pribadi;
 
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -8,7 +8,7 @@ import android.os.Bundle;
 import androidx.browser.customtabs.CustomTabColorSchemeParams;
 import androidx.browser.customtabs.CustomTabsIntent;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private static final String BASE_URL = "https://habielmaulanaaa-svg.github.io/dasbor-pribadi/";
 
     @Override
