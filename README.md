@@ -1,6 +1,6 @@
 # 📱 Dasbor Pribadi Mobile (PWA & APK Ready)
 
-Aplikasi manajemen tugas, keuangan, dan jurnal harian pribadi berbasis **Progressive Web App (PWA)** modern. Berjalan 100% secara native, aman, dan offline di smartphone (**Android / Google Pixel 6 / iOS**) dengan dukungan hosting **Cloud 24/7** dan **Pembaruan Otomatis (OTA)**.
+Aplikasi manajemen tugas, keuangan, dan jurnal harian pribadi berbasis **Progressive Web App (PWA)** modern. Berjalan 100% secara native, aman, dan offline di smartphone (**Perangkat Android / iOS**) dengan dukungan hosting **Cloud 24/7** dan **Pembaruan Otomatis (OTA)**.
 
 🌐 **Link Resmi Aplikasi**: [https://habielmaulanaaa-svg.github.io/dasbor-pribadi/](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 
@@ -9,7 +9,7 @@ Aplikasi manajemen tugas, keuangan, dan jurnal harian pribadi berbasis **Progres
 ## ✨ Fitur Unggulan
 
 - ☁️ **Online 24/7 Nonstop**: Dihosting resmi di GitHub Pages dengan enkripsi HTTPS SSL. Laptop/PC tidak perlu menyala.
-- 📲 **Native WebAPK Installation**: Dapat di-install langsung ke layar utama & app drawer Android (Google Pixel 6) tanpa address bar browser.
+- 📲 **Native WebAPK Installation**: Dapat di-install langsung ke layar utama & app drawer Perangkat Android tanpa address bar browser.
 - ⚡ **Pembaruan Otomatis (OTA Pipeline)**: Setiap pembaruan kode langsung tersinkronisasi otomatis ke aplikasi di ponsel melalui *Network-First Service Worker*.
 - 🏝️ **Notifikasi iOS Dynamic Island**: Notifikasi pembaruan elegan bergaya kapsul iOS yang muncul otomatis saat versi baru terpasang.
 - 📴 **100% Offline Ready**: Data dan aset tersimpan di memori perangkat melalui Service Worker & LocalStorage sehingga tetap bisa digunakan tanpa kuota internet.
@@ -32,9 +32,9 @@ dasbor-mobile/
 
 ---
 
-## 🚀 Cara Pasang di Google Pixel 6 (Android)
+## 🚀 Cara Pasang di Perangkat Android
 
-1. Buka browser **Google Chrome** di Google Pixel 6 Anda.
+1. Buka browser **Google Chrome** di Perangkat Android Anda.
 2. Kunjungi alamat resmi: **[https://habielmaulanaaa-svg.github.io/dasbor-pribadi/](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)**
 3. Tap tombol **"Install"** pada banner yang muncul, atau buka menu titik tiga (⋮) di Chrome lalu pilih **"Install Aplikasi"** / **"Tambahkan ke Layar Utama"**.
 4. **Selesai!** Ikon Dasbor Pribadi akan langsung terpasang di layar utama & laci aplikasi HP Anda.
