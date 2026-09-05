@@ -546,7 +546,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v31.05 Pro (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v31.10 Pro (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -684,15 +684,15 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v31.00 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v31.10 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <!-- Milestone v31.00 Pro -->
+                <!-- Milestone v31.10 Pro -->
                 <div class="p-3 bg-gradient-to-r from-primary-50 to-indigo-50 dark:from-primary-950/40 dark:to-indigo-950/30 rounded-2xl border border-primary-200 dark:border-primary-800/50 shadow-xs">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Major Release • v31.00 Pro</span>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Major Release • v31.10 Pro</span>
                     <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Integrasi Google Login & Sinkronisasi Cloud Otomatis</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Data saldo, transaksi, tugas, jurnal, dan tabungan kini tersimpan aman di Google Firebase Firestore. Ganti perangkat kapan pun tanpa khawatir kehilangan data!</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Data saldo, transaksi, tugas, jurnal, dan tabungan kini tersimpan aman di Google Firebase Firestore. Sesi akun tersimpan otomatis & data selalu sinkron.</p>
                 </div>
 
                 <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
@@ -3533,13 +3533,19 @@
             showDynamicGreeting(); 
             scheduleDailyReset6AM();
             checkOtaVersionNotification();
+
+            // Pulihkan sesi akun langsung dari cache agar tidak berkedip 'Lokal'
+            var cachedUser = getCachedUser();
+            if (cachedUser) {
+                updateAuthUI(cachedUser);
+            }
             initFirebaseAuth();
 
             setTimeout(dismissSkeleton, 600);
         }
 
         // ==========================================
-        // FIREBASE CLOUD STORAGE & GOOGLE AUTH V31.00
+        // FIREBASE CLOUD STORAGE & GOOGLE AUTH V31.10
         // ==========================================
         const firebaseConfig = {
             apiKey: "AIzaSyCkJ8pC3l-M30WXlYgmjB8bHLKSFBW7qO8",
@@ -3575,10 +3581,30 @@
             return `${h}:${m}`;
         }
 
+        function getCachedUser() {
+            try {
+                var c = safeStorage.getItem('dasborCloudUser');
+                return c ? JSON.parse(c) : null;
+            } catch(e) { return null; }
+        }
+
+        function saveLocalUserCache(user) {
+            if (!user) {
+                safeStorage.setItem('dasborCloudUser', '');
+            } else {
+                safeStorage.setItem('dasborCloudUser', JSON.stringify({
+                    displayName: user.displayName || '',
+                    email: user.email || '',
+                    photoURL: user.photoURL || '',
+                    uid: user.uid
+                }));
+            }
+        }
+
         function initFirebaseAuth() {
             if (typeof firebase === 'undefined') {
                 console.warn('Firebase SDK belum termuat atau diblokir koneksi.');
-                updateAuthUI(null);
+                if (!getCachedUser()) updateAuthUI(null);
                 return;
             }
 
@@ -3591,20 +3617,15 @@
                 firebaseAuth = firebase.auth();
                 firestoreDb = firebase.firestore();
 
-                // Deteksi hasil redirect login (optimal untuk WebAPK / PWA fullscreen)
-                firebaseAuth.getRedirectResult().then(function(result) {
-                    if (result && result.user) {
-                        currentUser = result.user;
-                        updateAuthUI(currentUser);
-                        syncFromCloud();
-                    }
-                }).catch(function(error) {
-                    console.error("Redirect login error:", error);
+                // Pastikan persistence LOCAL di IndexedDB agar sesi login tersimpan permanen
+                firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(function(e) {
+                    console.warn("Set persistence warn:", e);
                 });
 
                 // Deteksi status sesi login otomatis
                 firebaseAuth.onAuthStateChanged(function(user) {
                     currentUser = user;
+                    saveLocalUserCache(user);
                     updateAuthUI(user);
                     if (user) {
                         syncFromCloud();
@@ -3612,7 +3633,7 @@
                 });
             } catch (err) {
                 console.error("Inisialisasi Firebase gagal:", err);
-                updateAuthUI(null);
+                if (!getCachedUser()) updateAuthUI(null);
             }
         }
 
@@ -3720,33 +3741,20 @@
             const provider = new firebase.auth.GoogleAuthProvider();
             provider.setCustomParameters({ prompt: 'select_account' });
 
-            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-                             window.matchMedia('(display-mode: standalone)').matches || 
-                             window.navigator.standalone === true;
-
             triggerDynamicIsland("Menghubungkan Akun...", "Membuka Google Login", "fab fa-google", "bg-primary-500/20 text-primary-400");
 
-            if (isMobile) {
-                // Di perangkat Android / iOS / WebAPK, gunakan redirect langsung agar tidak terblokir popup blocker mobile
-                firebaseAuth.signInWithRedirect(provider).catch(function(err) {
-                    console.error("Redirect error:", err);
-                    alert("Gagal membuka login Google: " + err.message);
-                });
-                return;
-            }
-
-            // Di Laptop / PC Desktop, gunakan popup agar cepat dan tidak reload halaman
             firebaseAuth.signInWithPopup(provider)
                 .then(function(result) {
                     currentUser = result.user;
+                    saveLocalUserCache(currentUser);
                     updateAuthUI(currentUser);
                     syncFromCloud();
                     triggerDynamicIsland("Berhasil Masuk!", "Halo, " + (result.user.displayName || 'Pengguna'), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
                 })
                 .catch(function(error) {
-                    console.warn("Popup error:", error.code, error.message);
-                    if (error.code === 'auth/popup-blocked' || error.code === 'auth/cancelled-popup-request') {
-                        firebaseAuth.signInWithRedirect(provider);
+                    console.warn("Popup login error:", error.code, error.message);
+                    if (error.code === 'auth/popup-blocked') {
+                        alert("Jendela pop-up Google diblokir oleh browser. Silakan izinkan pop-up untuk situs ini lalu tekan tombol login lagi.");
                     } else if (error.code !== 'auth/popup-closed-by-user') {
                         alert("Gagal masuk dengan Google: " + error.message);
                     }
@@ -3758,10 +3766,21 @@
             if (firebaseAuth) {
                 firebaseAuth.signOut().then(function() {
                     currentUser = null;
+                    saveLocalUserCache(null);
                     updateAuthUI(null);
                     triggerDynamicIsland("Keluar Akun", "Beralih ke mode penyimpanan lokal", "fas fa-sign-out-alt", "bg-slate-500/20 text-slate-400");
                 });
             }
+        }
+
+        function mergeUniqueById(localArr, remoteArr, idKey) {
+            idKey = idKey || 'id';
+            if (!Array.isArray(localArr)) localArr = [];
+            if (!Array.isArray(remoteArr)) remoteArr = [];
+            const map = new Map();
+            localArr.forEach(function(item) { if (item && item[idKey]) map.set(item[idKey], item); });
+            remoteArr.forEach(function(item) { if (item && item[idKey]) map.set(item[idKey], item); });
+            return Array.from(map.values());
         }
 
         function syncFromCloud() {
@@ -3773,7 +3792,27 @@
                     if (docSnap.exists) {
                         const remote = docSnap.data();
                         if (remote && remote.dataState) {
-                            dataState = Object.assign({}, dataState, remote.dataState);
+                            const rState = remote.dataState;
+
+                            // Smart merge data list agar tidak ada data yang hilang
+                            dataState.tugas = mergeUniqueById(dataState.tugas, rState.tugas);
+                            dataState.transaksi = mergeUniqueById(dataState.transaksi, rState.transaksi);
+                            dataState.targetTabungan = mergeUniqueById(dataState.targetTabungan, rState.targetTabungan);
+                            dataState.jurnal = mergeUniqueById(dataState.jurnal, rState.jurnal);
+                            dataState.rekapHarian = mergeUniqueById(dataState.rekapHarian, rState.rekapHarian, 'tanggal');
+
+                            // Saldo: gunakan cloud jika ada, atau lokal jika cloud kosong
+                            if (rState.saldo !== undefined && (rState.saldo !== 0 || dataState.saldo === 0)) {
+                                dataState.saldo = rState.saldo;
+                            }
+                            if (rState.userName && rState.userName !== 'Pengguna') {
+                                dataState.userName = rState.userName;
+                            }
+
+                            if (rState.compactMode !== undefined) dataState.compactMode = rState.compactMode;
+                            if (rState.glassMode !== undefined) dataState.glassMode = rState.glassMode;
+                            if (rState.cardGradient !== undefined) dataState.cardGradient = rState.cardGradient;
+                            if (rState.widgetOrder && rState.widgetOrder.length) dataState.widgetOrder = rState.widgetOrder;
 
                             if (remote.themeHue) {
                                 safeStorage.setItem('dasborHue', remote.themeHue);
@@ -3806,6 +3845,9 @@
                             perbaruiTampilan();
                             updateSyncStatusUI('synced');
                             triggerDynamicIsland("Cloud Tersinkron ☁️", "Data akun Anda berhasil dimuat", "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
+
+                            // Simpan snapshot gabungan kembali ke cloud
+                            syncToCloud(false);
                         } else {
                             syncToCloud(false);
                         }
@@ -3876,7 +3918,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v31.05';
+        const CURRENT_APP_VERSION = 'v31.10';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
