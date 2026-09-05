@@ -34,7 +34,7 @@ jobs:
           sed -i 's/\r$//' android/gradlew
           chmod +x android/gradlew
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee gradle-build.log
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee gradle-build.log
 
       - name: Report Build Log on Failure
         if: failure()
@@ -46,7 +46,9 @@ jobs:
 
       - name: Prepare APK File
         run: |
-          APK_PATH=$(find android -name "*.apk" | head -n 1)
+          echo "Daftar file di android/app/build:"
+          find android/app/build -maxdepth 5 || true
+          APK_PATH=$(find android/app/build -name "*.apk" | head -n 1)
           if [ -z "$APK_PATH" ]; then
             echo "Error: Tidak ditemukan file APK di folder android!"
             exit 1

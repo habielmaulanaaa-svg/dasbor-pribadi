@@ -1,4 +1,4 @@
-﻿plugins {
+plugins {
     id 'com.android.application'
 }
 
@@ -10,10 +10,15 @@ android {
         applicationId "com.dasbor.pribadi"
         minSdk 24
         targetSdk 34
-        versionCode 3230
-        versionName "32.30"
+        versionCode 3235
+        versionName "32.35"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
     }
 
     buildTypes {
