@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
-public class DasborWidgetProvider extends AppWidgetProvider {
+public class DasborBarWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -18,22 +18,23 @@ public class DasborWidgetProvider extends AppWidgetProvider {
     }
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.dasbor_widget_layout);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.dasbor_widget_bar_layout);
 
-        // 1. Klik seluruh kartu widget -> Buka Beranda Dasbor
-        views.setOnClickPendingIntent(R.id.widget_root, createActionPendingIntent(context, null, 100));
+        // 1. Klik area logo / widget -> Buka Beranda Dasbor
+        views.setOnClickPendingIntent(R.id.widget_bar_root, createActionPendingIntent(context, null, 200));
+        views.setOnClickPendingIntent(R.id.btn_bar_home, createActionPendingIntent(context, null, 201));
 
         // 2. Tombol Aksi Cepat + Pemasukan
-        views.setOnClickPendingIntent(R.id.btn_widget_income, createActionPendingIntent(context, "pemasukan", 101));
+        views.setOnClickPendingIntent(R.id.btn_bar_income, createActionPendingIntent(context, "pemasukan", 202));
 
         // 3. Tombol Aksi Cepat - Pengeluaran
-        views.setOnClickPendingIntent(R.id.btn_widget_expense, createActionPendingIntent(context, "pengeluaran", 102));
+        views.setOnClickPendingIntent(R.id.btn_bar_expense, createActionPendingIntent(context, "pengeluaran", 203));
 
         // 4. Tombol Catatan & Belanjaan
-        views.setOnClickPendingIntent(R.id.btn_widget_notes, createActionPendingIntent(context, "catatan", 103));
+        views.setOnClickPendingIntent(R.id.btn_bar_notes, createActionPendingIntent(context, "catatan", 204));
 
         // 5. Tombol Kalkulator Impian
-        views.setOnClickPendingIntent(R.id.btn_widget_calc, createActionPendingIntent(context, "kalkulator", 104));
+        views.setOnClickPendingIntent(R.id.btn_bar_calc, createActionPendingIntent(context, "kalkulator", 205));
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

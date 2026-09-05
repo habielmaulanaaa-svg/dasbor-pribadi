@@ -31,9 +31,10 @@
             </intent-filter>
         </activity>
 
-        <!-- Home Screen Widget Receiver -->
+        <!-- Widget 1: Kartu Dasbor Lengkap (4x2 / 3x2) -->
         <receiver
             android:name=".DasborWidgetProvider"
+            android:label="@string/widget_card_name"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -41,6 +42,19 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/dasbor_widget_info" />
+        </receiver>
+
+        <!-- Widget 2: Bar Pintasan Cepat (4x1) -->
+        <receiver
+            android:name=".DasborBarWidgetProvider"
+            android:label="@string/widget_bar_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/dasbor_widget_bar_info" />
         </receiver>
 
     </application>

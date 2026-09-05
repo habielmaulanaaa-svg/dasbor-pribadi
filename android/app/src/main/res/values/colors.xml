@@ -10,4 +10,6 @@
     <color name="amber_gold">#F59E0B</color>
     <color name="text_white">#FFFFFF</color>
     <color name="text_muted">#94A3B8</color>
+    <color name="widget_divider_color">#26FFFFFF</color>
+    <color name="badge_cloud_bg">#262563EB</color>
 </resources>
