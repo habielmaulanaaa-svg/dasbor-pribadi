@@ -618,7 +618,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v30.25</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v32.38 Pro</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -856,88 +856,43 @@
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.38 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <!-- Milestone v32.38 Pro -->
-                <div class="p-3 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/30 rounded-2xl border border-emerald-200 dark:border-emerald-800/50 shadow-xs">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Update Rilis • v32.38 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Sinkronisasi Saldo Akurat, Notifikasi OTA & Widget Minimalis</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">1. Sinkronisasi saldo kas ke widget kini 100% akurat menggunakan nominal riil (bukan 0). 2. Notifikasi OTA capsule kembali aktif memunculkan badge versi baru. 3. Ikon dan teks Cloud Pro pada widget telah dihilangkan agar tampilan lebih bersih. 4. Menambahkan gambar pertinjau (preview) resmi saat memilih widget di launcher HP.</p>
-                </div>
-
-                <!-- Milestone v32.30 Pro -->
-                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-primary-500"></i> Previous • v32.30 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Pemisah Koma Ribuan Otomatis & Terbilang Rupiah Instan</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Kini seluruh pengisian nominal (Pemasukan, Pengeluaran, Target Tabungan, Setor, dan Kalkulator Impian) otomatis memformat tanda koma ribuan saat diketik, dilengkapi preview bacaan terbilang (misal: 50,000 ➔ 50 Ribu Rupiah) tanpa perlu bingung menghitung nol.</p>
-                </div>
-
-                <!-- Milestone v32.25 Pro -->
-                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-primary-500"></i> Previous • v32.25 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Tampilan Solid Kalkulator Impian & Penghapusan Konfeti Catatan</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Modal Kalkulator & Rencana Impian kini hadir dengan warna solid berdaya kontras tinggi bebas efek akrilik/blur untuk kenyamanan visual maksimal. Letupan konfeti pada Catatan & Belanjaan telah dinonaktifkan agar pengalaman mencatat lebih tenang dan fokus.</p>
-                </div>
-
-                <!-- Milestone v32.20 Pro -->
-                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-primary-500"></i> Previous • v32.20 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Optimasi Akselerasi Kalkulator & Animasi Lengkap Catatan Kilat</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Akses Kalkulator & Impian kini super responsif tanpa lag (pemisahan transisi sidebar, requestAnimationFrame kalkulasi instan, caching Intl date formatter). Catatan & Belanjaan kini dilengkapi animasi fluid: efek bounce tambah item, pop ceklis, collapse slide-out hapus item, dan pembersihan massal.</p>
-                </div>
-
-                <!-- Milestone v32.10 Pro -->
-                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-primary-500"></i> Previous • v32.10 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Penyatuan Kalkulator Impian & Target Tabungan + Animasi Halus</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Kalkulator kini menyatu langsung dengan target tabungan (simulasi instan per kartu, simpan impian baru langsung dari kalkulator, dan setor mudah). Animasi elegan bounce-in dan slide-collapse saat menambah & menghapus impian.</p>
-                </div>
-
-                <!-- Milestone v32.00 Pro -->
-                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-primary-500"></i> Previous • v32.00 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Analisis & Statistik Donut SVG serta Catatan & Daftar Belanjaan</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Statistik keuangan per kategori, rasio tabungan, serta checklist belanjaan dengan auto-sync Cloud.</p>
-                </div>
-
-                <!-- Milestone v31.15 Pro -->
-                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Previous • v31.15 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Integrasi Google Login & Sinkronisasi Cloud Otomatis</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Data saldo, transaksi, tugas, jurnal, dan tabungan tersimpan aman di Google Firebase Firestore. Sesi akun tersimpan otomatis & data selalu sinkron.</p>
-                </div>
-
-                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Previous • v30.25 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Transisi Gradasi Mulus & Pembaruan Sistem Notifikasi</p>
-                </div>
-                
-                <div class="space-y-2">
-                    <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
-                        <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-mobile-alt text-primary-500 text-xs"></i> Kompatibilitas Universal Perangkat Android
-                        </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Dukungan penuh instalasi PWA dan WebAPK untuk seluruh merek Perangkat Android dan iOS.</p>
+            <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v32.38 Pro (Era Baru APK & Widget Android) -->
+                <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100/50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-emerald-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500 text-xs"></i> Update Rilis Resmi • v32.38 Pro</span>
+                        <span class="text-[9px] font-black bg-emerald-600 text-white px-2 py-0.5 rounded-full shadow-xs">Era APK Android</span>
                     </div>
-
-                    <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
-                        <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-clock text-amber-500 text-xs"></i> Siklus Reset Rekap Harian 06:00 Pagi
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Revolusi APK Android Mandiri, Home Screen Widgets &amp; Sinkronisasi Saldo Akurat</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-cube text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Aplikasi Android Mandiri (.APK):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Aplikasi kini resmi hadir dalam bentuk file APK mandiri dengan format Adaptive Icon modern (full-bleed) yang bebas dari efek bingkai kotak.</p>
+                            </div>
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Reset harian kini otomatis dimulai pada pukul 06:00 pagi sesuai ritme aktivitas produktif harian Anda.</p>
-                    </div>
-
-                    <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
-                        <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-piggy-bank text-emerald-500 text-xs"></i> Perapihan Label Tabungan Tercapai
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-th-large text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">2 Pilihan Widget Layar Utama:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Tersedia widget <b>Kartu Saldo Lengkap (4x2)</b> dan <b>Bar Aksi Cepat (4x1)</b> dengan pratinjau asli di pemilih widget ponsel serta desain bersih tanpa logo berlebih.</p>
+                            </div>
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Status target tabungan yang telah tuntas di menu utama kini tampil bersih dan rapi ("Tabungan Tercapai").</p>
-                    </div>
-
-                    <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
-                        <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-hand-pointer text-indigo-500 text-xs"></i> Haptic Taktil & Quick Math Calculator
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-sync-alt text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Sinkronisasi Saldo Kas Presisi:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Nominal saldo kas riil kini langsung tersinkronisasi sempurna ke widget ponsel melalui tombol sinkronisasi di menu Pengaturan (bebas dari masalah Rp 0).</p>
+                            </div>
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Dukungan getaran taktil yang dapat diatur di pengaturan serta kalkulator instan pada kolom nominal uang.</p>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-bell text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Notifikasi OTA &amp; Pembersihan UI:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Notifikasi update OTA aktif kembali, versi resmi tersinkron ke v32.38 Pro, dan tombol kalkulator ganda di Target Tabungan telah dihapus.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
