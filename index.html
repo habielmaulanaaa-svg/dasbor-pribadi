@@ -666,13 +666,13 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.10 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.11 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
                 <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Public Release • v30.10 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Siklus Jam 6 Pagi, Universal Android & Status Tabungan</p>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Public Release • v30.11 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Siklus Jam 6 Pagi & Universal Perangkat Android</p>
                 </div>
                 
                 <div class="space-y-2">
@@ -692,9 +692,9 @@
 
                     <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
                         <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-piggy-bank text-emerald-500 text-xs"></i> Label Target Tabungan "储蓄 Tercapai"
+                            <i class="fas fa-piggy-bank text-emerald-500 text-xs"></i> Perapihan Label Tabungan Tercapai
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Target tabungan impian yang telah tuntas kini dihiasi dengan lencana elegan 储蓄 Tercapai di menu utama.</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Status target tabungan yang telah tuntas di menu utama kini tampil bersih dan rapi ("Tabungan Tercapai").</p>
                     </div>
 
                     <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
@@ -2658,7 +2658,7 @@
                 </div>
                 <div class="flex justify-between items-center text-[10px] font-bold text-slate-500 dark:text-slate-400">
                     <span>${formatRupiah(tab.terkumpul)} / ${formatRupiah(tab.target)}</span>
-                    <span class="${isDone ? 'text-emerald-500 font-black' : ''}">${pct}% ${isDone ? '🎉 储蓄 Tercapai' : ''}</span>
+                    <span class="${isDone ? 'text-emerald-500 font-black' : ''}">${pct}% ${isDone ? '🎉 Tercapai' : ''}</span>
                 </div>
             </div>`;
         }
@@ -3253,14 +3253,14 @@
                     var selesaiCards = selesai.map(tab => renderSavingsCard(tab, true)).join('');
                     htmlSelesai = `<div class="mt-3 pt-2 border-t border-slate-100 dark:border-[#242f3d]">
                         <button type="button" onclick="toggleStack('stack-tabungan-tercapai', 'icon-tabungan-tercapai', ${selesai.length})" class="w-full bg-slate-100 dark:bg-[#242f3d]/50 hover:bg-slate-200 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-300 font-bold p-3 rounded-2xl flex justify-between items-center text-xs transition-colors focus:outline-none compact-pad">
-                            <span><i class="fas fa-check-circle text-emerald-500 mr-1.5"></i>储蓄 Tercapai (${selesai.length})</span>
+                            <span><i class="fas fa-check-circle text-emerald-500 mr-1.5"></i>Tabungan Tercapai (${selesai.length})</span>
                             <i class="fas fa-chevron-down text-slate-400 transform transition-transform duration-300" id="icon-tabungan-tercapai"></i>
                         </button>
                         <div id="stack-tabungan-tercapai" class="accordion-content space-y-2 mt-2">${selesaiCards}</div>
                     </div>`;
                 }
                 if (berjalan.length === 0 && selesai.length > 0) {
-                    htmlBerjalan = '<p class="text-xs text-emerald-600 dark:text-emerald-400 font-bold text-center py-2 bg-emerald-50 dark:bg-emerald-950/20 rounded-2xl border border-emerald-100 dark:border-emerald-800/30">✨ Semua target 储蓄 telah tercapai!</p>';
+                    htmlBerjalan = '<p class="text-xs text-emerald-600 dark:text-emerald-400 font-bold text-center py-2 bg-emerald-50 dark:bg-emerald-950/20 rounded-2xl border border-emerald-100 dark:border-emerald-800/30">✨ Semua target tabungan telah tercapai!</p>';
                 } else if (berjalan.length === 0 && selesai.length === 0) {
                     htmlBerjalan = '<p class="text-xs text-slate-400 font-bold text-center py-2">Belum ada target tabungan.</p>';
                 }
@@ -3459,7 +3459,7 @@
             setTimeout(dismissSkeleton, 600);
         }
 
-        const CURRENT_APP_VERSION = 'v30.10';
+        const CURRENT_APP_VERSION = 'v30.11';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
