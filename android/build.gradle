@@ -1,4 +1,4 @@
-﻿buildscript {
+buildscript {
     repositories {
         google()
         mavenCentral()
@@ -9,5 +9,5 @@
 }
 
 tasks.register('clean', Delete) {
-    delete rootProject.buildDir
+    delete rootProject.layout.buildDirectory
 }
