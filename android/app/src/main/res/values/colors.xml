@@ -12,4 +12,5 @@
     <color name="text_muted">#94A3B8</color>
     <color name="widget_divider_color">#26FFFFFF</color>
     <color name="badge_cloud_bg">#262563EB</color>
+    <color name="ic_launcher_background">#0E1621</color>
 </resources>

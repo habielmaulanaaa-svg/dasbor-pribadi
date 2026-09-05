@@ -29,15 +29,30 @@ public class MainActivity extends AppCompatActivity {
         String action = null;
 
         if (intent != null) {
+            Uri data = intent.getData();
+            if (data != null && ("sync".equals(data.getHost()) || "/sync".equals(data.getPath()))) {
+                String saldo = data.getQueryParameter("saldo");
+                if (saldo != null && !saldo.isEmpty()) {
+                    getSharedPreferences("dasbor_prefs", MODE_PRIVATE)
+                            .edit()
+                            .putString("cached_saldo", saldo)
+                            .apply();
+                    DasborWidgetProvider.updateAllWidgets(this);
+                }
+                finish();
+                return;
+            }
+
             // Cek jika dipanggil lewat intent extra dari Widget
             if (intent.hasExtra("action")) {
                 action = intent.getStringExtra("action");
             } 
-            // Cek jika dipanggil lewat deep-link URI dasbor://?action=...
-            else if (intent.getData() != null) {
-                Uri data = intent.getData();
+            // Cek jika dipanggil lewat deep-link URI dasbor://action/... atau dasbor://?action=...
+            else if (data != null) {
                 action = data.getQueryParameter("action");
-                if (action == null && data.getHost() != null) {
+                if (action == null && data.getLastPathSegment() != null && !"home".equals(data.getLastPathSegment())) {
+                    action = data.getLastPathSegment();
+                } else if (action == null && data.getHost() != null && !"home".equals(data.getHost())) {
                     action = data.getHost();
                 }
             }

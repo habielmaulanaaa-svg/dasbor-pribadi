@@ -44,13 +44,46 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Kartu Saldo Utama (Dapat Diklik -> Buka Dasbor) -->
+    <LinearLayout
+        android:id="@+id/widget_saldo_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="Pencatatan Keuangan &amp; Rencana Impian"
-        android:textColor="@color/text_muted"
-        android:textSize="10sp" />
+        android:layout_marginTop="8dp"
+        android:background="@drawable/widget_saldo_bg"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOTAL SALDO TERSEDIA"
+            android:textColor="@color/text_muted"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_widget_saldo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Ketuk Buka Dasbor"
+            android:textColor="@color/text_white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_widget_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="Sinkronisasi otomatis dengan Cloud"
+            android:textColor="@color/income_green"
+            android:textSize="9sp" />
+    </LinearLayout>
 
     <!-- Garis Pemisah Tipis (Menggunakan FrameLayout yang valid di RemoteViews) -->
     <FrameLayout
