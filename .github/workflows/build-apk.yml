@@ -69,6 +69,16 @@ jobs:
           name: dasbor-pribadi-apk
           path: dasbor-pribadi.apk
 
+      - name: Deploy APK to Repository Root
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin main || true
+          cp -f dasbor-pribadi.apk ./dasbor-pribadi.apk
+          git add dasbor-pribadi.apk
+          git commit -m "chore(release): update dasbor-pribadi.apk binary [skip ci]" || true
+          git push origin main || true
+
       - name: Publish APK to GitHub Release
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
