@@ -33,8 +33,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#262563EB"
-            android:paddingHorizontal="6dp"
-            android:paddingVertical="2dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
             android:text="CLOUD PRO"
             android:textColor="@color/primary_blue"
             android:textSize="9sp"
@@ -53,7 +55,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginVertical="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="#1AFFFFFF" />
 
     <!-- Grid 4 Tombol Aksi Cepat -->
@@ -72,7 +75,8 @@
             android:background="@drawable/btn_income_bg"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingVertical="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,7 +105,8 @@
             android:background="@drawable/btn_expense_bg"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingVertical="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -130,7 +135,8 @@
             android:background="@drawable/btn_neutral_bg"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingVertical="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -158,7 +164,8 @@
             android:background="@drawable/btn_neutral_bg"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingVertical="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_width="wrap_content"

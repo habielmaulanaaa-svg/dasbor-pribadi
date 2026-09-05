@@ -35,7 +35,11 @@ jobs:
           sed -i 's/\r$//' android/gradlew
           chmod +x android/gradlew
           cd android
-          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace > build.log 2>&1 || {
+            echo "================ GRADLE BUILD FAILED ================"
+            cat build.log
+            exit 1
+          }
           cd ..
           echo "=== Mencari file APK ==="
           find android -name "*.apk"
@@ -69,5 +73,6 @@ jobs:
             - **Fitur**: Home Screen Widget (+ Masuk, - Keluar, Catatan, Kalkulator), Google Auth, Firebase Cloud Storage, dan OTA Update.
           files: dasbor-pribadi.apk
           prerelease: false
+          draft: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
