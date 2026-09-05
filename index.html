@@ -64,8 +64,12 @@
         }
 
         /* FLUID RESIZING TRANSITIONS UNTUK SEMUA KARTU & WIDGET */
-        .widget-card, .jurnal-card, .swipe-item, #saldo-card-bg {
+        .widget-card, .jurnal-card, .swipe-item {
             transition: padding 0.28s cubic-bezier(0.22, 1, 0.36, 1), font-size 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), gap 0.28s ease, min-height 0.28s ease, box-shadow 0.28s ease, background 0.25s ease, border-color 0.25s ease;
+            will-change: transform;
+        }
+        #saldo-card-bg {
+            transition: padding 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.3s ease;
             will-change: transform;
         }
 
@@ -480,7 +484,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v30.00</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v30.20</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -533,7 +537,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile v30.00 Pro PWA</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile v30.20 Pro PWA</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -671,13 +675,13 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.12 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.20 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
                 <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Public Release • v30.12 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Siklus Jam 6 Pagi & Universal Perangkat Android</p>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Public Release • v30.20 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Transisi Gradasi Mulus & Pembaruan Sistem Notifikasi</p>
                 </div>
                 
                 <div class="space-y-2">
@@ -916,10 +920,13 @@
             <!-- KARTU SALDO DENGAN WARNA CERAH 100% SENADA DENGAN TEMA UTAMA -->
             <div class="relative mb-4">
                 <!-- Layer Glow Berpendar yang 100% Mengikuti Warna Tema -->
-                <div id="ambient-glow-aura" class="ambient-glow absolute -inset-1.5 rounded-3xl blur-xl opacity-60 transition-all duration-300 pointer-events-none"></div>
+                <div id="ambient-glow-aura" class="ambient-glow absolute -inset-1.5 rounded-3xl blur-xl transition-opacity duration-300 pointer-events-none"></div>
                 
                 <!-- Wadah Kartu Saldo -->
-                <div id="saldo-card-bg" class="relative rounded-3xl p-6 text-white shadow-lg overflow-hidden compact-pad transition-all duration-300">
+                <div id="saldo-card-bg" class="relative rounded-3xl p-6 text-white shadow-lg overflow-hidden compact-pad border border-white/20">
+                    <!-- Layer Gradasi Khusus yang Crossfade Halus Tanpa Kedip -->
+                    <div id="saldo-card-gradient-overlay" class="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-300 ease-in-out"></div>
+
                     <!-- Ikon Dompet Latar Belakang -->
                     <i class="fas fa-wallet absolute -right-4 -bottom-4 text-7xl opacity-20 transform -rotate-12 pointer-events-none z-0"></i>
                     
@@ -1481,35 +1488,32 @@
             dataState.cardGradient = (dataState.cardGradient === undefined) ? false : !dataState.cardGradient;
             applyCardGradientVisual();
             updateActiveToggleCount();
-            simpanData();
+            safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
             triggerDynamicIsland("Tampilan Kartu", dataState.cardGradient ? "Gradasi & Glow Aktif 🎨" : "Mode Solid Minimalis Aktif", "fas fa-palette", "bg-primary-500/20 text-primary-400");
         }
 
         function applyCardGradientVisual() {
             var isGrad = (dataState.cardGradient !== false);
             var card = document.getElementById('saldo-card-bg');
+            var overlay = document.getElementById('saldo-card-gradient-overlay');
             var aura = document.getElementById('ambient-glow-aura');
             var knob = document.getElementById('gradient-switch-knob');
             var btn = document.getElementById('btn-toggle-gradient');
 
             if (card) {
-                if (isGrad) {
-                    card.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 62%) 0%, hsl(var(--theme-h), 83%, 53%) 100%)';
-                    card.style.border = '1px solid rgba(255, 255, 255, 0.25)';
-                } else {
-                    card.style.background = 'hsl(var(--theme-h), 83%, 53%)';
-                    card.style.border = '1px solid hsl(var(--theme-h), 83%, 45%)';
-                }
+                card.style.backgroundColor = 'hsl(var(--theme-h), 83%, 53%)';
+                card.style.borderColor = isGrad ? 'rgba(255, 255, 255, 0.25)' : 'hsl(var(--theme-h), 83%, 45%)';
+            }
+
+            if (overlay) {
+                overlay.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 62%) 0%, hsl(var(--theme-h), 83%, 53%) 100%)';
+                overlay.style.opacity = isGrad ? '1' : '0';
             }
 
             if (aura) {
-                if (isGrad) {
-                    aura.style.display = 'block';
-                    aura.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 60%), hsl(var(--theme-h), 90%, 48%))';
-                    aura.style.opacity = '0.55';
-                } else {
-                    aura.style.display = 'none';
-                }
+                aura.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 60%), hsl(var(--theme-h), 90%, 48%))';
+                aura.style.opacity = isGrad ? '0.55' : '0';
+                aura.style.pointerEvents = 'none';
             }
 
             setSwitchVisual(btn, knob, isGrad);
@@ -3498,13 +3502,16 @@
             setTimeout(dismissSkeleton, 600);
         }
 
-        const CURRENT_APP_VERSION = 'v30.12';
+        const CURRENT_APP_VERSION = 'v30.20';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
             var lastSeen = safeStorage.getItem('dasborLastSeenVersion');
             var verDisplay = document.getElementById('settings-app-version');
             if (verDisplay) verDisplay.innerHTML = `<i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile ${CURRENT_APP_VERSION} Pro PWA`;
+
+            var toastBadge = document.getElementById('ota-toast-version-badge');
+            if (toastBadge) toastBadge.innerText = CURRENT_APP_VERSION;
 
             // Tampilkan notifikasi jika ada pembaruan versi baru (hanya sekali tampil per versi!)
             if (lastSeen !== CURRENT_APP_VERSION) {
