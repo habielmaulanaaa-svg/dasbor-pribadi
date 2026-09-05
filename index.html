@@ -484,7 +484,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v30.20</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v30.25</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -537,7 +537,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile v30.20 Pro PWA</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile v30.25 Pro PWA</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -675,12 +675,12 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.20 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.25 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
                 <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Public Release • v30.20 Pro</span>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Public Release • v30.25 Pro</span>
                     <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Transisi Gradasi Mulus & Pembaruan Sistem Notifikasi</p>
                 </div>
                 
@@ -1501,19 +1501,32 @@
             var btn = document.getElementById('btn-toggle-gradient');
 
             if (card) {
-                card.style.backgroundColor = 'hsl(var(--theme-h), 83%, 53%)';
-                card.style.borderColor = isGrad ? 'rgba(255, 255, 255, 0.25)' : 'hsl(var(--theme-h), 83%, 45%)';
+                if (isGrad) {
+                    card.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 62%) 0%, hsl(var(--theme-h), 83%, 53%) 100%)';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.25)';
+                    card.style.boxShadow = '0 20px 25px -5px hsl(var(--theme-h), 83%, 53%, 0.35)';
+                } else {
+                    card.style.background = 'hsl(var(--theme-h), 83%, 53%)';
+                    card.style.borderColor = 'hsl(var(--theme-h), 83%, 45%)';
+                    card.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+                }
             }
 
             if (overlay) {
-                overlay.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 62%) 0%, hsl(var(--theme-h), 83%, 53%) 100%)';
-                overlay.style.opacity = isGrad ? '1' : '0';
+                overlay.style.display = 'none';
             }
 
             if (aura) {
-                aura.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 60%), hsl(var(--theme-h), 90%, 48%))';
-                aura.style.opacity = isGrad ? '0.55' : '0';
-                aura.style.pointerEvents = 'none';
+                if (isGrad) {
+                    aura.style.display = 'block';
+                    aura.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 60%), hsl(var(--theme-h), 90%, 48%))';
+                    aura.style.animation = 'ambientPulse 4s ease-in-out infinite';
+                    aura.style.opacity = '0.55';
+                } else {
+                    aura.style.display = 'none';
+                    aura.style.animation = 'none';
+                    aura.style.opacity = '0';
+                }
             }
 
             setSwitchVisual(btn, knob, isGrad);
@@ -3502,7 +3515,7 @@
             setTimeout(dismissSkeleton, 600);
         }
 
-        const CURRENT_APP_VERSION = 'v30.20';
+        const CURRENT_APP_VERSION = 'v30.25';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
