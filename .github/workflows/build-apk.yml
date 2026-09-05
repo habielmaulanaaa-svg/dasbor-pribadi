@@ -31,24 +31,15 @@ jobs:
 
       - name: Build Android APK with Gradle
         run: |
+          set -e
           sed -i 's/\r$//' android/gradlew
           chmod +x android/gradlew
           cd android
-          ./gradlew :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee gradle-build.log
-
-      - name: Report Build Log on Failure
-        if: failure()
-        run: |
-          echo "### Gradle Build Log" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -n 120 android/gradle-build.log >> $GITHUB_STEP_SUMMARY || true
-          echo '```' >> $GITHUB_STEP_SUMMARY
-
-      - name: Prepare APK File
-        run: |
-          echo "Daftar file di android/app/build:"
-          find android/app/build -maxdepth 5 || true
-          APK_PATH=$(find android/app/build -name "*.apk" | head -n 1)
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+          cd ..
+          echo "=== Mencari file APK ==="
+          find android -name "*.apk"
+          APK_PATH=$(find android -name "*debug.apk" -o -name "*.apk" | head -n 1)
           if [ -z "$APK_PATH" ]; then
             echo "Error: Tidak ditemukan file APK di folder android!"
             exit 1
