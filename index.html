@@ -475,12 +475,12 @@
     <div id="ota-update-toast" onclick="openBottomSheet('changelog-modal'); dismissOtaToast();" class="fixed top-3 left-1/2 -translate-x-1/2 z-50 max-w-[94vw] w-auto cursor-pointer transform scale-0 opacity-0 -translate-y-6 transition-all duration-500 ease-out">
         <div class="bg-slate-900/95 dark:bg-[#17212b]/95 text-white backdrop-blur-2xl px-3.5 py-2 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.35)] border border-primary-500/40 flex items-center gap-2.5 active:scale-95 transition-transform">
             <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-primary-600 to-indigo-500 flex items-center justify-center text-white text-xs shadow-md shrink-0">
-                <i class="fas fa-sparkles text-[11px] text-amber-300"></i>
+                <i class="fas fa-rocket text-xs text-amber-300"></i>
             </div>
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v29.85</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v30.00</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -533,7 +533,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile v29.85 PWA</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile v30.00 Pro PWA</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -588,6 +588,17 @@
                                 </div>
                                 <button type="button" onclick="toggleAutoThemeMode()" id="btn-toggle-autotheme" class="w-10 h-5.5 rounded-full bg-slate-300 dark:bg-slate-700 p-0.5 transition-colors relative focus:outline-none shrink-0">
                                     <div id="autotheme-switch-knob" class="w-4.5 h-4.5 rounded-full bg-white shadow-sm transform transition-transform duration-200"></div>
+                                </button>
+                            </div>
+
+                            <!-- 5. Toggle Respon Getar (Haptic Feedback) -->
+                            <div class="toggle-item-card p-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
+                                <div class="flex flex-col pr-2">
+                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-hand-pointer text-primary-500"></i> Respon Getar (Haptic)</span>
+                                    <span class="text-[9px] text-slate-400 font-semibold leading-tight mt-0.5">Getaran taktil saat sentuh & tombol</span>
+                                </div>
+                                <button type="button" onclick="toggleHapticMode()" id="btn-toggle-haptic" class="w-10 h-5.5 rounded-full bg-primary-600 dark:bg-primary-600 p-0.5 transition-colors relative focus:outline-none shrink-0">
+                                    <div id="haptic-switch-knob" class="w-4.5 h-4.5 rounded-full bg-white shadow-sm transform transition-transform duration-200 translate-x-4"></div>
                                 </button>
                             </div>
                         </div>
@@ -655,35 +666,42 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-sparkles text-amber-500"></i> Catatan Pembaruan v29.85 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.00 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
                 <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Rilis Terbaru • v29.85 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Notifikasi iOS Dynamic Island & Tampilan Bersih</p>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Milestone Akbar • v30.00 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Haptic Taktil, Quick Math & Estetika Pastel</p>
                 </div>
                 
                 <div class="space-y-2">
                     <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
                         <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-capsules text-primary-500 text-xs"></i> Notifikasi Kapsul iOS Dynamic Island
+                            <i class="fas fa-hand-pointer text-primary-500 text-xs"></i> Respon Getar (Haptic Feedback)
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Notifikasi pembaruan kini bergaya pil melayang dari atas layar khas iOS, bersih tanpa efek partikel confetti.</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Getaran mikro taktil pada tombol, navigasi, dan centang tugas selesai. Dapat diaktifkan / dinonaktifkan di Menu Pengaturan.</p>
                     </div>
 
                     <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
                         <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-wallet text-emerald-500 text-xs"></i> Kartu Saldo Minimalis
+                            <i class="fas fa-calculator text-emerald-500 text-xs"></i> Kalkulator Cepat di Input Uang
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Indikator waktu pagi/siang/sore/malam dihilangkan sepenuhnya agar tampilan kartu saldo bersih dan fokus.</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Ketik hitungan matematika langsung di nominal transaksi (misal: 25000 + 15000 atau 50000 * 2) dengan hasil instan otomatis.</p>
                     </div>
 
                     <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
                         <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-cloud-check text-indigo-500 text-xs"></i> Sinkronisasi Cloud 24/7 & OTA
+                            <i class="fas fa-tags text-pink-500 text-xs"></i> Kategori Transaksi Pastel Neobank
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Dukungan penuh hosting permanen GitHub Pages dan auto-reload instan saat versi baru rilis.</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Badge kategori pengeluaran kini berwarna pastel lembut yang lebih nyaman dibaca dan estetik.</p>
+                    </div>
+
+                    <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
+                        <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                            <i class="fas fa-rocket text-amber-500 text-xs"></i> Notifikasi Kapsul Cepat (4 Detik)
+                        </div>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Ikon roket emas terpasang sempurna dan durasi notifikasi kini sangat cepat (4 detik) agar tidak mengganggu navigasi.</p>
                     </div>
                 </div>
             </div>
@@ -1056,7 +1074,10 @@
                 <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
                     <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-3 text-sm flex items-center"><i class="fas fa-arrow-down text-green-500 mr-2"></i>Pemasukan</h3>
                     <div class="space-y-2">
-                        <input type="number" id="input-masuk-nominal" placeholder="Nominal (Rp)..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                        <div>
+                            <input type="text" id="input-masuk-nominal" placeholder="Nominal (Rp) atau hitungan (misal: 20000+15000)..." oninput="previewQuickMath(this, 'preview-masuk-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                            <div id="preview-masuk-math" class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 hidden pl-1 pt-0.5"></div>
+                        </div>
                         <input type="text" id="input-masuk-catatan" placeholder="Keterangan..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
                         <button type="button" onclick="tambahUang('masuk')" class="w-full bg-green-500 text-white py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-green-600 transition-colors">Tambah Pemasukan</button>
                     </div>
@@ -1066,7 +1087,10 @@
                 <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
                     <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-2 text-sm flex items-center"><i class="fas fa-arrow-up text-red-500 mr-2"></i>Pengeluaran</h3>
                     <div class="space-y-2">
-                        <input type="number" id="input-keluar-nominal" placeholder="Nominal (Rp)..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                        <div>
+                            <input type="text" id="input-keluar-nominal" placeholder="Nominal (Rp) atau hitungan (misal: 50000*2)..." oninput="previewQuickMath(this, 'preview-keluar-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                            <div id="preview-keluar-math" class="text-[10px] font-bold text-rose-600 dark:text-rose-400 hidden pl-1 pt-0.5"></div>
+                        </div>
                         <input type="text" id="input-keluar-catatan" placeholder="Keterangan..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
                         
                         <div>
@@ -1296,6 +1320,7 @@
             glassMode: false,
             autoThemeMode: false,
             cardGradient: true,
+            hapticFeedback: true,
             hiddenWidgets: [],
             widgetOrder: ['rekap', 'tabungan', 'deadline', 'reguler'],
             rekapHarian: [],
@@ -1398,6 +1423,7 @@
             if (dataState.compactMode) count++;
             if (dataState.glassMode) count++;
             if (dataState.autoThemeMode) count++;
+            if (dataState.hapticFeedback !== false) count++;
             var badge = document.getElementById('active-toggle-count-badge');
             if (badge) badge.innerText = `${count} Aktif`;
         }
@@ -1494,6 +1520,28 @@
                 updateAmbientGlow();
                 applyCardGradientVisual();
             }
+        }
+
+        function toggleHapticMode() {
+            dataState.hapticFeedback = (dataState.hapticFeedback === undefined) ? false : !dataState.hapticFeedback;
+            var knobH = document.getElementById('haptic-switch-knob');
+            var btnH = document.getElementById('btn-toggle-haptic');
+            setSwitchVisual(btnH, knobH, dataState.hapticFeedback);
+            updateActiveToggleCount();
+            simpanData();
+            triggerHaptic('medium');
+            triggerDynamicIsland("Getaran", dataState.hapticFeedback ? "Respon Getar Aktif 📳" : "Respon Getar Nonaktif 🔕", "fas fa-mobile-alt", "bg-primary-500/20 text-primary-400");
+        }
+
+        function triggerHaptic(type) {
+            if (dataState.hapticFeedback === false || !('vibrate' in navigator)) return;
+            try {
+                if (type === 'light') navigator.vibrate(12);
+                else if (type === 'medium') navigator.vibrate(25);
+                else if (type === 'success') navigator.vibrate([15, 60, 20]);
+                else if (type === 'error') navigator.vibrate([35, 40, 35]);
+                else navigator.vibrate(15);
+            } catch(e) {}
         }
 
         // PENGATUR JADWAL RESET TENGAH MALAM (00:00:00)
@@ -2007,6 +2055,7 @@
         }
 
         function switchTab(tabId) {
+            triggerHaptic('light');
             var tabs = document.querySelectorAll('.tab-content');
             for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
             
@@ -2360,6 +2409,7 @@
             
             var targetTask = dataState.tugas.find(t => t.id === id);
             if (!targetTask) return;
+            triggerHaptic(!targetTask.selesai ? 'success' : 'medium');
 
             if (wrapper) {
                 if (!targetTask.selesai) {
@@ -2594,13 +2644,47 @@
             </div>`;
         }
 
+        // --- QUICK MATH & LIVE PREVIEW ---
+        function evaluateQuickMath(str) {
+            if (!str) return 0;
+            var clean = str.toString().replace(/Rp/gi, '').replace(/\./g, '').replace(/,/g, '.').replace(/[^\d+\-*/().]/g, '');
+            if (!clean) return 0;
+            try {
+                var fn = new Function(`return (${clean})`);
+                var res = fn();
+                return (isNaN(res) || !isFinite(res)) ? 0 : Math.round(res);
+            } catch(e) {
+                return parseInt(clean.replace(/[^\d]/g, '')) || 0;
+            }
+        }
+
+        function previewQuickMath(inputEl, previewId) {
+            var prevEl = document.getElementById(previewId);
+            if (!prevEl) return;
+            var val = inputEl.value.trim();
+            if (/[+\-*/]/.test(val)) {
+                var res = evaluateQuickMath(val);
+                if (res > 0) {
+                    prevEl.innerText = `= ${formatRupiah(res)}`;
+                    prevEl.classList.remove('hidden');
+                    return;
+                }
+            }
+            prevEl.classList.add('hidden');
+        }
+
         // --- CRUD KEUANGAN ---
         function tambahUang(jenis) {
             var inputNominal = document.getElementById(jenis === 'masuk' ? 'input-masuk-nominal' : 'input-keluar-nominal');
             var inputCatatan = document.getElementById(jenis === 'masuk' ? 'input-masuk-catatan' : 'input-keluar-catatan');
-            var nilai = parseInt(inputNominal.value);
+            var previewEl = document.getElementById(jenis === 'masuk' ? 'preview-masuk-math' : 'preview-keluar-math');
+            var nilai = evaluateQuickMath(inputNominal.value);
             
-            if (isNaN(nilai) || nilai <= 0) { triggerDynamicIsland("Keuangan", "Masukkan nominal valid!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400"); return; }
+            if (isNaN(nilai) || nilai <= 0) { 
+                triggerHaptic('error');
+                triggerDynamicIsland("Keuangan", "Masukkan nominal valid!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400"); 
+                return; 
+            }
 
             var ket = inputCatatan.value.trim() || (jenis === 'masuk' ? 'Pemasukan' : 'Pengeluaran');
             dataState.transaksi.push({
@@ -2613,10 +2697,13 @@
                 tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })
             });
 
-            inputNominal.value = ''; inputCatatan.value = '';
+            inputNominal.value = ''; 
+            inputCatatan.value = '';
+            if (previewEl) previewEl.classList.add('hidden');
             document.getElementById('stack-riwayat-keuangan').classList.add('open');
             document.getElementById('icon-riwayat-keuangan').style.transform = 'rotate(180deg)';
             simpanData(); 
+            triggerHaptic('success');
             triggerDynamicIsland(jenis === 'masuk' ? "Pemasukan 💰" : "Pengeluaran 💸", `${jenis === 'masuk' ? '+' : '-'} ${formatRupiah(nilai)} (${ket})`, jenis === 'masuk' ? "fas fa-arrow-down" : "fas fa-arrow-up", jenis === 'masuk' ? "bg-emerald-500/20 text-emerald-400" : "bg-rose-500/20 text-rose-400");
         }
 
@@ -2866,6 +2953,16 @@
             </li>`;
         }
 
+        function getCategoryBadgeClass(kat) {
+            if (!kat) return 'bg-slate-100 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300';
+            if (kat.includes('Makan') || kat.includes('🍔')) return 'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 border border-amber-200/50 dark:border-amber-800/40';
+            if (kat.includes('Transport') || kat.includes('🚗')) return 'bg-sky-100 dark:bg-sky-900/40 text-sky-800 dark:text-sky-300 border border-sky-200/50 dark:border-sky-800/40';
+            if (kat.includes('Belanja') || kat.includes('🛍️')) return 'bg-pink-100 dark:bg-pink-900/40 text-pink-800 dark:text-pink-300 border border-pink-200/50 dark:border-pink-800/40';
+            if (kat.includes('Tagihan') || kat.includes('💡')) return 'bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 border border-purple-200/50 dark:border-purple-800/40';
+            if (kat.includes('Pemasukan') || kat.includes('💰')) return 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/50 dark:border-emerald-800/40';
+            return 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 border border-indigo-200/50 dark:border-indigo-800/40';
+        }
+
         function perbaruiTampilan() {
             updateAmbientGlow();
             applyCardGradientVisual();
@@ -3003,8 +3100,8 @@
                             <div class="min-w-0 flex-1 pr-2">
                                 <p class="text-xs font-bold text-slate-800 dark:text-white truncate compact-text-title">${trx.catatan}</p>
                                 <div class="flex items-center gap-1.5 mt-0.5">
-                                    <span class="text-[9px] bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-300 px-2 py-0.5 rounded-lg font-semibold">${trx.kategori || '📁 Transaksi'}</span>
-                                    <span class="text-[10px] text-slate-400">${trx.tanggal}</span>
+                                    <span class="text-[9px] ${getCategoryBadgeClass(trx.kategori)} px-2 py-0.5 rounded-lg font-bold">${trx.kategori || '📁 Transaksi'}</span>
+                                    <span class="text-[10px] text-slate-400 font-medium">${trx.tanggal}</span>
                                 </div>
                             </div>
                             <div class="flex items-center gap-2 shrink-0">
@@ -3325,6 +3422,10 @@
             var btnA = document.getElementById('btn-toggle-autotheme');
             setSwitchVisual(btnA, knobA, dataState.autoThemeMode);
 
+            var knobH = document.getElementById('haptic-switch-knob');
+            var btnH = document.getElementById('btn-toggle-haptic');
+            setSwitchVisual(btnH, knobH, dataState.hapticFeedback !== false);
+
             var cEye = document.getElementById('card-eye-icon');
             var iconClass = dataState.isPrivacyMode ? 'fa-eye-slash' : 'fa-eye';
             if (cEye) cEye.className = `fas ${iconClass} text-xs`;
@@ -3339,13 +3440,13 @@
             setTimeout(dismissSkeleton, 600);
         }
 
-        const CURRENT_APP_VERSION = 'v29.85';
+        const CURRENT_APP_VERSION = 'v30.00';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
             var lastSeen = safeStorage.getItem('dasborLastSeenVersion');
             var verDisplay = document.getElementById('settings-app-version');
-            if (verDisplay) verDisplay.innerHTML = `<i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile ${CURRENT_APP_VERSION} PWA`;
+            if (verDisplay) verDisplay.innerHTML = `<i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile ${CURRENT_APP_VERSION} Pro PWA`;
 
             // Tampilkan notifikasi jika ada pembaruan versi baru (hanya sekali tampil per versi!)
             if (lastSeen !== CURRENT_APP_VERSION) {
@@ -3356,8 +3457,8 @@
                         toast.classList.remove('scale-0', 'opacity-0', '-translate-y-6');
                         toast.classList.add('scale-100', 'opacity-100', 'translate-y-0');
 
-                        // Auto-dismiss setelah 10 detik
-                        otaAutoDismissTimer = setTimeout(dismissOtaToast, 10000);
+                        // Auto-dismiss cepat (4 detik) agar tidak mengganggu
+                        otaAutoDismissTimer = setTimeout(dismissOtaToast, 4000);
                     }
                 }, 1400);
 
