@@ -20,9 +20,8 @@ public class DasborBarWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.dasbor_widget_bar_layout);
 
-        // 1. Klik area logo / widget -> Buka Beranda Dasbor
+        // 1. Klik seluruh bar widget -> Buka Beranda Dasbor
         views.setOnClickPendingIntent(R.id.widget_bar_root, createActionPendingIntent(context, null, 200));
-        views.setOnClickPendingIntent(R.id.btn_bar_home, createActionPendingIntent(context, null, 201));
 
         // 2. Tombol Aksi Cepat + Pemasukan
         views.setOnClickPendingIntent(R.id.btn_bar_income, createActionPendingIntent(context, "pemasukan", 202));

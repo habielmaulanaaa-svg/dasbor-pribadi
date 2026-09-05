@@ -691,7 +691,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.37 Pro (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.38 Pro (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -853,15 +853,15 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.37 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.38 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <!-- Milestone v32.37 Pro -->
+                <!-- Milestone v32.38 Pro -->
                 <div class="p-3 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/30 rounded-2xl border border-emerald-200 dark:border-emerald-800/50 shadow-xs">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Update Rilis • v32.37 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Widget Kartu Saldo Terpadu, Ikon Adaptif Murni & Pembersihan Tabungan</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">1. Widget Kartu (4x2 / 3x2) kini menampilkan Total Saldo Tersedia secara terpadu dan sinkron dengan data kas. 2. Ikon aplikasi diperbarui menjadi Android Adaptive Icon murni tanpa efek kotak di dalam lingkaran. 3. Tombol kalkulator ganda di sebelah kiri impian telah dihapus dari header Target Tabungan.</p>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Update Rilis • v32.38 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Sinkronisasi Saldo Akurat, Notifikasi OTA & Widget Minimalis</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">1. Sinkronisasi saldo kas ke widget kini 100% akurat menggunakan nominal riil (bukan 0). 2. Notifikasi OTA capsule kembali aktif memunculkan badge versi baru. 3. Ikon dan teks Cloud Pro pada widget telah dihilangkan agar tampilan lebih bersih. 4. Menambahkan gambar pertinjau (preview) resmi saat memilih widget di launcher HP.</p>
                 </div>
 
                 <!-- Milestone v32.30 Pro -->
@@ -4760,20 +4760,30 @@
         // SINKRONISASI SALDO KE WIDGET NATIVE ANDROID
         function syncSaldoToNativeWidget(isManual) {
             try {
-                var totalMasuk = 0;
-                var totalKeluar = 0;
-                (dataState.transaksi || []).forEach(function(t) {
-                    if (t.jenis === 'masuk') totalMasuk += (t.jumlah || 0);
-                    else if (t.jenis === 'keluar') totalKeluar += (t.jumlah || 0);
-                });
-                var saldo = totalMasuk - totalKeluar;
-                var formatted = formatRupiah(saldo);
+                var saldo = 0;
+                if (dataState && typeof dataState.saldo === 'number') {
+                    saldo = dataState.saldo;
+                } else if (dataState && dataState.transaksi) {
+                    var m = 0, k = 0;
+                    dataState.transaksi.forEach(function(t) {
+                        if (t.jenis === 'masuk') m += (t.nominal || 0);
+                        else k += (t.nominal || 0);
+                    });
+                    saldo = m - k;
+                }
+                var formatted = idrCurrencyFormatter.format(saldo || 0);
 
                 var syncUri = 'dasbor://sync?saldo=' + encodeURIComponent(formatted);
                 if (isManual) {
                     triggerHaptic('medium');
                     triggerDynamicIsland("Widget Disinkronkan", "Saldo " + formatted + " terkirim ke Widget!", "fas fa-check-circle", "bg-emerald-500/20 text-emerald-400");
-                    window.location.href = syncUri;
+                    var link = document.createElement('a');
+                    link.href = syncUri;
+                    document.body.appendChild(link);
+                    link.click();
+                    setTimeout(function() {
+                        if (link.parentNode) link.parentNode.removeChild(link);
+                    }, 500);
                 } else {
                     var iframe = document.getElementById('widget-sync-frame');
                     if (!iframe) {
@@ -5164,7 +5174,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v32.35';
+        const CURRENT_APP_VERSION = 'v32.38';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {

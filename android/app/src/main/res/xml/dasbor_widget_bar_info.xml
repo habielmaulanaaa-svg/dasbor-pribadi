@@ -6,6 +6,7 @@
     android:minResizeWidth="200dp"
     android:updatePeriodMillis="86400000"
     android:initialLayout="@layout/dasbor_widget_bar_layout"
+    android:previewImage="@drawable/widget_preview_bar"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen">
 </appwidget-provider>
