@@ -134,6 +134,26 @@
             border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
         }
 
+        /* SOLID MODE KHUSUS: KALKULATOR & RENCANA IMPIAN (BEBAS BLUR/AKRILIK) */
+        #kalkulator-keuangan-modal .bottom-sheet-content,
+        body.glass-mode #kalkulator-keuangan-modal .bottom-sheet-content {
+            background: #ffffff !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border-color: #e2e8f0 !important;
+            box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.12) !important;
+            opacity: 1 !important;
+        }
+        .dark #kalkulator-keuangan-modal .bottom-sheet-content,
+        .dark body.glass-mode #kalkulator-keuangan-modal .bottom-sheet-content {
+            background: #17212b !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border-color: #313f52 !important;
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5) !important;
+            opacity: 1 !important;
+        }
+
         body.glass-mode .swipe-item {
             background: rgba(255, 255, 255, 0.92) !important;
             backdrop-filter: none !important;
@@ -671,7 +691,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.20 Pro (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.25 Pro (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -809,13 +829,20 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.20 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.25 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v32.25 Pro -->
+                <div class="p-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 rounded-2xl border border-amber-200 dark:border-amber-800/50 shadow-xs">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-amber-500"></i> Update Rilis • v32.25 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Tampilan Solid Kalkulator Impian & Penghapusan Konfeti Catatan</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Modal Kalkulator & Rencana Impian kini hadir dengan warna solid berdaya kontras tinggi bebas efek akrilik/blur untuk kenyamanan visual maksimal. Letupan konfeti pada Catatan & Belanjaan telah dinonaktifkan agar pengalaman mencatat lebih tenang dan fokus.</p>
+                </div>
+
                 <!-- Milestone v32.20 Pro -->
-                <div class="p-3 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/30 rounded-2xl border border-emerald-200 dark:border-emerald-800/50 shadow-xs">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-bolt text-emerald-500"></i> Update Rilis • v32.20 Pro</span>
+                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-primary-500"></i> Previous • v32.20 Pro</span>
                     <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Optimasi Akselerasi Kalkulator & Animasi Lengkap Catatan Kilat</p>
                     <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Akses Kalkulator & Impian kini super responsif tanpa lag (pemisahan transisi sidebar, requestAnimationFrame kalkulasi instan, caching Intl date formatter). Catatan & Belanjaan kini dilengkapi animasi fluid: efek bounce tambah item, pop ceklis, collapse slide-out hapus item, dan pembersihan massal.</p>
                 </div>
@@ -1030,7 +1057,7 @@
 
             <div class="space-y-3 overflow-y-auto pr-1 flex-1">
                 <!-- FORM KALKULATOR IMPIAN -->
-                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-2.5">
+                <div class="p-3 bg-slate-100 dark:bg-[#242f3d] rounded-2xl border border-slate-200 dark:border-[#313f52] space-y-2.5">
                     <div>
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Pilih Target Tabungan:</label>
                         <select id="select-kalkulator-preset" onchange="applyPresetTabunganImpian(this.value)" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-2.5 py-2 text-xs font-bold focus:outline-none">
@@ -1068,7 +1095,7 @@
                 </div>
 
                 <!-- Output Card Target Impian -->
-                <div class="p-4 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 rounded-3xl border border-amber-200 dark:border-amber-800/40 space-y-2">
+                <div class="p-4 bg-amber-50 dark:bg-[#1f2a37] rounded-3xl border border-amber-300 dark:border-amber-700/60 space-y-2">
                     <div class="text-[10px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
                         <i class="fas fa-sparkles text-amber-500"></i> Hasil Perhitungan Waktu
                     </div>
@@ -2515,9 +2542,6 @@
             input.value = '';
             simpanData();
             triggerHaptic('success');
-            if (typeof confetti === 'function') {
-                confetti({ particleCount: 22, spread: 50, origin: { y: 0.7 } });
-            }
             triggerDynamicIsland("Catatan Kilat", selectedTipe === 'belanja' ? "🛒 Item belanjaan ditambahkan" : "📝 Memo tersimpan", "fas fa-clipboard-check", "bg-rose-500/20 text-rose-400");
             renderCatatanKilat();
             setTimeout(() => {
@@ -4947,7 +4971,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v32.20';
+        const CURRENT_APP_VERSION = 'v32.25';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
