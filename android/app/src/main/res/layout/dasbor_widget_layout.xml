@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- Header Widget -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="@string/app_name"
+            android:textColor="@color/text_white"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#262563EB"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            android:text="CLOUD PRO"
+            android:textColor="@color/primary_blue"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Pencatatan Keuangan &amp; Rencana Impian"
+        android:textColor="@color/text_muted"
+        android:textSize="10sp" />
+
+    <!-- Garis Pemisah Tipis -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="8dp"
+        android:background="#1AFFFFFF" />
+
+    <!-- Grid 4 Tombol Aksi Cepat -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Tombol + Masuk -->
+        <LinearLayout
+            android:id="@+id/btn_widget_income"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_income_bg"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textColor="@color/income_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_btn_income"
+                android:textColor="@color/income_green"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Tombol - Keluar -->
+        <LinearLayout
+            android:id="@+id/btn_widget_expense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_expense_bg"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textColor="@color/expense_red"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_btn_expense"
+                android:textColor="@color/expense_red"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Tombol Catatan -->
+        <LinearLayout
+            android:id="@+id/btn_widget_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_neutral_bg"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NOTE"
+                android:textColor="@color/amber_gold"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_btn_notes"
+                android:textColor="@color/text_white"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Tombol Impian -->
+        <LinearLayout
+            android:id="@+id/btn_widget_calc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_neutral_bg"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GOAL"
+                android:textColor="@color/primary_blue"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_btn_calc"
+                android:textColor="@color/text_white"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

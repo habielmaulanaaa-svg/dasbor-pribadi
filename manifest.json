@@ -21,5 +21,35 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Catat Pengeluaran",
+      "short_name": "Pengeluaran",
+      "description": "Catat pengeluaran keuangan cepat",
+      "url": "./index.html?action=pengeluaran",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Catat Pemasukan",
+      "short_name": "Pemasukan",
+      "description": "Catat pemasukan uang baru",
+      "url": "./index.html?action=pemasukan",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Catatan Kilat",
+      "short_name": "Catatan",
+      "description": "Buka catatan dan belanjaan",
+      "url": "./index.html?action=catatan",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Kalkulator Impian",
+      "short_name": "Impian",
+      "description": "Simulasi dan target impian",
+      "url": "./index.html?action=kalkulator",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
   ]
 }

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Dasbor Pribadi</string>
+    <string name="widget_name">Dasbor Pribadi Widget</string>
+    <string name="widget_description">Pintasan cepat pencatatan keuangan dan target impian di layar utama</string>
+    <string name="widget_btn_income">Masuk</string>
+    <string name="widget_btn_expense">Keluar</string>
+    <string name="widget_btn_notes">Catatan</string>
+    <string name="widget_btn_calc">Impian</string>
+</resources>
