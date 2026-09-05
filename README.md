@@ -1,46 +1,59 @@
 # 📱 Dasbor Pribadi Mobile (PWA & APK Ready)
 
-Aplikasi manajemen tugas, keuangan, dan jurnal harian pribadi berbasis Progressive Web App (PWA) yang berjalan 100% secara native dan offline di smartphone (Android / Google Pixel 6 / iOS).
+Aplikasi manajemen tugas, keuangan, dan jurnal harian pribadi berbasis **Progressive Web App (PWA)** modern. Berjalan 100% secara native, aman, dan offline di smartphone (**Android / Google Pixel 6 / iOS**) dengan dukungan hosting **Cloud 24/7** dan **Pembaruan Otomatis (OTA)**.
+
+🌐 **Link Resmi Aplikasi**: [https://habielmaulanaaa-svg.github.io/dasbor-pribadi/](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
+
+---
+
+## ✨ Fitur Unggulan
+
+- ☁️ **Online 24/7 Nonstop**: Dihosting resmi di GitHub Pages dengan enkripsi HTTPS SSL. Laptop/PC tidak perlu menyala.
+- 📲 **Native WebAPK Installation**: Dapat di-install langsung ke layar utama & app drawer Android (Google Pixel 6) tanpa address bar browser.
+- ⚡ **Pembaruan Otomatis (OTA Pipeline)**: Setiap pembaruan kode langsung tersinkronisasi otomatis ke aplikasi di ponsel melalui *Network-First Service Worker*.
+- 🏝️ **Notifikasi iOS Dynamic Island**: Notifikasi pembaruan elegan bergaya kapsul iOS yang muncul otomatis saat versi baru terpasang.
+- 📴 **100% Offline Ready**: Data dan aset tersimpan di memori perangkat melalui Service Worker & LocalStorage sehingga tetap bisa digunakan tanpa kuota internet.
+- 🔒 **Data Pribadi Aman**: Seluruh transaksi, catatan jurnal, dan saldo tersimpan lokal di perangkat pengguna.
 
 ---
 
 ## 📂 Struktur File
-```
+
+```text
 dasbor-mobile/
 │
-├── index.html            # Aplikasi utama Dasbor v29.70 (PWA Ready)
-├── manifest.json         # Konfigurasi identitas aplikasi, warna tema, & mode fullscreen
-├── sw.js                 # Service Worker (Offline Cache-First Engine)
+├── index.html            # Aplikasi Dasbor PWA (UI & Controller Utama)
+├── manifest.json         # Konfigurasi PWA WebAPK (Nama, Ikon, Standalone Display)
+├── sw.js                 # Service Worker (Network-First Navigation & Offline Cache)
 ├── icon-192.png          # Ikon aplikasi resolusi 192x192
 ├── icon-512.png          # Ikon aplikasi resolusi 512x512
-├── run_server.bat        # Launcher 1-klik untuk menjalankan server di Windows
-├── run_server.ps1        # Script server lokal PowerShell dengan deteksi IP otomatis
-└── README.md             # Panduan instalasi & pembuatan APK
+└── README.md             # Dokumentasi proyek & panduan penggunaan
 ```
 
 ---
 
-## 🚀 Cara Install Langsung di HP (Google Pixel 6):
+## 🚀 Cara Pasang di Google Pixel 6 (Android)
 
-### Langkah 1: Jalankan Server Lokal di Komputer
-1. Pastikan HP dan Laptop/PC Anda terhubung ke **jaringan Wi-Fi yang sama**.
-2. Klik ganda file `run_server.bat` di folder ini.
-3. Jendela konsol akan menampilkan alamat IP lokal, contoh:
-   ```
-   http://192.168.1.15:8080
-   ```
-
-### Langkah 2: Buka & Install di HP
 1. Buka browser **Google Chrome** di Google Pixel 6 Anda.
-2. Ketik alamat IP yang muncul di layar laptop (contoh: `http://192.168.1.15:8080`).
-3. Anda akan melihat tombol **"Install"** di bagian atas, atau Anda bisa mengetuk menu titik tiga (⋮) di pojok kanan atas Chrome, lalu pilih **"Install Aplikasi"** / **"Tambahkan ke Layar Utama"**.
-4. **Selesai!** Aplikasi akan langsung terpasang di Home Screen & Laci Aplikasi (App Drawer) Anda dan dapat digunakan selamanya tanpa internet (100% Offline).
+2. Kunjungi alamat resmi: **[https://habielmaulanaaa-svg.github.io/dasbor-pribadi/](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)**
+3. Tap tombol **"Install"** pada banner yang muncul, atau buka menu titik tiga (⋮) di Chrome lalu pilih **"Install Aplikasi"** / **"Tambahkan ke Layar Utama"**.
+4. **Selesai!** Ikon Dasbor Pribadi akan langsung terpasang di layar utama & laci aplikasi HP Anda.
 
 ---
 
-## 📦 Cara Mengubah Menjadi File Mentah `.APK` (Standar Google Play):
-Jika Anda ingin memiliki file `.apk` mandiri yang bisa dibagikan langsung:
-1. Upload folder `dasbor-mobile` ke GitHub atau hosting gratis (seperti Vercel / Netlify / GitHub Pages).
-2. Buka [https://www.pwabuilder.com/](https://www.pwabuilder.com/).
-3. Masukkan link web Anda, lalu klik **"Package for Stores"** > **Android**.
-4. Klik **"Generate APK / AAB"** dan Anda langsung mendapatkan file installer `.apk` asli siap pakai!
+## 🔄 Alur Pembaruan Otomatis (OTA)
+
+1. Perubahan atau fitur baru di-*push* ke repositori GitHub melalui Git.
+2. GitHub Pages membangun versi terbaru dalam ~45 detik.
+3. Saat aplikasi di HP dibuka, Service Worker mendeteksi file baru dan memperbarui sistem secara otomatis.
+4. Notifikasi kapsul bergaya **iOS Dynamic Island** akan muncul satu kali untuk memberitahukan versi baru beserta ringkasan catatan pembaruan (*changelog*).
+
+---
+
+## 📦 Mengubah Menjadi File Mentah `.APK` (Opsional)
+
+Jika ingin membagikan installer mandiri bertipe file `.apk`:
+1. Buka [https://www.pwabuilder.com/](https://www.pwabuilder.com/).
+2. Masukkan URL: `https://habielmaulanaaa-svg.github.io/dasbor-pribadi/`.
+3. Klik **"Package for Stores"** > **Android**.
+4. Unduh file `.apk` mentah siap pasang.

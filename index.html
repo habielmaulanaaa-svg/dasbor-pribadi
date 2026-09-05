@@ -471,22 +471,20 @@
         </div>
     </div>
 
-    <!-- OTA UPDATE NOTIFICATION (SLIDE IN FROM RIGHT TO LEFT) -->
-    <div id="ota-update-toast" class="fixed top-4 right-4 z-50 transform translate-x-[120%] transition-transform duration-700 ease-out bg-slate-900/95 dark:bg-[#17212b]/95 text-white border border-primary-500/50 rounded-2xl p-3 shadow-2xl backdrop-blur-xl flex items-center gap-3 max-w-sm pointer-events-auto">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary-600 to-indigo-500 text-white flex items-center justify-center text-sm shadow-md shrink-0 animate-pulse">
-            <i class="fas fa-rocket"></i>
-        </div>
-        <div class="flex flex-col min-w-0 pr-1">
-            <span class="text-[10px] uppercase font-extrabold text-primary-400 tracking-wider flex items-center gap-1">
-                Pembaruan Selesai <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.5 rounded text-[9px]">v29.80</span>
-            </span>
-            <span class="text-xs font-bold text-slate-100">Aplikasi telah diupdate otomatis!</span>
-        </div>
-        <div class="flex items-center gap-1 shrink-0">
-            <button type="button" onclick="dismissOtaToast(); openBottomSheet('changelog-modal');" class="bg-primary-600 hover:bg-primary-500 text-white text-[11px] font-bold px-2.5 py-1.5 rounded-xl shadow transition-colors whitespace-nowrap">
-                Lihat Catatan
-            </button>
-            <button type="button" onclick="dismissOtaToast()" class="text-slate-400 hover:text-white p-1 text-xs" title="Tutup">
+    <!-- OTA UPDATE NOTIFICATION (iOS DYNAMIC ISLAND CAPSULE) -->
+    <div id="ota-update-toast" onclick="openBottomSheet('changelog-modal'); dismissOtaToast();" class="fixed top-3 left-1/2 -translate-x-1/2 z-50 max-w-[94vw] w-auto cursor-pointer transform scale-0 opacity-0 -translate-y-6 transition-all duration-500 ease-out">
+        <div class="bg-slate-900/95 dark:bg-[#17212b]/95 text-white backdrop-blur-2xl px-3.5 py-2 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.35)] border border-primary-500/40 flex items-center gap-2.5 active:scale-95 transition-transform">
+            <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-primary-600 to-indigo-500 flex items-center justify-center text-white text-xs shadow-md shrink-0">
+                <i class="fas fa-sparkles text-[11px] text-amber-300"></i>
+            </div>
+            <div class="flex flex-col min-w-0 pr-1">
+                <div class="flex items-center gap-1.5">
+                    <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v29.85</span>
+                </div>
+                <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
+            </div>
+            <button type="button" onclick="event.stopPropagation(); dismissOtaToast();" class="text-slate-400 hover:text-white p-1 text-xs shrink-0 ml-0.5" title="Tutup">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -535,7 +533,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile v29.80 PWA</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile v29.85 PWA</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -657,35 +655,35 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-sparkles text-amber-500"></i> Catatan Pembaruan v29.80 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-sparkles text-amber-500"></i> Catatan Pembaruan v29.85 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
                 <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Rilis Terbaru • v29.80 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Pembaruan Sistem OTA & Tampilan Bersih</p>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Rilis Terbaru • v29.85 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Notifikasi iOS Dynamic Island & Tampilan Bersih</p>
                 </div>
                 
                 <div class="space-y-2">
                     <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
                         <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-wallet text-primary-500 text-xs"></i> Kartu Saldo Bersih & Minimalis
+                            <i class="fas fa-capsules text-primary-500 text-xs"></i> Notifikasi Kapsul iOS Dynamic Island
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Tanda waktu (pagi, siang, sore, malam) pada kartu total saldo telah resmi dihilangkan agar fokus tampilan hanya pada angka saldo Anda.</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Notifikasi pembaruan kini bergaya pil melayang dari atas layar khas iOS, bersih tanpa efek partikel confetti.</p>
                     </div>
 
                     <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
                         <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-bell text-amber-500 text-xs"></i> Notifikasi Pembaruan Geser Interaktif
+                            <i class="fas fa-wallet text-emerald-500 text-xs"></i> Kartu Saldo Minimalis
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Notifikasi animasi meluncur dari kanan ke kiri hanya tampil sekali tepat saat aplikasi selesai mengunduh pembaruan terbaru.</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Indikator waktu pagi/siang/sore/malam dihilangkan sepenuhnya agar tampilan kartu saldo bersih dan fokus.</p>
                     </div>
 
                     <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-100 dark:border-[#313f52]">
                         <div class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <i class="fas fa-bolt text-emerald-500 text-xs"></i> Pembaruan Instan (Network-First)
+                            <i class="fas fa-cloud-check text-indigo-500 text-xs"></i> Sinkronisasi Cloud 24/7 & OTA
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Aplikasi WebAPK mandiri kini langsung mengambil versi terbaru dari cloud GitHub tanpa terhalang cache lawas.</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Dukungan penuh hosting permanen GitHub Pages dan auto-reload instan saat versi baru rilis.</p>
                     </div>
                 </div>
             </div>
@@ -3341,7 +3339,7 @@
             setTimeout(dismissSkeleton, 600);
         }
 
-        const CURRENT_APP_VERSION = 'v29.80';
+        const CURRENT_APP_VERSION = 'v29.85';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
@@ -3354,17 +3352,12 @@
                 setTimeout(function() {
                     var toast = document.getElementById('ota-update-toast');
                     if (toast) {
-                        toast.classList.remove('translate-x-[120%]');
-                        toast.classList.add('translate-x-0');
+                        // Animasi iOS Dynamic Island: turun & mengembang lembut dari atas layar
+                        toast.classList.remove('scale-0', 'opacity-0', '-translate-y-6');
+                        toast.classList.add('scale-100', 'opacity-100', 'translate-y-0');
 
-                        try {
-                            if (typeof confetti === 'function') {
-                                confetti({ particleCount: 30, spread: 60, origin: { y: 0.15, x: 0.85 } });
-                            }
-                        } catch(e) {}
-
-                        // Auto-dismiss setelah 12 detik
-                        otaAutoDismissTimer = setTimeout(dismissOtaToast, 12000);
+                        // Auto-dismiss setelah 10 detik
+                        otaAutoDismissTimer = setTimeout(dismissOtaToast, 10000);
                     }
                 }, 1400);
 
@@ -3377,8 +3370,9 @@
             if (otaAutoDismissTimer) clearTimeout(otaAutoDismissTimer);
             var toast = document.getElementById('ota-update-toast');
             if (toast) {
-                toast.classList.remove('translate-x-0');
-                toast.classList.add('translate-x-[120%]');
+                // Animasi menyusut kembali ke atas khas iOS capsule
+                toast.classList.remove('scale-100', 'opacity-100', 'translate-y-0');
+                toast.classList.add('scale-0', 'opacity-0', '-translate-y-6');
             }
         }
 
