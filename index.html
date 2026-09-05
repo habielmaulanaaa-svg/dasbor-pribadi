@@ -276,6 +276,66 @@
             overflow: hidden !important;
             pointer-events: none !important;
         }
+
+        /* Animasi Catatan Kilat & Daftar Belanjaan */
+        @keyframes catatanCardEnter {
+            0% {
+                opacity: 0;
+                transform: scale(0.88) translateY(-12px);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.02) translateY(1px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .catatan-card-new {
+            animation: catatanCardEnter 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes catatanCardExit {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateX(0);
+                max-height: 80px;
+                margin-bottom: 6px;
+            }
+            35% {
+                opacity: 0.8;
+                transform: scale(0.96) translateX(-10px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.7) translateX(35px);
+                max-height: 0;
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                border-width: 0 !important;
+            }
+        }
+        .catatan-card-exit {
+            animation: catatanCardExit 0.32s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+            overflow: hidden !important;
+            pointer-events: none !important;
+        }
+
+        @keyframes catatanCheckPop {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.28); }
+            100% { transform: scale(1); }
+        }
+        .catatan-check-pop {
+            animation: catatanCheckPop 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .catatan-item-text {
+            transition: color 0.25s ease, text-decoration 0.25s ease, opacity 0.25s ease;
+        }
         
         ::-webkit-scrollbar { display: none; }
         
@@ -611,7 +671,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.10 Pro (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.20 Pro (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -745,17 +805,24 @@
     </aside>
 
     <!-- BOTTOM SHEETS -->
-    <div id="changelog-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
+    <div id="changelog-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.10 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.20 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v32.20 Pro -->
+                <div class="p-3 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/30 rounded-2xl border border-emerald-200 dark:border-emerald-800/50 shadow-xs">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-bolt text-emerald-500"></i> Update Rilis • v32.20 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Optimasi Akselerasi Kalkulator & Animasi Lengkap Catatan Kilat</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Akses Kalkulator & Impian kini super responsif tanpa lag (pemisahan transisi sidebar, requestAnimationFrame kalkulasi instan, caching Intl date formatter). Catatan & Belanjaan kini dilengkapi animasi fluid: efek bounce tambah item, pop ceklis, collapse slide-out hapus item, dan pembersihan massal.</p>
+                </div>
+
                 <!-- Milestone v32.10 Pro -->
-                <div class="p-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 rounded-2xl border border-amber-200 dark:border-amber-800/50 shadow-xs">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-amber-500"></i> Update Rilis • v32.10 Pro</span>
+                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-primary-500"></i> Previous • v32.10 Pro</span>
                     <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Penyatuan Kalkulator Impian & Target Tabungan + Animasi Halus</p>
                     <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Kalkulator kini menyatu langsung dengan target tabungan (simulasi instan per kartu, simpan impian baru langsung dari kalkulator, dan setor mudah). Animasi elegan bounce-in dan slide-collapse saat menambah & menghapus impian.</p>
                 </div>
@@ -814,7 +881,7 @@
     </div>
 
     <!-- Bottom Sheet: Analisis & Statistik Keuangan -->
-    <div id="analisis-keuangan-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
+    <div id="analisis-keuangan-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[90vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
@@ -899,7 +966,7 @@
     </div>
 
     <!-- Bottom Sheet: Catatan Kilat & Daftar Belanjaan -->
-    <div id="catatan-kilat-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
+    <div id="catatan-kilat-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[90vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
@@ -953,7 +1020,7 @@
     </div>
 
     <!-- Bottom Sheet: Kalkulator & Rencana Impian -->
-    <div id="kalkulator-keuangan-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
+    <div id="kalkulator-keuangan-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[90vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
@@ -972,7 +1039,7 @@
                     </div>
                     <div>
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Nama Barang / Target Impian:</label>
-                        <input type="text" id="calc-target-name" placeholder="Contoh: Beli Laptop Baru..." class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
+                        <input type="text" id="calc-target-name" placeholder="Contoh: Beli Laptop Baru..." class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none">
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
@@ -1035,7 +1102,7 @@
     </div>
 
     <!-- Bottom Sheet: Setor Rekap Harian -->
-    <div id="rekap-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
+    <div id="rekap-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[90vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
@@ -1062,7 +1129,7 @@
     </div>
 
     <!-- Bottom Sheet: Kalender Rekap Tahunan -->
-    <div id="calendar-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
+    <div id="calendar-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[92vh] flex flex-col overflow-y-auto">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
@@ -1098,7 +1165,7 @@
     </div>
 
     <!-- Bottom Sheet: Kilas Balik Tahunan -->
-    <div id="wrapped-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
+    <div id="wrapped-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 text-white rounded-t-[32px] p-6 shadow-2xl border-t border-white/20 max-h-[90vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-white/40 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3">
@@ -1138,7 +1205,7 @@
     </div>
 
     <!-- Bottom Sheet: Atur Visibilitas Widget Beranda -->
-    <div id="widget-manager-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
+    <div id="widget-manager-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
@@ -1171,7 +1238,7 @@
     </div>
 
     <!-- Bottom Sheet: Laporan PDF -->
-    <div id="pdf-report-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
+    <div id="pdf-report-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[90vh] flex flex-col overflow-y-auto">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
@@ -1741,9 +1808,10 @@
             triggerDynamicIsland("Pemberitahuan", message, "fas fa-bell", "bg-primary-500/20 text-primary-400");
         }
 
+        const idrCurrencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
         function formatRupiah(angka) { 
             if (dataState.isPrivacyMode) return "Rp ••••••••";
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka || 0); 
+            return idrCurrencyFormatter.format(angka || 0); 
         }
         
         function formatTanggal(tglString) {
@@ -2103,10 +2171,18 @@
 
         function openAnalisisModal() {
             var sb = document.getElementById('sidebar');
-            if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
-            currentAnalisisPeriode = 'bulan-ini';
-            filterAnalisisPeriode('bulan-ini');
-            openBottomSheet('analisis-keuangan-modal');
+            var wasSidebarOpen = sb && !sb.classList.contains('-translate-x-full');
+            if (wasSidebarOpen) toggleSidebar();
+            var doOpen = () => {
+                currentAnalisisPeriode = 'bulan-ini';
+                filterAnalisisPeriode('bulan-ini');
+                openBottomSheet('analisis-keuangan-modal');
+            };
+            if (wasSidebarOpen) {
+                setTimeout(doOpen, 120);
+            } else {
+                doOpen();
+            }
         }
 
         function filterAnalisisPeriode(periode) {
@@ -2312,14 +2388,24 @@
 
         function openCatatanModal() {
             var sb = document.getElementById('sidebar');
-            if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
-            currentCatatanFilter = 'semua';
-            filterCatatanTab('semua');
-            openBottomSheet('catatan-kilat-modal');
-            setTimeout(() => {
-                var input = document.getElementById('input-catatan-teks');
-                if (input) input.focus();
-            }, 250);
+            var wasSidebarOpen = sb && !sb.classList.contains('-translate-x-full');
+            if (wasSidebarOpen) toggleSidebar();
+
+            var doOpen = () => {
+                currentCatatanFilter = 'semua';
+                filterCatatanTab('semua');
+                openBottomSheet('catatan-kilat-modal');
+                setTimeout(() => {
+                    var input = document.getElementById('input-catatan-teks');
+                    if (input) input.focus();
+                }, 200);
+            };
+
+            if (wasSidebarOpen) {
+                setTimeout(doOpen, 120);
+            } else {
+                doOpen();
+            }
         }
 
         function filterCatatanTab(tab) {
@@ -2372,14 +2458,18 @@
                     ? '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-300 shrink-0">🛒 Belanja</span>'
                     : '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-300 shrink-0">📝 Memo</span>';
 
+                var newClass = item._isNew ? 'catatan-card-new' : '';
+                var doneClass = item.done ? 'opacity-60 catatan-item-done' : '';
+                var popClass = item._justToggled ? 'catatan-check-pop' : '';
+
                 return `
-                    <div class="flex items-center justify-between p-2.5 bg-slate-50 dark:bg-[#242f3d]/70 rounded-2xl border border-slate-200/70 dark:border-[#313f52]/70 group transition-all ${item.done ? 'opacity-60' : ''}">
+                    <div id="catatan-item-${item.id}" class="flex items-center justify-between p-2.5 bg-slate-50 dark:bg-[#242f3d]/70 rounded-2xl border border-slate-200/70 dark:border-[#313f52]/70 group transition-all ${newClass} ${doneClass}">
                         <div class="flex items-center gap-2.5 flex-1 min-w-0 pr-2 cursor-pointer select-none" onclick="toggleCatatanDone(${item.id})">
-                            <button type="button" class="w-5 h-5 rounded-lg border ${item.done ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 dark:border-slate-500 bg-white dark:bg-[#17212b]'} flex items-center justify-center text-[10px] shrink-0 transition-colors">
+                            <button type="button" class="w-5 h-5 rounded-lg border ${item.done ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 dark:border-slate-500 bg-white dark:bg-[#17212b]'} flex items-center justify-center text-[10px] shrink-0 transition-transform ${popClass}">
                                 ${item.done ? '<i class="fas fa-check"></i>' : ''}
                             </button>
                             <div class="flex flex-col min-w-0 flex-1">
-                                <span class="text-xs font-bold text-slate-800 dark:text-slate-100 break-words ${item.done ? 'line-through text-slate-400 dark:text-slate-500' : ''}">${escapeHtml(item.text)}</span>
+                                <span class="catatan-item-text text-xs font-bold text-slate-800 dark:text-slate-100 break-words ${item.done ? 'line-through text-slate-400 dark:text-slate-500' : ''}">${escapeHtml(item.text)}</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-2 shrink-0">
@@ -2412,19 +2502,27 @@
             }
 
             if (!Array.isArray(dataState.catatanKilat)) dataState.catatanKilat = [];
-            dataState.catatanKilat.unshift({
+            var newItem = {
                 id: Date.now() + Math.floor(Math.random() * 1000),
                 text: val,
                 tipe: selectedTipe,
                 done: false,
-                createdAt: new Date().toISOString()
-            });
+                createdAt: new Date().toISOString(),
+                _isNew: true
+            };
+            dataState.catatanKilat.unshift(newItem);
 
             input.value = '';
             simpanData();
             triggerHaptic('success');
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 22, spread: 50, origin: { y: 0.7 } });
+            }
             triggerDynamicIsland("Catatan Kilat", selectedTipe === 'belanja' ? "🛒 Item belanjaan ditambahkan" : "📝 Memo tersimpan", "fas fa-clipboard-check", "bg-rose-500/20 text-rose-400");
             renderCatatanKilat();
+            setTimeout(() => {
+                delete newItem._isNew;
+            }, 1000);
         }
 
         function toggleCatatanDone(id) {
@@ -2432,17 +2530,32 @@
             var item = dataState.catatanKilat.find(c => c.id === id);
             if (!item) return;
             item.done = !item.done;
+            item._justToggled = true;
             simpanData();
-            triggerHaptic('light');
+            triggerHaptic(item.done ? 'success' : 'light');
             renderCatatanKilat();
+            setTimeout(() => {
+                delete item._justToggled;
+            }, 350);
         }
 
         function hapusCatatanKilat(id) {
             if (!Array.isArray(dataState.catatanKilat)) return;
-            dataState.catatanKilat = dataState.catatanKilat.filter(c => c.id !== id);
-            simpanData();
-            triggerHaptic('light');
-            renderCatatanKilat();
+            var el = document.getElementById(`catatan-item-${id}`);
+            if (el) {
+                el.classList.add('catatan-card-exit');
+                triggerHaptic('light');
+                setTimeout(() => {
+                    dataState.catatanKilat = dataState.catatanKilat.filter(c => c.id !== id);
+                    simpanData();
+                    renderCatatanKilat();
+                }, 300);
+            } else {
+                dataState.catatanKilat = dataState.catatanKilat.filter(c => c.id !== id);
+                simpanData();
+                triggerHaptic('light');
+                renderCatatanKilat();
+            }
         }
 
         function bersihkanCatatanSelesai() {
@@ -2452,48 +2565,72 @@
                 triggerDynamicIsland("Catatan Kilat", "Tidak ada item selesai untuk dibersihkan", "fas fa-info-circle", "bg-sky-500/20 text-sky-400");
                 return;
             }
-            dataState.catatanKilat = dataState.catatanKilat.filter(c => !c.done);
-            simpanData();
-            triggerHaptic('medium');
-            triggerDynamicIsland("Catatan Kilat", `${countDone} item selesai telah dibersihkan`, "fas fa-broom", "bg-rose-500/20 text-rose-400");
-            renderCatatanKilat();
+            var doneEls = document.querySelectorAll('#catatan-list-container .catatan-item-done');
+            if (doneEls.length > 0) {
+                doneEls.forEach(el => el.classList.add('catatan-card-exit'));
+                triggerHaptic('medium');
+                setTimeout(() => {
+                    dataState.catatanKilat = dataState.catatanKilat.filter(c => !c.done);
+                    simpanData();
+                    triggerDynamicIsland("Catatan Kilat", `${countDone} item selesai telah dibersihkan`, "fas fa-broom", "bg-rose-500/20 text-rose-400");
+                    renderCatatanKilat();
+                }, 300);
+            } else {
+                dataState.catatanKilat = dataState.catatanKilat.filter(c => !c.done);
+                simpanData();
+                triggerHaptic('medium');
+                triggerDynamicIsland("Catatan Kilat", `${countDone} item selesai telah dibersihkan`, "fas fa-broom", "bg-rose-500/20 text-rose-400");
+                renderCatatanKilat();
+            }
         }
 
         // --- FITUR: KALKULATOR & RENCANA IMPIAN (TERPADU DENGAN TARGET TABUNGAN) ---
+        const idDateLongFormatter = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+        let _calcSimulasiRaf = null;
+
         function openKalkulatorModal(presetId) {
             var sb = document.getElementById('sidebar');
-            if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
+            var wasSidebarOpen = sb && !sb.classList.contains('-translate-x-full');
+            if (wasSidebarOpen) toggleSidebar();
 
-            var presetSelect = document.getElementById('select-kalkulator-preset');
-            if (presetSelect) {
-                var targets = dataState.targetTabungan || [];
-                var html = '<option value="">-- Buat Target Baru / Kustom --</option>';
-                targets.forEach(t => {
-                    html += `<option value="${t.id}">${escapeHtml(t.judul)} (${formatRupiah(t.target)})</option>`;
-                });
-                presetSelect.innerHTML = html;
-                if (presetId) {
-                    presetSelect.value = presetId;
-                    applyPresetTabunganImpian(presetId);
-                } else {
-                    presetSelect.value = '';
-                    updateCalcActionButtons('');
+            var doOpen = () => {
+                var presetSelect = document.getElementById('select-kalkulator-preset');
+                if (presetSelect) {
+                    var targets = dataState.targetTabungan || [];
+                    var html = '<option value="">-- Buat Target Baru / Kustom --</option>';
+                    targets.forEach(t => {
+                        html += `<option value="${t.id}">${escapeHtml(t.judul)} (${formatRupiah(t.target)})</option>`;
+                    });
+                    presetSelect.innerHTML = html;
+                    if (presetId) {
+                        presetSelect.value = presetId;
+                        applyPresetTabunganImpian(presetId);
+                    } else {
+                        presetSelect.value = '';
+                        updateCalcActionButtons('');
+                    }
                 }
-            }
 
-            if (!presetId) {
-                var elName = document.getElementById('calc-target-name');
-                var elNom = document.getElementById('calc-target-nominal');
-                var elTerkumpul = document.getElementById('calc-target-terkumpul');
-                var elRate = document.getElementById('calc-target-rate');
-                if (elName && !elName.value) elName.value = '';
-                if (elNom && !elNom.value) elNom.value = '';
-                if (elTerkumpul && !elTerkumpul.value) elTerkumpul.value = '0';
-                if (elRate && !elRate.value) elRate.value = '50000';
-            }
+                if (!presetId) {
+                    var elName = document.getElementById('calc-target-name');
+                    var elNom = document.getElementById('calc-target-nominal');
+                    var elTerkumpul = document.getElementById('calc-target-terkumpul');
+                    var elRate = document.getElementById('calc-target-rate');
+                    if (elName && !elName.value) elName.value = '';
+                    if (elNom && !elNom.value) elNom.value = '';
+                    if (elTerkumpul && !elTerkumpul.value) elTerkumpul.value = '0';
+                    if (elRate && !elRate.value) elRate.value = '50000';
+                }
 
-            hitungSimulasiImpian();
-            openBottomSheet('kalkulator-keuangan-modal');
+                hitungSimulasiImpian();
+                openBottomSheet('kalkulator-keuangan-modal');
+            };
+
+            if (wasSidebarOpen) {
+                setTimeout(doOpen, 120);
+            } else {
+                doOpen();
+            }
         }
 
         function bukaSimulasiTabungan(targetId) {
@@ -2549,6 +2686,11 @@
         }
 
         function hitungSimulasiImpian() {
+            if (_calcSimulasiRaf) cancelAnimationFrame(_calcSimulasiRaf);
+            _calcSimulasiRaf = requestAnimationFrame(_doHitungSimulasiImpian);
+        }
+
+        function _doHitungSimulasiImpian() {
             var target = parseFloat(document.getElementById('calc-target-nominal')?.value) || 0;
             var current = parseFloat(document.getElementById('calc-target-terkumpul')?.value) || 0;
             var rate = parseFloat(document.getElementById('calc-target-rate')?.value) || 0;
@@ -2606,7 +2748,7 @@
             elWaktu.innerText = unitLabel;
 
             var targetDate = new Date(Date.now() + daysNeeded * 86400000);
-            elTanggal.innerText = targetDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            elTanggal.innerText = idDateLongFormatter.format(targetDate);
         }
 
         function simpanImpianDariKalkulator() {
@@ -4805,7 +4947,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v32.10';
+        const CURRENT_APP_VERSION = 'v32.20';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
