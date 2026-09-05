@@ -867,7 +867,6 @@
                                 <span>Total Saldo Tersedia</span>
                                 <button type="button" onclick="togglePrivacyMode()" title="Sembunyikan/Tampilkan Saldo" class="opacity-80 hover:opacity-100 focus:outline-none"><i id="card-eye-icon" class="fas fa-eye text-xs"></i></button>
                             </p>
-                            <span id="time-badge-text" class="text-[10px] bg-white/20 px-2.5 py-0.5 rounded-full font-bold">Siang</span>
                         </div>
                         <h3 id="stat-saldo" data-val="0" class="text-3xl font-black tracking-tight">Rp 0</h3>
                     </div>
@@ -1636,14 +1635,6 @@
 
         // Dynamic Ambient Glow
         function updateAmbientGlow() {
-            var hr = new Date().getHours();
-            var timeBadge = document.getElementById('time-badge-text');
-            if(timeBadge) {
-                if (hr >= 5 && hr < 11) timeBadge.innerText = '🌅 Pagi';
-                else if (hr >= 11 && hr < 15) timeBadge.innerText = '☀️ Siang';
-                else if (hr >= 15 && hr < 18) timeBadge.innerText = '🌇 Sore';
-                else timeBadge.innerText = '🌙 Malam';
-            }
             applyCardGradientVisual();
         }
 
