@@ -43,6 +43,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Firebase SDK (Compat for zero-build PWA) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     
     <style>
         :root { 
@@ -504,6 +508,11 @@
             <button type="button" onclick="toggleSidebar()" class="text-primary-200 hover:text-white text-2xl focus:outline-none"><i class="fas fa-times"></i></button>
         </div>
         
+        <!-- SEKSI AKUN GOOGLE & CLOUD SYNC -->
+        <div id="sidebar-account-section" class="p-3 border-b border-slate-200/80 dark:border-[#242f3d]/80 bg-slate-50/70 dark:bg-[#0e1621]/40 shrink-0">
+            <!-- Konten Akun / Login Google akan di-render otomatis oleh JS -->
+        </div>
+
         <nav class="flex-1 p-4 space-y-2.5 overflow-y-auto">
             <!-- 1. Kilas Balik Tahunan -->
             <button type="button" onclick="openYearlyWrapped()" class="w-full flex items-center gap-3.5 px-4 py-3 bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 text-amber-700 dark:text-amber-300 rounded-2xl font-bold border border-amber-200 dark:border-amber-800/40 shadow-sm text-sm transition-colors">
@@ -537,7 +546,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile v30.25 Pro PWA</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v31.00 Pro (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -675,12 +684,19 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.25 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v31.00 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v31.00 Pro -->
+                <div class="p-3 bg-gradient-to-r from-primary-50 to-indigo-50 dark:from-primary-950/40 dark:to-indigo-950/30 rounded-2xl border border-primary-200 dark:border-primary-800/50 shadow-xs">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Major Release • v31.00 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Integrasi Google Login & Sinkronisasi Cloud Otomatis</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Data saldo, transaksi, tugas, jurnal, dan tabungan kini tersimpan aman di Google Firebase Firestore. Ganti perangkat kapan pun tanpa khawatir kehilangan data!</p>
+                </div>
+
                 <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Public Release • v30.25 Pro</span>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Previous • v30.25 Pro</span>
                     <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Transisi Gradasi Mulus & Pembaruan Sistem Notifikasi</p>
                 </div>
                 
@@ -881,7 +897,12 @@
             <button type="button" onclick="toggleSidebar()" class="text-white hover:text-primary-200 text-xl focus:outline-none"><i class="fas fa-bars"></i></button>
             <h1 id="header-title" class="text-xl font-bold tracking-wide transition-opacity duration-300">Dasbor</h1>
         </div>
-        <div class="w-6"></div>
+        <div class="flex items-center gap-2">
+            <button type="button" onclick="toggleSidebar()" id="header-account-btn" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md transition-all text-xs font-bold text-white focus:outline-none shadow-xs" title="Status Cloud & Akun">
+                <i class="fas fa-cloud text-xs" id="header-cloud-status-icon"></i>
+                <span id="header-user-badge-text" class="text-[11px] max-w-[85px] truncate">Lokal</span>
+            </button>
+        </div>
     </header>
 
     <!-- KONTEN UTAMA -->
@@ -3411,6 +3432,7 @@
         function simpanData() {
             safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
             perbaruiTampilan();
+            debouncedSyncToCloud();
         }
 
         function resetData(btnEl) {
@@ -3511,17 +3533,344 @@
             showDynamicGreeting(); 
             scheduleDailyReset6AM();
             checkOtaVersionNotification();
+            initFirebaseAuth();
 
             setTimeout(dismissSkeleton, 600);
         }
 
-        const CURRENT_APP_VERSION = 'v30.25';
+        // ==========================================
+        // FIREBASE CLOUD STORAGE & GOOGLE AUTH V31.00
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCKJ8pC3l-M30WXlYgmjB8bHLKSFBW7qO8",
+            authDomain: "dasbor-pribadi.firebaseapp.com",
+            projectId: "dasbor-pribadi",
+            storageBucket: "dasbor-pribadi.firebasestorage.app",
+            messagingSenderId: "825790434947",
+            appId: "1:825790434947:web:ba3c9baa459836593655b6",
+            measurementId: "G-24KFC3TZCV"
+        };
+
+        let firebaseApp = null;
+        let firebaseAuth = null;
+        let firestoreDb = null;
+        let currentUser = null;
+        let cloudSyncTimer = null;
+        let isSyncingToCloud = false;
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function formatTimeNow() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            return `${h}:${m}`;
+        }
+
+        function initFirebaseAuth() {
+            if (typeof firebase === 'undefined') {
+                console.warn('Firebase SDK belum termuat atau diblokir koneksi.');
+                updateAuthUI(null);
+                return;
+            }
+
+            try {
+                if (!firebase.apps || !firebase.apps.length) {
+                    firebaseApp = firebase.initializeApp(firebaseConfig);
+                } else {
+                    firebaseApp = firebase.app();
+                }
+                firebaseAuth = firebase.auth();
+                firestoreDb = firebase.firestore();
+
+                // Deteksi hasil redirect login (optimal untuk WebAPK / PWA fullscreen)
+                firebaseAuth.getRedirectResult().then(function(result) {
+                    if (result && result.user) {
+                        currentUser = result.user;
+                        updateAuthUI(currentUser);
+                        syncFromCloud();
+                    }
+                }).catch(function(error) {
+                    console.error("Redirect login error:", error);
+                });
+
+                // Deteksi status sesi login otomatis
+                firebaseAuth.onAuthStateChanged(function(user) {
+                    currentUser = user;
+                    updateAuthUI(user);
+                    if (user) {
+                        syncFromCloud();
+                    }
+                });
+            } catch (err) {
+                console.error("Inisialisasi Firebase gagal:", err);
+                updateAuthUI(null);
+            }
+        }
+
+        function updateAuthUI(user) {
+            const sec = document.getElementById('sidebar-account-section');
+            const headerIcon = document.getElementById('header-cloud-status-icon');
+            const headerText = document.getElementById('header-user-badge-text');
+
+            if (!user) {
+                if (sec) {
+                    sec.innerHTML = `
+                        <div class="p-3 bg-white dark:bg-[#17212b] rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 shadow-xs">
+                            <div class="flex items-center gap-2.5 mb-2.5">
+                                <div class="w-8 h-8 rounded-xl bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 text-xs shrink-0">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Sinkronisasi Cloud</div>
+                                    <div class="text-[10px] text-slate-400 truncate">Simpan data lintas perangkat</div>
+                                </div>
+                            </div>
+                            <button type="button" onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-2 py-2 px-3 bg-white dark:bg-[#242f3d] hover:bg-slate-50 dark:hover:bg-[#313f52] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[#313f52] rounded-xl text-xs font-bold shadow-xs transition-all active:scale-95">
+                                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                                </svg>
+                                <span>Masuk dengan Google</span>
+                            </button>
+                        </div>
+                    `;
+                }
+                if (headerIcon) headerIcon.className = "fas fa-cloud text-xs text-primary-200";
+                if (headerText) headerText.innerText = "Lokal";
+            } else {
+                const photoUrl = user.photoURL || ('https://ui-avatars.com/api/?name=' + encodeURIComponent(user.displayName || 'User') + '&background=2563eb&color=fff');
+                const name = escapeHtml(user.displayName || 'Pengguna Cloud');
+                const email = escapeHtml(user.email || '');
+                const firstName = escapeHtml((user.displayName || 'Pengguna').split(' ')[0]);
+
+                if (sec) {
+                    sec.innerHTML = `
+                        <div class="p-3 bg-white dark:bg-[#17212b] rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 shadow-xs">
+                            <div class="flex items-center gap-2.5 mb-2">
+                                <div class="relative shrink-0">
+                                    <img src="${photoUrl}" alt="Avatar" class="w-8 h-8 rounded-full object-cover border border-primary-400 shadow-xs" referrerpolicy="no-referrer">
+                                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#17212b]"></span>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${name}</div>
+                                    <div class="text-[10px] text-slate-400 truncate">${email}</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between text-[10px] font-semibold text-slate-500 dark:text-slate-400 mb-2 px-0.5">
+                                <span class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold">
+                                    <i class="fas fa-check-circle text-[10px]"></i> Cloud Aktif
+                                </span>
+                                <span id="cloud-last-synced-badge" class="text-slate-400 text-[9px] truncate">Tersinkron</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <button type="button" onclick="manualSyncCloud()" id="btn-manual-sync" class="flex items-center justify-center gap-1.5 py-1.5 px-2 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-xl text-[11px] font-bold transition-all active:scale-95">
+                                    <i id="cloud-sync-icon" class="fas fa-sync-alt text-[10px]"></i> Sinkron
+                                </button>
+                                <button type="button" onclick="logoutGoogle()" class="flex items-center justify-center gap-1.5 py-1.5 px-2 bg-slate-100 dark:bg-[#242f3d] hover:bg-red-50 dark:hover:bg-red-950/30 text-slate-600 hover:text-red-600 dark:text-slate-300 dark:hover:text-red-400 rounded-xl text-[11px] font-bold transition-all active:scale-95">
+                                    <i class="fas fa-sign-out-alt text-[10px]"></i> Keluar
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+                if (headerIcon) headerIcon.className = "fas fa-check-circle text-xs text-emerald-300";
+                if (headerText) headerText.innerText = firstName;
+            }
+        }
+
+        function updateSyncStatusUI(status) {
+            const badge = document.getElementById('cloud-last-synced-badge');
+            const syncIcon = document.getElementById('cloud-sync-icon');
+            const headerIcon = document.getElementById('header-cloud-status-icon');
+
+            if (status === 'saving' || status === 'syncing') {
+                if (badge) badge.innerText = "Menyimpan...";
+                if (syncIcon) syncIcon.classList.add('fa-spin');
+                if (headerIcon) headerIcon.className = "fas fa-sync-alt text-xs text-amber-300 fa-spin";
+            } else if (status === 'synced') {
+                if (badge) badge.innerText = "Tersinkron " + formatTimeNow();
+                if (syncIcon) syncIcon.classList.remove('fa-spin');
+                if (headerIcon) headerIcon.className = "fas fa-check-circle text-xs text-emerald-300";
+            } else if (status === 'pending') {
+                if (badge) badge.innerText = "Menunggu simpan...";
+                if (headerIcon) headerIcon.className = "fas fa-cloud-upload-alt text-xs text-primary-200 animate-pulse";
+            } else if (status === 'error') {
+                if (badge) badge.innerText = "Gagal (Offline)";
+                if (syncIcon) syncIcon.classList.remove('fa-spin');
+                if (headerIcon) headerIcon.className = "fas fa-exclamation-circle text-xs text-red-300";
+            }
+        }
+
+        function loginWithGoogle() {
+            if (!firebaseAuth) {
+                alert("Firebase belum siap. Silakan periksa koneksi internet Anda atau refresh halaman.");
+                return;
+            }
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: 'select_account' });
+
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+            triggerDynamicIsland("Menghubungkan Akun...", "Membuka Google Login", "fab fa-google", "bg-primary-500/20 text-primary-400");
+
+            firebaseAuth.signInWithPopup(provider)
+                .then(function(result) {
+                    currentUser = result.user;
+                    updateAuthUI(currentUser);
+                    syncFromCloud();
+                    triggerDynamicIsland("Berhasil Masuk!", "Halo, " + (result.user.displayName || 'Pengguna'), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                })
+                .catch(function(error) {
+                    console.warn("Popup gagal/diblokir, mencoba redirect:", error.code, error.message);
+                    if (error.code === 'auth/popup-blocked' || error.code === 'auth/cancelled-popup-request' || isStandalone) {
+                        firebaseAuth.signInWithRedirect(provider);
+                    } else if (error.code !== 'auth/popup-closed-by-user') {
+                        alert("Gagal masuk dengan Google: " + error.message);
+                    }
+                });
+        }
+
+        function logoutGoogle() {
+            if (!confirm("Keluar dari akun Google Anda? Data saat ini tetap tersimpan aman di perangkat ini.")) return;
+            if (firebaseAuth) {
+                firebaseAuth.signOut().then(function() {
+                    currentUser = null;
+                    updateAuthUI(null);
+                    triggerDynamicIsland("Keluar Akun", "Beralih ke mode penyimpanan lokal", "fas fa-sign-out-alt", "bg-slate-500/20 text-slate-400");
+                });
+            }
+        }
+
+        function syncFromCloud() {
+            if (!currentUser || !firestoreDb) return;
+            updateSyncStatusUI('syncing');
+
+            firestoreDb.collection('users').doc(currentUser.uid).get()
+                .then(function(docSnap) {
+                    if (docSnap.exists) {
+                        const remote = docSnap.data();
+                        if (remote && remote.dataState) {
+                            dataState = Object.assign({}, dataState, remote.dataState);
+
+                            if (remote.themeHue) {
+                                safeStorage.setItem('dasborHue', remote.themeHue);
+                                document.documentElement.style.setProperty('--theme-h', remote.themeHue);
+                                const slider = document.getElementById('theme-color-slider');
+                                if (slider) slider.value = remote.themeHue;
+                            }
+                            if (remote.darkMode !== undefined) {
+                                safeStorage.setItem('dasborDarkMode', remote.darkMode);
+                                if (remote.darkMode === 'dark') {
+                                    document.documentElement.classList.add('dark');
+                                } else {
+                                    document.documentElement.classList.remove('dark');
+                                }
+                            }
+
+                            safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+
+                            const inputName = document.getElementById('input-user-name');
+                            if (inputName) inputName.value = dataState.userName || currentUser.displayName || 'Pengguna';
+
+                            if (dataState.compactMode) document.body.classList.add('compact-mode');
+                            else document.body.classList.remove('compact-mode');
+
+                            if (dataState.glassMode) document.body.classList.add('glass-mode');
+                            else document.body.classList.remove('glass-mode');
+
+                            applyCardGradientVisual();
+                            updateActiveToggleCount();
+                            perbaruiTampilan();
+                            updateSyncStatusUI('synced');
+                            triggerDynamicIsland("Cloud Tersinkron ☁️", "Data akun Anda berhasil dimuat", "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
+                        } else {
+                            syncToCloud(false);
+                        }
+                    } else {
+                        // Pengguna baru pertama kali login: upload data lokal ke cloud
+                        syncToCloud(false);
+                        triggerDynamicIsland("Cloud Aktif ☁️", "Data awal disimpan ke Akun Google Anda", "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
+                    }
+                })
+                .catch(function(err) {
+                    console.error("Gagal sinkron dari cloud:", err);
+                    updateSyncStatusUI('error');
+                });
+        }
+
+        function syncToCloud(showToast = false) {
+            if (!currentUser || !firestoreDb) return;
+
+            isSyncingToCloud = true;
+            updateSyncStatusUI('saving');
+
+            const payload = {
+                dataState: dataState,
+                themeHue: safeStorage.getItem('dasborHue') || '221',
+                darkMode: safeStorage.getItem('dasborDarkMode') || 'light',
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+                userEmail: currentUser.email || '',
+                userName: currentUser.displayName || dataState.userName || ''
+            };
+
+            firestoreDb.collection('users').doc(currentUser.uid).set(payload, { merge: true })
+                .then(function() {
+                    isSyncingToCloud = false;
+                    updateSyncStatusUI('synced');
+                    if (showToast) {
+                        triggerDynamicIsland("Tersimpan di Cloud ☁️", "Semua data aman tersinkronisasi", "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
+                    }
+                })
+                .catch(function(err) {
+                    isSyncingToCloud = false;
+                    console.error("Gagal menyimpan ke Firestore:", err);
+                    updateSyncStatusUI('error');
+                    if (showToast) {
+                        triggerDynamicIsland("Sinkronisasi Tertunda", "Akan dicoba saat koneksi stabil", "fas fa-exclamation-triangle", "bg-amber-500/20 text-amber-400");
+                    }
+                });
+        }
+
+        function debouncedSyncToCloud() {
+            if (!currentUser || !firestoreDb) return;
+            updateSyncStatusUI('pending');
+            if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
+            cloudSyncTimer = setTimeout(function() {
+                syncToCloud(false);
+            }, 1500);
+        }
+
+        function manualSyncCloud() {
+            if (!currentUser) {
+                loginWithGoogle();
+                return;
+            }
+            var icon = document.getElementById('cloud-sync-icon');
+            if (icon) icon.classList.add('fa-spin');
+            syncToCloud(true);
+            setTimeout(function() {
+                if (icon) icon.classList.remove('fa-spin');
+            }, 1200);
+        }
+
+        const CURRENT_APP_VERSION = 'v31.00';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
             var lastSeen = safeStorage.getItem('dasborLastSeenVersion');
             var verDisplay = document.getElementById('settings-app-version');
-            if (verDisplay) verDisplay.innerHTML = `<i class="fas fa-mobile-alt text-primary-500"></i> Dasbor Mobile ${CURRENT_APP_VERSION} Pro PWA`;
+            if (verDisplay) verDisplay.innerHTML = `<i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile ${CURRENT_APP_VERSION} Pro (Cloud)`;
 
             var toastBadge = document.getElementById('ota-toast-version-badge');
             if (toastBadge) toastBadge.innerText = CURRENT_APP_VERSION;

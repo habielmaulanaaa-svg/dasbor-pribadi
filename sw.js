@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dasbor-pwa-v30-25';
+const CACHE_NAME = 'dasbor-pwa-v31-00';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -7,7 +7,10 @@ const ASSETS_TO_CACHE = [
   './icon-512.png',
   'https://cdn.tailwindcss.com',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
-  'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js'
+  'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js',
+  'https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js',
+  'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js',
+  'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js'
 ];
 
 // Install Event: Pre-cache core assets
@@ -41,6 +44,11 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
+
+  // Bypass dynamic API requests (Firebase Auth, Firestore, Google Auth token)
+  if (url.hostname.includes('googleapis.com') || url.hostname.includes('firebaseio.com') || url.hostname.includes('identitytoolkit') || url.hostname.includes('securetoken')) {
+    return;
+  }
 
   // 1. NAVIGATION / HTML REQUESTS: Network-First Strategy (OTA Updates Always Fresh)
   if (event.request.mode === 'navigate' || event.request.destination === 'document' || url.pathname.endsWith('.html') || url.pathname.endsWith('/')) {
