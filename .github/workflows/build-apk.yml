@@ -52,6 +52,17 @@ jobs:
           cp "$APK_PATH" dasbor-pribadi.apk
           ls -lh dasbor-pribadi.apk
 
+      - name: Push Build Log on Failure
+        if: failure()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B build-log
+          cp android/build.log ./gradle-failure.txt || true
+          git add gradle-failure.txt
+          git commit -m "chore: save build failure log"
+          git push -f origin build-log
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
