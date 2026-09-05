@@ -604,9 +604,14 @@
                         </div>
                     </div>
 
-                    <button type="button" onclick="toggleChangelog()" class="w-full text-left px-3 py-1.5 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 hover:bg-primary-100 rounded-xl text-[10px] font-bold transition-colors flex items-center border border-primary-100 dark:border-primary-800">
-                        <i class="fas fa-info-circle mr-1.5"></i> Catatan Rilis Versi Ini
-                    </button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="toggleChangelog()" class="text-left px-2.5 py-2 bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-[#313f52] rounded-xl text-[10px] font-bold transition-colors flex items-center gap-1.5 border border-slate-200 dark:border-[#313f52]">
+                            <i class="fas fa-info-circle text-primary-500"></i> Catatan Rilis
+                        </button>
+                        <button type="button" onclick="forceCheckAppUpdate()" class="text-left px-2.5 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/50 rounded-xl text-[10px] font-bold transition-colors flex items-center gap-1.5 border border-primary-200 dark:border-primary-800">
+                            <i class="fas fa-sync-alt text-primary-500" id="icon-check-update"></i> Cek Update
+                        </button>
+                    </div>
                     
                     <hr class="border-slate-100 dark:border-[#242f3d]">
                     
@@ -666,12 +671,12 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.11 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v30.12 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
                 <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Public Release • v30.11 Pro</span>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400">Public Release • v30.12 Pro</span>
                     <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Siklus Jam 6 Pagi & Universal Perangkat Android</p>
                 </div>
                 
@@ -1230,6 +1235,12 @@
                         swRegistration = reg;
                         console.log('[PWA] Service Worker terdaftar:', reg.scope);
                         
+                        // Jika ada Service Worker yang sudah terunduh & menunggu, segera aktifkan
+                        if (reg.waiting && navigator.serviceWorker.controller) {
+                            console.log('[PWA] Worker menunggu terdeteksi, mengaktifkan...');
+                            reg.waiting.postMessage({ action: 'skipWaiting' });
+                        }
+
                         // Cek pembaruan segera saat aplikasi dimuat
                         reg.update();
 
@@ -1260,12 +1271,40 @@
                 }
             });
 
-            // Cek update otomatis saat user kembali membuka aplikasi dari recent apps
+            // Cek update otomatis saat user kembali membuka aplikasi dari recent apps / multitasking
             document.addEventListener('visibilitychange', function() {
                 if (document.visibilityState === 'visible' && swRegistration) {
+                    if (swRegistration.waiting && navigator.serviceWorker.controller) {
+                        swRegistration.waiting.postMessage({ action: 'skipWaiting' });
+                    }
                     swRegistration.update();
                 }
             });
+        }
+
+        // FUNGSI CEK & PAKSA PEMBARUAN (FORCE UPDATE BUTTON)
+        async function forceCheckAppUpdate() {
+            triggerHaptic('light');
+            var icon = document.getElementById('icon-check-update');
+            if (icon) icon.classList.add('fa-spin');
+            triggerDynamicIsland("Pembaruan OTA", "Memeriksa versi terbaru...", "fas fa-sync-alt", "bg-primary-500/20 text-primary-400");
+            
+            try {
+                if ('serviceWorker' in navigator) {
+                    var reg = await navigator.serviceWorker.getRegistration();
+                    if (reg) {
+                        if (reg.waiting) {
+                            reg.waiting.postMessage({ action: 'skipWaiting' });
+                        }
+                        await reg.update();
+                    }
+                }
+                setTimeout(function() {
+                    window.location.reload(true);
+                }, 600);
+            } catch(e) {
+                window.location.reload();
+            }
         }
 
         // Tangkap event instalasi browser (Chrome Android WebAPK)
@@ -3459,7 +3498,7 @@
             setTimeout(dismissSkeleton, 600);
         }
 
-        const CURRENT_APP_VERSION = 'v30.11';
+        const CURRENT_APP_VERSION = 'v30.12';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
