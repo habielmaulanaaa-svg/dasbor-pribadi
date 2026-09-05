@@ -691,7 +691,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.25 Pro (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.30 Pro (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -829,13 +829,20 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.25 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.30 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v32.30 Pro -->
+                <div class="p-3 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/30 rounded-2xl border border-emerald-200 dark:border-emerald-800/50 shadow-xs">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-coins text-emerald-500"></i> Update Rilis • v32.30 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Pemisah Koma Ribuan Otomatis & Terbilang Rupiah Instan</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Kini seluruh pengisian nominal (Pemasukan, Pengeluaran, Target Tabungan, Setor, dan Kalkulator Impian) otomatis memformat tanda koma ribuan saat diketik, dilengkapi preview bacaan terbilang (misal: 50,000 ➔ 50 Ribu Rupiah) tanpa perlu bingung menghitung nol.</p>
+                </div>
+
                 <!-- Milestone v32.25 Pro -->
-                <div class="p-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 rounded-2xl border border-amber-200 dark:border-amber-800/50 shadow-xs">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-amber-500"></i> Update Rilis • v32.25 Pro</span>
+                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-primary-500"></i> Previous • v32.25 Pro</span>
                     <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Tampilan Solid Kalkulator Impian & Penghapusan Konfeti Catatan</p>
                     <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Modal Kalkulator & Rencana Impian kini hadir dengan warna solid berdaya kontras tinggi bebas efek akrilik/blur untuk kenyamanan visual maksimal. Letupan konfeti pada Catatan & Belanjaan telah dinonaktifkan agar pengalaman mencatat lebih tenang dan fokus.</p>
                 </div>
@@ -1071,17 +1078,17 @@
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Target Harga (Rp):</label>
-                            <input type="number" id="calc-target-nominal" placeholder="5000000" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
+                            <input type="text" id="calc-target-nominal" inputmode="numeric" placeholder="5,000,000" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="handleNominalInput(this); hitungSimulasiImpian()">
                         </div>
                         <div>
                             <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Dana Terkumpul (Rp):</label>
-                            <input type="number" id="calc-target-terkumpul" placeholder="0" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
+                            <input type="text" id="calc-target-terkumpul" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="handleNominalInput(this); hitungSimulasiImpian()">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Rencana Tabungan (Rp):</label>
-                            <input type="number" id="calc-target-rate" placeholder="50000" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
+                            <input type="text" id="calc-target-rate" inputmode="numeric" placeholder="50,000" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="handleNominalInput(this); hitungSimulasiImpian()">
                         </div>
                         <div>
                             <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Frekuensi:</label>
@@ -1502,8 +1509,8 @@
                     <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-3 text-sm flex items-center"><i class="fas fa-arrow-down text-green-500 mr-2"></i>Pemasukan</h3>
                     <div class="space-y-2">
                         <div>
-                            <input type="text" id="input-masuk-nominal" placeholder="Nominal (Rp) atau hitungan (misal: 20000+15000)..." oninput="previewQuickMath(this, 'preview-masuk-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
-                            <div id="preview-masuk-math" class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 hidden pl-1 pt-0.5"></div>
+                            <input type="text" id="input-masuk-nominal" inputmode="numeric" placeholder="Nominal (Rp) misal: 50,000 atau 20,000+15,000..." oninput="handleNominalInput(this, 'preview-masuk-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                            <div id="preview-masuk-math" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hidden pl-1 pt-1"></div>
                         </div>
                         <input type="text" id="input-masuk-catatan" placeholder="Keterangan..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
                         <button type="button" onclick="tambahUang('masuk')" class="w-full bg-green-500 text-white py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-green-600 transition-colors">Tambah Pemasukan</button>
@@ -1515,8 +1522,8 @@
                     <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-2 text-sm flex items-center"><i class="fas fa-arrow-up text-red-500 mr-2"></i>Pengeluaran</h3>
                     <div class="space-y-2">
                         <div>
-                            <input type="text" id="input-keluar-nominal" placeholder="Nominal (Rp) atau hitungan (misal: 50000*2)..." oninput="previewQuickMath(this, 'preview-keluar-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
-                            <div id="preview-keluar-math" class="text-[10px] font-bold text-rose-600 dark:text-rose-400 hidden pl-1 pt-0.5"></div>
+                            <input type="text" id="input-keluar-nominal" inputmode="numeric" placeholder="Nominal (Rp) misal: 50,000 atau 25,000*2..." oninput="handleNominalInput(this, 'preview-keluar-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                            <div id="preview-keluar-math" class="text-xs font-bold text-rose-600 dark:text-rose-400 hidden pl-1 pt-1"></div>
                         </div>
                         <input type="text" id="input-keluar-catatan" placeholder="Keterangan..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
                         
@@ -2643,7 +2650,7 @@
                     if (elName && !elName.value) elName.value = '';
                     if (elNom && !elNom.value) elNom.value = '';
                     if (elTerkumpul && !elTerkumpul.value) elTerkumpul.value = '0';
-                    if (elRate && !elRate.value) elRate.value = '50000';
+                    if (elRate && !elRate.value) elRate.value = '50,000';
                 }
 
                 hitungSimulasiImpian();
@@ -2698,12 +2705,13 @@
             var elRate = document.getElementById('calc-target-rate');
 
             if (elName) elName.value = target.judul || '';
-            if (elNominal) elNominal.value = target.target;
-            if (elCurrent) elCurrent.value = target.terkumpul || 0;
+            if (elNominal) elNominal.value = formatNominalValue(target.target ? target.target.toString() : '');
+            if (elCurrent) elCurrent.value = formatNominalValue(target.terkumpul ? target.terkumpul.toString() : '0');
 
             var sisa = Math.max(0, target.target - (target.terkumpul || 0));
-            if (elRate && (!elRate.value || elRate.value <= 0)) {
-                elRate.value = Math.round(sisa / 6) || 50000;
+            if (elRate && (!elRate.value || evaluateQuickMath(elRate.value) <= 0)) {
+                var autoRate = Math.round(sisa / 6) || 50000;
+                elRate.value = formatNominalValue(autoRate.toString());
             }
 
             hitungSimulasiImpian();
@@ -2715,9 +2723,9 @@
         }
 
         function _doHitungSimulasiImpian() {
-            var target = parseFloat(document.getElementById('calc-target-nominal')?.value) || 0;
-            var current = parseFloat(document.getElementById('calc-target-terkumpul')?.value) || 0;
-            var rate = parseFloat(document.getElementById('calc-target-rate')?.value) || 0;
+            var target = evaluateQuickMath(document.getElementById('calc-target-nominal')?.value) || 0;
+            var current = evaluateQuickMath(document.getElementById('calc-target-terkumpul')?.value) || 0;
+            var rate = evaluateQuickMath(document.getElementById('calc-target-rate')?.value) || 0;
             var freq = document.getElementById('calc-target-freq')?.value || 'bulan';
 
             var elWaktu = document.getElementById('calc-result-waktu');
@@ -2777,8 +2785,8 @@
 
         function simpanImpianDariKalkulator() {
             var jud = document.getElementById('calc-target-name')?.value.trim();
-            var tgt = parseFloat(document.getElementById('calc-target-nominal')?.value) || 0;
-            var current = parseFloat(document.getElementById('calc-target-terkumpul')?.value) || 0;
+            var tgt = evaluateQuickMath(document.getElementById('calc-target-nominal')?.value) || 0;
+            var current = evaluateQuickMath(document.getElementById('calc-target-terkumpul')?.value) || 0;
 
             if (!jud || tgt <= 0) {
                 triggerHaptic('error');
@@ -3699,7 +3707,7 @@
         // --- CRUD TARGET TABUNGAN ---
         function tambahTargetTabungan() {
             var jud = document.getElementById('input-tabungan-judul').value.trim();
-            var tgt = parseInt(document.getElementById('input-tabungan-target').value);
+            var tgt = evaluateQuickMath(document.getElementById('input-tabungan-target').value);
             if (!jud || isNaN(tgt) || tgt <= 0) { 
                 triggerHaptic('error');
                 triggerDynamicIsland("Tabungan", "Masukkan nama & target valid!", "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); 
@@ -3711,6 +3719,8 @@
             dataState.targetTabungan.unshift(newItem);
             document.getElementById('input-tabungan-judul').value = '';
             document.getElementById('input-tabungan-target').value = '';
+            var prevTgt = document.getElementById('preview-tabungan-target');
+            if (prevTgt) { prevTgt.classList.add('hidden'); prevTgt.innerHTML = ''; }
             toggleInput('tabungan-input-area');
             simpanData();
             triggerHaptic('success');
@@ -3724,8 +3734,9 @@
         }
 
         function setorTabungan(id) {
-            var nominalStr = prompt("Masukkan jumlah setor ke tabungan (Rp):");
-            var nominal = parseInt(nominalStr);
+            var nominalStr = prompt("Masukkan jumlah setor ke tabungan (Rp): misal 50,000");
+            if (!nominalStr) return;
+            var nominal = evaluateQuickMath(nominalStr);
             if (isNaN(nominal) || nominal <= 0) return;
 
             for(var i=0; i<dataState.targetTabungan.length; i++) {
@@ -3787,33 +3798,128 @@
             </div>`;
         }
 
-        // --- QUICK MATH & LIVE PREVIEW ---
+        // --- HELPER TERBILANG RINGKAS (IDR) ---
+        function terbilangRingkas(nominal) {
+            if (!nominal || isNaN(nominal) || nominal <= 0) return '';
+            if (nominal < 1000) return `${nominal} Rupiah`;
+            if (nominal < 1000000) {
+                var rb = nominal / 1000;
+                var s = (rb % 1 === 0) ? rb : rb.toLocaleString('id-ID', { maximumFractionDigits: 1 });
+                return `${s} Ribu Rupiah`;
+            }
+            if (nominal < 1000000000) {
+                var jt = nominal / 1000000;
+                var s = (jt % 1 === 0) ? jt : jt.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+                return `${s} Juta Rupiah`;
+            }
+            var m = nominal / 1000000000;
+            var s = (m % 1 === 0) ? m : m.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+            return `${s} Miliar Rupiah`;
+        }
+
+        // --- QUICK MATH, EVALUASI & AUTO-FORMAT KOMA NOMINAL ---
         function evaluateQuickMath(str) {
             if (!str) return 0;
-            var clean = str.toString().replace(/Rp/gi, '').replace(/\./g, '').replace(/,/g, '.').replace(/[^\d+\-*/().]/g, '');
-            if (!clean) return 0;
-            try {
-                var fn = new Function(`return (${clean})`);
-                var res = fn();
-                return (isNaN(res) || !isFinite(res)) ? 0 : Math.round(res);
-            } catch(e) {
-                return parseInt(clean.replace(/[^\d]/g, '')) || 0;
+            var s = str.toString().replace(/Rp/gi, '').trim();
+            if (!s) return 0;
+
+            // Jika mengandung operator matematika +, -, *, /
+            if (/[+\-*/]/.test(s)) {
+                var cleanMath = s.replace(/[\d,.]+/g, function(token) {
+                    return token.replace(/[,.]/g, '');
+                }).replace(/[^\d+\-*/().]/g, '');
+
+                try {
+                    var fn = new Function(`return (${cleanMath})`);
+                    var res = fn();
+                    return (isNaN(res) || !isFinite(res)) ? 0 : Math.round(res);
+                } catch(e) {
+                    return parseInt(cleanMath.replace(/[^\d]/g, ''), 10) || 0;
+                }
+            }
+
+            // Nominal murni: bersihkan tanda koma / pemisah ribuan
+            return parseInt(s.replace(/[^\d]/g, ''), 10) || 0;
+        }
+
+        function formatNominalValue(val) {
+            if (!val) return '';
+            var s = val.toString().replace(/Rp/gi, '').trim();
+            if (!s) return '';
+
+            // Jika sedang mengetik rumus hitungan matematika, format setiap angka di dalamnya dengan koma
+            if (/[+\-*/]/.test(s)) {
+                return s.replace(/[\d,.]+/g, function(token) {
+                    var raw = token.replace(/[,.]/g, '');
+                    return raw ? parseInt(raw, 10).toLocaleString('en-US') : token;
+                });
+            }
+
+            // Nominal tunggal biasa: format dengan koma ribuan otomatis
+            var rawDigits = s.replace(/[^\d]/g, '');
+            if (!rawDigits) return '';
+            return parseInt(rawDigits, 10).toLocaleString('en-US');
+        }
+
+        function handleNominalInput(inputEl, previewId) {
+            if (!inputEl) return;
+            var originalVal = inputEl.value;
+            var cursorPosition = inputEl.selectionStart;
+
+            // Hitung jumlah digit sebelum kursor
+            var digitsBeforeCursor = originalVal.slice(0, cursorPosition).replace(/[^\d]/g, '').length;
+
+            // Format nilai input dengan tanda koma otomatis
+            var formatted = formatNominalValue(originalVal);
+            inputEl.value = formatted;
+
+            // Kembalikan posisi kursor secara presisi agar pengetikan mulus tanpa melompat
+            if (cursorPosition !== null && cursorPosition < originalVal.length) {
+                var newPos = formatted.length;
+                var digitsCounted = 0;
+                for (var i = 0; i < formatted.length; i++) {
+                    if (/\d/.test(formatted[i])) {
+                        digitsCounted++;
+                    }
+                    if (digitsCounted === digitsBeforeCursor) {
+                        newPos = i + 1;
+                        break;
+                    }
+                }
+                inputEl.setSelectionRange(newPos, newPos);
+            }
+
+            // Perbarui preview teks terbilang jika elemen preview disediakan
+            if (previewId) {
+                updateNominalPreview(inputEl, previewId);
             }
         }
 
-        function previewQuickMath(inputEl, previewId) {
+        function updateNominalPreview(inputEl, previewId) {
             var prevEl = document.getElementById(previewId);
             if (!prevEl) return;
             var val = inputEl.value.trim();
-            if (/[+\-*/]/.test(val)) {
-                var res = evaluateQuickMath(val);
-                if (res > 0) {
-                    prevEl.innerText = `= ${formatRupiah(res)}`;
-                    prevEl.classList.remove('hidden');
-                    return;
-                }
+            if (!val) {
+                prevEl.classList.add('hidden');
+                prevEl.innerHTML = '';
+                return;
             }
-            prevEl.classList.add('hidden');
+
+            var num = evaluateQuickMath(val);
+            if (num > 0) {
+                var ringkas = terbilangRingkas(num);
+                var isMath = /[+\-*/]/.test(val);
+                prevEl.innerHTML = `<span class="inline-flex items-center gap-1.5"><i class="fas ${isMath ? 'fa-calculator' : 'fa-check-circle'} text-[10px]"></i> <span class="font-black">${formatRupiah(num)}</span> ${ringkas ? '<span class="opacity-90 font-normal">(' + ringkas + ')</span>' : ''}</span>`;
+                prevEl.classList.remove('hidden');
+            } else {
+                prevEl.classList.add('hidden');
+                prevEl.innerHTML = '';
+            }
+        }
+
+        // Backward compatibility
+        function previewQuickMath(inputEl, previewId) {
+            handleNominalInput(inputEl, previewId);
         }
 
         // --- CRUD KEUANGAN ---
@@ -4403,7 +4509,8 @@
                     <div id="tabungan-input-area" class="accordion-content">
                         <div class="bg-slate-50 dark:bg-[#242f3d]/50 p-3 rounded-2xl border border-slate-200 dark:border-[#313f52] mb-3 space-y-2">
                             <input type="text" id="input-tabungan-judul" placeholder="Nama impian..." class="w-full border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none">
-                            <input type="number" id="input-tabungan-target" placeholder="Target nominal (Rp)..." class="w-full border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none">
+                            <input type="text" id="input-tabungan-target" inputmode="numeric" placeholder="Target nominal (Rp)... misal: 5,000,000" oninput="handleNominalInput(this, 'preview-tabungan-target')" class="w-full border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none">
+                            <div id="preview-tabungan-target" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hidden pl-1 pt-0.5"></div>
                             <button type="button" onclick="tambahTargetTabungan()" class="w-full bg-emerald-600 text-white py-2 rounded-xl text-xs font-bold shadow-sm">Simpan Target</button>
                             <div class="text-center pt-0.5">
                                 <button type="button" onclick="openKalkulatorModal()" class="text-[11px] text-amber-600 dark:text-amber-400 hover:underline font-bold inline-flex items-center gap-1"><i class="fas fa-sparkles text-[10px]"></i> Rancang waktu dengan Kalkulator Impian ➔</button>
@@ -4971,7 +5078,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v32.25';
+        const CURRENT_APP_VERSION = 'v32.30';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
