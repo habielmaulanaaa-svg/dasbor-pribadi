@@ -226,6 +226,56 @@
             max-height: 2500px; 
             opacity: 1; 
         }
+
+        /* Animasi Tambah & Hapus Target Impian */
+        @keyframes dreamCardEnter {
+            0% {
+                opacity: 0;
+                transform: scale(0.85) translateY(-14px);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.03) translateY(2px);
+                box-shadow: 0 0 20px 4px rgba(245, 158, 11, 0.25);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                box-shadow: none;
+            }
+        }
+        .dream-card-new {
+            animation: dreamCardEnter 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+        }
+
+        @keyframes dreamCardExit {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateX(0);
+                max-height: 160px;
+                margin-bottom: 8px;
+            }
+            35% {
+                opacity: 0.8;
+                transform: scale(0.96) translateX(-14px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.7) translateX(40px);
+                max-height: 0;
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                border-width: 0 !important;
+            }
+        }
+        .dream-card-exit {
+            animation: dreamCardExit 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+            overflow: hidden !important;
+            pointer-events: none !important;
+        }
         
         ::-webkit-scrollbar { display: none; }
         
@@ -544,10 +594,10 @@
                 <div class="w-9 h-9 rounded-xl bg-rose-100 dark:bg-rose-900/50 flex items-center justify-center text-rose-500 shadow-inner"><i class="fas fa-clipboard-check text-sm"></i></div>
                 Catatan & Belanjaan
             </button>
-            <!-- 7. Kalkulator Impian & Zakat -->
+            <!-- 7. Kalkulator & Target Impian -->
             <button type="button" onclick="openKalkulatorModal()" class="w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-amber-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
-                <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-500 shadow-inner"><i class="fas fa-calculator text-sm"></i></div>
-                Kalkulator Impian & Zakat
+                <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-500 shadow-inner"><i class="fas fa-bullseye text-sm"></i></div>
+                Kalkulator & Target Impian
             </button>
         </nav>
         
@@ -561,7 +611,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.00 Pro (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.10 Pro (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -699,15 +749,22 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.00 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.10 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v32.10 Pro -->
+                <div class="p-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 rounded-2xl border border-amber-200 dark:border-amber-800/50 shadow-xs">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-amber-500"></i> Update Rilis • v32.10 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Penyatuan Kalkulator Impian & Target Tabungan + Animasi Halus</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Kalkulator kini menyatu langsung dengan target tabungan (simulasi instan per kartu, simpan impian baru langsung dari kalkulator, dan setor mudah). Animasi elegan bounce-in dan slide-collapse saat menambah & menghapus impian.</p>
+                </div>
+
                 <!-- Milestone v32.00 Pro -->
-                <div class="p-3 bg-gradient-to-r from-primary-50 to-indigo-50 dark:from-primary-950/40 dark:to-indigo-950/30 rounded-2xl border border-primary-200 dark:border-primary-800/50 shadow-xs">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-amber-500"></i> Update Rilis • v32.00 Pro</span>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">3 Fitur Baru di Sidebar: Analisis Keuangan, Catatan Kilat & Kalkulator Impian/Zakat</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Diagram Donut SVG interaktif & statistik pengeluaran per kategori, checklist belanjaan dengan auto-sync Cloud, serta simulator target impian, zakat mal 2.5%, dan dana darurat ideal.</p>
+                <div class="p-3 bg-primary-50 dark:bg-primary-950/40 rounded-2xl border border-primary-100 dark:border-primary-900/50">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-primary-500"></i> Previous • v32.00 Pro</span>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs mt-0.5">Analisis & Statistik Donut SVG serta Catatan & Daftar Belanjaan</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-1">Statistik keuangan per kategori, rasio tabungan, serta checklist belanjaan dengan auto-sync Cloud.</p>
                 </div>
 
                 <!-- Milestone v31.15 Pro -->
@@ -895,121 +952,81 @@
         </div>
     </div>
 
-    <!-- Bottom Sheet: Kalkulator Impian & Zakat -->
+    <!-- Bottom Sheet: Kalkulator & Rencana Impian -->
     <div id="kalkulator-keuangan-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-end justify-center backdrop-blur-sm">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[90vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-calculator text-amber-500"></i> Kalkulator Finansial & Impian</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-bullseye text-amber-500"></i> Kalkulator & Rencana Impian</h3>
                 <button type="button" onclick="closeBottomSheet('kalkulator-keuangan-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
 
-            <!-- Tab Switcher -->
-            <div class="flex gap-1.5 p-1 bg-slate-100 dark:bg-[#242f3d]/60 rounded-2xl mb-3 shrink-0">
-                <button type="button" onclick="switchKalkulatorTab('impian')" id="btn-kalkulator-impian" class="flex-1 py-1.5 text-xs font-bold rounded-xl transition-all bg-white dark:bg-[#17212b] text-amber-600 dark:text-amber-400 shadow-xs flex items-center justify-center gap-1.5"><i class="fas fa-bullseye"></i> Target Impian</button>
-                <button type="button" onclick="switchKalkulatorTab('zakat')" id="btn-kalkulator-zakat" class="flex-1 py-1.5 text-xs font-bold rounded-xl transition-all text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1.5"><i class="fas fa-shield-alt"></i> Zakat & Dana Darurat</button>
-            </div>
-
             <div class="space-y-3 overflow-y-auto pr-1 flex-1">
-                <!-- PANEL 1: TARGET IMPIAN -->
-                <div id="panel-kalkulator-impian" class="space-y-3">
-                    <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-2.5">
+                <!-- FORM KALKULATOR IMPIAN -->
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-2.5">
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Pilih Target Tabungan:</label>
+                        <select id="select-kalkulator-preset" onchange="applyPresetTabunganImpian(this.value)" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-2.5 py-2 text-xs font-bold focus:outline-none">
+                            <option value="">-- Buat Target Baru / Kustom --</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Nama Barang / Target Impian:</label>
+                        <input type="text" id="calc-target-name" placeholder="Contoh: Beli Laptop Baru..." class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ambil dari Target Tabungan:</label>
-                            <select id="select-kalkulator-preset" onchange="applyPresetTabunganImpian(this.value)" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-2.5 py-1.5 text-xs font-bold focus:outline-none">
-                                <option value="">-- Buat Target Baru Sendiri --</option>
-                            </select>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Target Harga (Rp):</label>
+                            <input type="number" id="calc-target-nominal" placeholder="5000000" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
                         </div>
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Nama Barang / Target Impian:</label>
-                            <input type="text" id="calc-target-name" placeholder="Contoh: Laptop Kerja Baru..." class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Target Harga (Rp):</label>
-                                <input type="number" id="calc-target-nominal" placeholder="5000000" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Dana Terkumpul (Rp):</label>
-                                <input type="number" id="calc-target-terkumpul" placeholder="0" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Rencana Tabungan (Rp):</label>
-                                <input type="number" id="calc-target-rate" placeholder="50000" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Frekuensi:</label>
-                                <select id="calc-target-freq" onchange="hitungSimulasiImpian()" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-2.5 py-1.5 text-xs font-bold focus:outline-none">
-                                    <option value="hari">Per Hari</option>
-                                    <option value="minggu">Per Minggu</option>
-                                    <option value="bulan">Per Bulan</option>
-                                </select>
-                            </div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Dana Terkumpul (Rp):</label>
+                            <input type="number" id="calc-target-terkumpul" placeholder="0" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
                         </div>
                     </div>
-
-                    <!-- Output Card Target Impian -->
-                    <div class="p-4 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 rounded-3xl border border-amber-200 dark:border-amber-800/40 space-y-2">
-                        <div class="text-[10px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
-                            <i class="fas fa-sparkles text-amber-500"></i> Hasil Perhitungan Waktu
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Rencana Tabungan (Rp):</label>
+                            <input type="number" id="calc-target-rate" placeholder="50000" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none" oninput="hitungSimulasiImpian()">
                         </div>
-                        <div class="flex items-baseline justify-between">
-                            <span class="text-xs text-slate-600 dark:text-slate-300 font-semibold">Estimasi Tercapai:</span>
-                            <span id="calc-result-waktu" class="text-base font-black text-amber-600 dark:text-amber-400">-</span>
-                        </div>
-                        <div class="flex items-baseline justify-between text-xs">
-                            <span class="text-slate-600 dark:text-slate-300 font-semibold">Perkiraan Tanggal Tuntas:</span>
-                            <span id="calc-result-tanggal" class="font-bold text-slate-800 dark:text-white">-</span>
-                        </div>
-                        <div class="flex items-baseline justify-between text-xs">
-                            <span class="text-slate-600 dark:text-slate-300 font-semibold">Sisa Kekurangan Dana:</span>
-                            <span id="calc-result-sisa" class="font-bold text-rose-500">-</span>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Frekuensi:</label>
+                            <select id="calc-target-freq" onchange="hitungSimulasiImpian()" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-2.5 py-2 text-xs font-bold focus:outline-none">
+                                <option value="hari">Per Hari</option>
+                                <option value="minggu">Per Minggu</option>
+                                <option value="bulan" selected>Per Bulan</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
-                <!-- PANEL 2: ZAKAT & DANA DARURAT -->
-                <div id="panel-kalkulator-zakat" class="hidden space-y-3">
-                    <!-- Zakat Mal Section -->
-                    <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-2">
-                        <div class="font-bold text-xs text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
-                            <i class="fas fa-coins text-amber-500"></i> Kalkulator Zakat Mal / Tabungan (2.5%)
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Tabungan / Saldo (Rp):</label>
-                            <input type="number" id="calc-zakat-saldo" placeholder="Saldo Anda..." class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none" oninput="hitungZakatDanaDarurat()">
-                        </div>
-                        <div class="p-2.5 bg-white dark:bg-[#17212b] rounded-xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between text-xs">
-                            <span class="font-semibold text-slate-500">Kewajiban Zakat (2.5%):</span>
-                            <span id="calc-zakat-hasil" class="font-black text-emerald-600 dark:text-emerald-400">Rp 0</span>
-                        </div>
-                        <span class="text-[10px] text-slate-400 block">*Nisab zakat mal acuan setara 85 gr emas (~Rp 110.000.000). Jika tabungan tersimpan telah genap 1 tahun dan melampaui nisab.</span>
+                <!-- Output Card Target Impian -->
+                <div class="p-4 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 rounded-3xl border border-amber-200 dark:border-amber-800/40 space-y-2">
+                    <div class="text-[10px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
+                        <i class="fas fa-sparkles text-amber-500"></i> Hasil Perhitungan Waktu
                     </div>
+                    <div class="flex items-baseline justify-between">
+                        <span class="text-xs text-slate-600 dark:text-slate-300 font-semibold">Estimasi Tercapai:</span>
+                        <span id="calc-result-waktu" class="text-base font-black text-amber-600 dark:text-amber-400">-</span>
+                    </div>
+                    <div class="flex items-baseline justify-between text-xs">
+                        <span class="text-slate-600 dark:text-slate-300 font-semibold">Perkiraan Tanggal Tuntas:</span>
+                        <span id="calc-result-tanggal" class="font-bold text-slate-800 dark:text-white">-</span>
+                    </div>
+                    <div class="flex items-baseline justify-between text-xs">
+                        <span class="text-slate-600 dark:text-slate-300 font-semibold">Sisa Kekurangan Dana:</span>
+                        <span id="calc-result-sisa" class="font-bold text-rose-500">-</span>
+                    </div>
+                </div>
 
-                    <!-- Dana Darurat Section -->
-                    <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/60 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-2">
-                        <div class="font-bold text-xs text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
-                            <i class="fas fa-shield-alt text-sky-500"></i> Rekomendasi Dana Darurat
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Pengeluaran Rata-rata per Bulan (Rp):</label>
-                            <input type="number" id="calc-darurat-expense" placeholder="Pengeluaran per bulan..." class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none" oninput="hitungZakatDanaDarurat()">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Status Kehidupan:</label>
-                            <select id="calc-darurat-status" onchange="hitungZakatDanaDarurat()" class="w-full border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-slate-100 rounded-xl px-2.5 py-1.5 text-xs font-bold focus:outline-none">
-                                <option value="3">Lajang (Minimal 3 Bulan)</option>
-                                <option value="6" selected>Lajang Mandiri / Menikah Tanpa Anak (6 Bulan)</option>
-                                <option value="12">Menikah dengan Anak / Freelancer (12 Bulan)</option>
-                            </select>
-                        </div>
-                        <div class="p-2.5 bg-white dark:bg-[#17212b] rounded-xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between text-xs">
-                            <span class="font-semibold text-slate-500">Target Dana Darurat Ideal:</span>
-                            <span id="calc-darurat-hasil" class="font-black text-sky-600 dark:text-sky-400">Rp 0</span>
-                        </div>
-                    </div>
+                <!-- Aksi Terpadu Target Tabungan -->
+                <div id="calc-action-buttons" class="space-y-2 pt-1">
+                    <button type="button" id="btn-calc-jadikan-target" onclick="simpanImpianDariKalkulator()" class="w-full bg-amber-500 hover:bg-amber-600 active:scale-95 text-white py-2.5 rounded-2xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2">
+                        <i class="fas fa-plus-circle"></i> Jadikan Target Tabungan Baru
+                    </button>
+                    <button type="button" id="btn-calc-setor" onclick="setorTabunganDariKalkulator()" class="hidden w-full bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white py-2.5 rounded-2xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2">
+                        <i class="fas fa-coins"></i> Setor ke Target Ini Sekarang
+                    </button>
                 </div>
             </div>
 
@@ -2442,14 +2459,12 @@
             renderCatatanKilat();
         }
 
-        // --- FITUR 4: KALKULATOR IMPIAN & ZAKAT / DANA DARURAT ---
-        function openKalkulatorModal() {
+        // --- FITUR: KALKULATOR & RENCANA IMPIAN (TERPADU DENGAN TARGET TABUNGAN) ---
+        function openKalkulatorModal(presetId) {
             var sb = document.getElementById('sidebar');
             if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
-            
-            switchKalkulatorTab('impian');
 
-            var presetSelect = document.getElementById('calc-preset-tabungan');
+            var presetSelect = document.getElementById('select-kalkulator-preset');
             if (presetSelect) {
                 var targets = dataState.targetTabungan || [];
                 var html = '<option value="">-- Buat Target Baru / Kustom --</option>';
@@ -2457,56 +2472,71 @@
                     html += `<option value="${t.id}">${escapeHtml(t.judul)} (${formatRupiah(t.target)})</option>`;
                 });
                 presetSelect.innerHTML = html;
+                if (presetId) {
+                    presetSelect.value = presetId;
+                    applyPresetTabunganImpian(presetId);
+                } else {
+                    presetSelect.value = '';
+                    updateCalcActionButtons('');
+                }
+            }
+
+            if (!presetId) {
+                var elName = document.getElementById('calc-target-name');
+                var elNom = document.getElementById('calc-target-nominal');
+                var elTerkumpul = document.getElementById('calc-target-terkumpul');
+                var elRate = document.getElementById('calc-target-rate');
+                if (elName && !elName.value) elName.value = '';
+                if (elNom && !elNom.value) elNom.value = '';
+                if (elTerkumpul && !elTerkumpul.value) elTerkumpul.value = '0';
+                if (elRate && !elRate.value) elRate.value = '50000';
             }
 
             hitungSimulasiImpian();
-
-            var zakatSaldoInput = document.getElementById('calc-zakat-saldo');
-            if (zakatSaldoInput) {
-                zakatSaldoInput.value = dataState.saldo || '';
-            }
-
-            var daruratExpenseInput = document.getElementById('calc-darurat-expense');
-            if (daruratExpenseInput) {
-                var listKeluar = (dataState.transaksi || []).filter(t => t.jenis === 'keluar');
-                var sumKeluar = listKeluar.reduce((acc, t) => acc + (parseFloat(t.nominal) || 0), 0);
-                var avgKeluar = sumKeluar > 0 ? Math.round(sumKeluar / Math.max(1, Math.min(3, listKeluar.length))) : 3000000;
-                daruratExpenseInput.value = avgKeluar;
-            }
-
-            hitungZakatDanaDarurat();
             openBottomSheet('kalkulator-keuangan-modal');
         }
 
-        function switchKalkulatorTab(tab) {
-            var btnImpian = document.getElementById('btn-kalkulator-impian');
-            var btnZakat = document.getElementById('btn-kalkulator-zakat');
-            var panelImpian = document.getElementById('panel-kalkulator-impian');
-            var panelZakat = document.getElementById('panel-kalkulator-zakat');
+        function bukaSimulasiTabungan(targetId) {
+            openKalkulatorModal(targetId);
+        }
 
-            if (tab === 'impian') {
-                if (btnImpian) btnImpian.className = 'flex-1 py-1.5 text-xs font-bold rounded-xl transition-all bg-white dark:bg-[#17212b] text-amber-600 dark:text-amber-400 shadow-xs flex items-center justify-center gap-1.5';
-                if (btnZakat) btnZakat.className = 'flex-1 py-1.5 text-xs font-bold rounded-xl transition-all text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1.5';
-                if (panelImpian) panelImpian.classList.remove('hidden');
-                if (panelZakat) panelZakat.classList.add('hidden');
+        function updateCalcActionButtons(val) {
+            var btnJadikan = document.getElementById('btn-calc-jadikan-target');
+            var btnSetor = document.getElementById('btn-calc-setor');
+            if (!btnJadikan || !btnSetor) return;
+
+            if (val) {
+                btnJadikan.classList.add('hidden');
+                btnSetor.classList.remove('hidden');
             } else {
-                if (btnZakat) btnZakat.className = 'flex-1 py-1.5 text-xs font-bold rounded-xl transition-all bg-white dark:bg-[#17212b] text-amber-600 dark:text-amber-400 shadow-xs flex items-center justify-center gap-1.5';
-                if (btnImpian) btnImpian.className = 'flex-1 py-1.5 text-xs font-bold rounded-xl transition-all text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1.5';
-                if (panelImpian) panelImpian.classList.add('hidden');
-                if (panelZakat) panelZakat.classList.remove('hidden');
+                btnJadikan.classList.remove('hidden');
+                btnSetor.classList.add('hidden');
             }
         }
 
         function applyPresetTabunganImpian(val) {
-            if (!val) return;
+            updateCalcActionButtons(val);
+            if (!val) {
+                var elName = document.getElementById('calc-target-name');
+                var elNominal = document.getElementById('calc-target-nominal');
+                var elCurrent = document.getElementById('calc-target-terkumpul');
+                if (elName) elName.value = '';
+                if (elNominal) elNominal.value = '';
+                if (elCurrent) elCurrent.value = '0';
+                hitungSimulasiImpian();
+                return;
+            }
+
             var id = parseInt(val) || val;
             var target = (dataState.targetTabungan || []).find(t => t.id === id);
             if (!target) return;
 
+            var elName = document.getElementById('calc-target-name');
             var elNominal = document.getElementById('calc-target-nominal');
-            var elCurrent = document.getElementById('calc-target-current');
+            var elCurrent = document.getElementById('calc-target-terkumpul');
             var elRate = document.getElementById('calc-target-rate');
 
+            if (elName) elName.value = target.judul || '';
             if (elNominal) elNominal.value = target.target;
             if (elCurrent) elCurrent.value = target.terkumpul || 0;
 
@@ -2520,7 +2550,7 @@
 
         function hitungSimulasiImpian() {
             var target = parseFloat(document.getElementById('calc-target-nominal')?.value) || 0;
-            var current = parseFloat(document.getElementById('calc-target-current')?.value) || 0;
+            var current = parseFloat(document.getElementById('calc-target-terkumpul')?.value) || 0;
             var rate = parseFloat(document.getElementById('calc-target-rate')?.value) || 0;
             var freq = document.getElementById('calc-target-freq')?.value || 'bulan';
 
@@ -2579,21 +2609,38 @@
             elTanggal.innerText = targetDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
         }
 
-        function hitungZakatDanaDarurat() {
-            var saldo = parseFloat(document.getElementById('calc-zakat-saldo')?.value) || 0;
-            var zakatHasilEl = document.getElementById('calc-zakat-hasil');
-            if (zakatHasilEl) {
-                var zakat = Math.round(saldo * 0.025);
-                zakatHasilEl.innerText = formatRupiah(zakat);
+        function simpanImpianDariKalkulator() {
+            var jud = document.getElementById('calc-target-name')?.value.trim();
+            var tgt = parseFloat(document.getElementById('calc-target-nominal')?.value) || 0;
+            var current = parseFloat(document.getElementById('calc-target-terkumpul')?.value) || 0;
+
+            if (!jud || tgt <= 0) {
+                triggerHaptic('error');
+                triggerDynamicIsland("Tabungan", "Masukkan nama dan nominal target impian!", "fas fa-exclamation-circle", "bg-rose-500/20 text-rose-400");
+                return;
             }
 
-            var expense = parseFloat(document.getElementById('calc-darurat-expense')?.value) || 0;
-            var statusMult = parseInt(document.getElementById('calc-darurat-status')?.value) || 6;
-            var daruratHasilEl = document.getElementById('calc-darurat-hasil');
-            if (daruratHasilEl) {
-                var totalDarurat = Math.round(expense * statusMult);
-                daruratHasilEl.innerText = formatRupiah(totalDarurat);
+            if (!dataState.targetTabungan) dataState.targetTabungan = [];
+            var newItem = { id: Date.now(), judul: jud, target: tgt, terkumpul: Math.min(current, tgt), _isNew: true };
+            dataState.targetTabungan.unshift(newItem);
+            simpanData();
+            triggerHaptic('success');
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
             }
+            triggerDynamicIsland("Impian Baru 🎯", `"${jud}" ditambahkan ke Target Tabungan!`, "fas fa-bullseye", "bg-amber-500/20 text-amber-400");
+            closeBottomSheet('kalkulator-keuangan-modal');
+            setTimeout(() => {
+                delete newItem._isNew;
+            }, 1500);
+        }
+
+        function setorTabunganDariKalkulator() {
+            var presetSelect = document.getElementById('select-kalkulator-preset');
+            if (!presetSelect || !presetSelect.value) return;
+            var id = parseInt(presetSelect.value) || presetSelect.value;
+            setorTabungan(id);
+            applyPresetTabunganImpian(id);
         }
 
         // --- PULL-TO-REFRESH & SCROLL DOCK ---
@@ -3487,15 +3534,27 @@
         function tambahTargetTabungan() {
             var jud = document.getElementById('input-tabungan-judul').value.trim();
             var tgt = parseInt(document.getElementById('input-tabungan-target').value);
-            if (!jud || isNaN(tgt) || tgt <= 0) { triggerDynamicIsland("Tabungan", "Masukkan nama & target valid!", "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); return; }
+            if (!jud || isNaN(tgt) || tgt <= 0) { 
+                triggerHaptic('error');
+                triggerDynamicIsland("Tabungan", "Masukkan nama & target valid!", "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); 
+                return; 
+            }
 
             if (!dataState.targetTabungan) dataState.targetTabungan = [];
-            dataState.targetTabungan.push({ id: Date.now(), judul: jud, target: tgt, terkumpul: 0 });
+            var newItem = { id: Date.now(), judul: jud, target: tgt, terkumpul: 0, _isNew: true };
+            dataState.targetTabungan.unshift(newItem);
             document.getElementById('input-tabungan-judul').value = '';
             document.getElementById('input-tabungan-target').value = '';
             toggleInput('tabungan-input-area');
             simpanData();
-            triggerDynamicIsland("Impian Baru", `Target "${jud}" dibuat! 🎯`, "fas fa-piggy-bank", "bg-emerald-500/20 text-emerald-400");
+            triggerHaptic('success');
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
+            }
+            triggerDynamicIsland("Impian Baru 🎯", `Target "${jud}" berhasil dibuat!`, "fas fa-piggy-bank", "bg-emerald-500/20 text-emerald-400");
+            setTimeout(() => {
+                delete newItem._isNew;
+            }, 1500);
         }
 
         function setorTabungan(id) {
@@ -3519,24 +3578,37 @@
         }
 
         function hapusTargetTabungan(id) {
-            if(confirm("Hapus target tabungan ini?")) {
-                dataState.targetTabungan = dataState.targetTabungan.filter(t => t.id !== id);
-                simpanData();
-                triggerDynamicIsland("Tabungan", "Target tabungan dihapus", "fas fa-trash", "bg-red-500/20 text-red-400");
+            if(confirm("Hapus target impian ini?")) {
+                var cardEl = document.getElementById('savings-card-' + id);
+                triggerHaptic('medium');
+                if (cardEl) {
+                    cardEl.classList.add('dream-card-exit');
+                    setTimeout(() => {
+                        dataState.targetTabungan = (dataState.targetTabungan || []).filter(t => t.id !== id);
+                        simpanData();
+                        triggerDynamicIsland("Target Impian", "Target tabungan dihapus", "fas fa-trash-alt", "bg-rose-500/20 text-rose-400");
+                    }, 350);
+                } else {
+                    dataState.targetTabungan = (dataState.targetTabungan || []).filter(t => t.id !== id);
+                    simpanData();
+                    triggerDynamicIsland("Target Impian", "Target tabungan dihapus", "fas fa-trash-alt", "bg-rose-500/20 text-rose-400");
+                }
             }
         }
 
         function renderSavingsCard(tab, isDone) {
             var pct = Math.min(Math.round((tab.terkumpul / tab.target) * 100), 100);
-            return `<div class="p-3 bg-slate-50 dark:bg-[#242f3d]/40 rounded-2xl border border-slate-200 dark:border-[#313f52] shadow-sm transition-colors compact-pad">
+            var isNewClass = tab._isNew ? 'dream-card-new' : '';
+            return `<div id="savings-card-${tab.id}" class="p-3 bg-slate-50 dark:bg-[#242f3d]/40 rounded-2xl border border-slate-200 dark:border-[#313f52] shadow-sm transition-all compact-pad ${isNewClass}">
                 <div class="flex justify-between items-center mb-1">
                     <span class="text-xs font-bold text-slate-800 dark:text-white truncate flex items-center gap-1.5">
                         ${isDone ? '<i class="fas fa-check-circle text-emerald-500"></i>' : '<i class="fas fa-piggy-bank text-primary-500"></i>'}
-                        ${tab.judul}
+                        ${escapeHtml(tab.judul)}
                     </span>
                     <div class="flex items-center gap-1.5">
+                        ${!isDone ? `<button type="button" onclick="bukaSimulasiTabungan(${tab.id})" class="text-[10px] bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 hover:bg-amber-100 font-bold px-2 py-0.5 rounded-lg flex items-center gap-1" title="Kalkulator Waktu"><i class="fas fa-calculator text-[9px]"></i> Simulasi</button>` : ''}
                         ${!isDone ? `<button type="button" onclick="setorTabungan(${tab.id})" class="text-[10px] bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300 font-bold px-2.5 py-0.5 rounded-lg hover:bg-emerald-200">+ Setor</button>` : ''}
-                        <button type="button" onclick="hapusTargetTabungan(${tab.id})" class="text-slate-400 hover:text-red-500 p-0.5"><i class="fas fa-trash text-[10px]"></i></button>
+                        <button type="button" onclick="hapusTargetTabungan(${tab.id})" class="text-slate-400 hover:text-red-500 p-0.5 transition-colors" title="Hapus"><i class="fas fa-trash text-[10px]"></i></button>
                     </div>
                 </div>
                 <div class="w-full bg-slate-200 dark:bg-[#313f52] h-2 rounded-full overflow-hidden my-1.5">
@@ -4156,7 +4228,8 @@
                         <h3 class="font-bold text-slate-700 dark:text-slate-200 text-sm flex items-center gap-2">
                             <i class="fas fa-piggy-bank text-emerald-500"></i> Target Tabungan
                         </h3>
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" onclick="openKalkulatorModal()" class="text-xs text-amber-600 dark:text-amber-400 font-bold hover:bg-amber-100 dark:hover:bg-amber-900/50 bg-amber-50 dark:bg-amber-950/40 px-2.5 py-1 rounded-xl flex items-center gap-1"><i class="fas fa-calculator text-[10px]"></i> Kalkulator</button>
                             <button type="button" onclick="toggleInput('tabungan-input-area')" class="text-xs text-primary-600 dark:text-primary-400 font-bold hover:underline bg-primary-50 dark:bg-primary-900/30 px-2.5 py-1 rounded-xl">+ Impian</button>
                             ${renderSmartArrows('tabungan', idxTabungan, totalWidgets)}
                         </div>
@@ -4166,6 +4239,9 @@
                             <input type="text" id="input-tabungan-judul" placeholder="Nama impian..." class="w-full border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none">
                             <input type="number" id="input-tabungan-target" placeholder="Target nominal (Rp)..." class="w-full border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none">
                             <button type="button" onclick="tambahTargetTabungan()" class="w-full bg-emerald-600 text-white py-2 rounded-xl text-xs font-bold shadow-sm">Simpan Target</button>
+                            <div class="text-center pt-0.5">
+                                <button type="button" onclick="openKalkulatorModal()" class="text-[11px] text-amber-600 dark:text-amber-400 hover:underline font-bold inline-flex items-center gap-1"><i class="fas fa-sparkles text-[10px]"></i> Rancang waktu dengan Kalkulator Impian ➔</button>
+                            </div>
                         </div>
                     </div>
                     <div class="space-y-3">${htmlBerjalan + htmlSelesai}</div>
@@ -4729,7 +4805,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v32.00';
+        const CURRENT_APP_VERSION = 'v32.10';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
