@@ -847,6 +847,10 @@
                         <input type="file" accept=".json" onchange="importData(event)" class="hidden">
                     </label>
 
+                    <button type="button" onclick="forcePullFromCloud()" class="w-full text-left px-3 py-2 text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
+                        <i class="fas fa-cloud-download-alt mr-2 text-sky-500"></i> Tarik Data dari Cloud (Pull)
+                    </button>
+
                     <button type="button" onclick="generateReceipt()" class="w-full text-left px-3 py-2 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
                         <i class="fas fa-receipt mr-2"></i> Cetak Laporan (PDF)
                     </button>
@@ -6691,6 +6695,7 @@
         }
 
         function simpanData() {
+            dataState.updatedAt = Date.now();
             safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
             perbaruiTampilan();
             debouncedSyncToCloud();
@@ -6704,12 +6709,35 @@
                     setTimeout(() => icon.classList.remove('animate-wiggle'), 400);
                 }
                 setTimeout(() => {
-                    dataState = { userName: 'Pengguna', saldo: 0, isPrivacyMode: false, compactMode: false, glassMode: false, autoThemeMode: false, cardGradient: true, hiddenWidgets: [], widgetOrder: ['rekap', 'tabungan', 'deadline', 'reguler'], hiddenFinanceWidgets: [], financeWidgetOrder: [...DEFAULT_FINANCE_WIDGETS], rekapHarian: [], tugas: [], transaksi: [], jurnal: [], targetTabungan: [], catatanKilat: [] }; 
+                    dataState = { 
+                        userName: 'Pengguna', 
+                        saldo: 0, 
+                        isPrivacyMode: false, 
+                        compactMode: false, 
+                        glassMode: false, 
+                        autoThemeMode: false, 
+                        cardGradient: true, 
+                        hiddenWidgets: [], 
+                        widgetOrder: ['rekap', 'tabungan', 'deadline', 'reguler'], 
+                        hiddenFinanceWidgets: [], 
+                        financeWidgetOrder: [...DEFAULT_FINANCE_WIDGETS], 
+                        rekapHarian: [], 
+                        tugas: [], 
+                        transaksi: [], 
+                        jurnal: [], 
+                        targetTabungan: [], 
+                        catatanKilat: [],
+                        updatedAt: Date.now()
+                    }; 
                     document.getElementById('input-user-name').value = dataState.userName;
                     document.body.classList.remove('compact-mode', 'glass-mode');
                     applyCardGradientVisual();
                     updateActiveToggleCount();
-                    simpanData(); 
+                    safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+                    perbaruiTampilan();
+                    if (currentUser && firestoreDb) {
+                        syncToCloud(false);
+                    }
                     toggleSidebar();
                     triggerDynamicIsland("Reset Data", "Seluruh data telah dibersihkan", "fas fa-trash-alt", "bg-red-500/20 text-red-400");
                 }, 200);
@@ -7152,19 +7180,9 @@
             }
         }
 
-        function mergeUniqueById(localArr, remoteArr, idKey) {
-            idKey = idKey || 'id';
-            if (!Array.isArray(localArr)) localArr = [];
-            if (!Array.isArray(remoteArr)) remoteArr = [];
-            const map = new Map();
-            localArr.forEach(function(item) { if (item && item[idKey]) map.set(item[idKey], item); });
-            remoteArr.forEach(function(item) { if (item && item[idKey]) map.set(item[idKey], item); });
-            return Array.from(map.values());
-        }
-
-        function syncFromCloud() {
+        function syncFromCloud(silent = false) {
             if (!currentUser || !firestoreDb) return;
-            updateSyncStatusUI('syncing');
+            if (!silent) updateSyncStatusUI('syncing');
 
             firestoreDb.collection('users').doc(currentUser.uid).get()
                 .then(function(docSnap) {
@@ -7172,65 +7190,79 @@
                         const remote = docSnap.data();
                         if (remote && remote.dataState) {
                             const rState = remote.dataState;
+                            
+                            const remoteTime = (rState && rState.updatedAt) 
+                                ? rState.updatedAt 
+                                : (remote.lastUpdated && remote.lastUpdated.toMillis ? remote.lastUpdated.toMillis() : 0);
+                            const localTime = dataState.updatedAt || 0;
 
-                            // Smart merge data list agar tidak ada data yang hilang
-                            dataState.tugas = mergeUniqueById(dataState.tugas, rState.tugas);
-                            dataState.transaksi = mergeUniqueById(dataState.transaksi, rState.transaksi);
-                            dataState.targetTabungan = mergeUniqueById(dataState.targetTabungan, rState.targetTabungan);
-                            dataState.jurnal = mergeUniqueById(dataState.jurnal, rState.jurnal);
-                            dataState.rekapHarian = mergeUniqueById(dataState.rekapHarian, rState.rekapHarian, 'tanggal');
-                            dataState.catatanKilat = mergeUniqueById(dataState.catatanKilat, rState.catatanKilat);
-
-                            // Saldo: gunakan cloud jika ada, atau lokal jika cloud kosong
-                            if (rState.saldo !== undefined && (rState.saldo !== 0 || dataState.saldo === 0)) {
-                                dataState.saldo = rState.saldo;
-                            }
-                            if (rState.userName && rState.userName !== 'Pengguna') {
-                                dataState.userName = rState.userName;
-                            }
-
-                            if (rState.compactMode !== undefined) dataState.compactMode = rState.compactMode;
-                            if (rState.glassMode !== undefined) dataState.glassMode = rState.glassMode;
-                            if (rState.cardGradient !== undefined) dataState.cardGradient = rState.cardGradient;
-                            if (rState.widgetOrder && rState.widgetOrder.length) dataState.widgetOrder = rState.widgetOrder;
-
-                            if (remote.themeHue) {
-                                safeStorage.setItem('dasborHue', remote.themeHue);
-                                document.documentElement.style.setProperty('--theme-h', remote.themeHue);
-                                const slider = document.getElementById('theme-color-slider');
-                                if (slider) slider.value = remote.themeHue;
-                            }
-                            // Mode Terang / Gelap dikelola mandiri oleh perangkat lokal (tidak dioverwrite oleh backup cloud)
-                            if (dataState.autoThemeMode) {
-                                applyAutoThemeClock();
-                            } else {
-                                const localDark = safeStorage.getItem('dasborDarkMode');
-                                if (localDark === 'dark') {
-                                    document.documentElement.classList.add('dark');
-                                } else if (localDark === 'light') {
-                                    document.documentElement.classList.remove('dark');
+                            // Jika data Cloud lebih baru atau sama (atau lokal belum punya timestamp):
+                            // Cloud adalah Source of Truth. Adopsi data Cloud secara penuh (tanpa merge yang membangkitkan data yang sudah dihapus)
+                            if (remoteTime >= localTime) {
+                                dataState = Object.assign({}, rState);
+                                if(!Array.isArray(dataState.tugas)) dataState.tugas = [];
+                                if(!Array.isArray(dataState.transaksi)) dataState.transaksi = [];
+                                if(!Array.isArray(dataState.targetTabungan)) dataState.targetTabungan = [];
+                                if(!Array.isArray(dataState.jurnal)) dataState.jurnal = [];
+                                if(!Array.isArray(dataState.rekapHarian)) dataState.rekapHarian = [];
+                                if(!Array.isArray(dataState.catatanKilat)) dataState.catatanKilat = [];
+                                if(!Array.isArray(dataState.hiddenWidgets)) dataState.hiddenWidgets = [];
+                                if(!Array.isArray(dataState.widgetOrder)) dataState.widgetOrder = ['rekap', 'tabungan', 'deadline', 'reguler'];
+                                if(!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
+                                if(!Array.isArray(dataState.financeWidgetOrder)) dataState.financeWidgetOrder = [...DEFAULT_FINANCE_WIDGETS];
+                                if(!Array.isArray(dataState.wallets)) dataState.wallets = [
+                                    { id: 'tunai', nama: 'Tunai' }, { id: 'bank', nama: 'Bank' }, { id: 'ewallet', nama: 'E-Wallet' }
+                                ];
+                                if(!dataState.budgets || typeof dataState.budgets !== 'object') dataState.budgets = {
+                                    '🍔 Makan': 0, '🚗 Transport': 0, '🛍️ Belanja': 0, '💡 Tagihan': 0, '📁 Lainnya': 0
+                                };
+                                if(!Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
+                                if(!dataState.appLock || typeof dataState.appLock !== 'object') {
+                                    dataState.appLock = { enabled: false, type: 'pin', pin: '', pattern: '', securityQuestion: 'Apa nama hewan peliharaan pertama Anda?', securityAnswer: '' };
                                 }
+                                if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
+                                if(dataState.saldo === undefined) dataState.saldo = 0;
+
+                                if (remote.themeHue) {
+                                    safeStorage.setItem('dasborHue', remote.themeHue);
+                                    document.documentElement.style.setProperty('--theme-h', remote.themeHue);
+                                    const slider = document.getElementById('theme-color-slider');
+                                    if (slider) slider.value = remote.themeHue;
+                                }
+
+                                if (dataState.autoThemeMode) {
+                                    applyAutoThemeClock();
+                                } else {
+                                    const localDark = safeStorage.getItem('dasborDarkMode');
+                                    if (localDark === 'dark') {
+                                        document.documentElement.classList.add('dark');
+                                    } else if (localDark === 'light') {
+                                        document.documentElement.classList.remove('dark');
+                                    }
+                                }
+
+                                safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+
+                                const inputName = document.getElementById('input-user-name');
+                                if (inputName) inputName.value = dataState.userName || currentUser.displayName || 'Pengguna';
+
+                                if (dataState.compactMode) document.body.classList.add('compact-mode');
+                                else document.body.classList.remove('compact-mode');
+
+                                if (dataState.glassMode) document.body.classList.add('glass-mode');
+                                else document.body.classList.remove('glass-mode');
+
+                                applyCardGradientVisual();
+                                updateActiveToggleCount();
+                                perbaruiTampilan();
+                                updateSyncStatusUI('synced');
+                                if (!silent) {
+                                    triggerDynamicIsland("Cloud Tersinkron ☁️", "Data akun Anda berhasil dimuat", "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
+                                }
+                            } else {
+                                // Data lokal ini lebih baru (misal user mengedit offline di perangkat ini) -> perbarui cloud
+                                syncToCloud(false);
                             }
-
-                            safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
-
-                            const inputName = document.getElementById('input-user-name');
-                            if (inputName) inputName.value = dataState.userName || currentUser.displayName || 'Pengguna';
-
-                            if (dataState.compactMode) document.body.classList.add('compact-mode');
-                            else document.body.classList.remove('compact-mode');
-
-                            if (dataState.glassMode) document.body.classList.add('glass-mode');
-                            else document.body.classList.remove('glass-mode');
-
-                            applyCardGradientVisual();
-                            updateActiveToggleCount();
-                            perbaruiTampilan();
-                            updateSyncStatusUI('synced');
-                            triggerDynamicIsland("Cloud Tersinkron ☁️", "Data akun Anda berhasil dimuat", "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
-
-                            // Simpan snapshot gabungan kembali ke cloud
-                            syncToCloud(false);
                         } else {
                             syncToCloud(false);
                         }
@@ -7251,6 +7283,8 @@
 
             isSyncingToCloud = true;
             updateSyncStatusUI('saving');
+
+            if (!dataState.updatedAt) dataState.updatedAt = Date.now();
 
             const payload = {
                 dataState: dataState,
@@ -7287,6 +7321,17 @@
             }, 1500);
         }
 
+        function forcePullFromCloud() {
+            if (!currentUser) {
+                loginWithGoogle();
+                return;
+            }
+            if (confirm("Tarik data dari Cloud dan timpa data di perangkat ini? Semua data di perangkat ini akan mengikuti data Cloud.")) {
+                if (dataState) dataState.updatedAt = 0;
+                syncFromCloud(false);
+            }
+        }
+
         function manualSyncCloud() {
             if (!currentUser) {
                 loginWithGoogle();
@@ -7294,7 +7339,7 @@
             }
             var icon = document.getElementById('cloud-sync-icon');
             if (icon) icon.classList.add('fa-spin');
-            syncToCloud(true);
+            syncFromCloud(false);
             setTimeout(function() {
                 if (icon) icon.classList.remove('fa-spin');
             }, 1200);
