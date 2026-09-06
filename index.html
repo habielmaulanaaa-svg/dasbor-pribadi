@@ -220,18 +220,13 @@
         .tab-content.active > *:nth-child(5) { animation-delay: 0.14s; }
         .tab-content.active > *:nth-child(6) { animation-delay: 0.17s; }
 
-        /* Liquid Collision Animation */
-        @keyframes liquidFill {
-            0% { transform: scaleX(0); }
-            100% { transform: scaleX(1); }
-        }
         .liquid-bar-masuk {
             transform-origin: left;
-            animation: liquidFill 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+            transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .liquid-bar-keluar {
             transform-origin: right;
-            animation: liquidFill 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+            transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         /* Accordion Drawer */
@@ -735,11 +730,11 @@
                             <span class="flex items-center gap-1.5"><i class="fas fa-sliders-h text-primary-500"></i> Opsi Tampilan &amp; Sistem</span>
                             <div class="flex items-center gap-1.5">
                                 <span id="active-toggle-count-badge" class="text-[9px] bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full font-black">2 Aktif</span>
-                                <i id="icon-settings-stack" class="fas fa-chevron-down text-slate-400 text-[10px] transform transition-transform duration-200" style="transform: rotate(180deg);"></i>
+                                <i id="icon-settings-stack" class="fas fa-chevron-down text-slate-400 text-[10px] transform transition-transform duration-200"></i>
                             </div>
                         </button>
                         
-                        <div id="settings-toggles-stack" class="accordion-content open space-y-1 px-1.5 pb-2.5 pt-0.5" style="touch-action: pan-y;">
+                        <div id="settings-toggles-stack" class="accordion-content space-y-1 px-1.5 pb-2.5 pt-0.5" style="touch-action: pan-y;">
                             
                             <!-- 1. Toggle Gradasi Kartu Saldo -->
                             <div onclick="toggleCardGradient()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
@@ -860,11 +855,6 @@
                         <i class="fas fa-trash-alt mr-2"></i> Hapus Semua Data
                     </button>
 
-                    <div class="mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d] text-center">
-                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Kontak &amp; Feedback</p>
-                        <a href="mailto:habielmaulanaaa@gmail.com" class="text-[10px] font-bold text-primary-500 bg-primary-50 dark:bg-primary-900/30 px-2 py-1 rounded-lg block">habielmaulanaaa@gmail.com</a>
-                    </div>
-
                     <!-- Banner Unduh Aplikasi Android & Widget (Collapsible / Minimizeable) -->
                     <div class="mt-2 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-primary-500/10 border border-emerald-500/20 dark:border-emerald-500/30 rounded-2xl overflow-hidden transition-all duration-200">
                         <button type="button" onclick="toggleAndroidBanner()" id="btn-toggle-android-banner" class="no-bounce w-full p-2.5 flex items-center justify-between hover:bg-emerald-500/10 dark:hover:bg-emerald-500/20 transition-colors focus:outline-none">
@@ -897,6 +887,12 @@
                                 </button>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Kontak & Feedback (Dipindahkan ke paling bawah) -->
+                    <div class="mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d] text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Kontak &amp; Feedback</p>
+                        <a href="mailto:habielmaulanaaa@gmail.com" class="text-[10px] font-bold text-primary-500 bg-primary-50 dark:bg-primary-900/30 px-2 py-1 rounded-lg block">habielmaulanaaa@gmail.com</a>
                     </div>
                     <!-- Spacer scroll ekstra agar menu terbawah tidak tertutup tepi layar -->
                     <div class="h-16 w-full block shrink-0"></div>
@@ -5239,19 +5235,46 @@
 
         function moveWidget(key, dir) {
             if (isSwappingWidget) return;
-            var arr = dataState.widgetOrder;
-            var idx = arr.indexOf(key);
+            var hidden = dataState.hiddenWidgets || [];
+            var rawArr = Array.isArray(dataState.widgetOrder) ? [...dataState.widgetOrder] : ['rekap', 'tabungan', 'deadline', 'reguler'];
+            var fullArr = [];
+            rawArr.forEach(k => {
+                if (['rekap', 'tabungan', 'deadline', 'reguler'].includes(k) && !fullArr.includes(k)) fullArr.push(k);
+            });
+            ['rekap', 'tabungan', 'deadline', 'reguler'].forEach(k => {
+                if (!fullArr.includes(k)) fullArr.push(k);
+            });
+            dataState.widgetOrder = fullArr;
+
+            var activeArr = fullArr.filter(k => !hidden.includes(k));
+            var idx = activeArr.indexOf(key);
             if (idx === -1) return;
             
             var targetIdx = (dir === 'up') ? idx - 1 : idx + 1;
-            if (targetIdx < 0 || targetIdx >= arr.length) return;
+            if (targetIdx < 0 || targetIdx >= activeArr.length) return;
 
-            var targetKey = arr[targetIdx];
+            var targetKey = activeArr[targetIdx];
             var cardA = document.getElementById(`widget-card-${key}`);
             var cardB = document.getElementById(`widget-card-${targetKey}`);
 
+            const applyBerandaSwap = () => {
+                var fromIdx = fullArr.indexOf(key);
+                if (fromIdx !== -1) fullArr.splice(fromIdx, 1);
+                var toIdx = fullArr.indexOf(targetKey);
+                if (toIdx !== -1) {
+                    if (dir === 'up') {
+                        fullArr.splice(toIdx, 0, key);
+                    } else {
+                        fullArr.splice(toIdx + 1, 0, key);
+                    }
+                } else {
+                    fullArr.push(key);
+                }
+                dataState.widgetOrder = fullArr;
+            };
+
             if (!cardA || !cardB) {
-                var temp = arr[idx]; arr[idx] = arr[targetIdx]; arr[targetIdx] = temp;
+                applyBerandaSwap();
                 simpanData();
                 return;
             }
@@ -5281,9 +5304,7 @@
                 cardA.style.zIndex = '';
                 cardB.style.zIndex = '';
 
-                var temp = arr[idx];
-                arr[idx] = arr[targetIdx];
-                arr[targetIdx] = temp;
+                applyBerandaSwap();
                 
                 simpanData();
                 isSwappingWidget = false;
@@ -5293,10 +5314,15 @@
         function moveFinanceWidget(key, dir) {
             if (isSwappingFinanceWidget) return;
             var hidden = dataState.hiddenFinanceWidgets || [];
-            var fullArr = Array.isArray(dataState.financeWidgetOrder) ? [...dataState.financeWidgetOrder] : [...DEFAULT_FINANCE_WIDGETS];
+            var rawArr = Array.isArray(dataState.financeWidgetOrder) ? [...dataState.financeWidgetOrder] : [...DEFAULT_FINANCE_WIDGETS];
+            var fullArr = [];
+            rawArr.forEach(k => {
+                if (DEFAULT_FINANCE_WIDGETS.includes(k) && !fullArr.includes(k)) fullArr.push(k);
+            });
             DEFAULT_FINANCE_WIDGETS.forEach(k => {
                 if (!fullArr.includes(k)) fullArr.push(k);
             });
+            dataState.financeWidgetOrder = fullArr;
 
             var activeArr = fullArr.filter(k => !hidden.includes(k));
             var idx = activeArr.indexOf(key);
@@ -6404,22 +6430,24 @@
         }
 
         function renderSmartArrows(key, index, total) {
+            if (index < 0 || total <= 1) return '';
             var isFirst = (index === 0);
-            var isLast = (index === total - 1);
+            var isLast = (index >= total - 1);
             var html = '<div class="flex items-center gap-1">';
             if (!isFirst) {
-                html += `<button type="button" onclick="moveWidget('${key}', 'up')" title="Geser ke Atas" class="text-slate-400 hover:text-primary-500 p-1 text-[10px]"><i class="fas fa-chevron-up"></i></button>`;
+                html += `<button type="button" onclick="moveWidget('${key}', 'up')" title="Geser ke Atas" class="text-slate-400 hover:text-primary-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-up"></i></button>`;
             }
             if (!isLast) {
-                html += `<button type="button" onclick="moveWidget('${key}', 'down')" title="Geser ke Bawah" class="text-slate-400 hover:text-primary-500 p-1 text-[10px]"><i class="fas fa-chevron-down"></i></button>`;
+                html += `<button type="button" onclick="moveWidget('${key}', 'down')" title="Geser ke Bawah" class="text-slate-400 hover:text-primary-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-down"></i></button>`;
             }
             html += '</div>';
             return html;
         }
 
         function renderSmartFinanceArrows(key, index, total) {
+            if (index < 0 || total <= 1) return '';
             var isFirst = (index === 0);
-            var isLast = (index === total - 1);
+            var isLast = (index >= total - 1);
             var html = '<div class="flex items-center gap-1">';
             if (!isFirst) {
                 html += `<button type="button" onclick="moveFinanceWidget('${key}', 'up')" title="Geser ke Atas" class="text-slate-400 hover:text-emerald-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-up"></i></button>`;
@@ -6436,10 +6464,15 @@
             if (!container) return;
 
             var hidden = dataState.hiddenFinanceWidgets || [];
-            var order = Array.isArray(dataState.financeWidgetOrder) ? [...dataState.financeWidgetOrder] : [...DEFAULT_FINANCE_WIDGETS];
+            var rawOrder = Array.isArray(dataState.financeWidgetOrder) ? [...dataState.financeWidgetOrder] : [...DEFAULT_FINANCE_WIDGETS];
+            var order = [];
+            rawOrder.forEach(k => {
+                if (DEFAULT_FINANCE_WIDGETS.includes(k) && !order.includes(k)) order.push(k);
+            });
             DEFAULT_FINANCE_WIDGETS.forEach(k => {
                 if (!order.includes(k)) order.push(k);
             });
+            dataState.financeWidgetOrder = order;
 
             var activeWidgets = order.filter(k => !hidden.includes(k));
             var totalActive = activeWidgets.length;
