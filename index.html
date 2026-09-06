@@ -644,7 +644,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.10 Pro</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.11.P1 Pro</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -907,10 +907,49 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.10 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P1 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v33.11.P1 Pro -->
+                <div class="p-3.5 bg-gradient-to-br from-primary-50 via-indigo-50 to-purple-50 dark:from-primary-950/40 dark:via-indigo-950/30 dark:to-purple-900/20 rounded-2xl border border-primary-200 dark:border-primary-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-amber-400 text-xs"></i> Update Minor • v33.11.P1 Pro</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-primary-600 to-indigo-600 text-white px-2 py-0.5 rounded-full shadow-xs">Patch &amp; Task UX</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Wawasan Pintar Non-Duplikat, Interaksi Saldo Replay, Tombol Tambah &amp; Minimize Form Tugas</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
+                            <i class="fas fa-lightbulb text-amber-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Wawasan Pintar Non-Duplikat:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Wawasan pintar di kartu saldo kini hanya berjalan tepat satu kali saat pembukaan aplikasi dan tersinkronisasi rapi dengan data Cloud tanpa pengulangan.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
+                            <i class="fas fa-hand-pointer text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Putar Ulang Wawasan via Saldo:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Angka saldo `Rp` kini dapat diketuk langsung kapan saja untuk memutar ulang wawasan pintar secara mandiri.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
+                            <i class="fas fa-plus-circle text-primary-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Tombol "+ Tugas Baru" di Tab Tugas:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Menambah tugas kini lebih cepat dengan tombol mandiri di samping judul tab tugas tanpa harus membuka menu bawah.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
+                            <i class="fas fa-compress-alt text-purple-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Tombol Minimize Card Form Tugas:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Card input tugas kini dilengkapi tombol minimize elegan di bagian atasnya sehingga dapat dilipat sewaktu-waktu agar layar tetap leluasa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v33.10 Pro -->
                 <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-primary-100/50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-primary-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -1885,9 +1924,15 @@
 
         <!-- PANEL: MANAJEMEN TUGAS -->
         <div id="tugas" class="tab-content">
-            <div class="flex items-center gap-2 mb-4">
-                <span class="w-2 h-6 bg-primary-500 rounded-full"></span>
-                <h2 class="text-2xl font-bold dark:text-white">Manajemen Tugas</h2>
+            <div class="flex items-center justify-between gap-2 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-6 bg-primary-500 rounded-full"></span>
+                    <h2 class="text-2xl font-bold dark:text-white">Manajemen Tugas</h2>
+                </div>
+                <button type="button" onclick="toggleInput('tugas-input-area')" id="btn-toggle-tugas-form" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-600 hover:bg-primary-700 active:scale-95 text-white text-xs font-bold shadow-md transition-all">
+                    <i class="fas fa-plus text-xs"></i>
+                    <span>Tugas Baru</span>
+                </button>
             </div>
 
             <!-- Instant Search Bar Tugas -->
@@ -1900,6 +1945,18 @@
             <!-- Area Input Tugas -->
             <div id="tugas-input-area" class="accordion-content">
                 <div class="bg-white dark:bg-[#17212b] p-4 rounded-3xl border-2 border-primary-500 dark:border-primary-500 shadow-xl mb-5">
+                    <!-- Header Card Input Tugas dengan Tombol Minimize -->
+                    <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
+                        <div class="flex items-center gap-2 text-primary-600 dark:text-primary-400">
+                            <span class="w-6 h-6 rounded-lg bg-primary-100 dark:bg-primary-950/50 flex items-center justify-center text-xs"><i class="fas fa-plus-circle"></i></span>
+                            <span class="text-xs font-black uppercase tracking-wide">Tambah Tugas Baru</span>
+                        </div>
+                        <button type="button" onclick="toggleInput('tugas-input-area')" title="Minimize / Sembunyikan Form" class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 active:scale-95 transition-all">
+                            <span>Minimize</span>
+                            <i class="fas fa-chevron-up text-xs"></i>
+                        </button>
+                    </div>
+
                     <label class="block text-[11px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-1.5">Nama Tugas Baru</label>
                     <input type="text" id="input-tugas-nama" placeholder="Ketik nama tugas di sini..." onkeydown="if(event.key==='Enter') tambahTugas()" class="w-full rounded-2xl px-3.5 py-2.5 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary-500 mb-3 border">
                     
@@ -5164,9 +5221,14 @@
 
             var taskInput = document.getElementById('tugas-input-area');
             var plusIcon = document.getElementById('fab-plus-icon');
+            var taskToggleBtn = document.getElementById('btn-toggle-tugas-form');
             if (tabId !== 'tugas' && taskInput && taskInput.classList.contains('open')) {
                 taskInput.classList.remove('open');
                 if (plusIcon) plusIcon.style.transform = 'rotate(0deg)';
+                if (taskToggleBtn) {
+                    taskToggleBtn.innerHTML = '<i class="fas fa-plus text-xs"></i><span>Tugas Baru</span>';
+                    taskToggleBtn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-600 hover:bg-primary-700 active:scale-95 text-white text-xs font-bold shadow-md transition-all';
+                }
             }
 
             if (tabId === 'keuangan') {
@@ -5216,15 +5278,16 @@
                 switchTab('tugas');
                 var inputArea = document.getElementById('tugas-input-area');
                 if (inputArea && !inputArea.classList.contains('open')) {
-                    inputArea.classList.add('open');
+                    toggleInput('tugas-input-area');
+                } else {
+                    setTimeout(() => {
+                        var el = document.getElementById('input-tugas-nama');
+                        if (el) {
+                            el.focus();
+                            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 200);
                 }
-                setTimeout(() => {
-                    var el = document.getElementById('input-tugas-nama');
-                    if (el) {
-                        el.focus();
-                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 200);
             } else if (action === 'pengeluaran') {
                 switchTab('keuangan');
                 setTimeout(() => {
@@ -5575,8 +5638,26 @@
                 var plusIcon = (id === 'tugas-input-area') ? document.getElementById('fab-plus-icon') : null;
                 var isOpen = el.classList.toggle('open');
                 if (plusIcon) plusIcon.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
-                if (isOpen && id === 'tugas-input-area') {
-                    setTimeout(() => document.getElementById('input-tugas-nama').focus(), 150);
+                if (id === 'tugas-input-area') {
+                    var btn = document.getElementById('btn-toggle-tugas-form');
+                    if (btn) {
+                        if (isOpen) {
+                            btn.innerHTML = '<i class="fas fa-chevron-up text-xs"></i><span>Tutup</span>';
+                            btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-600 hover:bg-slate-700 active:scale-95 text-white text-xs font-bold shadow-md transition-all';
+                        } else {
+                            btn.innerHTML = '<i class="fas fa-plus text-xs"></i><span>Tugas Baru</span>';
+                            btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-600 hover:bg-primary-700 active:scale-95 text-white text-xs font-bold shadow-md transition-all';
+                        }
+                    }
+                    if (isOpen) {
+                        setTimeout(() => {
+                            var inputNama = document.getElementById('input-tugas-nama');
+                            if (inputNama) {
+                                inputNama.focus();
+                                inputNama.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }, 150);
+                    }
                 }
             }
         }
@@ -7800,7 +7881,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v33.11';
+        const CURRENT_APP_VERSION = 'v33.11.P1';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
