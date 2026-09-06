@@ -1432,10 +1432,6 @@
             
             <div class="space-y-2 mb-4 overflow-y-auto max-h-[50vh] pr-1" id="finance-widget-toggle-list">
                 <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-chart-bar text-primary-500"></i> Ringkasan &amp; Rasio Keuangan</span>
-                    <input type="checkbox" id="w-toggle-fin-ringkasan" onchange="toggleFinanceWidgetVisibility('ringkasan', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
-                </div>
-                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
                     <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-wallet text-emerald-500"></i> Kantong &amp; Multi-Dompet</span>
                     <input type="checkbox" id="w-toggle-fin-dompet" onchange="toggleFinanceWidgetVisibility('dompet', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
                 </div>
@@ -1913,38 +1909,38 @@
                 <h2 class="text-2xl font-bold dark:text-white">Kelola Keuangan</h2>
             </div>
             
-            <div id="keuangan-widgets-container" class="space-y-4">
-                <!-- 1. WIDGET: RINGKASAN & RASIO KEUANGAN -->
-                <div id="finance-widget-ringkasan" class="finance-widget-block">
-                    <div class="flex justify-between items-center mb-1.5 px-1">
-                        <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                            <i class="fas fa-chart-bar text-primary-500"></i> Statistik Arus Kas
-                        </span>
-                        <div id="finance-arrows-ringkasan"></div>
+            <!-- WIDGET PERMANEN: STATISTIK ARUS KAS -->
+            <div id="finance-widget-ringkasan" class="mb-4">
+                <div class="flex justify-between items-center mb-1.5 px-1">
+                    <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fas fa-chart-bar text-primary-500"></i> Statistik Arus Kas
+                    </span>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-3 compact-gap">
+                    <div class="widget-card bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
+                        <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Total Masuk</span>
+                        <span id="stat-total-masuk" data-val="0" class="text-lg font-black text-emerald-700 dark:text-emerald-300 mt-1">Rp 0</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mb-3 compact-gap">
-                        <div class="widget-card bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
-                            <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Total Masuk</span>
-                            <span id="stat-total-masuk" data-val="0" class="text-lg font-black text-emerald-700 dark:text-emerald-300 mt-1">Rp 0</span>
-                        </div>
-                        <div class="widget-card bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
-                            <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Total Keluar</span>
-                            <span id="stat-total-keluar" data-val="0" class="text-lg font-black text-rose-700 dark:text-rose-300 mt-1">Rp 0</span>
-                        </div>
-                    </div>
-
-                    <!-- Progress Bar Rasio Finansial -->
-                    <div class="widget-card bg-white dark:bg-[#17212b] p-3.5 rounded-2xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
-                        <div class="flex justify-between items-center text-[10px] font-bold text-slate-500 mb-1.5">
-                            <span>PEMASUKAN vs PENGELUARAN</span>
-                            <span id="ratio-text">0% / 0%</span>
-                        </div>
-                        <div class="w-full bg-slate-100 dark:bg-[#242f3d] h-2.5 rounded-full overflow-hidden flex">
-                            <div id="bar-masuk" class="bg-emerald-500 h-full liquid-bar-masuk" style="width: 50%"></div>
-                            <div id="bar-keluar" class="bg-rose-500 h-full liquid-bar-keluar" style="width: 50%"></div>
-                        </div>
+                    <div class="widget-card bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
+                        <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Total Keluar</span>
+                        <span id="stat-total-keluar" data-val="0" class="text-lg font-black text-rose-700 dark:text-rose-300 mt-1">Rp 0</span>
                     </div>
                 </div>
+
+                <!-- Progress Bar Rasio Finansial -->
+                <div class="widget-card bg-white dark:bg-[#17212b] p-3.5 rounded-2xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                    <div class="flex justify-between items-center text-[10px] font-bold text-slate-500 mb-1.5">
+                        <span>PEMASUKAN vs PENGELUARAN</span>
+                        <span id="ratio-text">0% / 0%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 dark:bg-[#242f3d] h-2.5 rounded-full overflow-hidden flex">
+                        <div id="bar-masuk" class="bg-emerald-500 h-full liquid-bar-masuk" style="width: 50%"></div>
+                        <div id="bar-keluar" class="bg-rose-500 h-full liquid-bar-keluar" style="width: 50%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="keuangan-widgets-container" class="space-y-4">
 
                 <!-- 2. WIDGET: KANTONG & MULTI-DOMPET -->
                 <div id="finance-widget-dompet" class="finance-widget-block widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
@@ -2439,7 +2435,7 @@
         let saveHueTimeout = null;
         let isSwappingWidget = false;
         let isSwappingFinanceWidget = false;
-        const DEFAULT_FINANCE_WIDGETS = ['ringkasan', 'dompet', 'skor_kesehatan', 'anggaran', 'tagihan', 'alokasi', 'form_transaksi', 'riwayat'];
+        const DEFAULT_FINANCE_WIDGETS = ['dompet', 'skor_kesehatan', 'anggaran', 'tagihan', 'alokasi', 'form_transaksi', 'riwayat'];
         let isRekapBannerDismissed = false;
 
         // SISTEM ANTREAN NOTIFIKASI DINAMIS (ANTI-TABRAKAN / ANTI-OVERLAP)
@@ -6776,9 +6772,11 @@
             if(!Array.isArray(dataState.widgetOrder)) dataState.widgetOrder = ['rekap', 'tabungan', 'deadline', 'reguler'];
             if(!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
             if(!Array.isArray(dataState.financeWidgetOrder)) dataState.financeWidgetOrder = [...DEFAULT_FINANCE_WIDGETS];
+            dataState.financeWidgetOrder = dataState.financeWidgetOrder.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
             DEFAULT_FINANCE_WIDGETS.forEach(k => {
                 if (!dataState.financeWidgetOrder.includes(k)) dataState.financeWidgetOrder.push(k);
             });
+            dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
             if(!Array.isArray(dataState.wallets)) dataState.wallets = [
                 { id: 'tunai', nama: 'Tunai' },
                 { id: 'bank', nama: 'Bank' },
@@ -7191,80 +7189,75 @@
                         if (remote && remote.dataState) {
                             const rState = remote.dataState;
                             
-                            const remoteTime = (rState && rState.updatedAt) 
-                                ? rState.updatedAt 
-                                : (remote.lastUpdated && remote.lastUpdated.toMillis ? remote.lastUpdated.toMillis() : 0);
-                            const localTime = dataState.updatedAt || 0;
+                            // Buka dasbor / Startup murni PULL (mengunduh dari Cloud ke Dasbor):
+                            // Data Cloud adalah sumber kebenaran. Kita muat data tanpa mengunggah ke Cloud.
+                            dataState = Object.assign({}, rState);
+                            if(!Array.isArray(dataState.tugas)) dataState.tugas = [];
+                            if(!Array.isArray(dataState.transaksi)) dataState.transaksi = [];
+                            if(!Array.isArray(dataState.targetTabungan)) dataState.targetTabungan = [];
+                            if(!Array.isArray(dataState.jurnal)) dataState.jurnal = [];
+                            if(!Array.isArray(dataState.rekapHarian)) dataState.rekapHarian = [];
+                            if(!Array.isArray(dataState.catatanKilat)) dataState.catatanKilat = [];
+                            if(!Array.isArray(dataState.hiddenWidgets)) dataState.hiddenWidgets = [];
+                            if(!Array.isArray(dataState.widgetOrder)) dataState.widgetOrder = ['rekap', 'tabungan', 'deadline', 'reguler'];
+                            if(!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
+                            if(!Array.isArray(dataState.financeWidgetOrder)) dataState.financeWidgetOrder = [...DEFAULT_FINANCE_WIDGETS];
+                            dataState.financeWidgetOrder = dataState.financeWidgetOrder.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
+                            DEFAULT_FINANCE_WIDGETS.forEach(k => {
+                                if (!dataState.financeWidgetOrder.includes(k)) dataState.financeWidgetOrder.push(k);
+                            });
+                            dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
+                            if(!Array.isArray(dataState.wallets)) dataState.wallets = [
+                                { id: 'tunai', nama: 'Tunai' }, { id: 'bank', nama: 'Bank' }, { id: 'ewallet', nama: 'E-Wallet' }
+                            ];
+                            if(!dataState.budgets || typeof dataState.budgets !== 'object') dataState.budgets = {
+                                '🍔 Makan': 0, '🚗 Transport': 0, '🛍️ Belanja': 0, '💡 Tagihan': 0, '📁 Lainnya': 0
+                            };
+                            if(!Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
+                            if(!dataState.appLock || typeof dataState.appLock !== 'object') {
+                                dataState.appLock = { enabled: false, type: 'pin', pin: '', pattern: '', securityQuestion: 'Apa nama hewan peliharaan pertama Anda?', securityAnswer: '' };
+                            }
+                            if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
+                            if(dataState.saldo === undefined) dataState.saldo = 0;
 
-                            // Jika data Cloud lebih baru atau sama (atau lokal belum punya timestamp):
-                            // Cloud adalah Source of Truth. Adopsi data Cloud secara penuh (tanpa merge yang membangkitkan data yang sudah dihapus)
-                            if (remoteTime >= localTime) {
-                                dataState = Object.assign({}, rState);
-                                if(!Array.isArray(dataState.tugas)) dataState.tugas = [];
-                                if(!Array.isArray(dataState.transaksi)) dataState.transaksi = [];
-                                if(!Array.isArray(dataState.targetTabungan)) dataState.targetTabungan = [];
-                                if(!Array.isArray(dataState.jurnal)) dataState.jurnal = [];
-                                if(!Array.isArray(dataState.rekapHarian)) dataState.rekapHarian = [];
-                                if(!Array.isArray(dataState.catatanKilat)) dataState.catatanKilat = [];
-                                if(!Array.isArray(dataState.hiddenWidgets)) dataState.hiddenWidgets = [];
-                                if(!Array.isArray(dataState.widgetOrder)) dataState.widgetOrder = ['rekap', 'tabungan', 'deadline', 'reguler'];
-                                if(!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
-                                if(!Array.isArray(dataState.financeWidgetOrder)) dataState.financeWidgetOrder = [...DEFAULT_FINANCE_WIDGETS];
-                                if(!Array.isArray(dataState.wallets)) dataState.wallets = [
-                                    { id: 'tunai', nama: 'Tunai' }, { id: 'bank', nama: 'Bank' }, { id: 'ewallet', nama: 'E-Wallet' }
-                                ];
-                                if(!dataState.budgets || typeof dataState.budgets !== 'object') dataState.budgets = {
-                                    '🍔 Makan': 0, '🚗 Transport': 0, '🛍️ Belanja': 0, '💡 Tagihan': 0, '📁 Lainnya': 0
-                                };
-                                if(!Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
-                                if(!dataState.appLock || typeof dataState.appLock !== 'object') {
-                                    dataState.appLock = { enabled: false, type: 'pin', pin: '', pattern: '', securityQuestion: 'Apa nama hewan peliharaan pertama Anda?', securityAnswer: '' };
-                                }
-                                if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
-                                if(dataState.saldo === undefined) dataState.saldo = 0;
+                            if (remote.themeHue) {
+                                safeStorage.setItem('dasborHue', remote.themeHue);
+                                document.documentElement.style.setProperty('--theme-h', remote.themeHue);
+                                const slider = document.getElementById('theme-color-slider');
+                                if (slider) slider.value = remote.themeHue;
+                            }
 
-                                if (remote.themeHue) {
-                                    safeStorage.setItem('dasborHue', remote.themeHue);
-                                    document.documentElement.style.setProperty('--theme-h', remote.themeHue);
-                                    const slider = document.getElementById('theme-color-slider');
-                                    if (slider) slider.value = remote.themeHue;
-                                }
-
-                                if (dataState.autoThemeMode) {
-                                    applyAutoThemeClock();
-                                } else {
-                                    const localDark = safeStorage.getItem('dasborDarkMode');
-                                    if (localDark === 'dark') {
-                                        document.documentElement.classList.add('dark');
-                                    } else if (localDark === 'light') {
-                                        document.documentElement.classList.remove('dark');
-                                    }
-                                }
-
-                                safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
-
-                                const inputName = document.getElementById('input-user-name');
-                                if (inputName) inputName.value = dataState.userName || currentUser.displayName || 'Pengguna';
-
-                                if (dataState.compactMode) document.body.classList.add('compact-mode');
-                                else document.body.classList.remove('compact-mode');
-
-                                if (dataState.glassMode) document.body.classList.add('glass-mode');
-                                else document.body.classList.remove('glass-mode');
-
-                                applyCardGradientVisual();
-                                updateActiveToggleCount();
-                                perbaruiTampilan();
-                                updateSyncStatusUI('synced');
-                                if (!silent) {
-                                    triggerDynamicIsland("Cloud Tersinkron ☁️", "Data akun Anda berhasil dimuat", "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
-                                }
+                            if (dataState.autoThemeMode) {
+                                applyAutoThemeClock();
                             } else {
-                                // Data lokal ini lebih baru (misal user mengedit offline di perangkat ini) -> perbarui cloud
-                                syncToCloud(false);
+                                const localDark = safeStorage.getItem('dasborDarkMode');
+                                if (localDark === 'dark') {
+                                    document.documentElement.classList.add('dark');
+                                } else if (localDark === 'light') {
+                                    document.documentElement.classList.remove('dark');
+                                }
+                            }
+
+                            safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+
+                            const inputName = document.getElementById('input-user-name');
+                            if (inputName) inputName.value = dataState.userName || currentUser.displayName || 'Pengguna';
+
+                            if (dataState.compactMode) document.body.classList.add('compact-mode');
+                            else document.body.classList.remove('compact-mode');
+
+                            if (dataState.glassMode) document.body.classList.add('glass-mode');
+                            else document.body.classList.remove('glass-mode');
+
+                            applyCardGradientVisual();
+                            updateActiveToggleCount();
+                            perbaruiTampilan();
+                            updateSyncStatusUI('synced');
+                            if (!silent) {
+                                triggerDynamicIsland("Cloud Tersinkron ☁️", "Data akun Anda berhasil dimuat", "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
                             }
                         } else {
-                            syncToCloud(false);
+                            updateSyncStatusUI('synced');
                         }
                     } else {
                         // Pengguna baru pertama kali login: upload data lokal ke cloud
