@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -55,6 +55,19 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/dasbor_widget_bar_info" />
+        </receiver>
+
+        <!-- Widget 3: Tugas & Aktivitas (4x2 / 3x2) -->
+        <receiver
+            android:name=".TaskWidgetProvider"
+            android:label="@string/widget_task_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/dasbor_widget_task_info" />
         </receiver>
 
     </application>

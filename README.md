@@ -1,11 +1,11 @@
-# 📱 Dasbor Pribadi Mobile — Era APK Android & Native Widgets
+﻿# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.00 Pro
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v32.43%20Pro-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.00%20Pro-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan catatan produktivitas pribadi yang telah resmi berevolusi memasuki **Era Aplikasi Android Mandiri (.APK)** dengan dukungan **Home Screen Widgets bawaan**, sinkronisasi saldo realtime, serta hosting **Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi berevolusi menjadi **Super-App Finansial & Produktivitas (v33.00 Pro)** dengan dukungan **3 Home Screen Widgets Android bawaan**, keamanan **PIN & Biometrik**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -13,47 +13,66 @@ Aplikasi manajemen keuangan, tabungan, impian, dan catatan produktivitas pribadi
 
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
-| 📲 **Download Langsung APK** | [**dasbor-pribadi.apk (5.69 MB)**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer mandiri 1-klik cepat tanpa login |
+| 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer mandiri 1-klik cepat tanpa login |
 | 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop |
 
 ---
 
-## ✨ Fitur Unggulan di Era APK
+## 🚀 Fitur Unggulan Generasi v33.00 Pro
 
-### 1. 📲 Aplikasi Android Mandiri Native (.APK)
-- **Installer Mandiri**: Berjalan sebagai aplikasi native mandiri di sistem operasi Android (Android 8.0 Oreo hingga Android 14+).
-- **Adaptive Icon Full-Bleed**: Didesain dengan standar *Android Adaptive Icon* (`res/mipmap-anydpi-v26`) berlatar `#0E1621` penuh, bebas dari efek bingkai kotak di launcher ponsel (Samsung One UI, Xiaomi HyperOS, ColorOS, dsb.).
-- **Performa Ringan**: Ukuran binary kompak (~5.69 MB) dengan konsumsi RAM dan baterai yang sangat hemat.
+### 1. 💼 Multi-Dompet / Kantong Keuangan (*Pocket Management*)
+- Pisahkan saldo kas Anda secara rapi ke dalam **3 Dompet Utama**:
+  - 💵 **Uang Tunai** (Cash)
+  - 🏦 **Rekening Bank** (BCA, Mandiri, BRI, dsb.)
+  - 📱 **E-Wallet / Dompet Digital** (GoPay, OVO, Dana, ShopeePay)
+- Pilih sumber dompet saat mencatat pemasukan maupun pengeluaran.
+- Filter riwayat transaksi secara instan per dompet hanya dengan 1 klik pada kartu dompet.
 
-### 2. 💳 Dua Home Screen Widget Modern
-Tersedia 2 pilihan widget resmi yang dapat dipasang langsung di layar utama HP Anda:
-- **Kartu Saldo Lengkap (4x2 / 3x2)**:
-  - Menampilkan **Total Saldo Tersedia** secara riil dan terformat rapi dalam Rupiah.
-  - Status Cloud realtime.
-  - Tombol aksi cepat lebar untuk `+ Pemasukan` dan `- Pengeluaran`.
-  - Desain bersih dan elegan tanpa logo atau teks berlebih.
-- **Bar Aksi Cepat (4x1)**:
-  - Bar ramping 1 baris hemat ruang di bawah search bar / jam HP.
-  - 4 tombol aksi kilat simetris: `+ Masuk`, `- Keluar`, `Catatan`, dan `Impian`.
-- **Pratinjau Visual (Widget Preview)**:
-  - Gambar pratinjau asli (`android:previewImage`) muncul di menu pemilih widget ponsel sebelum Anda meletakkannya di Home Screen.
+### 2. 🎯 Sistem Anggaran Bulanan (*Budgeting per Kategori*)
+- Tetapkan batas plafon belanja bulanan untuk berbagai kategori utama (*Makanan, Transport, Hiburan, Belanja, Tagihan, dsb.*).
+- **Progress Bar Dinamis 3-Warna**:
+  - 🟢 **Hijau**: Pengeluaran aman (< 70% dari kuota anggaran).
+  - 🟡 **Kuning/Amber**: Mendekati batas (70% - 90%).
+  - 🔴 **Merah Berkedip**: Batas anggaran terlampaui (> 90%).
+- Notifikasi interaktif via kapsul **Dynamic Island** saat transaksi baru melampaui plafon kategori.
 
-### 3. 🔄 Sinkronisasi Saldo Realtime
-- Terhubung langsung via protokol internal native (`dasbor://sync?saldo=...`).
-- Tombol **`[ 🔄 Sinkronkan Saldo ke Widget ]`** di menu Pengaturan dasbor mengirimkan total saldo kas asli secara instan ke widget Android tanpa kesalahan perhitungan.
+### 3. 📅 Pelacak Transaksi Rutin & Langganan (*Subscription Tracker*)
+- Pantau seluruh pengeluaran berulang bulanan (*Netflix, Spotify, WiFi, Listrik, Kos, dsb.*) di satu tempat.
+- Badge hitung mundur (*countdown*) hari jatuh tempo otomatis:
+  - 🔴 *Jatuh tempo hari ini / terlewat*.
+  - 🟡 *Jatuh tempo dalam 3 hari ke depan*.
+  - 🟢 *Jadwal masih aman*.
+- Tombol **1-Klik "Bayar & Catat"**: Langsung memotong saldo dari dompet pilihan dan membukukan transaksi pengeluaran secara instan.
 
-### 4. ☁️ Google Cloud & Firebase Firestore 24/7
-- Login akun Google dengan sekali klik.
-- Seluruh data transaksi, target tabungan, catatan kilat, dan impian tersimpan aman di cloud dan dapat diakses dari perangkat manapun.
+### 4. 🩺 Indikator Skor Kesehatan Keuangan (*Financial Health Score*)
+- Algoritma cerdas yang menghitung skor kesehatan finansial Anda dari skala **0 hingga 100** berdasarkan rasio tabungan, kontrol pengeluaran, dan rasio aset cair.
+- Status lencana dinamis: **Sangat Sehat 🌟**, **Stabil & Terkendali 👍**, **Perlu Perhatian ⚠️**, atau **Kritis / Boros 🚨**.
+- Rekomendasi taktis otomatis yang diperbarui secara realtime sesuai kondisi kas Anda.
 
-### 5. ⚡ Pembaruan Otomatis (OTA Pipeline)
-- Perubahan antarmuka dan logika web didistribusikan secara instan melalui sistem *Over-The-Air (OTA)* via Service Worker.
-- Notifikasi kapsul elegan bergaya **Dynamic Island** memberitahukan versi baru secara otomatis saat pembaruan siap.
+### 5. 📈 Grafik Garis Arus Kas Berpendar (*Smooth Cash Flow Chart*)
+- Visualisasi tren pemasukan vs pengeluaran berbasis lightweight vector SVG tanpa library eksternal yang berat.
+- Kurva halus Bezier dengan efek *glowing neon drop-shadow*.
+- Pilihan rentang waktu dinamis: **7 Hari Terakhir** atau **30 Hari Terakhir**.
 
-### 6. 📴 100% Offline Ready
-- Tetap dapat mencatat pemasukan, pengeluaran, dan jurnal harian saat tidak ada kuota internet.
-- Data otomatis tersinkronisasi kembali ke Cloud saat perangkat terhubung ke internet.
+### 6. 🔒 Kunci Keamanan Aplikasi (*PIN 4-Digit & Biometrik*)
+- Lindungi data privasi dan catatan keuangan Anda dari orang yang meminjam HP.
+- Opsi **Kunci PIN 4-digit** dengan keypad angka responsif dan animasi indikator titik PIN.
+- Integrasi **Biometrik (Fingerprint / Face Unlock)** via WebAuthn API untuk perangkat Android yang mendukung.
+- Opsi kunci otomatis saat aplikasi pertama kali dibuka dan tombol kilat *Kunci Layar Sekarang* di menu pengaturan.
+
+### 7. 📲 3 Pilihan Home Screen Widget Android Bawaan
+Tersedia 3 widget native Android yang dapat dipasang di layar utama ponsel Anda:
+1. **Kartu Saldo Lengkap (4x2 / 3x2)**:
+   - Menampilkan total saldo terformat rapi dalam Rupiah dan status sinkronisasi.
+   - Tombol kilat lebar `+ Pemasukan` dan `- Pengeluaran`.
+2. **Bar Aksi Cepat (4x1)**:
+   - Bar ramping hemat ruang di bawah jam/search bar.
+   - 4 shortcut simetris: `+ Masuk`, `- Keluar`, `Catatan`, dan `Impian`.
+3. **Widget Tugas & Aktivitas (4x2 / 3x2)**:
+   - Menampilkan jumlah tugas aktif yang belum selesai.
+   - Kartu pratinjau tugas prioritas teratas.
+   - Tombol shortcut `+ Tambah Catatan` dan `Buka Dasbor`.
 
 ---
 
@@ -68,14 +87,15 @@ Tersedia 2 pilihan widget resmi yang dapat dipasang langsung di layar utama HP A
 ### B. Cara Memasang Widget di Layar Utama HP:
 1. Tekan dan tahan area kosong pada Home Screen HP Anda selama 2 detik.
 2. Pilih menu **Widget**.
-3. Cari dan pilih **Dasbor Pribadi**. Anda akan melihat **pratinjau gambar** kedua widget.
-4. Pilih antara **Bar Aksi Cepat (4x1)** atau **Kartu Dasbor (4x2)** lalu seret ke layar depan.
+3. Cari dan pilih **Dasbor Pribadi**. Anda akan melihat pilihan widget:
+   - **Kartu Dasbor (4x2)**
+   - **Bar Aksi Cepat (4x1)**
+   - **Tugas & Aktivitas (4x2)**
+4. Seret widget favorit Anda ke layar depan.
 
-### C. Cara Sinkronisasi Saldo ke Widget:
-1. Buka aplikasi **Dasbor Pribadi**.
-2. Masuk ke **Menu Pengaturan** (ikon gear / roda gigi).
-3. Tap tombol **[ 🔄 Sinkronkan Saldo ke Widget ]**.
-4. Saldo kas Anda akan langsung muncul di widget layar depan ponsel!
+### C. Cara Sinkronisasi Saldo & Tugas ke Widget:
+- Data widget otomatis tersinkronisasi setiap kali Anda menyimpan transaksi atau tugas baru di aplikasi.
+- Anda juga dapat menekan tombol **[ 🔄 Sinkronkan Data ke Widget ]** di menu Pengaturan dasbor kapan saja.
 
 ---
 
@@ -87,16 +107,17 @@ dasbor-mobile/
 │   └── build-apk.yml          # Otomatisasi GitHub Actions (Compile Gradle, Release, Deploy Pages)
 ├── android/                   # Proyek Native Android (Java & Android Gradle Plugin)
 │   ├── app/
-│   │   ├── build.gradle       # Konfigurasi aplikasi Android (versionCode 3238, versionName 32.38)
+│   │   ├── build.gradle       # Konfigurasi aplikasi Android (versionCode 3300, versionName 33.00)
 │   │   └── src/main/
-│   │       ├── AndroidManifest.xml # Izin, intent filter dasbor://sync, & deklarasi Widget
+│   │       ├── AndroidManifest.xml # Izin, intent filter dasbor://sync, & deklarasi 3 Widget
 │   │       ├── java/com/dasbor/pribadi/
 │   │       │   ├── MainActivity.java             # WebView wrapper & receiver deep-link sync
 │   │       │   ├── DasborWidgetProvider.java     # Logic widget Kartu Saldo 4x2
-│   │       │   └── DasborBarWidgetProvider.java  # Logic widget Bar Aksi Cepat 4x1
-│   │       └── res/                              # Adaptive icons, layout XML, & preview widget
+│   │       │   ├── DasborBarWidgetProvider.java  # Logic widget Bar Aksi Cepat 4x1
+│   │       │   └── TaskWidgetProvider.java       # Logic widget Tugas & Aktivitas 4x2
+│   │       └── res/                              # Layout XML, adaptive icons, & preview widget
 ├── dasbor-pribadi.apk         # Binary APK rilis terbaru (otomatis terupdate via CI/CD)
-├── index.html                 # Core App: UI modern, manajemen keuangan, kalkulator impian, & Cloud sync
+├── index.html                 # Core App: UI super-app, multi-wallet, budget, subs, lock, cloud
 ├── manifest.json              # Web App Manifest PWA
 ├── sw.js                      # Service Worker (Cache management & OTA pipeline)
 ├── icon-192.png               # Ikon Web PWA 192x192
@@ -118,5 +139,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v32.43 Pro • Era APK Android</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.00 Pro • Era Super-App Finansial & Produktivitas</b></sub>
 </div>

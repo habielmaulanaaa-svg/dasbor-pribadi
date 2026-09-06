@@ -1,7 +1,8 @@
-package com.dasbor.pribadi;
+﻿package com.dasbor.pribadi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,13 +33,23 @@ public class MainActivity extends AppCompatActivity {
             Uri data = intent.getData();
             if (data != null && ("sync".equals(data.getHost()) || "/sync".equals(data.getPath()))) {
                 String saldo = data.getQueryParameter("saldo");
+                String taskCount = data.getQueryParameter("taskCount");
+                String topTask = data.getQueryParameter("topTask");
+
+                SharedPreferences.Editor editor = getSharedPreferences("dasbor_prefs", MODE_PRIVATE).edit();
                 if (saldo != null && !saldo.isEmpty()) {
-                    getSharedPreferences("dasbor_prefs", MODE_PRIVATE)
-                            .edit()
-                            .putString("cached_saldo", saldo)
-                            .apply();
-                    DasborWidgetProvider.updateAllWidgets(this);
+                    editor.putString("cached_saldo", saldo);
                 }
+                if (taskCount != null && !taskCount.isEmpty()) {
+                    editor.putString("cached_task_count", taskCount);
+                }
+                if (topTask != null && !topTask.isEmpty()) {
+                    editor.putString("cached_top_task", topTask);
+                }
+                editor.apply();
+
+                DasborWidgetProvider.updateAllWidgets(this);
+                TaskWidgetProvider.updateAllWidgets(this);
                 finish();
                 return;
             }
