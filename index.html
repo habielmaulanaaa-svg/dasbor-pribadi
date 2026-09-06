@@ -644,7 +644,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.11.P1 Pro</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.11.P1</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -722,7 +722,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.10 Pro (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.11.P1 (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -907,14 +907,14 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P1 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P1</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <!-- Milestone v33.11.P1 Pro -->
+                <!-- Milestone v33.11.P1 -->
                 <div class="p-3.5 bg-gradient-to-br from-primary-50 via-indigo-50 to-purple-50 dark:from-primary-950/40 dark:via-indigo-950/30 dark:to-purple-900/20 rounded-2xl border border-primary-200 dark:border-primary-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-amber-400 text-xs"></i> Update Minor • v33.11.P1 Pro</span>
+                        <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-amber-400 text-xs"></i> Update Minor • v33.11.P1</span>
                         <span class="text-[9px] font-black bg-gradient-to-r from-primary-600 to-indigo-600 text-white px-2 py-0.5 rounded-full shadow-xs">Patch &amp; Task UX</span>
                     </div>
                     <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Wawasan Pintar Non-Duplikat, Interaksi Saldo Replay, Tombol Tambah &amp; Minimize Form Tugas</p>
@@ -1945,18 +1945,6 @@
             <!-- Area Input Tugas -->
             <div id="tugas-input-area" class="accordion-content">
                 <div class="bg-white dark:bg-[#17212b] p-4 rounded-3xl border-2 border-primary-500 dark:border-primary-500 shadow-xl mb-5">
-                    <!-- Header Card Input Tugas dengan Tombol Minimize -->
-                    <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
-                        <div class="flex items-center gap-2 text-primary-600 dark:text-primary-400">
-                            <span class="w-6 h-6 rounded-lg bg-primary-100 dark:bg-primary-950/50 flex items-center justify-center text-xs"><i class="fas fa-plus-circle"></i></span>
-                            <span class="text-xs font-black uppercase tracking-wide">Tambah Tugas Baru</span>
-                        </div>
-                        <button type="button" onclick="toggleInput('tugas-input-area')" title="Minimize / Sembunyikan Form" class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 active:scale-95 transition-all">
-                            <span>Minimize</span>
-                            <i class="fas fa-chevron-up text-xs"></i>
-                        </button>
-                    </div>
-
                     <label class="block text-[11px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-1.5">Nama Tugas Baru</label>
                     <input type="text" id="input-tugas-nama" placeholder="Ketik nama tugas di sini..." onkeydown="if(event.key==='Enter') tambahTugas()" class="w-full rounded-2xl px-3.5 py-2.5 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary-500 mb-3 border">
                     
@@ -5642,10 +5630,12 @@
                     var btn = document.getElementById('btn-toggle-tugas-form');
                     if (btn) {
                         if (isOpen) {
-                            btn.innerHTML = '<i class="fas fa-chevron-up text-xs"></i><span>Tutup</span>';
+                            btn.innerHTML = '<i class="fas fa-chevron-up text-xs"></i><span>Minimize</span>';
+                            btn.title = 'Minimize / Tutup Form';
                             btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-600 hover:bg-slate-700 active:scale-95 text-white text-xs font-bold shadow-md transition-all';
                         } else {
                             btn.innerHTML = '<i class="fas fa-plus text-xs"></i><span>Tugas Baru</span>';
+                            btn.title = 'Tambah Tugas Baru';
                             btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-600 hover:bg-primary-700 active:scale-95 text-white text-xs font-bold shadow-md transition-all';
                         }
                     }
@@ -7887,7 +7877,7 @@
         function checkOtaVersionNotification() {
             var lastSeen = safeStorage.getItem('dasborLastSeenVersion');
             var verDisplay = document.getElementById('settings-app-version');
-            if (verDisplay) verDisplay.innerHTML = `<i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile ${CURRENT_APP_VERSION} Pro (Cloud)`;
+            if (verDisplay) verDisplay.innerHTML = `<i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile ${CURRENT_APP_VERSION} (Cloud)`;
 
             var toastBadge = document.getElementById('ota-toast-version-badge');
             if (toastBadge) toastBadge.innerText = CURRENT_APP_VERSION;
