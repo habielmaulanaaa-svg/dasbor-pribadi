@@ -1,11 +1,11 @@
-﻿# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.00 Pro
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.10 Pro
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.00%20Pro-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.10%20Pro-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi berevolusi menjadi **Super-App Finansial & Produktivitas (v33.00 Pro)** dengan dukungan **3 Home Screen Widgets Android bawaan**, keamanan **PIN & Biometrik**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi berevolusi menjadi **Super-App Finansial & Produktivitas (v33.10 Pro)** dengan dukungan **3 Home Screen Widgets Android bawaan**, keamanan ganda **PIN 4-Digit & Kunci Pola (Pattern Lock 3x3)**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -55,10 +55,10 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 - Kurva halus Bezier dengan efek *glowing neon drop-shadow*.
 - Pilihan rentang waktu dinamis: **7 Hari Terakhir** atau **30 Hari Terakhir**.
 
-### 6. 🔒 Kunci Keamanan Aplikasi (*PIN 4-Digit & Biometrik*)
+### 6. 🔒 Kunci Keamanan Aplikasi (*PIN 4-Digit & Kunci Pola 3x3*)
 - Lindungi data privasi dan catatan keuangan Anda dari orang yang meminjam HP.
-- Opsi **Kunci PIN 4-digit** dengan keypad angka responsif dan animasi indikator titik PIN.
-- Integrasi **Biometrik (Fingerprint / Face Unlock)** via WebAuthn API untuk perangkat Android yang mendukung.
+- Opsi **Kunci PIN 4-digit** dengan keypad angka responsif, tombol pembersih `C`, dan indikator titik PIN.
+- Opsi **Kunci Pola 3x3 (Pattern Lock)** interaktif berbasis HTML5 Canvas dengan efek pendar neon hijau/biru, haptic feedback, dan animasi wiggle merah saat pola tidak sesuai.
 - Opsi kunci otomatis saat aplikasi pertama kali dibuka dan tombol kilat *Kunci Layar Sekarang* di menu pengaturan.
 
 ### 7. 📲 3 Pilihan Home Screen Widget Android Bawaan
@@ -73,6 +73,11 @@ Tersedia 3 widget native Android yang dapat dipasang di layar utama ponsel Anda:
    - Menampilkan jumlah tugas aktif yang belum selesai.
    - Kartu pratinjau tugas prioritas teratas.
    - Tombol shortcut `+ Tambah Catatan` dan `Buka Dasbor`.
+
+### 8. ⚡ Optimalisasi Performa & UX (v33.10 Pro)
+- **Scroll Mulus Opsi Pengaturan**: Menu pengaturan kini dapat digulir penuh ke bawah hingga ke Kunci Aplikasi dengan `touch-pan-y` dan padding yang nyaman.
+- **Anti-Flash Pindah Widget**: Pemindahan urutan widget dasbor kini 100% mulus tanpa kedipan transisi putih dari aktivitas Android.
+- **Antrean Notifikasi Cerdas**: Notifikasi update OTA dan notifikasi sinkronisasi cloud berjalan berurutan via queue FIFO tanpa bertumpuk.
 
 ---
 
@@ -139,5 +144,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.00 Pro • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.10 Pro • Era Super-App Finansial & Produktivitas</b></sub>
 </div>

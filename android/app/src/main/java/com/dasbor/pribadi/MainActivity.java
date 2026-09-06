@@ -50,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
                 DasborWidgetProvider.updateAllWidgets(this);
                 TaskWidgetProvider.updateAllWidgets(this);
+                overridePendingTransition(0, 0);
                 finish();
+                overridePendingTransition(0, 0);
                 return;
             }
 
