@@ -1,4 +1,4 @@
-﻿package com.dasbor.pribadi;
+package com.dasbor.pribadi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
