@@ -10,8 +10,8 @@ android {
         applicationId "com.dasbor.pribadi"
         minSdk 24
         targetSdk 34
-        versionCode 3241
-        versionName "32.41"
+        versionCode 3242
+        versionName "32.42"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

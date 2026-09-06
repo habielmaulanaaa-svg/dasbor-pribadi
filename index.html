@@ -645,7 +645,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v32.41 Pro</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v32.42 Pro</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -718,7 +718,7 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.41 Pro (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.42 Pro (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -890,44 +890,44 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.41 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.42 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <!-- Milestone v32.41 Pro -->
+                <!-- Milestone v32.42 Pro -->
                 <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100/50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-emerald-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500 text-xs"></i> Update Rilis Resmi • v32.41 Pro</span>
+                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500 text-xs"></i> Update Rilis Resmi • v32.42 Pro</span>
                         <span class="text-[9px] font-black bg-emerald-600 text-white px-2 py-0.5 rounded-full shadow-xs">Era APK Android</span>
                     </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Banner Android Collapsible / Minimizeable &amp; Toggle Strip Lebar Bouncing</p>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Perbaikan Animasi Bounce Toggle Terisolasi &amp; Penstabil Slider Warna Tema</p>
                     <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-chevron-circle-down text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <i class="fas fa-shield-alt text-emerald-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Banner Android &amp; Widget Dapat Diciutkan (Minimize):</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Card Aplikasi Android &amp; Widget kini tersembunyi secara ringkas (minimize) secara default dan akan melebar mulus saat diketuk untuk menjaga menu pengaturan tetap bersih dan rapi.</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Isolasi Penuh Animasi Bounce Toggle:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Animasi pantulan pegas (*bounce*) pada tombol Gradasi Saldo kini terisolasi total dan hanya aktif saat toggle itu sendiri diklik secara langsung, tidak lagi terpancing saat menggeser warna tema atau menekan tombol lain.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-sliders-h text-primary-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Slider Warna Tema 100% Tenang:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Menggeser slider warna tema kini berjalan mulus tanpa memicu getaran atau pantulan animasi yang tidak diinginkan pada tombol pengaturan mana pun.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-chevron-circle-down text-teal-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Banner Android &amp; Widget Minimizeable:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Card Aplikasi Android &amp; Widget tetap terminimalisir secara ringkas dan melebar anggun saat diklik untuk mengakses APK dan sinkronisasi widget.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
                             <i class="fas fa-toggle-on text-primary-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Toggle Strip Lebih Lebar &amp; Efek Bounce Pegas:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Semua toggle garis strip horizontal telah diperlebar menjadi proporsi ideal (w-9 h-2.5) dengan animasi pantulan bouncing kenyal yang responsif saat disentuh.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-feather-alt text-amber-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Bebas Bouncing pada Menu Utama:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Menu akordeon Opsi Tampilan &amp; Sistem membuka dan menutup tanpa getaran atau efek bouncing yang mengganggu.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-undo text-sky-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Gestur Urungkan Tugas &amp; Tema Otomatis:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Swipe kanan tugas selesai untuk mengurungkan, dan siklus mode gelap/terang otomatis mandiri per perangkat.</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Toggle Strip Lebar Proporsional:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Seluruh toggle garis strip memiliki proporsi lega (w-9 h-2.5) dengan tampilan redup (OFF) dan cerah berpendar (ON) yang memuaskan saat ditekan.</p>
                             </div>
                         </div>
                     </div>
@@ -1896,8 +1896,8 @@
             triggerDynamicIsland("Privasi", dataState.isPrivacyMode ? "Saldo disembunyikan 👁️" : "Saldo ditampilkan", "fas fa-eye", "bg-amber-500/20 text-amber-400");
         }
 
-        // HELPER TERPADU TOGGLE GARIS STRIP: REDUP (OFF) & TERANG (ON) DENGAN EFEK BOUNCE
-        function setSwitchVisual(btn, knob, isActive, skipBounce) {
+        // HELPER TERPADU TOGGLE GARIS STRIP: REDUP (OFF) & TERANG (ON) DENGAN EFEK BOUNCE HANYA SAAT DIKLIK
+        function setSwitchVisual(btn, knob, isActive, triggerBounce) {
             var el = knob || (btn ? btn.querySelector('.strip-indicator') : null);
             if (!el) return;
             if (isActive) {
@@ -1907,7 +1907,7 @@
                 // REDUP (OFF): Nuansa abu-abu redup tenang, tanpa glow, opacity 35%
                 el.className = "strip-indicator w-9 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 opacity-35 shadow-none transition-all duration-200";
             }
-            if (!skipBounce) {
+            if (triggerBounce === true) {
                 el.classList.remove('animate-toggle-bounce');
                 void el.offsetWidth;
                 el.classList.add('animate-toggle-bounce');
@@ -1938,13 +1938,13 @@
         // TOGGLE GRADASI KARTU SALDO (100% SENADA & CERAH SESUAI TEMA UTAMA)
         function toggleCardGradient() {
             dataState.cardGradient = (dataState.cardGradient === undefined) ? false : !dataState.cardGradient;
-            applyCardGradientVisual();
+            applyCardGradientVisual(true);
             updateActiveToggleCount();
             safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
             triggerDynamicIsland("Tampilan Kartu", dataState.cardGradient ? "Gradasi & Glow Aktif 🎨" : "Mode Solid Minimalis Aktif", "fas fa-palette", "bg-primary-500/20 text-primary-400");
         }
 
-        function applyCardGradientVisual() {
+        function applyCardGradientVisual(triggerBounce) {
             var isGrad = (dataState.cardGradient !== false);
             var card = document.getElementById('saldo-card-bg');
             var overlay = document.getElementById('saldo-card-gradient-overlay');
@@ -1981,7 +1981,7 @@
                 }
             }
 
-            setSwitchVisual(btn, knob, isGrad);
+            setSwitchVisual(btn, knob, isGrad, triggerBounce === true);
         }
 
         function toggleCompactMode() {
@@ -1989,7 +1989,7 @@
             document.body.classList.toggle('compact-mode', dataState.compactMode);
             var knob = document.getElementById('compact-switch-knob');
             var btn = document.getElementById('btn-toggle-compact');
-            setSwitchVisual(btn, knob, dataState.compactMode);
+            setSwitchVisual(btn, knob, dataState.compactMode, true);
             updateActiveToggleCount();
             simpanData();
             triggerDynamicIsland("Tampilan", dataState.compactMode ? "Mode Ramping Aktif 🎛️" : "Mode Santai Aktif", "fas fa-compress-alt", "bg-primary-500/20 text-primary-400");
@@ -2000,7 +2000,7 @@
             document.body.classList.toggle('glass-mode', dataState.glassMode);
             var knobG = document.getElementById('glass-switch-knob');
             var btnG = document.getElementById('btn-toggle-glass');
-            setSwitchVisual(btnG, knobG, dataState.glassMode);
+            setSwitchVisual(btnG, knobG, dataState.glassMode, true);
             updateActiveToggleCount();
             simpanData();
             triggerDynamicIsland("Gaya Kartu", dataState.glassMode ? "Kaca Akrilik Aktif 🪟" : "Mode Solid Aktif", "fas fa-cube", "bg-purple-500/20 text-purple-400");
@@ -2010,7 +2010,7 @@
             dataState.autoThemeMode = !dataState.autoThemeMode;
             var knobA = document.getElementById('autotheme-switch-knob');
             var btnA = document.getElementById('btn-toggle-autotheme');
-            setSwitchVisual(btnA, knobA, dataState.autoThemeMode);
+            setSwitchVisual(btnA, knobA, dataState.autoThemeMode, true);
             if (dataState.autoThemeMode) applyAutoThemeClock();
             updateActiveToggleCount();
             simpanData();
@@ -2038,7 +2038,7 @@
             dataState.hapticFeedback = (dataState.hapticFeedback === undefined) ? false : !dataState.hapticFeedback;
             var knobH = document.getElementById('haptic-switch-knob');
             var btnH = document.getElementById('btn-toggle-haptic');
-            setSwitchVisual(btnH, knobH, dataState.hapticFeedback);
+            setSwitchVisual(btnH, knobH, dataState.hapticFeedback, true);
             updateActiveToggleCount();
             simpanData();
             triggerHaptic('medium');
@@ -4705,19 +4705,19 @@
 
             var knobC = document.getElementById('compact-switch-knob');
             var btnC = document.getElementById('btn-toggle-compact');
-            setSwitchVisual(btnC, knobC, dataState.compactMode, true);
+            setSwitchVisual(btnC, knobC, dataState.compactMode, false);
 
             var knobG = document.getElementById('glass-switch-knob');
             var btnG = document.getElementById('btn-toggle-glass');
-            setSwitchVisual(btnG, knobG, dataState.glassMode, true);
+            setSwitchVisual(btnG, knobG, dataState.glassMode, false);
 
             var knobA = document.getElementById('autotheme-switch-knob');
             var btnA = document.getElementById('btn-toggle-autotheme');
-            setSwitchVisual(btnA, knobA, dataState.autoThemeMode, true);
+            setSwitchVisual(btnA, knobA, dataState.autoThemeMode, false);
 
             var knobH = document.getElementById('haptic-switch-knob');
             var btnH = document.getElementById('btn-toggle-haptic');
-            setSwitchVisual(btnH, knobH, dataState.hapticFeedback !== false, true);
+            setSwitchVisual(btnH, knobH, dataState.hapticFeedback !== false, false);
 
             var cEye = document.getElementById('card-eye-icon');
             var iconClass = dataState.isPrivacyMode ? 'fa-eye-slash' : 'fa-eye';
@@ -5197,7 +5197,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v32.41';
+        const CURRENT_APP_VERSION = 'v32.42';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
