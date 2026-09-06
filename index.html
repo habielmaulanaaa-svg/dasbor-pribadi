@@ -1850,11 +1850,11 @@
                                 <button type="button" onclick="togglePrivacyMode()" title="Sembunyikan/Tampilkan Saldo" class="opacity-80 hover:opacity-100 focus:outline-none"><i id="card-eye-icon" class="fas fa-eye text-xs"></i></button>
                             </p>
                         </div>
-                        <h3 id="stat-saldo" data-val="0" class="text-3xl font-black tracking-tight">Rp 0</h3>
+                        <h3 id="stat-saldo" data-val="0" onclick="runSmartInsightsSequence(true)" title="Ketuk untuk memutar ulang Wawasan Pintar" class="text-3xl font-black tracking-tight cursor-pointer select-none active:opacity-90">Rp 0</h3>
                         
                         <!-- WADAH WAWASAN PINTAR BERGILIR (SMART INSIGHTS CAPSULE) -->
                         <div id="saldo-smart-insight-container" class="mt-2.5 overflow-hidden transition-all duration-500 ease-in-out opacity-0 max-h-0">
-                            <div id="saldo-smart-insight-pill" onclick="runSmartInsightsSequence()" title="Ketuk untuk putar ulang wawasan" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur-md border border-white/25 text-white text-[11px] font-semibold transition-opacity duration-400 shadow-xs cursor-pointer active:scale-95">
+                            <div id="saldo-smart-insight-pill" onclick="runSmartInsightsSequence(true)" title="Ketuk untuk putar ulang wawasan" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur-md border border-white/25 text-white text-[11px] font-semibold transition-opacity duration-400 shadow-xs cursor-pointer active:scale-95">
                                 <i id="saldo-smart-insight-icon" class="fas fa-lightbulb text-amber-300 text-xs"></i>
                                 <span id="saldo-smart-insight-text" class="truncate max-w-[270px]"></span>
                             </div>
@@ -5267,16 +5267,27 @@
         // ==========================================
         let smartInsightsTimer = null;
         let smartInsightsFadeTimer = null;
+        let smartInsightsStartTimer = null;
+        let smartInsightsStepTimer = null;
+        let isSmartInsightsAlreadyShown = false;
+        let isSmartInsightsRunning = false;
 
-        function runSmartInsightsSequence() {
+        function runSmartInsightsSequence(force = false) {
             var container = document.getElementById('saldo-smart-insight-container');
             var pill = document.getElementById('saldo-smart-insight-pill');
             var icon = document.getElementById('saldo-smart-insight-icon');
             var text = document.getElementById('saldo-smart-insight-text');
             if (!container || !pill || !icon || !text) return;
 
+            // Jika bukan dipicu manual (klik pengguna) dan sudah pernah tayang atau sedang berjalan di sesi ini, jangan ulang!
+            if (!force && (isSmartInsightsAlreadyShown || isSmartInsightsRunning)) {
+                return;
+            }
+
             if (smartInsightsTimer) clearTimeout(smartInsightsTimer);
             if (smartInsightsFadeTimer) clearTimeout(smartInsightsFadeTimer);
+            if (smartInsightsStartTimer) clearTimeout(smartInsightsStartTimer);
+            if (smartInsightsStepTimer) clearTimeout(smartInsightsStepTimer);
 
             var txs = dataState.transaksi || [];
             var tasks = dataState.tugas || [];
@@ -5289,8 +5300,12 @@
             if (!hasFinansial && !hasTugas) {
                 container.style.opacity = '0';
                 container.style.maxHeight = '0px';
+                isSmartInsightsRunning = false;
                 return;
             }
+
+            isSmartInsightsRunning = true;
+            isSmartInsightsAlreadyShown = true;
 
             // 1. Bangun Wawasan Finansial
             var insightFin = null;
@@ -5358,7 +5373,7 @@
             // Animasi transisi bertahap:
             var showPill = (item, onDone) => {
                 pill.style.opacity = '0';
-                setTimeout(() => {
+                smartInsightsStepTimer = setTimeout(() => {
                     icon.className = `${item.icon} text-xs`;
                     text.innerText = item.text;
                     container.style.maxHeight = '60px';
@@ -5378,10 +5393,11 @@
             var closePill = () => {
                 container.style.opacity = '0';
                 container.style.maxHeight = '0px';
+                isSmartInsightsRunning = false;
             };
 
-            // Jeda 900ms setelah data dimuat agar tidak tergesa-gesa
-            setTimeout(() => {
+            // Jeda 800ms setelah pemanggilan agar tidak tergesa-gesa
+            smartInsightsStartTimer = setTimeout(() => {
                 if (insightFin && insightProd) {
                     // Finansial dulu -> Fade out -> Produktivitas -> Fade out -> Tutup
                     showPill(insightFin, () => {
@@ -5399,8 +5415,10 @@
                     showPill(insightProd, () => {
                         closePill();
                     });
+                } else {
+                    closePill();
                 }
-            }, 900);
+            }, 800);
         }
 
         // ==========================================
@@ -7279,8 +7297,15 @@
             applyCardGradientVisual();
             updateActiveToggleCount();
             perbaruiTampilan();
-            showDynamicGreeting(); 
-            runSmartInsightsSequence();
+            // Jika akun Cloud tersimpan, utamakan sinkronisasi Cloud agar wawasan memakai data Cloud teranyar
+            if (!getCachedUser()) {
+                runSmartInsightsSequence(false);
+            } else {
+                // Fallback jika Cloud lambat / offline: putar setelah 3.5 detik jika belum pernah tayang
+                setTimeout(function() {
+                    if (!isSmartInsightsAlreadyShown) runSmartInsightsSequence(false);
+                }, 3500);
+            }
             scheduleDailyReset6AM();
             checkOtaVersionNotification();
             checkAppLockOnStartup();
