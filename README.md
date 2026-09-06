@@ -1,11 +1,11 @@
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.11.P1
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.11.P2
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.11.P1-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.11.P2-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi berevolusi menjadi **Super-App Finansial & Produktivitas (v33.11.P1)** dengan dukungan **Wawasan Pintar Bergilir (*Smart Insights*)**, **Kalender Aktivitas Terpadu**, **Speed-Dial Floating Action Button (FAB)**, **Prediksi Tabungan Cerdas**, **3 Home Screen Widgets Android bawaan**, keamanan tangguh **PIN 4-Digit & Kunci Pola (Pattern Lock 3x3)**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.11.P2)** dengan dukungan **Kalender Terpadu & Rekap Harian 360°**, **Wawasan Pintar Bergilir (*Smart Insights*)**, **Speed-Dial Floating Action Button (FAB)**, **Prediksi Tabungan Cerdas**, **3 Home Screen Widgets Android bawaan**, keamanan tangguh **PIN 4-Digit & Kunci Pola (Pattern Lock 3x3)**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -14,14 +14,32 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
 | 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer mandiri 1-klik cepat tanpa login |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.11.P1 |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.11.P2 |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (OTA Realtime) |
 
 ---
 
-## 🌟 Fitur Baru Generasi v33.11.P1
+## 🌟 Fitur Baru Generasi v33.11.P2
 
-### 1. 💡 Wawasan Pintar Bergilir di Kartu Saldo (*Rotating Smart Insights*)
+### 1. 📅 Penyatuan Kalender Terpadu & Rekap Harian 360° (*Unified 360° Calendar*)
+- **Satu Kalender Holistik**: Menggabungkan Kalender Rekap Harian (jurnal catatan & rating bintang kepuasan ⭐) dengan Kalender Aktivitas & Keuangan (arus kas & tenggat tugas) ke dalam satu antarmuka modal interaktif yang terpadu.
+- **4 Indikator Titik Visual Interaktif (*Dot Indicators*)**:
+  - 🟢 **Titik Hijau**: Ada transaksi pemasukan uang pada tanggal tersebut.
+  - 🔴 **Titik Merah**: Ada transaksi pengeluaran uang pada tanggal tersebut.
+  - 🔵 **Titik Biru**: Ada tugas dengan tenggat waktu (*deadline*) pada tanggal tersebut.
+  - 🟡 **Titik Amber**: Ada catatan refleksi & rekap jurnal harian pada tanggal tersebut.
+- **Panel Rincian Tanggal Terpadu (*Unified Daily Detail Panel*)**:
+  - **Seksi Jurnal Harian**: Menampilkan kartu refleksi harian berwarna amber dengan rating bintang dan tombol pintasan `+ Tulis Jurnal` jika hari ini belum diisi.
+  - **Seksi Transaksi Keuangan**: Menampilkan rincian transaksi kas Masuk (`+`) & Keluar (`-`) lengkap dengan subtotal harian.
+  - **Seksi Tugas Jatuh Tempo**: Menampilkan daftar tugas jatuh tempo pada tanggal tersebut lengkap dengan lencana prioritas dan status penyelesaian.
+- **Arsitektur Ramping & Efisien**: Menghapus modal lama `#calendar-modal` dan fungsi-fungsi redundan, menghemat memori WebView dan meningkatkan responsivitas dasbor.
+
+### 2. 📝 Tombol Tunggal "+ Tugas Baru" & Auto-Minimize Form Tugas
+- **Header Tab Tugas**: Tombol kapsul tunggal **`[+ Tugas Baru]`** di samping judul *Manajemen Tugas* untuk membuka form input secara langsung tanpa lewat dock bawah.
+- **Tombol Berubah Menjadi Minimize**: Saat form terbuka, tombol di kanan atas header ini otomatis berubah menjadi **`[ Minimize ▲ ]`** untuk melipat form kapan saja agar layar tetap leluasa.
+- **Card Bersih & Rapi**: Card input tugas tetap bersih dan elegan tanpa tombol ganda di dalamnya.
+
+### 3. 💡 Wawasan Pintar Bergilir di Kartu Saldo (*Rotating Smart Insights*)
 - **Animasi Bergilir Halus**:
   - Muncul anggun di bawah nominal saldo: menampilkan wawasan **Finansial** (kategori pengeluaran terbesar / total pemasukan) selama 3.5 detik dengan *fade-out* lembut.
   - Beralih menampilkan wawasan **Produktivitas** (persentase tugas tuntas / pengingat tugas mendekati tenggat) selama 3.5 detik, lalu menyusut (*smooth collapse*) rapi.
@@ -29,12 +47,12 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 - **Kondisi Tanpa Aktivitas**: Jika transaksi dan tugas kosong, wawasan tidak akan muncul sama sekali.
 - **Putar Ulang Interaktif**: Cukup **ketuk angka nominal saldo `Rp`** atau kapsul wawasan untuk memutar ulang wawasan pintar kapan saja!
 
-### 2. 🎯 Prediksi Cerdas Target Tabungan (*Smart Goal Estimator*)
+### 4. 🎯 Prediksi Cerdas Target Tabungan (*Smart Goal Estimator*)
 - Perhitungan otomatis sisa nominal yang belum terkumpul pada setiap impian/tabungan.
 - Menampilkan lencana estimasi pintar: *"Sisa Rp 600.000 lagi (~6x nabung Rp 100rb)"* atau *"Sisa Rp 150.000 lagi (~3x nabung Rp 50rb)"*.
 - Tombol langsung menuju simulasi impian (*Simulasi ➔*).
 
-### 3. ⚡ Tombol Melayang Aksi Cepat (*Speed-Dial Floating Action Button / FAB*)
+### 5. ⚡ Tombol Melayang Aksi Cepat (*Speed-Dial Floating Action Button / FAB*)
 - Tombol bulat `+` di kanan dok navigasi bawah.
 - Saat diketuk, tombol berputar 45° menjadi `✕` dan memunculkan 4 pintasan aksi cepat:
   1. 📝 **Tugas Baru**: Fokus langsung ke input nama tugas.
@@ -42,25 +60,11 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
   3. 💰 **Catat Pemasukan**: Beralih ke tab keuangan dan fokus ke input nominal pemasukan.
   4. ⚡ **Catatan Kilat**: Membuka lembar catatan kilat dari mana saja.
 
-### 4. 📅 Kalender Aktivitas & Keuangan Terpadu (*Integrated Activity Calendar*)
-- Akses via tombol kalender `[ 📅 ]` di header atas.
-- Tampilan bulanan interaktif dengan navigasi bulan `<` dan `>`.
-- **Indikator Titik Warna Realtime**:
-  - 🟢 **Titik Hijau**: Ada transaksi pemasukan pada tanggal tersebut.
-  - 🔴 **Titik Merah**: Ada transaksi pengeluaran pada tanggal tersebut.
-  - 🔵 **Titik Biru**: Ada tugas dengan tenggat waktu (*deadline*) pada tanggal tersebut.
-- Panel rincian harian menampilkan daftar lengkap transaksi dan tugas pada tanggal yang dipilih.
-
-### 5. 📝 Tombol Tunggal "+ Tugas Baru" & Minimize Form Tugas
-- **Header Tab Tugas**: Tombol kapsul tunggal **`[+ Tugas Baru]`** di samping judul *Manajemen Tugas* untuk membuka form input secara langsung tanpa lewat dock bawah.
-- **Tombol Berubah Menjadi Minimize**: Saat form terbuka, tombol di kanan atas header ini otomatis berubah menjadi **`[ Minimize ▲ ]`** untuk melipat form kapan saja agar layar tetap leluasa.
-- **Card Bersih & Rapi**: Card input tugas tetap bersih dan elegan tanpa tombol ganda di dalamnya.
-
 ### 6. 🔕 Penonaktifan Respon Getar (*Haptic Feedback Fully Removed*)
 - Seluruh fungsi getaran fisik dinonaktifkan sepenuhnya demi operasional dasbor yang hening, mulus, dan nyaman di semua perangkat.
 
 ### 7. 🏷️ Standarisasi Penomoran Versi Berjenjang
-- Format resmi: `[Major].[Standar].[Minor/Patch]` (contoh: **`v33.11.P1`**).
+- Format resmi: `[Major].[Standar].[Minor/Patch]` (contoh: **`v33.11.P2`**).
   - **Major (`33`)**: Pembaruan arsitektur besar.
   - **Standar (`11`)**: Pembaruan penambahan fitur fungsional.
   - **Minor/Patch (`P1`, `P2`, dst.)**: Pembaruan perbaikan bug dan penyesuaian UX.
@@ -159,5 +163,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.11.P1 • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.11.P2 • Era Super-App Finansial & Produktivitas</b></sub>
 </div>

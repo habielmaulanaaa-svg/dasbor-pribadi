@@ -644,7 +644,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.11.P1</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.11.P2</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -680,10 +680,10 @@
                 <div class="w-9 h-9 rounded-xl bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-500 shadow-inner"><i class="fas fa-book text-sm"></i></div>
                 Jurnal Harian & Mood
             </button>
-            <!-- 3. Kalender Rekap Tahunan -->
-            <button type="button" onclick="openCalendarModal()" class="w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-primary-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
+            <!-- 3. Kalender Terpadu & Rekap -->
+            <button type="button" onclick="toggleSidebar(); openActivityCalendar();" class="w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-primary-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
                 <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-600 shadow-inner"><i class="fas fa-calendar-alt text-sm"></i></div>
-                Kalender Rekap Tahunan
+                Kalender Terpadu &amp; Rekap
             </button>
             <!-- 4. Atur Widget Beranda -->
             <button type="button" onclick="openWidgetManagerModal()" class="w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-primary-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
@@ -722,7 +722,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.11.P1 (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.11.P2 (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -907,10 +907,42 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P1</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P2</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v33.11.P2 -->
+                <div class="p-3.5 bg-gradient-to-br from-amber-50 via-emerald-50 to-teal-50 dark:from-amber-950/40 dark:via-emerald-950/30 dark:to-teal-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-calendar-star text-amber-500 text-xs"></i> Update Minor • v33.11.P2</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-amber-500 to-emerald-600 text-white px-2 py-0.5 rounded-full shadow-xs">Unified Calendar 360°</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Penyatuan Kalender Terpadu &amp; Rekap Harian 360°, 4 Indikator Titik Visual, dan Panel Rincian Terpadu</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
+                            <i class="fas fa-calendar-alt text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Kalender Terpadu 360°:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Menggabungkan Kalender Rekap Harian dan Kalender Aktivitas &amp; Keuangan ke dalam satu antarmuka yang lengkap dan efisien.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
+                            <i class="fas fa-circle-dot text-amber-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">4 Indikator Titik Visual:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Tiap tanggal kini menampilkan indikator multi-titik: 🟢 Pemasukan, 🔴 Pengeluaran, 🔵 Deadline Tugas, dan 🟡 Jurnal Rekap Harian.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
+                            <i class="fas fa-newspaper text-teal-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Panel Rincian Terpadu:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Menampilkan Jurnal Harian dengan tombol pintasan &quot;+ Tulis Jurnal&quot;, rincian transaksi keuangan ber-subtotal, serta daftar tugas jatuh tempo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v33.11.P1 -->
                 <div class="p-3.5 bg-gradient-to-br from-primary-50 via-indigo-50 to-purple-50 dark:from-primary-950/40 dark:via-indigo-950/30 dark:to-purple-900/20 rounded-2xl border border-primary-200 dark:border-primary-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -1339,41 +1371,6 @@
         </div>
     </div>
 
-    <!-- Bottom Sheet: Kalender Rekap Tahunan -->
-    <div id="calendar-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
-        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[92vh] flex flex-col overflow-y-auto">
-            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
-            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-calendar-alt text-emerald-500"></i>
-                    <h3 id="cal-month-year-title" class="font-bold text-sm text-slate-800 dark:text-white">Kalender Rekap</h3>
-                </div>
-                <button type="button" onclick="closeBottomSheet('calendar-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
-            </div>
-
-            <div class="flex justify-between items-center mb-3">
-                <button type="button" onclick="prevCalMonth()" class="text-xs bg-slate-100 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 px-3 py-1 rounded-xl font-bold hover:bg-slate-200 dark:hover:bg-[#313f52]"><i class="fas fa-chevron-left"></i></button>
-                <span id="cal-nav-label" class="text-xs font-bold text-slate-700 dark:text-slate-200">Agustus 2026</span>
-                <button type="button" onclick="nextCalMonth()" class="text-xs bg-slate-100 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 px-3 py-1 rounded-xl font-bold hover:bg-slate-200 dark:hover:bg-[#313f52]"><i class="fas fa-chevron-right"></i></button>
-            </div>
-
-            <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-slate-400 uppercase mb-1">
-                <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
-            </div>
-
-            <div id="cal-grid-days" class="grid grid-cols-7 gap-1.5 mb-3"></div>
-
-            <div id="cal-detail-card" class="p-3 bg-slate-50 dark:bg-[#242f3d]/40 rounded-2xl border border-slate-200 dark:border-[#313f52] hidden text-xs mb-2">
-                <div class="flex justify-between items-center mb-1">
-                    <span id="cal-detail-date" class="font-bold text-primary-600 dark:text-primary-400 text-[11px]">Catatan:</span>
-                    <span id="cal-detail-rating" class="text-amber-400">⭐⭐⭐⭐⭐</span>
-                </div>
-                <p id="cal-detail-text" class="text-slate-600 dark:text-slate-300 font-semibold leading-snug"></p>
-            </div>
-
-            <button type="button" onclick="closeBottomSheet('calendar-modal')" class="w-full bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-200 py-2.5 rounded-2xl text-xs font-bold hover:bg-slate-200 dark:hover:bg-[#313f52] transition-colors mt-auto">Tutup Kalender</button>
-        </div>
-    </div>
 
     <!-- Bottom Sheet: Kilas Balik Tahunan -->
     <div id="wrapped-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
@@ -1500,7 +1497,7 @@
             
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
-                    <i class="fas fa-calendar-alt text-primary-500"></i> Kalender Aktivitas &amp; Keuangan
+                    <i class="fas fa-calendar-alt text-primary-500"></i> Kalender Terpadu &amp; Rekap
                 </h3>
                 <button type="button" onclick="closeBottomSheet('activity-calendar-modal')" class="text-slate-400 hover:text-slate-600 p-1">
                     <i class="fas fa-times"></i>
@@ -1519,10 +1516,11 @@
             </div>
 
             <!-- Legenda Titik -->
-            <div class="flex items-center justify-center gap-4 text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-2">
+            <div class="flex items-center justify-center gap-3 text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-2 flex-wrap">
                 <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Pemasukan</span>
                 <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Pengeluaran</span>
                 <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-sky-500"></span> Deadline</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Jurnal Rekap</span>
             </div>
 
             <!-- Grid Hari -->
@@ -2550,8 +2548,6 @@
         let selectedFormWalletKeluar = 'tunai';
         let activeWalletFilter = 'semua';
         let enteredLockPin = '';
-        let calCurrentYear = new Date().getFullYear();
-        let calCurrentMonth = new Date().getMonth();
         let lastToggledId = null;
         let searchQueryTugas = '';
         let searchQueryTransaksi = '';
@@ -4112,13 +4108,10 @@
         function openCalendarModal() {
             var sb = document.getElementById('sidebar');
             if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
-            calCurrentYear = new Date().getFullYear();
-            calCurrentMonth = new Date().getMonth();
-            renderCalendarView();
-            openBottomSheet('calendar-modal');
+            openActivityCalendar();
         }
 
-        function closeCalendarModal() { closeBottomSheet('calendar-modal'); }
+        function closeCalendarModal() { closeBottomSheet('activity-calendar-modal'); }
 
         function openYearlyWrapped() {
             var sb = document.getElementById('sidebar');
@@ -5475,11 +5468,15 @@
         // ==========================================
         // FITUR V33.11: KALENDER AKTIVITAS & KEUANGAN TERPADU
         // ==========================================
+        // FITUR: KALENDER TERPADU 360° (KEUANGAN, TUGAS, & REKAP JURNAL)
+        // ==========================================
         let actCalYear = new Date().getFullYear();
         let actCalMonth = new Date().getMonth();
         let actCalSelectedDateIso = new Date().toISOString().slice(0, 10);
 
         function openActivityCalendar() {
+            var sb = document.getElementById('sidebar');
+            if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
             actCalYear = new Date().getFullYear();
             actCalMonth = new Date().getMonth();
             actCalSelectedDateIso = new Date().toISOString().slice(0, 10);
@@ -5513,6 +5510,7 @@
 
             var txs = dataState.transaksi || [];
             var tasks = dataState.tugas || [];
+            var rekaps = dataState.rekapHarian || [];
 
             var html = '';
             for (var i = 0; i < firstDayIndex; i++) {
@@ -5531,6 +5529,7 @@
                 var hasIncome = dayTxs.some(t => t.jenis === 'masuk');
                 var hasExpense = dayTxs.some(t => t.jenis === 'keluar');
                 var hasTaskDl = tasks.some(t => t.deadline === dateIso);
+                var hasRekap = rekaps.some(r => r.tanggal === dateIso);
 
                 var borderClass = isSelected 
                     ? 'ring-2 ring-primary-500 bg-primary-50/70 dark:bg-primary-950/40 text-primary-600 dark:text-primary-300 font-black' 
@@ -5540,9 +5539,10 @@
                     <button type="button" onclick="selectCalendarDate('${dateIso}')" class="h-11 rounded-2xl flex flex-col items-center justify-center p-0.5 transition-all text-xs ${borderClass} relative">
                         <span>${day}</span>
                         <div class="flex items-center gap-0.5 mt-0.5 h-1.5">
-                            ${hasIncome ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>' : ''}
-                            ${hasExpense ? '<span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>' : ''}
-                            ${hasTaskDl ? '<span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>' : ''}
+                            ${hasIncome ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500" title="Pemasukan"></span>' : ''}
+                            ${hasExpense ? '<span class="w-1.5 h-1.5 rounded-full bg-rose-500" title="Pengeluaran"></span>' : ''}
+                            ${hasTaskDl ? '<span class="w-1.5 h-1.5 rounded-full bg-sky-500" title="Deadline Tugas"></span>' : ''}
+                            ${hasRekap ? '<span class="w-1.5 h-1.5 rounded-full bg-amber-400" title="Jurnal Rekap"></span>' : ''}
                         </div>
                     </button>
                 `;
@@ -5568,54 +5568,110 @@
 
             var txs = (dataState.transaksi || []).filter(t => t.isoDate === actCalSelectedDateIso);
             var tasks = (dataState.tugas || []).filter(t => t.deadline === actCalSelectedDateIso);
+            var rekap = (dataState.rekapHarian || []).find(r => r.tanggal === actCalSelectedDateIso);
+            var todayIso = new Date().toISOString().slice(0, 10);
+            var isToday = (actCalSelectedDateIso === todayIso);
 
-            var total = txs.length + tasks.length;
-            countEl.innerText = `${total} Aktivitas`;
-
-            if (total === 0) {
-                detailsEl.innerHTML = '<p class="text-xs text-slate-400 font-bold text-center py-4">Tidak ada aktivitas tercatat pada tanggal ini.</p>';
-                return;
-            }
+            var total = txs.length + tasks.length + (rekap ? 1 : 0);
+            countEl.innerText = `${total} Catatan & Aktivitas`;
 
             var html = '';
-            txs.forEach(t => {
-                var isMasuk = (t.jenis === 'masuk');
-                html += `
-                    <div class="p-2.5 rounded-xl bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52] flex items-center justify-between shadow-xs">
-                        <div class="flex items-center gap-2 min-w-0">
-                            <span class="w-6 h-6 rounded-lg ${isMasuk ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'} flex items-center justify-center text-[10px] shrink-0">
-                                <i class="fas ${isMasuk ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
-                            </span>
-                            <div class="min-w-0">
-                                <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${escapeHtml(t.catatan || t.kategori)}</div>
-                                <div class="text-[10px] text-slate-400">${escapeHtml(t.kategori)} • ${escapeHtml(t.walletId || 'tunai')}</div>
-                            </div>
-                        </div>
-                        <span class="text-xs font-black shrink-0 ${isMasuk ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
-                            ${isMasuk ? '+' : '-'}${formatRupiah(t.nominal)}
-                        </span>
-                    </div>
-                `;
-            });
 
-            tasks.forEach(t => {
+            // 1. Seksi Jurnal & Refleksi Harian
+            if (rekap) {
+                var ratingStars = '⭐'.repeat(rekap.rating || 5);
                 html += `
-                    <div class="p-2.5 rounded-xl bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52] flex items-center justify-between shadow-xs">
-                        <div class="flex items-center gap-2 min-w-0">
-                            <span class="w-6 h-6 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center text-[10px] shrink-0">
-                                <i class="fas fa-tasks"></i>
+                    <div class="p-3 rounded-2xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border border-amber-300 dark:border-amber-700/60 shadow-xs mb-2">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
+                                <i class="fas fa-book-open text-xs text-amber-500"></i> Jurnal &amp; Refleksi Harian
                             </span>
-                            <div class="min-w-0">
-                                <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate ${t.selesai ? 'line-through text-slate-400' : ''}">${escapeHtml(t.nama)}</div>
-                                <div class="text-[10px] text-sky-500 font-semibold">Deadline • Prioritas ${t.prioritas || 'sedang'}</div>
-                            </div>
+                            <span class="text-xs" title="Rating Hari">${ratingStars}</span>
                         </div>
-                        <span class="text-[10px] px-2 py-0.5 rounded-md font-bold ${t.selesai ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'}">
-                            ${t.selesai ? 'Selesai' : 'Belum'}
-                        </span>
+                        <p class="text-xs text-slate-700 dark:text-slate-200 font-semibold leading-relaxed whitespace-pre-wrap">${escapeHtml(rekap.isi || 'Tidak ada catatan.')}</p>
                     </div>
                 `;
-            });
+            } else if (isToday) {
+                html += `
+                    <div class="p-2.5 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-dashed border-amber-300 dark:border-amber-800/60 flex items-center justify-between gap-2 mb-2">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span class="w-6 h-6 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xs shrink-0"><i class="fas fa-pen"></i></span>
+                            <span class="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">Belum ada jurnal hari ini</span>
+                        </div>
+                        <button type="button" onclick="closeBottomSheet('activity-calendar-modal'); openRekapModal();" class="px-2.5 py-1 rounded-xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-white text-xs font-bold shadow-xs transition-all shrink-0">
+                            + Tulis Jurnal
+                        </button>
+                    </div>
+                `;
+            }
+
+            // 2. Seksi Transaksi Keuangan
+            if (txs.length > 0) {
+                var totalMasuk = txs.filter(t => t.jenis === 'masuk').reduce((a,b) => a + Number(b.nominal || 0), 0);
+                var totalKeluar = txs.filter(t => t.jenis === 'keluar').reduce((a,b) => a + Number(b.nominal || 0), 0);
+
+                html += `
+                    <div class="flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1 pt-1 pb-0.5">
+                        <span>Transaksi Keuangan (${txs.length})</span>
+                        <div class="flex items-center gap-2">
+                            ${totalMasuk > 0 ? `<span class="text-emerald-500 font-bold">+${formatRupiah(totalMasuk)}</span>` : ''}
+                            ${totalKeluar > 0 ? `<span class="text-rose-500 font-bold">-${formatRupiah(totalKeluar)}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+
+                txs.forEach(t => {
+                    var isMasuk = (t.jenis === 'masuk');
+                    html += `
+                        <div class="p-2.5 rounded-xl bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52] flex items-center justify-between shadow-xs">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="w-6 h-6 rounded-lg ${isMasuk ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'} flex items-center justify-center text-[10px] shrink-0">
+                                    <i class="fas ${isMasuk ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
+                                </span>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${escapeHtml(t.catatan || t.kategori)}</div>
+                                    <div class="text-[10px] text-slate-400">${escapeHtml(t.kategori)} • ${escapeHtml(t.walletId || 'tunai')}</div>
+                                </div>
+                            </div>
+                            <span class="text-xs font-black shrink-0 ${isMasuk ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
+                                ${isMasuk ? '+' : '-'}${formatRupiah(t.nominal)}
+                            </span>
+                        </div>
+                    `;
+                });
+            }
+
+            // 3. Seksi Tugas & Deadline
+            if (tasks.length > 0) {
+                html += `
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1 pt-1 pb-0.5">
+                        Tugas Jatuh Tempo (${tasks.length})
+                    </div>
+                `;
+
+                tasks.forEach(t => {
+                    html += `
+                        <div class="p-2.5 rounded-xl bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52] flex items-center justify-between shadow-xs">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="w-6 h-6 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center text-[10px] shrink-0">
+                                    <i class="fas fa-tasks"></i>
+                                </span>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate ${t.selesai ? 'line-through text-slate-400' : ''}">${escapeHtml(t.nama)}</div>
+                                    <div class="text-[10px] text-sky-500 font-semibold">Deadline • Prioritas ${t.prioritas || 'sedang'}</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] px-2 py-0.5 rounded-md font-bold ${t.selesai ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'}">
+                                ${t.selesai ? 'Selesai' : 'Belum'}
+                            </span>
+                        </div>
+                    `;
+                });
+            }
+
+            if (total === 0 && !isToday) {
+                html = '<p class="text-xs text-slate-400 font-bold text-center py-4">Tidak ada aktivitas atau catatan tercatat pada tanggal ini.</p>';
+            }
 
             detailsEl.innerHTML = html;
         }
@@ -5932,86 +5988,6 @@
             closeBottomSheet('rekap-modal');
             simpanData();
             triggerDynamicIsland("Rekap Harian", "Catatan hari ini tersimpan! ⭐", "fas fa-calendar-check", "bg-emerald-500/20 text-emerald-400");
-        }
-
-        function prevCalMonth() {
-            calCurrentMonth--;
-            if (calCurrentMonth < 0) { calCurrentMonth = 11; calCurrentYear--; }
-            renderCalendarView();
-        }
-
-        function nextCalMonth() {
-            calCurrentMonth++;
-            if (calCurrentMonth > 11) { calCurrentMonth = 0; calCurrentYear++; }
-            renderCalendarView();
-        }
-
-        function renderCalendarView() {
-            var monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-            var navLabel = document.getElementById('cal-nav-label');
-            var gridEl = document.getElementById('cal-grid-days');
-            var detailCard = document.getElementById('cal-detail-card');
-            if (detailCard) detailCard.classList.add('hidden');
-
-            if (navLabel) navLabel.innerText = `${monthNames[calCurrentMonth]} ${calCurrentYear}`;
-            if (!gridEl) return;
-
-            var firstDayIndex = new Date(calCurrentYear, calCurrentMonth, 1).getDay();
-            var totalDays = new Date(calCurrentYear, calCurrentMonth + 1, 0).getDate();
-            var todayStr = getRekapDateString();
-
-            var rekapMap = {};
-            (dataState.rekapHarian || []).forEach(r => { rekapMap[r.tanggal] = r; });
-
-            var cellsHtml = '';
-            for (var i = 0; i < firstDayIndex; i++) {
-                cellsHtml += `<div class="aspect-square w-full"></div>`;
-            }
-
-            for (var day = 1; day <= totalDays; day++) {
-                var mStr = String(calCurrentMonth + 1).padStart(2, '0');
-                var dStr = String(day).padStart(2, '0');
-                var dateIso = `${calCurrentYear}-${mStr}-${dStr}`;
-                var hasRekap = !!rekapMap[dateIso];
-                var isToday = (dateIso === todayStr);
-
-                var baseClass = "aspect-square w-full rounded-2xl flex flex-col items-center justify-center text-xs font-bold transition-all relative cursor-pointer ";
-                if (hasRekap) {
-                    baseClass += "border-2 border-primary-500 bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-300 font-black shadow-sm";
-                } else if (isToday) {
-                    baseClass += "border border-slate-300 dark:border-[#313f52] bg-slate-100 dark:bg-[#242f3d] text-slate-800 dark:text-white";
-                } else {
-                    baseClass += "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#242f3d]";
-                }
-
-                cellsHtml += `<button type="button" onclick="showCalDateDetail('${dateIso}')" class="${baseClass}">
-                    <span>${day}</span>
-                    ${hasRekap ? '<span class="w-1.5 h-1.5 rounded-full bg-primary-500 mt-0.5"></span>' : ''}
-                </button>`;
-            }
-
-            gridEl.innerHTML = cellsHtml;
-        }
-
-        function showCalDateDetail(dateIso) {
-            var rekap = (dataState.rekapHarian || []).find(r => r.tanggal === dateIso);
-            var detailCard = document.getElementById('cal-detail-card');
-            var dateEl = document.getElementById('cal-detail-date');
-            var textEl = document.getElementById('cal-detail-text');
-            var ratingEl = document.getElementById('cal-detail-rating');
-            if (!detailCard) return;
-
-            if (rekap) {
-                var dObj = new Date(dateIso);
-                var formatted = dObj.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-                if (dateEl) dateEl.innerText = formatted;
-                if (textEl) textEl.innerText = rekap.isi || 'Tidak ada catatan.';
-                if (ratingEl) ratingEl.innerText = '⭐'.repeat(rekap.rating || 5);
-                detailCard.classList.remove('hidden');
-            } else {
-                detailCard.classList.add('hidden');
-                triggerDynamicIsland("Kalender", "Tidak ada catatan pada tanggal ini", "fas fa-info-circle", "bg-slate-500/20 text-slate-400");
-            }
         }
 
         // --- CRUD TUGAS ---
@@ -7871,7 +7847,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v33.11.P1';
+        const CURRENT_APP_VERSION = 'v33.11.P2';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
