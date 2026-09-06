@@ -1566,11 +1566,11 @@
         </div>
     </div>
 
-    <!-- FULLSCREEN APP LOCK SCREEN OVERLAY -->
-    <div id="app-lock-screen" class="hidden fixed inset-0 z-[999] bg-slate-950/95 backdrop-blur-3xl flex flex-col items-center justify-between p-6 select-none transition-opacity duration-300">
+    <!-- FULLSCREEN APP LOCK SCREEN OVERLAY (THEME AWARE: LIGHT & DARK) -->
+    <div id="app-lock-screen" class="hidden fixed inset-0 z-[999] bg-slate-100/95 dark:bg-slate-950/95 backdrop-blur-3xl flex flex-col items-center justify-between p-6 select-none transition-opacity duration-300">
         <div class="w-full flex justify-end pt-2">
-            <div class="flex items-center gap-1.5 px-3 py-1 bg-white/10 rounded-full text-slate-300 text-[10px] font-bold">
-                <i class="fas fa-shield-alt text-emerald-400"></i> Dasbor Terproteksi
+            <div class="flex items-center gap-1.5 px-3 py-1 bg-white/80 dark:bg-white/10 rounded-full text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-[10px] font-bold shadow-xs">
+                <i class="fas fa-shield-alt text-emerald-500 dark:text-emerald-400"></i> Dasbor Terproteksi
             </div>
         </div>
 
@@ -1578,40 +1578,40 @@
             <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-primary-600 to-indigo-600 flex items-center justify-center text-white text-3xl shadow-2xl shadow-primary-500/30 mb-4 animate-pulse">
                 <i id="lock-screen-main-icon" class="fas fa-shield-alt"></i>
             </div>
-            <h2 class="text-xl font-black text-white">Dasbor Pribadi</h2>
-            <p id="lock-screen-prompt" class="text-xs text-slate-400 mt-1 font-medium">Buka kunci untuk melanjutkan</p>
+            <h2 class="text-xl font-black text-slate-800 dark:text-white">Dasbor Pribadi</h2>
+            <p id="lock-screen-prompt" class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Buka kunci untuk melanjutkan</p>
 
             <!-- 4 Bulatan Indikator PIN (Khusus Mode PIN) -->
             <div id="lock-pin-dots-container" class="flex items-center gap-4 my-6">
-                <div id="pin-dot-1" class="w-3.5 h-3.5 rounded-full border-2 border-slate-500 transition-all duration-200"></div>
-                <div id="pin-dot-2" class="w-3.5 h-3.5 rounded-full border-2 border-slate-500 transition-all duration-200"></div>
-                <div id="pin-dot-3" class="w-3.5 h-3.5 rounded-full border-2 border-slate-500 transition-all duration-200"></div>
-                <div id="pin-dot-4" class="w-3.5 h-3.5 rounded-full border-2 border-slate-500 transition-all duration-200"></div>
+                <div id="pin-dot-1" class="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent transition-all duration-200"></div>
+                <div id="pin-dot-2" class="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent transition-all duration-200"></div>
+                <div id="pin-dot-3" class="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent transition-all duration-200"></div>
+                <div id="pin-dot-4" class="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent transition-all duration-200"></div>
             </div>
 
             <!-- Canvas Kunci Pola (Khusus Mode Pola) -->
             <div id="lock-pattern-container" class="hidden my-2">
-                <canvas id="lock-pattern-canvas" width="260" height="260" class="touch-none mx-auto bg-white/5 rounded-3xl border border-white/10 shadow-2xl"></canvas>
+                <canvas id="lock-pattern-canvas" width="260" height="260" class="touch-none mx-auto bg-white dark:bg-[#17212b]/80 rounded-3xl border border-slate-200 dark:border-[#313f52]/80 shadow-xl dark:shadow-2xl"></canvas>
             </div>
         </div>
 
         <!-- Keypad Angka Numerik 1-9, Clear (C), 0, Backspace (Khusus Mode PIN) -->
         <div id="lock-pin-keypad" class="w-full max-w-xs grid grid-cols-3 gap-3 pb-6">
-            <button type="button" onclick="keypadPressDigit('1')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">1</button>
-            <button type="button" onclick="keypadPressDigit('2')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">2</button>
-            <button type="button" onclick="keypadPressDigit('3')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">3</button>
+            <button type="button" onclick="keypadPressDigit('1')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">1</button>
+            <button type="button" onclick="keypadPressDigit('2')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">2</button>
+            <button type="button" onclick="keypadPressDigit('3')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">3</button>
 
-            <button type="button" onclick="keypadPressDigit('4')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">4</button>
-            <button type="button" onclick="keypadPressDigit('5')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">5</button>
-            <button type="button" onclick="keypadPressDigit('6')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">6</button>
+            <button type="button" onclick="keypadPressDigit('4')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">4</button>
+            <button type="button" onclick="keypadPressDigit('5')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">5</button>
+            <button type="button" onclick="keypadPressDigit('6')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">6</button>
 
-            <button type="button" onclick="keypadPressDigit('7')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">7</button>
-            <button type="button" onclick="keypadPressDigit('8')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">8</button>
-            <button type="button" onclick="keypadPressDigit('9')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">9</button>
+            <button type="button" onclick="keypadPressDigit('7')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">7</button>
+            <button type="button" onclick="keypadPressDigit('8')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">8</button>
+            <button type="button" onclick="keypadPressDigit('9')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">9</button>
 
-            <button type="button" onclick="keypadClear()" class="h-14 rounded-2xl bg-white/5 hover:bg-white/15 active:scale-95 text-slate-400 hover:text-white font-bold text-base flex items-center justify-center transition-transform" title="Bersihkan">C</button>
-            <button type="button" onclick="keypadPressDigit('0')" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:bg-white/30 active:scale-95 text-white font-black text-xl flex items-center justify-center transition-transform">0</button>
-            <button type="button" onclick="keypadBackspace()" class="h-14 rounded-2xl bg-white/10 hover:bg-white/20 active:scale-95 text-white font-bold text-lg flex items-center justify-center transition-transform" title="Hapus"><i class="fas fa-backspace"></i></button>
+            <button type="button" onclick="keypadClear()" class="h-14 rounded-2xl bg-slate-100/80 dark:bg-[#17212b]/40 hover:bg-slate-200/80 dark:hover:bg-[#242f3d] active:scale-95 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-bold text-base flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/50" title="Bersihkan">C</button>
+            <button type="button" onclick="keypadPressDigit('0')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">0</button>
+            <button type="button" onclick="keypadBackspace()" class="h-14 rounded-2xl bg-slate-100/80 dark:bg-[#17212b]/60 hover:bg-slate-200/80 dark:hover:bg-[#242f3d] active:scale-95 text-slate-700 dark:text-slate-200 font-bold text-lg flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80" title="Hapus"><i class="fas fa-backspace"></i></button>
         </div>
     </div>
 
@@ -2675,14 +2675,15 @@
             function render() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 
-                var color = '#3b82f6';
-                var glowColor = 'rgba(59, 130, 246, 0.35)';
+                var isDark = document.documentElement.classList.contains('dark');
+                var color = isDark ? '#38bdf8' : '#0284c7';
+                var glowColor = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(2, 132, 199, 0.25)';
                 if (lineState === 'success') {
                     color = '#10b981';
-                    glowColor = 'rgba(16, 185, 129, 0.4)';
+                    glowColor = 'rgba(16, 185, 129, 0.35)';
                 } else if (lineState === 'error') {
                     color = '#f43f5e';
-                    glowColor = 'rgba(244, 63, 94, 0.4)';
+                    glowColor = 'rgba(244, 63, 94, 0.35)';
                 }
 
                 // 1. Gambar Garis Penghubung antar Titik
@@ -2727,7 +2728,7 @@
                         // Titik Tenang
                         ctx.beginPath();
                         ctx.arc(dot.x, dot.y, 5, 0, Math.PI * 2);
-                        ctx.fillStyle = '#64748b';
+                        ctx.fillStyle = isDark ? '#64748b' : '#94a3b8';
                         ctx.fill();
                     }
                 }
@@ -2980,7 +2981,10 @@
                 if (dotsContainer) dotsContainer.classList.add('hidden');
                 if (keypadContainer) keypadContainer.classList.add('hidden');
                 if (patternContainer) patternContainer.classList.remove('hidden');
-                if (prompt) prompt.innerText = "Tarik pola Anda untuk membuka";
+                if (prompt) {
+                    prompt.innerText = "Tarik pola Anda untuk membuka";
+                    prompt.className = "text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium";
+                }
 
                 screen.classList.remove('hidden');
                 setTimeout(initPatternUnlockCanvas, 80);
@@ -2988,7 +2992,10 @@
                 if (dotsContainer) dotsContainer.classList.remove('hidden');
                 if (keypadContainer) keypadContainer.classList.remove('hidden');
                 if (patternContainer) patternContainer.classList.add('hidden');
-                if (prompt) prompt.innerText = "Masukkan 4-digit PIN Anda untuk membuka";
+                if (prompt) {
+                    prompt.innerText = "Masukkan 4-digit PIN Anda untuk membuka";
+                    prompt.className = "text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium";
+                }
 
                 enteredLockPin = '';
                 updatePinDots();
@@ -3020,12 +3027,12 @@
                     callback('error');
                     var prompt = document.getElementById('lock-screen-prompt');
                     if (prompt) {
-                        prompt.innerText = "Pola salah, silakan coba lagi!";
-                        prompt.className = "text-xs text-rose-400 mt-1 font-bold animate-wiggle";
+                        prompt.innerText = "Pola salah, coba lagi";
+                        prompt.className = "text-xs text-rose-500 dark:text-rose-400 mt-1 font-bold";
                         setTimeout(function() {
                             prompt.innerText = "Tarik pola Anda untuk membuka";
-                            prompt.className = "text-xs text-slate-400 mt-1 font-medium";
-                        }, 1200);
+                            prompt.className = "text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium";
+                        }, 1400);
                     }
                     setTimeout(function() {
                         if (patternUnlockCtrl) patternUnlockCtrl.reset();
@@ -3072,9 +3079,9 @@
                 var dot = document.getElementById('pin-dot-' + i);
                 if (dot) {
                     if (i <= enteredLockPin.length) {
-                        dot.className = "w-3.5 h-3.5 rounded-full bg-primary-500 border-2 border-primary-400 scale-125 transition-all duration-200";
+                        dot.className = "w-3.5 h-3.5 rounded-full bg-primary-500 border-2 border-primary-500 scale-125 shadow-sm shadow-primary-500/40 transition-all duration-200";
                     } else {
-                        dot.className = "w-3.5 h-3.5 rounded-full border-2 border-slate-500 scale-100 transition-all duration-200";
+                        dot.className = "w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent scale-100 transition-all duration-200";
                     }
                 }
             }
@@ -3098,12 +3105,12 @@
                 triggerHaptic('error');
                 var prompt = document.getElementById('lock-screen-prompt');
                 if (prompt) {
-                    prompt.innerText = "PIN salah, silakan coba lagi!";
-                    prompt.className = "text-xs text-rose-400 mt-1 font-bold animate-wiggle";
+                    prompt.innerText = "Password salah, coba lagi";
+                    prompt.className = "text-xs text-rose-500 dark:text-rose-400 mt-1 font-bold";
                     setTimeout(function() {
                         prompt.innerText = "Masukkan 4-digit PIN Anda untuk membuka";
-                        prompt.className = "text-xs text-slate-400 mt-1 font-medium";
-                    }, 1200);
+                        prompt.className = "text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium";
+                    }, 1400);
                 }
                 enteredLockPin = '';
                 updatePinDots();
