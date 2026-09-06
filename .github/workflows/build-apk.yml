@@ -74,14 +74,20 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Android App & Widget (APK)"
+          name: "Dasbor Pribadi Android App & Widget v33.10 Pro (APK)"
           body: |
-            ### 📱 Dasbor Pribadi APK & Home Screen Widget
+            ### 📱 Dasbor Pribadi APK & Home Screen Widget (v33.10 Pro)
             Aplikasi resmi Android dengan dukungan **Widget Home Screen** dan **Pembaruan Otomatis (OTA)**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v32.35 Pro
-            - **Fitur**: Home Screen Widget (+ Masuk, - Keluar, Catatan, Kalkulator), Google Auth, Firebase Cloud Storage, dan OTA Update.
+            - **Versi**: v33.10 Pro
+            - **Pembaruan Fitur Terbaru**:
+              - 🔒 **Kunci Aplikasi Fleksibel**: Pilihan PIN 4-Digit & Kunci Pola 3x3 Interaktif (Opsi biometrik dihapus).
+              - 🔑 **Pemulihan Lupa Password**: Fitur recovery pertanyaan keamanan rahasia tanpa kehilangan data keuangan.
+              - ⏳ **Anti-Brute Force**: Cooldown timer (30 detik & 60 detik) dengan proteksi anti-reload.
+              - 🌓 **Tema Layar Kunci Adaptif**: Desain responsif otomatis mengikuti Mode Gelap atau Terang.
+              - 🧹 **Tampilan Lebih Ringkas**: Pembersihan grafik Arus Kas (Cash Flow) sesuai preferensi pengguna.
+              - ⚡ **Optimasi Widget & Notifikasi**: Pindah posisi widget tanpa blank putih & antrean notifikasi anti-tabrakan.
           files: dasbor-pribadi.apk
           prerelease: false
           draft: false
