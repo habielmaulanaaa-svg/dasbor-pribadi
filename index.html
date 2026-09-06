@@ -444,8 +444,10 @@
         @keyframes strikeFade { 0% { opacity: 0; transform: translateX(-10px); } 100% { opacity: 1; transform: translateX(0); } }
         .animate-strike-fade { animation: strikeFade 0.3s ease-out; }
 
-        @keyframes popIn { from { transform: scale(0.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        #settings-menu:not(.hidden) { animation: popIn 0.2s cubic-bezier(0.2, 0, 0, 1) forwards; }
+        @keyframes popIn { from { transform: translateY(6px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        #settings-menu:not(.hidden) { animation: popIn 0.18s ease-out forwards; }
+        #settings-toggles-stack { transition: max-height 0.24s ease-out, opacity 0.18s ease-out; }
+        #settings-toggles-stack.open { max-height: 400px; opacity: 1; }
 
         /* Slider Custom */
         #theme-color-slider {
@@ -691,72 +693,72 @@
                 <!-- Pop-up Menu Pengaturan -->
                 <div id="settings-menu" class="hidden absolute bottom-16 left-4 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 w-72 z-20 origin-bottom-left max-h-[75vh] overflow-y-auto space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.38 Pro (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v32.39 Pro (Cloud)</div>
                     
-                    <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU -->
+                    <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
-                        <button type="button" onclick="toggleSettingsToggleStack()" class="w-full p-2.5 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-[#313f52]/50 transition-colors focus:outline-none">
-                            <span class="flex items-center gap-1.5"><i class="fas fa-sliders-h text-primary-500"></i> Opsi Tampilan & Sistem</span>
+                        <button type="button" onclick="toggleSettingsToggleStack()" class="w-full py-2 px-2.5 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-[#313f52]/50 transition-colors focus:outline-none">
+                            <span class="flex items-center gap-1.5"><i class="fas fa-sliders-h text-primary-500"></i> Opsi Tampilan &amp; Sistem</span>
                             <div class="flex items-center gap-1.5">
                                 <span id="active-toggle-count-badge" class="text-[9px] bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full font-black">2 Aktif</span>
-                                <i id="icon-settings-stack" class="fas fa-chevron-down text-slate-400 text-[10px] transform transition-transform duration-300"></i>
+                                <i id="icon-settings-stack" class="fas fa-chevron-down text-slate-400 text-[10px] transform transition-transform duration-200"></i>
                             </div>
                         </button>
                         
-                        <div id="settings-toggles-stack" class="accordion-content space-y-1.5 px-2 pb-2 pt-0.5">
+                        <div id="settings-toggles-stack" class="accordion-content space-y-1 px-1.5 pb-1.5 pt-0.5">
                             
                             <!-- 1. Toggle Gradasi Kartu Saldo -->
-                            <div class="toggle-item-card p-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
-                                <div class="flex flex-col pr-2">
-                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-palette text-primary-500"></i> Gradasi Saldo</span>
-                                    <span class="text-[9px] text-slate-400 font-semibold leading-tight mt-0.5">Warna gradasi cerah & glow</span>
+                            <div class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
+                                <div class="flex flex-col pr-1.5 min-w-0">
+                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-palette text-primary-500 text-[10px]"></i> Gradasi Saldo</span>
+                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Warna gradasi cerah &amp; glow</span>
                                 </div>
-                                <button type="button" onclick="toggleCardGradient()" id="btn-toggle-gradient" class="w-10 h-5.5 rounded-full bg-primary-600 dark:bg-primary-600 p-0.5 transition-colors relative focus:outline-none shrink-0">
-                                    <div id="gradient-switch-knob" class="w-4.5 h-4.5 rounded-full bg-white shadow-sm transform transition-transform duration-200 translate-x-4"></div>
+                                <button type="button" onclick="toggleCardGradient()" id="btn-toggle-gradient" class="w-9 h-5 rounded-full bg-primary-600 dark:bg-primary-600 p-0.5 transition-colors relative focus:outline-none shrink-0">
+                                    <div id="gradient-switch-knob" class="w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform duration-200 translate-x-4"></div>
                                 </button>
                             </div>
 
                             <!-- 2. Toggle Kepadatan Compact Mode -->
-                            <div class="toggle-item-card p-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
-                                <div class="flex flex-col pr-2">
-                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-compress-alt text-primary-500"></i> Mode Ramping</span>
-                                    <span class="text-[9px] text-slate-400 font-semibold leading-tight mt-0.5">Padatkan kartu & tata letak ringkas</span>
+                            <div class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
+                                <div class="flex flex-col pr-1.5 min-w-0">
+                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-compress-alt text-primary-500 text-[10px]"></i> Mode Ramping</span>
+                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Padatkan kartu &amp; tata letak ringkas</span>
                                 </div>
-                                <button type="button" onclick="toggleCompactMode()" id="btn-toggle-compact" class="w-10 h-5.5 rounded-full bg-slate-300 dark:bg-slate-700 p-0.5 transition-colors relative focus:outline-none shrink-0">
-                                    <div id="compact-switch-knob" class="w-4.5 h-4.5 rounded-full bg-white shadow-sm transform transition-transform duration-200"></div>
+                                <button type="button" onclick="toggleCompactMode()" id="btn-toggle-compact" class="w-9 h-5 rounded-full bg-slate-300 dark:bg-slate-700 p-0.5 transition-colors relative focus:outline-none shrink-0">
+                                    <div id="compact-switch-knob" class="w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform duration-200"></div>
                                 </button>
                             </div>
 
                             <!-- 3. Toggle Mode Kaca Akrilik -->
-                            <div class="toggle-item-card p-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
-                                <div class="flex flex-col pr-2">
-                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cube text-primary-500"></i> Kaca Akrilik</span>
-                                    <span class="text-[9px] font-black text-amber-600 dark:text-amber-400 flex items-center gap-1 mt-0.5 leading-tight"><i class="fas fa-bolt text-[8px]"></i> Khusus HP Performa Tinggi</span>
+                            <div class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
+                                <div class="flex flex-col pr-1.5 min-w-0">
+                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-cube text-primary-500 text-[10px]"></i> Kaca Akrilik</span>
+                                    <span class="text-[8.5px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1 mt-0.5 leading-tight"><i class="fas fa-bolt text-[7px]"></i> Khusus HP Cepat</span>
                                 </div>
-                                <button type="button" onclick="toggleGlassMode()" id="btn-toggle-glass" class="w-10 h-5.5 rounded-full bg-slate-300 dark:bg-slate-700 p-0.5 transition-colors relative focus:outline-none shrink-0">
-                                    <div id="glass-switch-knob" class="w-4.5 h-4.5 rounded-full bg-white shadow-sm transform transition-transform duration-200"></div>
+                                <button type="button" onclick="toggleGlassMode()" id="btn-toggle-glass" class="w-9 h-5 rounded-full bg-slate-300 dark:bg-slate-700 p-0.5 transition-colors relative focus:outline-none shrink-0">
+                                    <div id="glass-switch-knob" class="w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform duration-200"></div>
                                 </button>
                             </div>
 
                             <!-- 4. Toggle Tema Otomatis Mengikuti Waktu -->
-                            <div class="toggle-item-card p-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
-                                <div class="flex flex-col pr-2">
-                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-clock text-primary-500"></i> Tema Otomatis</span>
-                                    <span class="text-[9px] text-slate-400 font-semibold leading-tight mt-0.5">Siklus otomatis gelap di malam hari</span>
+                            <div class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
+                                <div class="flex flex-col pr-1.5 min-w-0">
+                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-clock text-primary-500 text-[10px]"></i> Tema Otomatis</span>
+                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Siklus otomatis gelap malam hari</span>
                                 </div>
-                                <button type="button" onclick="toggleAutoThemeMode()" id="btn-toggle-autotheme" class="w-10 h-5.5 rounded-full bg-slate-300 dark:bg-slate-700 p-0.5 transition-colors relative focus:outline-none shrink-0">
-                                    <div id="autotheme-switch-knob" class="w-4.5 h-4.5 rounded-full bg-white shadow-sm transform transition-transform duration-200"></div>
+                                <button type="button" onclick="toggleAutoThemeMode()" id="btn-toggle-autotheme" class="w-9 h-5 rounded-full bg-slate-300 dark:bg-slate-700 p-0.5 transition-colors relative focus:outline-none shrink-0">
+                                    <div id="autotheme-switch-knob" class="w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform duration-200"></div>
                                 </button>
                             </div>
 
                             <!-- 5. Toggle Respon Getar (Haptic Feedback) -->
-                            <div class="toggle-item-card p-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
-                                <div class="flex flex-col pr-2">
-                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-hand-pointer text-primary-500"></i> Respon Getar (Haptic)</span>
-                                    <span class="text-[9px] text-slate-400 font-semibold leading-tight mt-0.5">Getaran taktil saat sentuh & tombol</span>
+                            <div class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-xs">
+                                <div class="flex flex-col pr-1.5 min-w-0">
+                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-hand-pointer text-primary-500 text-[10px]"></i> Respon Getar</span>
+                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Getaran taktil saat sentuh</span>
                                 </div>
-                                <button type="button" onclick="toggleHapticMode()" id="btn-toggle-haptic" class="w-10 h-5.5 rounded-full bg-primary-600 dark:bg-primary-600 p-0.5 transition-colors relative focus:outline-none shrink-0">
-                                    <div id="haptic-switch-knob" class="w-4.5 h-4.5 rounded-full bg-white shadow-sm transform transition-transform duration-200 translate-x-4"></div>
+                                <button type="button" onclick="toggleHapticMode()" id="btn-toggle-haptic" class="w-9 h-5 rounded-full bg-primary-600 dark:bg-primary-600 p-0.5 transition-colors relative focus:outline-none shrink-0">
+                                    <div id="haptic-switch-knob" class="w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform duration-200 translate-x-4"></div>
                                 </button>
                             </div>
                         </div>
@@ -770,16 +772,57 @@
                             <i class="fas fa-sync-alt text-primary-500" id="icon-check-update"></i> Cek Update
                         </button>
                     </div>
+                    
+                    <hr class="border-slate-100 dark:border-[#242f3d]">
+                    
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1"><i class="fas fa-user mr-1 text-primary-500"></i> Nama Anda</label>
+                        <input type="text" id="input-user-name" placeholder="Nama Anda..." oninput="changeUserName(this.value)" class="w-full border rounded-xl px-2.5 py-1.5 text-xs font-bold focus:outline-none">
+                    </div>
+                    
+                    <hr class="border-slate-100 dark:border-[#242f3d]">
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"><i class="fas fa-palette mr-1 text-primary-500"></i> Warna Tema</label>
+                            <button type="button" onclick="resetThemeColor()" class="text-[9px] bg-slate-200 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-lg font-bold hover:bg-slate-300">RESET</button>
+                        </div>
+                        <input type="range" min="0" max="360" value="221" class="w-full h-2 rounded-lg cursor-pointer" id="theme-color-slider" oninput="changeThemeColor(this.value)">
+                    </div>
 
-                    <!-- Banner Unduh Aplikasi Android & Widget -->
-                    <div class="p-2.5 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-primary-500/10 border border-emerald-500/20 dark:border-emerald-500/30 rounded-2xl flex flex-col gap-2">
+                    <hr class="border-slate-100 dark:border-[#242f3d]">
+                    
+                    <button type="button" onclick="exportData()" class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
+                        <i id="icon-download-backup" class="fas fa-download mr-2 text-primary-500"></i> Backup Data (JSON)
+                    </button>
+                    
+                    <label class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold cursor-pointer flex items-center">
+                        <i class="fas fa-upload mr-2 text-green-500"></i> Pulihkan Data (JSON)
+                        <input type="file" accept=".json" onchange="importData(event)" class="hidden">
+                    </label>
+
+                    <button type="button" onclick="generateReceipt()" class="w-full text-left px-3 py-2 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
+                        <i class="fas fa-receipt mr-2"></i> Cetak Laporan (PDF)
+                    </button>
+
+                    <button type="button" onclick="resetData(this)" class="w-full text-left px-3 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
+                        <i class="fas fa-trash-alt mr-2"></i> Hapus Semua Data
+                    </button>
+
+                    <div class="mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d] text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Kontak &amp; Feedback</p>
+                        <a href="mailto:habielmaulanaaa@gmail.com" class="text-[10px] font-bold text-primary-500 bg-primary-50 dark:bg-primary-900/30 px-2 py-1 rounded-lg block">habielmaulanaaa@gmail.com</a>
+                    </div>
+
+                    <!-- Banner Unduh Aplikasi Android & Widget (Diletakkan di Bawah Kontak & Feedback) -->
+                    <div class="mt-2 p-2.5 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-primary-500/10 border border-emerald-500/20 dark:border-emerald-500/30 rounded-2xl flex flex-col gap-2">
                         <div class="flex items-center gap-2">
-                            <div class="w-7 h-7 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
-                                <i class="fab fa-android text-sm"></i>
+                            <div class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
+                                <i class="fab fa-android text-xs"></i>
                             </div>
-                            <div>
-                                <div class="text-[11px] font-black text-slate-800 dark:text-white leading-tight">Aplikasi Android & Widget</div>
-                                <div class="text-[9px] text-slate-500 dark:text-slate-400">2 Pilihan: Bar Aksi (4x1) & Kartu Saldo (4x2)</div>
+                            <div class="min-w-0 flex-1 text-left">
+                                <div class="text-[10px] font-black text-slate-800 dark:text-white leading-tight">Aplikasi Android &amp; Widget</div>
+                                <div class="text-[8.5px] text-slate-500 dark:text-slate-400 truncate">Bar Aksi (4x1) &amp; Kartu Saldo (4x2)</div>
                             </div>
                         </div>
                         <div class="flex gap-1.5">
@@ -853,44 +896,44 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.38 Pro</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v32.39 Pro</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <!-- Milestone v32.38 Pro (Era Baru APK & Widget Android) -->
+                <!-- Milestone v32.39 Pro (Era Baru APK & Optimalisasi Sistem) -->
                 <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100/50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-emerald-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500 text-xs"></i> Update Rilis Resmi • v32.38 Pro</span>
+                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500 text-xs"></i> Update Rilis Resmi • v32.39 Pro</span>
                         <span class="text-[9px] font-black bg-emerald-600 text-white px-2 py-0.5 rounded-full shadow-xs">Era APK Android</span>
                     </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Revolusi APK Android Mandiri, Home Screen Widgets &amp; Sinkronisasi Saldo Akurat</p>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Gestur Urungkan Tugas, Siklus Tema Mandiri, Opsi Ramping &amp; Menu Bersih</p>
                     <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-cube text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <i class="fas fa-undo text-amber-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Aplikasi Android Mandiri (.APK):</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Aplikasi kini resmi hadir dalam bentuk file APK mandiri dengan format Adaptive Icon modern (full-bleed) yang bebas dari efek bingkai kotak.</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Gestur Urungkan Tugas Selesai:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Menggeser (swipe) ke kanan pada daftar tugas selesai kini menampilkan aksi <b>"Urungkan"</b> berlatar kuning hangat untuk mengembalikan tugas ke daftar aktif.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-th-large text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <i class="fas fa-clock text-sky-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">2 Pilihan Widget Layar Utama:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Tersedia widget <b>Kartu Saldo Lengkap (4x2)</b> dan <b>Bar Aksi Cepat (4x1)</b> dengan pratinjau asli di pemilih widget ponsel serta desain bersih tanpa logo berlebih.</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Isolasi Siklus Tema Mandiri (Bebas Tertimpa Backup):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Sinkronisasi cloud tidak lagi memaksakan mode terang/gelap antar perangkat. Perangkat malam hari tetap otomatis berada dalam mode gelap sesuai waktu lokal.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-sync-alt text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <i class="fas fa-sliders-h text-primary-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Sinkronisasi Saldo Kas Presisi:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Nominal saldo kas riil kini langsung tersinkronisasi sempurna ke widget ponsel melalui tombol sinkronisasi di menu Pengaturan (bebas dari masalah Rp 0).</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Opsi Tampilan Ramping &amp; Bebas Bounce:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Card Opsi Tampilan &amp; Sistem kini tampil lebih ramping, proporsional, dan membuka dengan animasi halus tanpa efek pantulan (bouncing).</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-bell text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <i class="fas fa-download text-emerald-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Notifikasi OTA &amp; Pembersihan UI:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Notifikasi update OTA aktif kembali, versi resmi tersinkron ke v32.38 Pro, dan tombol kalkulator ganda di Target Tabungan telah dihapus.</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Tata Letak Menu Pengaturan Rapi:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Banner unduh installer APK dan sinkronisasi widget dipindahkan ke bagian bawah kontak &amp; feedback agar menu pengaturan utama tetap lapang.</p>
                             </div>
                         </div>
                     </div>
@@ -1863,11 +1906,11 @@
         function setSwitchVisual(btn, knob, isActive) {
             if (!btn || !knob) return;
             if (isActive) {
-                btn.className = "w-10 h-5.5 rounded-full bg-primary-600 dark:bg-primary-600 p-0.5 transition-colors relative focus:outline-none shrink-0";
-                knob.className = "w-4.5 h-4.5 rounded-full bg-white shadow-sm transform transition-transform duration-200 translate-x-4";
+                btn.className = "w-9 h-5 rounded-full bg-primary-600 dark:bg-primary-600 p-0.5 transition-colors relative focus:outline-none shrink-0";
+                knob.className = "w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform duration-200 translate-x-4";
             } else {
-                btn.className = "w-10 h-5.5 rounded-full bg-slate-300 dark:bg-slate-700 p-0.5 transition-colors relative focus:outline-none shrink-0";
-                knob.className = "w-4.5 h-4.5 rounded-full bg-white shadow-sm transform transition-transform duration-200 translate-x-0";
+                btn.className = "w-9 h-5 rounded-full bg-slate-300 dark:bg-slate-700 p-0.5 transition-colors relative focus:outline-none shrink-0";
+                knob.className = "w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform duration-200 translate-x-0";
             }
         }
 
@@ -1986,6 +2029,10 @@
                 applyCardGradientVisual();
             }
         }
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') applyAutoThemeClock();
+        });
+        setInterval(applyAutoThemeClock, 60000);
 
         function toggleHapticMode() {
             dataState.hapticFeedback = (dataState.hapticFeedback === undefined) ? false : !dataState.hapticFeedback;
@@ -3577,7 +3624,7 @@
 
                         simpanData();
                         lastToggledId = null;
-                        triggerDynamicIsland("Status Tugas", "Tugas dikembalikan ke peninjauan ↩️", "fas fa-undo", "bg-amber-500/20 text-amber-400");
+                        triggerDynamicIsland("Tugas Diurungkan", `"${targetTask.nama}" dikembalikan ↩️`, "fas fa-undo", "bg-amber-500/20 text-amber-400");
                     }, 280);
                 }
             } else {
@@ -4165,12 +4212,17 @@
                 : (task.prioritas === 'rendah' ? '<span class="text-[9px] bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 font-black px-1.5 py-0.5 rounded-lg">🟢 Rendah</span>' : '');
 
             var stylingTeks = task.selesai ? 'text-slate-400 dark:text-slate-500 line-through' + animStrikeClass : 'text-slate-800 dark:text-white font-bold';
+            var leftUnderlayerHTML = task.selesai
+                ? `<div class="swipe-underlayer-left absolute inset-y-0 left-0 w-full bg-amber-500 flex items-center px-4 text-white font-black text-xs gap-1.5 opacity-0 pointer-events-none">
+                    <i class="fas fa-undo text-base"></i> Urungkan
+                </div>`
+                : `<div class="swipe-underlayer-left absolute inset-y-0 left-0 w-full bg-emerald-500 flex items-center px-4 text-white font-black text-xs gap-1.5 opacity-0 pointer-events-none">
+                    <i class="fas fa-check-circle text-base"></i> Selesai
+                </div>`;
 
             return `<li class="swipe-wrapper relative overflow-hidden rounded-2xl">
                 <!-- Underlayer Peek -->
-                <div class="swipe-underlayer-left absolute inset-y-0 left-0 w-full bg-emerald-500 flex items-center px-4 text-white font-black text-xs gap-1.5 opacity-0 pointer-events-none">
-                    <i class="fas fa-check-circle text-base"></i> Selesai
-                </div>
+                ${leftUnderlayerHTML}
                 <div class="swipe-underlayer-right absolute inset-y-0 right-0 w-full bg-red-500 flex items-center justify-end px-4 text-white font-black text-xs gap-1.5 opacity-0 pointer-events-none">
                     Hapus <i class="fas fa-trash text-base"></i>
                 </div>
@@ -5031,11 +5083,14 @@
                                 const slider = document.getElementById('theme-color-slider');
                                 if (slider) slider.value = remote.themeHue;
                             }
-                            if (remote.darkMode !== undefined) {
-                                safeStorage.setItem('dasborDarkMode', remote.darkMode);
-                                if (remote.darkMode === 'dark') {
+                            // Mode Terang / Gelap dikelola mandiri oleh perangkat lokal (tidak dioverwrite oleh backup cloud)
+                            if (dataState.autoThemeMode) {
+                                applyAutoThemeClock();
+                            } else {
+                                const localDark = safeStorage.getItem('dasborDarkMode');
+                                if (localDark === 'dark') {
                                     document.documentElement.classList.add('dark');
-                                } else {
+                                } else if (localDark === 'light') {
                                     document.documentElement.classList.remove('dark');
                                 }
                             }
@@ -5083,7 +5138,6 @@
             const payload = {
                 dataState: dataState,
                 themeHue: safeStorage.getItem('dasborHue') || '221',
-                darkMode: safeStorage.getItem('dasborDarkMode') || 'light',
                 lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
                 userEmail: currentUser.email || '',
                 userName: currentUser.displayName || dataState.userName || ''
@@ -5129,7 +5183,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v32.38';
+        const CURRENT_APP_VERSION = 'v32.39';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
