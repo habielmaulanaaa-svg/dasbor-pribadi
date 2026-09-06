@@ -1944,63 +1944,6 @@
                 </div>
             </div>
 
-            <!-- 3. GRAFIK GARIS ARUS KAS BERPENDAR (CASH FLOW SVG) -->
-            <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] mb-4 shadow-sm compact-pad">
-                <div class="flex justify-between items-center mb-2">
-                    <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-chart-line text-primary-500"></i> Arus Kas (Cash Flow)
-                    </h3>
-                    <div class="flex items-center bg-slate-100 dark:bg-[#242f3d] p-0.5 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60">
-                        <button type="button" onclick="setCashFlowPeriod(7, this)" id="btn-chart-7d" class="chart-period-btn active text-[9px] font-bold px-2 py-1 rounded-lg bg-white dark:bg-[#17212b] text-primary-600 dark:text-primary-400 shadow-xs">7 Hari</button>
-                        <button type="button" onclick="setCashFlowPeriod(30, this)" id="btn-chart-30d" class="chart-period-btn text-[9px] font-bold px-2 py-1 rounded-lg text-slate-500 dark:text-slate-400">30 Hari</button>
-                    </div>
-                </div>
-
-                <!-- Kontainer Grafik SVG Berpendar -->
-                <div class="w-full h-36 relative mt-2 flex items-center justify-center">
-                    <svg id="cashflow-svg" class="w-full h-full overflow-visible" viewBox="0 0 320 120" preserveAspectRatio="none">
-                        <!-- Defs untuk LinearGradient dan Glow Filter -->
-                        <defs>
-                            <linearGradient id="grad-cashflow-income" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#10b981" stop-opacity="0.35"></stop>
-                                <stop offset="100%" stop-color="#10b981" stop-opacity="0.0"></stop>
-                            </linearGradient>
-                            <linearGradient id="grad-cashflow-expense" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.3"></stop>
-                                <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.0"></stop>
-                            </linearGradient>
-                            <filter id="glow-cashflow-line" x="-10%" y="-10%" width="120%" height="120%">
-                                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.25"></feDropShadow>
-                            </filter>
-                        </defs>
-                        <!-- Grid Lines -->
-                        <line x1="0" y1="30" x2="320" y2="30" stroke="currentColor" class="text-slate-100 dark:text-slate-800" stroke-dasharray="3,3" stroke-width="1"></line>
-                        <line x1="0" y1="70" x2="320" y2="70" stroke="currentColor" class="text-slate-100 dark:text-slate-800" stroke-dasharray="3,3" stroke-width="1"></line>
-                        <line x1="0" y1="110" x2="320" y2="110" stroke="currentColor" class="text-slate-100 dark:text-slate-800" stroke-width="1"></line>
-                        <!-- Area Fills -->
-                        <path id="chart-area-income" d="" fill="url(#grad-cashflow-income)"></path>
-                        <path id="chart-area-expense" d="" fill="url(#grad-cashflow-expense)"></path>
-                        <!-- Stroke Lines -->
-                        <path id="chart-path-income" d="" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow-cashflow-line)"></path>
-                        <path id="chart-path-expense" d="" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow-cashflow-line)"></path>
-                        <!-- Dots G -->
-                        <g id="chart-dots-group"></g>
-                    </svg>
-                </div>
-
-                <!-- Legend & Ringkasan Periode -->
-                <div class="flex justify-between items-center text-[10px] font-bold mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d]">
-                    <div class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                        <span>Masuk: <b id="chart-total-masuk">Rp 0</b></span>
-                    </div>
-                    <div class="flex items-center gap-1.5 text-rose-600 dark:text-rose-400">
-                        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-                        <span>Keluar: <b id="chart-total-keluar">Rp 0</b></span>
-                    </div>
-                </div>
-            </div>
-
             <!-- 4. SISTEM ANGGARAN BULANAN (BUDGETING) -->
             <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] mb-4 shadow-sm compact-pad">
                 <div class="flex justify-between items-center mb-3">
@@ -2390,7 +2333,6 @@
         let selectedFormWalletMasuk = 'tunai';
         let selectedFormWalletKeluar = 'tunai';
         let activeWalletFilter = 'semua';
-        let selectedCashFlowDays = 7;
         let enteredLockPin = '';
         let calCurrentYear = new Date().getFullYear();
         let calCurrentMonth = new Date().getMonth();
@@ -3855,130 +3797,6 @@
                     badgeEl.innerText = "🚨 Perlu Evaluasi";
                     if (progEl) progEl.className = "bg-gradient-to-r from-rose-500 to-red-400 h-full transition-all duration-500";
                 }
-            }
-        }
-
-        // ==========================================
-        // FITUR V33.00: GRAFIK GARIS ARUS KAS BERPENDAR
-        // ==========================================
-        function setCashFlowPeriod(days, btnEl) {
-            triggerHaptic('light');
-            selectedCashFlowDays = days;
-            document.querySelectorAll('.chart-period-btn').forEach(function(b) {
-                b.className = "chart-period-btn text-[9px] font-bold px-2 py-1 rounded-lg text-slate-500 dark:text-slate-400";
-            });
-            if (btnEl) {
-                btnEl.className = "chart-period-btn active text-[9px] font-bold px-2 py-1 rounded-lg bg-white dark:bg-[#17212b] text-primary-600 dark:text-primary-400 shadow-xs";
-            }
-            renderCashFlowChart(days);
-        }
-
-        function renderCashFlowChart(days) {
-            var daysCount = days || selectedCashFlowDays || 7;
-            var pathIncome = document.getElementById('chart-path-income');
-            var pathExpense = document.getElementById('chart-path-expense');
-            var areaIncome = document.getElementById('chart-area-income');
-            var areaExpense = document.getElementById('chart-area-expense');
-            var dotsGroup = document.getElementById('chart-dots-group');
-            var totalMasukEl = document.getElementById('chart-total-masuk');
-            var totalKeluarEl = document.getElementById('chart-total-keluar');
-
-            if (!pathIncome || !pathExpense) return;
-
-            var dateKeys = [];
-            var dailyData = {};
-            var now = new Date();
-
-            for (var i = daysCount - 1; i >= 0; i--) {
-                var d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
-                var iso = d.toISOString().slice(0, 10);
-                dateKeys.push(iso);
-                dailyData[iso] = { masuk: 0, keluar: 0 };
-            }
-
-            var sumMasuk = 0, sumKeluar = 0;
-            (dataState.transaksi || []).forEach(function(t) {
-                if (t.isoDate && dailyData[t.isoDate]) {
-                    if (t.jenis === 'masuk') {
-                        dailyData[t.isoDate].masuk += (t.nominal || 0);
-                        sumMasuk += (t.nominal || 0);
-                    } else {
-                        dailyData[t.isoDate].keluar += (t.nominal || 0);
-                        sumKeluar += (t.nominal || 0);
-                    }
-                }
-            });
-
-            if (totalMasukEl) totalMasukEl.innerText = formatRupiah(sumMasuk);
-            if (totalKeluarEl) totalKeluarEl.innerText = formatRupiah(sumKeluar);
-
-            var maxVal = 100000;
-            dateKeys.forEach(function(k) {
-                if (dailyData[k].masuk > maxVal) maxVal = dailyData[k].masuk;
-                if (dailyData[k].keluar > maxVal) maxVal = dailyData[k].keluar;
-            });
-
-            var width = 320;
-            var height = 120;
-            var padBottom = 110;
-            var padTop = 15;
-            var availH = padBottom - padTop;
-
-            var getPoints = function(type) {
-                return dateKeys.map(function(k, idx) {
-                    var x = (idx / (daysCount - 1)) * width;
-                    var val = dailyData[k][type] || 0;
-                    var y = padBottom - ((val / maxVal) * availH);
-                    return { x: x, y: y, val: val };
-                });
-            };
-
-            var pointsIncome = getPoints('masuk');
-            var pointsExpense = getPoints('keluar');
-
-            var generateBezierPath = function(pts) {
-                if (pts.length === 0) return '';
-                var d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
-                for (var i = 0; i < pts.length - 1; i++) {
-                    var p0 = (i > 0) ? pts[i - 1] : pts[0];
-                    var p1 = pts[i];
-                    var p2 = pts[i + 1];
-                    var p3 = (i != pts.length - 2) ? pts[i + 2] : p2;
-
-                    var cp1x = p1.x + (p2.x - p0.x) / 6;
-                    var cp1y = p1.y + (p2.y - p0.y) / 6;
-                    var cp2x = p2.x - (p3.x - p1.x) / 6;
-                    var cp2y = p2.y - (p3.y - p1.y) / 6;
-
-                    d += ` C ${cp1x.toFixed(1)} ${cp1y.toFixed(1)}, ${cp2x.toFixed(1)} ${cp2y.toFixed(1)}, ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
-                }
-                return d;
-            };
-
-            var lineIncomeD = generateBezierPath(pointsIncome);
-            var lineExpenseD = generateBezierPath(pointsExpense);
-
-            var areaIncomeD = `${lineIncomeD} L ${width} ${height} L 0 ${height} Z`;
-            var areaExpenseD = `${lineExpenseD} L ${width} ${height} L 0 ${height} Z`;
-
-            pathIncome.setAttribute('d', lineIncomeD);
-            pathExpense.setAttribute('d', lineExpenseD);
-            if (areaIncome) areaIncome.setAttribute('d', areaIncomeD);
-            if (areaExpense) areaExpense.setAttribute('d', areaExpenseD);
-
-            if (dotsGroup) {
-                var dotsHtml = '';
-                pointsIncome.forEach(function(pt) {
-                    if (pt.val > 0) {
-                        dotsHtml += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="3" fill="#10b981" stroke="#ffffff" stroke-width="1.5"></circle>`;
-                    }
-                });
-                pointsExpense.forEach(function(pt) {
-                    if (pt.val > 0) {
-                        dotsHtml += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="3" fill="#f43f5e" stroke="#ffffff" stroke-width="1.5"></circle>`;
-                    }
-                });
-                dotsGroup.innerHTML = dotsHtml;
             }
         }
 
@@ -6240,7 +6058,6 @@
             renderBudgets();
             renderSubscriptions();
             renderHealthScore();
-            renderCashFlowChart(selectedCashFlowDays);
 
             var aktif = [], selesai = [], dl = [], reg = [];
             var prioWeight = { 'tinggi': 3, 'sedang': 2, 'rendah': 1 };
