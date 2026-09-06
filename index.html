@@ -695,6 +695,11 @@
                 <div class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center text-purple-600 shadow-inner"><i class="fas fa-sliders-h text-sm"></i></div>
                 Atur Widget Beranda
             </button>
+            <!-- 4b. Atur Widget Keuangan -->
+            <button type="button" onclick="openFinanceWidgetManagerModal()" class="w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-emerald-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
+                <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-600 shadow-inner"><i class="fas fa-wallet text-sm"></i></div>
+                Atur Widget Keuangan
+            </button>
             <!-- 5. Analisis & Statistik Keuangan -->
             <button type="button" onclick="openAnalisisModal()" class="w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-sky-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
                 <div class="w-9 h-9 rounded-xl bg-sky-100 dark:bg-sky-900/50 flex items-center justify-center text-sky-500 shadow-inner"><i class="fas fa-chart-pie text-sm"></i></div>
@@ -1415,6 +1420,55 @@
         </div>
     </div>
 
+    <!-- Bottom Sheet: Atur Visibilitas Widget Kelola Keuangan -->
+    <div id="finance-widget-manager-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
+        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
+            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-sliders-h text-emerald-500"></i> Atur Widget Keuangan</h3>
+                <button type="button" onclick="closeBottomSheet('finance-widget-manager-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 font-semibold">Pilih widget yang ingin ditampilkan di halaman Kelola Keuangan:</p>
+            
+            <div class="space-y-2 mb-4 overflow-y-auto max-h-[50vh] pr-1" id="finance-widget-toggle-list">
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-chart-bar text-primary-500"></i> Ringkasan &amp; Rasio Keuangan</span>
+                    <input type="checkbox" id="w-toggle-fin-ringkasan" onchange="toggleFinanceWidgetVisibility('ringkasan', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
+                </div>
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-wallet text-emerald-500"></i> Kantong &amp; Multi-Dompet</span>
+                    <input type="checkbox" id="w-toggle-fin-dompet" onchange="toggleFinanceWidgetVisibility('dompet', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
+                </div>
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-heartbeat text-rose-500"></i> Skor Kesehatan Finansial</span>
+                    <input type="checkbox" id="w-toggle-fin-skor_kesehatan" onchange="toggleFinanceWidgetVisibility('skor_kesehatan', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
+                </div>
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-bullseye text-amber-500"></i> Anggaran Bulanan</span>
+                    <input type="checkbox" id="w-toggle-fin-anggaran" onchange="toggleFinanceWidgetVisibility('anggaran', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
+                </div>
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-calendar-check text-purple-500"></i> Tagihan &amp; Langganan Rutin</span>
+                    <input type="checkbox" id="w-toggle-fin-tagihan" onchange="toggleFinanceWidgetVisibility('tagihan', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
+                </div>
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-chart-pie text-sky-500"></i> Alokasi Pengeluaran (Donut)</span>
+                    <input type="checkbox" id="w-toggle-fin-alokasi" onchange="toggleFinanceWidgetVisibility('alokasi', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
+                </div>
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-edit text-green-500"></i> Form Catat Transaksi</span>
+                    <input type="checkbox" id="w-toggle-fin-form_transaksi" onchange="toggleFinanceWidgetVisibility('form_transaksi', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
+                </div>
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-history text-indigo-500"></i> Riwayat Transaksi</span>
+                    <input type="checkbox" id="w-toggle-fin-riwayat" onchange="toggleFinanceWidgetVisibility('riwayat', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
+                </div>
+            </div>
+
+            <button type="button" onclick="closeBottomSheet('finance-widget-manager-modal')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md">Simpan Pengaturan</button>
+        </div>
+    </div>
+
     <!-- Bottom Sheet: Laporan PDF -->
     <div id="pdf-report-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[90vh] flex flex-col overflow-y-auto">
@@ -1859,220 +1913,263 @@
                 <h2 class="text-2xl font-bold dark:text-white">Kelola Keuangan</h2>
             </div>
             
-            <div class="grid grid-cols-2 gap-3 mb-3 compact-gap">
-                <div class="widget-card bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
-                    <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Total Masuk</span>
-                    <span id="stat-total-masuk" data-val="0" class="text-lg font-black text-emerald-700 dark:text-emerald-300 mt-1">Rp 0</span>
-                </div>
-                <div class="widget-card bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
-                    <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Total Keluar</span>
-                    <span id="stat-total-keluar" data-val="0" class="text-lg font-black text-rose-700 dark:text-rose-300 mt-1">Rp 0</span>
-                </div>
-            </div>
-
-            <!-- Progress Bar Rasio Finansial -->
-            <div class="widget-card bg-white dark:bg-[#17212b] p-3.5 rounded-2xl border border-slate-200 dark:border-[#242f3d] mb-4 shadow-sm compact-pad">
-                <div class="flex justify-between items-center text-[10px] font-bold text-slate-500 mb-1.5">
-                    <span>PEMASUKAN vs PENGELUARAN</span>
-                    <span id="ratio-text">0% / 0%</span>
-                </div>
-                <div class="w-full bg-slate-100 dark:bg-[#242f3d] h-2.5 rounded-full overflow-hidden flex">
-                    <div id="bar-masuk" class="bg-emerald-500 h-full liquid-bar-masuk" style="width: 50%"></div>
-                    <div id="bar-keluar" class="bg-rose-500 h-full liquid-bar-keluar" style="width: 50%"></div>
-                </div>
-            </div>
-
-            <!-- 1. MULTI-DOMPET / KANTONG KEUANGAN -->
-            <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] mb-4 shadow-sm compact-pad">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-wallet text-primary-500"></i> Kantong &amp; Multi-Dompet
-                    </h3>
-                    <span id="active-wallet-filter-text" class="text-[10px] font-bold text-primary-500">Semua Dompet</span>
-                </div>
-                <!-- 3 Kartu Dompet: Tunai, Rekening Bank, E-Wallet -->
-                <div class="grid grid-cols-3 gap-2 mb-2.5">
-                    <div onclick="filterByWallet('tunai')" id="card-wallet-tunai" class="wallet-card cursor-pointer p-2.5 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-800/40 flex flex-col transition-all active:scale-95">
-                        <div class="flex items-center justify-between text-emerald-600 dark:text-emerald-400 mb-1">
-                            <i class="fas fa-money-bill-wave text-xs"></i>
-                            <span class="text-[8.5px] font-black uppercase">Tunai</span>
+            <div id="keuangan-widgets-container" class="space-y-4">
+                <!-- 1. WIDGET: RINGKASAN & RASIO KEUANGAN -->
+                <div id="finance-widget-ringkasan" class="finance-widget-block">
+                    <div class="flex justify-between items-center mb-1.5 px-1">
+                        <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fas fa-chart-bar text-primary-500"></i> Statistik Arus Kas
+                        </span>
+                        <div id="finance-arrows-ringkasan"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mb-3 compact-gap">
+                        <div class="widget-card bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
+                            <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Total Masuk</span>
+                            <span id="stat-total-masuk" data-val="0" class="text-lg font-black text-emerald-700 dark:text-emerald-300 mt-1">Rp 0</span>
                         </div>
-                        <span id="stat-wallet-tunai" class="text-xs font-black text-slate-800 dark:text-white truncate">Rp 0</span>
-                    </div>
-
-                    <div onclick="filterByWallet('bank')" id="card-wallet-bank" class="wallet-card cursor-pointer p-2.5 rounded-2xl bg-blue-50/60 dark:bg-blue-950/20 border border-blue-200/80 dark:border-blue-800/40 flex flex-col transition-all active:scale-95">
-                        <div class="flex items-center justify-between text-blue-600 dark:text-blue-400 mb-1">
-                            <i class="fas fa-university text-xs"></i>
-                            <span class="text-[8.5px] font-black uppercase">Bank</span>
+                        <div class="widget-card bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
+                            <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Total Keluar</span>
+                            <span id="stat-total-keluar" data-val="0" class="text-lg font-black text-rose-700 dark:text-rose-300 mt-1">Rp 0</span>
                         </div>
-                        <span id="stat-wallet-bank" class="text-xs font-black text-slate-800 dark:text-white truncate">Rp 0</span>
                     </div>
 
-                    <div onclick="filterByWallet('ewallet')" id="card-wallet-ewallet" class="wallet-card cursor-pointer p-2.5 rounded-2xl bg-purple-50/60 dark:bg-purple-950/20 border border-purple-200/80 dark:border-purple-800/40 flex flex-col transition-all active:scale-95">
-                        <div class="flex items-center justify-between text-purple-600 dark:text-purple-400 mb-1">
-                            <i class="fas fa-mobile-alt text-xs"></i>
-                            <span class="text-[8.5px] font-black uppercase">E-Wallet</span>
+                    <!-- Progress Bar Rasio Finansial -->
+                    <div class="widget-card bg-white dark:bg-[#17212b] p-3.5 rounded-2xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                        <div class="flex justify-between items-center text-[10px] font-bold text-slate-500 mb-1.5">
+                            <span>PEMASUKAN vs PENGELUARAN</span>
+                            <span id="ratio-text">0% / 0%</span>
                         </div>
-                        <span id="stat-wallet-ewallet" class="text-xs font-black text-slate-800 dark:text-white truncate">Rp 0</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center text-[10px] text-slate-400">
-                    <span>*Ketuk dompet untuk filter riwayat</span>
-                    <button type="button" onclick="filterByWallet('semua')" class="text-primary-500 font-bold hover:underline">Reset Filter</button>
-                </div>
-            </div>
-
-            <!-- 2. SKOR KESEHATAN KEUANGAN -->
-            <div class="widget-card bg-gradient-to-br from-white to-slate-50 dark:from-[#17212b] dark:to-[#1e293b]/70 p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] mb-4 shadow-sm compact-pad">
-                <div class="flex justify-between items-center mb-2">
-                    <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-heartbeat text-rose-500"></i> Skor Kesehatan Finansial
-                    </h3>
-                    <span id="health-score-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">🌟 Sangat Sehat</span>
-                </div>
-                <div class="flex items-center gap-3.5 my-2">
-                    <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#242f3d] flex flex-col items-center justify-center shrink-0 border border-slate-200/60 dark:border-[#313f52]/60">
-                        <span id="health-score-number" class="text-xl font-black text-emerald-600 dark:text-emerald-400 leading-none">85</span>
-                        <span class="text-[8px] font-bold text-slate-400 mt-0.5">DARI 100</span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="w-full bg-slate-100 dark:bg-[#242f3d] h-2 rounded-full overflow-hidden mb-1.5">
-                            <div id="health-score-progress" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full transition-all duration-500" style="width: 85%"></div>
+                        <div class="w-full bg-slate-100 dark:bg-[#242f3d] h-2.5 rounded-full overflow-hidden flex">
+                            <div id="bar-masuk" class="bg-emerald-500 h-full liquid-bar-masuk" style="width: 50%"></div>
+                            <div id="bar-keluar" class="bg-rose-500 h-full liquid-bar-keluar" style="width: 50%"></div>
                         </div>
-                        <p id="health-score-tip" class="text-[10px] text-slate-600 dark:text-slate-300 leading-tight">Keuangan sangat stabil. Pertahankan rasio simpanan di atas 20% bulan ini.</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- 4. SISTEM ANGGARAN BULANAN (BUDGETING) -->
-            <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] mb-4 shadow-sm compact-pad">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-bullseye text-amber-500"></i> Anggaran Bulanan
-                    </h3>
-                    <button type="button" onclick="openBottomSheet('budget-modal')" class="text-[10px] font-bold text-primary-600 dark:text-primary-400 hover:underline flex items-center gap-1">
-                        <i class="fas fa-cog"></i> Atur Limit
-                    </button>
-                </div>
-                <div id="budget-progress-container" class="space-y-2.5">
-                    <!-- Progress bars dynamically rendered by renderBudgets() -->
-                </div>
-            </div>
-
-            <!-- 5. PELACAK TAGIHAN & LANGGANAN RUTIN -->
-            <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] mb-4 shadow-sm compact-pad">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-calendar-check text-purple-500"></i> Tagihan &amp; Langganan Rutin
-                    </h3>
-                    <button type="button" onclick="openBottomSheet('subscription-modal')" class="text-[10px] font-bold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1">
-                        <i class="fas fa-plus"></i> Kelola
-                    </button>
-                </div>
-                <div id="subscription-cards-container" class="space-y-2">
-                    <!-- Subscriptions dynamically rendered by renderSubscriptions() -->
-                </div>
-            </div>
-
-            <!-- Diagram Donut SVG Kategori Pengeluaran -->
-            <div id="box-donut-kategori" class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] mb-4 shadow-sm compact-pad">
-                <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                    <i class="fas fa-chart-pie text-primary-500"></i> Alokasi Pengeluaran
-                </h3>
-                <div class="flex items-center gap-4">
-                    <div class="relative w-24 h-24 shrink-0 flex items-center justify-center">
-                        <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="currentColor" stroke-width="4.5" class="text-slate-100 dark:text-[#242f3d]"></circle>
-                            <g id="donut-segments"></g>
-                        </svg>
-                        <span id="donut-total-items" class="absolute text-[10px] font-black text-center text-slate-700 dark:text-slate-200 leading-tight">0 Catatan</span>
-                    </div>
-                    <div id="donut-legend" class="flex-1 space-y-1.5 text-[11px] font-bold"></div>
-                </div>
-            </div>
-
-            <!-- Form Pemasukan & Pengeluaran -->
-            <div class="grid grid-cols-1 gap-4 mb-4 compact-gap">
-                <!-- Pemasukan -->
-                <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
-                    <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-3 text-sm flex items-center"><i class="fas fa-arrow-down text-green-500 mr-2"></i>Pemasukan</h3>
-                    <div class="space-y-2">
-                        <div>
-                            <input type="text" id="input-masuk-nominal" inputmode="numeric" placeholder="Nominal (Rp) misal: 50,000 atau 20,000+15,000..." oninput="handleNominalInput(this, 'preview-masuk-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
-                            <div id="preview-masuk-math" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hidden pl-1 pt-1"></div>
+                <!-- 2. WIDGET: KANTONG & MULTI-DOMPET -->
+                <div id="finance-widget-dompet" class="finance-widget-block widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fas fa-wallet text-primary-500"></i> Kantong &amp; Multi-Dompet
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <span id="active-wallet-filter-text" class="text-[10px] font-bold text-primary-500">Semua Dompet</span>
+                            <div id="finance-arrows-dompet"></div>
                         </div>
-                        <input type="text" id="input-masuk-catatan" placeholder="Keterangan..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                    </div>
+                    <!-- 3 Kartu Dompet: Tunai, Rekening Bank, E-Wallet -->
+                    <div class="grid grid-cols-3 gap-2 mb-2.5">
+                        <div onclick="filterByWallet('tunai')" id="card-wallet-tunai" class="wallet-card cursor-pointer p-2.5 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-800/40 flex flex-col transition-all active:scale-95">
+                            <div class="flex items-center justify-between text-emerald-600 dark:text-emerald-400 mb-1">
+                                <i class="fas fa-money-bill-wave text-xs"></i>
+                                <span class="text-[8.5px] font-black uppercase">Tunai</span>
+                            </div>
+                            <span id="stat-wallet-tunai" class="text-xs font-black text-slate-800 dark:text-white truncate">Rp 0</span>
+                        </div>
+
+                        <div onclick="filterByWallet('bank')" id="card-wallet-bank" class="wallet-card cursor-pointer p-2.5 rounded-2xl bg-blue-50/60 dark:bg-blue-950/20 border border-blue-200/80 dark:border-blue-800/40 flex flex-col transition-all active:scale-95">
+                            <div class="flex items-center justify-between text-blue-600 dark:text-blue-400 mb-1">
+                                <i class="fas fa-university text-xs"></i>
+                                <span class="text-[8.5px] font-black uppercase">Bank</span>
+                            </div>
+                            <span id="stat-wallet-bank" class="text-xs font-black text-slate-800 dark:text-white truncate">Rp 0</span>
+                        </div>
+
+                        <div onclick="filterByWallet('ewallet')" id="card-wallet-ewallet" class="wallet-card cursor-pointer p-2.5 rounded-2xl bg-purple-50/60 dark:bg-purple-950/20 border border-purple-200/80 dark:border-purple-800/40 flex flex-col transition-all active:scale-95">
+                            <div class="flex items-center justify-between text-purple-600 dark:text-purple-400 mb-1">
+                                <i class="fas fa-mobile-alt text-xs"></i>
+                                <span class="text-[8.5px] font-black uppercase">E-Wallet</span>
+                            </div>
+                            <span id="stat-wallet-ewallet" class="text-xs font-black text-slate-800 dark:text-white truncate">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-[10px] text-slate-400">
+                        <span>*Ketuk dompet untuk filter riwayat</span>
+                        <button type="button" onclick="filterByWallet('semua')" class="text-primary-500 font-bold hover:underline">Reset Filter</button>
+                    </div>
+                </div>
+
+                <!-- 3. WIDGET: SKOR KESEHATAN KEUANGAN -->
+                <div id="finance-widget-skor_kesehatan" class="finance-widget-block widget-card bg-gradient-to-br from-white to-slate-50 dark:from-[#17212b] dark:to-[#1e293b]/70 p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fas fa-heartbeat text-rose-500"></i> Skor Kesehatan Finansial
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <span id="health-score-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">🌟 Sangat Sehat</span>
+                            <div id="finance-arrows-skor_kesehatan"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3.5 my-2">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#242f3d] flex flex-col items-center justify-center shrink-0 border border-slate-200/60 dark:border-[#313f52]/60">
+                            <span id="health-score-number" class="text-xl font-black text-emerald-600 dark:text-emerald-400 leading-none">85</span>
+                            <span class="text-[8px] font-bold text-slate-400 mt-0.5">DARI 100</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="w-full bg-slate-100 dark:bg-[#242f3d] h-2 rounded-full overflow-hidden mb-1.5">
+                                <div id="health-score-progress" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full transition-all duration-500" style="width: 85%"></div>
+                            </div>
+                            <p id="health-score-tip" class="text-[10px] text-slate-600 dark:text-slate-300 leading-tight">Keuangan sangat stabil. Pertahankan rasio simpanan di atas 20% bulan ini.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. WIDGET: SISTEM ANGGARAN BULANAN (BUDGETING) -->
+                <div id="finance-widget-anggaran" class="finance-widget-block widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fas fa-bullseye text-amber-500"></i> Anggaran Bulanan
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="openBottomSheet('budget-modal')" class="text-[10px] font-bold text-primary-600 dark:text-primary-400 hover:underline flex items-center gap-1">
+                                <i class="fas fa-cog"></i> Atur Limit
+                            </button>
+                            <div id="finance-arrows-anggaran"></div>
+                        </div>
+                    </div>
+                    <div id="budget-progress-container" class="space-y-2.5">
+                        <!-- Progress bars dynamically rendered by renderBudgets() -->
+                    </div>
+                </div>
+
+                <!-- 5. WIDGET: PELACAK TAGIHAN & LANGGANAN RUTIN -->
+                <div id="finance-widget-tagihan" class="finance-widget-block widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fas fa-calendar-check text-purple-500"></i> Tagihan &amp; Langganan Rutin
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="openBottomSheet('subscription-modal')" class="text-[10px] font-bold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1">
+                                <i class="fas fa-plus"></i> Kelola
+                            </button>
+                            <div id="finance-arrows-tagihan"></div>
+                        </div>
+                    </div>
+                    <div id="subscription-cards-container" class="space-y-2">
+                        <!-- Subscriptions dynamically rendered by renderSubscriptions() -->
+                    </div>
+                </div>
+
+                <!-- 6. WIDGET: DIAGRAM DONUT ALOKASI PENGELUARAN -->
+                <div id="finance-widget-alokasi" class="finance-widget-block widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fas fa-chart-pie text-primary-500"></i> Alokasi Pengeluaran
+                        </h3>
+                        <div id="finance-arrows-alokasi"></div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="relative w-24 h-24 shrink-0 flex items-center justify-center">
+                            <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                                <circle cx="18" cy="18" r="14" fill="transparent" stroke="currentColor" stroke-width="4.5" class="text-slate-100 dark:text-[#242f3d]"></circle>
+                                <g id="donut-segments"></g>
+                            </svg>
+                            <span id="donut-total-items" class="absolute text-[10px] font-black text-center text-slate-700 dark:text-slate-200 leading-tight">0 Catatan</span>
+                        </div>
+                        <div id="donut-legend" class="flex-1 space-y-1.5 text-[11px] font-bold"></div>
+                    </div>
+                </div>
+
+                <!-- 7. WIDGET: FORM PEMASUKAN & PENGELUARAN -->
+                <div id="finance-widget-form_transaksi" class="finance-widget-block">
+                    <div class="flex justify-between items-center mb-1.5 px-1">
+                        <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fas fa-edit text-green-500"></i> Form Catat Transaksi
+                        </span>
+                        <div id="finance-arrows-form_transaksi"></div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 compact-gap">
+                        <!-- Pemasukan -->
+                        <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                            <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-3 text-sm flex items-center"><i class="fas fa-arrow-down text-green-500 mr-2"></i>Pemasukan</h3>
+                            <div class="space-y-2">
+                                <div>
+                                    <input type="text" id="input-masuk-nominal" inputmode="numeric" placeholder="Nominal (Rp) misal: 50,000 atau 20,000+15,000..." oninput="handleNominalInput(this, 'preview-masuk-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                                    <div id="preview-masuk-math" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hidden pl-1 pt-1"></div>
+                                </div>
+                                <input type="text" id="input-masuk-catatan" placeholder="Keterangan..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                                
+                                <div>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Masuk ke Dompet</span>
+                                    <div class="flex flex-wrap gap-1.5" id="pemasukan-wallet-chips">
+                                        <button type="button" onclick="selectFormWallet('tunai', 'masuk', this)" class="form-wallet-btn-masuk active text-[10px] font-bold px-2.5 py-1 rounded-xl border bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 border-emerald-300">💵 Tunai</button>
+                                        <button type="button" onclick="selectFormWallet('bank', 'masuk', this)" class="form-wallet-btn-masuk text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">🏦 Bank</button>
+                                        <button type="button" onclick="selectFormWallet('ewallet', 'masuk', this)" class="form-wallet-btn-masuk text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">📱 E-Wallet</button>
+                                    </div>
+                                </div>
+
+                                <button type="button" onclick="tambahUang('masuk')" class="w-full bg-green-500 text-white py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-green-600 transition-colors">Tambah Pemasukan</button>
+                            </div>
+                        </div>
                         
-                        <div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Masuk ke Dompet</span>
-                            <div class="flex flex-wrap gap-1.5" id="pemasukan-wallet-chips">
-                                <button type="button" onclick="selectFormWallet('tunai', 'masuk', this)" class="form-wallet-btn-masuk active text-[10px] font-bold px-2.5 py-1 rounded-xl border bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 border-emerald-300">💵 Tunai</button>
-                                <button type="button" onclick="selectFormWallet('bank', 'masuk', this)" class="form-wallet-btn-masuk text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">🏦 Bank</button>
-                                <button type="button" onclick="selectFormWallet('ewallet', 'masuk', this)" class="form-wallet-btn-masuk text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">📱 E-Wallet</button>
+                        <!-- Pengeluaran -->
+                        <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                            <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-2 text-sm flex items-center"><i class="fas fa-arrow-up text-red-500 mr-2"></i>Pengeluaran</h3>
+                            <div class="space-y-2">
+                                <div>
+                                    <input type="text" id="input-keluar-nominal" inputmode="numeric" placeholder="Nominal (Rp) misal: 50,000 atau 25,000*2..." oninput="handleNominalInput(this, 'preview-keluar-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                                    <div id="preview-keluar-math" class="text-xs font-bold text-rose-600 dark:text-rose-400 hidden pl-1 pt-1"></div>
+                                </div>
+                                <input type="text" id="input-keluar-catatan" placeholder="Keterangan..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
+                                
+                                <div>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Keluar dari Dompet</span>
+                                    <div class="flex flex-wrap gap-1.5" id="pengeluaran-wallet-chips">
+                                        <button type="button" onclick="selectFormWallet('tunai', 'keluar', this)" class="form-wallet-btn-keluar active text-[10px] font-bold px-2.5 py-1 rounded-xl border bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 border-emerald-300">💵 Tunai</button>
+                                        <button type="button" onclick="selectFormWallet('bank', 'keluar', this)" class="form-wallet-btn-keluar text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">🏦 Bank</button>
+                                        <button type="button" onclick="selectFormWallet('ewallet', 'keluar', this)" class="form-wallet-btn-keluar text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">📱 E-Wallet</button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Kategori</span>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <button type="button" onclick="selectKategori('🍔 Makan', this)" class="kat-btn active text-[10px] font-bold px-2.5 py-1 rounded-xl border bg-primary-50 dark:bg-primary-900/30 text-primary-600 border-primary-300">🍔 Makan</button>
+                                        <button type="button" onclick="selectKategori('🚗 Transport', this)" class="kat-btn text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">🚗 Transport</button>
+                                        <button type="button" onclick="selectKategori('🛍️ Belanja', this)" class="kat-btn text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">🛍️ Belanja</button>
+                                        <button type="button" onclick="selectKategori('💡 Tagihan', this)" class="kat-btn text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">💡 Tagihan</button>
+                                        <button type="button" onclick="selectKategori('📁 Lainnya', this)" class="kat-btn text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">📁 Lainnya</button>
+                                    </div>
+                                </div>
+
+                                <button type="button" onclick="tambahUang('keluar')" class="w-full bg-red-500 text-white py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-red-600 transition-colors mt-2">Catat Pengeluaran</button>
                             </div>
                         </div>
-
-                        <button type="button" onclick="tambahUang('masuk')" class="w-full bg-green-500 text-white py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-green-600 transition-colors">Tambah Pemasukan</button>
                     </div>
                 </div>
-                
-                <!-- Pengeluaran -->
-                <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
-                    <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-2 text-sm flex items-center"><i class="fas fa-arrow-up text-red-500 mr-2"></i>Pengeluaran</h3>
-                    <div class="space-y-2">
-                        <div>
-                            <input type="text" id="input-keluar-nominal" inputmode="numeric" placeholder="Nominal (Rp) misal: 50,000 atau 25,000*2..." oninput="handleNominalInput(this, 'preview-keluar-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
-                            <div id="preview-keluar-math" class="text-xs font-bold text-rose-600 dark:text-rose-400 hidden pl-1 pt-1"></div>
-                        </div>
-                        <input type="text" id="input-keluar-catatan" placeholder="Keterangan..." class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
-                        
-                        <div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Keluar dari Dompet</span>
-                            <div class="flex flex-wrap gap-1.5" id="pengeluaran-wallet-chips">
-                                <button type="button" onclick="selectFormWallet('tunai', 'keluar', this)" class="form-wallet-btn-keluar active text-[10px] font-bold px-2.5 py-1 rounded-xl border bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 border-emerald-300">💵 Tunai</button>
-                                <button type="button" onclick="selectFormWallet('bank', 'keluar', this)" class="form-wallet-btn-keluar text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">🏦 Bank</button>
-                                <button type="button" onclick="selectFormWallet('ewallet', 'keluar', this)" class="form-wallet-btn-keluar text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">📱 E-Wallet</button>
-                            </div>
-                        </div>
 
-                        <div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Kategori</span>
-                            <div class="flex flex-wrap gap-1.5">
-                                <button type="button" onclick="selectKategori('🍔 Makan', this)" class="kat-btn active text-[10px] font-bold px-2.5 py-1 rounded-xl border bg-primary-50 dark:bg-primary-900/30 text-primary-600 border-primary-300">🍔 Makan</button>
-                                <button type="button" onclick="selectKategori('🚗 Transport', this)" class="kat-btn text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">🚗 Transport</button>
-                                <button type="button" onclick="selectKategori('🛍️ Belanja', this)" class="kat-btn text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">🛍️ Belanja</button>
-                                <button type="button" onclick="selectKategori('💡 Tagihan', this)" class="kat-btn text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">💡 Tagihan</button>
-                                <button type="button" onclick="selectKategori('📁 Lainnya', this)" class="kat-btn text-[10px] font-bold px-2.5 py-1 rounded-xl border border-slate-200 dark:border-[#313f52] bg-slate-50 dark:bg-[#17212b]">📁 Lainnya</button>
-                            </div>
-                        </div>
+                <!-- 8. WIDGET: RIWAYAT TRANSAKSI -->
+                <div id="finance-widget-riwayat" class="finance-widget-block">
+                    <div class="flex justify-between items-center mb-2 px-1">
+                        <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fas fa-history text-indigo-500"></i> Riwayat Transaksi
+                        </span>
+                        <div id="finance-arrows-riwayat"></div>
+                    </div>
+                    <!-- Filter Rentang Waktu Transaksi -->
+                    <div class="flex items-center gap-1.5 mb-2 overflow-x-auto pb-1">
+                        <button type="button" onclick="setPeriodeTransaksi('semua', this)" class="period-btn active text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Semua</button>
+                        <button type="button" onclick="setPeriodeTransaksi('hari-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Hari Ini</button>
+                        <button type="button" onclick="setPeriodeTransaksi('minggu-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Minggu Ini</button>
+                        <button type="button" onclick="setPeriodeTransaksi('bulan-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Bulan Ini</button>
+                    </div>
 
-                        <button type="button" onclick="tambahUang('keluar')" class="w-full bg-red-500 text-white py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-red-600 transition-colors mt-2">Catat Pengeluaran</button>
+                    <!-- Instant Search Bar Riwayat Transaksi -->
+                    <div class="relative mb-2">
+                        <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="search-transaksi" placeholder="Cari transaksi..." oninput="filterTransaksi(this.value)" class="w-full rounded-2xl pl-9 pr-8 py-2.5 text-xs font-bold border border-slate-200 dark:border-[#242f3d] focus:outline-none focus:ring-2 focus:ring-primary-500">
+                        <button type="button" onclick="clearSearchTransaksi()" id="btn-clear-search-transaksi" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"><i class="fas fa-times-circle text-xs"></i></button>
+                    </div>
+
+                    <!-- Accordion Riwayat Transaksi -->
+                    <div>
+                        <button type="button" onclick="toggleStack('stack-riwayat-keuangan', 'icon-riwayat-keuangan', parseInt(document.getElementById('count-transaksi').innerText))" class="widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center font-bold text-sm shadow-sm hover:shadow-md transition-shadow compact-pad">
+                            <div class="flex items-center gap-2"><i class="fas fa-history text-primary-500"></i><span>Daftar Transaksi (<span id="count-transaksi">0</span>)</span></div>
+                            <i id="icon-riwayat-keuangan" class="fas fa-chevron-down text-slate-400 transform transition-transform duration-200 hidden"></i>
+                        </button>
+                        <ul id="stack-riwayat-keuangan" class="accordion-content mt-2 space-y-2 px-1"></ul>
                     </div>
                 </div>
-            </div>
-
-            <!-- Filter Rentang Waktu Transaksi -->
-            <div class="flex items-center gap-1.5 mb-2 overflow-x-auto pb-1">
-                <button type="button" onclick="setPeriodeTransaksi('semua', this)" class="period-btn active text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Semua</button>
-                <button type="button" onclick="setPeriodeTransaksi('hari-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Hari Ini</button>
-                <button type="button" onclick="setPeriodeTransaksi('minggu-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Minggu Ini</button>
-                <button type="button" onclick="setPeriodeTransaksi('bulan-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Bulan Ini</button>
-            </div>
-
-            <!-- Instant Search Bar Riwayat Transaksi -->
-            <div class="relative mb-2">
-                <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                <input type="text" id="search-transaksi" placeholder="Cari transaksi..." oninput="filterTransaksi(this.value)" class="w-full rounded-2xl pl-9 pr-8 py-2.5 text-xs font-bold border border-slate-200 dark:border-[#242f3d] focus:outline-none focus:ring-2 focus:ring-primary-500">
-                <button type="button" onclick="clearSearchTransaksi()" id="btn-clear-search-transaksi" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"><i class="fas fa-times-circle text-xs"></i></button>
-            </div>
-
-            <!-- Riwayat Transaksi -->
-            <div>
-                <button type="button" onclick="toggleStack('stack-riwayat-keuangan', 'icon-riwayat-keuangan', parseInt(document.getElementById('count-transaksi').innerText))" class="widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center font-bold text-sm shadow-sm hover:shadow-md transition-shadow compact-pad">
-                    <div class="flex items-center gap-2"><i class="fas fa-history text-primary-500"></i><span>Riwayat Transaksi (<span id="count-transaksi">0</span>)</span></div>
-                    <i id="icon-riwayat-keuangan" class="fas fa-chevron-down text-slate-400 transform transition-transform duration-200 hidden"></i>
-                </button>
-                <ul id="stack-riwayat-keuangan" class="accordion-content mt-2 space-y-2 px-1"></ul>
             </div>
 
             <div class="h-28 w-full block shrink-0"></div>
@@ -2341,6 +2438,8 @@
         let searchQueryTransaksi = '';
         let saveHueTimeout = null;
         let isSwappingWidget = false;
+        let isSwappingFinanceWidget = false;
+        const DEFAULT_FINANCE_WIDGETS = ['ringkasan', 'dompet', 'skor_kesehatan', 'anggaran', 'tagihan', 'alokasi', 'form_transaksi', 'riwayat'];
         let isRekapBannerDismissed = false;
 
         // SISTEM ANTREAN NOTIFIKASI DINAMIS (ANTI-TABRAKAN / ANTI-OVERLAP)
@@ -3966,6 +4065,30 @@
             triggerDynamicIsland("Widget", "Tata letak diperbarui", "fas fa-sliders-h", "bg-purple-500/20 text-purple-400");
         }
 
+        function openFinanceWidgetManagerModal() {
+            var sb = document.getElementById('sidebar');
+            if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
+            
+            var hw = dataState.hiddenFinanceWidgets || [];
+            DEFAULT_FINANCE_WIDGETS.forEach(k => {
+                var chk = document.getElementById(`w-toggle-fin-${k}`);
+                if (chk) chk.checked = !hw.includes(k);
+            });
+
+            openBottomSheet('finance-widget-manager-modal');
+        }
+
+        function toggleFinanceWidgetVisibility(key, isVisible) {
+            if (!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
+            if (!isVisible) {
+                if (!dataState.hiddenFinanceWidgets.includes(key)) dataState.hiddenFinanceWidgets.push(key);
+            } else {
+                dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(k => k !== key);
+            }
+            simpanData();
+            triggerDynamicIsland("Widget Keuangan", "Tata letak diperbarui", "fas fa-wallet", "bg-emerald-500/20 text-emerald-400");
+        }
+
         // --- FITUR 1: ANALISIS & STATISTIK KEUANGAN ---
         let currentAnalisisPeriode = 'bulan-ini';
 
@@ -4989,6 +5112,10 @@
                 taskInput.classList.remove('open');
                 if (plusIcon) plusIcon.style.transform = 'rotate(0deg)';
             }
+
+            if (tabId === 'keuangan') {
+                applyFinanceWidgetOrder();
+            }
         }
 
         function quickAddTask() {
@@ -5160,6 +5287,79 @@
                 
                 simpanData();
                 isSwappingWidget = false;
+            }, 330);
+        }
+
+        function moveFinanceWidget(key, dir) {
+            if (isSwappingFinanceWidget) return;
+            var hidden = dataState.hiddenFinanceWidgets || [];
+            var fullArr = Array.isArray(dataState.financeWidgetOrder) ? [...dataState.financeWidgetOrder] : [...DEFAULT_FINANCE_WIDGETS];
+            DEFAULT_FINANCE_WIDGETS.forEach(k => {
+                if (!fullArr.includes(k)) fullArr.push(k);
+            });
+
+            var activeArr = fullArr.filter(k => !hidden.includes(k));
+            var idx = activeArr.indexOf(key);
+            if (idx === -1) return;
+
+            var targetIdx = (dir === 'up') ? idx - 1 : idx + 1;
+            if (targetIdx < 0 || targetIdx >= activeArr.length) return;
+
+            var targetKey = activeArr[targetIdx];
+            var cardA = document.getElementById(`finance-widget-${key}`);
+            var cardB = document.getElementById(`finance-widget-${targetKey}`);
+
+            const applyArraySwap = () => {
+                var fromIdx = fullArr.indexOf(key);
+                if (fromIdx !== -1) fullArr.splice(fromIdx, 1);
+                var toIdx = fullArr.indexOf(targetKey);
+                if (toIdx !== -1) {
+                    if (dir === 'up') {
+                        fullArr.splice(toIdx, 0, key);
+                    } else {
+                        fullArr.splice(toIdx + 1, 0, key);
+                    }
+                } else {
+                    fullArr.push(key);
+                }
+                dataState.financeWidgetOrder = fullArr;
+            };
+
+            if (!cardA || !cardB) {
+                applyArraySwap();
+                simpanData();
+                return;
+            }
+
+            isSwappingFinanceWidget = true;
+
+            var distA = (dir === 'up') 
+                ? -(cardB.offsetHeight + 16) 
+                : (cardB.offsetHeight + 16);
+            var distB = (dir === 'up') 
+                ? (cardA.offsetHeight + 16) 
+                : -(cardA.offsetHeight + 16);
+
+            cardA.style.transition = 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)';
+            cardB.style.transition = 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)';
+            
+            cardA.style.zIndex = '10';
+            cardB.style.zIndex = '5';
+            cardA.style.transform = `translate3d(0, ${distA}px, 0)`;
+            cardB.style.transform = `translate3d(0, ${distB}px, 0)`;
+
+            setTimeout(() => {
+                cardA.style.transition = '';
+                cardB.style.transition = '';
+                cardA.style.transform = '';
+                cardB.style.transform = '';
+                cardA.style.zIndex = '';
+                cardB.style.zIndex = '';
+
+                applyArraySwap();
+                
+                simpanData();
+                isSwappingFinanceWidget = false;
             }, 330);
         }
 
@@ -6179,6 +6379,7 @@
             }
 
             renderBerandaWidgets(dl, reg);
+            applyFinanceWidgetOrder();
 
             var lj = document.getElementById('daftar-jurnal');
             var kTxt = document.getElementById('jurnal-kosong-teks');
@@ -6214,6 +6415,64 @@
             }
             html += '</div>';
             return html;
+        }
+
+        function renderSmartFinanceArrows(key, index, total) {
+            var isFirst = (index === 0);
+            var isLast = (index === total - 1);
+            var html = '<div class="flex items-center gap-1">';
+            if (!isFirst) {
+                html += `<button type="button" onclick="moveFinanceWidget('${key}', 'up')" title="Geser ke Atas" class="text-slate-400 hover:text-emerald-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-up"></i></button>`;
+            }
+            if (!isLast) {
+                html += `<button type="button" onclick="moveFinanceWidget('${key}', 'down')" title="Geser ke Bawah" class="text-slate-400 hover:text-emerald-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-down"></i></button>`;
+            }
+            html += '</div>';
+            return html;
+        }
+
+        function applyFinanceWidgetOrder() {
+            var container = document.getElementById('keuangan-widgets-container');
+            if (!container) return;
+
+            var hidden = dataState.hiddenFinanceWidgets || [];
+            var order = Array.isArray(dataState.financeWidgetOrder) ? [...dataState.financeWidgetOrder] : [...DEFAULT_FINANCE_WIDGETS];
+            DEFAULT_FINANCE_WIDGETS.forEach(k => {
+                if (!order.includes(k)) order.push(k);
+            });
+
+            var activeWidgets = order.filter(k => !hidden.includes(k));
+            var totalActive = activeWidgets.length;
+
+            var currentChildren = Array.from(container.children).filter(c => c.classList.contains('finance-widget-block'));
+            var currentIds = currentChildren.map(c => c.id);
+            var targetIds = order.map(k => `finance-widget-${k}`);
+            var needsReorder = false;
+            for (var i = 0; i < targetIds.length; i++) {
+                if (currentIds[i] !== targetIds[i]) {
+                    needsReorder = true;
+                    break;
+                }
+            }
+
+            order.forEach(k => {
+                var el = document.getElementById(`finance-widget-${k}`);
+                if (!el) return;
+
+                if (hidden.includes(k)) {
+                    el.classList.add('hidden');
+                } else {
+                    el.classList.remove('hidden');
+                    var arrowBox = document.getElementById(`finance-arrows-${k}`);
+                    if (arrowBox) {
+                        var idx = activeWidgets.indexOf(k);
+                        arrowBox.innerHTML = renderSmartFinanceArrows(k, idx, totalActive);
+                    }
+                }
+                if (needsReorder) {
+                    container.appendChild(el);
+                }
+            });
         }
 
         function renderBerandaWidgets(dl, reg) {
@@ -6412,7 +6671,7 @@
                     setTimeout(() => icon.classList.remove('animate-wiggle'), 400);
                 }
                 setTimeout(() => {
-                    dataState = { userName: 'Pengguna', saldo: 0, isPrivacyMode: false, compactMode: false, glassMode: false, autoThemeMode: false, cardGradient: true, hiddenWidgets: [], widgetOrder: ['rekap', 'tabungan', 'deadline', 'reguler'], rekapHarian: [], tugas: [], transaksi: [], jurnal: [], targetTabungan: [], catatanKilat: [] }; 
+                    dataState = { userName: 'Pengguna', saldo: 0, isPrivacyMode: false, compactMode: false, glassMode: false, autoThemeMode: false, cardGradient: true, hiddenWidgets: [], widgetOrder: ['rekap', 'tabungan', 'deadline', 'reguler'], hiddenFinanceWidgets: [], financeWidgetOrder: [...DEFAULT_FINANCE_WIDGETS], rekapHarian: [], tugas: [], transaksi: [], jurnal: [], targetTabungan: [], catatanKilat: [] }; 
                     document.getElementById('input-user-name').value = dataState.userName;
                     document.body.classList.remove('compact-mode', 'glass-mode');
                     applyCardGradientVisual();
@@ -6454,6 +6713,11 @@
             if(!Array.isArray(dataState.catatanKilat)) dataState.catatanKilat = [];
             if(!Array.isArray(dataState.hiddenWidgets)) dataState.hiddenWidgets = [];
             if(!Array.isArray(dataState.widgetOrder)) dataState.widgetOrder = ['rekap', 'tabungan', 'deadline', 'reguler'];
+            if(!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
+            if(!Array.isArray(dataState.financeWidgetOrder)) dataState.financeWidgetOrder = [...DEFAULT_FINANCE_WIDGETS];
+            DEFAULT_FINANCE_WIDGETS.forEach(k => {
+                if (!dataState.financeWidgetOrder.includes(k)) dataState.financeWidgetOrder.push(k);
+            });
             if(!Array.isArray(dataState.wallets)) dataState.wallets = [
                 { id: 'tunai', nama: 'Tunai' },
                 { id: 'bank', nama: 'Bank' },
