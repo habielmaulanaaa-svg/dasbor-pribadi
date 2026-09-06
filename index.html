@@ -780,17 +780,6 @@
                                 </button>
                             </div>
 
-                            <!-- 5. Toggle Respon Getar (Haptic Feedback) -->
-                            <div onclick="toggleHapticMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
-                                <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
-                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-hand-pointer text-primary-500 text-[10px]"></i> Respon Getar</span>
-                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Getaran taktil saat sentuh</span>
-                                </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleHapticMode()" id="btn-toggle-haptic" class="no-bounce w-11 h-6 flex items-center justify-center focus:outline-none shrink-0" aria-label="Toggle Respon Getar">
-                                    <div id="haptic-switch-knob" class="strip-indicator w-9 h-2.5 rounded-full bg-primary-500 dark:bg-primary-400 shadow-none opacity-100 transition-all duration-200"></div>
-                                </button>
-                            </div>
-
                             <!-- 6. Toggle Kunci Aplikasi (PIN & Pola) -->
                             <div onclick="toggleAppLockSetting()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
                                 <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
@@ -1465,6 +1454,57 @@
         </div>
     </div>
 
+    <!-- BOTTOM SHEET: KALENDER AKTIVITAS & KEUANGAN TERPADU -->
+    <div id="activity-calendar-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
+        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[90vh] flex flex-col overflow-y-auto">
+            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
+            
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-calendar-alt text-primary-500"></i> Kalender Aktivitas &amp; Keuangan
+                </h3>
+                <button type="button" onclick="closeBottomSheet('activity-calendar-modal')" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Header Navigasi Bulan -->
+            <div class="flex items-center justify-between bg-slate-50 dark:bg-[#242f3d]/50 p-2.5 rounded-2xl mb-3 border border-slate-200 dark:border-[#313f52]">
+                <button type="button" onclick="changeCalendarMonth(-1)" class="w-8 h-8 rounded-xl bg-white dark:bg-[#17212b] text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-[#313f52] shadow-xs transition-all active:scale-95">
+                    <i class="fas fa-chevron-left text-xs"></i>
+                </button>
+                <span id="calendar-month-year-title" class="text-xs font-black text-slate-800 dark:text-white"></span>
+                <button type="button" onclick="changeCalendarMonth(1)" class="w-8 h-8 rounded-xl bg-white dark:bg-[#17212b] text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-[#313f52] shadow-xs transition-all active:scale-95">
+                    <i class="fas fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Legenda Titik -->
+            <div class="flex items-center justify-center gap-4 text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-2">
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Pemasukan</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Pengeluaran</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-sky-500"></span> Deadline</span>
+            </div>
+
+            <!-- Grid Hari -->
+            <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-1">
+                <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+            </div>
+
+            <!-- Grid Tanggal -->
+            <div id="calendar-dates-grid" class="grid grid-cols-7 gap-1 mb-4"></div>
+
+            <!-- Panel Rincian Tanggal Terpilih -->
+            <div class="p-3.5 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52]">
+                <div class="flex items-center justify-between mb-2">
+                    <span id="selected-calendar-date-text" class="text-xs font-black text-primary-600 dark:text-primary-400">Rincian Tanggal</span>
+                    <span id="selected-calendar-count-text" class="text-[10px] font-bold text-slate-400">0 Aktivitas</span>
+                </div>
+                <div id="selected-calendar-details" class="space-y-1.5 max-h-48 overflow-y-auto pr-1"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bottom Sheet: Laporan PDF -->
     <div id="pdf-report-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[90vh] flex flex-col overflow-y-auto">
@@ -1746,6 +1786,9 @@
             <h1 id="header-title" class="text-xl font-bold tracking-wide transition-opacity duration-300">Dasbor</h1>
         </div>
         <div class="flex items-center gap-2">
+            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md flex items-center justify-center text-white text-xs transition-all shadow-xs" title="Kalender Aktivitas & Keuangan">
+                <i class="fas fa-calendar-alt"></i>
+            </button>
             <button type="button" onclick="toggleSidebar()" id="header-account-btn" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md transition-all text-xs font-bold text-white focus:outline-none shadow-xs" title="Status Cloud & Akun">
                 <i class="fas fa-cloud text-xs" id="header-cloud-status-icon"></i>
                 <span id="header-user-badge-text" class="text-[11px] max-w-[85px] truncate">Lokal</span>
@@ -1808,6 +1851,14 @@
                             </p>
                         </div>
                         <h3 id="stat-saldo" data-val="0" class="text-3xl font-black tracking-tight">Rp 0</h3>
+                        
+                        <!-- WADAH WAWASAN PINTAR BERGILIR (SMART INSIGHTS CAPSULE) -->
+                        <div id="saldo-smart-insight-container" class="mt-2.5 overflow-hidden transition-all duration-500 ease-in-out opacity-0 max-h-0">
+                            <div id="saldo-smart-insight-pill" onclick="runSmartInsightsSequence()" title="Ketuk untuk putar ulang wawasan" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur-md border border-white/25 text-white text-[11px] font-semibold transition-opacity duration-400 shadow-xs cursor-pointer active:scale-95">
+                                <i id="saldo-smart-insight-icon" class="fas fa-lightbulb text-amber-300 text-xs"></i>
+                                <span id="saldo-smart-insight-text" class="truncate max-w-[270px]"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2248,10 +2299,37 @@
             </button>
         </nav>
 
-        <!-- Tombol Aksi Melingkar Terpisah -->
-        <button type="button" id="fab-quick-add" onclick="quickAddTask()" class="w-12 h-12 rounded-full bg-white/85 dark:bg-[#17212b]/90 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] transition-transform duration-200 hover:scale-105 active:scale-95 text-base">
-            <i id="fab-plus-icon" class="fas fa-plus text-primary-600 dark:text-primary-400 transform transition-transform duration-300"></i>
-        </button>
+        <!-- Container Tombol Aksi Speed Dial FAB -->
+        <div class="relative">
+            <!-- Menu Melayang Speed Dial -->
+            <div id="fab-speed-dial-menu" class="hidden absolute bottom-14 right-0 flex flex-col items-end gap-2 mb-1 transition-all duration-300 opacity-0 scale-90 origin-bottom-right z-40 pointer-events-none">
+                <!-- 1. Catatan Kilat -->
+                <button type="button" onclick="fabAction('catatan')" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
+                    <span>Catatan Kilat</span>
+                    <span class="w-6 h-6 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center text-xs"><i class="fas fa-bolt"></i></span>
+                </button>
+                <!-- 2. Pemasukan -->
+                <button type="button" onclick="fabAction('pemasukan')" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
+                    <span>Catat Pemasukan</span>
+                    <span class="w-6 h-6 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center text-xs"><i class="fas fa-plus"></i></span>
+                </button>
+                <!-- 3. Pengeluaran -->
+                <button type="button" onclick="fabAction('pengeluaran')" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-rose-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
+                    <span>Catat Pengeluaran</span>
+                    <span class="w-6 h-6 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center text-xs"><i class="fas fa-minus"></i></span>
+                </button>
+                <!-- 4. Tugas Baru -->
+                <button type="button" onclick="fabAction('tugas')" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-primary-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
+                    <span>Tugas Baru</span>
+                    <span class="w-6 h-6 rounded-xl bg-primary-500/15 text-primary-500 flex items-center justify-center text-xs"><i class="fas fa-check-circle"></i></span>
+                </button>
+            </div>
+
+            <!-- Tombol FAB Utama -->
+            <button type="button" id="fab-quick-add" onclick="toggleFabSpeedDial()" class="w-12 h-12 rounded-full bg-white/85 dark:bg-[#17212b]/90 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] transition-transform duration-200 hover:scale-105 active:scale-95 text-base">
+                <i id="fab-plus-icon" class="fas fa-plus text-primary-600 dark:text-primary-400 transform transition-transform duration-300"></i>
+            </button>
+        </div>
     </div>
 
     <script>
@@ -2559,7 +2637,6 @@
             if (dataState.compactMode) count++;
             if (dataState.glassMode) count++;
             if (dataState.autoThemeMode) count++;
-            if (dataState.hapticFeedback !== false) count++;
             if (dataState.appLock && dataState.appLock.enabled) count++;
             var badge = document.getElementById('active-toggle-count-badge');
             if (badge) badge.innerText = `${count} Aktif`;
@@ -2676,26 +2753,9 @@
         });
         setInterval(applyAutoThemeClock, 60000);
 
-        function toggleHapticMode() {
-            dataState.hapticFeedback = (dataState.hapticFeedback === undefined) ? false : !dataState.hapticFeedback;
-            var knobH = document.getElementById('haptic-switch-knob');
-            var btnH = document.getElementById('btn-toggle-haptic');
-            setSwitchVisual(btnH, knobH, dataState.hapticFeedback, true);
-            updateActiveToggleCount();
-            simpanData();
-            triggerHaptic('medium');
-            triggerDynamicIsland("Getaran", dataState.hapticFeedback ? "Respon Getar Aktif 📳" : "Respon Getar Nonaktif 🔕", "fas fa-mobile-alt", "bg-primary-500/20 text-primary-400");
-        }
-
         function triggerHaptic(type) {
-            if (dataState.hapticFeedback === false || !('vibrate' in navigator)) return;
-            try {
-                if (type === 'light') navigator.vibrate(12);
-                else if (type === 'medium') navigator.vibrate(25);
-                else if (type === 'success') navigator.vibrate([15, 60, 20]);
-                else if (type === 'error') navigator.vibrate([35, 40, 35]);
-                else navigator.vibrate(15);
-            } catch(e) {}
+            // Haptic feedback ditiadakan sepenuhnya sesuai preferensi pengguna
+            return;
         }
 
         // ==========================================
@@ -5114,20 +5174,381 @@
             }
         }
 
+        // ==========================================
+        // FITUR V33.11: SPEED-DIAL FLOATING ACTION BUTTON (FAB)
+        // ==========================================
+        let isFabOpen = false;
+
+        function toggleFabSpeedDial() {
+            var menu = document.getElementById('fab-speed-dial-menu');
+            var icon = document.getElementById('fab-plus-icon');
+            if (!menu || !icon) return;
+
+            isFabOpen = !isFabOpen;
+            if (isFabOpen) {
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+                    menu.classList.add('opacity-100', 'scale-100');
+                    icon.style.transform = 'rotate(45deg)';
+                }, 10);
+            } else {
+                closeFabSpeedDial();
+            }
+        }
+
+        function closeFabSpeedDial() {
+            var menu = document.getElementById('fab-speed-dial-menu');
+            var icon = document.getElementById('fab-plus-icon');
+            if (!menu) return;
+            isFabOpen = false;
+            menu.classList.remove('opacity-100', 'scale-100');
+            menu.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+            if (icon) icon.style.transform = 'rotate(0deg)';
+            setTimeout(() => {
+                if (!isFabOpen) menu.classList.add('hidden');
+            }, 250);
+        }
+
+        function fabAction(action) {
+            closeFabSpeedDial();
+            if (action === 'tugas') {
+                switchTab('tugas');
+                var inputArea = document.getElementById('tugas-input-area');
+                if (inputArea && !inputArea.classList.contains('open')) {
+                    inputArea.classList.add('open');
+                }
+                setTimeout(() => {
+                    var el = document.getElementById('input-tugas-nama');
+                    if (el) {
+                        el.focus();
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 200);
+            } else if (action === 'pengeluaran') {
+                switchTab('keuangan');
+                setTimeout(() => {
+                    var el = document.getElementById('input-keluar-nominal');
+                    if (el) {
+                        el.focus();
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 200);
+            } else if (action === 'pemasukan') {
+                switchTab('keuangan');
+                setTimeout(() => {
+                    var el = document.getElementById('input-masuk-nominal');
+                    if (el) {
+                        el.focus();
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 200);
+            } else if (action === 'catatan') {
+                openBottomSheet('catatan-kilat-modal');
+            }
+        }
+
         function quickAddTask() {
-            switchTab('tugas');
-            var inputArea = document.getElementById('tugas-input-area');
-            var plusIcon = document.getElementById('fab-plus-icon');
-            if (inputArea) {
-                var isOpen = inputArea.classList.toggle('open');
-                if (plusIcon) plusIcon.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
-                if (isOpen) {
-                    setTimeout(() => {
-                        var inputNama = document.getElementById('input-tugas-nama');
-                        if(inputNama) inputNama.focus();
-                    }, 150);
+            toggleFabSpeedDial();
+        }
+
+        // Tutup FAB speed dial saat mengetuk area di luar dock
+        document.addEventListener('click', function(e) {
+            if (isFabOpen) {
+                var dock = document.getElementById('floating-dock-container');
+                if (dock && !dock.contains(e.target)) {
+                    closeFabSpeedDial();
                 }
             }
+        });
+
+        // ==========================================
+        // FITUR V33.11: WAWASAN PINTAR BERGILIR DI KARTU SALDO
+        // ==========================================
+        let smartInsightsTimer = null;
+        let smartInsightsFadeTimer = null;
+
+        function runSmartInsightsSequence() {
+            var container = document.getElementById('saldo-smart-insight-container');
+            var pill = document.getElementById('saldo-smart-insight-pill');
+            var icon = document.getElementById('saldo-smart-insight-icon');
+            var text = document.getElementById('saldo-smart-insight-text');
+            if (!container || !pill || !icon || !text) return;
+
+            if (smartInsightsTimer) clearTimeout(smartInsightsTimer);
+            if (smartInsightsFadeTimer) clearTimeout(smartInsightsFadeTimer);
+
+            var txs = dataState.transaksi || [];
+            var tasks = dataState.tugas || [];
+
+            var hasFinansial = txs.length > 0;
+            var hasTugas = tasks.length > 0;
+
+            // Jika TIDAK ADA aktivitas tugas dan finansial sama sekali:
+            // JANGAN tampilkan sama sekali sesuai instruksi pengguna!
+            if (!hasFinansial && !hasTugas) {
+                container.style.opacity = '0';
+                container.style.maxHeight = '0px';
+                return;
+            }
+
+            // 1. Bangun Wawasan Finansial
+            var insightFin = null;
+            if (hasFinansial) {
+                var expenseTxs = txs.filter(t => t.jenis === 'keluar');
+                var incomeTxs = txs.filter(t => t.jenis === 'masuk');
+                
+                if (expenseTxs.length > 0) {
+                    var catTotals = {};
+                    expenseTxs.forEach(t => {
+                        var c = t.kategori || 'Lainnya';
+                        catTotals[c] = (catTotals[c] || 0) + Number(t.nominal || 0);
+                    });
+                    var topCat = Object.keys(catTotals).sort((a,b) => catTotals[b] - catTotals[a])[0];
+                    var topVal = catTotals[topCat];
+                    insightFin = {
+                        icon: 'fas fa-chart-pie text-amber-300',
+                        text: `Pengeluaran terbesar: ${topCat} (${formatRupiah(topVal)})`
+                    };
+                } else if (incomeTxs.length > 0) {
+                    var totalMasuk = incomeTxs.reduce((acc, t) => acc + Number(t.nominal || 0), 0);
+                    insightFin = {
+                        icon: 'fas fa-arrow-trend-up text-emerald-300',
+                        text: `Pemasukan tercatat: ${formatRupiah(totalMasuk)}`
+                    };
+                }
+            }
+
+            // 2. Bangun Wawasan Produktivitas
+            var insightProd = null;
+            if (hasTugas) {
+                var totalTasks = tasks.length;
+                var completedTasks = tasks.filter(t => t.selesai).length;
+                var pctTasks = Math.round((completedTasks / totalTasks) * 100);
+
+                var nowIso = new Date().toISOString().slice(0, 10);
+                var overdueTasks = tasks.filter(t => !t.selesai && t.deadline && t.deadline < nowIso);
+                var todayTasks = tasks.filter(t => !t.selesai && t.deadline && t.deadline === nowIso);
+
+                if (overdueTasks.length > 0) {
+                    insightProd = {
+                        icon: 'fas fa-exclamation-circle text-rose-300',
+                        text: `Perhatian: Ada ${overdueTasks.length} tugas lewat tenggat!`
+                    };
+                } else if (todayTasks.length > 0) {
+                    insightProd = {
+                        icon: 'fas fa-clock text-amber-300',
+                        text: `${todayTasks.length} tugas jatuh tempo hari ini`
+                    };
+                } else if (totalTasks > 0) {
+                    if (pctTasks === 100) {
+                        insightProd = {
+                            icon: 'fas fa-award text-emerald-300',
+                            text: `Luar biasa! Semua tugas (${totalTasks}) tuntas 100%`
+                        };
+                    } else {
+                        insightProd = {
+                            icon: 'fas fa-check-double text-sky-300',
+                            text: `Produktivitas: ${completedTasks}/${totalTasks} tugas selesai (${pctTasks}%)`
+                        };
+                    }
+                }
+            }
+
+            // Animasi transisi bertahap:
+            var showPill = (item, onDone) => {
+                pill.style.opacity = '0';
+                setTimeout(() => {
+                    icon.className = `${item.icon} text-xs`;
+                    text.innerText = item.text;
+                    container.style.maxHeight = '60px';
+                    container.style.opacity = '1';
+                    pill.style.opacity = '1';
+
+                    smartInsightsTimer = setTimeout(() => {
+                        // Efek Fade out yang lembut
+                        pill.style.opacity = '0';
+                        smartInsightsFadeTimer = setTimeout(() => {
+                            if (onDone) onDone();
+                        }, 450);
+                    }, 3500);
+                }, 150);
+            };
+
+            var closePill = () => {
+                container.style.opacity = '0';
+                container.style.maxHeight = '0px';
+            };
+
+            // Jeda 900ms setelah data dimuat agar tidak tergesa-gesa
+            setTimeout(() => {
+                if (insightFin && insightProd) {
+                    // Finansial dulu -> Fade out -> Produktivitas -> Fade out -> Tutup
+                    showPill(insightFin, () => {
+                        showPill(insightProd, () => {
+                            closePill();
+                        });
+                    });
+                } else if (insightFin) {
+                    // Hanya Finansial -> Tutup
+                    showPill(insightFin, () => {
+                        closePill();
+                    });
+                } else if (insightProd) {
+                    // Hanya Produktivitas -> Tutup
+                    showPill(insightProd, () => {
+                        closePill();
+                    });
+                }
+            }, 900);
+        }
+
+        // ==========================================
+        // FITUR V33.11: KALENDER AKTIVITAS & KEUANGAN TERPADU
+        // ==========================================
+        let actCalYear = new Date().getFullYear();
+        let actCalMonth = new Date().getMonth();
+        let actCalSelectedDateIso = new Date().toISOString().slice(0, 10);
+
+        function openActivityCalendar() {
+            actCalYear = new Date().getFullYear();
+            actCalMonth = new Date().getMonth();
+            actCalSelectedDateIso = new Date().toISOString().slice(0, 10);
+            renderActivityCalendar();
+            openBottomSheet('activity-calendar-modal');
+        }
+
+        function changeCalendarMonth(offset) {
+            actCalMonth += offset;
+            if (actCalMonth < 0) {
+                actCalMonth = 11;
+                actCalYear--;
+            } else if (actCalMonth > 11) {
+                actCalMonth = 0;
+                actCalYear++;
+            }
+            renderActivityCalendar();
+        }
+
+        function renderActivityCalendar() {
+            var titleEl = document.getElementById('calendar-month-year-title');
+            var gridEl = document.getElementById('calendar-dates-grid');
+            if (!titleEl || !gridEl) return;
+
+            var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            titleEl.innerText = `${monthNames[actCalMonth]} ${actCalYear}`;
+
+            var firstDayIndex = new Date(actCalYear, actCalMonth, 1).getDay();
+            var totalDays = new Date(actCalYear, actCalMonth + 1, 0).getDate();
+            var todayIso = new Date().toISOString().slice(0, 10);
+
+            var txs = dataState.transaksi || [];
+            var tasks = dataState.tugas || [];
+
+            var html = '';
+            for (var i = 0; i < firstDayIndex; i++) {
+                html += '<div class="h-10"></div>';
+            }
+
+            for (var day = 1; day <= totalDays; day++) {
+                var dayStr = String(day).padStart(2, '0');
+                var monthStr = String(actCalMonth + 1).padStart(2, '0');
+                var dateIso = `${actCalYear}-${monthStr}-${dayStr}`;
+
+                var isToday = (dateIso === todayIso);
+                var isSelected = (dateIso === actCalSelectedDateIso);
+
+                var dayTxs = txs.filter(t => t.isoDate === dateIso);
+                var hasIncome = dayTxs.some(t => t.jenis === 'masuk');
+                var hasExpense = dayTxs.some(t => t.jenis === 'keluar');
+                var hasTaskDl = tasks.some(t => t.deadline === dateIso);
+
+                var borderClass = isSelected 
+                    ? 'ring-2 ring-primary-500 bg-primary-50/70 dark:bg-primary-950/40 text-primary-600 dark:text-primary-300 font-black' 
+                    : (isToday ? 'border border-primary-500 font-black text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#242f3d]');
+
+                html += `
+                    <button type="button" onclick="selectCalendarDate('${dateIso}')" class="h-11 rounded-2xl flex flex-col items-center justify-center p-0.5 transition-all text-xs ${borderClass} relative">
+                        <span>${day}</span>
+                        <div class="flex items-center gap-0.5 mt-0.5 h-1.5">
+                            ${hasIncome ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>' : ''}
+                            ${hasExpense ? '<span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>' : ''}
+                            ${hasTaskDl ? '<span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>' : ''}
+                        </div>
+                    </button>
+                `;
+            }
+
+            gridEl.innerHTML = html;
+            renderSelectedCalendarDetails();
+        }
+
+        function selectCalendarDate(dateIso) {
+            actCalSelectedDateIso = dateIso;
+            renderActivityCalendar();
+        }
+
+        function renderSelectedCalendarDetails() {
+            var titleEl = document.getElementById('selected-calendar-date-text');
+            var countEl = document.getElementById('selected-calendar-count-text');
+            var detailsEl = document.getElementById('selected-calendar-details');
+            if (!titleEl || !countEl || !detailsEl) return;
+
+            var dateObj = new Date(actCalSelectedDateIso + 'T00:00:00');
+            titleEl.innerText = isNaN(dateObj.getTime()) ? actCalSelectedDateIso : dateObj.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+            var txs = (dataState.transaksi || []).filter(t => t.isoDate === actCalSelectedDateIso);
+            var tasks = (dataState.tugas || []).filter(t => t.deadline === actCalSelectedDateIso);
+
+            var total = txs.length + tasks.length;
+            countEl.innerText = `${total} Aktivitas`;
+
+            if (total === 0) {
+                detailsEl.innerHTML = '<p class="text-xs text-slate-400 font-bold text-center py-4">Tidak ada aktivitas tercatat pada tanggal ini.</p>';
+                return;
+            }
+
+            var html = '';
+            txs.forEach(t => {
+                var isMasuk = (t.jenis === 'masuk');
+                html += `
+                    <div class="p-2.5 rounded-xl bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52] flex items-center justify-between shadow-xs">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span class="w-6 h-6 rounded-lg ${isMasuk ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'} flex items-center justify-center text-[10px] shrink-0">
+                                <i class="fas ${isMasuk ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
+                            </span>
+                            <div class="min-w-0">
+                                <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${escapeHtml(t.catatan || t.kategori)}</div>
+                                <div class="text-[10px] text-slate-400">${escapeHtml(t.kategori)} • ${escapeHtml(t.walletId || 'tunai')}</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-black shrink-0 ${isMasuk ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
+                            ${isMasuk ? '+' : '-'}${formatRupiah(t.nominal)}
+                        </span>
+                    </div>
+                `;
+            });
+
+            tasks.forEach(t => {
+                html += `
+                    <div class="p-2.5 rounded-xl bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52] flex items-center justify-between shadow-xs">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span class="w-6 h-6 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center text-[10px] shrink-0">
+                                <i class="fas fa-tasks"></i>
+                            </span>
+                            <div class="min-w-0">
+                                <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate ${t.selesai ? 'line-through text-slate-400' : ''}">${escapeHtml(t.nama)}</div>
+                                <div class="text-[10px] text-sky-500 font-semibold">Deadline • Prioritas ${t.prioritas || 'sedang'}</div>
+                            </div>
+                        </div>
+                        <span class="text-[10px] px-2 py-0.5 rounded-md font-bold ${t.selesai ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'}">
+                            ${t.selesai ? 'Selesai' : 'Belum'}
+                        </span>
+                    </div>
+                `;
+            });
+
+            detailsEl.innerHTML = html;
         }
 
         function toggleInput(id) { 
@@ -5782,6 +6203,24 @@
         function renderSavingsCard(tab, isDone) {
             var pct = Math.min(Math.round((tab.terkumpul / tab.target) * 100), 100);
             var isNewClass = tab._isNew ? 'dream-card-new' : '';
+            var sisaNominal = Math.max(0, tab.target - tab.terkumpul);
+            var estimasiHtml = '';
+            if (!isDone && sisaNominal > 0) {
+                var per50k = Math.ceil(sisaNominal / 50000);
+                var per100k = Math.ceil(sisaNominal / 100000);
+                var estText = (sisaNominal >= 500000) 
+                    ? `Sisa ${formatRupiah(sisaNominal)} (~${per100k}x nabung Rp 100rb)`
+                    : `Sisa ${formatRupiah(sisaNominal)} (~${per50k}x nabung Rp 50rb)`;
+                estimasiHtml = `
+                    <div class="mt-2 pt-1.5 border-t border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between text-[10px]">
+                        <span class="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-bold">
+                            <i class="fas fa-magic text-[9px]"></i> ${estText}
+                        </span>
+                        <button type="button" onclick="bukaSimulasiTabungan(${tab.id})" class="text-primary-600 dark:text-primary-400 hover:underline font-bold text-[9px]">Simulasi ➔</button>
+                    </div>
+                `;
+            }
+
             return `<div id="savings-card-${tab.id}" class="p-3 bg-slate-50 dark:bg-[#242f3d]/40 rounded-2xl border border-slate-200 dark:border-[#313f52] shadow-sm transition-all compact-pad ${isNewClass}">
                 <div class="flex justify-between items-center mb-1">
                     <span class="text-xs font-bold text-slate-800 dark:text-white truncate flex items-center gap-1.5">
@@ -5789,7 +6228,6 @@
                         ${escapeHtml(tab.judul)}
                     </span>
                     <div class="flex items-center gap-1.5">
-                        ${!isDone ? `<button type="button" onclick="bukaSimulasiTabungan(${tab.id})" class="text-[10px] bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 hover:bg-amber-100 font-bold px-2 py-0.5 rounded-lg flex items-center gap-1" title="Kalkulator Waktu"><i class="fas fa-calculator text-[9px]"></i> Simulasi</button>` : ''}
                         ${!isDone ? `<button type="button" onclick="setorTabungan(${tab.id})" class="text-[10px] bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300 font-bold px-2.5 py-0.5 rounded-lg hover:bg-emerald-200">+ Setor</button>` : ''}
                         <button type="button" onclick="hapusTargetTabungan(${tab.id})" class="text-slate-400 hover:text-red-500 p-0.5 transition-colors" title="Hapus"><i class="fas fa-trash text-[10px]"></i></button>
                     </div>
@@ -5801,6 +6239,7 @@
                     <span>${formatRupiah(tab.terkumpul)} / ${formatRupiah(tab.target)}</span>
                     <span class="${isDone ? 'text-emerald-500 font-black' : ''}">${pct}% ${isDone ? '🎉 Tercapai' : ''}</span>
                 </div>
+                ${estimasiHtml}
             </div>`;
         }
 
@@ -6829,10 +7268,6 @@
             var btnA = document.getElementById('btn-toggle-autotheme');
             setSwitchVisual(btnA, knobA, dataState.autoThemeMode, false);
 
-            var knobH = document.getElementById('haptic-switch-knob');
-            var btnH = document.getElementById('btn-toggle-haptic');
-            setSwitchVisual(btnH, knobH, dataState.hapticFeedback !== false, false);
-
             var knobL = document.getElementById('applock-switch-knob');
             var btnL = document.getElementById('btn-toggle-applock');
             setSwitchVisual(btnL, knobL, dataState.appLock && dataState.appLock.enabled, false);
@@ -6845,6 +7280,7 @@
             updateActiveToggleCount();
             perbaruiTampilan();
             showDynamicGreeting(); 
+            runSmartInsightsSequence();
             scheduleDailyReset6AM();
             checkOtaVersionNotification();
             checkAppLockOnStartup();
@@ -7252,6 +7688,7 @@
                             applyCardGradientVisual();
                             updateActiveToggleCount();
                             perbaruiTampilan();
+                            runSmartInsightsSequence();
                             updateSyncStatusUI('synced');
                             if (!silent) {
                                 triggerDynamicIsland("Cloud Tersinkron ☁️", "Data akun Anda berhasil dimuat", "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
@@ -7338,7 +7775,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v33.10';
+        const CURRENT_APP_VERSION = 'v33.11';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
