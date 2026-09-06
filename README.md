@@ -1,11 +1,11 @@
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.10 Pro
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.11.P1 Pro
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.10%20Pro-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.11.P1%20Pro-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi berevolusi menjadi **Super-App Finansial & Produktivitas (v33.10 Pro)** dengan dukungan **3 Home Screen Widgets Android bawaan**, keamanan tangguh **PIN 4-Digit & Kunci Pola (Pattern Lock 3x3)**, **Pemulihan Lupa Password (Pertanyaan Keamanan)**, **Anti-Brute Force Cooldown**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi berevolusi menjadi **Super-App Finansial & Produktivitas (v33.11.P1 Pro)** dengan dukungan **Wawasan Pintar Bergilir (*Smart Insights*)**, **Kalender Aktivitas Terpadu**, **Speed-Dial Floating Action Button (FAB)**, **Prediksi Tabungan Cerdas**, **3 Home Screen Widgets Android bawaan**, keamanan tangguh **PIN 4-Digit & Kunci Pola (Pattern Lock 3x3)**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -14,80 +14,85 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
 | 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer mandiri 1-klik cepat tanpa login |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.10 Pro |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.11.P1 Pro |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (OTA Realtime) |
 
 ---
 
-## 🚀 Fitur Unggulan Generasi v33.10 Pro
+## 🌟 Fitur Baru Generasi v33.11.P1 Pro
+
+### 1. 💡 Wawasan Pintar Bergilir di Kartu Saldo (*Rotating Smart Insights*)
+- **Animasi Bergilir Halus**:
+  - Muncul anggun di bawah nominal saldo: menampilkan wawasan **Finansial** (kategori pengeluaran terbesar / total pemasukan) selama 3.5 detik dengan *fade-out* lembut.
+  - Beralih menampilkan wawasan **Produktivitas** (persentase tugas tuntas / pengingat tugas mendekati tenggat) selama 3.5 detik, lalu menyusut (*smooth collapse*) rapi.
+- **Proteksi Non-Duplikat (*Single-Play Guard*)**: Hanya berjalan otomatis tepat 1x saat dasbor dibuka dan tersinkronisasi sempurna dengan data Cloud tanpa pengulangan.
+- **Kondisi Tanpa Aktivitas**: Jika transaksi dan tugas kosong, wawasan tidak akan muncul sama sekali.
+- **Putar Ulang Interaktif**: Cukup **ketuk angka nominal saldo `Rp`** atau kapsul wawasan untuk memutar ulang wawasan pintar kapan saja!
+
+### 2. 🎯 Prediksi Cerdas Target Tabungan (*Smart Goal Estimator*)
+- Perhitungan otomatis sisa nominal yang belum terkumpul pada setiap impian/tabungan.
+- Menampilkan lencana estimasi pintar: *"Sisa Rp 600.000 lagi (~6x nabung Rp 100rb)"* atau *"Sisa Rp 150.000 lagi (~3x nabung Rp 50rb)"*.
+- Tombol langsung menuju simulasi impian (*Simulasi ➔*).
+
+### 3. ⚡ Tombol Melayang Aksi Cepat (*Speed-Dial Floating Action Button / FAB*)
+- Tombol bulat `+` di kanan dok navigasi bawah.
+- Saat diketuk, tombol berputar 45° menjadi `✕` dan memunculkan 4 pintasan aksi cepat:
+  1. 📝 **Tugas Baru**: Fokus langsung ke input nama tugas.
+  2. 💸 **Catat Pengeluaran**: Beralih ke tab keuangan dan fokus ke input nominal pengeluaran.
+  3. 💰 **Catat Pemasukan**: Beralih ke tab keuangan dan fokus ke input nominal pemasukan.
+  4. ⚡ **Catatan Kilat**: Membuka lembar catatan kilat dari mana saja.
+
+### 4. 📅 Kalender Aktivitas & Keuangan Terpadu (*Integrated Activity Calendar*)
+- Akses via tombol kalender `[ 📅 ]` di header atas.
+- Tampilan bulanan interaktif dengan navigasi bulan `<` dan `>`.
+- **Indikator Titik Warna Realtime**:
+  - 🟢 **Titik Hijau**: Ada transaksi pemasukan pada tanggal tersebut.
+  - 🔴 **Titik Merah**: Ada transaksi pengeluaran pada tanggal tersebut.
+  - 🔵 **Titik Biru**: Ada tugas dengan tenggat waktu (*deadline*) pada tanggal tersebut.
+- Panel rincian harian menampilkan daftar lengkap transaksi dan tugas pada tanggal yang dipilih.
+
+### 5. 📝 Tombol Mandiri "+ Tugas Baru" & Tombol Minimize Form Tugas
+- **Header Tab Tugas**: Tombol kapsul **`[+ Tugas Baru]`** di samping judul *Manajemen Tugas* untuk membuka form secara langsung tanpa lewat dock bawah.
+- **Tombol Minimize di Card Tugas**: Bilah header di dalam card input tugas dilengkapi tombol **`[ Minimize ▲ ]`** untuk melipat form kapan saja agar layar tetap leluasa.
+- Sinkronisasi status buka/tutup 100% antara tombol header, tombol minimize, dan speed-dial dock bawah.
+
+### 6. 🔕 Penonaktifan Respon Getar (*Haptic Feedback Fully Removed*)
+- Seluruh fungsi getaran fisik dinonaktifkan sepenuhnya demi operasional dasbor yang hening, mulus, dan nyaman di semua perangkat.
+
+### 7. 🏷️ Standarisasi Penomoran Versi Berjenjang
+- Format resmi: `[Major].[Standar].[Minor/Patch]` (contoh: **`v33.11.P1 Pro`**).
+  - **Major (`33`)**: Pembaruan arsitektur besar.
+  - **Standar (`11`)**: Pembaruan penambahan fitur fungsional.
+  - **Minor/Patch (`P1`, `P2`, dst.)**: Pembaruan perbaikan bug dan penyesuaian UX.
+
+---
+
+## 💎 Fitur Unggulan Lainnya
 
 ### 1. 💼 Multi-Dompet / Kantong Keuangan (*Pocket Management*)
-- Pisahkan saldo kas Anda secara rapi ke dalam **3 Dompet Utama**:
-  - 💵 **Uang Tunai** (Cash)
-  - 🏦 **Rekening Bank** (BCA, Mandiri, BRI, dsb.)
-  - 📱 **E-Wallet / Dompet Digital** (GoPay, OVO, Dana, ShopeePay)
-- Pilih sumber dompet saat mencatat pemasukan maupun pengeluaran.
-- Filter riwayat transaksi secara instan per dompet hanya dengan 1 klik pada kartu dompet.
+- Pisahkan saldo kas Anda ke dalam **3 Dompet Utama**: 💵 **Uang Tunai**, 🏦 **Rekening Bank**, dan 📱 **E-Wallet**.
+- Filter riwayat transaksi secara instan per dompet dengan 1 klik.
 
 ### 2. 🎯 Sistem Anggaran Bulanan (*Budgeting per Kategori*)
-- Tetapkan batas plafon belanja bulanan untuk berbagai kategori utama (*Makanan, Transport, Hiburan, Belanja, Tagihan, dsb.*).
-- **Progress Bar Dinamis 3-Warna**:
-  - 🟢 **Hijau**: Pengeluaran aman (< 70% dari kuota anggaran).
-  - 🟡 **Kuning/Amber**: Mendekati batas (70% - 90%).
-  - 🔴 **Merah Berkedip**: Batas anggaran terlampaui (> 90%).
-- Notifikasi interaktif via kapsul **Dynamic Island** saat transaksi baru melampaui plafon kategori.
+- Tetapkan plafon belanja bulanan per kategori (*Makanan, Transport, Hiburan, Tagihan, dsb.*).
+- Progress bar dinamis 3-warna (Hijau, Kuning, Merah) dengan notifikasi Dynamic Island saat batas terlampaui.
 
 ### 3. 📅 Pelacak Transaksi Rutin & Langganan (*Subscription Tracker*)
-- Pantau seluruh pengeluaran berulang bulanan (*Netflix, Spotify, WiFi, Listrik, Kos, dsb.*) di satu tempat.
-- Badge hitung mundur (*countdown*) hari jatuh tempo otomatis:
-  - 🔴 *Jatuh tempo hari ini / terlewat*.
-  - 🟡 *Jatuh tempo dalam 3 hari ke depan*.
-  - 🟢 *Jadwal masih aman*.
-- Tombol **1-Klik "Bayar & Catat"**: Langsung memotong saldo dari dompet pilihan dan membukukan transaksi pengeluaran secara instan.
+- Pantau tagihan berulang bulanan (*WiFi, Listrik, Kos, Netflix, dsb.*).
+- Badge hitung mundur jatuh tempo & tombol **1-Klik "Bayar & Catat"**.
 
 ### 4. 🩺 Indikator Skor Kesehatan Keuangan (*Financial Health Score*)
-- Algoritma cerdas yang menghitung skor kesehatan finansial Anda dari skala **0 hingga 100** berdasarkan rasio tabungan, kontrol pengeluaran, dan rasio aset cair.
-- Status lencana dinamis: **Sangat Sehat 🌟**, **Stabil & Terkendali 👍**, **Perlu Perhatian ⚠️**, atau **Kritis / Boros 🚨**.
-- Rekomendasi taktis otomatis yang diperbarui secara realtime sesuai kondisi kas Anda.
+- Penilaian cerdas skor kesehatan finansial 0–100 berdasarkan rasio tabungan, kontrol belanja, dan aset cair beserta rekomendasi taktis.
 
-### 5. 🔒 Sistem Keamanan Kunci Aplikasi (*PIN 4-Digit & Kunci Pola 3x3*)
-- **Pilihan Proteksi Fleksibel**:
-  - **PIN 4-Digit**: Keypad angka responsif dengan tombol pembersih `C` dan titik indikator status PIN.
-  - **Kunci Pola 3x3 (Pattern Lock)**: Kanvas HTML5 interaktif dengan 9 titik grid, garis pendar neon dinamis, getaran haptic saat menyentuh titik, dan validasi minimal 4 titik.
-- **Opsi Biometrik Dihapus**: Menghilangkan dialog pop-up biometrik browser agar proses buka kunci lebih cepat dan konsisten.
-- **Tema Adaptif Mode Gelap & Terang**: Tampilan layar kunci otomatis menyatu dengan preferensi tema aktif (latar frosted glass cerah di mode terang, dan deep slate gelap di mode gelap).
-- **Feedback Bersih Tanpa Ayunan**: Kesalahan input menampilkan teks merah statis *"Password salah, coba lagi"* tanpa efek ayunan/wiggle.
+### 5. 🔒 Keamanan Ganda: PIN 4-Digit & Kunci Pola 3x3
+- Pilihan kunci fleksibel: **PIN 4-Digit** atau **Kunci Pola 3x3** dengan kanvas neon responsif.
+- **Pemulihan Lupa Password**: Verifikasi pertanyaan keamanan rahasia tanpa menghapus data transaksi sedikit pun.
+- **Anti-Brute Force**: Pembatasan percobaan dengan cooldown timer 30s–60s yang tahan terhadap reload aplikasi.
 
-### 6. 🔑 Pemulihan "Lupa Password / Pola" via Pertanyaan Keamanan Rahasia
-- Pengguna memilih 1 dari 5 pertanyaan keamanan dan mendaftarkan jawaban rahasia saat mengaktifkan kunci.
-- Tersedia tombol cepat **[ ❓ Lupa Password / Pola? ]** di layar kunci untuk membuka bottom sheet pemulihan.
-- Verifikasi jawaban cerdas (*case-insensitive & trimmed*).
-- Jika jawaban cocok, akses dasbor langsung terbuka seketika dan proteksi dinonaktifkan sementara tanpa menghapus catatan transaksi sedikit pun (**Data 100% Utuh & Aman**).
-
-### 7. ⏳ Pembatasan Percobaan & Cooldown Timer (*Anti-Brute Force*)
-- **Percobaan 1 s/d 3**: Umpan balik peringatan merah statis.
-- **Percobaan ke-4**: Memicu **cooldown 30 detik** (keypad dan kanvas pola dinonaktifkan dengan hitung mundur realtime).
-- **Percobaan ke-5 ke atas**: Cooldown meningkat menjadi **60 detik**.
-- **Proteksi Anti-Curang (Anti-Reload)**: Waktu tunggu disimpan berbasis timestamp milidetik di `localStorage`. Sisa waktu cooldown tetap berjalan dan input tetap terkunci meskipun aplikasi di-refresh atau ditutup.
-
-### 8. 📲 3 Pilihan Home Screen Widget Android Bawaan
-Tersedia 3 widget native Android yang dapat dipasang di layar utama ponsel Anda:
-1. **Kartu Saldo Lengkap (4x2 / 3x2)**:
-   - Menampilkan total saldo terformat rapi dalam Rupiah dan status sinkronisasi.
-   - Tombol kilat lebar `+ Pemasukan` dan `- Pengeluaran`.
-2. **Bar Aksi Cepat (4x1)**:
-   - Bar ramping hemat ruang di bawah jam/search bar.
-   - 4 shortcut simetris: `+ Masuk`, `- Keluar`, `Catatan`, dan `Impian`.
-3. **Widget Tugas & Aktivitas (4x2 / 3x2)**:
-   - Menampilkan jumlah tugas aktif yang belum selesai.
-   - Kartu pratinjau tugas prioritas teratas.
-   - Tombol shortcut `+ Tambah Catatan` dan `Buka Dasbor`.
-
-### 9. ⚡ Optimalisasi Performa & UX (v33.10 Pro)
-- **Tampilan Bersih & Ringkas**: Pembersihan kartu grafik Arus Kas (Cash Flow) sehingga navigasi dasbor lebih cepat dan fokus.
-- **Scroll Mulus Opsi Pengaturan**: Menu pengaturan kini dapat digulir penuh ke bawah hingga ke Kunci Aplikasi dengan `touch-pan-y` dan padding yang nyaman.
-- **Anti-Flash Pindah Widget**: Pemindahan urutan widget dasbor kini 100% mulus tanpa kedipan transisi putih dari aktivitas Android.
-- **Antrean Notifikasi Cerdas**: Notifikasi update OTA dan notifikasi sinkronisasi cloud berjalan berurutan via queue FIFO tanpa bertumpuk.
+### 6. 📲 3 Pilihan Home Screen Widget Android Bawaan
+- **Kartu Saldo Lengkap (4x2 / 3x2)**: Menampilkan total saldo dan tombol cepat `+ Masuk` & `- Keluar`.
+- **Bar Aksi Cepat (4x1)**: Bar ramping 4 shortcut (`+ Masuk`, `- Keluar`, `Catatan`, `Impian`).
+- **Widget Tugas & Aktivitas (4x2 / 3x2)**: Menampilkan jumlah tugas aktif & preview tugas prioritas.
 
 ---
 
@@ -102,15 +107,15 @@ Tersedia 3 widget native Android yang dapat dipasang di layar utama ponsel Anda:
 ### B. Cara Memasang Widget di Layar Utama HP:
 1. Tekan dan tahan area kosong pada Home Screen HP Anda selama 2 detik.
 2. Pilih menu **Widget**.
-3. Cari dan pilih **Dasbor Pribadi**. Anda akan melihat pilihan widget:
+3. Cari dan pilih **Dasbor Pribadi**:
    - **Kartu Dasbor (4x2)**
    - **Bar Aksi Cepat (4x1)**
    - **Tugas & Aktivitas (4x2)**
 4. Seret widget favorit Anda ke layar depan.
 
 ### C. Cara Sinkronisasi Saldo & Tugas ke Widget:
-- Data widget otomatis tersinkronisasi setiap kali Anda menyimpan transaksi atau tugas baru di aplikasi.
-- Anda juga dapat menekan tombol **[ 🔄 Sinkronkan Data ke Widget ]** di menu Pengaturan dasbor kapan saja.
+- Data widget otomatis tersinkronisasi setiap kali menyimpan transaksi atau tugas baru.
+- Dapat juga memicu manual via tombol **[ 🔄 Sinkronkan Data ke Widget ]** di menu Pengaturan.
 
 ---
 
@@ -122,7 +127,7 @@ dasbor-mobile/
 │   └── build-apk.yml          # Otomatisasi GitHub Actions (Compile Gradle, Release, Deploy Pages)
 ├── android/                   # Proyek Native Android (Java & Android Gradle Plugin)
 │   ├── app/
-│   │   ├── build.gradle       # Konfigurasi aplikasi Android (versionCode 3310, versionName 33.10)
+│   │   ├── build.gradle       # Konfigurasi aplikasi Android
 │   │   └── src/main/
 │   │       ├── AndroidManifest.xml # Izin, intent filter dasbor://sync, & deklarasi 3 Widget
 │   │       ├── java/com/dasbor/pribadi/
@@ -154,5 +159,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.10 Pro • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.11.P1 Pro • Era Super-App Finansial & Produktivitas</b></sub>
 </div>
