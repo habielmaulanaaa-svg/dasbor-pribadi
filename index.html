@@ -637,59 +637,98 @@
            2b. DOCK BUOYANCY: UNIFIED SCROLL SUBMERGE & SPRING BOUNCE
            ========================================== */
         #floating-dock-container {
-            transform: translate3d(-50%, 0, 0);
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            width: max-content;
+            transform: translate3d(0, 0, 0);
             will-change: transform, opacity;
         }
 
         #floating-dock-container.dock-buoy-submerged {
-            animation: dockBuoySubmerge 0.3s cubic-bezier(0.32, 0, 0.67, 0) forwards;
+            animation: dockBuoySubmerge 0.26s cubic-bezier(0.4, 0, 0.7, 0.2) forwards;
             pointer-events: none !important;
         }
 
         @keyframes dockBuoySubmerge {
             0% {
-                transform: translate3d(-50%, 0, 0) scale(1, 1);
+                transform: translate3d(0, 0, 0);
                 opacity: 1;
-            }
-            25% {
-                transform: translate3d(-50%, -4px, 0) scale(1.02, 0.96);
-                opacity: 1;
-            }
-            65% {
-                transform: translate3d(-50%, 45px, 0) scale(0.92, 1.08);
-                opacity: 0.6;
             }
             100% {
-                transform: translate3d(-50%, 105px, 0) scale(0.82, 1.18);
+                transform: translate3d(0, 85px, 0);
                 opacity: 0;
             }
         }
 
         #floating-dock-container.dock-buoy-bounce {
-            animation: dockBuoySpringBounce 0.54s cubic-bezier(0.18, 0.9, 0.32, 1) forwards;
+            animation: dockBuoySurface 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes dockBuoySpringBounce {
+        @keyframes dockBuoySurface {
             0% {
-                transform: translate3d(-50%, 90px, 0) scale(0.82, 1.22);
+                transform: translate3d(0, 75px, 0);
                 opacity: 0;
             }
-            45% {
-                transform: translate3d(-50%, -8px, 0) scale(1.06, 0.92);
-                opacity: 1;
-            }
-            70% {
-                transform: translate3d(-50%, 3px, 0) scale(0.97, 1.03);
-                opacity: 1;
-            }
-            85% {
-                transform: translate3d(-50%, -1px, 0) scale(1.01, 0.99);
-                opacity: 1;
-            }
             100% {
-                transform: translate3d(-50%, 0, 0) scale(1, 1);
+                transform: translate3d(0, 0, 0);
                 opacity: 1;
             }
+        }
+
+        /* 2c. FROSTED GLASS DOK & TOMBOL FAB */
+        #bottom-nav-dock,
+        #fab-quick-add {
+            background-color: rgba(255, 255, 255, 0.72) !important;
+            backdrop-filter: blur(20px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+        }
+        .dark #bottom-nav-dock,
+        .dark #fab-quick-add {
+            background-color: rgba(23, 33, 43, 0.72) !important;
+            backdrop-filter: blur(20px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+        }
+
+        body.glass-mode #bottom-nav-dock,
+        body.glass-mode #fab-quick-add {
+            background-color: rgba(255, 255, 255, 0.62) !important;
+            backdrop-filter: blur(24px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+        }
+        .dark body.glass-mode #bottom-nav-dock,
+        .dark body.glass-mode #fab-quick-add {
+            background-color: rgba(23, 33, 43, 0.62) !important;
+            backdrop-filter: blur(24px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+        }
+
+        /* 2d. ANIMASI HALUS SUB-BAR WAKTU & TANGGAL TUGAS */
+        #container-input-waktu-tugas {
+            max-height: 80px;
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            transition: max-height 0.34s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 0.28s ease, 
+                        transform 0.34s cubic-bezier(0.16, 1, 0.3, 1),
+                        margin-top 0.28s ease,
+                        padding-top 0.28s ease !important;
+            overflow: hidden;
+        }
+
+        #container-input-waktu-tugas.collapsed {
+            max-height: 0 !important;
+            opacity: 0 !important;
+            transform: translate3d(0, -6px, 0) !important;
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            border-top-color: transparent !important;
+            pointer-events: none !important;
         }
 
         /* ==========================================
@@ -2368,8 +2407,8 @@
                                     </div>
                                 </div>
                                 <!-- Saklar Fluida Toggle Switch -->
-                                <button type="button" id="btn-toggle-opsi-waktu-tugas" aria-label="Toggle Waktu Pembuatan" class="w-11 h-6 flex items-center bg-primary-600 rounded-full p-1 cursor-pointer transition-colors duration-200">
-                                    <div id="knob-opsi-waktu-tugas" class="bg-white w-4 h-4 rounded-full shadow-md transform translate-x-5 transition-transform duration-200"></div>
+                                <button type="button" onclick="event.stopPropagation(); toggleOpsiWaktuTugas()" id="btn-toggle-opsi-waktu-tugas" class="fluid-switch-btn active no-bounce focus:outline-none shrink-0" aria-label="Toggle Waktu Pembuatan">
+                                    <div id="knob-opsi-waktu-tugas" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
 
@@ -2742,7 +2781,7 @@
     </main>
 
     <!-- FLOATING NAVIGATION DOCK -->
-    <div id="floating-dock-container" class="fixed bottom-4 left-1/2 z-30 flex items-center gap-2.5 max-w-fit pointer-events-auto">
+    <div id="floating-dock-container" class="fixed bottom-4 left-0 right-0 mx-auto z-30 flex items-center justify-center gap-2.5 max-w-fit pointer-events-auto">
         
         <!-- Kapsul Dok Utama -->
         <nav id="bottom-nav-dock" class="relative flex items-center gap-1 p-1.5 bg-white/85 dark:bg-[#17212b]/90 backdrop-blur-xl rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] border border-slate-200/80 dark:border-[#313f52]/60 transition-colors duration-200">
@@ -5963,39 +6002,29 @@
             isAktif = !isAktif;
             dataState.optTugasWaktuDibuat = isAktif;
             simpanData();
-            updateOpsiWaktuTugasUI(isAktif);
+            updateOpsiWaktuTugasUI(isAktif, true);
             triggerHaptic('light');
         }
 
-        function updateOpsiWaktuTugasUI(isAktif) {
+        function updateOpsiWaktuTugasUI(isAktif, triggerBounce = false) {
             var btn = document.getElementById('btn-toggle-opsi-waktu-tugas');
             var knob = document.getElementById('knob-opsi-waktu-tugas');
             var container = document.getElementById('container-input-waktu-tugas');
             var inputDt = document.getElementById('input-tugas-custom-datetime');
 
-            if (isAktif) {
-                if (btn) {
-                    btn.className = 'w-11 h-6 flex items-center bg-primary-600 rounded-full p-1 cursor-pointer transition-colors duration-200';
-                }
-                if (knob) {
-                    knob.className = 'bg-white w-4 h-4 rounded-full shadow-md transform translate-x-5 transition-transform duration-200';
-                }
-                if (container) {
-                    container.classList.remove('hidden');
-                }
-                if (inputDt && !inputDt.value) {
-                    var now = new Date();
-                    inputDt.value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
-                }
-            } else {
-                if (btn) {
-                    btn.className = 'w-11 h-6 flex items-center bg-slate-300 dark:bg-slate-700 rounded-full p-1 cursor-pointer transition-colors duration-200';
-                }
-                if (knob) {
-                    knob.className = 'bg-white w-4 h-4 rounded-full shadow-md transform translate-x-0 transition-transform duration-200';
-                }
-                if (container) {
-                    container.classList.add('hidden');
+            if (btn && knob) {
+                setSwitchVisual(btn, knob, isAktif, triggerBounce);
+            }
+
+            if (container) {
+                if (isAktif) {
+                    container.classList.remove('collapsed');
+                    if (inputDt && !inputDt.value) {
+                        var now = new Date();
+                        inputDt.value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+                    }
+                } else {
+                    container.classList.add('collapsed');
                 }
             }
         }
