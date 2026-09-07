@@ -644,7 +644,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.11.P2</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.11.P3</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -722,7 +722,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.11.P2 (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.11.P3 (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -907,10 +907,49 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P2</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P3</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v33.11.P3 -->
+                <div class="p-3.5 bg-gradient-to-br from-blue-50 via-indigo-50 to-emerald-50 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-emerald-900/20 rounded-2xl border border-blue-200 dark:border-blue-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 flex items-center gap-1.5"><i class="fas fa-shield-alt text-blue-500 text-xs"></i> Update Minor • v33.11.P3</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-2 py-0.5 rounded-full shadow-xs">Security &amp; Anti-Lockout</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Penyempurnaan Mesin Kunci Pola 3x3 (Interpolasi Android), Pemulihan Darurat Google &amp; Anti-Lockout</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-blue-100 dark:border-blue-900/40">
+                            <i class="fab fa-google text-red-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Buka Cepat via Akun Google:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Pemulihan 1-klik terverifikasi dengan akun Google atau reset kunci darurat tanpa risiko terkunci permanen dan data finansial tetap 100% aman.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-blue-100 dark:border-blue-900/40">
+                            <i class="fas fa-braille text-indigo-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Interpolasi Titik Sejajar (*Collinear Points*):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Algoritma standar Android: gesekan cepat otomatis menyambungkan titik tengah (1-3 melewati 2, 4-6 melewati 5, diagonal 1-9 melewati 5, dst.).</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-blue-100 dark:border-blue-900/40">
+                            <i class="fas fa-fingerprint text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Pelacakan Stabil (*Pointer Capture*):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Gerakan jari di luar batas kotak canvas tetap terdeteksi mulus tanpa terpotong oleh event pembatalan layar sentuh.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-blue-100 dark:border-blue-900/40">
+                            <i class="fas fa-cloud-upload-alt text-amber-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Sinkronisasi Cloud Instan:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Pengaturan keamanan dan pemulihan disinkronkan ke Firestore secara instan tanpa jeda debounce.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v33.11.P2 -->
                 <div class="p-3.5 bg-gradient-to-br from-amber-50 via-emerald-50 to-teal-50 dark:from-amber-950/40 dark:via-emerald-950/30 dark:to-teal-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -1748,7 +1787,13 @@
 
             <div class="space-y-2 mt-auto">
                 <button type="button" onclick="verifySecurityAnswer()" class="w-full bg-primary-600 hover:bg-primary-700 active:scale-[0.99] text-white py-2.5 rounded-2xl text-xs font-bold shadow-md transition-all flex items-center justify-center gap-2">
-                    <i class="fas fa-unlock-alt"></i> Verifikasi &amp; Buka Kunci
+                    <i class="fas fa-unlock-alt"></i> Verifikasi Jawaban &amp; Buka Kunci
+                </button>
+                <button type="button" onclick="unlockWithGoogleAccount()" class="w-full bg-white dark:bg-[#17212b] hover:bg-slate-50 dark:hover:bg-[#242f3d] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-white py-2.5 rounded-2xl text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-2">
+                    <i class="fab fa-google text-red-500"></i> Buka dengan Akun Google
+                </button>
+                <button type="button" onclick="emergencyResetAppLock()" class="w-full bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 py-2 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                    <i class="fas fa-trash-restore text-[11px]"></i> Reset Kunci (Data Finansial 100% Aman)
                 </button>
                 <button type="button" onclick="closeForgotPasswordModal()" class="w-full bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-300 py-2 rounded-2xl text-xs font-bold hover:bg-slate-200">
                     Batal
@@ -1805,10 +1850,13 @@
             <button type="button" onclick="keypadBackspace()" class="h-14 rounded-2xl bg-slate-100/80 dark:bg-[#17212b]/60 hover:bg-slate-200/80 dark:hover:bg-[#242f3d] active:scale-95 text-slate-700 dark:text-slate-200 font-bold text-lg flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80" title="Hapus"><i class="fas fa-backspace"></i></button>
         </div>
 
-        <!-- Tombol Pemulihan Lupa Password / Pola -->
-        <div class="w-full flex justify-center pb-2">
+        <!-- Tombol Pemulihan Lupa Password / Pola & Buka Google -->
+        <div class="w-full flex flex-col items-center gap-1.5 pb-2">
             <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 py-1.5 px-3 rounded-xl hover:bg-primary-50 dark:hover:bg-primary-950/30 transition-colors flex items-center gap-1.5">
                 <i class="fas fa-question-circle text-[11px]"></i> Lupa Password / Pola?
+            </button>
+            <button type="button" onclick="unlockWithGoogleAccount()" class="text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-1 px-3 rounded-lg hover:bg-slate-200/50 dark:hover:bg-white/10 transition-colors flex items-center gap-1.5">
+                <i class="fab fa-google text-red-500 text-[10px]"></i> Buka Cepat via Akun Google
             </button>
         </div>
     </div>
@@ -2872,6 +2920,17 @@
         }
 
         // --- CONTROLLER CANVAS KUNCI POLA (3X3 INTERACTIVE PATTERN LOCK) ---
+        const PATTERN_COLLINEAR = {
+            '1-3': 2, '3-1': 2,
+            '4-6': 5, '6-4': 5,
+            '7-9': 8, '9-7': 8,
+            '1-7': 4, '7-1': 4,
+            '2-8': 5, '8-2': 5,
+            '3-9': 6, '9-3': 6,
+            '1-9': 5, '9-1': 5,
+            '3-7': 5, '7-3': 5
+        };
+
         function createPatternLockController(canvas, onPatternComplete) {
             if (!canvas) return null;
             var ctx = canvas.getContext('2d');
@@ -2896,7 +2955,7 @@
             }
 
             var dots = getDotPositions();
-            var hitRadius = canvas.width * 0.12;
+            var hitRadius = canvas.width * 0.13;
 
             function render() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -2976,42 +3035,81 @@
                 };
             }
 
-            function checkHit(pos) {
+            function distToSegment(p, v, w) {
+                var l2 = (w.x - v.x)*(w.x - v.x) + (w.y - v.y)*(w.y - v.y);
+                if (l2 === 0) return Math.sqrt((p.x - v.x)*(p.x - v.x) + (p.y - v.y)*(p.y - v.y));
+                var t = Math.max(0, Math.min(1, ((p.x - v.x)*(w.x - v.x) + (p.y - v.y)*(w.y - v.y)) / l2));
+                var projX = v.x + t * (w.x - v.x);
+                var projY = v.y + t * (w.y - v.y);
+                return Math.sqrt((p.x - projX)*(p.x - projX) + (p.y - projY)*(p.y - projY));
+            }
+
+            function addDot(id) {
+                if (visited.includes(id)) return;
+                if (visited.length > 0) {
+                    var lastId = visited[visited.length - 1];
+                    var midId = PATTERN_COLLINEAR[`${lastId}-${id}`];
+                    if (midId && !visited.includes(midId)) {
+                        visited.push(midId);
+                    }
+                }
+                visited.push(id);
+                triggerHaptic('light');
+            }
+
+            function checkHit(pos, lastPos) {
+                var hitAny = false;
                 for (var i = 0; i < dots.length; i++) {
                     var d = dots[i];
+                    if (visited.includes(d.id)) continue;
+                    var hit = false;
                     var dx = d.x - pos.x;
                     var dy = d.y - pos.y;
                     if (Math.sqrt(dx * dx + dy * dy) <= hitRadius) {
-                        if (!visited.includes(d.id)) {
-                            visited.push(d.id);
-                            triggerHaptic('light');
-                            return true;
-                        }
+                        hit = true;
+                    } else if (lastPos && distToSegment(d, lastPos, pos) <= hitRadius) {
+                        hit = true;
+                    }
+
+                    if (hit) {
+                        addDot(d.id);
+                        hitAny = true;
                     }
                 }
-                return false;
+                return hitAny;
             }
 
             function onPointerDown(e) {
                 e.preventDefault();
+                try {
+                    if (e.pointerId && canvas.setPointerCapture) {
+                        canvas.setPointerCapture(e.pointerId);
+                    }
+                } catch(err) {}
                 lineState = 'active';
                 visited = [];
                 isTracking = true;
                 currentPos = getPointerPos(e);
-                checkHit(currentPos);
+                checkHit(currentPos, null);
                 render();
             }
 
             function onPointerMove(e) {
                 if (!isTracking) return;
                 e.preventDefault();
-                currentPos = getPointerPos(e);
-                checkHit(currentPos);
+                var newPos = getPointerPos(e);
+                checkHit(newPos, currentPos);
+                currentPos = newPos;
                 render();
             }
 
             function onPointerUp(e) {
                 if (!isTracking) return;
+                try {
+                    if (e.pointerId && canvas.releasePointerCapture) {
+                        canvas.releasePointerCapture(e.pointerId);
+                    }
+                } catch(err) {}
                 isTracking = false;
                 currentPos = null;
                 render();
@@ -3044,6 +3142,12 @@
                     lineState = st;
                     render();
                 },
+                destroy: function() {
+                    canvas.removeEventListener('pointerdown', onPointerDown);
+                    canvas.removeEventListener('pointermove', onPointerMove);
+                    window.removeEventListener('pointerup', onPointerUp);
+                    window.removeEventListener('pointercancel', onPointerUp);
+                },
                 render: render
             };
         }
@@ -3051,6 +3155,7 @@
         function initPatternSetupCanvas() {
             var canvas = document.getElementById('pattern-setup-canvas');
             if (!canvas) return;
+            if (patternSetupCtrl && patternSetupCtrl.destroy) patternSetupCtrl.destroy();
             resetPatternSetup();
 
             patternSetupCtrl = createPatternLockController(canvas, function(patternCode, callback) {
@@ -3157,6 +3262,7 @@
                     lockCooldownTimerInterval = null;
                     localStorage.removeItem('dasborLockCooldownUntil');
                     setLockInputDisabled(false);
+                    if (patternUnlockCtrl) patternUnlockCtrl.reset();
 
                     var isPattern = (dataState.appLock && dataState.appLock.type === 'pattern');
                     if (prompt) {
@@ -3248,24 +3354,57 @@
         function verifySecurityAnswer() {
             var inputAns = document.getElementById('input-forgot-answer');
             var errorMsg = document.getElementById('forgot-error-msg');
-            var answer = (inputAns ? inputAns.value : '').trim().toLowerCase();
+            var answer = (inputAns ? inputAns.value : '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
             var expectedAnswer = (dataState.appLock && dataState.appLock.securityAnswer) 
-                ? dataState.appLock.securityAnswer.trim().toLowerCase() 
+                ? dataState.appLock.securityAnswer.trim().toLowerCase().replace(/[^a-z0-9]/g, '') 
                 : '';
 
-            if (!answer || !expectedAnswer || answer !== expectedAnswer) {
-                triggerHaptic('error');
-                if (errorMsg) errorMsg.classList.remove('hidden');
+            // Jika jawaban cocok ATAU jika expectedAnswer di sistem belum pernah diset/kosong, izinkan pemulihan
+            if (!expectedAnswer || (answer && answer === expectedAnswer)) {
+                triggerHaptic('success');
+                if (errorMsg) errorMsg.classList.add('hidden');
+                emergencyUnlockSuccess("Akses Dipulihkan! Kunci dinonaktifkan sementara.");
                 return;
             }
 
-            triggerHaptic('success');
-            if (errorMsg) errorMsg.classList.add('hidden');
+            triggerHaptic('error');
+            if (errorMsg) errorMsg.classList.remove('hidden');
+        }
 
-            // Reset percobaan dan cooldown
+        function unlockWithGoogleAccount() {
+            if (currentUser) {
+                emergencyUnlockSuccess("Terverifikasi via " + (currentUser.email || "Akun Google"));
+                return;
+            }
+
+            if (!firebaseAuth || !googleProvider) {
+                triggerDynamicIsland("Google Auth", "Layanan Google tidak tersedia, gunakan pertanyaan keamanan", "fas fa-exclamation-circle", "bg-amber-500/20 text-amber-400");
+                return;
+            }
+
+            triggerDynamicIsland("Memverifikasi...", "Menghubungkan ke Akun Google", "fab fa-google", "bg-primary-500/20 text-primary-400");
+            firebaseAuth.signInWithPopup(googleProvider).then(function(result) {
+                if (result && result.user) {
+                    currentUser = result.user;
+                    saveLocalUserCache(currentUser);
+                    updateAuthUI(currentUser);
+                    emergencyUnlockSuccess("Terverifikasi via " + (currentUser.email || "Akun Google"));
+                }
+            }).catch(function(err) {
+                console.error("Gagal verifikasi Google:", err);
+                triggerDynamicIsland("Verifikasi Dibatalkan", "Gunakan pertanyaan keamanan atau reset kunci", "fas fa-info-circle", "bg-slate-500/20 text-slate-400");
+            });
+        }
+
+        function emergencyResetAppLock() {
+            if (!confirm("Reset kunci keamanan aplikasi?\n\nCATATAN: Semua data keuangan, saldo, anggaran, catatan, dan tugas Anda dijamin TETAP 100% AMAN. Kunci aplikasi akan dinonaktifkan agar Anda dapat membuka dasbor kembali.")) return;
+
+            emergencyUnlockSuccess("Kunci pengaman dinonaktifkan. Data Anda tetap utuh.");
+        }
+
+        function emergencyUnlockSuccess(message) {
             resetLockAttempts();
-
-            // Nonaktifkan kunci sementara agar akses dasbor terbuka & data keuangan tetap 100% utuh
+            if (!dataState.appLock) dataState.appLock = {};
             dataState.appLock.enabled = false;
             sessionStorage.setItem('dasborSessionUnlocked', 'true');
 
@@ -3277,6 +3416,7 @@
 
             updateActiveToggleCount();
             simpanData();
+            syncToCloud(false); // SINKRONISASI INSTAN KE CLOUD
 
             closeForgotPasswordModal();
             var screen = document.getElementById('app-lock-screen');
@@ -3288,7 +3428,7 @@
                 }, 250);
             }
 
-            triggerDynamicIsland("Akses Dipulihkan 🔓", "Kunci dinonaktifkan. Silakan buat PIN/Pola baru jika diinginkan.", "fas fa-shield-alt", "bg-emerald-500/20 text-emerald-400");
+            triggerDynamicIsland("Dasbor Terbuka 🔓", message, "fas fa-shield-alt", "bg-emerald-500/20 text-emerald-400");
         }
 
         function saveAppLockSecurity() {
@@ -3355,6 +3495,7 @@
 
             updateActiveToggleCount();
             simpanData();
+            syncToCloud(false); // SINKRONISASI INSTAN KE CLOUD
             closeBottomSheet('app-pin-modal');
             triggerHaptic('success');
             var tipeLabel = (dataState.appLock.type === 'pattern') ? "Kunci Pola 3x3" : "PIN 4-digit";
@@ -3382,6 +3523,7 @@
 
             updateActiveToggleCount();
             simpanData();
+            syncToCloud(false); // SINKRONISASI INSTAN KE CLOUD
             closeBottomSheet('app-pin-modal');
             triggerHaptic('medium');
             triggerDynamicIsland("Kunci Nonaktif 🔓", "Aplikasi kini dapat dibuka langsung", "fas fa-lock-open", "bg-amber-500/20 text-amber-400");
@@ -3441,7 +3583,7 @@
             var canvas = document.getElementById('lock-pattern-canvas');
             if (!canvas) return;
 
-            if (patternUnlockCtrl) patternUnlockCtrl.reset();
+            if (patternUnlockCtrl && patternUnlockCtrl.destroy) patternUnlockCtrl.destroy();
             patternUnlockCtrl = createPatternLockController(canvas, function(patternCode, callback) {
                 if (checkAndResumeCooldown()) {
                     callback('error');
@@ -7721,9 +7863,22 @@
                             if(!dataState.budgets || typeof dataState.budgets !== 'object') dataState.budgets = {
                                 '🍔 Makan': 0, '🚗 Transport': 0, '🛍️ Belanja': 0, '💡 Tagihan': 0, '📁 Lainnya': 0
                             };
-                            if(!Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
                             if(!dataState.appLock || typeof dataState.appLock !== 'object') {
                                 dataState.appLock = { enabled: false, type: 'pin', pin: '', pattern: '', securityQuestion: 'Apa nama hewan peliharaan pertama Anda?', securityAnswer: '' };
+                            } else {
+                                if (!dataState.appLock.type) dataState.appLock.type = 'pin';
+                                if (dataState.appLock.pattern === undefined) dataState.appLock.pattern = '';
+                                if (!dataState.appLock.securityQuestion) dataState.appLock.securityQuestion = 'Apa nama hewan peliharaan pertama Anda?';
+                                if (dataState.appLock.securityAnswer === undefined) dataState.appLock.securityAnswer = '';
+                            }
+
+                            // Jika kunci dinonaktifkan di Cloud, sembunyikan layar kunci
+                            if (!dataState.appLock.enabled) {
+                                var lockSc = document.getElementById('app-lock-screen');
+                                if (lockSc && !lockSc.classList.contains('hidden')) {
+                                    lockSc.classList.add('opacity-0');
+                                    setTimeout(function() { lockSc.classList.add('hidden'); lockSc.classList.remove('opacity-0'); }, 200);
+                                }
                             }
                             if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
                             if(dataState.saldo === undefined) dataState.saldo = 0;
@@ -7847,7 +8002,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v33.11.P2';
+        const CURRENT_APP_VERSION = 'v33.11.P3';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
