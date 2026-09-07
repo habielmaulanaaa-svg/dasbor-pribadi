@@ -763,20 +763,26 @@
             -webkit-user-select: none;
         }
 
-        /* BOTTOM SHEET STYLING & GESTURES */
+        /* BOTTOM SHEET STYLING & GESTURES (HIGH PERFORMANCE GPU ACCELERATED) */
         .bottom-sheet-backdrop {
             opacity: 0;
+            visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.25s;
+            will-change: opacity, visibility;
         }
         .bottom-sheet-backdrop.active {
             opacity: 1;
+            visibility: visible;
             pointer-events: auto;
         }
         .bottom-sheet-content {
             transform: translate3d(0, 100%, 0);
-            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
             will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform-style: preserve-3d;
         }
         .bottom-sheet-backdrop.active .bottom-sheet-content {
             transform: translate3d(0, 0, 0);
@@ -1026,7 +1032,7 @@
                             <div onclick="toggleAutoThemeMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
                                 <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-clock text-primary-500 text-[10px]"></i> Tema Otomatis</span>
-                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Siklus otomatis gelap malam hari</span>
+                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Gelap 17:00 - 05:00 WIB, Terang 05:00 - 17:00 WIB</span>
                                 </div>
                                 <button type="button" onclick="event.stopPropagation(); toggleAutoThemeMode()" id="btn-toggle-autotheme" class="fluid-switch-btn no-bounce focus:outline-none shrink-0" aria-label="Toggle Tema Otomatis">
                                     <div id="autotheme-switch-knob" class="fluid-switch-knob"></div>
@@ -1956,11 +1962,11 @@
             <div id="sec-tab-panel-pin" class="p-4 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60 mb-4 space-y-3">
                 <div>
                     <label class="text-xs font-bold text-slate-700 dark:text-slate-200 block mb-1.5">PIN 4-Digit Baru</label>
-                    <input type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric" id="input-app-pin" placeholder="••••" class="w-full tracking-widest text-center text-lg border rounded-xl px-3 py-2.5 font-black focus:outline-none">
+                    <input type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric" id="input-app-pin" placeholder="••••" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" class="w-full tracking-widest text-center text-lg border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-black focus:outline-none focus:ring-2 focus:ring-primary-500">
                 </div>
                 <div>
                     <label class="text-xs font-bold text-slate-700 dark:text-slate-200 block mb-1.5">Konfirmasi PIN 4-Digit</label>
-                    <input type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric" id="input-app-pin-confirm" placeholder="••••" class="w-full tracking-widest text-center text-lg border rounded-xl px-3 py-2.5 font-black focus:outline-none">
+                    <input type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric" id="input-app-pin-confirm" placeholder="••••" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" class="w-full tracking-widest text-center text-lg border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-black focus:outline-none focus:ring-2 focus:ring-primary-500">
                 </div>
             </div>
 
@@ -2056,7 +2062,7 @@
     </div>
 
     <!-- FULLSCREEN APP LOCK SCREEN OVERLAY (THEME AWARE: LIGHT & DARK) -->
-    <div id="app-lock-screen" class="hidden fixed inset-0 z-[999] bg-slate-100/95 dark:bg-slate-950/95 backdrop-blur-3xl flex flex-col items-center justify-between p-6 select-none transition-opacity duration-300">
+    <div id="app-lock-screen" class="hidden fixed inset-0 z-[999] bg-slate-100/98 dark:bg-[#0e1621]/98 backdrop-blur-md flex flex-col items-center justify-between p-6 select-none transition-opacity duration-250 transform-gpu will-change-transform">
         <div class="w-full flex justify-end pt-2">
             <div class="flex items-center gap-1.5 px-3 py-1 bg-white/80 dark:bg-white/10 rounded-full text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-[10px] font-bold shadow-xs">
                 <i class="fas fa-shield-alt text-emerald-500 dark:text-emerald-400"></i> Dasbor Terproteksi
@@ -3076,6 +3082,18 @@
             triggerDynamicIsland("Gaya Kartu", dataState.glassMode ? "Kaca Akrilik Aktif 🪟" : "Mode Solid Aktif", "fas fa-cube", "bg-purple-500/20 text-purple-400");
         }
 
+        // HELPER ZONA WAKTU INDONESIA BARAT (WIB / ASIA/JAKARTA / UTC+7)
+        function getWibDate(d) {
+            var date = d ? new Date(d.getTime ? d.getTime() : d) : new Date();
+            try {
+                var wibString = date.toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+                return new Date(wibString);
+            } catch(e) {
+                var utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+                return new Date(utc + (7 * 3600000));
+            }
+        }
+
         function toggleAutoThemeMode() {
             dataState.autoThemeMode = !dataState.autoThemeMode;
             var knobA = document.getElementById('autotheme-switch-knob');
@@ -3084,13 +3102,16 @@
             if (dataState.autoThemeMode) applyAutoThemeClock();
             updateActiveToggleCount();
             simpanData();
-            triggerDynamicIsland("Tema Otomatis", dataState.autoThemeMode ? "Siklus Siang/Malam Aktif 🌓" : "Mode Manual Aktif", "fas fa-clock", "bg-amber-500/20 text-amber-400");
+            triggerDynamicIsland("Tema Otomatis", dataState.autoThemeMode ? "Siklus WIB Aktif (Gelap 17:00 - 05:00) 🌓" : "Mode Manual Aktif", "fas fa-clock", "bg-amber-500/20 text-amber-400");
         }
 
         function applyAutoThemeClock() {
             if (!dataState.autoThemeMode) return;
-            var hr = new Date().getHours();
-            var shouldBeDark = (hr >= 18 || hr < 6);
+            var wibNow = getWibDate();
+            var hr = wibNow.getHours();
+            // Mode Gelap: jam 17:00 (5 sore) hingga jam 05:00 (5 pagi) WIB
+            // Mode Terang: jam 05:00 (5 pagi) hingga jam 17:00 (5 sore) WIB
+            var shouldBeDark = (hr >= 17 || hr < 5);
             var isDark = document.documentElement.classList.contains('dark');
             if (shouldBeDark !== isDark) {
                 document.documentElement.classList.toggle('dark', shouldBeDark);
@@ -4400,46 +4421,47 @@
             }
         }
 
-        // HELPER SIKLUS REKAP HARIAN (RESET SETIAP JAM 06:00 PAGI)
+        // HELPER SIKLUS REKAP HARIAN (RESET SETIAP JAM 00:00:00 WIB / TENGAH MALAM)
         function getRekapDateString(d) {
-            var date = d ? new Date(d.getTime ? d.getTime() : d) : new Date();
-            // Siklus harian dimulai jam 06:00:00 pagi.
-            // Jika jam < 6 (00:00 - 05:59:59), masih terhitung sebagai siklus hari kemarin.
-            if (date.getHours() < 6) {
-                date.setDate(date.getDate() - 1);
-            }
+            var date = getWibDate(d);
             var y = date.getFullYear();
             var m = String(date.getMonth() + 1).padStart(2, '0');
             var day = String(date.getDate()).padStart(2, '0');
             return `${y}-${m}-${day}`;
         }
 
-        // PENGATUR JADWAL RESET REKAP HARIAN (SETIAP JAM 06:00:00 PAGI)
-        function scheduleDailyReset6AM() {
+        // PENGATUR JADWAL RESET REKAP HARIAN (SETIAP JAM 00:00:00 WIB)
+        function scheduleDailyResetMidnight() {
             var now = new Date();
-            var nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 0, 0, 0);
-            if (now.getTime() >= nextReset.getTime()) {
-                // Jika sudah melewati jam 6 pagi hari ini, jadwalkan ke jam 6 pagi besok
-                nextReset.setDate(nextReset.getDate() + 1);
-            }
-            var msUntilReset = nextReset.getTime() - now.getTime();
+            var wibNow = getWibDate(now);
+
+            // Hitung target 00:00:00 WIB hari berikutnya
+            var nextMidnightWib = new Date(wibNow.getFullYear(), wibNow.getMonth(), wibNow.getDate() + 1, 0, 0, 0, 0);
+            var msUntilReset = nextMidnightWib.getTime() - wibNow.getTime();
+            if (msUntilReset <= 0) msUntilReset = 24 * 3600 * 1000;
 
             setTimeout(() => {
                 isRekapBannerDismissed = false;
                 applyAutoThemeClock();
                 perbaruiTampilan();
-                triggerDynamicIsland("Siklus Baru 06:00 🌅", "Rekap harian telah diperbarui untuk hari ini", "fas fa-calendar-day", "bg-primary-500/20 text-primary-400");
-                scheduleDailyReset6AM();
+                triggerDynamicIsland("Hari Baru 00:00 WIB 🌙", "Rekap harian telah diperbarui untuk hari ini", "fas fa-calendar-day", "bg-primary-500/20 text-primary-400");
+                scheduleDailyResetMidnight();
             }, msUntilReset);
         }
-        window.scheduleMidnightReset = scheduleDailyReset6AM; // Alias backward-compatible
+        function scheduleDailyReset6AM() {
+            scheduleDailyResetMidnight();
+        }
+        window.scheduleDailyReset6AM = scheduleDailyResetMidnight; // Alias backward-compatible
+        window.scheduleMidnightReset = scheduleDailyResetMidnight; // Alias backward-compatible
 
-        // --- BOTTOM SHEET DRAWER SYSTEM ---
+        // --- BOTTOM SHEET DRAWER SYSTEM (HIGH PERFORMANCE GPU-OPTIMIZED) ---
         function openBottomSheet(modalId) {
             var modal = document.getElementById(modalId);
             if (!modal) return;
-            modal.classList.add('active');
-            attachSheetSwipeDismiss(modal);
+            requestAnimationFrame(function() {
+                modal.classList.add('active');
+                attachSheetSwipeDismiss(modal);
+            });
         }
 
         function closeBottomSheet(modalId) {
@@ -7898,7 +7920,7 @@
                     if (!isSmartInsightsAlreadyShown) runSmartInsightsSequence(false);
                 }, 3500);
             }
-            scheduleDailyReset6AM();
+            scheduleDailyResetMidnight();
             checkOtaVersionNotification();
             checkAppLockOnStartup();
 
