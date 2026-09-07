@@ -768,8 +768,8 @@
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.25s;
-            will-change: opacity, visibility;
+            transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity;
         }
         .bottom-sheet-backdrop.active {
             opacity: 1;
@@ -778,14 +778,18 @@
         }
         .bottom-sheet-content {
             transform: translate3d(0, 100%, 0);
-            transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
-            backface-visibility: hidden;
+            contain: layout paint;
             -webkit-backface-visibility: hidden;
-            transform-style: preserve-3d;
+            backface-visibility: hidden;
         }
         .bottom-sheet-backdrop.active .bottom-sheet-content {
             transform: translate3d(0, 0, 0);
+        }
+        body.sheet-open #settings-menu {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
         }
         .drag-handle {
             touch-action: pan-y;
@@ -2001,11 +2005,11 @@
             <div id="sec-tab-panel-pin" class="p-4 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60 mb-4 space-y-3">
                 <div>
                     <label class="text-xs font-bold text-slate-700 dark:text-slate-200 block mb-1.5">PIN 4-Digit Baru</label>
-                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="input-app-pin" name="pin_code_app" placeholder="••••" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-lpignore="true" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);" class="security-pin-mask w-full text-center text-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-bold focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="input-app-pin" name="sec_digit_primary" placeholder="4 Angka PIN" readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-lpignore="true" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);" class="security-pin-mask w-full text-center text-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-bold focus:outline-none focus:ring-2 focus:ring-primary-500">
                 </div>
                 <div>
                     <label class="text-xs font-bold text-slate-700 dark:text-slate-200 block mb-1.5">Konfirmasi PIN 4-Digit</label>
-                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="input-app-pin-confirm" name="pin_confirm_app" placeholder="••••" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-lpignore="true" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);" class="security-pin-mask w-full text-center text-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-bold focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="input-app-pin-confirm" name="sec_digit_confirm" placeholder="4 Angka PIN" readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-lpignore="true" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);" class="security-pin-mask w-full text-center text-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-bold focus:outline-none focus:ring-2 focus:ring-primary-500">
                 </div>
             </div>
 
@@ -3185,22 +3189,20 @@
         }
 
         function openPinModal() {
-            // Tutup menu pengaturan agar tidak merender komposit backdrop-blur bertumpuk di latar belakang
-            var sm = document.getElementById('settings-menu');
-            if (sm && !sm.classList.contains('hidden')) {
-                sm.classList.add('hidden');
-                var iconGear = document.getElementById('icon-gear');
-                if (iconGear) iconGear.classList.remove('rotate-90');
-            }
-
             var inputPin = document.getElementById('input-app-pin');
             var inputConfirm = document.getElementById('input-app-pin-confirm');
             var btnDisable = document.getElementById('btn-disable-pin');
             var selectQ = document.getElementById('select-security-question');
             var inputAns = document.getElementById('input-security-answer');
 
-            if (inputPin) inputPin.value = '';
-            if (inputConfirm) inputConfirm.value = '';
+            if (inputPin) {
+                inputPin.value = '';
+                inputPin.setAttribute('readonly', 'readonly');
+            }
+            if (inputConfirm) {
+                inputConfirm.value = '';
+                inputConfirm.setAttribute('readonly', 'readonly');
+            }
 
             if (selectQ) {
                 if (dataState.appLock && dataState.appLock.securityQuestion) {
@@ -4505,9 +4507,14 @@
         function openBottomSheet(modalId) {
             var modal = document.getElementById(modalId);
             if (!modal) return;
+            document.body.classList.add('sheet-open');
+            modal.style.visibility = 'visible';
+            modal.style.pointerEvents = 'auto';
             requestAnimationFrame(function() {
-                modal.classList.add('active');
-                attachSheetSwipeDismiss(modal);
+                requestAnimationFrame(function() {
+                    modal.classList.add('active');
+                    attachSheetSwipeDismiss(modal);
+                });
             });
         }
 
@@ -4515,6 +4522,16 @@
             var modal = document.getElementById(modalId);
             if (!modal) return;
             modal.classList.remove('active');
+            setTimeout(function() {
+                if (!modal.classList.contains('active')) {
+                    modal.style.visibility = '';
+                    modal.style.pointerEvents = '';
+                    var anyActive = document.querySelector('.bottom-sheet-backdrop.active');
+                    if (!anyActive) {
+                        document.body.classList.remove('sheet-open');
+                    }
+                }
+            }, 320);
         }
 
         function attachSheetSwipeDismiss(sheetBackdrop) {
