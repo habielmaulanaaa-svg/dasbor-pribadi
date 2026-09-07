@@ -634,7 +634,7 @@
         .fab-bubble-item:nth-child(4).retract { animation-delay: 0.10s; }
 
         /* ==========================================
-           2b. DOCK BUOYANCY: UNIFIED SCROLL SUBMERGE & SPRING BOUNCE
+           2b. DOCK BUOYANCY: UNIFIED SCROLL SUBMERGE & SMOOTH SURFACE
            ========================================== */
         #floating-dock-container {
             left: 0;
@@ -642,8 +642,6 @@
             margin-left: auto;
             margin-right: auto;
             width: max-content;
-            transform: translate3d(0, 0, 0);
-            will-change: transform, opacity;
         }
 
         #floating-dock-container.dock-buoy-submerged {
@@ -677,35 +675,35 @@
             }
         }
 
-        /* 2c. FROSTED GLASS DOK & TOMBOL FAB */
+        /* 2c. FROSTED GLASS DOK & TOMBOL FAB (BLUR KACA MURNI BEBAS OUTLINE) */
         #bottom-nav-dock,
         #fab-quick-add {
             background-color: rgba(255, 255, 255, 0.72) !important;
             backdrop-filter: blur(20px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-            border: 1px solid rgba(255, 255, 255, 0.5) !important;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+            outline: none !important;
         }
         .dark #bottom-nav-dock,
         .dark #fab-quick-add {
-            background-color: rgba(23, 33, 43, 0.72) !important;
+            background-color: rgba(23, 33, 43, 0.75) !important;
             backdrop-filter: blur(20px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-            border: 1px solid rgba(255, 255, 255, 0.12) !important;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+            outline: none !important;
         }
 
         body.glass-mode #bottom-nav-dock,
         body.glass-mode #fab-quick-add {
-            background-color: rgba(255, 255, 255, 0.62) !important;
+            background-color: rgba(255, 255, 255, 0.60) !important;
             backdrop-filter: blur(24px) saturate(200%) !important;
             -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+            outline: none !important;
         }
         .dark body.glass-mode #bottom-nav-dock,
         .dark body.glass-mode #fab-quick-add {
-            background-color: rgba(23, 33, 43, 0.62) !important;
+            background-color: rgba(23, 33, 43, 0.65) !important;
             backdrop-filter: blur(24px) saturate(200%) !important;
             -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+            outline: none !important;
         }
 
         /* 2d. ANIMASI HALUS SUB-BAR WAKTU & TANGGAL TUGAS */
@@ -4675,6 +4673,14 @@
                 }
                 lastScrollTop = st <= 0 ? 0 : st;
             }, { passive: true });
+
+            if (floatingDock) {
+                floatingDock.addEventListener('animationend', function(e) {
+                    if (e.animationName === 'dockBuoySurface') {
+                        floatingDock.classList.remove('dock-buoy-bounce');
+                    }
+                });
+            }
 
             mainContainer.addEventListener('touchstart', (e) => {
                 if (mainContainer.scrollTop <= 0) {
