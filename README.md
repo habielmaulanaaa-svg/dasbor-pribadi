@@ -1,11 +1,11 @@
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.11.P3
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.11.P4
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.11.P3-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.11.P4-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.11.P3)** dengan dukungan **Kunci Keamanan Tangguh (PIN 4-Digit & Kunci Pola 3x3 dengan Interpolasi Android & Pemulihan Akun Google)**, **Kalender Terpadu & Rekap Harian 360°**, **Wawasan Pintar Bergilir (*Smart Insights*)**, **Speed-Dial Floating Action Button (FAB)**, **Prediksi Tabungan Cerdas**, **3 Home Screen Widgets Android bawaan**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.11.P4)** dengan dukungan **Animasi Transisi Fisika Fluida (Tegangan Zat Cair)**, **Kunci Keamanan Zero-Lag (PIN 4-Digit & Kunci Pola 3x3 Anti-Autofill Delay & Pemulihan Google)**, **Jadwal Rekap Harian Tepat 00:00 WIB**, **Transisi Tema Otomatis Jam WIB (17:00-05:00)**, **Kalender Terpadu 360°**, **Speed-Dial Floating Action Button (FAB)**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -14,12 +14,34 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
 | 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer mandiri 1-klik cepat tanpa login |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.11.P3 |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.11.P4 |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (OTA Realtime) |
 
 ---
 
-## 🌟 Fitur Baru Generasi v33.11.P3
+## 🌊 Fitur Baru Generasi v33.11.P4
+
+### 1. 💧 Animasi Transisi Berbasis Fisika Fluida (Tegangan Zat Cair)
+- **Saklar Toggle Elastis (*Surface Tension Stretching & Detach*)**: Kenop tombol saklar tidak lagi kaku, melainkan meregang elastis layaknya zat cair saat ditarik dan membal menyatu halus saat melebihi ambang batas tarikan (*detach & snap*).
+- **Speed-Dial FAB Letupan Gelembung (*Budding Bubbles*)**: Tombol tindakan cepat meluncur keluar layaknya gelembung fluida bertunas yang membesar dan membal ke posisinya.
+- **Kapsul Merkuri Cair (*Mercury Droplet Pill*)**: Indikator aktif pada bilah navigasi bawah berpindah dengan efek deformasi fluida seperti tetesan merkuri yang mengalir lincah.
+- **Kontak Kapiler Kartu (*Capillary Contact Cards*)**: Kartu preferensi pengaturan merespons sentuhan dengan efek tarikan tegangan permukaan lembut.
+
+### 2. ⚡ Kunci Keamanan Zero-Lag (Bebas Freeze Android)
+- **Eliminasi Delay Autofill OS**: Mengganti form input konvensional dengan *native masked-disc numeric fields* (`-webkit-text-security: disc`), melenyapkan jeda 100–300ms dari Android Credential Manager / Google Autofill Service saat pop-up PIN dibuka.
+- **Auto-Hide Menu Latar Belakang**: Menu pengaturan di latar belakang disembunyikan otomatis saat lembar keamanan terbuka, memangkas beban ganda *backdrop-blur* pada GPU ponsel untuk mencapai 60 FPS mulus.
+
+### 3. ⏰ Sinkronisasi Jadwal Rekap Harian 00:00 WIB
+- Jadwal reset rekap harian resmi dipindahkan dari jam 06:00 pagi menjadi tepat pukul **00:00:00 WIB (tengah malam)**, menyelaraskan pembukuan tepat pada pergantian tanggal kalender.
+
+### 4. 🌓 Otomatisasi Mode Terang & Gelap Berdasarkan Jam WIB
+- Transisi otomatis:
+  - 🌙 **Mode Gelap**: Pukul **17:00 – 05:00 WIB** (sore hingga subuh).
+  - ☀️ **Mode Terang**: Pukul **05:00 – 17:00 WIB** (pagi hingga sore).
+
+---
+
+## 🌟 Fitur Generasi Sebelumnya (v33.11.P3)
 
 ### 1. 🛡️ Pemulihan Darurat Google & Anti-Lockout (Data 100% Aman)
 - **Buka Cepat via Akun Google**: Memanfaatkan sesi autentikasi Google Firebase pengguna (`currentUser`). 1 ketukan langsung memverifikasi kepemilikan akun dan membuka kunci dasbor secara instan tanpa perlu repot mengingat pola/PIN.
@@ -140,5 +162,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.11.P3 • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.11.P4 • Era Super-App Finansial & Produktivitas</b></sub>
 </div>

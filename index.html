@@ -812,6 +812,14 @@
         body.compact-mode .compact-text-title { font-size: 0.8125rem !important; }
         body.compact-mode .compact-h-card { min-height: unset !important; }
 
+        /* ZERO-LAG PIN INPUT MASK (BYPASSES ANDROID AUTOFILL IPC FREEZE) */
+        .security-pin-mask {
+            -webkit-text-security: disc !important;
+            text-security: disc !important;
+            letter-spacing: 0.35em !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        }
+
         /* PRINT MEDIA STYLING FOR PDF EXPORT */
         @media print {
             body * { visibility: hidden; }
@@ -903,7 +911,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.11.P3</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.11.P4</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -981,7 +989,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.11.P3 (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.11.P4 (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -1166,10 +1174,41 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P3</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P4</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v33.11.P4 -->
+                <div class="p-3.5 bg-gradient-to-br from-indigo-50 via-sky-50 to-emerald-50 dark:from-indigo-950/40 dark:via-sky-950/30 dark:to-emerald-900/20 rounded-2xl border border-indigo-200 dark:border-indigo-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-tint text-indigo-500 text-xs"></i> Update Minor • v33.11.P4</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-indigo-600 to-emerald-600 text-white px-2 py-0.5 rounded-full shadow-xs">Fluid Physics &amp; Speed</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Animasi Fisika Fluida (Tegangan Zat Cair), Siklus Jam WIB &amp; Kunci Aplikasi Bebas Lag</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-indigo-100 dark:border-indigo-900/40">
+                            <i class="fas fa-water text-sky-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Animasi Fisika Fluida (Tegangan Permukaan):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Kenop toggle elastis meregang layaknya zat cair saat ditarik dan membal menyatu halus saat dilepas (*surface tension detach*). Speed-Dial FAB berefek letupan gelembung (*budding bubbles*) dan bottom nav bergeser seperti tetesan merkuri cair.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-indigo-100 dark:border-indigo-900/40">
+                            <i class="fas fa-bolt text-amber-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Kunci Keamanan Zero-Lag (Instan 60 FPS):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Penyempurnaan input PIN tanpa jeda/freeze sistem Autofill Android melalui masked-disc input native dan penutupan otomatis latar belakang untuk rendering grafis yang super ringan.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-indigo-100 dark:border-indigo-900/40">
+                            <i class="fas fa-clock text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Jadwal Rekap &amp; Tema Otomatis Jam WIB:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Reset rekap harian resmi dimajukan tepat pukul 00:00:00 WIB tengah malam, dan transisi tema otomatis aktif dari Terang ke Gelap pukul 17:00 – 05:00 WIB serta Gelap ke Terang pukul 05:00 – 17:00 WIB.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Milestone v33.11.P3 -->
                 <div class="p-3.5 bg-gradient-to-br from-blue-50 via-indigo-50 to-emerald-50 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-emerald-900/20 rounded-2xl border border-blue-200 dark:border-blue-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -1962,11 +2001,11 @@
             <div id="sec-tab-panel-pin" class="p-4 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60 mb-4 space-y-3">
                 <div>
                     <label class="text-xs font-bold text-slate-700 dark:text-slate-200 block mb-1.5">PIN 4-Digit Baru</label>
-                    <input type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric" id="input-app-pin" placeholder="••••" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" class="w-full tracking-widest text-center text-lg border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-black focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="input-app-pin" name="pin_code_app" placeholder="••••" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-lpignore="true" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);" class="security-pin-mask w-full text-center text-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-bold focus:outline-none focus:ring-2 focus:ring-primary-500">
                 </div>
                 <div>
                     <label class="text-xs font-bold text-slate-700 dark:text-slate-200 block mb-1.5">Konfirmasi PIN 4-Digit</label>
-                    <input type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric" id="input-app-pin-confirm" placeholder="••••" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" class="w-full tracking-widest text-center text-lg border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-black focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="input-app-pin-confirm" name="pin_confirm_app" placeholder="••••" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-lpignore="true" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);" class="security-pin-mask w-full text-center text-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-bold focus:outline-none focus:ring-2 focus:ring-primary-500">
                 </div>
             </div>
 
@@ -3146,6 +3185,14 @@
         }
 
         function openPinModal() {
+            // Tutup menu pengaturan agar tidak merender komposit backdrop-blur bertumpuk di latar belakang
+            var sm = document.getElementById('settings-menu');
+            if (sm && !sm.classList.contains('hidden')) {
+                sm.classList.add('hidden');
+                var iconGear = document.getElementById('icon-gear');
+                if (iconGear) iconGear.classList.remove('rotate-90');
+            }
+
             var inputPin = document.getElementById('input-app-pin');
             var inputConfirm = document.getElementById('input-app-pin-confirm');
             var btnDisable = document.getElementById('btn-disable-pin');
@@ -8440,7 +8487,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v33.11.P3';
+        const CURRENT_APP_VERSION = 'v33.11.P4';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
