@@ -634,43 +634,44 @@
         .fab-bubble-item:nth-child(4).retract { animation-delay: 0.10s; }
 
         /* ==========================================
-           2b. FAB BUOYANCY: SCROLL SUBMERGE & SPRING BOUNCE
+           2b. DOCK BUOYANCY: UNIFIED SCROLL SUBMERGE & SPRING BOUNCE
            ========================================== */
-        #fab-quick-add {
+        #floating-dock-container {
+            transform: translate3d(-50%, 0, 0);
             will-change: transform, opacity;
-            transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
         }
 
-        #fab-quick-add.fab-buoy-submerged {
-            transform: translate3d(0, 75px, 0) scale(0.5) !important;
+        #floating-dock-container.dock-buoy-submerged {
+            transform: translate3d(-50%, 95px, 0) scale(0.85) !important;
             opacity: 0 !important;
             pointer-events: none !important;
             transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease !important;
         }
 
-        #fab-quick-add.fab-buoy-bounce {
-            animation: fabBuoySpringBounce 0.52s cubic-bezier(0.18, 0.9, 0.32, 1) forwards;
+        #floating-dock-container.dock-buoy-bounce {
+            animation: dockBuoySpringBounce 0.54s cubic-bezier(0.18, 0.9, 0.32, 1) forwards;
         }
 
-        @keyframes fabBuoySpringBounce {
+        @keyframes dockBuoySpringBounce {
             0% {
-                transform: translate3d(0, 75px, 0) scale(0.65, 1.35);
+                transform: translate3d(-50%, 90px, 0) scale(0.82, 1.22);
                 opacity: 0;
             }
             45% {
-                transform: translate3d(0, -9px, 0) scale(1.18, 0.85);
+                transform: translate3d(-50%, -8px, 0) scale(1.06, 0.92);
                 opacity: 1;
             }
             70% {
-                transform: translate3d(0, 3.5px, 0) scale(0.94, 1.05);
+                transform: translate3d(-50%, 3px, 0) scale(0.97, 1.03);
                 opacity: 1;
             }
             85% {
-                transform: translate3d(0, -1.5px, 0) scale(1.02, 0.98);
+                transform: translate3d(-50%, -1px, 0) scale(1.01, 0.99);
                 opacity: 1;
             }
             100% {
-                transform: translate3d(0, 0, 0) scale(1, 1);
+                transform: translate3d(-50%, 0, 0) scale(1, 1);
                 opacity: 1;
             }
         }
@@ -919,40 +920,43 @@
            6. PERMUKAAN AIR FLUIDA KARTU SALDO (WAVE TANK OVERLAY)
            ========================================== */
         #saldo-card-fluid-wave {
-            bottom: 0;
-            height: 60%;
-            top: auto;
-        }
-        .fluid-wave-wrapper {
-            position: absolute;
-            inset: 0;
-            width: 200%;
-            height: 100%;
-            display: flex;
+            top: auto !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 52% !important;
             pointer-events: none;
+            overflow: hidden;
+            border-bottom-left-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+            z-index: 1;
         }
         .fluid-wave-svg {
-            width: 50%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
             height: 100%;
-            flex-shrink: 0;
+            pointer-events: none;
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
         .fluid-wave-back {
-            animation: waveFlowBack 12s linear infinite;
+            animation: waveSlideBack 14s linear infinite;
             transform: translate3d(0, 0, 0);
-            will-change: transform;
         }
         .fluid-wave-front {
-            animation: waveFlowFront 7.5s linear infinite;
-            transform: translate3d(0, 0, 0);
-            will-change: transform;
+            animation: waveSlideFront 8.5s linear infinite;
+            transform: translate3d(-50%, 0, 0);
         }
 
-        @keyframes waveFlowBack {
+        @keyframes waveSlideBack {
             0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        @keyframes waveFlowFront {
+        @keyframes waveSlideFront {
             0% { transform: translate3d(-50%, 0, 0); }
             100% { transform: translate3d(0, 0, 0); }
         }
@@ -963,12 +967,12 @@
         }
 
         .wave-calm .fluid-wave-back {
-            animation-duration: 26s !important;
-            opacity: 0.55;
+            animation-duration: 28s !important;
+            opacity: 0.5;
         }
         .wave-calm .fluid-wave-front {
-            animation-duration: 20s !important;
-            opacity: 0.65;
+            animation-duration: 19s !important;
+            opacity: 0.6;
         }
 
         .wave-splash {
@@ -1018,7 +1022,7 @@
                 opacity: 0 !important;
                 transition: opacity 0.2s ease !important;
             }
-            .fluid-wave-back, .fluid-wave-front {
+            .fluid-wave-back, .fluid-wave-front, #floating-dock-container.dock-buoy-bounce {
                 animation: none !important;
             }
             .wallet-card.wallet-droplet-pop {
@@ -2242,23 +2246,13 @@
                     <div id="saldo-card-gradient-overlay" class="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-300 ease-in-out"></div>
 
                     <!-- Layer Permukaan Air Fluida (Subtle Liquid Wave Tank Overlay) -->
-                    <div id="saldo-card-fluid-wave" class="absolute inset-0 rounded-3xl pointer-events-none overflow-hidden z-0 transition-opacity duration-500 opacity-90">
-                        <div class="fluid-wave-wrapper absolute inset-0 w-[200%] h-full flex">
-                            <svg class="fluid-wave-svg fluid-wave-back" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                <path d="M0,45 C150,85 350,15 500,50 C650,85 850,15 1000,50 C1100,68 1160,55 1200,48 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.08)"></path>
-                            </svg>
-                            <svg class="fluid-wave-svg fluid-wave-back" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                <path d="M0,45 C150,85 350,15 500,50 C650,85 850,15 1000,50 C1100,68 1160,55 1200,48 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.08)"></path>
-                            </svg>
-                        </div>
-                        <div class="fluid-wave-wrapper absolute inset-0 w-[200%] h-full flex">
-                            <svg class="fluid-wave-svg fluid-wave-front" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                <path d="M0,60 C200,20 400,80 600,45 C800,15 1000,75 1200,55 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.14)"></path>
-                            </svg>
-                            <svg class="fluid-wave-svg fluid-wave-front" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                <path d="M0,60 C200,20 400,80 600,45 C800,15 1000,75 1200,55 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.14)"></path>
-                            </svg>
-                        </div>
+                    <div id="saldo-card-fluid-wave" class="absolute bottom-0 left-0 right-0 h-[52%] rounded-b-3xl pointer-events-none overflow-hidden z-0 transition-opacity duration-500 opacity-90">
+                        <svg class="fluid-wave-svg fluid-wave-back" viewBox="0 0 2000 100" preserveAspectRatio="none">
+                            <path d="M 0,40 Q 250,15 500,40 T 1000,40 T 1500,40 T 2000,40 L 2000,100 L 0,100 Z" fill="rgba(255,255,255,0.08)"></path>
+                        </svg>
+                        <svg class="fluid-wave-svg fluid-wave-front" viewBox="0 0 2000 100" preserveAspectRatio="none">
+                            <path d="M 0,55 Q 250,80 500,55 T 1000,55 T 1500,55 T 2000,55 L 2000,100 L 0,100 Z" fill="rgba(255,255,255,0.14)"></path>
+                        </svg>
                     </div>
 
                     <!-- Ikon Dompet Latar Belakang -->
@@ -2704,7 +2698,7 @@
     </main>
 
     <!-- FLOATING NAVIGATION DOCK -->
-    <div id="floating-dock-container" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5 max-w-fit pointer-events-auto transform-gpu will-change-transform transition-all duration-300">
+    <div id="floating-dock-container" class="fixed bottom-4 left-1/2 z-30 flex items-center gap-2.5 max-w-fit pointer-events-auto">
         
         <!-- Kapsul Dok Utama -->
         <nav id="bottom-nav-dock" class="relative flex items-center gap-1 p-1.5 bg-white/85 dark:bg-[#17212b]/90 backdrop-blur-xl rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] border border-slate-200/80 dark:border-[#313f52]/60 transition-colors duration-200">
@@ -4566,31 +4560,30 @@
         let lastScrollTop = 0;
         let pullStartY = 0, isPulling = false;
 
-        const fabBtn = document.getElementById('fab-quick-add');
-        let isFabSubmerged = false;
+        let isDockSubmerged = false;
 
         if (mainContainer) {
             mainContainer.addEventListener('scroll', function() {
                 let st = mainContainer.scrollTop;
-                if (fabBtn) {
+                if (floatingDock) {
                     if (st > lastScrollTop + 14 && st > 60) {
-                        // Scroll ke bawah: FAB menyelam & bersembunyi
-                        if (!isFabSubmerged) {
-                            isFabSubmerged = true;
+                        // Scroll ke bawah: Seluruh Dok Navigasi + FAB menyelam ke bawah & bersembunyi
+                        if (!isDockSubmerged) {
+                            isDockSubmerged = true;
                             if (typeof closeFabSpeedDial === 'function' && isFabOpen) {
                                 closeFabSpeedDial();
                             }
-                            fabBtn.classList.remove('fab-buoy-bounce');
-                            fabBtn.classList.add('fab-buoy-submerged');
+                            floatingDock.classList.remove('dock-buoy-bounce');
+                            floatingDock.classList.add('dock-buoy-submerged');
                         }
                     } else if (st < lastScrollTop - 14 || st <= 30) {
-                        // Scroll ke atas atau kembali ke puncak: FAB membal pegas naik ke permukaan
-                        if (isFabSubmerged) {
-                            isFabSubmerged = false;
-                            fabBtn.classList.remove('fab-buoy-submerged');
-                            fabBtn.classList.remove('fab-buoy-bounce');
-                            void fabBtn.offsetWidth; // trigger reflow restart keyframe
-                            fabBtn.classList.add('fab-buoy-bounce');
+                        // Scroll ke atas atau kembali ke puncak: Seluruh Dok membal pegas naik ke permukaan
+                        if (isDockSubmerged) {
+                            isDockSubmerged = false;
+                            floatingDock.classList.remove('dock-buoy-submerged');
+                            floatingDock.classList.remove('dock-buoy-bounce');
+                            void floatingDock.offsetWidth; // trigger reflow restart keyframe
+                            floatingDock.classList.add('dock-buoy-bounce');
                         }
                     }
                 }
@@ -4987,12 +4980,12 @@
 
             updateMercuryPill(tabId, true);
 
-            if (isFabSubmerged && fabBtn) {
-                isFabSubmerged = false;
-                fabBtn.classList.remove('fab-buoy-submerged');
-                fabBtn.classList.remove('fab-buoy-bounce');
-                void fabBtn.offsetWidth;
-                fabBtn.classList.add('fab-buoy-bounce');
+            if (isDockSubmerged && floatingDock) {
+                isDockSubmerged = false;
+                floatingDock.classList.remove('dock-buoy-submerged');
+                floatingDock.classList.remove('dock-buoy-bounce');
+                void floatingDock.offsetWidth;
+                floatingDock.classList.add('dock-buoy-bounce');
             }
 
             var taskInput = document.getElementById('tugas-input-area');
