@@ -1252,7 +1252,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.11.P4 (Cloud)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile v33.11.P5 (Cloud)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -1431,10 +1431,48 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P4</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.11.P5</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v33.11.P5 -->
+                <div class="p-3.5 bg-gradient-to-br from-teal-50 via-sky-50 to-indigo-50 dark:from-teal-950/40 dark:via-sky-950/30 dark:to-indigo-900/20 rounded-2xl border border-teal-200 dark:border-teal-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-teal-600 dark:text-teal-400 flex items-center gap-1.5"><i class="fas fa-water text-teal-500 text-xs"></i> Update Minor • v33.11.P5</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-teal-600 to-sky-600 text-white px-2 py-0.5 rounded-full shadow-xs">Fluid Evolution &amp; Dock</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Gelombang Saldo Seamless 100%, Dok Navigasi &amp; FAB Mulus, Restorasi Frosted Glass &amp; Saklar Waktu Tugas</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-teal-100 dark:border-teal-900/40">
+                            <i class="fas fa-water text-teal-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Gelombang Fluida Saldo 100% Seamless:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Ombak tangki saldo kini beralih ke kurva Bezier periodik C1 kontinu tanpa patahan pertemuan ujung-ke-ujung dan 100% bebas stuttering saat animasi berulang.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-teal-100 dark:border-teal-900/40">
+                            <i class="fas fa-compass text-sky-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Dok Navigasi &amp; FAB Terpadu (Luncuran Mulus):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Bilah navigasi bawah dan tombol FAB serempak menyelam ke bawah saat scroll ke bawah dan meluncur naik ke atas secara elegan tanpa efek osilasi/pantulan kaku.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-teal-100 dark:border-teal-900/40">
+                            <i class="fas fa-eye text-indigo-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Restorasi Frosted Glass &amp; Eliminasi Outline:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Efek kaca buram (backdrop blur) kini membiaskan konten halaman secara nyata tanpa terhalang layer isolasi GPU, dan border cincin tebal di sekeliling tombol dihilangkan total.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-teal-100 dark:border-teal-900/40">
+                            <i class="fas fa-clock text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Saklar Fluida Opsi Waktu Pembuatan Tugas:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Saklar peregangan cairan (stretch &amp; detach) pada form tugas baru dengan animasi buka-tutup bar tanggal dan jam yang mengalir lembut.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Milestone v33.11.P4 -->
                 <div class="p-3.5 bg-gradient-to-br from-indigo-50 via-sky-50 to-emerald-50 dark:from-indigo-950/40 dark:via-sky-950/30 dark:to-emerald-900/20 rounded-2xl border border-indigo-200 dark:border-indigo-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -7928,7 +7966,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v33.11.P4';
+        const CURRENT_APP_VERSION = 'v33.11.P5';
         let otaAutoDismissTimer = null;
 
         function checkOtaVersionNotification() {
