@@ -639,14 +639,30 @@
         #floating-dock-container {
             transform: translate3d(-50%, 0, 0);
             will-change: transform, opacity;
-            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
         }
 
         #floating-dock-container.dock-buoy-submerged {
-            transform: translate3d(-50%, 95px, 0) scale(0.85) !important;
-            opacity: 0 !important;
+            animation: dockBuoySubmerge 0.3s cubic-bezier(0.32, 0, 0.67, 0) forwards;
             pointer-events: none !important;
-            transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease !important;
+        }
+
+        @keyframes dockBuoySubmerge {
+            0% {
+                transform: translate3d(-50%, 0, 0) scale(1, 1);
+                opacity: 1;
+            }
+            25% {
+                transform: translate3d(-50%, -4px, 0) scale(1.02, 0.96);
+                opacity: 1;
+            }
+            65% {
+                transform: translate3d(-50%, 45px, 0) scale(0.92, 1.08);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate3d(-50%, 105px, 0) scale(0.82, 1.18);
+                opacity: 0;
+            }
         }
 
         #floating-dock-container.dock-buoy-bounce {
@@ -1022,7 +1038,7 @@
                 opacity: 0 !important;
                 transition: opacity 0.2s ease !important;
             }
-            .fluid-wave-back, .fluid-wave-front, #floating-dock-container.dock-buoy-bounce {
+            .fluid-wave-back, .fluid-wave-front, #floating-dock-container.dock-buoy-bounce, #floating-dock-container.dock-buoy-submerged {
                 animation: none !important;
             }
             .wallet-card.wallet-droplet-pop {
@@ -4574,6 +4590,8 @@
                                 closeFabSpeedDial();
                             }
                             floatingDock.classList.remove('dock-buoy-bounce');
+                            floatingDock.classList.remove('dock-buoy-submerged');
+                            void floatingDock.offsetWidth; // trigger reflow restart keyframe submerge
                             floatingDock.classList.add('dock-buoy-submerged');
                         }
                     } else if (st < lastScrollTop - 14 || st <= 30) {
