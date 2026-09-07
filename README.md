@@ -31,8 +31,8 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 - **Scroll ke Bawah (Menyelam / Submerge)**: Seluruh dok serempak menyelam ke bawah layar dengan kurva gravitasi fluida halus, menjaga layar tetap bersih dan lapang saat membaca riwayat transaksi.
 - **Scroll ke Atas (Luncuran Halus / Smooth Surface)**: Seluruh dok meluncur naik ke atas secara elegan tanpa efek osilasi/pantulan pegas yang kaku.
 
-### 3. ✨ Restorasi Sejati Frosted Glass & Eliminasi Outline
-- **Pelepasan Isolasi Layer GPU**: Menghilangkan `transform` dan `will-change` pada posisi diam kontainer dok sehingga filter kaca buram (`backdrop-filter: blur(20px) saturate(180%)`) dapat membiaskan seluruh konten halaman di baliknya secara nyata dan jernih (*true frosted glass*).
+### 3. ✨ Restorasi Sejati Frosted Glass & 100% Persistent Blur
+- **100% Persistent Frosted Blur Tanpa Jeda Kaca**: Mekanisme luncuran dok menggunakan transisi koordinat `bottom` murni pada fixed layout, mengeliminasi isolasi RenderPass GPU (*isolated compositing layer*). Efek kaca buram (`backdrop-filter: blur(20px) saturate(180%)`) kini aktif 100% secara persisten dan terus membiaskan piksel latar belakang secara konsisten tanpa jeda efek kaca bening sedikit pun saat dok bergerak naik atau turun.
 - **Bersih Bebas Outline**: Seluruh border putih kontras dan inset highlight di sekeliling tombol FAB dan bilah dok telah dihapus total, mengembalikan estetika minimalis yang berpadu lembut dengan bayangan alami.
 
 ### 4. 💧 Saklar Liquid Glass Waktu Pembuatan Tugas
