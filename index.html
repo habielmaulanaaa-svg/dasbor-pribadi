@@ -2354,6 +2354,34 @@
                             <i class="far fa-calendar-alt text-slate-500 dark:text-slate-400 mr-2 text-sm"></i>
                             <input type="date" id="input-tugas-deadline" class="w-full bg-transparent text-sm font-bold focus:outline-none">
                         </div>
+
+                        <!-- Opsi Sertakan Waktu & Tanggal Dibuat -->
+                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-[#242f3d]/60 border border-slate-200/80 dark:border-[#313f52]/80 transition-all">
+                            <div class="flex items-center justify-between cursor-pointer select-none" onclick="toggleOpsiWaktuTugas()">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center text-sm">
+                                        <i class="far fa-clock"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-slate-800 dark:text-slate-200">Sertakan Waktu & Tanggal Dibuat</p>
+                                        <p class="text-[10px] text-slate-400 font-semibold">Tahu kapan tugas ini dibuat</p>
+                                    </div>
+                                </div>
+                                <!-- Saklar Fluida Toggle Switch -->
+                                <button type="button" id="btn-toggle-opsi-waktu-tugas" aria-label="Toggle Waktu Pembuatan" class="w-11 h-6 flex items-center bg-primary-600 rounded-full p-1 cursor-pointer transition-colors duration-200">
+                                    <div id="knob-opsi-waktu-tugas" class="bg-white w-4 h-4 rounded-full shadow-md transform translate-x-5 transition-transform duration-200"></div>
+                                </button>
+                            </div>
+
+                            <!-- Sub-Bar Kustomisasi / Pratinjau Waktu Dibuat -->
+                            <div id="container-input-waktu-tugas" class="mt-2.5 pt-2 border-t border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between gap-2">
+                                <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                                    <i class="fas fa-magic text-[10px] text-primary-500"></i> Waktu:
+                                </span>
+                                <input type="datetime-local" id="input-tugas-custom-datetime" class="text-xs font-bold bg-white dark:bg-[#17212b] border border-slate-200 dark:border-[#313f52] rounded-xl px-2.5 py-1 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                            </div>
+                        </div>
+
                         <button type="button" onclick="tambahTugas()" class="w-full bg-primary-600 text-white py-2.5 rounded-2xl text-sm font-bold shadow-md hover:bg-primary-700 focus:outline-none transition-colors flex items-center justify-center gap-2">
                             <i class="fas fa-save"></i> Simpan Tugas
                         </button>
@@ -2929,7 +2957,8 @@
                 '📁 Lainnya': 0
             },
             subscriptions: [],
-            fluidWaveCard: true
+            fluidWaveCard: true,
+            optTugasWaktuDibuat: true
         };
         
         let selectedMoodIcon = '😊';
@@ -5620,6 +5649,12 @@
                         }
                     }
                     if (isOpen) {
+                        updateOpsiWaktuTugasUI(dataState.optTugasWaktuDibuat !== false);
+                        var inputDt = document.getElementById('input-tugas-custom-datetime');
+                        if (inputDt) {
+                            var now = new Date();
+                            inputDt.value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+                        }
                         setTimeout(() => {
                             var inputNama = document.getElementById('input-tugas-nama');
                             if (inputNama) {
@@ -5914,6 +5949,57 @@
             triggerDynamicIsland("Rekap Harian", "Catatan hari ini tersimpan! ⭐", "fas fa-calendar-check", "bg-emerald-500/20 text-emerald-400");
         }
 
+        // --- HELPER & TOGGLE WAKTU TUGAS ---
+        function formatWaktuDibuat(dateInput) {
+            var d = (dateInput instanceof Date) ? dateInput : (dateInput ? new Date(dateInput) : new Date());
+            if (isNaN(d.getTime())) d = new Date();
+            var tgl = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            var jam = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+            return `${tgl}, ${jam}`;
+        }
+
+        function toggleOpsiWaktuTugas() {
+            var isAktif = (dataState.optTugasWaktuDibuat === undefined) ? true : dataState.optTugasWaktuDibuat;
+            isAktif = !isAktif;
+            dataState.optTugasWaktuDibuat = isAktif;
+            simpanData();
+            updateOpsiWaktuTugasUI(isAktif);
+            triggerHaptic('light');
+        }
+
+        function updateOpsiWaktuTugasUI(isAktif) {
+            var btn = document.getElementById('btn-toggle-opsi-waktu-tugas');
+            var knob = document.getElementById('knob-opsi-waktu-tugas');
+            var container = document.getElementById('container-input-waktu-tugas');
+            var inputDt = document.getElementById('input-tugas-custom-datetime');
+
+            if (isAktif) {
+                if (btn) {
+                    btn.className = 'w-11 h-6 flex items-center bg-primary-600 rounded-full p-1 cursor-pointer transition-colors duration-200';
+                }
+                if (knob) {
+                    knob.className = 'bg-white w-4 h-4 rounded-full shadow-md transform translate-x-5 transition-transform duration-200';
+                }
+                if (container) {
+                    container.classList.remove('hidden');
+                }
+                if (inputDt && !inputDt.value) {
+                    var now = new Date();
+                    inputDt.value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+                }
+            } else {
+                if (btn) {
+                    btn.className = 'w-11 h-6 flex items-center bg-slate-300 dark:bg-slate-700 rounded-full p-1 cursor-pointer transition-colors duration-200';
+                }
+                if (knob) {
+                    knob.className = 'bg-white w-4 h-4 rounded-full shadow-md transform translate-x-0 transition-transform duration-200';
+                }
+                if (container) {
+                    container.classList.add('hidden');
+                }
+            }
+        }
+
         // --- CRUD TUGAS ---
         function tambahTugas() {
             var inputNama = document.getElementById('input-tugas-nama');
@@ -5923,14 +6009,30 @@
             
             if (!nama) { triggerDynamicIsland("Tugas", "Nama tugas tidak boleh kosong!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400"); inputNama.focus(); return; }
 
+            var isWaktuAktif = (dataState.optTugasWaktuDibuat !== false);
+            var waktuDibuat = null;
+            if (isWaktuAktif) {
+                var inputDt = document.getElementById('input-tugas-custom-datetime');
+                var valDt = (inputDt && inputDt.value) ? new Date(inputDt.value) : new Date();
+                waktuDibuat = formatWaktuDibuat(valDt);
+            }
+
             dataState.tugas.push({ 
                 id: Date.now(), 
                 nama: nama, 
                 deadline: dl || null, 
                 prioritas: selectedPrioritasVal || 'sedang',
+                waktuDibuat: waktuDibuat,
                 selesai: false 
             });
             inputNama.value = ''; inputDl.value = '';
+            
+            var inputDt = document.getElementById('input-tugas-custom-datetime');
+            if (inputDt) {
+                var now = new Date();
+                inputDt.value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+            }
+
             toggleInput('tugas-input-area');
             
             if (dl) {
@@ -6579,6 +6681,10 @@
                 ? '<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 Tinggi</span>' 
                 : (task.prioritas === 'rendah' ? '<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 Rendah</span>' : '');
 
+            var badgeWaktuDibuat = task.waktuDibuat 
+                ? `<p class="text-[9px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1 mt-0.5"><i class="far fa-clock text-[8px]"></i> Dibuat: ${task.waktuDibuat}</p>` 
+                : '';
+
             return `<div class="flex items-start gap-4 p-3 ${dlInfo.bgClass} rounded-2xl border shadow-sm compact-pad">
                 <div class="w-11 h-11 rounded-xl bg-white dark:bg-[#242f3d] text-slate-700 dark:text-slate-200 flex flex-col items-center justify-center shrink-0 shadow-sm">
                     <span class="text-[9px] font-bold uppercase leading-none">${blnStr}</span>
@@ -6589,6 +6695,7 @@
                         <p class="text-sm font-bold text-slate-800 dark:text-white leading-snug break-words compact-text-title">${task.nama}</p>
                         ${prioBadge}
                     </div>
+                    ${badgeWaktuDibuat}
                     <p class="text-[10px] ${dlInfo.badgeClass} mt-1 tracking-wider uppercase flex items-center">${iconWarning}${dlInfo.label}</p>
                 </div>
             </div>`;
@@ -6600,11 +6707,18 @@
                 ? '<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 Tinggi</span>' 
                 : (task.prioritas === 'rendah' ? '<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 Rendah</span>' : '');
 
+            var badgeWaktuDibuat = task.waktuDibuat 
+                ? `<p class="text-[9px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1 mt-0.5"><i class="far fa-clock text-[8px]"></i> Dibuat: ${task.waktuDibuat}</p>` 
+                : '';
+
             return `<div class="flex items-center gap-4 p-3 bg-primary-50 dark:bg-primary-900/10 border border-primary-100 dark:border-primary-800/30 rounded-2xl shadow-sm compact-pad">
                 <div class="w-11 h-11 rounded-xl bg-white dark:bg-[#242f3d] text-primary-500 flex items-center justify-center shrink-0 shadow-sm"><i class="fas fa-book text-lg"></i></div>
                 <div class="flex-1 min-w-0">
-                    <p class="text-sm font-bold text-slate-800 dark:text-white leading-snug break-words compact-text-title">${task.nama}</p>
-                    ${prioBadge}
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <p class="text-sm font-bold text-slate-800 dark:text-white leading-snug break-words compact-text-title">${task.nama}</p>
+                        ${prioBadge}
+                    </div>
+                    ${badgeWaktuDibuat}
                 </div>
             </div>`;
         }
@@ -6626,6 +6740,10 @@
                 var iconDl = dlInfo.overdue ? '<i class="fas fa-exclamation-circle mr-1"></i>' : '<i class="fas fa-clock mr-1"></i>';
                 badgeDL = `<p class="text-[10px] ${dlInfo.badgeClass} mt-0.5 flex items-center">${iconDl}${dlInfo.text}</p>`;
             }
+
+            var badgeWaktuDibuat = task.waktuDibuat 
+                ? `<p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1 mt-0.5"><i class="far fa-clock text-[9px]"></i> Dibuat: ${task.waktuDibuat}</p>` 
+                : '';
 
             var prioBadge = task.prioritas === 'tinggi'
                 ? '<span class="text-[9px] bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 font-black px-1.5 py-0.5 rounded-lg">🔴 Tinggi</span>'
@@ -6653,6 +6771,7 @@
                             <p class="text-sm break-words ${stylingTeks} compact-text-title">${task.nama}</p>
                             ${prioBadge}
                         </div>
+                        ${badgeWaktuDibuat}
                         ${badgeDL}
                     </div>
                     <div class="flex items-center gap-1 shrink-0">${btnSelesai}${btnHapus}</div>
@@ -7221,6 +7340,8 @@
             if(dataState.glassMode === undefined) dataState.glassMode = false;
             if(dataState.autoThemeMode === undefined) dataState.autoThemeMode = false;
             if(dataState.cardGradient === undefined) dataState.cardGradient = true;
+            if(dataState.optTugasWaktuDibuat === undefined) dataState.optTugasWaktuDibuat = true;
+            updateOpsiWaktuTugasUI(dataState.optTugasWaktuDibuat !== false);
 
             document.getElementById('input-user-name').value = dataState.userName;
 
