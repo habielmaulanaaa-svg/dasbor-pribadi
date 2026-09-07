@@ -634,45 +634,26 @@
         .fab-bubble-item:nth-child(4).retract { animation-delay: 0.10s; }
 
         /* ==========================================
-           2b. DOCK BUOYANCY: UNIFIED SCROLL SUBMERGE & SMOOTH SURFACE
+           2b. DOCK BUOYANCY: UNIFIED SCROLL SUBMERGE & SMOOTH SURFACE (100% PERSISTENT FROSTED BLUR)
            ========================================== */
         #floating-dock-container {
+            position: fixed;
+            bottom: 1rem;
             left: 0;
             right: 0;
             margin-left: auto;
             margin-right: auto;
             width: max-content;
+            opacity: 1;
+            transition: bottom 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease !important;
+            pointer-events: auto;
         }
 
         #floating-dock-container.dock-buoy-submerged {
-            animation: dockBuoySubmerge 0.26s cubic-bezier(0.4, 0, 0.7, 0.2) forwards;
+            bottom: -5.5rem !important;
+            opacity: 0 !important;
             pointer-events: none !important;
-        }
-
-        @keyframes dockBuoySubmerge {
-            0% {
-                transform: translate3d(0, 0, 0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate3d(0, 85px, 0);
-                opacity: 0;
-            }
-        }
-
-        #floating-dock-container.dock-buoy-bounce {
-            animation: dockBuoySurface 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes dockBuoySurface {
-            0% {
-                transform: translate3d(0, 75px, 0);
-                opacity: 0;
-            }
-            100% {
-                transform: translate3d(0, 0, 0);
-                opacity: 1;
-            }
+            transition: bottom 0.24s cubic-bezier(0.4, 0, 0.7, 0.2), opacity 0.20s ease !important;
         }
 
         /* 2c. FROSTED GLASS DOK & TOMBOL FAB (BLUR KACA MURNI BEBAS OUTLINE) */
@@ -1075,8 +1056,9 @@
                 opacity: 0 !important;
                 transition: opacity 0.2s ease !important;
             }
-            .fluid-wave-back, .fluid-wave-front, #floating-dock-container.dock-buoy-bounce, #floating-dock-container.dock-buoy-submerged {
+            .fluid-wave-back, .fluid-wave-front, #floating-dock-container {
                 animation: none !important;
+                transition: none !important;
             }
             .wallet-card.wallet-droplet-pop {
                 animation: none !important;
@@ -4693,32 +4675,18 @@
                             if (typeof closeFabSpeedDial === 'function' && isFabOpen) {
                                 closeFabSpeedDial();
                             }
-                            floatingDock.classList.remove('dock-buoy-bounce');
-                            floatingDock.classList.remove('dock-buoy-submerged');
-                            void floatingDock.offsetWidth; // trigger reflow restart keyframe submerge
                             floatingDock.classList.add('dock-buoy-submerged');
                         }
                     } else if (st < lastScrollTop - 14 || st <= 30) {
-                        // Scroll ke atas atau kembali ke puncak: Seluruh Dok membal pegas naik ke permukaan
+                        // Scroll ke atas atau kembali ke puncak: Seluruh Dok meluncur naik ke permukaan
                         if (isDockSubmerged) {
                             isDockSubmerged = false;
                             floatingDock.classList.remove('dock-buoy-submerged');
-                            floatingDock.classList.remove('dock-buoy-bounce');
-                            void floatingDock.offsetWidth; // trigger reflow restart keyframe
-                            floatingDock.classList.add('dock-buoy-bounce');
                         }
                     }
                 }
                 lastScrollTop = st <= 0 ? 0 : st;
             }, { passive: true });
-
-            if (floatingDock) {
-                floatingDock.addEventListener('animationend', function(e) {
-                    if (e.animationName === 'dockBuoySurface') {
-                        floatingDock.classList.remove('dock-buoy-bounce');
-                    }
-                });
-            }
 
             mainContainer.addEventListener('touchstart', (e) => {
                 if (mainContainer.scrollTop <= 0) {
@@ -5113,9 +5081,6 @@
             if (isDockSubmerged && floatingDock) {
                 isDockSubmerged = false;
                 floatingDock.classList.remove('dock-buoy-submerged');
-                floatingDock.classList.remove('dock-buoy-bounce');
-                void floatingDock.offsetWidth;
-                floatingDock.classList.add('dock-buoy-bounce');
             }
 
             var taskInput = document.getElementById('tugas-input-area');
