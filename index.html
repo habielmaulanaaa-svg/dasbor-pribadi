@@ -453,6 +453,259 @@
         }
         .animate-toggle-bounce { animation: toggleBounce 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
+        /* ==========================================
+           1. FLUID PHYSICS TOGGLE SWITCH (OPSI B)
+           ========================================== */
+        .fluid-switch-btn {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            border-radius: 9999px;
+            padding: 2.5px;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            touch-action: pan-y;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.28s cubic-bezier(0.22, 1, 0.36, 1), 
+                        box-shadow 0.28s ease, 
+                        border-color 0.28s ease;
+            border: 1.5px solid rgba(148, 163, 184, 0.4);
+            background-color: #cbd5e1;
+            box-sizing: border-box;
+        }
+        .dark .fluid-switch-btn {
+            background-color: #243040;
+            border-color: rgba(71, 85, 105, 0.55);
+        }
+        .fluid-switch-btn.active {
+            background-color: hsl(var(--theme-h), 83%, 53%);
+            border-color: hsl(var(--theme-h), 83%, 45%);
+            box-shadow: 0 0 12px hsl(var(--theme-h), 83%, 53%, 0.38);
+        }
+
+        .fluid-switch-knob {
+            width: 17px;
+            height: 17px;
+            border-radius: 9999px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+            pointer-events: none;
+            will-change: transform;
+            transform: translateX(0px);
+            transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .fluid-switch-btn.active .fluid-switch-knob {
+            transform: translateX(20px);
+            background-color: #ffffff;
+            box-shadow: 0 2px 7px rgba(0, 0, 0, 0.32);
+        }
+
+        /* Fluid Stretching & Detaching Keyframes */
+        @keyframes fluidSwitchStretchOn {
+            0% {
+                transform: translateX(0px) scale(1, 1);
+            }
+            32% {
+                /* Efek Meregang (Stretching): Menempel lengket di posisi asal & memanjang */
+                transform: translateX(2.5px) scale(1.68, 0.72);
+                transform-origin: left center;
+            }
+            62% {
+                /* Efek Putus & Melepas (Detaching): Lepas dengan akselerasi tinggi */
+                transform: translateX(22.5px) scale(0.78, 1.26);
+                transform-origin: right center;
+            }
+            82% {
+                /* Osilasi pegas (Spring rebound) */
+                transform: translateX(19px) scale(1.1, 0.94);
+                transform-origin: center center;
+            }
+            100% {
+                transform: translateX(20px) scale(1, 1);
+                transform-origin: center center;
+            }
+        }
+
+        @keyframes fluidSwitchStretchOff {
+            0% {
+                transform: translateX(20px) scale(1, 1);
+            }
+            32% {
+                /* Efek Meregang (Stretching): Menempel lengket di posisi kanan & meregang ke kiri */
+                transform: translateX(17.5px) scale(1.68, 0.72);
+                transform-origin: right center;
+            }
+            62% {
+                /* Efek Putus & Melepas (Detaching): Lepas dan meluncur ke kiri */
+                transform: translateX(-2.5px) scale(0.78, 1.26);
+                transform-origin: left center;
+            }
+            82% {
+                /* Osilasi pegas (Spring rebound) */
+                transform: translateX(1px) scale(1.1, 0.94);
+                transform-origin: center center;
+            }
+            100% {
+                transform: translateX(0px) scale(1, 1);
+                transform-origin: center center;
+            }
+        }
+
+        .fluid-switch-anim-on {
+            animation: fluidSwitchStretchOn 0.38s cubic-bezier(0.2, 0.9, 0.3, 1) forwards !important;
+        }
+        .fluid-switch-anim-off {
+            animation: fluidSwitchStretchOff 0.38s cubic-bezier(0.2, 0.9, 0.3, 1) forwards !important;
+        }
+
+        /* ==========================================
+           2. SPEED-DIAL FAB: BUDDING BUBBLES & FLUID SUCTION
+           ========================================== */
+        @keyframes fluidFabPulse {
+            0% { transform: scale(1); }
+            35% { transform: scale(1.18, 0.82); }
+            70% { transform: scale(0.92, 1.1); }
+            100% { transform: scale(1); }
+        }
+        .animate-fab-pulse {
+            animation: fluidFabPulse 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+        }
+
+        @keyframes fluidBubbleEmerge {
+            0% {
+                transform: translateY(28px) scale(0.35, 0.35);
+                opacity: 0;
+                filter: blur(4px);
+            }
+            45% {
+                transform: translateY(-8px) scale(0.85, 1.28);
+                opacity: 0.9;
+                filter: blur(0px);
+            }
+            75% {
+                transform: translateY(3px) scale(1.08, 0.94);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0px) scale(1, 1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fluidBubbleRetract {
+            0% {
+                transform: translateY(0px) scale(1, 1);
+                opacity: 1;
+            }
+            35% {
+                transform: translateY(8px) scale(0.82, 1.25);
+                opacity: 0.85;
+            }
+            100% {
+                transform: translateY(32px) scale(0.3, 0.3);
+                opacity: 0;
+            }
+        }
+
+        .fab-bubble-item {
+            will-change: transform, opacity;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .fab-bubble-item.emerge {
+            animation: fluidBubbleEmerge 0.36s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
+        }
+        .fab-bubble-item.retract {
+            animation: fluidBubbleRetract 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Staggered Budding Sequence (Bottom to Top) */
+        .fab-bubble-item:nth-child(4).emerge { animation-delay: 0.01s; }
+        .fab-bubble-item:nth-child(3).emerge { animation-delay: 0.05s; }
+        .fab-bubble-item:nth-child(2).emerge { animation-delay: 0.09s; }
+        .fab-bubble-item:nth-child(1).emerge { animation-delay: 0.13s; }
+
+        /* Staggered Suction Sequence (Top to Bottom) */
+        .fab-bubble-item:nth-child(1).retract { animation-delay: 0.01s; }
+        .fab-bubble-item:nth-child(2).retract { animation-delay: 0.04s; }
+        .fab-bubble-item:nth-child(3).retract { animation-delay: 0.07s; }
+        .fab-bubble-item:nth-child(4).retract { animation-delay: 0.10s; }
+
+        /* ==========================================
+           3. DOK NAVIGASI BAWAH: MERCURY BLOB PILL
+           ========================================== */
+        #nav-liquid-mercury-pill {
+            position: absolute;
+            border-radius: 9999px;
+            background-color: hsl(var(--theme-h), 83%, 53%);
+            box-shadow: 0 4px 18px hsl(var(--theme-h), 83%, 53%, 0.45);
+            z-index: 1;
+            pointer-events: none;
+            will-change: transform, left, width;
+            transition: left 0.34s cubic-bezier(0.34, 1.45, 0.64, 1), 
+                        width 0.34s cubic-bezier(0.34, 1.45, 0.64, 1), 
+                        top 0.25s ease, 
+                        height 0.25s ease;
+        }
+        @keyframes mercuryStretch {
+            0% { transform: scale(1, 1); }
+            40% { transform: scale(1.15, 0.85); }
+            75% { transform: scale(0.95, 1.06); }
+            100% { transform: scale(1, 1); }
+        }
+        .mercury-flow-active {
+            animation: mercuryStretch 0.34s cubic-bezier(0.34, 1.45, 0.64, 1);
+        }
+
+        /* ==========================================
+           4. KARTU MENU BERSEBELAHAN: FLUID CONTACT & MERGING
+           ========================================== */
+        .toggle-item-card {
+            position: relative;
+            overflow: hidden;
+            transition: border-radius 0.24s cubic-bezier(0.22, 1, 0.36, 1), 
+                        background-color 0.22s ease, 
+                        transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.22s ease,
+                        border-color 0.22s ease;
+            will-change: transform, border-radius;
+        }
+        .toggle-item-card:active {
+            transform: scale(0.985);
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+        }
+        .dark .toggle-item-card:active {
+            background-color: rgba(30, 42, 56, 0.98);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        }
+        /* Capillary meniscus effect: meleleh menyatu dengan kartu tetangga */
+        .toggle-item-card.fluid-adjacent-top {
+            border-bottom-left-radius: 5px !important;
+            border-bottom-right-radius: 5px !important;
+        }
+        .toggle-item-card.fluid-adjacent-bottom {
+            border-top-left-radius: 5px !important;
+            border-top-right-radius: 5px !important;
+        }
+        /* Meniscus sheen radial contact */
+        .toggle-item-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at var(--fluid-x, 50%) var(--fluid-y, 50%), hsl(var(--theme-h), 83%, 53%, 0.14) 0%, transparent 75%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .toggle-item-card:active::after {
+            opacity: 1;
+        }
+
         @keyframes strikeFade { 0% { opacity: 0; transform: translateX(-10px); } 100% { opacity: 1; transform: translateX(0); } }
         .animate-strike-fade { animation: strikeFade 0.3s ease-out; }
 
@@ -742,8 +995,8 @@
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-palette text-primary-500 text-[10px]"></i> Gradasi Saldo</span>
                                     <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Warna gradasi cerah &amp; glow</span>
                                 </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleCardGradient()" id="btn-toggle-gradient" class="no-bounce w-11 h-6 flex items-center justify-center focus:outline-none shrink-0" aria-label="Toggle Gradasi Saldo">
-                                    <div id="gradient-switch-knob" class="strip-indicator w-9 h-2.5 rounded-full bg-primary-500 dark:bg-primary-400 shadow-none opacity-100 transition-all duration-200"></div>
+                                <button type="button" onclick="event.stopPropagation(); toggleCardGradient()" id="btn-toggle-gradient" class="fluid-switch-btn no-bounce active focus:outline-none shrink-0" aria-label="Toggle Gradasi Saldo">
+                                    <div id="gradient-switch-knob" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
 
@@ -753,8 +1006,8 @@
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-compress-alt text-primary-500 text-[10px]"></i> Mode Ramping</span>
                                     <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Padatkan kartu &amp; tata letak ringkas</span>
                                 </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleCompactMode()" id="btn-toggle-compact" class="no-bounce w-11 h-6 flex items-center justify-center focus:outline-none shrink-0" aria-label="Toggle Mode Ramping">
-                                    <div id="compact-switch-knob" class="strip-indicator w-9 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 opacity-35 shadow-none transition-all duration-200"></div>
+                                <button type="button" onclick="event.stopPropagation(); toggleCompactMode()" id="btn-toggle-compact" class="fluid-switch-btn no-bounce focus:outline-none shrink-0" aria-label="Toggle Mode Ramping">
+                                    <div id="compact-switch-knob" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
 
@@ -764,8 +1017,8 @@
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-cube text-primary-500 text-[10px]"></i> Kaca Akrilik</span>
                                     <span class="text-[8.5px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1 mt-0.5 leading-tight"><i class="fas fa-bolt text-[7px]"></i> Khusus HP Cepat</span>
                                 </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleGlassMode()" id="btn-toggle-glass" class="no-bounce w-11 h-6 flex items-center justify-center focus:outline-none shrink-0" aria-label="Toggle Kaca Akrilik">
-                                    <div id="glass-switch-knob" class="strip-indicator w-9 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 opacity-35 shadow-none transition-all duration-200"></div>
+                                <button type="button" onclick="event.stopPropagation(); toggleGlassMode()" id="btn-toggle-glass" class="fluid-switch-btn no-bounce focus:outline-none shrink-0" aria-label="Toggle Kaca Akrilik">
+                                    <div id="glass-switch-knob" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
 
@@ -775,8 +1028,8 @@
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-clock text-primary-500 text-[10px]"></i> Tema Otomatis</span>
                                     <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Siklus otomatis gelap malam hari</span>
                                 </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleAutoThemeMode()" id="btn-toggle-autotheme" class="no-bounce w-11 h-6 flex items-center justify-center focus:outline-none shrink-0" aria-label="Toggle Tema Otomatis">
-                                    <div id="autotheme-switch-knob" class="strip-indicator w-9 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 opacity-35 shadow-none transition-all duration-200"></div>
+                                <button type="button" onclick="event.stopPropagation(); toggleAutoThemeMode()" id="btn-toggle-autotheme" class="fluid-switch-btn no-bounce focus:outline-none shrink-0" aria-label="Toggle Tema Otomatis">
+                                    <div id="autotheme-switch-knob" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
 
@@ -786,8 +1039,8 @@
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-shield-alt text-primary-500 text-[10px]"></i> Kunci Aplikasi</span>
                                     <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">PIN 4-digit &amp; kunci pola 3x3</span>
                                 </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleAppLockSetting()" id="btn-toggle-applock" class="no-bounce w-11 h-6 flex items-center justify-center focus:outline-none shrink-0" aria-label="Toggle Kunci Aplikasi">
-                                    <div id="applock-switch-knob" class="strip-indicator w-9 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 opacity-35 shadow-none transition-all duration-200"></div>
+                                <button type="button" onclick="event.stopPropagation(); toggleAppLockSetting()" id="btn-toggle-applock" class="fluid-switch-btn no-bounce focus:outline-none shrink-0" aria-label="Toggle Kunci Aplikasi">
+                                    <div id="applock-switch-knob" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
                         </div>
@@ -2370,21 +2623,24 @@
     <div id="floating-dock-container" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5 max-w-fit pointer-events-auto transform-gpu will-change-transform transition-all duration-300">
         
         <!-- Kapsul Dok Utama -->
-        <nav class="flex items-center gap-1 p-1.5 bg-white/85 dark:bg-[#17212b]/90 backdrop-blur-xl rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] border border-slate-200/80 dark:border-[#313f52]/60 transition-colors duration-200">
+        <nav id="bottom-nav-dock" class="relative flex items-center gap-1 p-1.5 bg-white/85 dark:bg-[#17212b]/90 backdrop-blur-xl rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] border border-slate-200/80 dark:border-[#313f52]/60 transition-colors duration-200">
+            <!-- Fluid Mercury Blob Indicator Pill -->
+            <div id="nav-liquid-mercury-pill" class="absolute pointer-events-none rounded-full bg-primary-600 shadow-[0_4px_18px_hsl(var(--theme-h),83%,53%,0.45)] z-0 will-change-transform"></div>
+
             <!-- Tab Beranda -->
-            <button type="button" onclick="switchTab('beranda')" id="nav-beranda" class="nav-item flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs bg-primary-600 text-white shadow-md">
+            <button type="button" onclick="switchTab('beranda')" id="nav-beranda" class="nav-item relative z-10 flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs text-white">
                 <i class="fas fa-home text-sm nav-icon"></i>
                 <span class="nav-label">Beranda</span>
             </button>
             <!-- Tab Tugas -->
-            <button type="button" onclick="switchTab('tugas')" id="nav-tugas" class="nav-item relative flex items-center gap-2 px-3.5 py-2 rounded-full font-bold text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+            <button type="button" onclick="switchTab('tugas')" id="nav-tugas" class="nav-item relative z-10 flex items-center gap-2 px-3.5 py-2 rounded-full font-bold text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
                 <span id="tugas-overdue-dot" class="hidden absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
                 <span id="tugas-overdue-dot-solid" class="hidden absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-slate-900"></span>
                 <i class="fas fa-tasks text-sm nav-icon hidden"></i>
                 <span class="nav-label">Tugas</span>
             </button>
             <!-- Tab Uang -->
-            <button type="button" onclick="switchTab('keuangan')" id="nav-keuangan" class="nav-item flex items-center gap-2 px-3.5 py-2 rounded-full font-bold text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+            <button type="button" onclick="switchTab('keuangan')" id="nav-keuangan" class="nav-item relative z-10 flex items-center gap-2 px-3.5 py-2 rounded-full font-bold text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
                 <i class="fas fa-wallet text-sm nav-icon hidden"></i>
                 <span class="nav-label">Uang</span>
             </button>
@@ -2395,22 +2651,22 @@
             <!-- Menu Melayang Speed Dial -->
             <div id="fab-speed-dial-menu" class="hidden absolute bottom-14 right-0 flex flex-col items-end gap-2 mb-1 transition-all duration-300 opacity-0 scale-90 origin-bottom-right z-40 pointer-events-none">
                 <!-- 1. Catatan Kilat -->
-                <button type="button" onclick="fabAction('catatan')" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
+                <button type="button" onclick="fabAction('catatan')" class="fab-bubble-item flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
                     <span>Catatan Kilat</span>
                     <span class="w-6 h-6 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center text-xs"><i class="fas fa-bolt"></i></span>
                 </button>
                 <!-- 2. Pemasukan -->
-                <button type="button" onclick="fabAction('pemasukan')" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
+                <button type="button" onclick="fabAction('pemasukan')" class="fab-bubble-item flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
                     <span>Catat Pemasukan</span>
                     <span class="w-6 h-6 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center text-xs"><i class="fas fa-plus"></i></span>
                 </button>
                 <!-- 3. Pengeluaran -->
-                <button type="button" onclick="fabAction('pengeluaran')" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-rose-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
+                <button type="button" onclick="fabAction('pengeluaran')" class="fab-bubble-item flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-rose-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
                     <span>Catat Pengeluaran</span>
                     <span class="w-6 h-6 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center text-xs"><i class="fas fa-minus"></i></span>
                 </button>
                 <!-- 4. Tugas Baru -->
-                <button type="button" onclick="fabAction('tugas')" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-primary-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
+                <button type="button" onclick="fabAction('tugas')" class="fab-bubble-item flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-primary-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
                     <span>Tugas Baru</span>
                     <span class="w-6 h-6 rounded-xl bg-primary-500/15 text-primary-500 flex items-center justify-center text-xs"><i class="fas fa-check-circle"></i></span>
                 </button>
@@ -2695,27 +2951,33 @@
             triggerDynamicIsland("Privasi", dataState.isPrivacyMode ? "Saldo disembunyikan 👁️" : "Saldo ditampilkan", "fas fa-eye", "bg-amber-500/20 text-amber-400");
         }
 
-        // HELPER TERPADU TOGGLE GARIS STRIP: REDUP (OFF) & TERANG (ON) TANPA SHADOW TEBAL
+        // HELPER TERPADU TOGGLE SAKLAR FLUIDA: STRETCH, DETACH & SPRING BOUNCE
         function setSwitchVisual(btn, knob, isActive, triggerBounce) {
-            var el = knob || (btn ? btn.querySelector('.strip-indicator') : null);
-            if (!el) return;
-            if (isActive) {
-                // TERANG (ON): Berwarna tema cerah, tanpa shadow tebal, opacity 100%
-                el.className = "strip-indicator w-9 h-2.5 rounded-full bg-primary-500 dark:bg-primary-400 opacity-100 shadow-none transition-all duration-200";
-            } else {
-                // REDUP (OFF): Nuansa abu-abu redup tenang, tanpa glow/shadow, opacity 35%
-                el.className = "strip-indicator w-9 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 opacity-35 shadow-none transition-all duration-200";
+            var buttonEl = btn || (knob ? knob.closest('button') : null);
+            var knobEl = knob || (buttonEl ? (buttonEl.querySelector('.fluid-switch-knob') || buttonEl.querySelector('.strip-indicator')) : null);
+            
+            if (buttonEl) {
+                if (isActive) {
+                    buttonEl.classList.add('active');
+                } else {
+                    buttonEl.classList.remove('active');
+                }
             }
-            if (triggerBounce === true) {
-                el.classList.remove('animate-toggle-bounce');
-                void el.offsetWidth;
-                el.classList.add('animate-toggle-bounce');
-                if (el._bounceTimer) clearTimeout(el._bounceTimer);
-                el._bounceTimer = setTimeout(function() {
-                    el.classList.remove('animate-toggle-bounce');
-                }, 300);
-            } else {
-                el.classList.remove('animate-toggle-bounce');
+            
+            if (knobEl) {
+                knobEl.classList.remove('fluid-switch-anim-on', 'fluid-switch-anim-off', 'animate-toggle-bounce');
+                if (triggerBounce === true) {
+                    void knobEl.offsetWidth; // Force Reflow untuk restart animasi
+                    if (isActive) {
+                        knobEl.classList.add('fluid-switch-anim-on');
+                    } else {
+                        knobEl.classList.add('fluid-switch-anim-off');
+                    }
+                    if (knobEl._fluidTimer) clearTimeout(knobEl._fluidTimer);
+                    knobEl._fluidTimer = setTimeout(function() {
+                        knobEl.classList.remove('fluid-switch-anim-on', 'fluid-switch-anim-off');
+                    }, 400);
+                }
             }
         }
 
@@ -2735,8 +2997,8 @@
             var stack = document.getElementById('settings-toggles-stack');
             var icon = document.getElementById('icon-settings-stack');
             if (stack && icon) {
-                stack.querySelectorAll('.animate-toggle-bounce').forEach(function(el) {
-                    el.classList.remove('animate-toggle-bounce');
+                stack.querySelectorAll('.animate-toggle-bounce, .fluid-switch-anim-on, .fluid-switch-anim-off').forEach(function(el) {
+                    el.classList.remove('animate-toggle-bounce', 'fluid-switch-anim-on', 'fluid-switch-anim-off');
                 });
                 var isOpen = stack.classList.toggle('open');
                 icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
@@ -5319,6 +5581,27 @@
             }
         }
 
+        function updateMercuryPill(tabId, animate) {
+            var pill = document.getElementById('nav-liquid-mercury-pill');
+            var activeBtn = document.getElementById('nav-' + (tabId || 'beranda'));
+            if (!pill || !activeBtn) return;
+
+            if (animate) {
+                pill.classList.remove('mercury-flow-active');
+                void pill.offsetWidth;
+                pill.classList.add('mercury-flow-active');
+                if (pill._flowTimer) clearTimeout(pill._flowTimer);
+                pill._flowTimer = setTimeout(function() {
+                    pill.classList.remove('mercury-flow-active');
+                }, 380);
+            }
+
+            pill.style.left = activeBtn.offsetLeft + 'px';
+            pill.style.top = activeBtn.offsetTop + 'px';
+            pill.style.width = activeBtn.offsetWidth + 'px';
+            pill.style.height = activeBtn.offsetHeight + 'px';
+        }
+
         function switchTab(tabId) {
             triggerHaptic('light');
             var tabs = document.querySelectorAll('.tab-content');
@@ -5334,13 +5617,15 @@
                 if(!btn) continue;
                 var icon = btn.querySelector('.nav-icon');
                 if(key === tabId) {
-                    btn.className = 'nav-item flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs bg-primary-600 text-white shadow-md tab-spring-active relative';
+                    btn.className = 'nav-item relative z-10 flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs text-white tab-spring-active';
                     if(icon) icon.classList.remove('hidden');
                 } else {
-                    btn.className = 'nav-item flex items-center gap-1.5 px-3.5 py-2 rounded-full font-bold text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white relative';
+                    btn.className = 'nav-item relative z-10 flex items-center gap-1.5 px-3.5 py-2 rounded-full font-bold text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white';
                     if(icon) icon.classList.add('hidden');
                 }
             }
+
+            updateMercuryPill(tabId, true);
 
             var taskInput = document.getElementById('tugas-input-area');
             var plusIcon = document.getElementById('fab-plus-icon');
@@ -5360,18 +5645,29 @@
         }
 
         // ==========================================
-        // FITUR V33.11: SPEED-DIAL FLOATING ACTION BUTTON (FAB)
+        // FITUR V33.11: SPEED-DIAL FLOATING ACTION BUTTON (FAB) (FLUID BUDDING BUBBLES)
         // ==========================================
         let isFabOpen = false;
 
         function toggleFabSpeedDial() {
             var menu = document.getElementById('fab-speed-dial-menu');
             var icon = document.getElementById('fab-plus-icon');
+            var fabBtn = document.getElementById('fab-quick-add');
             if (!menu || !icon) return;
 
             isFabOpen = !isFabOpen;
             if (isFabOpen) {
+                if (fabBtn) {
+                    fabBtn.classList.remove('animate-fab-pulse');
+                    void fabBtn.offsetWidth;
+                    fabBtn.classList.add('animate-fab-pulse');
+                }
                 menu.classList.remove('hidden');
+                var items = menu.querySelectorAll('.fab-bubble-item');
+                items.forEach(function(item) {
+                    item.classList.remove('retract');
+                    item.classList.add('emerge');
+                });
                 setTimeout(() => {
                     menu.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
                     menu.classList.add('opacity-100', 'scale-100');
@@ -5385,14 +5681,121 @@
         function closeFabSpeedDial() {
             var menu = document.getElementById('fab-speed-dial-menu');
             var icon = document.getElementById('fab-plus-icon');
+            var fabBtn = document.getElementById('fab-quick-add');
             if (!menu) return;
             isFabOpen = false;
+
+            if (fabBtn) {
+                fabBtn.classList.remove('animate-fab-pulse');
+                void fabBtn.offsetWidth;
+                fabBtn.classList.add('animate-fab-pulse');
+            }
+
+            var items = menu.querySelectorAll('.fab-bubble-item');
+            items.forEach(function(item) {
+                item.classList.remove('emerge');
+                item.classList.add('retract');
+            });
+
             menu.classList.remove('opacity-100', 'scale-100');
             menu.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
             if (icon) icon.style.transform = 'rotate(0deg)';
             setTimeout(() => {
-                if (!isFabOpen) menu.classList.add('hidden');
+                if (!isFabOpen) {
+                    menu.classList.add('hidden');
+                    items.forEach(function(item) {
+                        item.classList.remove('retract');
+                    });
+                }
             }, 250);
+        }
+
+        // ==========================================
+        // FLUID MENISCUS & CAPILARY INTERACTIONS
+        // ==========================================
+        function initFluidCardInteractions() {
+            var stack = document.getElementById('settings-toggles-stack');
+            if (!stack) return;
+            var cards = stack.querySelectorAll('.toggle-item-card');
+            cards.forEach(function(card) {
+                var handlePointerMove = function(e) {
+                    var rect = card.getBoundingClientRect();
+                    var x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+                    var y = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+                    card.style.setProperty('--fluid-x', x.toFixed(1) + '%');
+                    card.style.setProperty('--fluid-y', y.toFixed(1) + '%');
+                };
+                var handlePointerDown = function(e) {
+                    handlePointerMove(e);
+                    var prev = card.previousElementSibling;
+                    var next = card.nextElementSibling;
+                    if (prev && prev.classList.contains('toggle-item-card')) {
+                        prev.classList.add('fluid-adjacent-top');
+                    }
+                    if (next && next.classList.contains('toggle-item-card')) {
+                        next.classList.add('fluid-adjacent-bottom');
+                    }
+                };
+                var clearMeniscus = function() {
+                    var prev = card.previousElementSibling;
+                    var next = card.nextElementSibling;
+                    if (prev && prev.classList.contains('toggle-item-card')) {
+                        prev.classList.remove('fluid-adjacent-top');
+                    }
+                    if (next && next.classList.contains('toggle-item-card')) {
+                        next.classList.remove('fluid-adjacent-bottom');
+                    }
+                };
+                card.addEventListener('pointerdown', handlePointerDown);
+                card.addEventListener('pointermove', handlePointerMove);
+                card.addEventListener('pointerup', clearMeniscus);
+                card.addEventListener('pointercancel', clearMeniscus);
+                card.addEventListener('pointerleave', clearMeniscus);
+            });
+        }
+
+        function initFluidToggleGestures() {
+            var toggleBtns = document.querySelectorAll('.fluid-switch-btn');
+            toggleBtns.forEach(function(btn) {
+                var startX = 0;
+                var knob = btn.querySelector('.fluid-switch-knob');
+                if (!knob) return;
+
+                btn.addEventListener('touchstart', function(e) {
+                    if (e.touches && e.touches[0]) {
+                        startX = e.touches[0].clientX;
+                    }
+                }, { passive: true });
+
+                btn.addEventListener('touchmove', function(e) {
+                    if (!e.touches || !e.touches[0]) return;
+                    var currentX = e.touches[0].clientX;
+                    var dx = currentX - startX;
+                    var isActive = btn.classList.contains('active');
+                    // Dragging towards ON from OFF
+                    if (!isActive && dx > 0 && dx < 22) {
+                        var stretch = 1 + (dx / 22) * 0.65;
+                        var compress = 1 - (dx / 22) * 0.25;
+                        knob.style.transform = `translateX(${dx * 0.5}px) scale(${stretch}, ${compress})`;
+                        knob.style.transformOrigin = 'left center';
+                    } else if (isActive && dx < 0 && dx > -22) {
+                        // Dragging towards OFF from ON
+                        var stretch = 1 + (Math.abs(dx) / 22) * 0.65;
+                        var compress = 1 - (Math.abs(dx) / 22) * 0.25;
+                        knob.style.transform = `translateX(${20 + dx * 0.5}px) scale(${stretch}, ${compress})`;
+                        knob.style.transformOrigin = 'right center';
+                    }
+                }, { passive: true });
+
+                btn.addEventListener('touchend', function() {
+                    knob.style.transform = '';
+                    knob.style.transformOrigin = '';
+                }, { passive: true });
+                btn.addEventListener('touchcancel', function() {
+                    knob.style.transform = '';
+                    knob.style.transformOrigin = '';
+                }, { passive: true });
+            });
         }
 
         function fabAction(action) {
@@ -7508,6 +7911,19 @@
 
             setTimeout(dismissSkeleton, 600);
             handleUrlActionShortcuts();
+
+            // Inisialisasi Indikator Merkuri Dok Navigasi & Interaksi Fluida
+            setTimeout(function() {
+                var activeTabEl = document.querySelector('.tab-content.active');
+                var activeTabKey = activeTabEl ? activeTabEl.id : 'beranda';
+                updateMercuryPill(activeTabKey, false);
+                initFluidCardInteractions();
+                initFluidToggleGestures();
+            }, 80);
+            window.addEventListener('resize', function() {
+                var cur = document.querySelector('.tab-content.active');
+                updateMercuryPill(cur ? cur.id : 'beranda', false);
+            });
         }
 
         function handleUrlActionShortcuts() {
