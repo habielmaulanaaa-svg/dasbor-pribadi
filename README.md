@@ -39,7 +39,13 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 - **Saklar Fluida Peregangan Cairan**: Form tambah tugas baru kini dilengkapi opsi *"Sertakan Waktu & Tanggal Dibuat"* dengan animasi fisika fluida (*stretching, detaching, spring rebound*).
 - **Animasi Buka-Tutup Halus**: Sub-bar kustomisasi tanggal dan jam muncul dan menutup dengan transisi ekspansi/kolaps vertikal CSS yang lembut tanpa loncatan seketika.
 
-### 5. 🧹 Optimalisasi Performa Bersih
+### 5. 🌊 4 Integrasi Efek Liquid Murni (*Natural Fluid Dynamics*)
+- **💧 Pull-to-Refresh Tetesan Menetes (*Gooey Droplet Drip*)**: Tarikan layar atas meregangkan siluet cairan SVG elastis yang menetes putus dengan letupan riak (*droplet detachment & ripple*) saat data disegarkan.
+- **🧪 Tabung Fluida Progres Tabungan & Anggaran (*Liquid Level Fill*)**: Bilah progres dengan ujung lengkung kapiler (*meniscus*) dan transisi fluida elastis yang mengayun lembut (*slosh & settle*).
+- **🫧 Centang Tugas Riak Cairan (*Liquid Ripple Splash*)**: Ceklis tugas memancarkan gelombang riak fluida melingkar ganda dengan ikon centang yang mengapung ke atas layaknya gelembung cairan (*floating bubble rise*).
+- **🪙 Tetesan Transaksi Tangki Saldo (*Droplet Fusion*)**: Pencatatan uang masuk dan keluar memicu tetesan partikel fluida yang tercebur ke tangki saldo dan memantik riak dinamis pada gelombang saldo.
+
+### 6. 🧹 Optimalisasi Performa Bersih
 - **Pembersihan Modul Kunci Internal**: Seluruh modul kunci PIN dan pola internal ditiadakan sepenuhnya sesuai preferensi pengguna, meningkatkan kecepatan pemuatan awal dan mengandalkan sistem penguncian bawaan perangkat HP yang lebih aman dan terintegrasi.
 
 ---
@@ -69,7 +75,11 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
   - 🟡 **Jurnal Rekap**: Catatan rekap harian tersimpan.
 - Tombol pintar satu pintu di header (*+ Tugas Baru* / *Minimize*) untuk alur kerja yang cepat dan intuitif.
 
-### 6. 🧪 UI Interaktif & Fisika Fluida (*Surface Tension Physics*)
+### 6. 🧪 UI Interaktif & Fisika Fluida (*Surface Tension & Pure Fluid Dynamics*)
+- **💧 Pull-to-Refresh Tetesan Menetes (*Gooey Droplet Drip*)**: Tarikan layar atas meregangkan siluet cairan SVG elastis yang menetes putus dengan letupan riak (*droplet detachment & ripple*) saat data disegarkan.
+- **🧪 Tabung Fluida Progres Tabungan & Anggaran (*Liquid Level Fill*)**: Bilah progres dengan ujung lengkung kapiler (*meniscus*) dan transisi fluida elastis yang mengayun lembut (*slosh & settle*).
+- **🫧 Centang Tugas Riak Cairan (*Liquid Ripple Splash*)**: Ceklis tugas memancarkan gelombang riak fluida melingkar ganda dengan ikon centang yang mengapung ke atas layaknya gelembung cairan (*floating bubble rise*).
+- **🪙 Tetesan Transaksi Tangki Saldo (*Droplet Fusion*)**: Pencatatan uang masuk dan keluar memicu tetesan partikel fluida yang tercebur ke tangki saldo dan memantik riak dinamis pada gelombang saldo.
 - **Saklar Peregangan Cairan**: Kenop toggle elastis meregang layaknya zat cair saat ditarik dan membal menyatu halus saat dilepas (*surface tension detach*).
 - **Speed-Dial Gelembung FAB**: Tombol aksi cepat meluncur keluar layaknya gelembung fluida bertunas (*budding bubbles*).
 - **Kapsul Merkuri Cair**: Indikator aktif pada bilah navigasi bawah berpindah dengan efek deformasi fluida seperti tetesan merkuri yang mengalir lincah.
