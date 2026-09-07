@@ -644,16 +644,14 @@
             margin-left: auto;
             margin-right: auto;
             width: max-content;
-            opacity: 1;
-            transition: bottom 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease !important;
+            transition: bottom 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
             pointer-events: auto;
         }
 
         #floating-dock-container.dock-buoy-submerged {
-            bottom: -5.5rem !important;
-            opacity: 0 !important;
+            bottom: -6.5rem !important;
             pointer-events: none !important;
-            transition: bottom 0.24s cubic-bezier(0.4, 0, 0.7, 0.2), opacity 0.20s ease !important;
+            transition: bottom 0.24s cubic-bezier(0.4, 0, 0.7, 0.2) !important;
         }
 
         /* 2c. FROSTED GLASS DOK & TOMBOL FAB (BLUR KACA MURNI BEBAS OUTLINE) */
@@ -2802,7 +2800,7 @@
     <div id="floating-dock-container" class="fixed bottom-4 left-0 right-0 mx-auto z-30 flex items-center justify-center gap-2.5 max-w-fit pointer-events-auto">
         
         <!-- Kapsul Dok Utama -->
-        <nav id="bottom-nav-dock" class="relative flex items-center gap-1 p-1.5 bg-white/85 dark:bg-[#17212b]/90 backdrop-blur-xl rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] border border-slate-200/80 dark:border-[#313f52]/60 transition-colors duration-200">
+        <nav id="bottom-nav-dock" class="relative flex items-center gap-1 p-1.5 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] border border-slate-200/80 dark:border-[#313f52]/60">
             <!-- Fluid Mercury Blob Indicator Pill -->
             <div id="nav-liquid-mercury-pill" class="absolute pointer-events-none rounded-full bg-primary-600 shadow-[0_4px_18px_hsl(var(--theme-h),83%,53%,0.45)] z-0 will-change-transform"></div>
 
@@ -2852,7 +2850,7 @@
             </div>
 
             <!-- Tombol FAB Utama -->
-            <button type="button" id="fab-quick-add" onclick="toggleFabSpeedDial()" class="w-12 h-12 rounded-full bg-white/85 dark:bg-[#17212b]/90 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] transition-transform duration-200 hover:scale-105 active:scale-95 text-base">
+            <button type="button" id="fab-quick-add" onclick="toggleFabSpeedDial()" class="w-12 h-12 rounded-full border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] active:scale-95 text-base">
                 <i id="fab-plus-icon" class="fas fa-plus text-primary-600 dark:text-primary-400 transform transition-transform duration-300"></i>
             </button>
         </div>
@@ -4666,7 +4664,10 @@
 
         if (mainContainer) {
             mainContainer.addEventListener('scroll', function() {
-                let st = mainContainer.scrollTop;
+                let rawSt = mainContainer.scrollTop;
+                let maxScroll = mainContainer.scrollHeight - mainContainer.clientHeight;
+                let st = Math.max(0, Math.min(rawSt, maxScroll > 0 ? maxScroll : 0));
+
                 if (floatingDock) {
                     if (st > lastScrollTop + 14 && st > 60) {
                         // Scroll ke bawah: Seluruh Dok Navigasi + FAB menyelam ke bawah & bersembunyi
@@ -4685,7 +4686,7 @@
                         }
                     }
                 }
-                lastScrollTop = st <= 0 ? 0 : st;
+                lastScrollTop = st;
             }, { passive: true });
 
             mainContainer.addEventListener('touchstart', (e) => {
