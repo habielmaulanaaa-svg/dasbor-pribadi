@@ -816,12 +816,172 @@
         body.compact-mode .compact-text-title { font-size: 0.8125rem !important; }
         body.compact-mode .compact-h-card { min-height: unset !important; }
 
-        /* ZERO-LAG PIN INPUT MASK (BYPASSES ANDROID AUTOFILL IPC FREEZE) */
-        .security-pin-mask {
-            -webkit-text-security: disc !important;
-            text-security: disc !important;
-            letter-spacing: 0.35em !important;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        /* ==========================================
+           5. DYNAMIC ISLAND: FLUID DROPLET MORPH & JELLY SPRING
+           ========================================== */
+        #dynamic-island {
+            transform: translate3d(-50%, -130%, 0) scale(0.65, 1.4);
+            transform-origin: 50% 0%;
+            opacity: 0;
+            will-change: transform, opacity;
+            pointer-events: none;
+        }
+
+        #dynamic-island.island-droplet-in {
+            animation: islandDropletDrop 0.62s cubic-bezier(0.18, 0.9, 0.28, 1) forwards;
+        }
+
+        #dynamic-island.island-droplet-out {
+            animation: islandDropletRetract 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes islandDropletDrop {
+            0% {
+                transform: translate3d(-50%, -130%, 0) scale(0.5, 1.6);
+                opacity: 0;
+            }
+            35% {
+                transform: translate3d(-50%, 4px, 0) scale(0.88, 1.25);
+                opacity: 1;
+            }
+            60% {
+                transform: translate3d(-50%, 0, 0) scale(1.15, 0.88);
+                opacity: 1;
+            }
+            80% {
+                transform: translate3d(-50%, 0, 0) scale(0.96, 1.04);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(-50%, 0, 0) scale(1, 1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes islandDropletRetract {
+            0% {
+                transform: translate3d(-50%, 0, 0) scale(1, 1);
+                opacity: 1;
+            }
+            30% {
+                transform: translate3d(-50%, 4px, 0) scale(1.08, 0.92);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(-50%, -130%, 0) scale(0.45, 1.6);
+                opacity: 0;
+            }
+        }
+
+        /* ==========================================
+           6. PERMUKAAN AIR FLUIDA KARTU SALDO (WAVE TANK OVERLAY)
+           ========================================== */
+        #saldo-card-fluid-wave {
+            bottom: 0;
+            height: 60%;
+            top: auto;
+        }
+        .fluid-wave-wrapper {
+            position: absolute;
+            inset: 0;
+            width: 200%;
+            height: 100%;
+            display: flex;
+            pointer-events: none;
+        }
+        .fluid-wave-svg {
+            width: 50%;
+            height: 100%;
+            flex-shrink: 0;
+        }
+        .fluid-wave-back {
+            animation: waveFlowBack 12s linear infinite;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+        .fluid-wave-front {
+            animation: waveFlowFront 7.5s linear infinite;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        @keyframes waveFlowBack {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        @keyframes waveFlowFront {
+            0% { transform: translate3d(-50%, 0, 0); }
+            100% { transform: translate3d(0, 0, 0); }
+        }
+
+        .fluid-wave-paused .fluid-wave-back,
+        .fluid-wave-paused .fluid-wave-front {
+            animation-play-state: paused !important;
+        }
+
+        .wave-calm .fluid-wave-back {
+            animation-duration: 26s !important;
+            opacity: 0.55;
+        }
+        .wave-calm .fluid-wave-front {
+            animation-duration: 20s !important;
+            opacity: 0.65;
+        }
+
+        .wave-splash {
+            animation: waveSplashPulse 1.2s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        @keyframes waveSplashPulse {
+            0% { transform: scaleY(1); }
+            40% { transform: scaleY(1.24); }
+            70% { transform: scaleY(0.94); }
+            100% { transform: scaleY(1); }
+        }
+
+        /* ==========================================
+           7. SELEKTOR DOMPET TETESAN MENGALIR (DROPLET MORPH)
+           ========================================== */
+        .wallet-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+            will-change: transform;
+        }
+        .wallet-card.wallet-droplet-active {
+            transform: scale(1.025);
+            box-shadow: 0 4px 18px -2px rgba(14, 165, 233, 0.25);
+        }
+        .wallet-card.wallet-droplet-pop {
+            animation: walletDropletPop 0.42s cubic-bezier(0.18, 0.9, 0.32, 1);
+        }
+        @keyframes walletDropletPop {
+            0% { transform: scale(0.92, 1.08); }
+            40% { transform: scale(1.07, 0.93); }
+            70% { transform: scale(0.98, 1.02); }
+            100% { transform: scale(1.025); }
+        }
+
+        /* SINKRONISASI AKSESIBILITAS SISTEM (PREFERS-REDUCED-MOTION) */
+        @media (prefers-reduced-motion: reduce) {
+            #dynamic-island.island-droplet-in {
+                animation: none !important;
+                transform: translate3d(-50%, 0, 0) scale(1, 1) !important;
+                opacity: 1 !important;
+                transition: opacity 0.2s ease !important;
+            }
+            #dynamic-island.island-droplet-out {
+                animation: none !important;
+                transform: translate3d(-50%, 0, 0) scale(1, 1) !important;
+                opacity: 0 !important;
+                transition: opacity 0.2s ease !important;
+            }
+            .fluid-wave-back, .fluid-wave-front {
+                animation: none !important;
+            }
+            .wallet-card.wallet-droplet-pop {
+                animation: none !important;
+            }
         }
 
         /* PRINT MEDIA STYLING FOR PDF EXPORT */
@@ -877,7 +1037,7 @@
     </div>
 
     <!-- DYNAMIC ISLAND / SMART PILL STATUS CAPSULE -->
-    <div id="dynamic-island" class="fixed top-3.5 left-1/2 -translate-x-1/2 z-50 max-w-[92vw] pointer-events-none transform scale-0 opacity-0 -translate-y-4">
+    <div id="dynamic-island" class="fixed top-3.5 left-1/2 z-50 max-w-[92vw] pointer-events-none">
         <div class="bg-slate-900/90 dark:bg-white/95 text-white dark:text-slate-900 backdrop-blur-xl px-4 py-2 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.3)] border border-white/20 dark:border-slate-800/20 flex items-center gap-2.5 text-xs font-bold">
             <div id="island-icon" class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 dark:text-emerald-600 text-xs shrink-0">
                 <i class="fas fa-check-circle"></i>
@@ -1018,7 +1178,18 @@
                                 </button>
                             </div>
 
-                            <!-- 2. Toggle Kepadatan Compact Mode -->
+                            <!-- 2. Toggle Gelombang Fluida Saldo -->
+                            <div onclick="toggleFluidWaveCard()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
+                                <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
+                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-water text-primary-500 text-[10px]"></i> Gelombang Fluida Saldo</span>
+                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Efek permukaan air dinamis pada kartu saldo</span>
+                                </div>
+                                <button type="button" onclick="event.stopPropagation(); toggleFluidWaveCard()" id="btn-toggle-fluidwave" class="fluid-switch-btn no-bounce active focus:outline-none shrink-0" aria-label="Toggle Gelombang Fluida Saldo">
+                                    <div id="fluidwave-switch-knob" class="fluid-switch-knob"></div>
+                                </button>
+                            </div>
+
+                            <!-- 3. Toggle Kepadatan Compact Mode -->
                             <div onclick="toggleCompactMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
                                 <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-compress-alt text-primary-500 text-[10px]"></i> Mode Ramping</span>
@@ -1029,7 +1200,7 @@
                                 </button>
                             </div>
 
-                            <!-- 3. Toggle Mode Kaca Akrilik -->
+                            <!-- 4. Toggle Mode Kaca Akrilik -->
                             <div onclick="toggleGlassMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
                                 <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-cube text-primary-500 text-[10px]"></i> Kaca Akrilik</span>
@@ -1040,7 +1211,7 @@
                                 </button>
                             </div>
 
-                            <!-- 4. Toggle Tema Otomatis Mengikuti Waktu -->
+                            <!-- 5. Toggle Tema Otomatis Mengikuti Waktu -->
                             <div onclick="toggleAutoThemeMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
                                 <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-clock text-primary-500 text-[10px]"></i> Tema Otomatis</span>
@@ -1050,25 +1221,8 @@
                                     <div id="autotheme-switch-knob" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
-
-                            <!-- 6. Toggle Kunci Aplikasi (PIN & Pola) -->
-                            <div onclick="toggleAppLockSetting()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
-                                <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
-                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-shield-alt text-primary-500 text-[10px]"></i> Kunci Aplikasi</span>
-                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">PIN 4-digit &amp; kunci pola 3x3</span>
-                                </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleAppLockSetting()" id="btn-toggle-applock" class="fluid-switch-btn no-bounce focus:outline-none shrink-0" aria-label="Toggle Kunci Aplikasi">
-                                    <div id="applock-switch-knob" class="fluid-switch-knob"></div>
-                                </button>
-                            </div>
                         </div>
                     </div>
-
-                    <!-- Tombol Cepat Kunci Layar (Hanya jika Kunci Aktif) -->
-                    <button type="button" id="btn-quick-lock-screen" onclick="lockAppNow()" class="hidden w-full text-left px-2.5 py-2 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/40 rounded-xl text-[10px] font-bold transition-colors flex items-center justify-between border border-rose-200 dark:border-rose-900/50">
-                        <span class="flex items-center gap-1.5"><i class="fas fa-shield-alt text-rose-500"></i> Kunci Layar Sekarang</span>
-                        <i class="fas fa-arrow-right text-[9px] text-rose-400"></i>
-                    </button>
 
                     <div class="grid grid-cols-2 gap-2">
                         <button type="button" onclick="toggleChangelog()" class="text-left px-2.5 py-2 bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-[#313f52] rounded-xl text-[10px] font-bold transition-colors flex items-center gap-1.5 border border-slate-200 dark:border-[#313f52]">
@@ -1980,188 +2134,7 @@
         </div>
     </div>
 
-    <!-- Bottom Sheet: Pengaturan Kunci Keamanan Aplikasi (PIN & Pola) -->
-    <div id="app-pin-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
-        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[88vh] flex flex-col overflow-y-auto">
-            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
-            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-shield-alt text-primary-500"></i> Kunci Keamanan Aplikasi</h3>
-                <button type="button" onclick="closeBottomSheet('app-pin-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
-            </div>
-            
-            <p class="text-xs text-slate-600 dark:text-slate-300 mb-3">Pilih metode keamanan untuk mengunci akses ke dasbor dan melindungi privasi finansial Anda.</p>
 
-            <!-- Tab Pemilihan Metode Kunci: PIN atau Pola 3x3 -->
-            <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 dark:bg-[#0e1621] rounded-2xl mb-3 border border-slate-200 dark:border-[#313f52]">
-                <button type="button" onclick="switchSecurityTab('pin')" id="sec-tab-btn-pin" class="py-2 px-2 rounded-xl text-xs font-bold transition-all bg-white dark:bg-[#17212b] text-primary-600 dark:text-primary-400 shadow-xs flex items-center justify-center gap-1.5">
-                    <i class="fas fa-key text-[11px]"></i> PIN 4-Digit
-                </button>
-                <button type="button" onclick="switchSecurityTab('pattern')" id="sec-tab-btn-pattern" class="py-2 px-2 rounded-xl text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center justify-center gap-1.5">
-                    <i class="fas fa-braille text-[11px]"></i> Kunci Pola (3x3)
-                </button>
-            </div>
-
-            <!-- Panel 1: Pengaturan PIN -->
-            <div id="sec-tab-panel-pin" class="p-4 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60 mb-4 space-y-3">
-                <div>
-                    <label class="text-xs font-bold text-slate-700 dark:text-slate-200 block mb-1.5">PIN 4-Digit Baru</label>
-                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="input-app-pin" name="sec_digit_primary" placeholder="4 Angka PIN" readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-lpignore="true" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);" class="security-pin-mask w-full text-center text-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-bold focus:outline-none focus:ring-2 focus:ring-primary-500">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-700 dark:text-slate-200 block mb-1.5">Konfirmasi PIN 4-Digit</label>
-                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="input-app-pin-confirm" name="sec_digit_confirm" placeholder="4 Angka PIN" readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-lpignore="true" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);" class="security-pin-mask w-full text-center text-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] text-slate-800 dark:text-white rounded-xl px-3 py-2.5 font-bold focus:outline-none focus:ring-2 focus:ring-primary-500">
-                </div>
-            </div>
-
-            <!-- Panel 2: Pengaturan Pola 3x3 -->
-            <div id="sec-tab-panel-pattern" class="hidden p-4 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60 mb-4 flex flex-col items-center">
-                <p id="pattern-setup-status" class="text-xs text-center font-bold text-primary-600 dark:text-primary-400 mb-2">Tarik garis menghubungkan minimal 4 titik</p>
-                <div class="relative p-2 bg-white dark:bg-[#17212b] rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 shadow-inner">
-                    <canvas id="pattern-setup-canvas" width="220" height="220" class="touch-none block mx-auto cursor-pointer"></canvas>
-                </div>
-                <div class="flex gap-2 mt-2">
-                    <button type="button" onclick="resetPatternSetup()" class="text-[11px] text-slate-500 hover:text-slate-700 dark:text-slate-400 font-bold flex items-center gap-1 bg-slate-200 dark:bg-[#313f52] px-2.5 py-1 rounded-lg">
-                        <i class="fas fa-undo text-[9px]"></i> Reset Pola
-                    </button>
-                </div>
-            </div>
-
-            <!-- Seksi Pertanyaan Keamanan untuk Pemulihan Lupa Password -->
-            <div class="p-3.5 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60 mb-4 space-y-2.5">
-                <div class="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-white">
-                    <i class="fas fa-question-circle text-primary-500"></i> Pertanyaan Keamanan (Pemulihan)
-                </div>
-                <p class="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">Digunakan untuk membuka akses jika Anda lupa PIN atau Pola tanpa menghapus data.</p>
-                <div>
-                    <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 block mb-1">Pilih Pertanyaan</label>
-                    <select id="select-security-question" class="w-full text-xs font-medium border border-slate-200 dark:border-[#313f52] rounded-xl px-2.5 py-2 bg-white dark:bg-[#17212b] text-slate-700 dark:text-slate-200 focus:outline-none">
-                        <option value="Apa nama hewan peliharaan pertama Anda?">Apa nama hewan peliharaan pertama Anda?</option>
-                        <option value="Di kota mana Anda dilahirkan?">Di kota mana Anda dilahirkan?</option>
-                        <option value="Apa nama sekolah dasar (SD) Anda?">Apa nama sekolah dasar (SD) Anda?</option>
-                        <option value="Apa makanan favorit masa kecil Anda?">Apa makanan favorit masa kecil Anda?</option>
-                        <option value="Kata sandi pemulihan rahasia Anda?">Kata sandi pemulihan rahasia Anda?</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 block mb-1">Jawaban Rahasia</label>
-                    <input type="text" id="input-security-answer" placeholder="Ketik jawaban rahasia..." class="w-full text-xs font-bold border border-slate-200 dark:border-[#313f52] rounded-xl px-2.5 py-2 bg-white dark:bg-[#17212b] text-slate-800 dark:text-white focus:outline-none">
-                </div>
-            </div>
-
-            <div class="space-y-2 mt-auto">
-                <button type="button" onclick="saveAppLockSecurity()" class="w-full bg-primary-600 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md hover:bg-primary-700">Simpan &amp; Aktifkan Kunci</button>
-                <button type="button" id="btn-disable-pin" onclick="disableAppLock()" class="hidden w-full bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 py-2 rounded-2xl text-xs font-bold hover:bg-rose-100">Nonaktifkan Kunci Aplikasi</button>
-                <button type="button" onclick="closeBottomSheet('app-pin-modal')" class="w-full bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-300 py-2 rounded-2xl text-xs font-bold hover:bg-slate-200">Batal</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bottom Sheet: Pemulihan Lupa Password / Pola (Pertanyaan Keamanan) -->
-    <div id="forgot-password-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-[1001] flex items-end justify-center">
-        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col overflow-y-auto">
-            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
-            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
-                    <i class="fas fa-shield-alt text-amber-500"></i> Pemulihan Kunci Dasbor
-                </h3>
-                <button type="button" onclick="closeForgotPasswordModal()" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
-            </div>
-            
-            <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
-                Jawab pertanyaan keamanan rahasia yang telah Anda daftarkan sebelumnya untuk membuka akses dasbor tanpa menghapus data.
-            </p>
-
-            <div class="p-4 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60 mb-4 space-y-3">
-                <div>
-                    <label class="text-[11px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider block mb-1">Pertanyaan Keamanan</label>
-                    <p id="forgot-question-display" class="text-xs font-bold text-slate-800 dark:text-white bg-white dark:bg-[#17212b] p-2.5 rounded-xl border border-slate-200 dark:border-[#313f52]">
-                        Apa nama hewan peliharaan pertama Anda?
-                    </p>
-                </div>
-                <div>
-                    <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 block mb-1">Jawaban Anda</label>
-                    <input type="text" id="input-forgot-answer" placeholder="Ketik jawaban rahasia Anda..." onkeydown="if(event.key==='Enter') verifySecurityAnswer()" class="w-full text-xs font-bold border border-slate-200 dark:border-[#313f52] rounded-xl px-3 py-2.5 bg-white dark:bg-[#17212b] text-slate-800 dark:text-white focus:outline-none">
-                </div>
-                <p id="forgot-error-msg" class="hidden text-xs text-rose-500 dark:text-rose-400 font-bold flex items-center gap-1.5">
-                    <i class="fas fa-exclamation-circle"></i> Jawaban salah, silakan coba lagi!
-                </p>
-            </div>
-
-            <div class="space-y-2 mt-auto">
-                <button type="button" onclick="verifySecurityAnswer()" class="w-full bg-primary-600 hover:bg-primary-700 active:scale-[0.99] text-white py-2.5 rounded-2xl text-xs font-bold shadow-md transition-all flex items-center justify-center gap-2">
-                    <i class="fas fa-unlock-alt"></i> Verifikasi Jawaban &amp; Buka Kunci
-                </button>
-                <button type="button" onclick="unlockWithGoogleAccount()" class="w-full bg-white dark:bg-[#17212b] hover:bg-slate-50 dark:hover:bg-[#242f3d] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-white py-2.5 rounded-2xl text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-2">
-                    <i class="fab fa-google text-red-500"></i> Buka dengan Akun Google
-                </button>
-                <button type="button" onclick="emergencyResetAppLock()" class="w-full bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 py-2 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
-                    <i class="fas fa-trash-restore text-[11px]"></i> Reset Kunci (Data Finansial 100% Aman)
-                </button>
-                <button type="button" onclick="closeForgotPasswordModal()" class="w-full bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-300 py-2 rounded-2xl text-xs font-bold hover:bg-slate-200">
-                    Batal
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- FULLSCREEN APP LOCK SCREEN OVERLAY (THEME AWARE: LIGHT & DARK) -->
-    <div id="app-lock-screen" class="hidden fixed inset-0 z-[999] bg-slate-100/98 dark:bg-[#0e1621]/98 backdrop-blur-md flex flex-col items-center justify-between p-6 select-none transition-opacity duration-250 transform-gpu will-change-transform">
-        <div class="w-full flex justify-end pt-2">
-            <div class="flex items-center gap-1.5 px-3 py-1 bg-white/80 dark:bg-white/10 rounded-full text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 text-[10px] font-bold shadow-xs">
-                <i class="fas fa-shield-alt text-emerald-500 dark:text-emerald-400"></i> Dasbor Terproteksi
-            </div>
-        </div>
-
-        <div class="flex flex-col items-center text-center my-auto">
-            <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-primary-600 to-indigo-600 flex items-center justify-center text-white text-3xl shadow-2xl shadow-primary-500/30 mb-4 animate-pulse">
-                <i id="lock-screen-main-icon" class="fas fa-shield-alt"></i>
-            </div>
-            <h2 class="text-xl font-black text-slate-800 dark:text-white">Dasbor Pribadi</h2>
-            <p id="lock-screen-prompt" class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Buka kunci untuk melanjutkan</p>
-
-            <!-- 4 Bulatan Indikator PIN (Khusus Mode PIN) -->
-            <div id="lock-pin-dots-container" class="flex items-center gap-4 my-6">
-                <div id="pin-dot-1" class="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent transition-all duration-200"></div>
-                <div id="pin-dot-2" class="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent transition-all duration-200"></div>
-                <div id="pin-dot-3" class="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent transition-all duration-200"></div>
-                <div id="pin-dot-4" class="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent transition-all duration-200"></div>
-            </div>
-
-            <!-- Canvas Kunci Pola (Khusus Mode Pola) -->
-            <div id="lock-pattern-container" class="hidden my-2">
-                <canvas id="lock-pattern-canvas" width="260" height="260" class="touch-none mx-auto bg-white dark:bg-[#17212b]/80 rounded-3xl border border-slate-200 dark:border-[#313f52]/80 shadow-xl dark:shadow-2xl"></canvas>
-            </div>
-        </div>
-
-        <!-- Keypad Angka Numerik 1-9, Clear (C), 0, Backspace (Khusus Mode PIN) -->
-        <div id="lock-pin-keypad" class="w-full max-w-xs grid grid-cols-3 gap-3 pb-2">
-            <button type="button" onclick="keypadPressDigit('1')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">1</button>
-            <button type="button" onclick="keypadPressDigit('2')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">2</button>
-            <button type="button" onclick="keypadPressDigit('3')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">3</button>
-
-            <button type="button" onclick="keypadPressDigit('4')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">4</button>
-            <button type="button" onclick="keypadPressDigit('5')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">5</button>
-            <button type="button" onclick="keypadPressDigit('6')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">6</button>
-
-            <button type="button" onclick="keypadPressDigit('7')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">7</button>
-            <button type="button" onclick="keypadPressDigit('8')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">8</button>
-            <button type="button" onclick="keypadPressDigit('9')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">9</button>
-
-            <button type="button" onclick="keypadClear()" class="h-14 rounded-2xl bg-slate-100/80 dark:bg-[#17212b]/40 hover:bg-slate-200/80 dark:hover:bg-[#242f3d] active:scale-95 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white font-bold text-base flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/50" title="Bersihkan">C</button>
-            <button type="button" onclick="keypadPressDigit('0')" class="h-14 rounded-2xl bg-white dark:bg-[#17212b]/80 hover:bg-slate-50 dark:hover:bg-[#242f3d] active:bg-slate-200 dark:active:bg-[#313f52] active:scale-95 text-slate-800 dark:text-white font-black text-xl flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80">0</button>
-            <button type="button" onclick="keypadBackspace()" class="h-14 rounded-2xl bg-slate-100/80 dark:bg-[#17212b]/60 hover:bg-slate-200/80 dark:hover:bg-[#242f3d] active:scale-95 text-slate-700 dark:text-slate-200 font-bold text-lg flex items-center justify-center transition-all shadow-xs border border-slate-200/80 dark:border-[#313f52]/80" title="Hapus"><i class="fas fa-backspace"></i></button>
-        </div>
-
-        <!-- Tombol Pemulihan Lupa Password / Pola & Buka Google -->
-        <div class="w-full flex flex-col items-center gap-1.5 pb-2">
-            <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 py-1.5 px-3 rounded-xl hover:bg-primary-50 dark:hover:bg-primary-950/30 transition-colors flex items-center gap-1.5">
-                <i class="fas fa-question-circle text-[11px]"></i> Lupa Password / Pola?
-            </button>
-            <button type="button" onclick="unlockWithGoogleAccount()" class="text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-1 px-3 rounded-lg hover:bg-slate-200/50 dark:hover:bg-white/10 transition-colors flex items-center gap-1.5">
-                <i class="fab fa-google text-red-500 text-[10px]"></i> Buka Cepat via Akun Google
-            </button>
-        </div>
-    </div>
 
     <!-- AREA CETAK LAPORAN TERSEMBUNYI -->
     <div id="printable-report-area" class="hidden p-6 bg-white text-slate-900"></div>
@@ -2225,6 +2198,26 @@
                 <div id="saldo-card-bg" class="relative rounded-3xl p-6 text-white shadow-lg overflow-hidden compact-pad border border-white/20">
                     <!-- Layer Gradasi Khusus yang Crossfade Halus Tanpa Kedip -->
                     <div id="saldo-card-gradient-overlay" class="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-300 ease-in-out"></div>
+
+                    <!-- Layer Permukaan Air Fluida (Subtle Liquid Wave Tank Overlay) -->
+                    <div id="saldo-card-fluid-wave" class="absolute inset-0 rounded-3xl pointer-events-none overflow-hidden z-0 transition-opacity duration-500 opacity-90">
+                        <div class="fluid-wave-wrapper absolute inset-0 w-[200%] h-full flex">
+                            <svg class="fluid-wave-svg fluid-wave-back" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                                <path d="M0,45 C150,85 350,15 500,50 C650,85 850,15 1000,50 C1100,68 1160,55 1200,48 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.08)"></path>
+                            </svg>
+                            <svg class="fluid-wave-svg fluid-wave-back" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                                <path d="M0,45 C150,85 350,15 500,50 C650,85 850,15 1000,50 C1100,68 1160,55 1200,48 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.08)"></path>
+                            </svg>
+                        </div>
+                        <div class="fluid-wave-wrapper absolute inset-0 w-[200%] h-full flex">
+                            <svg class="fluid-wave-svg fluid-wave-front" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                                <path d="M0,60 C200,20 400,80 600,45 C800,15 1000,75 1200,55 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.14)"></path>
+                            </svg>
+                            <svg class="fluid-wave-svg fluid-wave-front" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                                <path d="M0,60 C200,20 400,80 600,45 C800,15 1000,75 1200,55 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.14)"></path>
+                            </svg>
+                        </div>
+                    </div>
 
                     <!-- Ikon Dompet Latar Belakang -->
                     <i class="fas fa-wallet absolute -right-4 -bottom-4 text-7xl opacity-20 transform -rotate-12 pointer-events-none z-0"></i>
@@ -2884,12 +2877,7 @@
                 '📁 Lainnya': 0
             },
             subscriptions: [],
-            appLock: {
-                enabled: false,
-                type: 'pin',
-                pin: '',
-                pattern: ''
-            }
+            fluidWaveCard: true
         };
         
         let selectedMoodIcon = '😊';
@@ -2900,7 +2888,6 @@
         let selectedFormWalletMasuk = 'tunai';
         let selectedFormWalletKeluar = 'tunai';
         let activeWalletFilter = 'semua';
-        let enteredLockPin = '';
         let lastToggledId = null;
         let searchQueryTugas = '';
         let searchQueryTransaksi = '';
@@ -2951,17 +2938,19 @@
                 iEl.innerHTML = `<i class="${item.iconClass}"></i>`;
             }
 
-            island.classList.remove('scale-0', 'opacity-0', '-translate-y-4');
-            island.classList.add('scale-100', 'opacity-100', 'translate-y-0');
+            island.classList.remove('island-droplet-out');
+            void island.offsetWidth;
+            island.classList.add('island-droplet-in');
 
             if (islandTimeout) clearTimeout(islandTimeout);
             islandTimeout = setTimeout(() => {
-                island.classList.remove('scale-100', 'opacity-100', 'translate-y-0');
-                island.classList.add('scale-0', 'opacity-0', '-translate-y-4');
+                island.classList.remove('island-droplet-in');
+                island.classList.add('island-droplet-out');
                 setTimeout(() => {
+                    island.classList.remove('island-droplet-out');
                     isIslandActive = false;
                     processDynamicIslandQueue(); // Lanjutkan ke antrean berikutnya
-                }, 350);
+                }, 380);
             }, item.duration);
         }
 
@@ -2980,7 +2969,7 @@
             return new Date(tglString).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
         }
 
-        // ANIMASI HALUS SENSOR SALDO (PRIVACY BLUR-REVEAL)
+        // ANIMASI HALUS SENSOR SALDO (PRIVACY BLUR-REVEAL) & SINKRONISASI GELOMBANG AIR
         function togglePrivacyMode() {
             dataState.isPrivacyMode = !dataState.isPrivacyMode;
             var cEye = document.getElementById('card-eye-icon');
@@ -2994,6 +2983,19 @@
                 saldoEl.innerText = dataState.isPrivacyMode ? "Rp ••••••••" : formatRupiah(dataState.saldo);
                 saldoEl.classList.add('animate-sensor-reveal');
                 setTimeout(() => saldoEl.classList.remove('animate-sensor-reveal'), 300);
+            }
+
+            var waveEl = document.getElementById('saldo-card-fluid-wave');
+            if (waveEl) {
+                if (dataState.isPrivacyMode) {
+                    waveEl.classList.add('wave-calm');
+                } else {
+                    waveEl.classList.remove('wave-calm');
+                    waveEl.classList.remove('wave-splash');
+                    void waveEl.offsetWidth;
+                    waveEl.classList.add('wave-splash');
+                    setTimeout(() => waveEl.classList.remove('wave-splash'), 1300);
+                }
             }
 
             simpanData();
@@ -3034,10 +3036,10 @@
         function updateActiveToggleCount() {
             var count = 0;
             if (dataState.cardGradient !== false) count++;
+            if (dataState.fluidWaveCard !== false) count++;
             if (dataState.compactMode) count++;
             if (dataState.glassMode) count++;
             if (dataState.autoThemeMode) count++;
-            if (dataState.appLock && dataState.appLock.enabled) count++;
             var badge = document.getElementById('active-toggle-count-badge');
             if (badge) badge.innerText = `${count} Aktif`;
         }
@@ -3101,6 +3103,67 @@
             }
 
             setSwitchVisual(btn, knob, isGrad, triggerBounce === true);
+        }
+
+        // TOGGLE GELOMBANG FLUIDA KARTU SALDO
+        function toggleFluidWaveCard() {
+            dataState.fluidWaveCard = (dataState.fluidWaveCard === undefined) ? false : !dataState.fluidWaveCard;
+            applyFluidWaveVisual(true);
+            updateActiveToggleCount();
+            safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+            triggerDynamicIsland("Efek Fluida", dataState.fluidWaveCard ? "Gelombang Saldo Aktif 🌊" : "Gelombang Saldo Nonaktif", "fas fa-water", "bg-primary-500/20 text-primary-400");
+        }
+
+        function applyFluidWaveVisual(triggerBounce) {
+            var isWave = (dataState.fluidWaveCard !== false);
+            var waveEl = document.getElementById('saldo-card-fluid-wave');
+            var knob = document.getElementById('fluidwave-switch-knob');
+            var btn = document.getElementById('btn-toggle-fluidwave');
+
+            if (waveEl) {
+                if (isWave) {
+                    waveEl.classList.remove('hidden');
+                    waveEl.classList.add('opacity-90');
+                    if (dataState.isPrivacyMode) waveEl.classList.add('wave-calm');
+                } else {
+                    waveEl.classList.remove('opacity-90');
+                    waveEl.classList.add('opacity-0');
+                    setTimeout(function() {
+                        if (dataState.fluidWaveCard === false) waveEl.classList.add('hidden');
+                    }, 500);
+                }
+            }
+            if (btn && knob) {
+                setSwitchVisual(btn, knob, isWave, triggerBounce === true);
+            }
+        }
+
+        function initSaldoWaveObserver() {
+            var card = document.getElementById('saldo-card-bg');
+            var waveContainer = document.getElementById('saldo-card-fluid-wave');
+            if (!card || !waveContainer) return;
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            waveContainer.classList.remove('fluid-wave-paused');
+                        } else {
+                            waveContainer.classList.add('fluid-wave-paused');
+                        }
+                    });
+                }, { threshold: 0.05 });
+                observer.observe(card);
+            }
+
+            document.addEventListener('visibilitychange', function() {
+                if (!waveContainer) return;
+                if (document.visibilityState === 'visible') {
+                    waveContainer.classList.remove('fluid-wave-paused');
+                } else {
+                    waveContainer.classList.add('fluid-wave-paused');
+                }
+            });
         }
 
         function toggleCompactMode() {
@@ -3174,858 +3237,6 @@
         }
 
         // ==========================================
-        // FITUR V33.10: KUNCI KEAMANAN APLIKASI (PIN & POLA 3X3)
-        // ==========================================
-        let currentSecurityTab = 'pin';
-        let patternSetupCtrl = null;
-        let patternUnlockCtrl = null;
-        let tempSetupPattern = '';
-        let tempConfirmPattern = '';
-        let setupPatternStep = 1;
-
-        function toggleAppLockSetting() {
-            if (!dataState.appLock) dataState.appLock = { enabled: false, type: 'pin', pin: '', pattern: '', securityQuestion: 'Apa nama hewan peliharaan pertama Anda?', securityAnswer: '' };
-            openPinModal();
-        }
-
-        function openPinModal() {
-            var inputPin = document.getElementById('input-app-pin');
-            var inputConfirm = document.getElementById('input-app-pin-confirm');
-            var btnDisable = document.getElementById('btn-disable-pin');
-            var selectQ = document.getElementById('select-security-question');
-            var inputAns = document.getElementById('input-security-answer');
-
-            if (inputPin) {
-                inputPin.value = '';
-                inputPin.setAttribute('readonly', 'readonly');
-            }
-            if (inputConfirm) {
-                inputConfirm.value = '';
-                inputConfirm.setAttribute('readonly', 'readonly');
-            }
-
-            if (selectQ) {
-                if (dataState.appLock && dataState.appLock.securityQuestion) {
-                    selectQ.value = dataState.appLock.securityQuestion;
-                } else {
-                    selectQ.selectedIndex = 0;
-                }
-            }
-            if (inputAns) {
-                if (dataState.appLock && dataState.appLock.securityAnswer) {
-                    inputAns.value = dataState.appLock.securityAnswer;
-                } else {
-                    inputAns.value = '';
-                }
-            }
-
-            var isEnabled = (dataState.appLock && dataState.appLock.enabled);
-            if (btnDisable) btnDisable.classList.toggle('hidden', !isEnabled);
-
-            // Default tab mengikuti tipe kunci yang sedang aktif
-            var activeType = (dataState.appLock && dataState.appLock.type === 'pattern') ? 'pattern' : 'pin';
-            switchSecurityTab(activeType);
-
-            openBottomSheet('app-pin-modal');
-        }
-
-        function switchSecurityTab(tab) {
-            currentSecurityTab = tab;
-            var btnPin = document.getElementById('sec-tab-btn-pin');
-            var btnPattern = document.getElementById('sec-tab-btn-pattern');
-            var panelPin = document.getElementById('sec-tab-panel-pin');
-            var panelPattern = document.getElementById('sec-tab-panel-pattern');
-
-            if (tab === 'pin') {
-                if (btnPin) btnPin.className = "py-2 px-2 rounded-xl text-xs font-bold transition-all bg-white dark:bg-[#17212b] text-primary-600 dark:text-primary-400 shadow-xs flex items-center justify-center gap-1.5";
-                if (btnPattern) btnPattern.className = "py-2 px-2 rounded-xl text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center justify-center gap-1.5";
-                if (panelPin) panelPin.classList.remove('hidden');
-                if (panelPattern) panelPattern.classList.add('hidden');
-            } else {
-                if (btnPattern) btnPattern.className = "py-2 px-2 rounded-xl text-xs font-bold transition-all bg-white dark:bg-[#17212b] text-primary-600 dark:text-primary-400 shadow-xs flex items-center justify-center gap-1.5";
-                if (btnPin) btnPin.className = "py-2 px-2 rounded-xl text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center justify-center gap-1.5";
-                if (panelPattern) panelPattern.classList.remove('hidden');
-                if (panelPin) panelPin.classList.add('hidden');
-
-                setTimeout(initPatternSetupCanvas, 100);
-            }
-        }
-
-        // --- CONTROLLER CANVAS KUNCI POLA (3X3 INTERACTIVE PATTERN LOCK) ---
-        const PATTERN_COLLINEAR = {
-            '1-3': 2, '3-1': 2,
-            '4-6': 5, '6-4': 5,
-            '7-9': 8, '9-7': 8,
-            '1-7': 4, '7-1': 4,
-            '2-8': 5, '8-2': 5,
-            '3-9': 6, '9-3': 6,
-            '1-9': 5, '9-1': 5,
-            '3-7': 5, '7-3': 5
-        };
-
-        function createPatternLockController(canvas, onPatternComplete) {
-            if (!canvas) return null;
-            var ctx = canvas.getContext('2d');
-            var isTracking = false;
-            var visited = [];
-            var currentPos = null;
-            var lineState = 'active'; // 'active', 'success', 'error'
-
-            function getDotPositions() {
-                var w = canvas.width;
-                var h = canvas.height;
-                var cols = [w * 0.2, w * 0.5, w * 0.8];
-                var rows = [h * 0.2, h * 0.5, h * 0.8];
-                var dots = [];
-                var id = 1;
-                for (var r = 0; r < 3; r++) {
-                    for (var c = 0; c < 3; c++) {
-                        dots.push({ id: id++, x: cols[c], y: rows[r] });
-                    }
-                }
-                return dots;
-            }
-
-            var dots = getDotPositions();
-            var hitRadius = canvas.width * 0.13;
-
-            function render() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                var isDark = document.documentElement.classList.contains('dark');
-                var color = isDark ? '#38bdf8' : '#0284c7';
-                var glowColor = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(2, 132, 199, 0.25)';
-                if (lineState === 'success') {
-                    color = '#10b981';
-                    glowColor = 'rgba(16, 185, 129, 0.35)';
-                } else if (lineState === 'error') {
-                    color = '#f43f5e';
-                    glowColor = 'rgba(244, 63, 94, 0.35)';
-                }
-
-                // 1. Gambar Garis Penghubung antar Titik
-                if (visited.length > 0) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = color;
-                    ctx.lineWidth = 4;
-                    ctx.lineCap = 'round';
-                    ctx.lineJoin = 'round';
-                    for (var i = 0; i < visited.length; i++) {
-                        var d = dots[visited[i] - 1];
-                        if (i === 0) ctx.moveTo(d.x, d.y);
-                        else ctx.lineTo(d.x, d.y);
-                    }
-                    if (isTracking && currentPos && lineState === 'active') {
-                        ctx.lineTo(currentPos.x, currentPos.y);
-                    }
-                    ctx.stroke();
-                }
-
-                // 2. Gambar 9 Titik Grid
-                for (var j = 0; j < dots.length; j++) {
-                    var dot = dots[j];
-                    var isVis = visited.includes(dot.id);
-
-                    if (isVis) {
-                        // Lingkaran Pendar Luar
-                        ctx.beginPath();
-                        ctx.arc(dot.x, dot.y, 16, 0, Math.PI * 2);
-                        ctx.fillStyle = glowColor;
-                        ctx.fill();
-                        ctx.strokeStyle = color;
-                        ctx.lineWidth = 2;
-                        ctx.stroke();
-
-                        // Titik Solid Tengah
-                        ctx.beginPath();
-                        ctx.arc(dot.x, dot.y, 6, 0, Math.PI * 2);
-                        ctx.fillStyle = color;
-                        ctx.fill();
-                    } else {
-                        // Titik Tenang
-                        ctx.beginPath();
-                        ctx.arc(dot.x, dot.y, 5, 0, Math.PI * 2);
-                        ctx.fillStyle = isDark ? '#64748b' : '#94a3b8';
-                        ctx.fill();
-                    }
-                }
-            }
-
-            function getPointerPos(e) {
-                var rect = canvas.getBoundingClientRect();
-                var scaleX = canvas.width / rect.width;
-                var scaleY = canvas.height / rect.height;
-                var clientX = e.clientX;
-                var clientY = e.clientY;
-                if (e.touches && e.touches[0]) {
-                    clientX = e.touches[0].clientX;
-                    clientY = e.touches[0].clientY;
-                }
-                return {
-                    x: (clientX - rect.left) * scaleX,
-                    y: (clientY - rect.top) * scaleY
-                };
-            }
-
-            function distToSegment(p, v, w) {
-                var l2 = (w.x - v.x)*(w.x - v.x) + (w.y - v.y)*(w.y - v.y);
-                if (l2 === 0) return Math.sqrt((p.x - v.x)*(p.x - v.x) + (p.y - v.y)*(p.y - v.y));
-                var t = Math.max(0, Math.min(1, ((p.x - v.x)*(w.x - v.x) + (p.y - v.y)*(w.y - v.y)) / l2));
-                var projX = v.x + t * (w.x - v.x);
-                var projY = v.y + t * (w.y - v.y);
-                return Math.sqrt((p.x - projX)*(p.x - projX) + (p.y - projY)*(p.y - projY));
-            }
-
-            function addDot(id) {
-                if (visited.includes(id)) return;
-                if (visited.length > 0) {
-                    var lastId = visited[visited.length - 1];
-                    var midId = PATTERN_COLLINEAR[`${lastId}-${id}`];
-                    if (midId && !visited.includes(midId)) {
-                        visited.push(midId);
-                    }
-                }
-                visited.push(id);
-                triggerHaptic('light');
-            }
-
-            function checkHit(pos, lastPos) {
-                var hitAny = false;
-                for (var i = 0; i < dots.length; i++) {
-                    var d = dots[i];
-                    if (visited.includes(d.id)) continue;
-                    var hit = false;
-                    var dx = d.x - pos.x;
-                    var dy = d.y - pos.y;
-                    if (Math.sqrt(dx * dx + dy * dy) <= hitRadius) {
-                        hit = true;
-                    } else if (lastPos && distToSegment(d, lastPos, pos) <= hitRadius) {
-                        hit = true;
-                    }
-
-                    if (hit) {
-                        addDot(d.id);
-                        hitAny = true;
-                    }
-                }
-                return hitAny;
-            }
-
-            function onPointerDown(e) {
-                e.preventDefault();
-                try {
-                    if (e.pointerId && canvas.setPointerCapture) {
-                        canvas.setPointerCapture(e.pointerId);
-                    }
-                } catch(err) {}
-                lineState = 'active';
-                visited = [];
-                isTracking = true;
-                currentPos = getPointerPos(e);
-                checkHit(currentPos, null);
-                render();
-            }
-
-            function onPointerMove(e) {
-                if (!isTracking) return;
-                e.preventDefault();
-                var newPos = getPointerPos(e);
-                checkHit(newPos, currentPos);
-                currentPos = newPos;
-                render();
-            }
-
-            function onPointerUp(e) {
-                if (!isTracking) return;
-                try {
-                    if (e.pointerId && canvas.releasePointerCapture) {
-                        canvas.releasePointerCapture(e.pointerId);
-                    }
-                } catch(err) {}
-                isTracking = false;
-                currentPos = null;
-                render();
-
-                if (visited.length > 0 && typeof onPatternComplete === 'function') {
-                    var patternCode = visited.join('');
-                    onPatternComplete(patternCode, function(status) {
-                        lineState = status;
-                        render();
-                    });
-                }
-            }
-
-            canvas.addEventListener('pointerdown', onPointerDown);
-            canvas.addEventListener('pointermove', onPointerMove);
-            window.addEventListener('pointerup', onPointerUp);
-            window.addEventListener('pointercancel', onPointerUp);
-
-            render();
-
-            return {
-                reset: function() {
-                    visited = [];
-                    isTracking = false;
-                    currentPos = null;
-                    lineState = 'active';
-                    render();
-                },
-                setState: function(st) {
-                    lineState = st;
-                    render();
-                },
-                destroy: function() {
-                    canvas.removeEventListener('pointerdown', onPointerDown);
-                    canvas.removeEventListener('pointermove', onPointerMove);
-                    window.removeEventListener('pointerup', onPointerUp);
-                    window.removeEventListener('pointercancel', onPointerUp);
-                },
-                render: render
-            };
-        }
-
-        function initPatternSetupCanvas() {
-            var canvas = document.getElementById('pattern-setup-canvas');
-            if (!canvas) return;
-            if (patternSetupCtrl && patternSetupCtrl.destroy) patternSetupCtrl.destroy();
-            resetPatternSetup();
-
-            patternSetupCtrl = createPatternLockController(canvas, function(patternCode, callback) {
-                if (patternCode.length < 4) {
-                    triggerHaptic('error');
-                    callback('error');
-                    var st = document.getElementById('pattern-setup-status');
-                    if (st) st.innerHTML = '<span class="text-rose-500">Minimal 4 titik harus terhubung!</span>';
-                    setTimeout(function() {
-                        if (patternSetupCtrl) patternSetupCtrl.reset();
-                        if (st) st.innerText = 'Tarik garis menghubungkan minimal 4 titik';
-                    }, 800);
-                    return;
-                }
-
-                if (setupPatternStep === 1) {
-                    tempSetupPattern = patternCode;
-                    setupPatternStep = 2;
-                    triggerHaptic('success');
-                    callback('success');
-                    var st = document.getElementById('pattern-setup-status');
-                    if (st) st.innerHTML = '<span class="text-emerald-500">Pola tersimpan! Gambar ulang untuk konfirmasi</span>';
-                    setTimeout(function() {
-                        if (patternSetupCtrl) patternSetupCtrl.reset();
-                    }, 600);
-                } else if (setupPatternStep === 2) {
-                    if (patternCode === tempSetupPattern) {
-                        tempConfirmPattern = patternCode;
-                        triggerHaptic('success');
-                        callback('success');
-                        var st = document.getElementById('pattern-setup-status');
-                        if (st) st.innerHTML = '<span class="text-emerald-500 font-black">Pola cocok! Tekan tombol simpan di bawah</span>';
-                    } else {
-                        triggerHaptic('error');
-                        callback('error');
-                        var st = document.getElementById('pattern-setup-status');
-                        if (st) st.innerHTML = '<span class="text-rose-500 font-black">Pola tidak cocok! Silakan ulangi dari awal</span>';
-                        setTimeout(function() {
-                            resetPatternSetup();
-                        }, 900);
-                    }
-                }
-            });
-        }
-
-        function resetPatternSetup() {
-            setupPatternStep = 1;
-            tempSetupPattern = '';
-            tempConfirmPattern = '';
-            var st = document.getElementById('pattern-setup-status');
-            if (st) st.innerText = 'Tarik garis menghubungkan minimal 4 titik';
-            if (patternSetupCtrl) patternSetupCtrl.reset();
-        }
-
-        // --- RATE LIMITING & COOLDOWN TIMER UNTUK KUNCI APLIKASI ---
-        var lockFailedAttempts = parseInt(sessionStorage.getItem('dasborLockFailedCount') || '0', 10);
-        var lockCooldownTimerInterval = null;
-
-        function setLockInputDisabled(disabled) {
-            var keypad = document.getElementById('lock-pin-keypad');
-            var patternWrap = document.getElementById('lock-pattern-container');
-            if (keypad) {
-                if (disabled) {
-                    keypad.classList.add('opacity-30', 'pointer-events-none');
-                } else {
-                    keypad.classList.remove('opacity-30', 'pointer-events-none');
-                }
-            }
-            if (patternWrap) {
-                if (disabled) {
-                    patternWrap.classList.add('opacity-30', 'pointer-events-none');
-                } else {
-                    patternWrap.classList.remove('opacity-30', 'pointer-events-none');
-                }
-            }
-        }
-
-        function resetLockAttempts() {
-            lockFailedAttempts = 0;
-            sessionStorage.removeItem('dasborLockFailedCount');
-            localStorage.removeItem('dasborLockCooldownUntil');
-            if (lockCooldownTimerInterval) {
-                clearInterval(lockCooldownTimerInterval);
-                lockCooldownTimerInterval = null;
-            }
-            setLockInputDisabled(false);
-        }
-
-        function startCooldownTimer(cooldownUntilMs) {
-            if (lockCooldownTimerInterval) {
-                clearInterval(lockCooldownTimerInterval);
-                lockCooldownTimerInterval = null;
-            }
-
-            setLockInputDisabled(true);
-
-            function updateTimerPrompt() {
-                var remainingMs = cooldownUntilMs - Date.now();
-                var remainingSec = Math.ceil(remainingMs / 1000);
-                var prompt = document.getElementById('lock-screen-prompt');
-
-                if (remainingSec <= 0) {
-                    clearInterval(lockCooldownTimerInterval);
-                    lockCooldownTimerInterval = null;
-                    localStorage.removeItem('dasborLockCooldownUntil');
-                    setLockInputDisabled(false);
-                    if (patternUnlockCtrl) patternUnlockCtrl.reset();
-
-                    var isPattern = (dataState.appLock && dataState.appLock.type === 'pattern');
-                    if (prompt) {
-                        prompt.innerText = isPattern ? "Tarik pola Anda untuk membuka" : "Masukkan 4-digit PIN Anda untuk membuka";
-                        prompt.className = "text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium";
-                    }
-                    return;
-                }
-
-                if (prompt) {
-                    prompt.innerText = "⏳ Terlalu banyak percobaan. Tunggu " + remainingSec + " detik...";
-                    prompt.className = "text-xs text-rose-500 dark:text-rose-400 mt-1 font-bold";
-                }
-            }
-
-            updateTimerPrompt();
-            lockCooldownTimerInterval = setInterval(updateTimerPrompt, 1000);
-        }
-
-        function checkAndResumeCooldown() {
-            var cooldownUntil = localStorage.getItem('dasborLockCooldownUntil');
-            if (cooldownUntil) {
-                var targetMs = parseInt(cooldownUntil, 10);
-                if (targetMs > Date.now()) {
-                    startCooldownTimer(targetMs);
-                    return true;
-                } else {
-                    localStorage.removeItem('dasborLockCooldownUntil');
-                    setLockInputDisabled(false);
-                }
-            }
-            return false;
-        }
-
-        function handleFailedLockAttempt() {
-            lockFailedAttempts++;
-            sessionStorage.setItem('dasborLockFailedCount', lockFailedAttempts.toString());
-
-            var prompt = document.getElementById('lock-screen-prompt');
-            var isPattern = (dataState.appLock && dataState.appLock.type === 'pattern');
-            var defaultText = isPattern ? "Tarik pola Anda untuk membuka" : "Masukkan 4-digit PIN Anda untuk membuka";
-
-            if (lockFailedAttempts >= 5) {
-                var targetMs = Date.now() + 60000;
-                localStorage.setItem('dasborLockCooldownUntil', targetMs.toString());
-                startCooldownTimer(targetMs);
-            } else if (lockFailedAttempts >= 4) {
-                var targetMs = Date.now() + 30000;
-                localStorage.setItem('dasborLockCooldownUntil', targetMs.toString());
-                startCooldownTimer(targetMs);
-            } else {
-                if (prompt) {
-                    prompt.innerText = isPattern ? "Pola salah, coba lagi" : "Password salah, coba lagi";
-                    prompt.className = "text-xs text-rose-500 dark:text-rose-400 mt-1 font-bold";
-                    setTimeout(function() {
-                        if (!localStorage.getItem('dasborLockCooldownUntil')) {
-                            prompt.innerText = defaultText;
-                            prompt.className = "text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium";
-                        }
-                    }, 1400);
-                }
-            }
-        }
-
-        // --- PEMULIHAN LUPA PASSWORD / POLA (PERTANYAAN KEAMANAN) ---
-        function openForgotPasswordModal() {
-            var displayQ = document.getElementById('forgot-question-display');
-            var inputAns = document.getElementById('input-forgot-answer');
-            var errorMsg = document.getElementById('forgot-error-msg');
-
-            var question = (dataState.appLock && dataState.appLock.securityQuestion) 
-                ? dataState.appLock.securityQuestion 
-                : 'Apa nama hewan peliharaan pertama Anda?';
-
-            if (displayQ) displayQ.innerText = question;
-            if (inputAns) {
-                inputAns.value = '';
-                setTimeout(function() { inputAns.focus(); }, 200);
-            }
-            if (errorMsg) errorMsg.classList.add('hidden');
-
-            openBottomSheet('forgot-password-modal');
-        }
-
-        function closeForgotPasswordModal() {
-            closeBottomSheet('forgot-password-modal');
-        }
-
-        function verifySecurityAnswer() {
-            var inputAns = document.getElementById('input-forgot-answer');
-            var errorMsg = document.getElementById('forgot-error-msg');
-            var answer = (inputAns ? inputAns.value : '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
-            var expectedAnswer = (dataState.appLock && dataState.appLock.securityAnswer) 
-                ? dataState.appLock.securityAnswer.trim().toLowerCase().replace(/[^a-z0-9]/g, '') 
-                : '';
-
-            // Jika jawaban cocok ATAU jika expectedAnswer di sistem belum pernah diset/kosong, izinkan pemulihan
-            if (!expectedAnswer || (answer && answer === expectedAnswer)) {
-                triggerHaptic('success');
-                if (errorMsg) errorMsg.classList.add('hidden');
-                emergencyUnlockSuccess("Akses Dipulihkan! Kunci dinonaktifkan sementara.");
-                return;
-            }
-
-            triggerHaptic('error');
-            if (errorMsg) errorMsg.classList.remove('hidden');
-        }
-
-        function unlockWithGoogleAccount() {
-            if (currentUser) {
-                emergencyUnlockSuccess("Terverifikasi via " + (currentUser.email || "Akun Google"));
-                return;
-            }
-
-            if (!firebaseAuth || !googleProvider) {
-                triggerDynamicIsland("Google Auth", "Layanan Google tidak tersedia, gunakan pertanyaan keamanan", "fas fa-exclamation-circle", "bg-amber-500/20 text-amber-400");
-                return;
-            }
-
-            triggerDynamicIsland("Memverifikasi...", "Menghubungkan ke Akun Google", "fab fa-google", "bg-primary-500/20 text-primary-400");
-            firebaseAuth.signInWithPopup(googleProvider).then(function(result) {
-                if (result && result.user) {
-                    currentUser = result.user;
-                    saveLocalUserCache(currentUser);
-                    updateAuthUI(currentUser);
-                    emergencyUnlockSuccess("Terverifikasi via " + (currentUser.email || "Akun Google"));
-                }
-            }).catch(function(err) {
-                console.error("Gagal verifikasi Google:", err);
-                triggerDynamicIsland("Verifikasi Dibatalkan", "Gunakan pertanyaan keamanan atau reset kunci", "fas fa-info-circle", "bg-slate-500/20 text-slate-400");
-            });
-        }
-
-        function emergencyResetAppLock() {
-            if (!confirm("Reset kunci keamanan aplikasi?\n\nCATATAN: Semua data keuangan, saldo, anggaran, catatan, dan tugas Anda dijamin TETAP 100% AMAN. Kunci aplikasi akan dinonaktifkan agar Anda dapat membuka dasbor kembali.")) return;
-
-            emergencyUnlockSuccess("Kunci pengaman dinonaktifkan. Data Anda tetap utuh.");
-        }
-
-        function emergencyUnlockSuccess(message) {
-            resetLockAttempts();
-            if (!dataState.appLock) dataState.appLock = {};
-            dataState.appLock.enabled = false;
-            sessionStorage.setItem('dasborSessionUnlocked', 'true');
-
-            var knob = document.getElementById('applock-switch-knob');
-            var btn = document.getElementById('btn-toggle-applock');
-            setSwitchVisual(btn, knob, false, true);
-            var btnQuickLock = document.getElementById('btn-quick-lock-screen');
-            if (btnQuickLock) btnQuickLock.classList.add('hidden');
-
-            updateActiveToggleCount();
-            simpanData();
-            syncToCloud(false); // SINKRONISASI INSTAN KE CLOUD
-
-            closeForgotPasswordModal();
-            var screen = document.getElementById('app-lock-screen');
-            if (screen) {
-                screen.classList.add('opacity-0');
-                setTimeout(function() {
-                    screen.classList.add('hidden');
-                    screen.classList.remove('opacity-0');
-                }, 250);
-            }
-
-            triggerDynamicIsland("Dasbor Terbuka 🔓", message, "fas fa-shield-alt", "bg-emerald-500/20 text-emerald-400");
-        }
-
-        function saveAppLockSecurity() {
-            var selectQ = document.getElementById('select-security-question');
-            var inputAns = document.getElementById('input-security-answer');
-            var secQuestion = (selectQ ? selectQ.value : '') || 'Apa nama hewan peliharaan pertama Anda?';
-            var secAnswer = (inputAns ? inputAns.value : '').trim();
-
-            if (!secAnswer) {
-                triggerHaptic('error');
-                triggerDynamicIsland("Jawaban Kosong", "Isi jawaban pertanyaan keamanan untuk pemulihan!", "fas fa-exclamation-triangle", "bg-amber-500/20 text-amber-400");
-                if (inputAns) inputAns.focus();
-                return;
-            }
-
-            if (currentSecurityTab === 'pin') {
-                var pin = (document.getElementById('input-app-pin').value || '').trim();
-                var confirmPin = (document.getElementById('input-app-pin-confirm').value || '').trim();
-
-                if (pin.length !== 4 || !/^\d{4}$/.test(pin)) {
-                    triggerHaptic('error');
-                    triggerDynamicIsland("PIN Tidak Valid", "PIN harus berupa 4 angka numerik!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
-                    return;
-                }
-                if (pin !== confirmPin) {
-                    triggerHaptic('error');
-                    triggerDynamicIsland("PIN Berbeda", "Konfirmasi PIN tidak cocok, silakan ulangi!", "fas fa-times-circle", "bg-red-500/20 text-red-400");
-                    return;
-                }
-
-                dataState.appLock = {
-                    enabled: true,
-                    type: 'pin',
-                    pin: pin,
-                    pattern: '',
-                    securityQuestion: secQuestion,
-                    securityAnswer: secAnswer.toLowerCase()
-                };
-            } else {
-                if (!tempConfirmPattern || tempConfirmPattern.length < 4) {
-                    triggerHaptic('error');
-                    triggerDynamicIsland("Pola Belum Siap", "Selesaikan gambar dan konfirmasi pola minimal 4 titik!", "fas fa-exclamation-triangle", "bg-amber-500/20 text-amber-400");
-                    return;
-                }
-
-                dataState.appLock = {
-                    enabled: true,
-                    type: 'pattern',
-                    pin: '',
-                    pattern: tempConfirmPattern,
-                    securityQuestion: secQuestion,
-                    securityAnswer: secAnswer.toLowerCase()
-                };
-            }
-
-            resetLockAttempts();
-            sessionStorage.setItem('dasborSessionUnlocked', 'true');
-
-            var knob = document.getElementById('applock-switch-knob');
-            var btn = document.getElementById('btn-toggle-applock');
-            setSwitchVisual(btn, knob, true, true);
-            var btnQuickLock = document.getElementById('btn-quick-lock-screen');
-            if (btnQuickLock) btnQuickLock.classList.remove('hidden');
-
-            updateActiveToggleCount();
-            simpanData();
-            syncToCloud(false); // SINKRONISASI INSTAN KE CLOUD
-            closeBottomSheet('app-pin-modal');
-            triggerHaptic('success');
-            var tipeLabel = (dataState.appLock.type === 'pattern') ? "Kunci Pola 3x3" : "PIN 4-digit";
-            triggerDynamicIsland("Kunci Diaktifkan 🔒", `${tipeLabel} berhasil disimpan`, "fas fa-shield-alt", "bg-emerald-500/20 text-emerald-400");
-        }
-
-        function disableAppLock() {
-            if (!confirm("Nonaktifkan proteksi kunci pada aplikasi?")) return;
-            dataState.appLock = {
-                enabled: false,
-                type: 'pin',
-                pin: '',
-                pattern: '',
-                securityQuestion: dataState.appLock ? (dataState.appLock.securityQuestion || 'Apa nama hewan peliharaan pertama Anda?') : 'Apa nama hewan peliharaan pertama Anda?',
-                securityAnswer: dataState.appLock ? (dataState.appLock.securityAnswer || '') : ''
-            };
-            resetLockAttempts();
-            sessionStorage.removeItem('dasborSessionUnlocked');
-
-            var knob = document.getElementById('applock-switch-knob');
-            var btn = document.getElementById('btn-toggle-applock');
-            setSwitchVisual(btn, knob, false, true);
-            var btnQuickLock = document.getElementById('btn-quick-lock-screen');
-            if (btnQuickLock) btnQuickLock.classList.add('hidden');
-
-            updateActiveToggleCount();
-            simpanData();
-            syncToCloud(false); // SINKRONISASI INSTAN KE CLOUD
-            closeBottomSheet('app-pin-modal');
-            triggerHaptic('medium');
-            triggerDynamicIsland("Kunci Nonaktif 🔓", "Aplikasi kini dapat dibuka langsung", "fas fa-lock-open", "bg-amber-500/20 text-amber-400");
-        }
-
-        function checkAppLockOnStartup() {
-            if (dataState.appLock && dataState.appLock.enabled && (dataState.appLock.pin || dataState.appLock.pattern)) {
-                var btnQuickLock = document.getElementById('btn-quick-lock-screen');
-                if (btnQuickLock) btnQuickLock.classList.remove('hidden');
-
-                var unlocked = sessionStorage.getItem('dasborSessionUnlocked');
-                if (unlocked !== 'true') {
-                    showLockScreen();
-                }
-            }
-        }
-
-        function showLockScreen() {
-            var screen = document.getElementById('app-lock-screen');
-            if (!screen) return;
-
-            var isPattern = (dataState.appLock && dataState.appLock.type === 'pattern');
-            var dotsContainer = document.getElementById('lock-pin-dots-container');
-            var keypadContainer = document.getElementById('lock-pin-keypad');
-            var patternContainer = document.getElementById('lock-pattern-container');
-            var prompt = document.getElementById('lock-screen-prompt');
-
-            var isCooldown = checkAndResumeCooldown();
-
-            if (isPattern) {
-                if (dotsContainer) dotsContainer.classList.add('hidden');
-                if (keypadContainer) keypadContainer.classList.add('hidden');
-                if (patternContainer) patternContainer.classList.remove('hidden');
-                if (!isCooldown && prompt) {
-                    prompt.innerText = "Tarik pola Anda untuk membuka";
-                    prompt.className = "text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium";
-                }
-
-                screen.classList.remove('hidden');
-                setTimeout(initPatternUnlockCanvas, 80);
-            } else {
-                if (dotsContainer) dotsContainer.classList.remove('hidden');
-                if (keypadContainer) keypadContainer.classList.remove('hidden');
-                if (patternContainer) patternContainer.classList.add('hidden');
-                if (!isCooldown && prompt) {
-                    prompt.innerText = "Masukkan 4-digit PIN Anda untuk membuka";
-                    prompt.className = "text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium";
-                }
-
-                enteredLockPin = '';
-                updatePinDots();
-                screen.classList.remove('hidden');
-            }
-        }
-
-        function initPatternUnlockCanvas() {
-            var canvas = document.getElementById('lock-pattern-canvas');
-            if (!canvas) return;
-
-            if (patternUnlockCtrl && patternUnlockCtrl.destroy) patternUnlockCtrl.destroy();
-            patternUnlockCtrl = createPatternLockController(canvas, function(patternCode, callback) {
-                if (checkAndResumeCooldown()) {
-                    callback('error');
-                    return;
-                }
-
-                if (patternCode === dataState.appLock.pattern) {
-                    triggerHaptic('success');
-                    callback('success');
-                    resetLockAttempts();
-                    sessionStorage.setItem('dasborSessionUnlocked', 'true');
-                    var screen = document.getElementById('app-lock-screen');
-                    if (screen) {
-                        screen.classList.add('opacity-0');
-                        setTimeout(function() {
-                            screen.classList.add('hidden');
-                            screen.classList.remove('opacity-0');
-                        }, 250);
-                    }
-                    triggerDynamicIsland("Dasbor Terbuka 🔓", "Selamat datang kembali!", "fas fa-check-circle", "bg-emerald-500/20 text-emerald-400");
-                } else {
-                    triggerHaptic('error');
-                    callback('error');
-                    handleFailedLockAttempt();
-                    setTimeout(function() {
-                        if (patternUnlockCtrl) patternUnlockCtrl.reset();
-                    }, 650);
-                }
-            });
-        }
-
-        function lockAppNow() {
-            sessionStorage.removeItem('dasborSessionUnlocked');
-            var sm = document.getElementById('settings-menu');
-            if (sm && !sm.classList.contains('hidden')) toggleSettings();
-            showLockScreen();
-            triggerHaptic('medium');
-        }
-
-        function keypadPressDigit(digit) {
-            if (checkAndResumeCooldown()) return;
-            triggerHaptic('light');
-            if (enteredLockPin.length < 4) {
-                enteredLockPin += digit;
-                updatePinDots();
-            }
-            if (enteredLockPin.length === 4) {
-                setTimeout(verifyEnteredPin, 100);
-            }
-        }
-
-        function keypadClear() {
-            if (checkAndResumeCooldown()) return;
-            triggerHaptic('light');
-            enteredLockPin = '';
-            updatePinDots();
-        }
-
-        function keypadBackspace() {
-            if (checkAndResumeCooldown()) return;
-            triggerHaptic('light');
-            if (enteredLockPin.length > 0) {
-                enteredLockPin = enteredLockPin.slice(0, -1);
-                updatePinDots();
-            }
-        }
-
-        function updatePinDots() {
-            for (var i = 1; i <= 4; i++) {
-                var dot = document.getElementById('pin-dot-' + i);
-                if (dot) {
-                    if (i <= enteredLockPin.length) {
-                        dot.className = "w-3.5 h-3.5 rounded-full bg-primary-500 border-2 border-primary-500 scale-125 shadow-sm shadow-primary-500/40 transition-all duration-200";
-                    } else {
-                        dot.className = "w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/40 dark:bg-transparent scale-100 transition-all duration-200";
-                    }
-                }
-            }
-        }
-
-        function verifyEnteredPin() {
-            if (!dataState.appLock) return;
-            if (checkAndResumeCooldown()) {
-                enteredLockPin = '';
-                updatePinDots();
-                return;
-            }
-
-            if (enteredLockPin === dataState.appLock.pin) {
-                triggerHaptic('success');
-                resetLockAttempts();
-                sessionStorage.setItem('dasborSessionUnlocked', 'true');
-                var screen = document.getElementById('app-lock-screen');
-                if (screen) {
-                    screen.classList.add('opacity-0');
-                    setTimeout(function() {
-                        screen.classList.add('hidden');
-                        screen.classList.remove('opacity-0');
-                    }, 250);
-                }
-                triggerDynamicIsland("Dasbor Terbuka 🔓", "Selamat datang kembali!", "fas fa-check-circle", "bg-emerald-500/20 text-emerald-400");
-            } else {
-                triggerHaptic('error');
-                handleFailedLockAttempt();
-                enteredLockPin = '';
-                updatePinDots();
-            }
-        }
-
-        // ==========================================
         // FITUR V33.00: MULTI-DOMPET / KANTONG KEUANGAN
         // ==========================================
         function selectFormWallet(walletId, mode, btnEl) {
@@ -4060,9 +3271,12 @@
                 var card = document.getElementById('card-wallet-' + wId);
                 if (card) {
                     if (activeWalletFilter === wId) {
-                        card.classList.add('ring-2', 'ring-primary-500');
+                        card.classList.remove('wallet-droplet-pop');
+                        void card.offsetWidth;
+                        card.classList.add('ring-2', 'ring-primary-500', 'wallet-droplet-active', 'wallet-droplet-pop');
+                        setTimeout(function() { card.classList.remove('wallet-droplet-pop'); }, 450);
                     } else {
-                        card.classList.remove('ring-2', 'ring-primary-500');
+                        card.classList.remove('ring-2', 'ring-primary-500', 'wallet-droplet-active', 'wallet-droplet-pop');
                     }
                 }
             });
@@ -7921,14 +7135,7 @@
                 '🍔 Makan': 0, '🚗 Transport': 0, '🛍️ Belanja': 0, '💡 Tagihan': 0, '📁 Lainnya': 0
             };
             if(!Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
-            if(!dataState.appLock || typeof dataState.appLock !== 'object') {
-                dataState.appLock = { enabled: false, type: 'pin', pin: '', pattern: '', securityQuestion: 'Apa nama hewan peliharaan pertama Anda?', securityAnswer: '' };
-            } else {
-                if (!dataState.appLock.type) dataState.appLock.type = 'pin';
-                if (dataState.appLock.pattern === undefined) dataState.appLock.pattern = '';
-                if (!dataState.appLock.securityQuestion) dataState.appLock.securityQuestion = 'Apa nama hewan peliharaan pertama Anda?';
-                if (dataState.appLock.securityAnswer === undefined) dataState.appLock.securityAnswer = '';
-            }
+            if(dataState.fluidWaveCard === undefined) dataState.fluidWaveCard = true;
             if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
             if(dataState.isPrivacyMode === undefined) dataState.isPrivacyMode = false;
             if(dataState.compactMode === undefined) dataState.compactMode = false;
@@ -7964,15 +7171,13 @@
             var btnA = document.getElementById('btn-toggle-autotheme');
             setSwitchVisual(btnA, knobA, dataState.autoThemeMode, false);
 
-            var knobL = document.getElementById('applock-switch-knob');
-            var btnL = document.getElementById('btn-toggle-applock');
-            setSwitchVisual(btnL, knobL, dataState.appLock && dataState.appLock.enabled, false);
-
             var cEye = document.getElementById('card-eye-icon');
             var iconClass = dataState.isPrivacyMode ? 'fa-eye-slash' : 'fa-eye';
             if (cEye) cEye.className = `fas ${iconClass} text-xs`;
 
             applyCardGradientVisual();
+            applyFluidWaveVisual(false);
+            initSaldoWaveObserver();
             updateActiveToggleCount();
             perbaruiTampilan();
             // Jika akun Cloud tersimpan, utamakan sinkronisasi Cloud agar wawasan memakai data Cloud teranyar
@@ -7986,7 +7191,6 @@
             }
             scheduleDailyResetMidnight();
             checkOtaVersionNotification();
-            checkAppLockOnStartup();
 
             // Pulihkan sesi akun langsung dari cache agar tidak berkedip 'Lokal'
             var cachedUser = getCachedUser();
@@ -8365,23 +7569,7 @@
                             if(!dataState.budgets || typeof dataState.budgets !== 'object') dataState.budgets = {
                                 '🍔 Makan': 0, '🚗 Transport': 0, '🛍️ Belanja': 0, '💡 Tagihan': 0, '📁 Lainnya': 0
                             };
-                            if(!dataState.appLock || typeof dataState.appLock !== 'object') {
-                                dataState.appLock = { enabled: false, type: 'pin', pin: '', pattern: '', securityQuestion: 'Apa nama hewan peliharaan pertama Anda?', securityAnswer: '' };
-                            } else {
-                                if (!dataState.appLock.type) dataState.appLock.type = 'pin';
-                                if (dataState.appLock.pattern === undefined) dataState.appLock.pattern = '';
-                                if (!dataState.appLock.securityQuestion) dataState.appLock.securityQuestion = 'Apa nama hewan peliharaan pertama Anda?';
-                                if (dataState.appLock.securityAnswer === undefined) dataState.appLock.securityAnswer = '';
-                            }
-
-                            // Jika kunci dinonaktifkan di Cloud, sembunyikan layar kunci
-                            if (!dataState.appLock.enabled) {
-                                var lockSc = document.getElementById('app-lock-screen');
-                                if (lockSc && !lockSc.classList.contains('hidden')) {
-                                    lockSc.classList.add('opacity-0');
-                                    setTimeout(function() { lockSc.classList.add('hidden'); lockSc.classList.remove('opacity-0'); }, 200);
-                                }
-                            }
+                            if (dataState.fluidWaveCard === undefined) dataState.fluidWaveCard = true;
                             if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
                             if(dataState.saldo === undefined) dataState.saldo = 0;
 
@@ -8415,6 +7603,7 @@
                             else document.body.classList.remove('glass-mode');
 
                             applyCardGradientVisual();
+                            applyFluidWaveVisual(false);
                             updateActiveToggleCount();
                             perbaruiTampilan();
                             runSmartInsightsSequence();
