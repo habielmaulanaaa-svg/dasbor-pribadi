@@ -19,7 +19,7 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 
 ---
 
-## 🌊 Fitur Baru Generasi v33.11.P5
+## 🚀 Pembaruan Versi Sekarang (v33.11.P5)
 
 ### 1. 🌊 Gelombang Fluida Saldo 100% Seamless (*Infinite Laminar Flow*)
 - **Formulasi Kurva $C^1$-Continuous**: Gelombang air pada kartu saldo kini menggunakan kurva Bezier kuadratik periodik simetris (`Q ... T ...`) dengan kondisi batas periodik identik pada koordinat Y dan vektor tangen.
@@ -44,43 +44,50 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 
 ---
 
-## 🌟 Fitur Generasi Sebelumnya
-
-### Versi v33.11.P4 (Fluid Physics & Speed Edition)
-- **Saklar Toggle Elastis**: Kenop tombol saklar meregang elastis layaknya zat cair saat ditarik dan membal menyatu halus saat melebihi ambang batas tarikan (*detach & snap*).
-- **Speed-Dial FAB Letupan Gelembung**: Tombol tindakan cepat meluncur keluar layaknya gelembung fluida bertunas (*budding bubbles*).
-- **Kapsul Merkuri Cair**: Indikator aktif pada bilah navigasi bawah berpindah dengan efek deformasi fluida seperti tetesan merkuri yang mengalir lincah.
-- **Sinkronisasi Jadwal Rekap Harian 00:00 WIB**: Reset rekap harian resmi tepat pukul 00:00:00 WIB tengah malam.
-- **Transisi Tema Otomatis Jam WIB**: Mode Gelap (17:00 – 05:00 WIB) dan Mode Terang (05:00 – 17:00 WIB).
-
-### Versi v33.11.P3 (Unified Calendar Edition)
-- **Kalender Terpadu & Rekap Harian 360°**: Penyatuan kalender rekap harian dan kalender aktivitas dengan 4 indikator titik visual (🟢 Pemasukan, 🔴 Pengeluaran, 🔵 Deadline Tugas, 🟡 Jurnal Rekap).
-- **Tombol Tunggal Header "+ Tugas Baru"**: Tombol pintar satu pintu di samping judul *Manajemen Tugas* yang berubah menjadi `[ Minimize ▲ ]` saat form terbuka.
-- **Standarisasi Penomoran Versi Berjenjang**: Format resmi `[Major].[Standar].[Minor/Patch]`.
-
----
-
 ## 💎 Fitur Unggulan Utama
 
 ### 1. 💼 Multi-Dompet / Kantong Keuangan (*Pocket Management*)
 - Pisahkan saldo kas Anda ke dalam **3 Dompet Utama**: 💵 **Uang Tunai**, 🏦 **Rekening Bank**, dan 📱 **E-Wallet**.
-- Filter riwayat transaksi secara instan per dompet dengan 1 klik.
+- Filter riwayat transaksi secara instan per dompet dengan 1 klik dan kalkulasi saldo gabungan otomatis secara akurat.
 
 ### 2. 🎯 Sistem Anggaran Bulanan (*Budgeting per Kategori*)
 - Tetapkan plafon belanja bulanan per kategori (*Makanan, Transport, Hiburan, Tagihan, dsb.*).
-- Progress bar dinamis 3-warna (Hijau, Kuning, Merah) dengan notifikasi Dynamic Island saat batas terlampaui.
+- Progress bar dinamis 3-warna (Hijau, Kuning, Merah) dengan notifikasi Dynamic Island saat batas belanja terlampaui.
 
 ### 3. 📅 Pelacak Transaksi Rutin & Langganan (*Subscription Tracker*)
 - Pantau tagihan berulang bulanan (*WiFi, Listrik, Kos, Netflix, dsb.*).
-- Badge hitung mundur jatuh tempo & tombol **1-Klik "Bayar & Catat"**.
+- Badge hitung mundur jatuh tempo interaktif & tombol **1-Klik "Bayar & Catat"**.
 
-### 4. 🩺 Indikator Skor Kesehatan Keuangan (*Financial Health Score*)
-- Penilaian cerdas skor kesehatan finansial 0–100 berdasarkan rasio tabungan, kontrol belanja, dan aset cair beserta rekomendasi taktis.
+### 4. 🩺 Indikator Skor Kesehatan Finansial (*Financial Health Score*)
+- Penilaian cerdas skor kesehatan finansial 0–100 berdasarkan rasio tabungan, kontrol belanja, dan aset cair beserta rekomendasi taktis harian.
 
-### 5. 📲 3 Pilihan Home Screen Widget Android Bawaan
+### 5. 🗓️ Kalender Terpadu & Rekap Harian 360°
+- Penyatuan kalender rekap harian dan kalender aktivitas dengan 4 indikator titik visual:
+  - 🟢 **Pemasukan**: Transaksi uang masuk tercatat pada tanggal tersebut.
+  - 🔴 **Pengeluaran**: Transaksi uang keluar tercatat.
+  - 🔵 **Deadline Tugas**: Target tugas jatuh tempo pada tanggal tersebut.
+  - 🟡 **Jurnal Rekap**: Catatan rekap harian tersimpan.
+- Tombol pintar satu pintu di header (*+ Tugas Baru* / *Minimize*) untuk alur kerja yang cepat dan intuitif.
+
+### 6. 🧪 UI Interaktif & Fisika Fluida (*Surface Tension Physics*)
+- **Saklar Peregangan Cairan**: Kenop toggle elastis meregang layaknya zat cair saat ditarik dan membal menyatu halus saat dilepas (*surface tension detach*).
+- **Speed-Dial Gelembung FAB**: Tombol aksi cepat meluncur keluar layaknya gelembung fluida bertunas (*budding bubbles*).
+- **Kapsul Merkuri Cair**: Indikator aktif pada bilah navigasi bawah berpindah dengan efek deformasi fluida seperti tetesan merkuri yang mengalir lincah.
+
+### 7. 🌓 Transisi Tema Otomatis Jam WIB
+- Pergantian tema otomatis mengikuti siklus waktu nyata:
+  - 🌙 **Mode Gelap**: Aktif otomatis pukul 17:00 – 05:00 WIB.
+  - ☀️ **Mode Terang**: Aktif otomatis pukul 05:00 – 17:00 WIB.
+- Jadwal reset dan ringkasan harian tepat pukul 00:00:00 WIB tengah malam.
+
+### 8. 📲 3 Pilihan Home Screen Widget Android Bawaan
 - **Kartu Saldo Lengkap (4x2 / 3x2)**: Menampilkan total saldo dan tombol cepat `+ Masuk` & `- Keluar`.
 - **Bar Aksi Cepat (4x1)**: Bar ramping 4 shortcut (`+ Masuk`, `- Keluar`, `Catatan`, `Impian`).
 - **Widget Tugas & Aktivitas (4x2 / 3x2)**: Menampilkan jumlah tugas aktif & preview tugas prioritas.
+
+### 9. ☁️ Sinkronisasi Google Cloud Firestore & Dukungan Offline PWA
+- Terkoneksi secara aman ke Google Cloud Firebase Firestore untuk pencadangan otomatis realtime.
+- Didukung Service Worker PWA modern untuk akses cepat secara mandiri dan offline di mana saja.
 
 ---
 
