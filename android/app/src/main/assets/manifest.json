@@ -1,0 +1,55 @@
+{
+  "name": "Dasbor Pribadi",
+  "short_name": "Dasbor",
+  "description": "Aplikasi Manajemen Tugas, Keuangan, dan Jurnal Harian Pribadi",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0e1621",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Catat Pengeluaran",
+      "short_name": "Pengeluaran",
+      "description": "Catat pengeluaran keuangan cepat",
+      "url": "./index.html?action=pengeluaran",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Catat Pemasukan",
+      "short_name": "Pemasukan",
+      "description": "Catat pemasukan uang baru",
+      "url": "./index.html?action=pemasukan",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Catatan Kilat",
+      "short_name": "Catatan",
+      "description": "Buka catatan dan belanjaan",
+      "url": "./index.html?action=catatan",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Kalkulator Impian",
+      "short_name": "Impian",
+      "description": "Simulasi dan target impian",
+      "url": "./index.html?action=kalkulator",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

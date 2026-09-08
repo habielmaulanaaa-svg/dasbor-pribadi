@@ -7,6 +7,7 @@ on:
     paths:
       - 'android/**'
       - '.github/workflows/build-apk.yml'
+      - 'index.html'
   workflow_dispatch:
 
 permissions:
@@ -28,6 +29,16 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+
+      - name: Prepare Standalone Assets
+        run: |
+          mkdir -p android/app/src/main/assets
+          cp index.html android/app/src/main/assets/
+          cp manifest.json android/app/src/main/assets/ || true
+          cp icon-192.png android/app/src/main/assets/ || true
+          cp icon-512.png android/app/src/main/assets/ || true
+          echo "Assets bundled successfully:"
+          ls -la android/app/src/main/assets/
 
       - name: Build Android APK with Gradle
         run: |
@@ -74,19 +85,18 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Android App & Widget v33.11.P5 (APK)"
+          name: "Dasbor Pribadi Standalone APK (Offline-First + OTA) v33.13.OTA"
           body: |
-            ### 📱 Dasbor Pribadi APK & Home Screen Widget (v33.11.P5)
-            Aplikasi resmi Android dengan dukungan **Widget Home Screen**, **Animasi Fluida Alami**, dan **Pembaruan Otomatis (OTA)**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.13.OTA)
+            Aplikasi resmi Android 100% Mandiri (**Offline-First**) tanpa ketergantungan web browser, dilengkapi dengan **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v33.11.P5
-            - **Pembaruan Fitur Terbaru**:
-              - 🌊 **Gelombang Fluida Saldo 100% Seamless**: Animasi gelombang tangki saldo mengalir berputar tanpa patahan sambungan dan bebas stuttering (*infinite smooth laminar flow*).
-              - 🚤 **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**: Seluruh kapsul navigasi (Beranda, Tugas, Uang) dan tombol aksi cepat FAB serempak menyelam saat scroll ke bawah dan meluncur naik mulus tanpa efek pantulan kaku saat scroll ke atas.
-              - ✨ **Restorasi Murni Frosted Glass & Eliminasi Outline**: Tampilan kaca buram akrilik murni (`backdrop-filter: blur(20px) saturate(180%)`) pada bilah dok dan FAB, bebas dari gangguan isolasi layer GPU dan bersih total dari garis outline tebal buatan.
-              - 💧 **Saklar Liquid Glass Waktu Pembuatan Tugas**: Opsi waktu & tanggal dibuat pada form tugas baru dengan animasi peregangan cairan (*stretch & detach*) serta transisi buka-tutup sub-bar yang halus.
-              - 🧹 **Optimalisasi Kinerja Bersih**: Pembersihan total modul kunci internal untuk performa maksimal dan kecepatan akses harian.
+            - **Versi**: v33.13.OTA
+            - **Fitur Utama**:
+              - 📱 **100% Standalone APK (Offline-First)**: Dibuka instan tanpa butuh koneksi internet sama sekali.
+              - 🚀 **Pembaruan Otomatis (OTA)**: Fitur terbaru diperbarui di latar belakang tanpa harus install APK ulang.
+              - ☁️ **Cloud Storage Utuh**: Sinkronisasi Firebase Firestore tetap bekerja 100%.
+              - 📊 **Widget Home Screen**: Tiga varian widget Android terintegrasi langsung dengan performa kilat.
           files: dasbor-pribadi.apk
           prerelease: false
           draft: false
