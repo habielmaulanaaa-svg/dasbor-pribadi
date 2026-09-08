@@ -1433,16 +1433,36 @@
                 <div class="w-24 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div>
             </div>
         </div>
-        <div class="h-28 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-4 flex flex-col justify-between shrink-0">
-            <div class="w-28 h-4 bg-white/40 dark:bg-slate-700/40 rounded-md"></div>
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 bg-white/50 dark:bg-slate-600/50 rounded-2xl"></div>
-                <div class="flex-1 space-y-2">
-                    <div class="w-3/4 h-4 bg-white/40 dark:bg-slate-700/40 rounded-md"></div>
-                    <div class="w-1/3 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div>
-                </div>
-            </div>
-        </div>
+        <!-- WADAH SKELETON WIDGET BERANDA DINAMIS -->
+        <div id="skeleton-dynamic-widgets" class="space-y-4"></div>
+        <script>
+            (function() {
+                try {
+                    var raw = localStorage.getItem('dasborSolidV2');
+                    var container = document.getElementById('skeleton-dynamic-widgets');
+                    if (!container) return;
+                    var order = ['rekap', 'tabungan', 'deadline', 'reguler'];
+                    var hidden = [];
+                    if (raw) {
+                        var parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed.widgetOrder)) order = parsed.widgetOrder;
+                        if (Array.isArray(parsed.hiddenWidgets)) hidden = parsed.hiddenWidgets;
+                    }
+                    var activeWidgets = order.filter(function(k) { return !hidden.includes(k); });
+                    var templates = {
+                        rekap: '<div class="h-32 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-32 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-16 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="w-full h-12 bg-white/40 dark:bg-slate-700/40 rounded-2xl"></div><div class="flex justify-between items-center pt-1 border-t border-white/20 dark:border-slate-700/20"><div class="w-24 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div><div class="w-20 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div></div>',
+                        tabungan: '<div class="h-36 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-36 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-16 h-6 bg-white/40 dark:bg-slate-700/40 rounded-xl"></div></div><div class="space-y-2"><div class="flex justify-between"><div class="w-28 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div><div class="w-12 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div></div><div class="w-full h-2.5 bg-white/30 dark:bg-slate-700/30 rounded-full"></div></div><div class="w-40 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div>',
+                        deadline: '<div class="h-28 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-28 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-14 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="flex items-center gap-3"><div class="w-10 h-10 bg-white/40 dark:bg-slate-700/40 rounded-xl shrink-0"></div><div class="flex-1 space-y-2"><div class="w-3/4 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div><div class="w-1/2 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div></div></div>',
+                        reguler: '<div class="h-24 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-32 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-12 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="w-full h-9 bg-white/35 dark:bg-slate-700/35 rounded-2xl"></div></div>'
+                    };
+                    var html = '';
+                    activeWidgets.forEach(function(key) {
+                        if (templates[key]) html += templates[key];
+                    });
+                    container.innerHTML = html;
+                } catch(e) {}
+            })();
+        </script>
     </div>
 
     <!-- DYNAMIC ISLAND / SMART PILL STATUS CAPSULE -->
@@ -7776,6 +7796,7 @@
         function simpanData() {
             dataState.updatedAt = Date.now();
             safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+            refreshDynamicSkeleton();
             perbaruiTampilan();
             debouncedSyncToCloud();
         }
@@ -7813,6 +7834,7 @@
                     applyCardGradientVisual();
                     updateActiveToggleCount();
                     safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+                    refreshDynamicSkeleton();
                     perbaruiTampilan();
                     if (currentUser && firestoreDb) {
                         syncToCloud(false);
@@ -7821,6 +7843,38 @@
                     triggerDynamicIsland("Reset Data", "Seluruh data telah dibersihkan", "fas fa-trash-alt", "bg-red-500/20 text-red-400");
                 }, 200);
             }
+        }
+
+        function refreshDynamicSkeleton() {
+            var container = document.getElementById('skeleton-dynamic-widgets');
+            if (!container) return;
+            var order = ['rekap', 'tabungan', 'deadline', 'reguler'];
+            var hidden = [];
+            if (typeof dataState !== 'undefined' && dataState) {
+                if (Array.isArray(dataState.widgetOrder)) order = dataState.widgetOrder;
+                if (Array.isArray(dataState.hiddenWidgets)) hidden = dataState.hiddenWidgets;
+            } else {
+                try {
+                    var raw = localStorage.getItem('dasborSolidV2');
+                    if (raw) {
+                        var parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed.widgetOrder)) order = parsed.widgetOrder;
+                        if (Array.isArray(parsed.hiddenWidgets)) hidden = parsed.hiddenWidgets;
+                    }
+                } catch(e) {}
+            }
+            var activeWidgets = order.filter(function(k) { return !hidden.includes(k); });
+            var templates = {
+                rekap: '<div class="h-32 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-32 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-16 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="w-full h-12 bg-white/40 dark:bg-slate-700/40 rounded-2xl"></div><div class="flex justify-between items-center pt-1 border-t border-white/20 dark:border-slate-700/20"><div class="w-24 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div><div class="w-20 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div></div>',
+                tabungan: '<div class="h-36 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-36 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-16 h-6 bg-white/40 dark:bg-slate-700/40 rounded-xl"></div></div><div class="space-y-2"><div class="flex justify-between"><div class="w-28 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div><div class="w-12 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div></div><div class="w-full h-2.5 bg-white/30 dark:bg-slate-700/30 rounded-full"></div></div><div class="w-40 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div>',
+                deadline: '<div class="h-28 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-28 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-14 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="flex items-center gap-3"><div class="w-10 h-10 bg-white/40 dark:bg-slate-700/40 rounded-xl shrink-0"></div><div class="flex-1 space-y-2"><div class="w-3/4 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div><div class="w-1/2 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div></div></div>',
+                reguler: '<div class="h-24 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-32 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-12 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="w-full h-9 bg-white/35 dark:bg-slate-700/35 rounded-2xl"></div></div>'
+            };
+            var html = '';
+            activeWidgets.forEach(function(key) {
+                if (templates[key]) html += templates[key];
+            });
+            container.innerHTML = html;
         }
 
         function dismissSkeleton() {
@@ -7844,6 +7898,7 @@
             if (saved) {
                 try { dataState = JSON.parse(saved); } catch(e) {}
             }
+            refreshDynamicSkeleton();
             
             if(!Array.isArray(dataState.tugas)) dataState.tugas = [];
             if(!Array.isArray(dataState.jurnal)) dataState.jurnal = [];
