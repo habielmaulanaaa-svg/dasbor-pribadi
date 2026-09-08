@@ -56,11 +56,11 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 - **Saklar Fluida Peregangan Cairan**: Form tambah tugas baru kini dilengkapi opsi *"Sertakan Waktu & Tanggal Dibuat"* dengan animasi fisika fluida (*stretching, detaching, spring rebound*).
 - **Animasi Buka-Tutup Halus**: Sub-bar kustomisasi tanggal dan jam muncul dan menutup dengan transisi ekspansi/kolaps vertikal CSS yang lembut tanpa loncatan seketika.
 
-### 5. 🌊 4 Integrasi Efek Liquid Murni (*Natural Fluid Dynamics*)
-- **💧 Pull-to-Refresh Tetesan Menetes (*Gooey Droplet Drip*)**: Tarikan layar atas meregangkan siluet cairan SVG elastis yang menetes putus dengan letupan riak (*droplet detachment & ripple*) saat data disegarkan.
+### 5. 🌊 Efek Liquid Murni (*Natural Fluid Dynamics*)
 - **🧪 Tabung Fluida Progres Tabungan & Anggaran (*Liquid Level Fill*)**: Bilah progres dengan ujung lengkung kapiler (*meniscus*) dan transisi fluida elastis yang mengayun lembut (*slosh & settle*).
 - **🫧 Centang Tugas Riak Cairan (*Liquid Ripple Splash*)**: Ceklis tugas memancarkan gelombang riak fluida melingkar ganda dengan ikon centang yang mengapung ke atas layaknya gelembung cairan (*floating bubble rise*).
 - **🪙 Tetesan Transaksi Tangki Saldo (*Droplet Fusion*)**: Pencatatan uang masuk dan keluar memicu tetesan partikel fluida yang tercebur ke tangki saldo dan memantik riak dinamis pada gelombang saldo.
+- **⚡ Akselerasi 120 FPS & State Reaktif 100%**: Menghilangkan gesture Pull-to-Refresh konvensional demi melepaskan beban listener sentuhan (*zero touch overhead*). Semua pembaruan data kini berlangsung instan dan scrolling layar berjalan sehalus 120 FPS native tanpa lag.
 
 ### 6. 🧹 Optimalisasi Performa Bersih
 - **Pembersihan Modul Kunci Internal**: Seluruh modul kunci PIN dan pola internal ditiadakan sepenuhnya sesuai preferensi pengguna, meningkatkan kecepatan pemuatan awal dan mengandalkan sistem penguncian bawaan perangkat HP yang lebih aman dan terintegrasi.
@@ -93,7 +93,7 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 - Tombol pintar satu pintu di header (*+ Tugas Baru* / *Minimize*) untuk alur kerja yang cepat dan intuitif.
 
 ### 6. 🧪 UI Interaktif & Fisika Fluida (*Surface Tension & Pure Fluid Dynamics*)
-- **💧 Pull-to-Refresh Tetesan Menetes (*Gooey Droplet Drip*)**: Tarikan layar atas meregangkan siluet cairan SVG elastis yang menetes putus dengan letupan riak (*droplet detachment & ripple*) saat data disegarkan.
+- **⚡ Arsitektur Reaktif 100% & Akselerasi 120 FPS**: Dasbor bereaksi secara instan terhadap setiap perubahan data tanpa gesture tarik-layar (Pull-to-Refresh), memaksimalkan kecepatan sentuhan layar HP.
 - **🧪 Tabung Fluida Progres Tabungan & Anggaran (*Liquid Level Fill*)**: Bilah progres dengan ujung lengkung kapiler (*meniscus*) dan transisi fluida elastis yang mengayun lembut (*slosh & settle*).
 - **🫧 Centang Tugas Riak Cairan (*Liquid Ripple Splash*)**: Ceklis tugas memancarkan gelombang riak fluida melingkar ganda dengan ikon centang yang mengapung ke atas layaknya gelembung cairan (*floating bubble rise*).
 - **🪙 Tetesan Transaksi Tangki Saldo (*Droplet Fusion*)**: Pencatatan uang masuk dan keluar memicu tetesan partikel fluida yang tercebur ke tangki saldo dan memantik riak dinamis pada gelombang saldo.
