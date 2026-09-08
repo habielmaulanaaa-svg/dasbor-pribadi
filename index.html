@@ -745,12 +745,11 @@
         #pull-droplet-svg {
             filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.14));
         }
-        #pull-droplet-bubble {
-            transform-box: fill-box;
-            transform-origin: center;
-        }
         .dark #pull-droplet-svg {
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+        }
+        #pull-droplet-bubble, .animate-droplet-snap {
+            transform-origin: 0px 0px;
         }
         .animate-droplet-snap {
             animation: dropletSnapPulse 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.3) forwards;
@@ -2496,9 +2495,14 @@
         <svg id="pull-droplet-svg" class="overflow-visible" width="90" height="60" viewBox="0 0 90 60">
             <!-- Fluid neck + droplet head -->
             <path id="pull-droplet-path" d="" fill="hsl(var(--theme-h), 83%, 53%)" opacity="0.98"></path>
-            <circle id="pull-droplet-bubble" cx="45" cy="18" r="14" fill="hsl(var(--theme-h), 83%, 53%)" class="transition-transform duration-100"></circle>
-            <!-- Detachment ripple ring -->
-            <circle id="pull-droplet-ripple" cx="45" cy="18" r="0" fill="none" stroke="hsl(var(--theme-h), 83%, 53%)" stroke-width="2" opacity="0"></circle>
+            <!-- Droplet bubble centered at (0,0) inside translated group -->
+            <g id="pull-droplet-bubble-wrap" transform="translate(45, 18)">
+                <circle id="pull-droplet-bubble" cx="0" cy="0" r="14" fill="hsl(var(--theme-h), 83%, 53%)"></circle>
+            </g>
+            <!-- Detachment ripple ring centered at (0,0) inside translated group -->
+            <g id="pull-droplet-ripple-wrap" transform="translate(45, 18)">
+                <circle id="pull-droplet-ripple" cx="0" cy="0" r="0" fill="none" stroke="hsl(var(--theme-h), 83%, 53%)" stroke-width="2" opacity="0"></circle>
+            </g>
         </svg>
         <div id="pull-icon-container" class="absolute top-1.5 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs z-10">
             <i id="pull-icon" class="fas fa-arrow-down transform transition-transform duration-200 text-[11px]"></i>
@@ -4946,13 +4950,13 @@
                     if (pullPath) {
                         pullPath.setAttribute('d', `M ${45 - baseW},-2 C ${45 - baseW * 0.55},0 ${45 - neckW},${neckY * 0.35} ${45 - neckW},${neckY} C ${45 - neckW},${neckY + (cy - neckY) * 0.5} ${45 - 13},${cy - 6} ${45 - 13},${cy} A 13 13 0 1 0 ${45 + 13},${cy} C ${45 + 13},${cy - 6} ${45 + neckW},${neckY + (cy - neckY) * 0.5} ${45 + neckW},${neckY} C ${45 + neckW},${neckY * 0.35} ${45 + baseW * 0.55},0 ${45 + baseW},-2 Z`);
                     }
-                    if (pullBubble) {
-                        pullBubble.setAttribute('cx', 45);
-                        pullBubble.setAttribute('cy', cy);
+                    let bubbleWrap = document.getElementById('pull-droplet-bubble-wrap');
+                    let rippleWrap = document.getElementById('pull-droplet-ripple-wrap');
+                    if (bubbleWrap) {
+                        bubbleWrap.setAttribute('transform', `translate(45, ${cy})`);
                     }
-                    if (pullRipple) {
-                        pullRipple.setAttribute('cx', 45);
-                        pullRipple.setAttribute('cy', cy);
+                    if (rippleWrap) {
+                        rippleWrap.setAttribute('transform', `translate(45, ${cy})`);
                     }
                     if (iconBox) {
                         iconBox.style.top = `${cy - 14}px`;
@@ -4986,8 +4990,6 @@
                             pullPath.setAttribute('d', '');
                         }
                         if (pullBubble) {
-                            let cy = Math.max(18, currentH - 8);
-                            pullBubble.style.transformOrigin = `45px ${cy}px`;
                             pullBubble.classList.add('animate-droplet-snap');
                         }
 
@@ -4999,7 +5001,6 @@
                             pullIndicator.style.height = '0px';
                             if (pullBubble) {
                                 pullBubble.classList.remove('animate-droplet-snap');
-                                pullBubble.style.transformOrigin = '';
                             }
                             if (pullRipple) pullRipple.classList.remove('animate-droplet-ripple');
                             if (pullIcon) {
