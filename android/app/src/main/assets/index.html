@@ -3400,8 +3400,36 @@
         }
 
         const safeStorage = {
-            getItem: (k) => { try { return localStorage.getItem(k); } catch(e) { return null; } },
-            setItem: (k, v) => { try { localStorage.setItem(k, v); } catch(e) {} }
+            getItem: (k) => {
+                try {
+                    let val = localStorage.getItem(k);
+                    if (val !== null && val !== undefined && val !== '') return val;
+                    if (window.DasborBridge && typeof window.DasborBridge.getStorageItem === 'function') {
+                        let bridgeVal = window.DasborBridge.getStorageItem(k);
+                        if (bridgeVal !== null && bridgeVal !== undefined && bridgeVal !== '') {
+                            try { localStorage.setItem(k, bridgeVal); } catch(e) {}
+                            return bridgeVal;
+                        }
+                    }
+                    return val !== null && val !== undefined ? val : null;
+                } catch(e) { return null; }
+            },
+            setItem: (k, v) => {
+                try { localStorage.setItem(k, v); } catch(e) {}
+                try {
+                    if (window.DasborBridge && typeof window.DasborBridge.setStorageItem === 'function') {
+                        window.DasborBridge.setStorageItem(k, String(v));
+                    }
+                } catch(e) {}
+            },
+            removeItem: (k) => {
+                try { localStorage.removeItem(k); } catch(e) {}
+                try {
+                    if (window.DasborBridge && typeof window.DasborBridge.removeStorageItem === 'function') {
+                        window.DasborBridge.removeStorageItem(k);
+                    }
+                } catch(e) {}
+            }
         };
 
         let dataState = { 

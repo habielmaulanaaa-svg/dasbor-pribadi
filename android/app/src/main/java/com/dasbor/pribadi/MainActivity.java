@@ -226,10 +226,14 @@ public class MainActivity extends AppCompatActivity {
         File otaDir = new File(getFilesDir(), "ota_bundle");
         File otaFile = new File(otaDir, "index.html");
 
+        if (!otaFile.exists() || otaFile.length() < 50000) {
+            copyAssetToFile("index.html", otaFile);
+        }
+
         String targetUrl;
         if (otaFile.exists() && otaFile.length() > 50000) {
             targetUrl = "file://" + otaFile.getAbsolutePath();
-            Log.i(TAG, "Memuat bundle OTA terbaru: " + targetUrl);
+            Log.i(TAG, "Memuat bundle OTA: " + targetUrl);
         } else {
             targetUrl = "file:///android_asset/index.html";
             Log.i(TAG, "Memuat asset bawaan APK: " + targetUrl);
@@ -240,6 +244,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         webView.loadUrl(targetUrl);
+    }
+
+    private void copyAssetToFile(String assetName, File targetFile) {
+        try {
+            File parent = targetFile.getParentFile();
+            if (parent != null && !parent.exists()) parent.mkdirs();
+            try (InputStream is = getAssets().open(assetName);
+                 FileOutputStream fos = new FileOutputStream(targetFile)) {
+                byte[] buffer = new byte[8192];
+                int read;
+                while ((read = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, read);
+                }
+            }
+            Log.i(TAG, "Berhasil menyalin asset " + assetName + " ke " + targetFile.getAbsolutePath());
+        } catch (Exception e) {
+            Log.e(TAG, "Gagal menyalin asset " + assetName, e);
+        }
     }
 
     @Override
@@ -533,6 +555,31 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(browserIntent);
                 }
             });
+        }
+
+        @JavascriptInterface
+        public void setStorageItem(String key, String value) {
+            if (key == null) return;
+            getSharedPreferences("dasbor_storage_bridge", MODE_PRIVATE)
+                    .edit()
+                    .putString(key, value)
+                    .apply();
+        }
+
+        @JavascriptInterface
+        public String getStorageItem(String key) {
+            if (key == null) return null;
+            return getSharedPreferences("dasbor_storage_bridge", MODE_PRIVATE)
+                    .getString(key, null);
+        }
+
+        @JavascriptInterface
+        public void removeStorageItem(String key) {
+            if (key == null) return;
+            getSharedPreferences("dasbor_storage_bridge", MODE_PRIVATE)
+                    .edit()
+                    .remove(key)
+                    .apply();
         }
 
         @JavascriptInterface
