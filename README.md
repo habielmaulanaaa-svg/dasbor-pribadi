@@ -1,11 +1,11 @@
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.13.OTA
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.14.OTA
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.13.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.14.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.13.OTA)** dengan dukungan **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Animasi Gelombang Fluida Saldo 100% Seamless**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Restorasi Murni Kaca Buram (*Frosted Glass*)**, **Saklar Fisika Fluida (*Liquid Glass Switch*) Waktu Tugas**, **Jadwal Rekap Harian Tepat 00:00 WIB**, **Transisi Tema Otomatis Jam WIB (17:00-05:00)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.14.OTA)** dengan dukungan **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Animasi Gelombang Fluida Saldo 100% Seamless**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Restorasi Murni Kaca Buram (*Frosted Glass*)**, **Saklar Fisika Fluida (*Liquid Glass Switch*) Waktu Tugas**, **Jadwal Rekap Harian Tepat 00:00 WIB**, **Transisi Tema Otomatis Jam WIB (17:00-05:00)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -13,28 +13,30 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
-| 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer 100% mandiri offline-first dengan OTA update otomatis |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.13.OTA |
+| 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer 100% mandiri offline-first dengan Hybrid Auth Bridge & OTA otomatis |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.14.OTA |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (Cloud Realtime) |
 
 ---
 
-## 🚀 Pembaruan Versi Sekarang (v33.13.OTA)
+## 🚀 Pembaruan Versi Sekarang (v33.14.OTA)
 
-### 1. 📦 100% APK Mandiri Bebas Web (*Offline-First Asset Bundle*)
+### 1. 🔑 Hybrid Auth Bridge (Solusi Tuntas Login Akun Google)
+- **Otentikasi Aman Terpercaya**: Mengatasi kendala penolakan OAuth (*The requested action is invalid* / *network AuthError*) pada protokol `file://` di dalam WebView mandiri.
+- **Chrome Custom Tabs Auth Handshake**: Khusus saat tombol *"Masuk dengan Google"* ditekan, aplikasi memanggil jendela Custom Tab aman ke domain terverifikasi (`auth-bridge.html`), lalu mentransfer token otentikasi secara otomatis kembali ke APK mandiri via skema deep-link `dasbor://auth-callback`.
+- **Sesi Firebase Instan**: Profil pengguna dan sinkronisasi Cloud Firestore langsung aktif 100% tanpa perlu konfigurasi rumit.
+
+### 2. 📦 100% APK Mandiri Bebas Web (*Offline-First Asset Bundle*)
 - **Kemasan Aset Lokal**: APK kini mengemas bundel lengkap (`index.html`, ikon HD, dan metadata PWA) di dalam aset internal Android (`file:///android_asset/`).
 - **Tanpa Ketergantungan Hosting**: Aplikasi dapat dibuka seketika saat perangkat dalam mode pesawat atau tanpa jaringan seluler.
 
-### 2. 🔄 Background OTA Update Engine (*Over-The-Air Dynamic Bundle*)
+### 3. 🔄 Background OTA Update Engine (*Over-The-Air Dynamic Bundle*)
 - **Pembaruan Senyap di Latar Belakang**: Saat terhubung ke internet, aplikasi secara otomatis memeriksa pembaruan antarmuka dan fitur terbaru langsung dari repositori resmi.
 - **Validasi Integritas Atomic + MD5**: File pembaruan diunduh ke ruang privat aplikasi, divalidasi keutuhannya secara ketat, dan diterapkan mulus tanpa memaksa instalasi ulang APK.
 
-### 3. ⚡ JavaScript Native Bridge Terpadu (`DasborBridge`)
+### 4. ⚡ JavaScript Native Bridge Terpadu (`DasborBridge`)
 - **Sinkronisasi Langsung Bebas Kedip**: Pembaruan saldo dan sisa tugas dikirimkan langsung dari Web Engine ke 3 Widget Native Android secara real-time.
 - **Intent Action Dispatcher**: Menekan tombol di widget Android (seperti *Tambah Pengeluaran*, *Tambah Pemasukan*, *Catat*, atau *Kalkulator*) langsung mengarahkan pengguna ke tab dan formulir yang sesuai secara instan.
-
-### 4. ☁️ Google Cloud Firestore & Skeleton Dasbor Tetap Utuh
-- **Zero Interruption**: Arsitektur offline-first tetap terintegrasi harmonis dengan penyimpanan cloud Firestore saat internet tersedia, menjaga riwayat keuangan multi-perangkat selalu sinkron.
 
 ### 1. 🌊 Gelombang Fluida Saldo 100% Seamless (*Infinite Laminar Flow*)
 - **Formulasi Kurva $C^1$-Continuous**: Gelombang air pada kartu saldo kini menggunakan kurva Bezier kuadratik periodik simetris (`Q ... T ...`) dengan kondisi batas periodik identik pada koordinat Y dan vektor tangen.

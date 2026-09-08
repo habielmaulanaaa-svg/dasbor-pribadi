@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login Google â€¢ Dasbor Pribadi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <style>
+        body {
+            background-color: #0e1621;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #f1f5f9;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .liquid-card {
+            background: rgba(23, 33, 43, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="w-full max-w-sm liquid-card rounded-3xl p-6 shadow-2xl text-center space-y-5">
+        <!-- Logo & Icon -->
+        <div class="relative w-16 h-16 mx-auto flex items-center justify-center">
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-500 blur-lg opacity-60 animate-pulse"></div>
+            <div class="relative w-16 h-16 rounded-2xl bg-[#17212b] border border-white/10 flex items-center justify-center shadow-lg">
+                <i class="fas fa-layer-group text-2xl text-emerald-400"></i>
+            </div>
+        </div>
+
+        <div>
+            <h1 id="status-title" class="text-lg font-black tracking-wide text-white">Dasbor Pribadi</h1>
+            <p id="status-desc" class="text-xs text-slate-400 mt-1">Menghubungkan akun Google Anda secara aman...</p>
+        </div>
+
+        <!-- Spinner & Action Section -->
+        <div id="loading-spinner" class="py-3 flex flex-col items-center justify-center gap-3">
+            <div class="w-8 h-8 border-3 border-emerald-500/20 border-t-emerald-400 rounded-full animate-spin"></div>
+            <span class="text-[11px] font-bold text-slate-400">Memproses otentikasi resmi...</span>
+        </div>
+
+        <!-- Manual Login Button -->
+        <div id="manual-login-container" class="space-y-2 pt-2">
+            <button type="button" id="btn-login-google" onclick="triggerGoogleLogin()" class="w-full py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs flex items-center justify-center gap-2.5 shadow-lg active:scale-95 transition-all">
+                <i class="fab fa-google text-sm text-rose-500"></i>
+                <span>Masuk dengan Google</span>
+            </button>
+            <p class="text-[10px] text-slate-500">Otentikasi aman via Google OAuth resmi</p>
+        </div>
+
+        <!-- Fallback Return Button -->
+        <a id="manual-return-btn" href="#" class="hidden w-full py-2.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all">
+            <i class="fas fa-arrow-left"></i>
+            <span>Buka Aplikasi Dasbor</span>
+        </a>
+
+        <!-- Error box -->
+        <div id="error-box" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs text-left">
+            <div class="font-bold flex items-center gap-1.5"><i class="fas fa-exclamation-circle"></i> Terjadi Kendala</div>
+            <div id="error-message" class="text-[11px] mt-0.5 text-slate-300"></div>
+        </div>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCkJ8pC3l-M30WXlYgmjB8bHLKSFBW7qO8",
+            authDomain: "dasbor-pribadi.firebaseapp.com",
+            projectId: "dasbor-pribadi",
+            storageBucket: "dasbor-pribadi.firebasestorage.app",
+            messagingSenderId: "825790434947",
+            appId: "1:825790434947:web:ba3c9baa459836593655b6",
+            measurementId: "G-24KFC3TZCV"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        let isRedirecting = false;
+
+        function redirectBackToApp(user, idToken) {
+            if (isRedirecting) return;
+            isRedirecting = true;
+
+            document.getElementById('status-title').innerText = "Berhasil Masuk! âœ¨";
+            document.getElementById('status-desc').innerText = "Mengalihkan kembali ke aplikasi Dasbor...";
+            document.getElementById('manual-login-container').classList.add('hidden');
+            document.getElementById('loading-spinner').classList.remove('hidden');
+
+            const callbackUrl = 'dasbor://auth-callback?idToken=' + encodeURIComponent(idToken || '') +
+                '&name=' + encodeURIComponent(user.displayName || 'Pengguna') +
+                '&email=' + encodeURIComponent(user.email || '') +
+                '&photo=' + encodeURIComponent(user.photoURL || '') +
+                '&uid=' + encodeURIComponent(user.uid || '');
+
+            window.location.href = callbackUrl;
+
+            setTimeout(function() {
+                const returnBtn = document.getElementById('manual-return-btn');
+                if (returnBtn) {
+                    returnBtn.href = callbackUrl;
+                    returnBtn.classList.remove('hidden');
+                }
+            }, 1200);
+        }
+
+        function triggerGoogleLogin() {
+            const errBox = document.getElementById('error-box');
+            if (errBox) errBox.classList.add('hidden');
+
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: 'select_account' });
+
+            auth.signInWithPopup(provider)
+                .then(function(result) {
+                    if (result && result.user) {
+                        return result.user.getIdToken().then(function(token) {
+                            redirectBackToApp(result.user, token);
+                        });
+                    }
+                })
+                .catch(function(err) {
+                    console.warn("Popup gagal, mencoba redirect flow:", err);
+                    if (err.code === 'auth/popup-blocked' || err.code === 'auth/cancelled-popup-request') {
+                        auth.signInWithRedirect(provider);
+                    } else if (err.code !== 'auth/popup-closed-by-user') {
+                        showError(err.message || 'Gagal masuk dengan Google.');
+                    }
+                });
+        }
+
+        function showError(msg) {
+            const errBox = document.getElementById('error-box');
+            const errMsg = document.getElementById('error-message');
+            if (errBox && errMsg) {
+                errMsg.innerText = msg;
+                errBox.classList.remove('hidden');
+            }
+        }
+
+        auth.getRedirectResult()
+            .then(function(result) {
+                if (result && result.user) {
+                    return result.user.getIdToken().then(function(token) {
+                        redirectBackToApp(result.user, token);
+                    });
+                }
+                auth.onAuthStateChanged(function(user) {
+                    if (user && !isRedirecting) {
+                        user.getIdToken().then(function(token) {
+                            redirectBackToApp(user, token);
+                        });
+                    } else {
+                        setTimeout(triggerGoogleLogin, 400);
+                    }
+                });
+            })
+            .catch(function(err) {
+                console.warn("getRedirectResult error:", err);
+                showError(err.message);
+            });
+    </script>
+</body>
+</html>

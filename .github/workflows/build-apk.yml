@@ -8,6 +8,7 @@ on:
       - 'android/**'
       - '.github/workflows/build-apk.yml'
       - 'index.html'
+      - 'auth-bridge.html'
   workflow_dispatch:
 
 permissions:
@@ -34,6 +35,7 @@ jobs:
         run: |
           mkdir -p android/app/src/main/assets
           cp index.html android/app/src/main/assets/
+          cp auth-bridge.html android/app/src/main/assets/ || true
           cp manifest.json android/app/src/main/assets/ || true
           cp icon-192.png android/app/src/main/assets/ || true
           cp icon-512.png android/app/src/main/assets/ || true
@@ -85,14 +87,15 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK (Offline-First + OTA) v33.13.OTA"
+          name: "Dasbor Pribadi Standalone APK (Offline-First + Hybrid Auth) v33.14.OTA"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.13.OTA)
-            Aplikasi resmi Android 100% Mandiri (**Offline-First**) tanpa ketergantungan web browser, dilengkapi dengan **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.14.OTA)
+            Aplikasi resmi Android 100% Mandiri (**Offline-First**) tanpa ketergantungan web browser, dilengkapi dengan **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v33.13.OTA
+            - **Versi**: v33.14.OTA
             - **Fitur Utama**:
+              - 🔑 **Hybrid Auth Bridge**: Login Google resmi lancar 100% tanpa kendala "The requested action is invalid".
               - 📱 **100% Standalone APK (Offline-First)**: Dibuka instan tanpa butuh koneksi internet sama sekali.
               - 🚀 **Pembaruan Otomatis (OTA)**: Fitur terbaru diperbarui di latar belakang tanpa harus install APK ulang.
               - ☁️ **Cloud Storage Utuh**: Sinkronisasi Firebase Firestore tetap bekerja 100%.

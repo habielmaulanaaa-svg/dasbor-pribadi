@@ -29,6 +29,8 @@ import android.widget.FrameLayout;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabColorSchemeParams;
+import androidx.browser.customtabs.CustomTabsIntent;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -192,6 +194,10 @@ public class MainActivity extends AppCompatActivity {
                 updateWidgetFromUri(uri);
                 return true;
             }
+            if ("auth-callback".equalsIgnoreCase(host) || "/auth-callback".equals(uri.getPath())) {
+                handleAuthCallbackUri(uri);
+                return true;
+            }
             String action = uri.getQueryParameter("action");
             if (action == null) action = host;
             if (action != null && !action.isEmpty()) {
@@ -252,6 +258,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        if (data != null && ("auth-callback".equals(data.getHost()) || "/auth-callback".equals(data.getPath()))) {
+            handleAuthCallbackUri(data);
+            return;
+        }
+
         String action = null;
         if (intent.hasExtra("action")) {
             action = intent.getStringExtra("action");
@@ -294,6 +305,47 @@ public class MainActivity extends AppCompatActivity {
             String script = String.format("if (typeof handleNativeAction === 'function') { handleNativeAction('%s'); }", action);
             webView.evaluateJavascript(script, null);
         });
+    }
+
+    private void handleAuthCallbackUri(Uri uri) {
+        String idToken = uri.getQueryParameter("idToken");
+        String name = uri.getQueryParameter("name");
+        String email = uri.getQueryParameter("email");
+        String photo = uri.getQueryParameter("photo");
+        String uid = uri.getQueryParameter("uid");
+
+        if (idToken == null) idToken = "";
+        if (name == null) name = "Pengguna";
+        if (email == null) email = "";
+        if (photo == null) photo = "";
+        if (uid == null) uid = "";
+
+        final String finalIdToken = idToken;
+        final String finalName = name;
+        final String finalEmail = email;
+        final String finalPhoto = photo;
+        final String finalUid = uid;
+
+        mainHandler.post(() -> {
+            if (webView == null) return;
+            String script = String.format(
+                    "if (typeof handleAuthBridgeSuccess === 'function') { handleAuthBridgeSuccess('%s', '%s', '%s', '%s', '%s'); }",
+                    escapeJsString(finalIdToken),
+                    escapeJsString(finalName),
+                    escapeJsString(finalEmail),
+                    escapeJsString(finalPhoto),
+                    escapeJsString(finalUid)
+            );
+            webView.evaluateJavascript(script, null);
+        });
+    }
+
+    private String escapeJsString(String input) {
+        if (input == null) return "";
+        return input.replace("\\", "\\\\")
+                    .replace("'", "\\'")
+                    .replace("\n", "\\n")
+                    .replace("\r", "\\r");
     }
 
     // ==========================================
@@ -446,7 +498,7 @@ public class MainActivity extends AppCompatActivity {
 
         @JavascriptInterface
         public String getAppVersion() {
-            return "v33.13.OTA";
+            return "v33.14.OTA";
         }
 
         @JavascriptInterface
@@ -457,6 +509,30 @@ public class MainActivity extends AppCompatActivity {
         @JavascriptInterface
         public void checkOtaUpdate() {
             MainActivity.this.checkForOtaUpdate(true);
+        }
+
+        @JavascriptInterface
+        public void launchGoogleAuth() {
+            mainHandler.post(() -> {
+                String authUrl = "https://habielmaulanaaa-svg.github.io/dasbor-pribadi/auth-bridge.html";
+                try {
+                    CustomTabColorSchemeParams colorParams = new CustomTabColorSchemeParams.Builder()
+                            .setToolbarColor(Color.parseColor("#0e1621"))
+                            .setNavigationBarColor(Color.parseColor("#0e1621"))
+                            .build();
+
+                    CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                            .setDefaultColorSchemeParams(colorParams)
+                            .setShowTitle(true)
+                            .setUrlBarHidingEnabled(true)
+                            .build();
+
+                    customTabsIntent.launchUrl(MainActivity.this, Uri.parse(authUrl));
+                } catch (Exception e) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
+                    startActivity(browserIntent);
+                }
+            });
         }
 
         @JavascriptInterface
