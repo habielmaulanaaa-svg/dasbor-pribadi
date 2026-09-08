@@ -2606,7 +2606,7 @@
 
     <!-- INDIKATOR PULL TO REFRESH (GOOEY DROPLET DRIP MENEMPEL HEADER) -->
     <div id="pull-refresh-indicator" class="h-0 overflow-hidden flex flex-col items-center justify-start shrink-0 relative pointer-events-none select-none z-20">
-        <svg id="pull-droplet-svg" class="overflow-visible" width="90" height="60" viewBox="0 0 90 60">
+        <svg id="pull-droplet-svg" class="overflow-visible" width="90" height="85" viewBox="0 0 90 85">
             <!-- Fluid neck + droplet head -->
             <path id="pull-droplet-path" d="" fill="hsl(var(--theme-h), 83%, 53%)" opacity="0.98"></path>
             <!-- Droplet bubble centered at (0,0) inside translated group -->
@@ -5065,21 +5065,23 @@
                 let touchY = e.touches[0].clientY;
                 let diff = touchY - pullStartY;
                 if (diff > 8 && pullIndicator) {
-                    let h = Math.min(Math.round(diff * 0.45), 58);
+                    let h = Math.min(Math.round(diff * 0.45), 70);
                     pullIndicator.style.height = `${h}px`;
+                    pullIndicator.style.overflow = 'visible';
 
                     let pullPath = document.getElementById('pull-droplet-path');
                     let pullBubble = document.getElementById('pull-droplet-bubble');
                     let pullRipple = document.getElementById('pull-droplet-ripple');
                     let iconBox = document.getElementById('pull-icon-container');
 
-                    let cy = Math.max(18, h - 8);
-                    let baseW = Math.max(22, 44 - (h * 0.32));
-                    let neckW = Math.max(6, 17 - (h * 0.2));
-                    let neckY = Math.max(6, cy * 0.46);
+                    // Posisi cy memastikan seluruh bulatan (radius 14) berada 100% penuh di atas batas bawah
+                    let cy = Math.max(16, h - 16);
+                    let baseW = Math.max(22, 44 - (h * 0.28));
+                    let neckW = Math.max(6, 17 - (h * 0.18));
+                    let neckY = Math.max(6, cy * 0.44);
 
                     if (pullPath) {
-                        pullPath.setAttribute('d', `M ${45 - baseW},-2 C ${45 - baseW * 0.55},0 ${45 - neckW},${neckY * 0.35} ${45 - neckW},${neckY} C ${45 - neckW},${neckY + (cy - neckY) * 0.5} ${45 - 13},${cy - 6} ${45 - 13},${cy} A 13 13 0 1 0 ${45 + 13},${cy} C ${45 + 13},${cy - 6} ${45 + neckW},${neckY + (cy - neckY) * 0.5} ${45 + neckW},${neckY} C ${45 + neckW},${neckY * 0.35} ${45 + baseW * 0.55},0 ${45 + baseW},-2 Z`);
+                        pullPath.setAttribute('d', `M ${45 - baseW},-2 C ${45 - baseW * 0.55},0 ${45 - neckW},${neckY * 0.35} ${45 - neckW},${neckY} C ${45 - neckW},${neckY + (cy - neckY) * 0.5} ${45 - 14},${cy - 6} ${45 - 14},${cy} A 14 14 0 1 0 ${45 + 14},${cy} C ${45 + 14},${cy - 6} ${45 + neckW},${neckY + (cy - neckY) * 0.5} ${45 + neckW},${neckY} C ${45 + neckW},${neckY * 0.35} ${45 + baseW * 0.55},0 ${45 + baseW},-2 Z`);
                     }
                     let bubbleWrap = document.getElementById('pull-droplet-bubble-wrap');
                     let rippleWrap = document.getElementById('pull-droplet-ripple-wrap');
@@ -5092,7 +5094,7 @@
                     if (iconBox) {
                         iconBox.style.top = `${cy - 14}px`;
                     }
-                    if (h >= 40 && pullIcon) {
+                    if (h >= 45 && pullIcon) {
                         pullIcon.style.transform = 'rotate(180deg)';
                     } else if (pullIcon) {
                         pullIcon.style.transform = 'rotate(0deg)';
@@ -5110,7 +5112,7 @@
                     let pullBubble = document.getElementById('pull-droplet-bubble');
                     let pullRipple = document.getElementById('pull-droplet-ripple');
 
-                    if (currentH >= 40) {
+                    if (currentH >= 45) {
                         if (pullIcon) pullIcon.className = 'fas fa-spinner fa-spin text-[11px]';
                         if (pullRipple) {
                             pullRipple.classList.remove('animate-droplet-ripple');
@@ -5130,6 +5132,9 @@
                             showDynamicGreeting();
                             triggerDynamicIsland("Dasbor", "Data telah disegarkan 🔄", "fas fa-sync-alt", "bg-emerald-500/20 text-emerald-400");
                             pullIndicator.style.height = '0px';
+                            setTimeout(() => {
+                                if (pullIndicator) pullIndicator.style.overflow = 'hidden';
+                            }, 280);
                             if (pullBubble) {
                                 pullBubble.classList.remove('animate-droplet-snap');
                             }
@@ -5141,6 +5146,9 @@
                         }, 450);
                     } else {
                         pullIndicator.style.height = '0px';
+                        setTimeout(() => {
+                            if (pullIndicator) pullIndicator.style.overflow = 'hidden';
+                        }, 280);
                         if (pullPath) pullPath.setAttribute('d', '');
                         if (pullIcon) {
                             pullIcon.style.transform = 'rotate(0deg)';
