@@ -101,42 +101,16 @@
             pointer-events: none;
         }
 
-        /* OPTIMIZED GPU-ACCELERATED GLASSMORPHISM (120FPS) */
-        body.glass-mode .widget-card,
-        body.glass-mode .jurnal-card,
-        body.glass-mode .bottom-sheet-content {
-            background: rgba(255, 255, 255, 0.84) !important;
-            backdrop-filter: blur(8px) !important;
-            -webkit-backdrop-filter: blur(8px) !important;
-            border-color: rgba(255, 255, 255, 0.75) !important;
-            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05) !important;
-        }
-        .dark body.glass-mode .widget-card,
-        .dark body.glass-mode .jurnal-card,
-        .dark body.glass-mode .bottom-sheet-content {
-            background: rgba(23, 33, 43, 0.84) !important;
-            backdrop-filter: blur(8px) !important;
-            -webkit-backdrop-filter: blur(8px) !important;
-            border-color: rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.35) !important;
-        }
-        
-        body.glass-mode aside {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            border-right: 1px solid rgba(255, 255, 255, 0.5) !important;
-        }
-        .dark body.glass-mode aside {
-            background: rgba(23, 33, 43, 0.95) !important;
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+        /* 120FPS GPU HARDWARE-ACCELERATED SMOOTH SCROLLING */
+        #main-container {
+            -webkit-overflow-scrolling: touch !important;
+            overscroll-behavior-y: contain;
+            transform: translateZ(0);
+            will-change: scroll-position;
         }
 
-        /* SOLID MODE KHUSUS: KALKULATOR & RENCANA IMPIAN (BEBAS BLUR/AKRILIK) */
-        #kalkulator-keuangan-modal .bottom-sheet-content,
-        body.glass-mode #kalkulator-keuangan-modal .bottom-sheet-content {
+        /* SOLID MODE: KALKULATOR & RENCANA IMPIAN */
+        #kalkulator-keuangan-modal .bottom-sheet-content {
             background: #ffffff !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
@@ -144,25 +118,13 @@
             box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.12) !important;
             opacity: 1 !important;
         }
-        .dark #kalkulator-keuangan-modal .bottom-sheet-content,
-        .dark body.glass-mode #kalkulator-keuangan-modal .bottom-sheet-content {
+        .dark #kalkulator-keuangan-modal .bottom-sheet-content {
             background: #17212b !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
             border-color: #313f52 !important;
             box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5) !important;
             opacity: 1 !important;
-        }
-
-        body.glass-mode .swipe-item {
-            background: rgba(255, 255, 255, 0.92) !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-        }
-        .dark body.glass-mode .swipe-item {
-            background: rgba(23, 33, 43, 0.92) !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
         }
 
         /* INPUT STYLING */
@@ -670,20 +632,6 @@
             outline: none !important;
         }
 
-        body.glass-mode #bottom-nav-dock,
-        body.glass-mode #fab-quick-add {
-            background-color: rgba(255, 255, 255, 0.60) !important;
-            backdrop-filter: blur(24px) saturate(200%) !important;
-            -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
-            outline: none !important;
-        }
-        .dark body.glass-mode #bottom-nav-dock,
-        .dark body.glass-mode #fab-quick-add {
-            background-color: rgba(23, 33, 43, 0.65) !important;
-            backdrop-filter: blur(24px) saturate(200%) !important;
-            -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
-            outline: none !important;
-        }
 
         /* 2d. ANIMASI HALUS SUB-BAR WAKTU & TANGGAL TUGAS */
         #container-input-waktu-tugas {
@@ -1629,16 +1577,6 @@
                                 </button>
                             </div>
 
-                            <!-- 4. Toggle Mode Kaca Akrilik -->
-                            <div onclick="toggleGlassMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
-                                <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
-                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-cube text-primary-500 text-[10px]"></i> Kaca Akrilik</span>
-                                    <span class="text-[8.5px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1 mt-0.5 leading-tight"><i class="fas fa-bolt text-[7px]"></i> Khusus HP Cepat</span>
-                                </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleGlassMode()" id="btn-toggle-glass" class="fluid-switch-btn no-bounce focus:outline-none shrink-0" aria-label="Toggle Kaca Akrilik">
-                                    <div id="glass-switch-knob" class="fluid-switch-knob"></div>
-                                </button>
-                            </div>
 
                             <!-- 5. Toggle Tema Otomatis Mengikuti Waktu -->
                             <div onclick="toggleAutoThemeMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
@@ -3437,7 +3375,6 @@
             saldo: 0, 
             isPrivacyMode: false,
             compactMode: false,
-            glassMode: false,
             autoThemeMode: false,
             cardGradient: true,
             hapticFeedback: true,
@@ -3623,7 +3560,6 @@
             if (dataState.cardGradient !== false) count++;
             if (dataState.fluidWaveCard !== false) count++;
             if (dataState.compactMode) count++;
-            if (dataState.glassMode) count++;
             if (dataState.autoThemeMode) count++;
             var badge = document.getElementById('active-toggle-count-badge');
             if (badge) badge.innerText = `${count} Aktif`;
@@ -3762,16 +3698,6 @@
             triggerDynamicIsland("Tampilan", dataState.compactMode ? "Mode Ramping Aktif 🎛️" : "Mode Santai Aktif", "fas fa-compress-alt", "bg-primary-500/20 text-primary-400");
         }
 
-        function toggleGlassMode() {
-            dataState.glassMode = !dataState.glassMode;
-            document.body.classList.toggle('glass-mode', dataState.glassMode);
-            var knobG = document.getElementById('glass-switch-knob');
-            var btnG = document.getElementById('btn-toggle-glass');
-            setSwitchVisual(btnG, knobG, dataState.glassMode, true);
-            updateActiveToggleCount();
-            simpanData();
-            triggerDynamicIsland("Gaya Kartu", dataState.glassMode ? "Kaca Akrilik Aktif 🪟" : "Mode Solid Aktif", "fas fa-cube", "bg-purple-500/20 text-purple-400");
-        }
 
         // HELPER ZONA WAKTU INDONESIA BARAT (WIB / ASIA/JAKARTA / UTC+7)
         function getWibDate(d) {
@@ -7894,7 +7820,6 @@
                         saldo: 0, 
                         isPrivacyMode: false, 
                         compactMode: false, 
-                        glassMode: false, 
                         autoThemeMode: false, 
                         cardGradient: true, 
                         hiddenWidgets: [], 
@@ -8008,7 +7933,6 @@
             if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
             if(dataState.isPrivacyMode === undefined) dataState.isPrivacyMode = false;
             if(dataState.compactMode === undefined) dataState.compactMode = false;
-            if(dataState.glassMode === undefined) dataState.glassMode = false;
             if(dataState.autoThemeMode === undefined) dataState.autoThemeMode = false;
             if(dataState.cardGradient === undefined) dataState.cardGradient = true;
             if(dataState.optTugasWaktuDibuat === undefined) dataState.optTugasWaktuDibuat = true;
@@ -8019,10 +7943,7 @@
             if (dataState.compactMode) {
                 document.body.classList.add('compact-mode');
             }
-
-            if (dataState.glassMode) {
-                document.body.classList.add('glass-mode');
-            }
+            document.body.classList.remove('glass-mode');
 
             if (dataState.autoThemeMode) {
                 applyAutoThemeClock();
@@ -8033,10 +7954,6 @@
             var knobC = document.getElementById('compact-switch-knob');
             var btnC = document.getElementById('btn-toggle-compact');
             setSwitchVisual(btnC, knobC, dataState.compactMode, false);
-
-            var knobG = document.getElementById('glass-switch-knob');
-            var btnG = document.getElementById('btn-toggle-glass');
-            setSwitchVisual(btnG, knobG, dataState.glassMode, false);
 
             var knobA = document.getElementById('autotheme-switch-knob');
             var btnA = document.getElementById('btn-toggle-autotheme');
@@ -8562,8 +8479,7 @@
                             if (dataState.compactMode) document.body.classList.add('compact-mode');
                             else document.body.classList.remove('compact-mode');
 
-                            if (dataState.glassMode) document.body.classList.add('glass-mode');
-                            else document.body.classList.remove('glass-mode');
+                            document.body.classList.remove('glass-mode');
 
                             applyCardGradientVisual();
                             applyFluidWaveVisual(false);

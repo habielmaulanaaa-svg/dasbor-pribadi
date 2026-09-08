@@ -109,8 +109,10 @@ public class MainActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
         webView.setBackgroundColor(Color.parseColor("#0e1621"));
-        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        webView.setLayerType(View.LAYER_TYPE_NONE, null);
         webView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        webView.setVerticalScrollBarEnabled(false);
+        webView.setHorizontalScrollBarEnabled(false);
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -123,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setTextZoom(100);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            settings.setOffscreenPreRaster(true);
+        }
 
         webView.addJavascriptInterface(new DasborBridge(), "DasborBridge");
 
