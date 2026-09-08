@@ -742,6 +742,12 @@
         #pull-refresh-indicator {
             will-change: height;
         }
+        #pull-droplet-svg {
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.14));
+        }
+        .dark #pull-droplet-svg {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+        }
         .animate-droplet-snap {
             animation: dropletSnapPulse 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.3) forwards;
         }
@@ -761,7 +767,7 @@
                 opacity: 0.9;
             }
             100% {
-                r: 26;
+                r: 28;
                 stroke-width: 0.5;
                 opacity: 0;
             }
@@ -1387,6 +1393,11 @@
         </div>
 
         <nav class="flex-1 p-4 space-y-2.5 overflow-y-auto">
+            <!-- 0. Beranda Dasbor Utama -->
+            <button type="button" onclick="toggleSidebar(); switchTab('beranda');" class="w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-primary-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
+                <div class="w-9 h-9 rounded-xl bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-500 shadow-inner"><i class="fas fa-home text-sm"></i></div>
+                Beranda Dasbor Utama
+            </button>
             <!-- 1. Kilas Balik Tahunan -->
             <button type="button" onclick="openYearlyWrapped()" class="w-full flex items-center gap-3.5 px-4 py-3 bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 text-amber-700 dark:text-amber-300 rounded-2xl font-bold border border-amber-200 dark:border-amber-800/40 shadow-sm text-sm transition-colors">
                 <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-500 shadow-inner"><i class="fas fa-trophy text-sm"></i></div>
@@ -2466,7 +2477,8 @@
     <!-- HEADER ATAS BERSIH -->
     <header id="app-header" class="bg-primary-600 text-white p-4 shadow-md z-30 flex justify-between items-center shrink-0 sticky top-0">
         <div class="flex items-center gap-3">
-            <button type="button" onclick="toggleSidebar()" class="text-white hover:text-primary-200 text-xl focus:outline-none"><i class="fas fa-bars"></i></button>
+            <button id="header-bars-btn" type="button" onclick="toggleSidebar()" class="text-white hover:text-primary-200 text-xl focus:outline-none"><i class="fas fa-bars"></i></button>
+            <button id="header-back-btn" type="button" onclick="switchTab('beranda')" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none" title="Kembali ke Beranda"><i class="fas fa-arrow-left"></i></button>
             <h1 id="header-title" class="text-xl font-bold tracking-wide transition-opacity duration-300">Dasbor</h1>
         </div>
         <div class="flex items-center gap-2">
@@ -2480,22 +2492,22 @@
         </div>
     </header>
 
+    <!-- INDIKATOR PULL TO REFRESH (GOOEY DROPLET DRIP MENEMPEL HEADER) -->
+    <div id="pull-refresh-indicator" class="h-0 overflow-hidden flex flex-col items-center justify-start shrink-0 relative pointer-events-none select-none z-20">
+        <svg id="pull-droplet-svg" class="overflow-visible" width="90" height="60" viewBox="0 0 90 60">
+            <!-- Fluid neck + droplet head -->
+            <path id="pull-droplet-path" d="" fill="hsl(var(--theme-h), 83%, 53%)" opacity="0.98"></path>
+            <circle id="pull-droplet-bubble" cx="45" cy="18" r="14" fill="hsl(var(--theme-h), 83%, 53%)" class="transition-transform duration-100"></circle>
+            <!-- Detachment ripple ring -->
+            <circle id="pull-droplet-ripple" cx="45" cy="18" r="0" fill="none" stroke="hsl(var(--theme-h), 83%, 53%)" stroke-width="2" opacity="0"></circle>
+        </svg>
+        <div id="pull-icon-container" class="absolute top-1.5 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs z-10">
+            <i id="pull-icon" class="fas fa-arrow-down transform transition-transform duration-200 text-[11px]"></i>
+        </div>
+    </div>
+
     <!-- KONTEN UTAMA -->
     <main id="main-container" class="flex-1 overflow-y-auto p-4 pb-28 relative z-0">
-        
-        <!-- INDIKATOR PULL TO REFRESH (GOOEY DROPLET DRIP) -->
-        <div id="pull-refresh-indicator" class="h-0 overflow-hidden flex flex-col items-center justify-start transition-all duration-200 -mt-1 mb-1 relative pointer-events-none select-none">
-            <svg id="pull-droplet-svg" class="overflow-visible" width="70" height="52" viewBox="0 0 70 52">
-                <!-- Fluid neck + droplet head -->
-                <path id="pull-droplet-path" d="" fill="hsl(var(--theme-h), 83%, 53%)" opacity="0.95"></path>
-                <circle id="pull-droplet-bubble" cx="35" cy="16" r="14" fill="hsl(var(--theme-h), 83%, 53%)" class="transition-transform duration-100"></circle>
-                <!-- Detachment ripple ring -->
-                <circle id="pull-droplet-ripple" cx="35" cy="16" r="0" fill="none" stroke="hsl(var(--theme-h), 83%, 53%)" stroke-width="2" opacity="0"></circle>
-            </svg>
-            <div id="pull-icon-container" class="absolute top-1.5 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs z-10">
-                <i id="pull-icon" class="fas fa-arrow-down transform transition-transform duration-200 text-[11px]"></i>
-            </div>
-        </div>
 
         <!-- PANEL: BERANDA -->
         <div id="beranda" class="tab-content active">
@@ -2964,6 +2976,9 @@
         <div id="jurnal" class="tab-content">
             <div class="flex justify-between items-center mb-4">
                 <div class="flex items-center gap-2">
+                    <button type="button" onclick="switchTab('beranda')" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#313f52] active:scale-95 flex items-center justify-center text-xs shadow-xs mr-0.5 transition-all" title="Kembali ke Beranda">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
                     <span class="w-2 h-6 bg-primary-500 rounded-full"></span>
                     <h2 class="text-2xl font-bold dark:text-white">Jurnal Harian</h2>
                 </div>
@@ -4885,7 +4900,7 @@
                 let maxScroll = mainContainer.scrollHeight - mainContainer.clientHeight;
                 let st = Math.max(0, Math.min(rawSt, maxScroll > 0 ? maxScroll : 0));
 
-                if (floatingDock) {
+                if (floatingDock && !floatingDock.classList.contains('hidden')) {
                     if (st > lastScrollTop + 14 && st > 60) {
                         // Scroll ke bawah: Seluruh Dok Navigasi + FAB menyelam ke bawah & bersembunyi
                         if (!isDockSubmerged) {
@@ -4910,6 +4925,7 @@
                 if (mainContainer.scrollTop <= 0) {
                     pullStartY = e.touches[0].clientY;
                     isPulling = true;
+                    if (pullIndicator) pullIndicator.style.transition = 'none';
                 }
             }, { passive: true });
 
@@ -4918,26 +4934,34 @@
                 let touchY = e.touches[0].clientY;
                 let diff = touchY - pullStartY;
                 if (diff > 8 && pullIndicator) {
-                    let h = Math.min(Math.round(diff * 0.45), 52);
+                    let h = Math.min(Math.round(diff * 0.45), 58);
                     pullIndicator.style.height = `${h}px`;
 
                     let pullPath = document.getElementById('pull-droplet-path');
                     let pullBubble = document.getElementById('pull-droplet-bubble');
+                    let pullRipple = document.getElementById('pull-droplet-ripple');
                     let iconBox = document.getElementById('pull-icon-container');
 
-                    let cy = Math.max(16, h - 8);
-                    let neckW = Math.max(10, 36 - (h * 0.5));
+                    let cy = Math.max(18, h - 8);
+                    let baseW = Math.max(22, 44 - (h * 0.32));
+                    let neckW = Math.max(6, 17 - (h * 0.2));
+                    let neckY = Math.max(6, cy * 0.46);
 
                     if (pullPath) {
-                        pullPath.setAttribute('d', `M ${35 - neckW/2},0 Q 35,${cy * 0.45} ${35 - 13},${cy} A 13 13 0 1 0 ${35 + 13},${cy} Q 35,${cy * 0.45} ${35 + neckW/2},0 Z`);
+                        pullPath.setAttribute('d', `M ${45 - baseW},-2 C ${45 - baseW * 0.55},0 ${45 - neckW},${neckY * 0.35} ${45 - neckW},${neckY} C ${45 - neckW},${neckY + (cy - neckY) * 0.5} ${45 - 13},${cy - 6} ${45 - 13},${cy} A 13 13 0 1 0 ${45 + 13},${cy} C ${45 + 13},${cy - 6} ${45 + neckW},${neckY + (cy - neckY) * 0.5} ${45 + neckW},${neckY} C ${45 + neckW},${neckY * 0.35} ${45 + baseW * 0.55},0 ${45 + baseW},-2 Z`);
                     }
                     if (pullBubble) {
+                        pullBubble.setAttribute('cx', 45);
                         pullBubble.setAttribute('cy', cy);
+                    }
+                    if (pullRipple) {
+                        pullRipple.setAttribute('cx', 45);
+                        pullRipple.setAttribute('cy', cy);
                     }
                     if (iconBox) {
                         iconBox.style.top = `${cy - 14}px`;
                     }
-                    if (h >= 36 && pullIcon) {
+                    if (h >= 40 && pullIcon) {
                         pullIcon.style.transform = 'rotate(180deg)';
                     } else if (pullIcon) {
                         pullIcon.style.transform = 'rotate(0deg)';
@@ -4949,12 +4973,13 @@
                 if (!isPulling) return;
                 isPulling = false;
                 if (pullIndicator) {
+                    pullIndicator.style.transition = 'height 0.25s cubic-bezier(0.2, 0.9, 0.3, 1)';
                     let currentH = parseInt(pullIndicator.style.height) || 0;
                     let pullPath = document.getElementById('pull-droplet-path');
                     let pullBubble = document.getElementById('pull-droplet-bubble');
                     let pullRipple = document.getElementById('pull-droplet-ripple');
 
-                    if (currentH >= 36) {
+                    if (currentH >= 40) {
                         if (pullIcon) pullIcon.className = 'fas fa-spinner fa-spin text-[11px]';
                         if (pullRipple) {
                             pullRipple.classList.remove('animate-droplet-ripple');
@@ -4984,6 +5009,9 @@
                     } else {
                         pullIndicator.style.height = '0px';
                         if (pullPath) pullPath.setAttribute('d', '');
+                        if (pullIcon) {
+                            pullIcon.style.transform = 'rotate(0deg)';
+                        }
                     }
                 }
                 pullStartY = 0;
@@ -5098,7 +5126,15 @@
             h.innerText = u ? `${g}, ${u}` : g;
             setTimeout(() => {
                 h.classList.add('opacity-0');
-                setTimeout(() => { h.innerText = "Dasbor"; h.classList.remove('opacity-0'); }, 350); 
+                setTimeout(() => { 
+                    var activeTab = document.querySelector('.tab-content.active');
+                    if (activeTab && activeTab.id === 'jurnal') {
+                        h.innerText = "Jurnal Harian";
+                    } else {
+                        h.innerText = "Dasbor";
+                    }
+                    h.classList.remove('opacity-0'); 
+                }, 350); 
             }, 3200); 
         }
 
@@ -5321,26 +5357,49 @@
             var target = document.getElementById(tabId);
             if(target) target.classList.add('active');
             
-            var tabKeys = ['beranda', 'tugas', 'keuangan'];
-            for (var j = 0; j < tabKeys.length; j++) {
-                var key = tabKeys[j];
-                var btn = document.getElementById('nav-' + key);
-                if(!btn) continue;
-                var icon = btn.querySelector('.nav-icon');
-                if(key === tabId) {
-                    btn.className = 'nav-item relative z-10 flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs text-white tab-spring-active';
-                    if(icon) icon.classList.remove('hidden');
-                } else {
-                    btn.className = 'nav-item relative z-10 flex items-center gap-1.5 px-3.5 py-2 rounded-full font-bold text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white';
-                    if(icon) icon.classList.add('hidden');
+            var floatingDock = document.getElementById('floating-dock-container');
+            var backBtn = document.getElementById('header-back-btn');
+            var barsBtn = document.getElementById('header-bars-btn');
+            var hTitle = document.getElementById('header-title');
+
+            if (tabId === 'jurnal') {
+                if (typeof closeFabSpeedDial === 'function' && isFabOpen) {
+                    closeFabSpeedDial();
                 }
-            }
+                if (floatingDock) {
+                    floatingDock.classList.add('hidden');
+                }
+                if (backBtn) backBtn.classList.remove('hidden');
+                if (barsBtn) barsBtn.classList.add('hidden');
+                if (hTitle) hTitle.innerText = "Jurnal Harian";
+            } else {
+                if (floatingDock) {
+                    floatingDock.classList.remove('hidden');
+                    if (isDockSubmerged) {
+                        isDockSubmerged = false;
+                        floatingDock.classList.remove('dock-buoy-submerged');
+                    }
+                }
+                if (backBtn) backBtn.classList.add('hidden');
+                if (barsBtn) barsBtn.classList.remove('hidden');
+                if (hTitle) hTitle.innerText = "Dasbor";
 
-            updateMercuryPill(tabId, true);
+                var tabKeys = ['beranda', 'tugas', 'keuangan'];
+                for (var j = 0; j < tabKeys.length; j++) {
+                    var key = tabKeys[j];
+                    var btn = document.getElementById('nav-' + key);
+                    if(!btn) continue;
+                    var icon = btn.querySelector('.nav-icon');
+                    if(key === tabId) {
+                        btn.className = 'nav-item relative z-10 flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs text-white tab-spring-active';
+                        if(icon) icon.classList.remove('hidden');
+                    } else {
+                        btn.className = 'nav-item relative z-10 flex items-center gap-1.5 px-3.5 py-2 rounded-full font-bold text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white';
+                        if(icon) icon.classList.add('hidden');
+                    }
+                }
 
-            if (isDockSubmerged && floatingDock) {
-                isDockSubmerged = false;
-                floatingDock.classList.remove('dock-buoy-submerged');
+                updateMercuryPill(tabId, true);
             }
 
             var taskInput = document.getElementById('tugas-input-area');
