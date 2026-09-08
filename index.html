@@ -745,6 +745,10 @@
         #pull-droplet-svg {
             filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.14));
         }
+        #pull-droplet-bubble {
+            transform-box: fill-box;
+            transform-origin: center;
+        }
         .dark #pull-droplet-svg {
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
         }
@@ -1393,11 +1397,6 @@
         </div>
 
         <nav class="flex-1 p-4 space-y-2.5 overflow-y-auto">
-            <!-- 0. Beranda Dasbor Utama -->
-            <button type="button" onclick="toggleSidebar(); switchTab('beranda');" class="w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-primary-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
-                <div class="w-9 h-9 rounded-xl bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-500 shadow-inner"><i class="fas fa-home text-sm"></i></div>
-                Beranda Dasbor Utama
-            </button>
             <!-- 1. Kilas Balik Tahunan -->
             <button type="button" onclick="openYearlyWrapped()" class="w-full flex items-center gap-3.5 px-4 py-3 bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 text-amber-700 dark:text-amber-300 rounded-2xl font-bold border border-amber-200 dark:border-amber-800/40 shadow-sm text-sm transition-colors">
                 <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-500 shadow-inner"><i class="fas fa-trophy text-sm"></i></div>
@@ -2976,9 +2975,6 @@
         <div id="jurnal" class="tab-content">
             <div class="flex justify-between items-center mb-4">
                 <div class="flex items-center gap-2">
-                    <button type="button" onclick="switchTab('beranda')" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#313f52] active:scale-95 flex items-center justify-center text-xs shadow-xs mr-0.5 transition-all" title="Kembali ke Beranda">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
                     <span class="w-2 h-6 bg-primary-500 rounded-full"></span>
                     <h2 class="text-2xl font-bold dark:text-white">Jurnal Harian</h2>
                 </div>
@@ -4990,6 +4986,8 @@
                             pullPath.setAttribute('d', '');
                         }
                         if (pullBubble) {
+                            let cy = Math.max(18, currentH - 8);
+                            pullBubble.style.transformOrigin = `45px ${cy}px`;
                             pullBubble.classList.add('animate-droplet-snap');
                         }
 
@@ -4999,7 +4997,10 @@
                             showDynamicGreeting();
                             triggerDynamicIsland("Dasbor", "Data telah disegarkan 🔄", "fas fa-sync-alt", "bg-emerald-500/20 text-emerald-400");
                             pullIndicator.style.height = '0px';
-                            if (pullBubble) pullBubble.classList.remove('animate-droplet-snap');
+                            if (pullBubble) {
+                                pullBubble.classList.remove('animate-droplet-snap');
+                                pullBubble.style.transformOrigin = '';
+                            }
                             if (pullRipple) pullRipple.classList.remove('animate-droplet-ripple');
                             if (pullIcon) {
                                 pullIcon.className = 'fas fa-arrow-down transform transition-transform duration-200 text-[11px]';
