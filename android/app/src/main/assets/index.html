@@ -1596,7 +1596,7 @@
                             <i class="fas fa-info-circle text-primary-500"></i> Catatan Rilis
                         </button>
                         <button type="button" onclick="forceCheckAppUpdate()" class="text-left px-2.5 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/50 rounded-xl text-[10px] font-bold transition-colors flex items-center gap-1.5 border border-primary-200 dark:border-primary-800">
-                            <i class="fas fa-sync-alt text-primary-500" id="icon-check-update"></i> Cek Update
+                            <i class="fas fa-sync-alt text-primary-500" id="icon-check-update"></i> Cek Pembaruan
                         </button>
                     </div>
                     
@@ -1658,19 +1658,14 @@
                             </div>
                         </button>
                         <div id="android-banner-content" class="accordion-content">
-                            <div class="px-2.5 pb-2.5 flex flex-col gap-2">
-                                <div id="android-download-group" class="flex gap-1.5 pt-2 border-t border-emerald-500/20 dark:border-emerald-500/30">
+                            <div class="px-2.5 pb-2.5 pt-2 border-t border-emerald-500/20 dark:border-emerald-500/30 flex flex-col gap-2">
+                                <div id="android-download-group" class="flex gap-1.5">
                                     <a href="./dasbor-pribadi.apk" download="dasbor-pribadi.apk" class="flex-1 py-1.5 px-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-[10px] font-bold text-center shadow-xs transition-all flex items-center justify-center gap-1.5">
                                         <i class="fas fa-download"></i> Unduh File APK
                                     </a>
                                     <a href="https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases" target="_blank" rel="noopener noreferrer" title="Buka Halaman Rilis GitHub" class="px-2.5 py-1.5 bg-slate-200 dark:bg-[#313f52] text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-[#3d4d63] rounded-xl text-[10px] font-bold transition-all flex items-center justify-center">
                                         <i class="fab fa-github"></i>
                                     </a>
-                                </div>
-                                <div id="android-ota-group" class="hidden flex flex-col gap-1.5 pt-2 border-t border-emerald-500/20 dark:border-emerald-500/30">
-                                    <button type="button" onclick="checkOtaUpdateNow()" class="w-full py-1.5 px-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-xl text-[10px] font-bold text-center shadow-xs transition-all flex items-center justify-center gap-1.5">
-                                        <i class="fas fa-cloud-arrow-down"></i> Periksa Pembaruan OTA
-                                    </button>
                                 </div>
                                 <button type="button" onclick="syncSaldoToNativeWidget(true)" class="w-full py-1.5 px-2 bg-white/80 dark:bg-[#1e293b]/80 hover:bg-white dark:hover:bg-[#1e293b] text-slate-700 dark:text-slate-200 rounded-xl text-[10px] font-bold text-center transition-all flex items-center justify-center gap-1.5 border border-emerald-500/20 dark:border-emerald-500/30">
                                     <i class="fas fa-sync-alt text-emerald-500"></i> Sinkronkan Saldo ke Widget
@@ -1749,6 +1744,13 @@
                             <div>
                                 <span class="font-bold text-slate-800 dark:text-white">Cloud Firestore &amp; Skeleton Dasbor Utuh:</span>
                                 <p class="text-slate-600 dark:text-slate-400 mt-0.5">Sinkronisasi cloud Google, login multi-akun, dan kerangka loading adaptif dasbor tetap berfungsi penuh dengan stabilitas maksimal.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-purple-100 dark:border-purple-900/40">
+                            <i class="fas fa-sync-alt text-purple-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Tombol Pembaruan Pintar Terpadu:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Pemeriksaan pembaruan disatukan menjadi satu tombol adaptif di samping Catatan Rilis: otomatis memicu pembaruan OTA instan jika di APK Mandiri, atau menyegarkan cache Service Worker jika di Web PWA.</p>
                             </div>
                         </div>
                     </div>
@@ -3273,12 +3275,23 @@
             });
         }
 
-        // FUNGSI CEK & PAKSA PEMBARUAN (FORCE UPDATE BUTTON)
+        // FUNGSI CEK & PAKSA PEMBARUAN PINTAR (SMART UPDATE ADAPTIF: APK MANDIRI / WEB PWA)
         async function forceCheckAppUpdate() {
-            triggerHaptic('light');
+            triggerHaptic('medium');
             var icon = document.getElementById('icon-check-update');
             if (icon) icon.classList.add('fa-spin');
-            triggerDynamicIsland("Pembaruan OTA", "Memeriksa versi terbaru...", "fas fa-sync-alt", "bg-primary-500/20 text-primary-400");
+            
+            // 1. Jika berjalan di APK Mandiri Native (Jembatan Bridge Aktif)
+            if (window.DasborBridge && typeof window.DasborBridge.checkOtaUpdate === 'function') {
+                window.DasborBridge.checkOtaUpdate();
+                setTimeout(function() {
+                    if (icon) icon.classList.remove('fa-spin');
+                }, 1500);
+                return;
+            }
+
+            // 2. Jika berjalan di Web Browser / PWA Service Worker
+            triggerDynamicIsland("Pembaruan PWA", "Memeriksa versi web terbaru...", "fas fa-sync-alt", "bg-primary-500/20 text-primary-400");
             
             try {
                 if ('serviceWorker' in navigator) {
@@ -8587,12 +8600,7 @@
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
-            triggerHaptic('medium');
-            if (window.DasborBridge && typeof window.DasborBridge.checkOtaUpdate === 'function') {
-                window.DasborBridge.checkOtaUpdate();
-            } else {
-                triggerDynamicIsland("Pembaruan", "Berjalan di browser web (OTA aktif di APK)", "fas fa-info-circle", "bg-primary-500/20 text-primary-400");
-            }
+            forceCheckAppUpdate();
         }
 
         function checkOtaVersionNotification() {
@@ -8610,11 +8618,9 @@
 
             // Adaptasi banner saat berjalan di APK Mandiri
             if (isApk) {
-                var otaGroup = document.getElementById('android-ota-group');
                 var downloadGroup = document.getElementById('android-download-group');
                 var bannerTitle = document.getElementById('android-banner-title');
                 var bannerDesc = document.getElementById('android-banner-desc');
-                if (otaGroup) otaGroup.classList.remove('hidden');
                 if (downloadGroup) downloadGroup.classList.add('hidden');
                 if (bannerTitle) bannerTitle.innerText = 'APK Mandiri & Widget';
                 if (bannerDesc) bannerDesc.innerText = '100% Offline-First + OTA Aktif';
