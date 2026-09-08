@@ -1028,21 +1028,58 @@
             box-shadow: 0 0 5px rgba(0,0,0,0.3); cursor: pointer;
         }
 
-        /* MOOD SELECTOR PRESISI */
+        /* MOOD SELECTOR PRESISI DENGAN DEFORMASI FLUIDA APPLE iOS (NO BUBBLES) */
         .mood-btn { 
-            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1); 
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.25s ease, 
+                        box-shadow 0.3s ease; 
             border: 1.5px solid transparent; 
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            will-change: transform;
+        }
+        .mood-btn:active { 
+            transform: scale(0.88, 1.14); 
         }
         .mood-btn.selected { 
-            transform: scale(1.05); 
+            transform: scale(1.06); 
             background-color: #ffffff; 
             border-color: hsl(var(--theme-h), 83%, 53%); 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+            box-shadow: 0 4px 14px rgba(0,0,0,0.09); 
         }
         .dark .mood-btn.selected { 
             background-color: #242f3d; 
             border-color: hsl(var(--theme-h), 83%, 53%); 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3); 
+            box-shadow: 0 4px 16px rgba(0,0,0,0.32); 
+        }
+        /* Gelombang Permukaan Fluida Halus saat Dipilih (Fluid Surface Ripple - NO BUBBLES) */
+        .mood-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle, hsla(var(--theme-h), 83%, 53%, 0.24) 0%, transparent 72%);
+            opacity: 0;
+            transform: scale(0.4);
+            pointer-events: none;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+        }
+        .mood-btn.fluid-mood-press {
+            animation: iosFluidMoodDrop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .mood-btn.fluid-mood-press::after {
+            opacity: 1;
+            transform: scale(1.6);
+        }
+        @keyframes iosFluidMoodDrop {
+            0% { transform: scale(1, 1); }
+            28% { transform: scale(0.85, 1.18); border-radius: 18px 12px 18px 12px; }
+            55% { transform: scale(1.14, 0.90); border-radius: 12px 18px 12px 18px; }
+            80% { transform: scale(0.98, 1.03); border-radius: 14px; }
+            100% { transform: scale(1.06, 1.06); border-radius: 14px; }
         }
         
         .prio-btn.active { border-color: hsl(var(--theme-h), 83%, 53%); font-weight: 900; }
@@ -1085,9 +1122,86 @@
         .drag-handle {
             touch-action: pan-y;
             cursor: grab;
+            transform-origin: center center;
+            will-change: transform;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
         }
         .drag-handle:active {
             cursor: grabbing;
+        }
+
+        /* TOMBOL AKSI KEUANGAN: TEKANAN & ALIRAN FLUIDA iOS (NO BUBBLES) */
+        .ios-fluid-action-btn {
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                        background-color 0.2s ease;
+            will-change: transform;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ios-fluid-action-btn:active {
+            transform: scale(0.958, 0.982);
+        }
+        /* Aliran Cahaya Cair Mengalir (Liquid Sheen Wave - Continuous Fluid Flow) */
+        .ios-fluid-action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -130%;
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.28) 50%, transparent 100%);
+            transform: skewX(-22deg);
+            pointer-events: none;
+        }
+        .ios-fluid-action-btn.fluid-sheen-flow::before {
+            animation: iosLiquidSheenFlow 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes iosLiquidSheenFlow {
+            0% { left: -130%; opacity: 0.9; }
+            100% { left: 160%; opacity: 0; }
+        }
+        .ios-fluid-action-btn.fluid-action-surge {
+            animation: iosFluidActionSurge 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes iosFluidActionSurge {
+            0% { transform: scale(1, 1); }
+            30% { transform: scale(0.93, 0.96); }
+            60% { transform: scale(1.028, 1.018); }
+            82% { transform: scale(0.99, 0.995); }
+            100% { transform: scale(1, 1); }
+        }
+
+        /* ELIMINASI OUTLINE INPUT WAKTU TUGAS (SEAMLESS CLEAN iOS STYLE) */
+        #input-tugas-custom-datetime {
+            outline: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+        #input-tugas-custom-datetime:focus,
+        #input-tugas-custom-datetime:focus-visible,
+        #input-tugas-custom-datetime:active {
+            outline: none !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        #input-tugas-custom-datetime::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.65;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .dark #input-tugas-custom-datetime::-webkit-calendar-picker-indicator {
+            filter: invert(0.85);
+        }
+        #input-tugas-custom-datetime::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+            transform: scale(1.08);
         }
 
         /* PURE GPU HARDWARE ACCELERATED THEME ICON TRANSITION */
@@ -2665,7 +2779,7 @@
                                 <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                                     <i class="fas fa-magic text-[10px] text-primary-500"></i> Waktu:
                                 </span>
-                                <input type="datetime-local" id="input-tugas-custom-datetime" class="text-xs font-bold bg-white dark:bg-[#17212b] border border-slate-200 dark:border-[#313f52] rounded-xl px-2.5 py-1 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                                <input type="datetime-local" id="input-tugas-custom-datetime" class="text-xs font-bold bg-slate-200/50 dark:bg-[#17212b] border-0 rounded-xl px-3 py-1.5 text-slate-700 dark:text-slate-200 outline-none focus:outline-none focus:ring-0 shadow-none">
                             </div>
                         </div>
 
@@ -2898,7 +3012,9 @@
                                     </div>
                                 </div>
 
-                                <button type="button" onclick="tambahUang('masuk')" class="w-full bg-green-500 text-white py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-green-600 transition-colors">Tambah Pemasukan</button>
+                                <button type="button" id="btn-tambah-pemasukan" onclick="tambahUang('masuk')" class="ios-fluid-action-btn w-full bg-green-500 text-white py-2.5 rounded-xl font-bold text-sm shadow-sm hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
+                                    <i class="fas fa-arrow-down text-xs"></i> Tambah Pemasukan
+                                </button>
                             </div>
                         </div>
                         
@@ -2932,7 +3048,9 @@
                                     </div>
                                 </div>
 
-                                <button type="button" onclick="tambahUang('keluar')" class="w-full bg-red-500 text-white py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-red-600 transition-colors mt-2">Catat Pengeluaran</button>
+                                <button type="button" id="btn-catat-pengeluaran" onclick="tambahUang('keluar')" class="ios-fluid-action-btn w-full bg-red-500 text-white py-2.5 rounded-xl font-bold text-sm shadow-sm hover:bg-red-600 transition-colors mt-2 flex items-center justify-center gap-2">
+                                    <i class="fas fa-arrow-up text-xs"></i> Catat Pengeluaran
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -4122,6 +4240,7 @@
             sheet._hasSwipeAttached = true;
 
             var startY = 0, currentY = 0, isDragging = false;
+            var handle = sheet.querySelector('.drag-handle');
 
             sheet.addEventListener('touchstart', (e) => {
                 if (sheet.scrollTop > 5 && !e.target.closest('.drag-handle')) return;
@@ -4129,6 +4248,7 @@
                 currentY = startY;
                 isDragging = true;
                 sheet.style.transition = 'none';
+                if (handle) handle.style.transition = 'none';
             }, { passive: true });
 
             sheet.addEventListener('touchmove', (e) => {
@@ -4138,6 +4258,12 @@
                 if (diffY > 0) {
                     currentY = touchY;
                     sheet.style.transform = `translate3d(0, ${diffY}px, 0)`;
+                    // iOS Elastic Surface Membrane Stretch pada Drag Handle (Preserve Volume)
+                    if (handle) {
+                        let stretchX = 1 + Math.min(diffY * 0.0025, 0.40);
+                        let compressY = Math.max(0.68, 1 - Math.min(diffY * 0.0022, 0.32));
+                        handle.style.transform = `scale(${stretchX}, ${compressY})`;
+                    }
                 }
             }, { passive: true });
 
@@ -4145,6 +4271,11 @@
                 if (!isDragging) return;
                 isDragging = false;
                 sheet.style.transition = '';
+                if (handle) {
+                    handle.style.transition = 'transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    handle.style.transform = 'scale(1, 1)';
+                    setTimeout(() => { if (handle) handle.style.transition = ''; }, 450);
+                }
                 var diffY = currentY - startY;
                 if (diffY > 90) {
                     closeBottomSheet(sheetBackdrop.id);
@@ -6869,6 +7000,18 @@
             document.getElementById('icon-riwayat-keuangan').style.transform = 'rotate(180deg)';
             simpanData();
             triggerBalanceTankFusion(jenis);
+            
+            // Efek Kompresi & Aliran Cahaya Fluida Tombol Aksi Keuangan (iOS Fluid - NO BUBBLES)
+            var actionBtnEl = document.getElementById(jenis === 'masuk' ? 'btn-tambah-pemasukan' : 'btn-catat-pengeluaran');
+            if (actionBtnEl) {
+                actionBtnEl.classList.remove('fluid-action-surge', 'fluid-sheen-flow');
+                void actionBtnEl.offsetWidth;
+                actionBtnEl.classList.add('fluid-action-surge', 'fluid-sheen-flow');
+                setTimeout(function() {
+                    if (actionBtnEl) actionBtnEl.classList.remove('fluid-action-surge', 'fluid-sheen-flow');
+                }, 650);
+            }
+
             triggerHaptic('success');
             triggerDynamicIsland(jenis === 'masuk' ? "Pemasukan 💰" : "Pengeluaran 💸", `${jenis === 'masuk' ? '+' : '-'} ${formatRupiah(nilai)} (${ket})`, jenis === 'masuk' ? "fas fa-arrow-down" : "fas fa-arrow-up", jenis === 'masuk' ? "bg-emerald-500/20 text-emerald-400" : "bg-rose-500/20 text-rose-400");
 
@@ -6911,8 +7054,14 @@
         // --- CRUD JURNAL & MOOD ---
         function selectMood(mood, element) {
             selectedMoodIcon = mood;
-            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
-            element.classList.add('selected');
+            document.querySelectorAll('.mood-btn').forEach(btn => {
+                btn.classList.remove('selected', 'fluid-mood-press');
+            });
+            element.classList.add('selected', 'fluid-mood-press');
+            triggerHaptic('light');
+            setTimeout(function() {
+                element.classList.remove('fluid-mood-press');
+            }, 460);
         }
 
         function tambahJurnal() {
