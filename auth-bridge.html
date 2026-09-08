@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -118,8 +118,10 @@
             auth.signInWithPopup(provider)
                 .then(function(result) {
                     if (result && result.user) {
+                        const googleIdToken = (result.credential && result.credential.idToken) ? result.credential.idToken : '';
+                        const googleAccessToken = (result.credential && result.credential.accessToken) ? result.credential.accessToken : '';
                         return result.user.getIdToken().then(function(token) {
-                            redirectBackToApp(result.user, token);
+                            redirectBackToApp(result.user, googleIdToken || googleAccessToken || token);
                         });
                     }
                 })
@@ -145,8 +147,10 @@
         auth.getRedirectResult()
             .then(function(result) {
                 if (result && result.user) {
+                    const googleIdToken = (result.credential && result.credential.idToken) ? result.credential.idToken : '';
+                    const googleAccessToken = (result.credential && result.credential.accessToken) ? result.credential.accessToken : '';
                     return result.user.getIdToken().then(function(token) {
-                        redirectBackToApp(result.user, token);
+                        redirectBackToApp(result.user, googleIdToken || googleAccessToken || token);
                     });
                 }
                 auth.onAuthStateChanged(function(user) {

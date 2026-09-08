@@ -8344,7 +8344,7 @@
             }
         }
 
-        function updateSyncStatusUI(status) {
+        function updateSyncStatusUI(status, err) {
             const badge = document.getElementById('cloud-last-synced-badge');
             const syncIcon = document.getElementById('cloud-sync-icon');
             const headerIcon = document.getElementById('header-cloud-status-icon');
@@ -8361,7 +8361,14 @@
                 if (badge) badge.innerText = "Menunggu simpan...";
                 if (headerIcon) headerIcon.className = "fas fa-cloud-upload-alt text-xs text-primary-200 animate-pulse";
             } else if (status === 'error') {
-                if (badge) badge.innerText = "Gagal (Offline)";
+                let errorText = "Gagal (Offline)";
+                if (err && err.code) {
+                    if (err.code === 'permission-denied') errorText = "Izin Ditolak (Rules)";
+                    else if (err.code === 'unavailable') errorText = "Koneksi Terputus";
+                    else if (err.code === 'unauthenticated') errorText = "Sesi Berakhir";
+                    else errorText = "Gagal (" + err.code + ")";
+                }
+                if (badge) badge.innerText = errorText;
                 if (syncIcon) syncIcon.classList.remove('fa-spin');
                 if (headerIcon) headerIcon.className = "fas fa-exclamation-circle text-xs text-red-300";
             }
@@ -8550,7 +8557,14 @@
                 })
                 .catch(function(err) {
                     console.error("Gagal sinkron dari cloud:", err);
-                    updateSyncStatusUI('error');
+                    updateSyncStatusUI('error', err);
+                    if (!silent) {
+                        let toastMsg = "Gagal mengunduh data cloud";
+                        if (err && err.code === 'permission-denied') {
+                            toastMsg = "Izin Firestore ditolak (Periksa Rules di Console)";
+                        }
+                        triggerDynamicIsland("Sinkronisasi Gagal", toastMsg, "fas fa-exclamation-triangle", "bg-rose-500/20 text-rose-400");
+                    }
                 });
         }
 
@@ -8581,9 +8595,13 @@
                 .catch(function(err) {
                     isSyncingToCloud = false;
                     console.error("Gagal menyimpan ke Firestore:", err);
-                    updateSyncStatusUI('error');
+                    updateSyncStatusUI('error', err);
                     if (showToast) {
-                        triggerDynamicIsland("Sinkronisasi Tertunda", "Akan dicoba saat koneksi stabil", "fas fa-exclamation-triangle", "bg-amber-500/20 text-amber-400");
+                        let toastMsg = "Akan dicoba saat koneksi stabil";
+                        if (err && err.code === 'permission-denied') {
+                            toastMsg = "Izin Firestore ditolak (Periksa Rules di Console)";
+                        }
+                        triggerDynamicIsland("Sinkronisasi Gagal", toastMsg, "fas fa-exclamation-triangle", "bg-amber-500/20 text-amber-400");
                     }
                 });
         }
