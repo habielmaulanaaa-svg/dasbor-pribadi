@@ -7833,10 +7833,11 @@
             scheduleDailyResetMidnight();
             checkOtaVersionNotification();
 
-            // Pulihkan sesi akun langsung dari cache agar tidak berkedip 'Lokal'
+            // Pulihkan sesi akun langsung dari cache agar tidak berkedip 'Lokal' dan login permanen
             var cachedUser = getCachedUser();
-            if (cachedUser) {
-                updateAuthUI(cachedUser);
+            if (cachedUser && cachedUser.uid) {
+                currentUser = cachedUser;
+                updateAuthUI(currentUser);
             }
             initFirebaseAuth();
 
@@ -8016,27 +8017,41 @@
         function getCachedUser() {
             try {
                 var c = safeStorage.getItem('dasborCloudUser');
-                return c ? JSON.parse(c) : null;
+                if (!c || typeof c !== 'string' || c.trim() === '' || c === '{}') return null;
+                var parsed = JSON.parse(c);
+                return (parsed && parsed.uid) ? parsed : null;
             } catch(e) { return null; }
         }
 
         function saveLocalUserCache(user) {
             if (!user) {
-                safeStorage.setItem('dasborCloudUser', '');
+                safeStorage.removeItem('dasborCloudUser');
+                safeStorage.removeItem('dasborAuthToken');
             } else {
-                safeStorage.setItem('dasborCloudUser', JSON.stringify({
+                var payload = {
                     displayName: user.displayName || '',
                     email: user.email || '',
                     photoURL: user.photoURL || '',
-                    uid: user.uid
-                }));
+                    uid: user.uid,
+                    idToken: user.idToken || safeStorage.getItem('dasborAuthToken') || ''
+                };
+                safeStorage.setItem('dasborCloudUser', JSON.stringify(payload));
+                if (payload.idToken) {
+                    safeStorage.setItem('dasborAuthToken', payload.idToken);
+                }
             }
         }
 
         function initFirebaseAuth() {
             if (typeof firebase === 'undefined') {
                 console.warn('Firebase SDK belum termuat atau diblokir koneksi.');
-                if (!getCachedUser()) updateAuthUI(null);
+                var cached = getCachedUser();
+                if (cached && cached.uid) {
+                    currentUser = cached;
+                    updateAuthUI(currentUser);
+                } else {
+                    updateAuthUI(null);
+                }
                 return;
             }
 
@@ -8049,23 +8064,74 @@
                 firebaseAuth = firebase.auth();
                 firestoreDb = firebase.firestore();
 
-                // Pastikan persistence LOCAL di IndexedDB agar sesi login tersimpan permanen
-                firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(function(e) {
-                    console.warn("Set persistence warn:", e);
-                });
+                // Pastikan persistence LOCAL di IndexedDB jika didukung
+                try {
+                    firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(function(e) {
+                        console.warn("Set persistence warn:", e);
+                    });
+                } catch(e) {}
 
-                // Deteksi status sesi login otomatis
+                // 1. Pulihkan sesi akun langsung dari cache lokal (offline-first persistent session)
+                var cached = getCachedUser();
+                if (cached && cached.uid) {
+                    currentUser = cached;
+                    updateAuthUI(currentUser);
+
+                    // Coba re-auth ke Firebase Auth secara hening jika ada token tersimpan
+                    var savedToken = cached.idToken || safeStorage.getItem('dasborAuthToken');
+                    if (savedToken && firebaseAuth && !firebaseAuth.currentUser) {
+                        try {
+                            var cred = firebase.auth.GoogleAuthProvider.credential(savedToken);
+                            firebaseAuth.signInWithCredential(cred)
+                                .then(function(res) {
+                                    if (res && res.user) {
+                                        currentUser = res.user;
+                                        currentUser.idToken = savedToken;
+                                        saveLocalUserCache(currentUser);
+                                        updateAuthUI(currentUser);
+                                    }
+                                })
+                                .catch(function(err) {
+                                    console.warn("Silent re-auth notice:", err.message);
+                                    // PENTING: Jangan logout! Sesi tetap sah via currentUser
+                                });
+                        } catch(e) {}
+                    }
+
+                    // Sinkronkan data cloud di latar belakang secara hening
+                    syncFromCloud(true);
+                }
+
+                // 2. Deteksi status sesi login otomatis dari SDK
                 firebaseAuth.onAuthStateChanged(function(user) {
-                    currentUser = user;
-                    saveLocalUserCache(user);
-                    updateAuthUI(user);
                     if (user) {
-                        syncFromCloud();
+                        // Sesi login aktif terkonfirmasi oleh Firebase SDK
+                        currentUser = user;
+                        saveLocalUserCache(user);
+                        updateAuthUI(user);
+                        syncFromCloud(true);
+                    } else {
+                        // Firebase SDK mengembalikan null (kondisi standar di Android WebView file:///)
+                        // PENTING: Jangan logout otomatis jika ada sesi cache yang sah!
+                        var cached = getCachedUser();
+                        if (cached && cached.uid) {
+                            currentUser = cached;
+                            updateAuthUI(currentUser);
+                        } else {
+                            currentUser = null;
+                            updateAuthUI(null);
+                        }
                     }
                 });
             } catch (err) {
                 console.error("Inisialisasi Firebase gagal:", err);
-                if (!getCachedUser()) updateAuthUI(null);
+                var cached = getCachedUser();
+                if (cached && cached.uid) {
+                    currentUser = cached;
+                    updateAuthUI(currentUser);
+                } else {
+                    updateAuthUI(null);
+                }
             }
         }
 
@@ -8215,38 +8281,41 @@
 
         function handleAuthBridgeSuccess(idToken, name, email, photo, uid) {
             try {
+                var userObj = {
+                    uid: uid || ('user_' + (email ? btoa(email).replace(/=/g, '') : Date.now())),
+                    displayName: name || 'Pengguna',
+                    email: email || '',
+                    photoURL: photo || '',
+                    idToken: idToken || ''
+                };
+                currentUser = userObj;
+                saveLocalUserCache(currentUser);
+                updateAuthUI(currentUser);
+
                 if (idToken && firebaseAuth) {
-                    const credential = firebase.auth.GoogleAuthProvider.credential(idToken);
-                    firebaseAuth.signInWithCredential(credential)
-                        .then(function(result) {
-                            currentUser = result.user;
-                            saveLocalUserCache(currentUser);
-                            updateAuthUI(currentUser);
-                            syncFromCloud(true);
-                            triggerDynamicIsland("Berhasil Masuk!", "Halo, " + (result.user.displayName || name || 'Pengguna'), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
-                        })
-                        .catch(function(err) {
-                            console.warn("signInWithCredential fallback:", err);
-                            currentUser = {
-                                uid: uid || 'user_' + (email ? btoa(email).replace(/=/g, '') : Date.now()),
-                                displayName: name || 'Pengguna',
-                                email: email || '',
-                                photoURL: photo || ''
-                            };
-                            saveLocalUserCache(currentUser);
-                            updateAuthUI(currentUser);
-                            syncFromCloud(true);
-                            triggerDynamicIsland("Berhasil Masuk!", "Halo, " + currentUser.displayName, "fab fa-google", "bg-emerald-500/20 text-emerald-400");
-                        });
-                } else if (name || email) {
-                    currentUser = {
-                        uid: uid || 'user_' + (email ? btoa(email).replace(/=/g, '') : Date.now()),
-                        displayName: name || 'Pengguna',
-                        email: email || '',
-                        photoURL: photo || ''
-                    };
-                    saveLocalUserCache(currentUser);
-                    updateAuthUI(currentUser);
+                    try {
+                        const credential = firebase.auth.GoogleAuthProvider.credential(idToken);
+                        firebaseAuth.signInWithCredential(credential)
+                            .then(function(result) {
+                                if (result && result.user) {
+                                    currentUser = result.user;
+                                    currentUser.idToken = idToken;
+                                    saveLocalUserCache(currentUser);
+                                    updateAuthUI(currentUser);
+                                }
+                                syncFromCloud(true);
+                                triggerDynamicIsland("Berhasil Masuk!", "Halo, " + (currentUser.displayName || name || 'Pengguna'), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                            })
+                            .catch(function(err) {
+                                console.warn("signInWithCredential fallback:", err);
+                                syncFromCloud(true);
+                                triggerDynamicIsland("Berhasil Masuk!", "Halo, " + currentUser.displayName, "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                            });
+                    } catch(e) {
+                        syncFromCloud(true);
+                        triggerDynamicIsland("Berhasil Masuk!", "Halo, " + currentUser.displayName, "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                    }
+                } else {
                     syncFromCloud(true);
                     triggerDynamicIsland("Berhasil Masuk!", "Halo, " + currentUser.displayName, "fab fa-google", "bg-emerald-500/20 text-emerald-400");
                 }
@@ -8257,14 +8326,14 @@
 
         function logoutGoogle() {
             if (!confirm("Keluar dari akun Google Anda? Data saat ini tetap tersimpan aman di perangkat ini.")) return;
+            currentUser = null;
+            saveLocalUserCache(null);
+            safeStorage.removeItem('dasborAuthToken');
+            updateAuthUI(null);
             if (firebaseAuth) {
-                firebaseAuth.signOut().then(function() {
-                    currentUser = null;
-                    saveLocalUserCache(null);
-                    updateAuthUI(null);
-                    triggerDynamicIsland("Keluar Akun", "Beralih ke mode penyimpanan lokal", "fas fa-sign-out-alt", "bg-slate-500/20 text-slate-400");
-                });
+                firebaseAuth.signOut().catch(function() {});
             }
+            triggerDynamicIsland("Keluar Akun", "Beralih ke mode penyimpanan lokal", "fas fa-sign-out-alt", "bg-slate-500/20 text-slate-400");
         }
 
         function syncFromCloud(silent = false) {

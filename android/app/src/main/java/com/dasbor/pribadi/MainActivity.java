@@ -43,6 +43,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "DasborMainActivity";
@@ -352,6 +353,26 @@ public class MainActivity extends AppCompatActivity {
         final String finalEmail = email;
         final String finalPhoto = photo;
         final String finalUid = uid;
+
+        // Simpan langsung ke SharedPreferences native Android sebagai proteksi cadangan
+        if (!finalUid.isEmpty()) {
+            try {
+                JSONObject userJson = new JSONObject();
+                userJson.put("displayName", finalName);
+                userJson.put("email", finalEmail);
+                userJson.put("photoURL", finalPhoto);
+                userJson.put("uid", finalUid);
+                userJson.put("idToken", finalIdToken);
+                getSharedPreferences("dasbor_storage_bridge", MODE_PRIVATE)
+                        .edit()
+                        .putString("dasborCloudUser", userJson.toString())
+                        .putString("dasborAuthToken", finalIdToken)
+                        .apply();
+                Log.i(TAG, "Sesi login Google berhasil disimpan di native SharedPreferences untuk uid: " + finalUid);
+            } catch (Exception e) {
+                Log.e(TAG, "Gagal menyimpan user cache di MainActivity: " + e.getMessage());
+            }
+        }
 
         mainHandler.post(() -> {
             if (webView == null) return;
