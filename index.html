@@ -8375,6 +8375,12 @@
                 return;
             }
 
+            // Fallback: Jika di dalam APK tetapi native bridge belum terpasang (APK belum di-update)
+            if (window.DasborBridge || window.location.protocol === 'file:') {
+                alert("Pembaruan APK Diperlukan:\n\nFitur masuk dengan Google resmi membutuhkan instalasi file APK versi v33.14.OTA atau lebih baru.\n\nSilakan unduh dan pasang pembaruan APK terbaru.");
+                return;
+            }
+
             if (!firebaseAuth) {
                 alert("Firebase belum siap. Silakan periksa koneksi internet Anda atau refresh halaman.");
                 return;
