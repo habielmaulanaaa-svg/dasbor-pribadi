@@ -2418,12 +2418,9 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <div class="flex items-center gap-2">
-                    <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
-                        <i class="fas fa-calendar-alt text-primary-500"></i> Kalender Terpadu &amp; Rekap
-                    </h3>
-                    <span class="text-[9px] font-bold bg-primary-100 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 px-2 py-0.5 rounded-full border border-primary-200 dark:border-primary-800/40 flex items-center"><i class="fas fa-clock text-[8px] mr-1"></i>Reset 00:00 WIB</span>
-                </div>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-calendar-alt text-primary-500"></i> Kalender Terpadu &amp; Rekap
+                </h3>
                 <button type="button" onclick="closeBottomSheet('activity-calendar-modal')" class="text-slate-400 hover:text-slate-600 p-1">
                     <i class="fas fa-times"></i>
                 </button>
@@ -4200,7 +4197,6 @@
                     if (typeof renderActivityCalendar === 'function') renderActivityCalendar();
                 }
 
-                triggerDynamicIsland("Hari Baru 00:00 WIB 🌙", "Rekap & kalender telah diperbarui untuk hari ini", "fas fa-calendar-day", "bg-primary-500/20 text-primary-400");
                 scheduleDailyResetMidnight();
             }, msUntilReset);
         }
