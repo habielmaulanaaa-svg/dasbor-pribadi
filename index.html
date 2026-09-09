@@ -527,14 +527,14 @@
            2. SPEED-DIAL FAB: SILK FLUID SPRING & LIQUID BOUNCE (OPSI A)
            ========================================== */
         @keyframes fluidFabPulse {
-            0% { transform: scale(1); }
-            35% { transform: scale(0.92, 0.92); }
-            65% { transform: scale(1.08, 1.08); }
-            85% { transform: scale(0.98, 0.98); }
-            100% { transform: scale(1); }
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            35% { transform: translate3d(0, 0, 0) scale(0.92, 0.92); }
+            65% { transform: translate3d(0, 0, 0) scale(1.08, 1.08); }
+            85% { transform: translate3d(0, 0, 0) scale(0.98, 0.98); }
+            100% { transform: translate3d(0, 0, 0) scale(1); }
         }
         .animate-fab-pulse {
-            animation: fluidFabPulse 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation: fluidFabPulse 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
         }
 
         #fab-plus-icon {
@@ -629,6 +629,9 @@
             backdrop-filter: blur(20px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
             outline: none !important;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
         .dark #bottom-nav-dock,
         .dark #fab-quick-add {
@@ -636,6 +639,12 @@
             backdrop-filter: blur(20px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
             outline: none !important;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        #fab-quick-add {
+            will-change: transform;
         }
 
 
@@ -3080,7 +3089,7 @@
             </div>
 
             <!-- Tombol FAB Utama -->
-            <button type="button" id="fab-quick-add" onclick="toggleFabSpeedDial()" class="w-12 h-12 rounded-full border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] active:scale-95 text-base">
+            <button type="button" id="fab-quick-add" onclick="toggleFabSpeedDial()" class="w-12 h-12 rounded-full border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] text-base">
                 <i id="fab-plus-icon" class="fas fa-plus text-primary-600 dark:text-primary-400 transform transition-transform duration-300"></i>
             </button>
         </div>
@@ -5313,8 +5322,9 @@
             if (isFabOpen) {
                 if (fabBtn) {
                     fabBtn.classList.remove('animate-fab-pulse');
-                    void fabBtn.offsetWidth;
-                    fabBtn.classList.add('animate-fab-pulse');
+                    requestAnimationFrame(function() {
+                        fabBtn.classList.add('animate-fab-pulse');
+                    });
                 }
                 menu.classList.remove('hidden', 'pointer-events-none');
                 menu.classList.add('pointer-events-auto');
@@ -5340,8 +5350,9 @@
 
             if (fabBtn) {
                 fabBtn.classList.remove('animate-fab-pulse');
-                void fabBtn.offsetWidth;
-                fabBtn.classList.add('animate-fab-pulse');
+                requestAnimationFrame(function() {
+                    fabBtn.classList.add('animate-fab-pulse');
+                });
             }
 
             menu.classList.remove('pointer-events-auto');
