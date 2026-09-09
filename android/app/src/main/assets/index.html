@@ -524,31 +524,35 @@
         }
 
         /* ==========================================
-           2. SPEED-DIAL FAB: BUDDING BUBBLES & FLUID SUCTION
+           2. SPEED-DIAL FAB: SILK FLUID SPRING & LIQUID BOUNCE (OPSI A)
            ========================================== */
         @keyframes fluidFabPulse {
             0% { transform: scale(1); }
-            35% { transform: scale(1.18, 0.82); }
-            70% { transform: scale(0.92, 1.1); }
+            35% { transform: scale(0.92, 0.92); }
+            65% { transform: scale(1.08, 1.08); }
+            85% { transform: scale(0.98, 0.98); }
             100% { transform: scale(1); }
         }
         .animate-fab-pulse {
-            animation: fluidFabPulse 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+            animation: fluidFabPulse 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        @keyframes fluidBubbleEmerge {
+        #fab-plus-icon {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        }
+
+        /* Silk Fluid Spring Emerge: Lembut, elastis terukur 7%, tanpa blur GPU rasterization */
+        @keyframes silkFluidEmerge {
             0% {
-                transform: translateY(28px) scale(0.35, 0.35);
+                transform: translateY(22px) scale(0.7, 0.7);
                 opacity: 0;
-                filter: blur(4px);
             }
-            45% {
-                transform: translateY(-8px) scale(0.85, 1.28);
-                opacity: 0.9;
-                filter: blur(0px);
+            52% {
+                transform: translateY(-5px) scale(0.96, 1.07);
+                opacity: 0.95;
             }
-            75% {
-                transform: translateY(3px) scale(1.08, 0.94);
+            78% {
+                transform: translateY(1.5px) scale(1.02, 0.98);
                 opacity: 1;
             }
             100% {
@@ -557,43 +561,45 @@
             }
         }
 
-        @keyframes fluidBubbleRetract {
+        /* Silk Fluid Retract: Meluncur turun secara lembut dan menyerap ke FAB */
+        @keyframes silkFluidRetract {
             0% {
                 transform: translateY(0px) scale(1, 1);
                 opacity: 1;
             }
-            35% {
-                transform: translateY(8px) scale(0.82, 1.25);
-                opacity: 0.85;
+            25% {
+                transform: translateY(-3px) scale(1.02, 0.98);
+                opacity: 0.95;
             }
             100% {
-                transform: translateY(32px) scale(0.3, 0.3);
+                transform: translateY(18px) scale(0.6, 0.6);
                 opacity: 0;
             }
         }
 
         .fab-bubble-item {
             will-change: transform, opacity;
+            transform-origin: right bottom;
             transition: background-color 0.2s ease, border-color 0.2s ease;
         }
         .fab-bubble-item.emerge {
-            animation: fluidBubbleEmerge 0.36s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
+            animation: silkFluidEmerge 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .fab-bubble-item.retract {
-            animation: fluidBubbleRetract 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: silkFluidRetract 0.22s cubic-bezier(0.4, 0, 0.2, 1) both;
         }
 
-        /* Staggered Budding Sequence (Bottom to Top) */
-        .fab-bubble-item:nth-child(4).emerge { animation-delay: 0.01s; }
-        .fab-bubble-item:nth-child(3).emerge { animation-delay: 0.05s; }
-        .fab-bubble-item:nth-child(2).emerge { animation-delay: 0.09s; }
-        .fab-bubble-item:nth-child(1).emerge { animation-delay: 0.13s; }
+        /* Staggered Budding Sequence (Bottom to Top: dari terdekat FAB ke atas) */
+        .fab-bubble-item:nth-child(4).emerge { animation-delay: 0s; }
+        .fab-bubble-item:nth-child(3).emerge { animation-delay: 0.035s; }
+        .fab-bubble-item:nth-child(2).emerge { animation-delay: 0.070s; }
+        .fab-bubble-item:nth-child(1).emerge { animation-delay: 0.105s; }
 
-        /* Staggered Suction Sequence (Top to Bottom) */
-        .fab-bubble-item:nth-child(1).retract { animation-delay: 0.01s; }
-        .fab-bubble-item:nth-child(2).retract { animation-delay: 0.04s; }
-        .fab-bubble-item:nth-child(3).retract { animation-delay: 0.07s; }
-        .fab-bubble-item:nth-child(4).retract { animation-delay: 0.10s; }
+        /* Staggered Suction Sequence (Top to Bottom: melipat mundur cepat & mulus) */
+        .fab-bubble-item:nth-child(1).retract { animation-delay: 0s; }
+        .fab-bubble-item:nth-child(2).retract { animation-delay: 0.022s; }
+        .fab-bubble-item:nth-child(3).retract { animation-delay: 0.044s; }
+        .fab-bubble-item:nth-child(4).retract { animation-delay: 0.066s; }
 
         /* ==========================================
            2b. DOCK BUOYANCY: UNIFIED SCROLL SUBMERGE & SMOOTH SURFACE (100% PERSISTENT FROSTED BLUR)
@@ -3137,7 +3143,7 @@
         <!-- Container Tombol Aksi Speed Dial FAB -->
         <div class="relative">
             <!-- Menu Melayang Speed Dial -->
-            <div id="fab-speed-dial-menu" class="hidden absolute bottom-14 right-0 flex flex-col items-end gap-2 mb-1 transition-all duration-300 opacity-0 scale-90 origin-bottom-right z-40 pointer-events-none">
+            <div id="fab-speed-dial-menu" class="hidden absolute bottom-14 right-0 flex flex-col items-end gap-2 mb-1 z-40 pointer-events-none">
                 <!-- 1. Catatan Kilat -->
                 <button type="button" onclick="fabAction('catatan')" class="fab-bubble-item flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-xl border border-slate-200 dark:border-[#313f52] text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-[#242f3d] active:scale-95 transition-all whitespace-nowrap">
                     <span>Catatan Kilat</span>
@@ -5471,17 +5477,16 @@
                     void fabBtn.offsetWidth;
                     fabBtn.classList.add('animate-fab-pulse');
                 }
-                menu.classList.remove('hidden');
+                menu.classList.remove('hidden', 'pointer-events-none');
+                menu.classList.add('pointer-events-auto');
+
                 var items = menu.querySelectorAll('.fab-bubble-item');
                 items.forEach(function(item) {
                     item.classList.remove('retract');
+                    void item.offsetWidth;
                     item.classList.add('emerge');
                 });
-                setTimeout(() => {
-                    menu.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
-                    menu.classList.add('opacity-100', 'scale-100');
-                    icon.style.transform = 'rotate(45deg)';
-                }, 10);
+                icon.style.transform = 'rotate(45deg)';
             } else {
                 closeFabSpeedDial();
             }
@@ -5500,15 +5505,18 @@
                 fabBtn.classList.add('animate-fab-pulse');
             }
 
+            menu.classList.remove('pointer-events-auto');
+            menu.classList.add('pointer-events-none');
+            if (icon) icon.style.transform = 'rotate(0deg)';
+
             var items = menu.querySelectorAll('.fab-bubble-item');
             items.forEach(function(item) {
                 item.classList.remove('emerge');
+                void item.offsetWidth;
                 item.classList.add('retract');
             });
 
-            menu.classList.remove('opacity-100', 'scale-100');
-            menu.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
-            if (icon) icon.style.transform = 'rotate(0deg)';
+            // Waktu tunggu: delay terlama (66ms) + durasi retract (220ms) + buffer = 320ms
             setTimeout(() => {
                 if (!isFabOpen) {
                     menu.classList.add('hidden');
@@ -5516,7 +5524,7 @@
                         item.classList.remove('retract');
                     });
                 }
-            }, 250);
+            }, 320);
         }
 
         // ==========================================
