@@ -1194,74 +1194,6 @@
             }
         }
 
-        /* ==========================================
-           6. PERMUKAAN AIR FLUIDA KARTU SALDO (WAVE TANK OVERLAY)
-           ========================================== */
-        #saldo-card-fluid-wave {
-            top: auto !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            height: 52% !important;
-            pointer-events: none;
-            overflow: hidden;
-            border-bottom-left-radius: 1.5rem;
-            border-bottom-right-radius: 1.5rem;
-            z-index: 1;
-        }
-        .fluid-wave-svg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            pointer-events: none;
-            will-change: transform;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-        }
-        .fluid-wave-back {
-            animation: waveSlideBack 14s linear infinite;
-            transform: translate3d(0, 0, 0);
-        }
-        .fluid-wave-front {
-            animation: waveSlideFront 8.5s linear infinite;
-            transform: translate3d(-50%, 0, 0);
-        }
-
-        @keyframes waveSlideBack {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
-        }
-
-        @keyframes waveSlideFront {
-            0% { transform: translate3d(-50%, 0, 0); }
-            100% { transform: translate3d(0, 0, 0); }
-        }
-
-        .fluid-wave-paused .fluid-wave-back,
-        .fluid-wave-paused .fluid-wave-front {
-            animation-play-state: paused !important;
-        }
-
-        .wave-calm .fluid-wave-back {
-            animation-duration: 28s !important;
-            opacity: 0.5;
-        }
-        .wave-calm .fluid-wave-front {
-            animation-duration: 19s !important;
-            opacity: 0.6;
-        }
-
-        .wave-splash {
-            animation: waveSplashPulse 1.2s cubic-bezier(0.2, 0.8, 0.3, 1);
-        }
-        @keyframes waveSplashPulse {
-            0% { transform: scaleY(1); }
-            40% { transform: scaleY(1.24); }
-            70% { transform: scaleY(0.94); }
-            100% { transform: scaleY(1); }
-        }
 
         /* ==========================================
            7. SELEKTOR DOMPET TETESAN MENGALIR (DROPLET MORPH)
@@ -1300,7 +1232,7 @@
                 opacity: 0 !important;
                 transition: opacity 0.2s ease !important;
             }
-            .fluid-wave-back, .fluid-wave-front, #floating-dock-container {
+            #floating-dock-container {
                 animation: none !important;
                 transition: none !important;
             }
@@ -1523,16 +1455,6 @@
                                 </button>
                             </div>
 
-                            <!-- 2. Toggle Gelombang Fluida Saldo -->
-                            <div onclick="toggleFluidWaveCard()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
-                                <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
-                                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-water text-primary-500 text-[10px]"></i> Gelombang Fluida Saldo</span>
-                                    <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Efek permukaan air dinamis pada kartu saldo</span>
-                                </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleFluidWaveCard()" id="btn-toggle-fluidwave" class="fluid-switch-btn no-bounce active focus:outline-none shrink-0" aria-label="Toggle Gelombang Fluida Saldo">
-                                    <div id="fluidwave-switch-knob" class="fluid-switch-knob"></div>
-                                </button>
-                            </div>
 
                             <!-- 3. Toggle Kepadatan Compact Mode -->
                             <div onclick="toggleCompactMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
@@ -2629,15 +2551,6 @@
                     <!-- Tetesan Fluida Masuk / Keluar (Liquid Droplet Fusion) -->
                     <div id="balance-fusion-droplet"></div>
 
-                    <!-- Layer Permukaan Air Fluida (Subtle Liquid Wave Tank Overlay) -->
-                    <div id="saldo-card-fluid-wave" class="absolute bottom-0 left-0 right-0 h-[52%] rounded-b-3xl pointer-events-none overflow-hidden z-0 transition-opacity duration-500 opacity-90">
-                        <svg class="fluid-wave-svg fluid-wave-back" viewBox="0 0 2000 100" preserveAspectRatio="none">
-                            <path d="M 0,40 Q 250,15 500,40 T 1000,40 T 1500,40 T 2000,40 L 2000,100 L 0,100 Z" fill="rgba(255,255,255,0.08)"></path>
-                        </svg>
-                        <svg class="fluid-wave-svg fluid-wave-front" viewBox="0 0 2000 100" preserveAspectRatio="none">
-                            <path d="M 0,55 Q 250,80 500,55 T 1000,55 T 1500,55 T 2000,55 L 2000,100 L 0,100 Z" fill="rgba(255,255,255,0.14)"></path>
-                        </svg>
-                    </div>
 
                     <!-- Ikon Dompet Latar Belakang -->
                     <i class="fas fa-wallet absolute -right-4 -bottom-4 text-7xl opacity-20 transform -rotate-12 pointer-events-none z-0"></i>
@@ -3367,7 +3280,6 @@
                 '📁 Lainnya': 0
             },
             subscriptions: [],
-            fluidWaveCard: true,
             optTugasWaktuDibuat: true
         };
         
@@ -3476,18 +3388,6 @@
                 setTimeout(() => saldoEl.classList.remove('animate-sensor-reveal'), 300);
             }
 
-            var waveEl = document.getElementById('saldo-card-fluid-wave');
-            if (waveEl) {
-                if (dataState.isPrivacyMode) {
-                    waveEl.classList.add('wave-calm');
-                } else {
-                    waveEl.classList.remove('wave-calm');
-                    waveEl.classList.remove('wave-splash');
-                    void waveEl.offsetWidth;
-                    waveEl.classList.add('wave-splash');
-                    setTimeout(() => waveEl.classList.remove('wave-splash'), 1300);
-                }
-            }
 
             simpanData();
             triggerDynamicIsland("Privasi", dataState.isPrivacyMode ? "Saldo disembunyikan 👁️" : "Saldo ditampilkan", "fas fa-eye", "bg-amber-500/20 text-amber-400");
@@ -3527,7 +3427,6 @@
         function updateActiveToggleCount() {
             var count = 0;
             if (dataState.cardGradient !== false) count++;
-            if (dataState.fluidWaveCard !== false) count++;
             if (dataState.compactMode) count++;
             if (dataState.autoThemeMode) count++;
             var badge = document.getElementById('active-toggle-count-badge');
@@ -3595,66 +3494,6 @@
             setSwitchVisual(btn, knob, isGrad, triggerBounce === true);
         }
 
-        // TOGGLE GELOMBANG FLUIDA KARTU SALDO
-        function toggleFluidWaveCard() {
-            dataState.fluidWaveCard = (dataState.fluidWaveCard === undefined) ? false : !dataState.fluidWaveCard;
-            applyFluidWaveVisual(true);
-            updateActiveToggleCount();
-            safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
-            triggerDynamicIsland("Efek Fluida", dataState.fluidWaveCard ? "Gelombang Saldo Aktif 🌊" : "Gelombang Saldo Nonaktif", "fas fa-water", "bg-primary-500/20 text-primary-400");
-        }
-
-        function applyFluidWaveVisual(triggerBounce) {
-            var isWave = (dataState.fluidWaveCard !== false);
-            var waveEl = document.getElementById('saldo-card-fluid-wave');
-            var knob = document.getElementById('fluidwave-switch-knob');
-            var btn = document.getElementById('btn-toggle-fluidwave');
-
-            if (waveEl) {
-                if (isWave) {
-                    waveEl.classList.remove('hidden');
-                    waveEl.classList.add('opacity-90');
-                    if (dataState.isPrivacyMode) waveEl.classList.add('wave-calm');
-                } else {
-                    waveEl.classList.remove('opacity-90');
-                    waveEl.classList.add('opacity-0');
-                    setTimeout(function() {
-                        if (dataState.fluidWaveCard === false) waveEl.classList.add('hidden');
-                    }, 500);
-                }
-            }
-            if (btn && knob) {
-                setSwitchVisual(btn, knob, isWave, triggerBounce === true);
-            }
-        }
-
-        function initSaldoWaveObserver() {
-            var card = document.getElementById('saldo-card-bg');
-            var waveContainer = document.getElementById('saldo-card-fluid-wave');
-            if (!card || !waveContainer) return;
-
-            if ('IntersectionObserver' in window) {
-                var observer = new IntersectionObserver(function(entries) {
-                    entries.forEach(function(entry) {
-                        if (entry.isIntersecting) {
-                            waveContainer.classList.remove('fluid-wave-paused');
-                        } else {
-                            waveContainer.classList.add('fluid-wave-paused');
-                        }
-                    });
-                }, { threshold: 0.05 });
-                observer.observe(card);
-            }
-
-            document.addEventListener('visibilitychange', function() {
-                if (!waveContainer) return;
-                if (document.visibilityState === 'visible') {
-                    waveContainer.classList.remove('fluid-wave-paused');
-                } else {
-                    waveContainer.classList.add('fluid-wave-paused');
-                }
-            });
-        }
 
         function toggleCompactMode() {
             dataState.compactMode = !dataState.compactMode;
@@ -6862,19 +6701,10 @@
         // --- LIQUID BALANCE TANK DROPLET FUSION ---
         function triggerBalanceTankFusion(jenis) {
             var droplet = document.getElementById('balance-fusion-droplet');
-            var waveBox = document.getElementById('saldo-card-fluid-wave');
             if (droplet) {
                 droplet.className = '';
                 void droplet.offsetWidth;
                 droplet.className = jenis === 'masuk' ? 'drop-inflow' : 'drop-outflow';
-            }
-            if (waveBox) {
-                waveBox.classList.remove('wave-tank-surge');
-                void waveBox.offsetWidth;
-                waveBox.classList.add('wave-tank-surge');
-                setTimeout(() => {
-                    if (waveBox) waveBox.classList.remove('wave-tank-surge');
-                }, 700);
             }
         }
 
@@ -7807,7 +7637,6 @@
                 '🍔 Makan': 0, '🚗 Transport': 0, '🛍️ Belanja': 0, '💡 Tagihan': 0, '📁 Lainnya': 0
             };
             if(!Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
-            if(dataState.fluidWaveCard === undefined) dataState.fluidWaveCard = true;
             if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
             if(dataState.isPrivacyMode === undefined) dataState.isPrivacyMode = false;
             if(dataState.compactMode === undefined) dataState.compactMode = false;
@@ -7842,8 +7671,6 @@
             if (cEye) cEye.className = `fas ${iconClass} text-xs`;
 
             applyCardGradientVisual();
-            applyFluidWaveVisual(false);
-            initSaldoWaveObserver();
             updateActiveToggleCount();
             perbaruiTampilan();
             // Jika akun Cloud tersimpan, utamakan sinkronisasi Cloud agar wawasan memakai data Cloud teranyar
@@ -8396,7 +8223,6 @@
                             if(!dataState.budgets || typeof dataState.budgets !== 'object') dataState.budgets = {
                                 '🍔 Makan': 0, '🚗 Transport': 0, '🛍️ Belanja': 0, '💡 Tagihan': 0, '📁 Lainnya': 0
                             };
-                            if (dataState.fluidWaveCard === undefined) dataState.fluidWaveCard = true;
                             if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
                             if(dataState.saldo === undefined) dataState.saldo = 0;
 
@@ -8429,7 +8255,6 @@
                             document.body.classList.remove('glass-mode');
 
                             applyCardGradientVisual();
-                            applyFluidWaveVisual(false);
                             updateActiveToggleCount();
                             perbaruiTampilan();
                             runSmartInsightsSequence();
