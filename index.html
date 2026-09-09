@@ -2418,9 +2418,12 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
-                    <i class="fas fa-calendar-alt text-primary-500"></i> Kalender Terpadu &amp; Rekap
-                </h3>
+                <div class="flex items-center gap-2">
+                    <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
+                        <i class="fas fa-calendar-alt text-primary-500"></i> Kalender Terpadu &amp; Rekap
+                    </h3>
+                    <span class="text-[9px] font-bold bg-primary-100 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 px-2 py-0.5 rounded-full border border-primary-200 dark:border-primary-800/40 flex items-center"><i class="fas fa-clock text-[8px] mr-1"></i>Reset 00:00 WIB</span>
+                </div>
                 <button type="button" onclick="closeBottomSheet('activity-calendar-modal')" class="text-slate-400 hover:text-slate-600 p-1">
                     <i class="fas fa-times"></i>
                 </button>
@@ -3986,8 +3989,8 @@
                 catatan: `Bayar Langganan: ${sub.nama}`,
                 kategori: '💡 Tagihan',
                 walletId: sub.walletId || 'bank',
-                isoDate: new Date().toISOString().slice(0, 10),
-                tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })
+                isoDate: getRekapDateString(),
+                tanggal: getWibDate().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })
             });
 
             simpanData();
@@ -4167,7 +4170,7 @@
             return `${y}-${m}-${day}`;
         }
 
-        // PENGATUR JADWAL RESET REKAP HARIAN (SETIAP JAM 00:00:00 WIB)
+        // PENGATUR JADWAL RESET REKAP & KALENDER HARIAN (SETIAP JAM 00:00:00 WIB)
         function scheduleDailyResetMidnight() {
             var now = new Date();
             var wibNow = getWibDate(now);
@@ -4180,8 +4183,24 @@
             setTimeout(() => {
                 isRekapBannerDismissed = false;
                 applyAutoThemeClock();
+
+                // Sinkronisasi kalender terpadu ke tanggal WIB baru
+                var freshWib = getWibDate();
+                if (typeof actCalYear !== 'undefined') {
+                    actCalYear = freshWib.getFullYear();
+                    actCalMonth = freshWib.getMonth();
+                    actCalSelectedDateIso = getRekapDateString(freshWib);
+                }
+
                 perbaruiTampilan();
-                triggerDynamicIsland("Hari Baru 00:00 WIB 🌙", "Rekap harian telah diperbarui untuk hari ini", "fas fa-calendar-day", "bg-primary-500/20 text-primary-400");
+
+                // Jika kalender sedang aktif dibuka, refresh grid kalender
+                var calModal = document.getElementById('activity-calendar-modal');
+                if (calModal && calModal.classList.contains('active')) {
+                    if (typeof renderActivityCalendar === 'function') renderActivityCalendar();
+                }
+
+                triggerDynamicIsland("Hari Baru 00:00 WIB 🌙", "Rekap & kalender telah diperbarui untuk hari ini", "fas fa-calendar-day", "bg-primary-500/20 text-primary-400");
                 scheduleDailyResetMidnight();
             }, msUntilReset);
         }
@@ -5044,7 +5063,7 @@
 
         function getDeadlineStatus(deadline) {
             if(!deadline) return { status: 'aman', label: 'Aman', diffDays: 0, daysLate: 0, overdue: false, text: '' };
-            var today = new Date(); today.setHours(0,0,0,0);
+            var today = getWibDate(); today.setHours(0,0,0,0);
             var parts = deadline.split('-');
             var dlDate = new Date(parts[0], parts[1] - 1, parts[2]); dlDate.setHours(0,0,0,0);
             var diffDays = Math.round((dlDate - today) / (1000 * 60 * 60 * 24));
@@ -5180,7 +5199,7 @@
             try {
                 let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataState));
                 let a = document.createElement('a');
-                a.href = dataStr; a.download = `dasbor_backup_${new Date().toISOString().slice(0,10)}.json`;
+                a.href = dataStr; a.download = `dasbor_backup_${getRekapDateString()}.json`;
                 document.body.appendChild(a); a.click(); a.remove();
                 triggerDynamicIsland("Backup", "Cadangan berhasil diunduh 📥", "fas fa-download", "bg-emerald-500/20 text-emerald-400");
             } catch(e) { alert("Gagal mengunduh cadangan!"); }
@@ -5724,7 +5743,7 @@
                 var completedTasks = tasks.filter(t => t.selesai).length;
                 var pctTasks = Math.round((completedTasks / totalTasks) * 100);
 
-                var nowIso = new Date().toISOString().slice(0, 10);
+                var nowIso = getRekapDateString();
                 var overdueTasks = tasks.filter(t => !t.selesai && t.deadline && t.deadline < nowIso);
                 var todayTasks = tasks.filter(t => !t.selesai && t.deadline && t.deadline === nowIso);
 
@@ -5809,16 +5828,18 @@
         // ==========================================
         // FITUR: KALENDER TERPADU 360° (KEUANGAN, TUGAS, & REKAP JURNAL)
         // ==========================================
-        let actCalYear = new Date().getFullYear();
-        let actCalMonth = new Date().getMonth();
-        let actCalSelectedDateIso = new Date().toISOString().slice(0, 10);
+        var actCalWibInit = getWibDate();
+        var actCalYear = actCalWibInit.getFullYear();
+        var actCalMonth = actCalWibInit.getMonth();
+        var actCalSelectedDateIso = getRekapDateString(actCalWibInit);
 
         function openActivityCalendar() {
             var sb = document.getElementById('sidebar');
             if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
-            actCalYear = new Date().getFullYear();
-            actCalMonth = new Date().getMonth();
-            actCalSelectedDateIso = new Date().toISOString().slice(0, 10);
+            var wibNow = getWibDate();
+            actCalYear = wibNow.getFullYear();
+            actCalMonth = wibNow.getMonth();
+            actCalSelectedDateIso = getRekapDateString(wibNow);
             renderActivityCalendar();
             openBottomSheet('activity-calendar-modal');
         }
@@ -5845,7 +5866,7 @@
 
             var firstDayIndex = new Date(actCalYear, actCalMonth, 1).getDay();
             var totalDays = new Date(actCalYear, actCalMonth + 1, 0).getDate();
-            var todayIso = new Date().toISOString().slice(0, 10);
+            var todayIso = getRekapDateString();
 
             var txs = dataState.transaksi || [];
             var tasks = dataState.tugas || [];
@@ -5908,7 +5929,7 @@
             var txs = (dataState.transaksi || []).filter(t => t.isoDate === actCalSelectedDateIso);
             var tasks = (dataState.tugas || []).filter(t => t.deadline === actCalSelectedDateIso);
             var rekap = (dataState.rekapHarian || []).find(r => r.tanggal === actCalSelectedDateIso);
-            var todayIso = new Date().toISOString().slice(0, 10);
+            var todayIso = getRekapDateString();
             var isToday = (actCalSelectedDateIso === todayIso);
 
             var total = txs.length + tasks.length + (rekap ? 1 : 0);
@@ -6875,8 +6896,8 @@
                 catatan: ket,
                 walletId: targetWallet,
                 kategori: (jenis === 'keluar') ? (selectedKategoriVal || '📁 Lainnya') : '💰 Pemasukan',
-                isoDate: new Date().toISOString().slice(0, 10),
-                tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })
+                isoDate: getRekapDateString(),
+                tanggal: getWibDate().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })
             });
 
             inputNominal.value = ''; 
@@ -7328,7 +7349,7 @@
 
             var rKeuangan = document.getElementById('stack-riwayat-keuangan');
             if(rKeuangan) {
-                var todayIso = new Date().toISOString().slice(0, 10);
+                var todayIso = getRekapDateString();
                 var filteredTrx = dataState.transaksi.filter(t => {
                     if (searchQueryTransaksi && !t.catatan.toLowerCase().includes(searchQueryTransaksi) && (!t.kategori || !t.kategori.toLowerCase().includes(searchQueryTransaksi))) {
                         return false;
