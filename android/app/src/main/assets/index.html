@@ -527,14 +527,14 @@
            2. SPEED-DIAL FAB: SILK FLUID SPRING & LIQUID BOUNCE (OPSI A)
            ========================================== */
         @keyframes fluidFabPulse {
-            0% { transform: translate3d(0, 0, 0) scale(1); }
-            35% { transform: translate3d(0, 0, 0) scale(0.92, 0.92); }
-            65% { transform: translate3d(0, 0, 0) scale(1.08, 1.08); }
-            85% { transform: translate3d(0, 0, 0) scale(0.98, 0.98); }
-            100% { transform: translate3d(0, 0, 0) scale(1); }
+            0% { transform: scale(1); }
+            35% { transform: scale(0.92, 0.92); }
+            65% { transform: scale(1.08, 1.08); }
+            85% { transform: scale(0.98, 0.98); }
+            100% { transform: scale(1); }
         }
         .animate-fab-pulse {
-            animation: fluidFabPulse 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            animation: fluidFabPulse 0.34s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
         #fab-plus-icon {
@@ -629,9 +629,6 @@
             backdrop-filter: blur(20px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
             outline: none !important;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
         }
         .dark #bottom-nav-dock,
         .dark #fab-quick-add {
@@ -639,12 +636,6 @@
             backdrop-filter: blur(20px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
             outline: none !important;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-        }
-        #fab-quick-add {
-            will-change: transform;
         }
 
 
@@ -5322,9 +5313,8 @@
             if (isFabOpen) {
                 if (fabBtn) {
                     fabBtn.classList.remove('animate-fab-pulse');
-                    requestAnimationFrame(function() {
-                        fabBtn.classList.add('animate-fab-pulse');
-                    });
+                    void fabBtn.offsetWidth;
+                    fabBtn.classList.add('animate-fab-pulse');
                 }
                 menu.classList.remove('hidden', 'pointer-events-none');
                 menu.classList.add('pointer-events-auto');
@@ -5332,7 +5322,6 @@
                 var items = menu.querySelectorAll('.fab-bubble-item');
                 items.forEach(function(item) {
                     item.classList.remove('retract');
-                    void item.offsetWidth;
                     item.classList.add('emerge');
                 });
                 icon.style.transform = 'rotate(45deg)';
@@ -5350,9 +5339,8 @@
 
             if (fabBtn) {
                 fabBtn.classList.remove('animate-fab-pulse');
-                requestAnimationFrame(function() {
-                    fabBtn.classList.add('animate-fab-pulse');
-                });
+                void fabBtn.offsetWidth;
+                fabBtn.classList.add('animate-fab-pulse');
             }
 
             menu.classList.remove('pointer-events-auto');
@@ -5362,7 +5350,6 @@
             var items = menu.querySelectorAll('.fab-bubble-item');
             items.forEach(function(item) {
                 item.classList.remove('emerge');
-                void item.offsetWidth;
                 item.classList.add('retract');
             });
 
