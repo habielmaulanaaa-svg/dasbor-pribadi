@@ -1031,6 +1031,9 @@
         .bottom-sheet-backdrop.active .bottom-sheet-content {
             transform: translate3d(0, 0, 0);
         }
+        body.sheet-open {
+            overflow: hidden !important;
+        }
         body.sheet-open #settings-menu {
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
@@ -3384,8 +3387,23 @@
         }
         
         function formatTanggal(tglString) {
-            if(!tglString) return '';
-            return new Date(tglString).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+            if (!tglString) return '';
+            try {
+                if (typeof tglString === 'string' && tglString.includes('-')) {
+                    var cleanIso = tglString.split('T')[0];
+                    var parts = cleanIso.split('-');
+                    if (parts.length === 3) {
+                        var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+                        if (!isNaN(d.getTime())) {
+                            return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+                        }
+                    }
+                }
+                var fallback = new Date(tglString);
+                return !isNaN(fallback.getTime()) ? fallback.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }) : tglString;
+            } catch(e) {
+                return tglString;
+            }
         }
 
         // ANIMASI HALUS SENSOR SALDO (PRIVACY BLUR-REVEAL) & SINKRONISASI GELOMBANG AIR
@@ -6417,7 +6435,7 @@
             }
         }
 
-        // SWIPE GESTURE HANDLERS
+        // SWIPE GESTURE HANDLERS (GPU-EFFICIENT ON-DEMAND COMPOSITING)
         function attachSwipeGestures(el, taskId) {
             let startX = 0, startY = 0, currentX = 0, isTouching = false, hasMoved = false;
             let rAF = null;
@@ -6425,10 +6443,9 @@
             let leftLayer = wrapper ? wrapper.querySelector('.swipe-underlayer-left') : null;
             let rightLayer = wrapper ? wrapper.querySelector('.swipe-underlayer-right') : null;
 
-            el.style.willChange = 'transform';
-
             el.addEventListener('touchstart', (e) => {
                 if (e.target.closest('button')) return;
+                el.style.willChange = 'transform';
                 startX = e.touches[0].clientX;
                 startY = e.touches[0].clientY;
                 currentX = startX;
@@ -6446,6 +6463,7 @@
 
                 if (!hasMoved && Math.abs(diffY) > Math.abs(diffX)) {
                     isTouching = false;
+                    el.style.willChange = 'auto';
                     return;
                 }
 
@@ -6478,6 +6496,7 @@
                 if (!hasMoved) {
                     el.style.transition = '';
                     el.style.transform = 'translate3d(0, 0, 0)';
+                    el.style.willChange = 'auto';
                     if (leftLayer) leftLayer.style.opacity = '0';
                     if (rightLayer) rightLayer.style.opacity = '0';
                     startX = 0; currentX = 0;
@@ -6488,6 +6507,7 @@
                 
                 el.style.transition = 'transform 0.24s cubic-bezier(0.22, 1, 0.36, 1)';
                 el.style.transform = 'translate3d(0, 0, 0)';
+                setTimeout(() => { el.style.willChange = 'auto'; }, 260);
                 if (leftLayer) leftLayer.style.opacity = '0';
                 if (rightLayer) rightLayer.style.opacity = '0';
 
