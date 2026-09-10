@@ -191,17 +191,35 @@
             transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* Accordion Drawer */
+        /* Accordion Drawer: Fluid Spring Unfurl */
         .accordion-content { 
             max-height: 0; 
             opacity: 0; 
             overflow: hidden; 
-            transition: max-height 0.32s cubic-bezier(0.2, 0, 0, 1), opacity 0.22s ease-out; 
+            transition: max-height 0.36s cubic-bezier(0.34, 1.25, 0.64, 1), opacity 0.24s ease-out; 
             will-change: max-height, opacity; 
         }
         .accordion-content.open { 
             max-height: 2500px; 
             opacity: 1; 
+        }
+        @keyframes springAccordionUnfurl {
+            0% {
+                opacity: 0;
+                transform: scaleY(0.90) translateY(-8px);
+            }
+            65% {
+                opacity: 1;
+                transform: scaleY(1.018) translateY(1.5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleY(1) translateY(0);
+            }
+        }
+        .accordion-content.open > div:first-child {
+            transform-origin: top center;
+            animation: springAccordionUnfurl 0.36s cubic-bezier(0.34, 1.25, 0.64, 1) forwards;
         }
 
         /* Animasi Tambah & Hapus Target Impian */
@@ -866,6 +884,31 @@
             100% { transform: scaleY(1); }
         }
 
+        /* 4b. BALANCE CARD: JELLY PULSE & FLUID GLOW AURA */
+        @keyframes jellyCardPulse {
+            0% { transform: scale(1, 1); }
+            24% { transform: scale(1.022, 0.982); }
+            52% { transform: scale(0.992, 1.012); }
+            76% { transform: scale(1.005, 0.997); }
+            100% { transform: scale(1, 1); }
+        }
+        #saldo-card-bg {
+            transition: box-shadow 0.35s ease, transform 0.25s ease;
+            will-change: transform, box-shadow;
+        }
+        #saldo-card-bg.jelly-pulse-inflow {
+            animation: jellyCardPulse 0.44s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            box-shadow: 0 12px 34px rgba(16, 185, 129, 0.48), 0 0 20px rgba(52, 211, 153, 0.35) !important;
+        }
+        #saldo-card-bg.jelly-pulse-outflow {
+            animation: jellyCardPulse 0.44s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            box-shadow: 0 12px 34px rgba(239, 68, 68, 0.48), 0 0 20px rgba(248, 113, 113, 0.35) !important;
+        }
+        #saldo-card-bg.jelly-pulse-tap {
+            animation: jellyCardPulse 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            box-shadow: 0 12px 34px hsl(var(--theme-h), 83%, 53%, 0.45) !important;
+        }
+
         /* ==========================================
            4. KARTU MENU BERSEBELAHAN: FLUID CONTACT & MERGING
            ========================================== */
@@ -999,7 +1042,44 @@
         }
         
         .prio-btn.active { border-color: hsl(var(--theme-h), 83%, 53%); font-weight: 900; }
-        .period-btn.active { background-color: hsl(var(--theme-h), 83%, 53%); color: #ffffff; border-color: hsl(var(--theme-h), 83%, 53%); }
+        
+        /* 2. LIQUID FILTER PILL: SLIDING MERCURY INDICATOR */
+        #filter-transaksi-track {
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        #filter-liquid-mercury-pill {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            border-radius: 12px;
+            background-color: hsl(var(--theme-h), 83%, 53%);
+            box-shadow: 0 3px 12px hsl(var(--theme-h), 83%, 53%, 0.45);
+            transition: transform 0.32s cubic-bezier(0.34, 1.35, 0.64, 1), width 0.32s cubic-bezier(0.34, 1.35, 0.64, 1), opacity 0.2s ease;
+            pointer-events: none;
+            will-change: transform, width;
+            opacity: 0;
+            z-index: 0;
+        }
+        .period-btn {
+            position: relative;
+            z-index: 1;
+            background: transparent !important;
+            border-color: transparent !important;
+            color: #64748b;
+            transition: color 0.24s ease, transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1);
+        }
+        .dark .period-btn {
+            color: #94a3b8;
+        }
+        .period-btn.active { 
+            color: #ffffff !important; 
+            font-weight: 800;
+        }
+        .period-btn:active, .prio-btn:active, .kat-btn:active {
+            transform: scale(0.92);
+        }
         
         .swipe-item {
             touch-action: pan-y;
@@ -2947,12 +3027,13 @@
                         </span>
                         <div id="finance-arrows-riwayat"></div>
                     </div>
-                    <!-- Filter Rentang Waktu Transaksi -->
-                    <div class="flex items-center gap-1.5 mb-2 overflow-x-auto pb-1">
-                        <button type="button" onclick="setPeriodeTransaksi('semua', this)" class="period-btn active text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Semua</button>
-                        <button type="button" onclick="setPeriodeTransaksi('hari-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Hari Ini</button>
-                        <button type="button" onclick="setPeriodeTransaksi('minggu-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Minggu Ini</button>
-                        <button type="button" onclick="setPeriodeTransaksi('bulan-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[#313f52] bg-white dark:bg-[#17212b] shadow-sm shrink-0">Bulan Ini</button>
+                    <!-- Filter Rentang Waktu Transaksi dengan Liquid Mercury Indicator -->
+                    <div id="filter-transaksi-track" class="relative flex items-center gap-1.5 mb-2 overflow-x-auto p-1 rounded-2xl bg-slate-100 dark:bg-[#111923] border border-slate-200/80 dark:border-[#242f3d]">
+                        <div id="filter-liquid-mercury-pill" class="absolute rounded-xl bg-primary-600 shadow-[0_3px_12px_hsl(var(--theme-h),83%,53%,0.4)] pointer-events-none transition-all duration-300 z-0 will-change-transform"></div>
+                        <button type="button" onclick="setPeriodeTransaksi('semua', this)" class="period-btn active text-[10px] font-bold px-3 py-1.5 rounded-xl shrink-0">Semua</button>
+                        <button type="button" onclick="setPeriodeTransaksi('hari-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl shrink-0">Hari Ini</button>
+                        <button type="button" onclick="setPeriodeTransaksi('minggu-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl shrink-0">Minggu Ini</button>
+                        <button type="button" onclick="setPeriodeTransaksi('bulan-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl shrink-0">Bulan Ini</button>
                     </div>
 
                     <!-- Instant Search Bar Riwayat Transaksi -->
@@ -3422,6 +3503,9 @@
                 setTimeout(() => saldoEl.classList.remove('animate-sensor-reveal'), 300);
             }
 
+            if (typeof triggerBalanceJellyPulse === 'function') {
+                triggerBalanceJellyPulse('tap');
+            }
 
             simpanData();
             triggerDynamicIsland("Privasi", dataState.isPrivacyMode ? "Saldo disembunyikan 👁️" : "Saldo ditampilkan", "fas fa-eye", "bg-amber-500/20 text-amber-400");
@@ -5351,6 +5435,9 @@
 
             if (tabId === 'keuangan') {
                 applyFinanceWidgetOrder();
+                setTimeout(function() {
+                    updateFilterMercuryPill(null, false);
+                }, 40);
             }
         }
 
@@ -5577,6 +5664,10 @@
             var icon = document.getElementById('saldo-smart-insight-icon');
             var text = document.getElementById('saldo-smart-insight-text');
             if (!container || !pill || !icon || !text) return;
+
+            if (force && typeof triggerBalanceJellyPulse === 'function') {
+                triggerBalanceJellyPulse('tap');
+            }
 
             // Jika bukan dipicu manual (klik pengguna) dan sudah pernah tayang atau sedang berjalan di sesi ini, jangan ulang!
             if (!force && (isSmartInsightsAlreadyShown || isSmartInsightsRunning)) {
@@ -6039,10 +6130,34 @@
             if(inp) { inp.value = ''; filterTransaksi(''); }
         }
 
+        function updateFilterMercuryPill(btn, animate) {
+            var pill = document.getElementById('filter-liquid-mercury-pill');
+            var track = document.getElementById('filter-transaksi-track');
+            if (!pill || !track) return;
+            if (!btn) {
+                btn = track.querySelector('.period-btn.active');
+            }
+            if (!btn) return;
+            if (animate === false) {
+                pill.style.transition = 'none';
+            } else {
+                pill.style.transition = 'transform 0.32s cubic-bezier(0.34, 1.35, 0.64, 1), width 0.32s cubic-bezier(0.34, 1.35, 0.64, 1), opacity 0.2s ease';
+            }
+            var left = btn.offsetLeft;
+            var top = btn.offsetTop;
+            var width = btn.offsetWidth;
+            var height = btn.offsetHeight;
+            pill.style.width = width + 'px';
+            pill.style.height = height + 'px';
+            pill.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+            pill.style.opacity = '1';
+        }
+
         function setPeriodeTransaksi(periode, btn) {
             periodeTransaksiVal = periode;
             document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            updateFilterMercuryPill(btn, true);
             perbaruiTampilan();
         }
 
@@ -6470,17 +6585,29 @@
                 if (Math.abs(diffX) > 8) {
                     hasMoved = true;
                     currentX = touchX;
-                    let clampDiff = Math.max(-95, Math.min(95, diffX));
+                    // Viscous Rubber-Band Damping (iOS-style non-linear elastic stretch past 60px)
+                    let rawX = diffX;
+                    let sign = Math.sign(rawX) || 1;
+                    let absX = Math.abs(rawX);
+                    let threshold = 60;
+                    let dampedDiff;
+                    if (absX <= threshold) {
+                        dampedDiff = rawX;
+                    } else {
+                        let over = absX - threshold;
+                        let dampedOver = (over * 50) / (over + 50); // asymptote at 60 + 50 = 110px
+                        dampedDiff = sign * (threshold + dampedOver);
+                    }
                     
                     if (rAF) cancelAnimationFrame(rAF);
                     rAF = requestAnimationFrame(() => {
-                        el.style.transform = `translate3d(${clampDiff}px, 0, 0)`;
+                        el.style.transform = `translate3d(${dampedDiff}px, 0, 0)`;
                         if (leftLayer && rightLayer) {
-                            if (clampDiff > 0) {
-                                leftLayer.style.opacity = Math.min(clampDiff / 50, 1);
+                            if (dampedDiff > 0) {
+                                leftLayer.style.opacity = Math.min(dampedDiff / 50, 1);
                                 rightLayer.style.opacity = '0';
                             } else {
-                                rightLayer.style.opacity = Math.min(Math.abs(clampDiff) / 50, 1);
+                                rightLayer.style.opacity = Math.min(Math.abs(dampedDiff) / 50, 1);
                                 leftLayer.style.opacity = '0';
                             }
                         }
@@ -6505,16 +6632,35 @@
                 hasMoved = false;
                 let diff = currentX - startX;
                 
-                el.style.transition = 'transform 0.24s cubic-bezier(0.22, 1, 0.36, 1)';
-                el.style.transform = 'translate3d(0, 0, 0)';
-                setTimeout(() => { el.style.willChange = 'auto'; }, 260);
-                if (leftLayer) leftLayer.style.opacity = '0';
-                if (rightLayer) rightLayer.style.opacity = '0';
-
                 if (diff > 65) {
-                    toggleStatusTugas(taskId);
+                    // Action triggered: swipe right (selesai)
+                    el.style.transition = 'transform 0.22s cubic-bezier(0.2, 0.8, 0.4, 1)';
+                    el.style.transform = 'translate3d(120px, 0, 0)';
+                    setTimeout(() => {
+                        el.style.willChange = 'auto';
+                        el.style.transform = 'translate3d(0, 0, 0)';
+                        if (leftLayer) leftLayer.style.opacity = '0';
+                        if (rightLayer) rightLayer.style.opacity = '0';
+                        toggleStatusTugas(taskId);
+                    }, 220);
                 } else if (diff < -65) {
-                    hapusTugas(taskId, el);
+                    // Action triggered: swipe left (hapus)
+                    el.style.transition = 'transform 0.22s cubic-bezier(0.2, 0.8, 0.4, 1)';
+                    el.style.transform = 'translate3d(-120px, 0, 0)';
+                    setTimeout(() => {
+                        el.style.willChange = 'auto';
+                        el.style.transform = 'translate3d(0, 0, 0)';
+                        if (leftLayer) leftLayer.style.opacity = '0';
+                        if (rightLayer) rightLayer.style.opacity = '0';
+                        hapusTugas(taskId, el);
+                    }, 220);
+                } else {
+                    // Action cancelled: Rubber-band spring overshoot snap-back!
+                    el.style.transition = 'transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    el.style.transform = 'translate3d(0, 0, 0)';
+                    setTimeout(() => { el.style.willChange = 'auto'; }, 440);
+                    if (leftLayer) leftLayer.style.opacity = '0';
+                    if (rightLayer) rightLayer.style.opacity = '0';
                 }
                 startX = 0; currentX = 0;
             };
@@ -6764,7 +6910,19 @@
             handleNominalInput(inputEl, previewId);
         }
 
-        // --- LIQUID BALANCE TANK DROPLET FUSION ---
+        // --- LIQUID BALANCE TANK DROPLET FUSION & JELLY PULSE ---
+        function triggerBalanceJellyPulse(type) {
+            var card = document.getElementById('saldo-card-bg');
+            if (!card) return;
+            card.classList.remove('jelly-pulse-inflow', 'jelly-pulse-outflow', 'jelly-pulse-tap');
+            void card.offsetWidth;
+            var cls = (type === 'masuk') ? 'jelly-pulse-inflow' : (type === 'keluar' ? 'jelly-pulse-outflow' : 'jelly-pulse-tap');
+            card.classList.add(cls);
+            setTimeout(function() {
+                if (card) card.classList.remove('jelly-pulse-inflow', 'jelly-pulse-outflow', 'jelly-pulse-tap');
+            }, 460);
+        }
+
         function triggerBalanceTankFusion(jenis) {
             var droplet = document.getElementById('balance-fusion-droplet');
             if (droplet) {
@@ -6772,6 +6930,7 @@
                 void droplet.offsetWidth;
                 droplet.className = jenis === 'masuk' ? 'drop-inflow' : 'drop-outflow';
             }
+            triggerBalanceJellyPulse(jenis);
         }
 
         // --- CRUD KEUANGAN ---
@@ -7772,17 +7931,19 @@
             setTimeout(dismissSkeleton, 600);
             handleUrlActionShortcuts();
 
-            // Inisialisasi Indikator Merkuri Dok Navigasi & Interaksi Fluida
+            // Inisialisasi Indikator Merkuri Dok Navigasi & Filter Transaksi
             setTimeout(function() {
                 var activeTabEl = document.querySelector('.tab-content.active');
                 var activeTabKey = activeTabEl ? activeTabEl.id : 'beranda';
                 updateMercuryPill(activeTabKey, false);
+                updateFilterMercuryPill(null, false);
                 initFluidCardInteractions();
                 initFluidToggleGestures();
             }, 80);
             window.addEventListener('resize', function() {
                 var cur = document.querySelector('.tab-content.active');
                 updateMercuryPill(cur ? cur.id : 'beranda', false);
+                updateFilterMercuryPill(null, false);
             });
         }
 
