@@ -87,19 +87,22 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK (Offline-First + Hybrid Auth) v33.14.OTA"
+          name: "Dasbor Pribadi Standalone APK (Offline-First + Fluid Spring Physics) v33.15.OTA"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.14.OTA)
-            Aplikasi resmi Android 100% Mandiri (**Offline-First**) tanpa ketergantungan web browser, dilengkapi dengan **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.15.OTA)
+            Aplikasi resmi Android 100% Mandiri (**Offline-First**) tanpa ketergantungan web browser, kini hadir dengan **Era Fisika Fluida & Pantulan (Fluid Spring Physics)**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v33.14.OTA
-            - **Fitur Utama**:
+            - **Versi**: v33.15.OTA
+            - **Fitur Baru v33.15.OTA**:
+              - 🧲 **Rubber-band Swipe Snap**: Redaman karet non-linear (iOS viscous damping) pada kartu tugas dengan pantulan pegas alami (*overshoot snap-back*).
+              - 💧 **Liquid Filter Pill**: Kapsul air raksa presisi meluncur mulus membungkus tab rentang waktu transaksi tanpa pergeseran vertikal.
+              - 📜 **Spring Accordion Unfurl**: Animasi membuka formulir input (Tugas, Jurnal, Tabungan) yang melar kenyal hardware-accelerated.
+              - 🌊 **Jelly Pulse & Mode Solid Bersih**: Respon fluida mikro kartu saldo saat disentuh/transaksi, dengan proteksi tanpa kebocoran glow saat gradasi dimatikan.
+              - 🛡️ **Pembersihan Bug Menu Pengaturan**: Menghilangkan bug pantulan tidak sengaja pada baris toggle saat membuka Opsi Tampilan & Sistem.
               - 🔑 **Hybrid Auth Bridge**: Login Google resmi lancar 100% tanpa kendala "The requested action is invalid".
               - 📱 **100% Standalone APK (Offline-First)**: Dibuka instan tanpa butuh koneksi internet sama sekali.
               - 🚀 **Pembaruan Otomatis (OTA)**: Fitur terbaru diperbarui di latar belakang tanpa harus install APK ulang.
-              - ☁️ **Cloud Storage Utuh**: Sinkronisasi Firebase Firestore tetap bekerja 100%.
-              - 📊 **Widget Home Screen**: Tiga varian widget Android terintegrasi langsung dengan performa kilat.
           files: dasbor-pribadi.apk
           prerelease: false
           draft: false

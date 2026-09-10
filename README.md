@@ -1,11 +1,11 @@
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.14.OTA
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.15.OTA
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.14.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.15.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.14.OTA)** dengan dukungan **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Animasi Gelombang Fluida Saldo 100% Seamless**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Restorasi Murni Kaca Buram (*Frosted Glass*)**, **Saklar Fisika Fluida (*Liquid Glass Switch*) Waktu Tugas**, **Jadwal Rekap Harian Tepat 00:00 WIB**, **Transisi Tema Otomatis Jam WIB (17:00-05:00)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.15.OTA)** dengan dukungan **Era Fisika Fluida & Pantulan (Fluid Spring Physics)**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -14,12 +14,35 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
 | 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer 100% mandiri offline-first dengan Hybrid Auth Bridge & OTA otomatis |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.14.OTA |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.15.OTA |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (Cloud Realtime) |
 
 ---
 
-## 🚀 Pembaruan Versi Sekarang (v33.14.OTA)
+## 🚀 Pembaruan Versi Sekarang (v33.15.OTA)
+
+### 1. 🧲 Rubber-band Swipe Snap pada Geser Kartu Tugas
+- **Fisika Redaman Karet Non-Linear (iOS Viscous Damping)**: Usapan kartu tugas terasa responsif 1:1 di awal, kemudian semakin berat saat ditarik melebihi 60px.
+- **Pantulan Pegas Alami (*Spring Overshoot Snap-back*)**: Jika jari dilepas tanpa melewati ambang batas aksi, kartu membal kenyal melewati titik nol (`cubic-bezier(0.34, 1.56, 0.64, 1)`) sebelum diam di tempat semula.
+
+### 2. 💧 Liquid Filter Pill pada Tab Riwayat Transaksi
+- **Kapsul Air Raksa Presisi**: Kapsul meluncur elastis di belakang tab rentang waktu (`Semua`, `Hari Ini`, `Minggu Ini`, `Bulan Ini`) dengan koordinat absolut presisi 1:1, tanpa risiko melorot atau terpotong.
+- **Umpan Balik Taktil**: Animasi tekan mikro (`scale(0.92)`) saat memilih kategori atau filter.
+
+### 3. 📜 Spring Accordion Unfurl pada Form Input
+- **Membentang Organik Melar Kenyal**: Membuka form input Tugas Baru, Jurnal, dan Tabungan membentang dengan kurva pegas hardware-accelerated (`transform: scaleY() & translateY()`).
+- **Bebas Interferensi**: Khusus menargetkan container form input, sehingga menu pengaturan tetap ramping tanpa animasi pantulan yang tidak disengaja.
+
+### 4. 🌊 Jelly Pulse & Mode Solid Bersih pada Kartu Saldo
+- **Respon Fluida Mikro**: Kartu saldo bergetar fluida lembut (0.38s - 0.44s) saat transaksi masuk/keluar atau disentuh.
+- **Proteksi Mode Solid Minimalis**: Saat gradasi warna dimatikan, getaran kartu saldo menggunakan bayangan netral gelap murni tanpa kebocoran pendaran warna (*zero gradient leakage*).
+
+### 5. 🛡️ Stabilisasi & Pembersihan Bug Inti (Batch 1 & Batch 2)
+- Sanitasi XSS menyeluruh (`escapeHtml`), ID integer unik monotonik (`generateUniqueId`), proteksi anti-spam submit (400ms), rekonsiliasi cerdas offline ➔ cloud, optimalisasi GPU *on-demand compositing* pada daftar tugas, perbaikan pergeseran tanggal UTC, dan penyesuaian cache PWA `dasbor-pwa-v33-15-ota`.
+
+---
+
+## 📜 Arsip Pembaruan Versi Sebelumnya (v33.14.OTA)
 
 ### 1. 🔑 Hybrid Auth Bridge (Solusi Tuntas Login Akun Google)
 - **Otentikasi Aman Terpercaya**: Mengatasi kendala penolakan OAuth (*The requested action is invalid* / *network AuthError*) pada protokol `file://` di dalam WebView mandiri.
@@ -181,5 +204,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.14.OTA • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.15.OTA • Era Super-App Finansial & Produktivitas</b></sub>
 </div>
