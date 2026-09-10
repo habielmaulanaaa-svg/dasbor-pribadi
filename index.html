@@ -3218,6 +3218,22 @@
                 banner.classList.add('-translate-y-24', 'opacity-0', 'pointer-events-none');
             }
         }
+        // UTILITY KEAMANAN SANITASI HTML & GENERATOR ID UNIK (ANTI-XSS & ANTI-COLLISION)
+        function escapeHtml(text) {
+            if (text === null || text === undefined) return '';
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        let _uniqueIdCounter = 0;
+        function generateUniqueId() {
+            _uniqueIdCounter = (_uniqueIdCounter + 1) % 1000;
+            return Date.now() * 1000 + _uniqueIdCounter;
+        }
 
         const safeStorage = {
             getItem: (k) => {
@@ -3757,7 +3773,7 @@
                     <div class="flex items-center justify-between p-2.5 bg-white dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60">
                         <div class="min-w-0 flex-1 pr-2">
                             <div class="flex items-center gap-1.5">
-                                <span class="text-xs font-bold text-slate-800 dark:text-white truncate">${s.nama}</span>
+                                <span class="text-xs font-bold text-slate-800 dark:text-white truncate">${escapeHtml(s.nama)}</span>
                                 <span class="text-[9px] px-1.5 py-0.5 rounded bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-300 font-bold">Tgl ${s.tanggalJatuhTempo}</span>
                             </div>
                             <span class="text-[10px] font-black text-rose-600 dark:text-rose-400">${formatRupiah(s.nominal)} / bln</span>
@@ -3768,7 +3784,9 @@
             }).join('');
         }
 
+        let _isAddingLangganan = false;
         function tambahLangganan() {
+            if (_isAddingLangganan) return;
             var nama = (document.getElementById('input-sub-nama').value || '').trim();
             var nominalStr = document.getElementById('input-sub-nominal').value || '';
             var nominal = parseInt(nominalStr.replace(/[^0-9]/g, ''), 10);
@@ -3791,9 +3809,12 @@
                 return;
             }
 
+            _isAddingLangganan = true;
+            setTimeout(function() { _isAddingLangganan = false; }, 400);
+
             if (!Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
             dataState.subscriptions.push({
-                id: Date.now(),
+                id: generateUniqueId(),
                 nama: nama,
                 nominal: nominal,
                 tanggalJatuhTempo: tgl,
@@ -3804,11 +3825,13 @@
             document.getElementById('input-sub-nama').value = '';
             document.getElementById('input-sub-nominal').value = '';
             document.getElementById('input-sub-tanggal').value = '';
+            var prev = document.getElementById('preview-sub-nominal');
+            if (prev) { prev.classList.add('hidden'); prev.innerHTML = ''; }
 
             simpanData();
             renderSubscriptionModalList();
             triggerHaptic('success');
-            triggerDynamicIsland("Tagihan Disimpan 📅", `${nama} (${formatRupiah(nominal)}) berhasil dicatat`, "fas fa-calendar-check", "bg-purple-500/20 text-purple-400");
+            triggerDynamicIsland("Langganan Baru 📅", `Pengingat "${nama}" berhasil disimpan`, "fas fa-bell", "bg-purple-500/20 text-purple-400");
         }
 
         function hapusLangganan(id) {
@@ -3820,12 +3843,17 @@
             triggerDynamicIsland("Dihapus", "Langganan berhasil dihapus", "fas fa-trash", "bg-red-500/20 text-red-400");
         }
 
+        let _isPayingSub = false;
         function bayarLangganan(id) {
+            if (_isPayingSub) return;
             var sub = (dataState.subscriptions || []).find(function(s) { return s.id === id; });
             if (!sub) return;
 
+            _isPayingSub = true;
+            setTimeout(function() { _isPayingSub = false; }, 500);
+
             dataState.transaksi.push({
-                id: Date.now(),
+                id: generateUniqueId(),
                 jenis: 'keluar',
                 nominal: sub.nominal,
                 catatan: `Bayar Langganan: ${sub.nama}`,
@@ -3882,7 +3910,7 @@
                     <div class="p-3 bg-slate-50/70 dark:bg-[#242f3d]/40 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between">
                         <div class="min-w-0 flex-1 pr-2">
                             <div class="flex items-center gap-2">
-                                <span class="text-xs font-bold text-slate-800 dark:text-white truncate">${s.nama}</span>
+                                <span class="text-xs font-bold text-slate-800 dark:text-white truncate">${escapeHtml(s.nama)}</span>
                                 <span class="text-[9px] font-black px-2 py-0.5 rounded-full ${badgeClass}">${countdownText}</span>
                             </div>
                             <div class="flex items-center gap-1.5 mt-0.5">
@@ -4562,7 +4590,9 @@
             }).join('');
         }
 
+        let _isAddingCatatan = false;
         function tambahCatatanKilat() {
+            if (_isAddingCatatan) return;
             var input = document.getElementById('input-catatan-teks');
             if (!input) return;
             var val = input.value.trim();
@@ -4570,6 +4600,9 @@
                 triggerHaptic('error');
                 return;
             }
+
+            _isAddingCatatan = true;
+            setTimeout(function() { _isAddingCatatan = false; }, 400);
 
             var selectedTipe = 'belanja';
             var radios = document.getElementsByName('catatan-tipe');
@@ -4582,7 +4615,7 @@
 
             if (!Array.isArray(dataState.catatanKilat)) dataState.catatanKilat = [];
             var newItem = {
-                id: Date.now() + Math.floor(Math.random() * 1000),
+                id: generateUniqueId(),
                 text: val,
                 tipe: selectedTipe,
                 done: false,
@@ -4828,7 +4861,9 @@
             elTanggal.innerText = idDateLongFormatter.format(targetDate);
         }
 
+        let _isAddingImpianCalc = false;
         function simpanImpianDariKalkulator() {
+            if (_isAddingImpianCalc) return;
             var jud = document.getElementById('calc-target-name')?.value.trim();
             var tgt = evaluateQuickMath(document.getElementById('calc-target-nominal')?.value) || 0;
             var current = evaluateQuickMath(document.getElementById('calc-target-terkumpul')?.value) || 0;
@@ -4839,8 +4874,11 @@
                 return;
             }
 
+            _isAddingImpianCalc = true;
+            setTimeout(function() { _isAddingImpianCalc = false; }, 400);
+
             if (!dataState.targetTabungan) dataState.targetTabungan = [];
-            var newItem = { id: Date.now(), judul: jud, target: tgt, terkumpul: Math.min(current, tgt), _isNew: true };
+            var newItem = { id: generateUniqueId(), judul: jud, target: tgt, terkumpul: Math.min(current, tgt), _isNew: true };
             dataState.targetTabungan.unshift(newItem);
             simpanData();
             triggerHaptic('success');
@@ -5095,7 +5133,7 @@
             var trxRows = (dataState.transaksi || []).slice(-15).reverse().map(t => `
                 <tr class="border-b border-slate-100 dark:border-[#242f3d]">
                     <td class="py-2 px-1 text-[11px] text-slate-500 dark:text-slate-400">${t.tanggal}</td>
-                    <td class="py-2 px-1 text-xs font-bold text-slate-800 dark:text-white">${t.catatan}<br><span class="text-[10px] text-slate-400 font-normal">${t.kategori || ''}</span></td>
+                    <td class="py-2 px-1 text-xs font-bold text-slate-800 dark:text-white">${escapeHtml(t.catatan)}<br><span class="text-[10px] text-slate-400 font-normal">${escapeHtml(t.kategori || '')}</span></td>
                     <td class="py-2 px-1 text-xs font-black text-right ${t.jenis === 'masuk' ? 'text-green-600' : 'text-red-600'}">
                         ${t.jenis === 'masuk' ? '+' : '-'} Rp ${new Intl.NumberFormat('id-ID').format(t.nominal)}
                     </td>
@@ -5108,7 +5146,7 @@
                         <span class="text-[10px] uppercase font-bold text-slate-400">Laporan Resmi</span>
                         <span class="text-[10px] font-bold text-primary-500">${dateStr}</span>
                     </div>
-                    <h4 class="text-sm font-black text-slate-800 dark:text-white mb-3">Ringkasan Dasbor: ${userName}</h4>
+                    <h4 class="text-sm font-black text-slate-800 dark:text-white mb-3">Ringkasan Dasbor: ${escapeHtml(userName)}</h4>
                     <div class="grid grid-cols-3 gap-2 text-center mb-3">
                         <div class="bg-white dark:bg-[#17212b] p-2 rounded-xl border border-slate-200 dark:border-[#313f52]">
                             <span class="text-[9px] text-slate-400 font-bold uppercase block">Saldo</span>
@@ -6239,13 +6277,18 @@
         }
 
         // --- CRUD TUGAS ---
+        let _isAddingTugas = false;
         function tambahTugas() {
+            if (_isAddingTugas) return;
             var inputNama = document.getElementById('input-tugas-nama');
             var inputDl = document.getElementById('input-tugas-deadline');
             var nama = inputNama.value.trim();
             var dl = inputDl.value;
             
             if (!nama) { triggerDynamicIsland("Tugas", "Nama tugas tidak boleh kosong!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400"); inputNama.focus(); return; }
+
+            _isAddingTugas = true;
+            setTimeout(function() { _isAddingTugas = false; }, 400);
 
             var isWaktuAktif = (dataState.optTugasWaktuDibuat !== false);
             var waktuDibuat = null;
@@ -6256,7 +6299,7 @@
             }
 
             dataState.tugas.push({ 
-                id: Date.now(), 
+                id: generateUniqueId(), 
                 nama: nama, 
                 deadline: dl || null, 
                 prioritas: selectedPrioritasVal || 'sedang',
@@ -6461,7 +6504,9 @@
         }
 
         // --- CRUD TARGET TABUNGAN ---
+        let _isAddingTabungan = false;
         function tambahTargetTabungan() {
+            if (_isAddingTabungan) return;
             var jud = document.getElementById('input-tabungan-judul').value.trim();
             var tgt = evaluateQuickMath(document.getElementById('input-tabungan-target').value);
             if (!jud || isNaN(tgt) || tgt <= 0) { 
@@ -6470,8 +6515,11 @@
                 return; 
             }
 
+            _isAddingTabungan = true;
+            setTimeout(function() { _isAddingTabungan = false; }, 400);
+
             if (!dataState.targetTabungan) dataState.targetTabungan = [];
-            var newItem = { id: Date.now(), judul: jud, target: tgt, terkumpul: 0, _isNew: true };
+            var newItem = { id: generateUniqueId(), judul: jud, target: tgt, terkumpul: 0, _isNew: true };
             dataState.targetTabungan.unshift(newItem);
             document.getElementById('input-tabungan-judul').value = '';
             document.getElementById('input-tabungan-target').value = '';
@@ -6707,7 +6755,9 @@
         }
 
         // --- CRUD KEUANGAN ---
+        let _isAddingUang = false;
         function tambahUang(jenis) {
+            if (_isAddingUang) return;
             var inputNominal = document.getElementById(jenis === 'masuk' ? 'input-masuk-nominal' : 'input-keluar-nominal');
             var inputCatatan = document.getElementById(jenis === 'masuk' ? 'input-masuk-catatan' : 'input-keluar-catatan');
             var previewEl = document.getElementById(jenis === 'masuk' ? 'preview-masuk-math' : 'preview-keluar-math');
@@ -6719,10 +6769,13 @@
                 return; 
             }
 
+            _isAddingUang = true;
+            setTimeout(function() { _isAddingUang = false; }, 400);
+
             var ket = inputCatatan.value.trim() || (jenis === 'masuk' ? 'Pemasukan' : 'Pengeluaran');
             var targetWallet = (jenis === 'masuk') ? (selectedFormWalletMasuk || 'tunai') : (selectedFormWalletKeluar || 'tunai');
             dataState.transaksi.push({
-                id: Date.now(), 
+                id: generateUniqueId(), 
                 jenis: jenis, 
                 nominal: nilai, 
                 catatan: ket,
@@ -6803,13 +6856,18 @@
             }, 460);
         }
 
+        let _isAddingJurnal = false;
         function tambahJurnal() {
+            if (_isAddingJurnal) return;
             var jud = document.getElementById('jurnal-judul').value.trim();
             var isi = document.getElementById('jurnal-isi').value.trim();
             if (!jud && !isi) { triggerDynamicIsland("Jurnal", "Jurnal masih kosong!", "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); return; }
 
+            _isAddingJurnal = true;
+            setTimeout(function() { _isAddingJurnal = false; }, 400);
+
             dataState.jurnal.push({ 
-                id: Date.now(), judul: jud || 'Catatan', isi: isi, mood: selectedMoodIcon, 
+                id: generateUniqueId(), judul: jud || 'Catatan', isi: isi, mood: selectedMoodIcon, 
                 tanggal: new Date().toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' }) 
             });
             document.getElementById('jurnal-judul').value = ''; document.getElementById('jurnal-isi').value = '';
@@ -6959,7 +7017,7 @@
                 </div>
                 <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-1.5 flex-wrap">
-                        <p class="text-sm font-bold text-slate-800 dark:text-white leading-snug break-words compact-text-title">${task.nama}</p>
+                        <p class="text-sm font-bold text-slate-800 dark:text-white leading-snug break-words compact-text-title">${escapeHtml(task.nama)}</p>
                         ${prioBadge}
                     </div>
                     ${badgeWaktuDibuat}
@@ -6982,7 +7040,7 @@
                 <div class="w-11 h-11 rounded-xl bg-white dark:bg-[#242f3d] text-primary-500 flex items-center justify-center shrink-0 shadow-sm"><i class="fas fa-book text-lg"></i></div>
                 <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-1.5 flex-wrap">
-                        <p class="text-sm font-bold text-slate-800 dark:text-white leading-snug break-words compact-text-title">${task.nama}</p>
+                        <p class="text-sm font-bold text-slate-800 dark:text-white leading-snug break-words compact-text-title">${escapeHtml(task.nama)}</p>
                         ${prioBadge}
                     </div>
                     ${badgeWaktuDibuat}
@@ -7035,7 +7093,7 @@
                 <div id="task-li-${task.id}" class="swipe-item relative z-10 rounded-2xl border border-slate-200 dark:border-[#242f3d] bg-white dark:bg-[#17212b] p-3.5 flex items-center justify-between shadow-sm compact-pad">
                     <div class="flex-1 min-w-0 pr-3">
                         <div class="flex items-center gap-1.5 flex-wrap">
-                            <p class="text-sm break-words ${stylingTeks} compact-text-title">${task.nama}</p>
+                            <p class="text-sm break-words ${stylingTeks} compact-text-title">${escapeHtml(task.nama)}</p>
                             ${prioBadge}
                         </div>
                         ${badgeWaktuDibuat}
@@ -7198,9 +7256,9 @@
                     ? filteredTrx.slice().reverse().map(trx => `
                         <li class="flex items-center justify-between p-3.5 bg-white dark:bg-[#17212b] rounded-2xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
                             <div class="min-w-0 flex-1 pr-2">
-                                <p class="text-xs font-bold text-slate-800 dark:text-white truncate compact-text-title">${trx.catatan}</p>
+                                <p class="text-xs font-bold text-slate-800 dark:text-white truncate compact-text-title">${escapeHtml(trx.catatan)}</p>
                                 <div class="flex items-center gap-1.5 mt-0.5 flex-wrap">
-                                    <span class="text-[9px] ${getCategoryBadgeClass(trx.kategori)} px-2 py-0.5 rounded-lg font-bold">${trx.kategori || '📁 Transaksi'}</span>
+                                    <span class="text-[9px] ${getCategoryBadgeClass(trx.kategori)} px-2 py-0.5 rounded-lg font-bold">${escapeHtml(trx.kategori || '📁 Transaksi')}</span>
                                     ${getWalletBadge(trx.walletId)}
                                     <span class="text-[10px] text-slate-400 font-medium">${trx.tanggal}</span>
                                 </div>
@@ -7232,8 +7290,8 @@
                                 <span class="text-[10px] text-slate-400 font-bold">${j.tanggal}</span>
                                 <div class="flex items-center gap-2"><span>${j.mood || '😊'}</span><button type="button" onclick="hapusJurnal(${j.id}, this)" class="text-slate-300 hover:text-red-500"><i class="fas fa-trash text-xs"></i></button></div>
                             </div>
-                            <h3 class="font-bold text-slate-800 dark:text-white text-sm mb-1 compact-text-title">${j.judul}</h3>
-                            <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">${j.isi}</p>
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm mb-1 compact-text-title">${escapeHtml(j.judul)}</h3>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">${escapeHtml(j.isi)}</p>
                         </div>
                     `).join('');
                 } else {
@@ -7847,16 +7905,6 @@
         let cloudSyncTimer = null;
         let isSyncingToCloud = false;
 
-        function escapeHtml(text) {
-            if (!text) return '';
-            return String(text)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
         function formatTimeNow() {
             const now = new Date();
             const h = String(now.getHours()).padStart(2, '0');
@@ -8196,10 +8244,51 @@
                         const remote = docSnap.data();
                         if (remote && remote.dataState) {
                             const rState = remote.dataState;
-                            
-                            // Buka dasbor / Startup murni PULL (mengunduh dari Cloud ke Dasbor):
-                            // Data Cloud adalah sumber kebenaran. Kita muat data tanpa mengunggah ke Cloud.
-                            dataState = Object.assign({}, rState);
+                            const localUpdated = Number(dataState.updatedAt || 0);
+                            const remoteUpdated = Number(rState.updatedAt || 0);
+
+                            // Helper rekonsiliasi penggabungan array berdasarkan ID unik (mencegah data offline tertimpa)
+                            function mergeArrayById(localArr, remoteArr) {
+                                const map = new Map();
+                                (remoteArr || []).forEach(item => {
+                                    if (item && item.id !== undefined) map.set(item.id, item);
+                                });
+                                (localArr || []).forEach(item => {
+                                    if (item && item.id !== undefined) {
+                                        if (!map.has(item.id) || localUpdated > remoteUpdated) {
+                                            map.set(item.id, item);
+                                        }
+                                    }
+                                });
+                                return Array.from(map.values());
+                            }
+
+                            const hasNewerLocalChanges = localUpdated > remoteUpdated;
+                            const mergedTransaksi = mergeArrayById(dataState.transaksi, rState.transaksi);
+                            const mergedTugas = mergeArrayById(dataState.tugas, rState.tugas);
+                            const mergedJurnal = mergeArrayById(dataState.jurnal, rState.jurnal);
+                            const mergedTabungan = mergeArrayById(dataState.targetTabungan, rState.targetTabungan);
+                            const mergedCatatan = mergeArrayById(dataState.catatanKilat, rState.catatanKilat);
+                            const mergedSubs = mergeArrayById(dataState.subscriptions, rState.subscriptions);
+
+                            if (hasNewerLocalChanges) {
+                                dataState.transaksi = mergedTransaksi;
+                                dataState.tugas = mergedTugas;
+                                dataState.jurnal = mergedJurnal;
+                                dataState.targetTabungan = mergedTabungan;
+                                dataState.catatanKilat = mergedCatatan;
+                                dataState.subscriptions = mergedSubs;
+                                dataState.updatedAt = Date.now();
+                                debouncedSyncToCloud();
+                            } else {
+                                dataState = Object.assign({}, rState);
+                                dataState.transaksi = mergedTransaksi;
+                                dataState.tugas = mergedTugas;
+                                dataState.jurnal = mergedJurnal;
+                                dataState.targetTabungan = mergedTabungan;
+                                dataState.catatanKilat = mergedCatatan;
+                                dataState.subscriptions = mergedSubs;
+                            }
                             if(!Array.isArray(dataState.tugas)) dataState.tugas = [];
                             if(!Array.isArray(dataState.transaksi)) dataState.transaksi = [];
                             if(!Array.isArray(dataState.targetTabungan)) dataState.targetTabungan = [];
