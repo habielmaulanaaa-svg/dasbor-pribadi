@@ -87,19 +87,22 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK (Offline-First + Fluid Spring Physics) v33.15.OTA"
+          name: "Dasbor Pribadi Standalone APK (Offline-First + Checklist Reset Data) v33.16.OTA"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.15.OTA)
-            Aplikasi resmi Android 100% Mandiri (**Offline-First**) tanpa ketergantungan web browser, kini hadir dengan **Era Fisika Fluida & Pantulan (Fluid Spring Physics)**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.16.OTA)
+            Aplikasi resmi Android 100% Mandiri (**Offline-First**) tanpa ketergantungan web browser, kini hadir dengan **Checklist Hapus Data Terpilih (Selective Reset Data)**, **Pemulihan Animasi Saklar Fluida & Transisi Mode Renggang 60 FPS**, **Logo Resmi Dasbor di GitHub**, **Era Fisika Fluida & Pantulan (Fluid Spring Physics)**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v33.15.OTA
-            - **Fitur Baru v33.15.OTA**:
+            - **Versi**: v33.16.OTA
+            - **Fitur Baru v33.16.OTA**:
+              - 🗑️ **Modal Checklist Hapus Data Terpilih**: Fleksibilitas membersihkan kategori data spesifik (Keuangan & Saldo, Tugas & Deadline, Target Tabungan, Catatan Jurnal, Rekapitulasi, atau Pengaturan) secara independen dengan aman.
+              - 🎛️ **Pemulihan Animasi Saklar Fluida**: Melepaskan penguncian CSS berlebih pada saklar preferensi sehingga gerakan kenyal kenop dan transisi latar warna kembali elastis dan lembut.
+              - 📱 **Transisi Mulus Mode Renggang / Ramping 60 FPS**: Kartu-kartu dasbor meregang dan mengembang mulus hardware-accelerated tanpa kedipan atau render ulang DOM saat beralih mode.
+              - 🖼️ **Penyematan Logo Resmi di GitHub**: Menampilkan logo aplikasi resmi di bagian teratas dokumentasi README repositori GitHub.
               - 🧲 **Rubber-band Swipe Snap**: Redaman karet non-linear (iOS viscous damping) pada kartu tugas dengan pantulan pegas alami (*overshoot snap-back*).
-              - 💧 **Liquid Filter Pill**: Kapsul air raksa presisi meluncur mulus membungkus tab rentang waktu transaksi tanpa pergeseran vertikal.
-              - 📜 **Spring Accordion Unfurl**: Animasi membuka formulir input (Tugas, Jurnal, Tabungan) yang melar kenyal hardware-accelerated.
-              - 🌊 **Jelly Pulse & Mode Solid Bersih**: Respon fluida mikro kartu saldo saat disentuh/transaksi, dengan proteksi tanpa kebocoran glow saat gradasi dimatikan.
-              - 🛡️ **Pembersihan Bug Menu Pengaturan**: Menghilangkan bug pantulan tidak sengaja pada baris toggle saat membuka Opsi Tampilan & Sistem.
+              - 💧 **Liquid Filter Pill**: Kapsul air raksa presisi meluncur mulus membungkus tab rentang waktu transaksi.
+              - 📜 **Spring Accordion Unfurl**: Animasi membuka formulir input yang melar kenyal hardware-accelerated.
+              - 🌊 **Jelly Pulse & Mode Solid Bersih**: Respon fluida mikro kartu saldo saat disentuh/transaksi tanpa kebocoran glow.
               - 🔑 **Hybrid Auth Bridge**: Login Google resmi lancar 100% tanpa kendala "The requested action is invalid".
               - 📱 **100% Standalone APK (Offline-First)**: Dibuka instan tanpa butuh koneksi internet sama sekali.
               - 🚀 **Pembaruan Otomatis (OTA)**: Fitur terbaru diperbarui di latar belakang tanpa harus install APK ulang.

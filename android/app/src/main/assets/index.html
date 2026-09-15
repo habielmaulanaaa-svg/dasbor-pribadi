@@ -347,12 +347,9 @@
         .no-bounce,
         .no-bounce:active,
         #btn-settings-toggle-header,
-        #btn-settings-toggle-header:active,
-        #settings-toggles-stack button,
-        #settings-toggles-stack button:active { 
+        #btn-settings-toggle-header:active { 
             transform: none !important; 
             opacity: 1 !important; 
-            transition: none !important;
         }
 
         .nav-item { 
@@ -1522,7 +1519,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Dasbor APK Mandiri v33.15.OTA (OTA Aktif)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Dasbor APK Mandiri v33.16.OTA (OTA Aktif)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -1542,7 +1539,7 @@
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-palette text-primary-500 text-[10px]"></i> Gradasi Saldo</span>
                                     <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Warna gradasi cerah &amp; glow</span>
                                 </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleCardGradient()" id="btn-toggle-gradient" class="fluid-switch-btn no-bounce active focus:outline-none shrink-0" aria-label="Toggle Gradasi Saldo">
+                                <button type="button" onclick="event.stopPropagation(); toggleCardGradient()" id="btn-toggle-gradient" class="fluid-switch-btn active focus:outline-none shrink-0" aria-label="Toggle Gradasi Saldo">
                                     <div id="gradient-switch-knob" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
@@ -1554,7 +1551,7 @@
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-compress-alt text-primary-500 text-[10px]"></i> Mode Ramping</span>
                                     <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Padatkan kartu &amp; tata letak ringkas</span>
                                 </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleCompactMode()" id="btn-toggle-compact" class="fluid-switch-btn no-bounce focus:outline-none shrink-0" aria-label="Toggle Mode Ramping">
+                                <button type="button" onclick="event.stopPropagation(); toggleCompactMode()" id="btn-toggle-compact" class="fluid-switch-btn focus:outline-none shrink-0" aria-label="Toggle Mode Ramping">
                                     <div id="compact-switch-knob" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
@@ -1566,7 +1563,7 @@
                                     <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-clock text-primary-500 text-[10px]"></i> Tema Otomatis</span>
                                     <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5">Gelap 17:00 - 05:00 WIB, Terang 05:00 - 17:00 WIB</span>
                                 </div>
-                                <button type="button" onclick="event.stopPropagation(); toggleAutoThemeMode()" id="btn-toggle-autotheme" class="fluid-switch-btn no-bounce focus:outline-none shrink-0" aria-label="Toggle Tema Otomatis">
+                                <button type="button" onclick="event.stopPropagation(); toggleAutoThemeMode()" id="btn-toggle-autotheme" class="fluid-switch-btn focus:outline-none shrink-0" aria-label="Toggle Tema Otomatis">
                                     <div id="autotheme-switch-knob" class="fluid-switch-knob"></div>
                                 </button>
                             </div>
@@ -1618,8 +1615,8 @@
                         <i class="fas fa-receipt mr-2"></i> Cetak Laporan (PDF)
                     </button>
 
-                    <button type="button" onclick="resetData(this)" class="w-full text-left px-3 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
-                        <i class="fas fa-trash-alt mr-2"></i> Hapus Semua Data
+                    <button type="button" onclick="bukaModalResetSelektif()" class="w-full text-left px-3 py-2 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
+                        <i class="fas fa-trash-alt mr-2 text-rose-500"></i> Hapus Data Terpilih...
                     </button>
 
                     <!-- Banner Unduh Aplikasi Android & Widget (Collapsible / Minimizeable) -->
@@ -1681,10 +1678,49 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.15.OTA</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.16.OTA</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v33.16.OTA -->
+                <div class="p-3.5 bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 dark:from-rose-950/40 dark:via-pink-950/30 dark:to-purple-900/20 rounded-2xl border border-rose-200 dark:border-rose-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-rose-500 text-xs"></i> Rilis Stabil • v33.16.OTA</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-rose-600 to-purple-600 text-white px-2 py-0.5 rounded-full shadow-xs">Checklist Reset &amp; Fluid Physics</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Fitur Checklist Hapus Data Terpilih, Pemulihan Animasi Fluida Mode Renggang 60 FPS, &amp; Logo Resmi Dasbor</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-rose-100 dark:border-rose-900/40">
+                            <i class="fas fa-tasks text-rose-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Modal Checklist Hapus Data Terpilih:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Kini dapat memilih kategori spesifik yang ingin dihapus (Keuangan, Tugas, Tabungan, Jurnal, Rekap, atau Preferensi) tanpa harus mengorbankan seluruh data dasbor.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-rose-100 dark:border-rose-900/40">
+                            <i class="fas fa-sliders-h text-primary-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Pemulihan Animasi Saklar Fluida (Fluid Spring Physics):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Melepaskan penguncian CSS berlebih pada saklar preferensi sehingga gerakan kenyal kenop dan transisi latar warna kembali elastis dan lembut.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-rose-100 dark:border-rose-900/40">
+                            <i class="fas fa-expand-arrows-alt text-indigo-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Transisi Mulus Mode Renggang / Ramping 60 FPS:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Saat berpindah ke Mode Renggang, seluruh kartu dasbor meregang dan mengembang mulus secara hardware-accelerated tanpa kedipan atau render ulang DOM.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-rose-100 dark:border-rose-900/40">
+                            <i class="fas fa-image text-amber-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Penyematan Logo Resmi di GitHub:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Menampilkan logo aplikasi resmi di bagian teratas dokumentasi README repositori GitHub.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v33.15.OTA -->
                 <div class="p-3.5 bg-gradient-to-br from-primary-50 via-indigo-50 to-purple-50 dark:from-primary-950/40 dark:via-indigo-950/30 dark:to-purple-900/20 rounded-2xl border border-primary-200 dark:border-primary-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -2624,6 +2660,146 @@
             <div id="modal-list-subscriptions" class="space-y-2 mb-4"></div>
 
             <button type="button" onclick="closeBottomSheet('subscription-modal')" class="w-full bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-300 py-2.5 rounded-2xl text-xs font-bold hover:bg-slate-200 mt-auto">Tutup</button>
+        </div>
+    </div>
+
+    <!-- BOTTOM SHEET: HAPUS DATA TERPILIH (CHECKLIST MODAL) -->
+    <div id="modal-reset-selektif" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
+        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[88vh] flex flex-col">
+            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-3 shrink-0"></div>
+            
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 flex items-center justify-center text-sm font-black">
+                        <i class="fas fa-trash-alt"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-800 dark:text-white">Hapus Data Terpilih</h3>
+                        <p class="text-[10px] text-slate-400 font-medium">Centang kategori data yang ingin Anda bersihkan</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeBottomSheet('modal-reset-selektif')" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-[#242f3d] transition-colors"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Tombol Aksi Cepat Pilih Semua / Batal Pilih -->
+            <div class="flex items-center justify-between gap-2 mb-3 px-0.5">
+                <span id="reset-counter-indicator" class="text-[11px] font-bold text-slate-500 dark:text-slate-400">0 kategori terpilih</span>
+                <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="togglePilihSemuaReset(true)" class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors">Pilih Semua</button>
+                    <button type="button" onclick="togglePilihSemuaReset(false)" class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors">Batal Pilih</button>
+                </div>
+            </div>
+
+            <!-- Daftar Opsi Checklist Kategori Data -->
+            <div class="space-y-2 overflow-y-auto pr-1 flex-1 mb-3 select-none">
+                
+                <!-- 1. Keuangan & Transaksi -->
+                <div onclick="toggleResetItem('keuangan')" id="reset-card-keuangan" class="reset-item-card p-3 rounded-2xl border border-slate-200 dark:border-[#313f52] bg-slate-50/70 dark:bg-[#242f3d]/50 flex items-center justify-between cursor-pointer transition-all hover:bg-rose-50/40 dark:hover:bg-rose-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-reset-keuangan" class="w-4 h-4 rounded text-rose-600 focus:ring-rose-500 accent-rose-600 pointer-events-none" onchange="updateResetButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-wallet text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Keuangan &amp; Saldo</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight">Transaksi mutasi &amp; reset saldo kas utama</p>
+                        </div>
+                    </div>
+                    <span id="badge-count-keuangan" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 2. Tugas & Deadline -->
+                <div onclick="toggleResetItem('tugas')" id="reset-card-tugas" class="reset-item-card p-3 rounded-2xl border border-slate-200 dark:border-[#313f52] bg-slate-50/70 dark:bg-[#242f3d]/50 flex items-center justify-between cursor-pointer transition-all hover:bg-rose-50/40 dark:hover:bg-rose-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-reset-tugas" class="w-4 h-4 rounded text-rose-600 focus:ring-rose-500 accent-rose-600 pointer-events-none" onchange="updateResetButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-primary-100 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-tasks text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Tugas &amp; Catatan Deadline</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight">Daftar tugas aktif, tugas selesai, dan batas waktu</p>
+                        </div>
+                    </div>
+                    <span id="badge-count-tugas" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 3. Target Tabungan & Impian -->
+                <div onclick="toggleResetItem('tabungan')" id="reset-card-tabungan" class="reset-item-card p-3 rounded-2xl border border-slate-200 dark:border-[#313f52] bg-slate-50/70 dark:bg-[#242f3d]/50 flex items-center justify-between cursor-pointer transition-all hover:bg-rose-50/40 dark:hover:bg-rose-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-reset-tabungan" class="w-4 h-4 rounded text-rose-600 focus:ring-rose-500 accent-rose-600 pointer-events-none" onchange="updateResetButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-bullseye text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Target Tabungan &amp; Impian</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight">Seluruh tabungan impian dan progres terkumpul</p>
+                        </div>
+                    </div>
+                    <span id="badge-count-tabungan" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 4. Jurnal Refleksi -->
+                <div onclick="toggleResetItem('jurnal')" id="reset-card-jurnal" class="reset-item-card p-3 rounded-2xl border border-slate-200 dark:border-[#313f52] bg-slate-50/70 dark:bg-[#242f3d]/50 flex items-center justify-between cursor-pointer transition-all hover:bg-rose-50/40 dark:hover:bg-rose-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-reset-jurnal" class="w-4 h-4 rounded text-rose-600 focus:ring-rose-500 accent-rose-600 pointer-events-none" onchange="updateResetButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-indigo-100 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-book-open text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Catatan Jurnal Harian</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight">Catatan harian, refleksi diri, dan mood tracking</p>
+                        </div>
+                    </div>
+                    <span id="badge-count-jurnal" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 5. Rekapitulasi Harian -->
+                <div onclick="toggleResetItem('rekap')" id="reset-card-rekap" class="reset-item-card p-3 rounded-2xl border border-slate-200 dark:border-[#313f52] bg-slate-50/70 dark:bg-[#242f3d]/50 flex items-center justify-between cursor-pointer transition-all hover:bg-rose-50/40 dark:hover:bg-rose-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-reset-rekap" class="w-4 h-4 rounded text-rose-600 focus:ring-rose-500 accent-rose-600 pointer-events-none" onchange="updateResetButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-teal-100 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-history text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Rekapitulasi Harian</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight">Riwayat setor rekap, snapshot, dan evaluasi harian</p>
+                        </div>
+                    </div>
+                    <span id="badge-count-rekap" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 6. Pengaturan & Preferensi Tampilan -->
+                <div onclick="toggleResetItem('pengaturan')" id="reset-card-pengaturan" class="reset-item-card p-3 rounded-2xl border border-slate-200 dark:border-[#313f52] bg-slate-50/70 dark:bg-[#242f3d]/50 flex items-center justify-between cursor-pointer transition-all hover:bg-rose-50/40 dark:hover:bg-rose-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-reset-pengaturan" class="w-4 h-4 rounded text-rose-600 focus:ring-rose-500 accent-rose-600 pointer-events-none" onchange="updateResetButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center shrink-0">
+                            <i class="fas fa-sliders-h text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Pengaturan &amp; Preferensi</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight">Reset warna tema, mode tampilan, &amp; nama pengguna</p>
+                        </div>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">Preferensi</span>
+                </div>
+
+            </div>
+
+            <!-- Peringatan Keamanan -->
+            <div class="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/40 text-[11px] text-rose-700 dark:text-rose-300 flex items-center gap-2 mb-3">
+                <i class="fas fa-exclamation-triangle shrink-0 text-rose-500"></i>
+                <span class="leading-tight">Data yang dicentang akan dibersihkan secara permanen dan disinkronkan ke Cloud.</span>
+            </div>
+
+            <!-- Tombol Aksi Bawah -->
+            <div class="grid grid-cols-2 gap-2 shrink-0">
+                <button type="button" onclick="closeBottomSheet('modal-reset-selektif')" class="w-full py-2.5 bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#313f52] rounded-2xl text-xs font-bold transition-colors">
+                    Batal
+                </button>
+                <button type="button" id="btn-eksekusi-reset-selektif" onclick="eksekusiHapusDataSelektif()" disabled class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-2xl text-xs font-bold shadow-md transition-all flex items-center justify-center gap-1.5">
+                    <i class="fas fa-trash-alt text-xs"></i> <span id="label-btn-reset-selektif">Hapus Data</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -3675,7 +3851,8 @@
             var btn = document.getElementById('btn-toggle-compact');
             setSwitchVisual(btn, knob, dataState.compactMode, true);
             updateActiveToggleCount();
-            simpanData();
+            safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+            debouncedSyncToCloud();
             triggerDynamicIsland("Tampilan", dataState.compactMode ? "Mode Ramping Aktif 🎛️" : "Mode Santai Aktif", "fas fa-compress-alt", "bg-primary-500/20 text-primary-400");
         }
 
@@ -7821,47 +7998,187 @@
             debouncedSyncToCloud();
         }
 
-        function resetData(btnEl) {
-            if(confirm("Hapus seluruh data dasbor?")) { 
-                let icon = btnEl ? btnEl.querySelector('.fa-trash-alt') : null;
-                if(icon) {
-                    icon.classList.add('animate-wiggle');
-                    setTimeout(() => icon.classList.remove('animate-wiggle'), 400);
-                }
-                setTimeout(() => {
-                    dataState = { 
-                        userName: 'Pengguna', 
-                        saldo: 0, 
-                        isPrivacyMode: false, 
-                        compactMode: false, 
-                        autoThemeMode: false, 
-                        cardGradient: true, 
-                        hiddenWidgets: [], 
-                        widgetOrder: ['rekap', 'tabungan', 'deadline', 'reguler'], 
-                        hiddenFinanceWidgets: [], 
-                        financeWidgetOrder: [...DEFAULT_FINANCE_WIDGETS], 
-                        rekapHarian: [], 
-                        tugas: [], 
-                        transaksi: [], 
-                        jurnal: [], 
-                        targetTabungan: [], 
-                        catatanKilat: [],
-                        updatedAt: Date.now()
-                    }; 
-                    document.getElementById('input-user-name').value = dataState.userName;
-                    document.body.classList.remove('compact-mode', 'glass-mode');
-                    applyCardGradientVisual();
-                    updateActiveToggleCount();
-                    safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
-                    refreshDynamicSkeleton();
-                    perbaruiTampilan();
-                    if (currentUser && firestoreDb) {
-                        syncToCloud(false);
-                    }
-                    toggleSidebar();
-                    triggerDynamicIsland("Reset Data", "Seluruh data telah dibersihkan", "fas fa-trash-alt", "bg-red-500/20 text-red-400");
-                }, 200);
+        // ==========================================
+        // FITUR HAPUS DATA TERPILIH (SELECTIVE RESET DATA)
+        // ==========================================
+        function bukaModalResetSelektif() {
+            var m = document.getElementById('modal-reset-selektif');
+            if (!m) return;
+
+            // Update badge hitungan data aktual
+            var elKeuangan = document.getElementById('badge-count-keuangan');
+            if (elKeuangan) {
+                var jmlTrx = (dataState.transaksi || []).length;
+                elKeuangan.innerText = `${jmlTrx} Trx (${formatRupiah(dataState.saldo || 0)})`;
             }
+            var elTugas = document.getElementById('badge-count-tugas');
+            if (elTugas) {
+                var jmlTugas = (dataState.tugas || []).length;
+                elTugas.innerText = `${jmlTugas} Tugas`;
+            }
+            var elTabungan = document.getElementById('badge-count-tabungan');
+            if (elTabungan) {
+                var jmlTab = (dataState.targetTabungan || []).length;
+                elTabungan.innerText = `${jmlTab} Target`;
+            }
+            var elJurnal = document.getElementById('badge-count-jurnal');
+            if (elJurnal) {
+                var jmlJurnal = (dataState.jurnal || []).length;
+                elJurnal.innerText = `${jmlJurnal} Jurnal`;
+            }
+            var elRekap = document.getElementById('badge-count-rekap');
+            if (elRekap) {
+                var jmlRekap = (dataState.rekapHarian || []).length;
+                elRekap.innerText = `${jmlRekap} Rekap`;
+            }
+
+            // Reset checklist state ke false (kosong) saat awal buka
+            togglePilihSemuaReset(false);
+            openBottomSheet('modal-reset-selektif');
+        }
+
+        function toggleResetItem(key) {
+            triggerHaptic('light');
+            var chk = document.getElementById('check-reset-' + key);
+            var card = document.getElementById('reset-card-' + key);
+            if (!chk) return;
+            chk.checked = !chk.checked;
+            if (card) {
+                if (chk.checked) {
+                    card.classList.add('border-rose-500', 'dark:border-rose-500', 'bg-rose-50/70', 'dark:bg-rose-950/40');
+                    card.classList.remove('bg-slate-50/70', 'dark:bg-[#242f3d]/50');
+                } else {
+                    card.classList.remove('border-rose-500', 'dark:border-rose-500', 'bg-rose-50/70', 'dark:bg-rose-950/40');
+                    card.classList.add('bg-slate-50/70', 'dark:bg-[#242f3d]/50');
+                }
+            }
+            updateResetButtonState();
+        }
+
+        function togglePilihSemuaReset(pilih) {
+            triggerHaptic('light');
+            var keys = ['keuangan', 'tugas', 'tabungan', 'jurnal', 'rekap', 'pengaturan'];
+            keys.forEach(function(k) {
+                var chk = document.getElementById('check-reset-' + k);
+                var card = document.getElementById('reset-card-' + k);
+                if (chk) chk.checked = (pilih === true);
+                if (card) {
+                    if (pilih) {
+                        card.classList.add('border-rose-500', 'dark:border-rose-500', 'bg-rose-50/70', 'dark:bg-rose-950/40');
+                        card.classList.remove('bg-slate-50/70', 'dark:bg-[#242f3d]/50');
+                    } else {
+                        card.classList.remove('border-rose-500', 'dark:border-rose-500', 'bg-rose-50/70', 'dark:bg-rose-950/40');
+                        card.classList.add('bg-slate-50/70', 'dark:bg-[#242f3d]/50');
+                    }
+                }
+            });
+            updateResetButtonState();
+        }
+
+        function updateResetButtonState() {
+            var keys = ['keuangan', 'tugas', 'tabungan', 'jurnal', 'rekap', 'pengaturan'];
+            var terpilih = 0;
+            keys.forEach(function(k) {
+                var chk = document.getElementById('check-reset-' + k);
+                if (chk && chk.checked) terpilih++;
+            });
+
+            var btn = document.getElementById('btn-eksekusi-reset-selektif');
+            var lbl = document.getElementById('label-btn-reset-selektif');
+            var indicator = document.getElementById('reset-counter-indicator');
+            if (indicator) {
+                indicator.innerText = `${terpilih} kategori terpilih`;
+            }
+            if (btn) {
+                btn.disabled = (terpilih === 0);
+            }
+            if (lbl) {
+                lbl.innerText = terpilih > 0 ? `Hapus (${terpilih} Kategori)` : 'Hapus Data';
+            }
+        }
+
+        function eksekusiHapusDataSelektif() {
+            var keys = ['keuangan', 'tugas', 'tabungan', 'jurnal', 'rekap', 'pengaturan'];
+            var labels = {
+                'keuangan': 'Keuangan & Saldo',
+                'tugas': 'Tugas & Catatan Deadline',
+                'tabungan': 'Target Tabungan & Impian',
+                'jurnal': 'Catatan Jurnal',
+                'rekap': 'Rekapitulasi Harian',
+                'pengaturan': 'Pengaturan & Preferensi'
+            };
+            var terpilih = [];
+            keys.forEach(function(k) {
+                var chk = document.getElementById('check-reset-' + k);
+                if (chk && chk.checked) terpilih.push(k);
+            });
+
+            if (terpilih.length === 0) return;
+
+            var daftarNama = terpilih.map(function(k) { return "• " + labels[k]; }).join("\n");
+            var pesanKonfirmasi = `Yakin ingin menghapus ${terpilih.length} kategori data berikut secara permanen?\n\n${daftarNama}\n\nData yang dihapus tidak dapat dipulihkan.`;
+
+            if (!confirm(pesanKonfirmasi)) return;
+
+            triggerHaptic('heavy');
+
+            // Eksekusi penghapusan per kategori
+            if (terpilih.includes('keuangan')) {
+                dataState.transaksi = [];
+                dataState.saldo = 0;
+                if (Array.isArray(dataState.wallets)) dataState.wallets = [];
+                if (Array.isArray(dataState.budgets)) dataState.budgets = [];
+                if (Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
+                syncSaldoToNativeWidget(false);
+            }
+
+            if (terpilih.includes('tugas')) {
+                dataState.tugas = [];
+            }
+
+            if (terpilih.includes('tabungan')) {
+                dataState.targetTabungan = [];
+            }
+
+            if (terpilih.includes('jurnal')) {
+                dataState.jurnal = [];
+            }
+
+            if (terpilih.includes('rekap')) {
+                dataState.rekapHarian = [];
+            }
+
+            if (terpilih.includes('pengaturan')) {
+                dataState.userName = 'Pengguna';
+                dataState.compactMode = false;
+                dataState.cardGradient = true;
+                dataState.autoThemeMode = false;
+                document.body.classList.remove('compact-mode', 'glass-mode');
+                var inputUser = document.getElementById('input-user-name');
+                if (inputUser) inputUser.value = dataState.userName;
+                resetThemeColor();
+                applyCardGradientVisual();
+                updateActiveToggleCount();
+            }
+
+            dataState.updatedAt = Date.now();
+            safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+
+            refreshDynamicSkeleton();
+            perbaruiTampilan();
+
+            if (currentUser && firestoreDb) {
+                syncToCloud(false);
+            }
+
+            closeBottomSheet('modal-reset-selektif');
+            toggleSidebar();
+
+            triggerDynamicIsland("Hapus Terpilih", `${terpilih.length} kategori data berhasil dibersihkan`, "fas fa-trash-alt", "bg-rose-500/20 text-rose-400");
+        }
+
+        function resetData(btnEl) {
+            bukaModalResetSelektif();
         }
 
         function refreshDynamicSkeleton() {
@@ -8694,7 +9011,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v33.15.OTA';
+        const CURRENT_APP_VERSION = 'v33.16.OTA';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
