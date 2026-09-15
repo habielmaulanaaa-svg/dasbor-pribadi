@@ -49,74 +49,10 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 
 ---
 
-## 📜 Arsip Pembaruan Versi Sebelumnya (v33.15.OTA)
+## 📜 Arsip Pembaruan Versi Sebelumnya
 
-### 1. 🧲 Rubber-band Swipe Snap pada Geser Kartu Tugas
-- **Fisika Redaman Karet Non-Linear (iOS Viscous Damping)**: Usapan kartu tugas terasa responsif 1:1 di awal, kemudian semakin berat saat ditarik melebihi 60px.
-- **Pantulan Pegas Alami (*Spring Overshoot Snap-back*)**: Jika jari dilepas tanpa melewati ambang batas aksi, kartu membal kenyal melewati titik nol (`cubic-bezier(0.34, 1.56, 0.64, 1)`) sebelum diam di tempat semula.
-
-### 2. 💧 Liquid Filter Pill pada Tab Riwayat Transaksi
-- **Kapsul Air Raksa Presisi**: Kapsul meluncur elastis di belakang tab rentang waktu (`Semua`, `Hari Ini`, `Minggu Ini`, `Bulan Ini`) dengan koordinat absolut presisi 1:1, tanpa risiko melorot atau terpotong.
-- **Umpan Balik Taktil**: Animasi tekan mikro (`scale(0.92)`) saat memilih kategori atau filter.
-
-### 3. 📜 Spring Accordion Unfurl pada Form Input
-- **Membentang Organik Melar Kenyal**: Membuka form input Tugas Baru, Jurnal, dan Tabungan membentang dengan kurva pegas hardware-accelerated (`transform: scaleY() & translateY()`).
-- **Bebas Interferensi**: Khusus menargetkan container form input, sehingga menu pengaturan tetap ramping tanpa animasi pantulan yang tidak disengaja.
-
-### 4. 🌊 Jelly Pulse & Mode Solid Bersih pada Kartu Saldo
-- **Respon Fluida Mikro**: Kartu saldo bergetar fluida lembut (0.38s - 0.44s) saat transaksi masuk/keluar atau disentuh.
-- **Proteksi Mode Solid Minimalis**: Saat gradasi warna dimatikan, getaran kartu saldo menggunakan bayangan netral gelap murni tanpa kebocoran pendaran warna (*zero gradient leakage*).
-
-### 5. 🛡️ Stabilisasi & Pembersihan Bug Inti (Batch 1 & Batch 2)
-- Sanitasi XSS menyeluruh (`escapeHtml`), ID integer unik monotonik (`generateUniqueId`), proteksi anti-spam submit (400ms), rekonsiliasi cerdas offline ➔ cloud, optimalisasi GPU *on-demand compositing* pada daftar tugas, perbaikan pergeseran tanggal UTC, dan penyesuaian cache PWA `dasbor-pwa-v33-15-ota`.
-
----
-
-## 📜 Arsip Pembaruan Versi Sebelumnya (v33.14.OTA)
-
-### 1. 🔑 Hybrid Auth Bridge (Solusi Tuntas Login Akun Google)
-- **Otentikasi Aman Terpercaya**: Mengatasi kendala penolakan OAuth (*The requested action is invalid* / *network AuthError*) pada protokol `file://` di dalam WebView mandiri.
-- **Chrome Custom Tabs Auth Handshake**: Khusus saat tombol *"Masuk dengan Google"* ditekan, aplikasi memanggil jendela Custom Tab aman ke domain terverifikasi (`auth-bridge.html`), lalu mentransfer token otentikasi secara otomatis kembali ke APK mandiri via skema deep-link `dasbor://auth-callback`.
-- **Sesi Firebase Instan**: Profil pengguna dan sinkronisasi Cloud Firestore langsung aktif 100% tanpa perlu konfigurasi rumit.
-
-### 2. 📦 100% APK Mandiri Bebas Web (*Offline-First Asset Bundle*)
-- **Kemasan Aset Lokal**: APK kini mengemas bundel lengkap (`index.html`, ikon HD, dan metadata PWA) di dalam aset internal Android (`file:///android_asset/`).
-- **Tanpa Ketergantungan Hosting**: Aplikasi dapat dibuka seketika saat perangkat dalam mode pesawat atau tanpa jaringan seluler.
-
-### 3. 🔄 Background OTA Update Engine (*Over-The-Air Dynamic Bundle*)
-- **Pembaruan Senyap di Latar Belakang**: Saat terhubung ke internet, aplikasi secara otomatis memeriksa pembaruan antarmuka dan fitur terbaru langsung dari repositori resmi.
-- **Validasi Integritas Atomic + MD5**: File pembaruan diunduh ke ruang privat aplikasi, divalidasi keutuhannya secara ketat, dan diterapkan mulus tanpa memaksa instalasi ulang APK.
-
-### 4. ⚡ JavaScript Native Bridge Terpadu (`DasborBridge`)
-- **Sinkronisasi Langsung Bebas Kedip**: Pembaruan saldo dan sisa tugas dikirimkan langsung dari Web Engine ke 3 Widget Native Android secara real-time.
-- **Intent Action Dispatcher**: Menekan tombol di widget Android (seperti *Tambah Pengeluaran*, *Tambah Pemasukan*, *Catat*, atau *Kalkulator*) langsung mengarahkan pengguna ke tab dan formulir yang sesuai secara instan.
-
-### 1. 🌊 Gelombang Fluida Saldo 100% Seamless (*Infinite Laminar Flow*)
-- **Formulasi Kurva $C^1$-Continuous**: Gelombang air pada kartu saldo kini menggunakan kurva Bezier kuadratik periodik simetris (`Q ... T ...`) dengan kondisi batas periodik identik pada koordinat Y dan vektor tangen.
-- **Dual-Cycle Single Vector Track**: Dalam satu SVG dengan 2 siklus gelombang utuh sekaligus, menghilangkan celah subpiksel dan loncatan visual.
-- **Bebas Stuttering**: Animasi translasi linear berkelanjutan berputar tenang tanpa jeda saat loop berulang, berjalan sangat mulus di 60/120 FPS.
-
-### 2. 🚤 Dok Navigasi & FAB Terpadu (*Smooth Surface Buoyancy*)
-- **Penyatuan Perilaku Gulir (*Unified Dock*)**: Bilah navigasi bawah (Beranda, Tugas, Uang) dan tombol aksi cepat FAB kini menjadi satu kesatuan pelampung.
-- **Scroll ke Bawah (Menyelam / Submerge)**: Seluruh dok serempak menyelam ke bawah layar dengan kurva gravitasi fluida halus, menjaga layar tetap bersih dan lapang saat membaca riwayat transaksi.
-- **Scroll ke Atas (Luncuran Halus / Smooth Surface)**: Seluruh dok meluncur naik ke atas secara elegan tanpa efek osilasi/pantulan pegas yang kaku.
-
-### 3. ✨ Restorasi Sejati Frosted Glass & 100% Persistent Blur
-- **100% Persistent Frosted Blur Tanpa Jeda Kaca**: Mekanisme luncuran dok menggunakan transisi koordinat `bottom` murni pada fixed layout, mengeliminasi isolasi RenderPass GPU (*isolated compositing layer*). Efek kaca buram (`backdrop-filter: blur(20px) saturate(180%)`) kini aktif 100% secara persisten dan terus membiaskan piksel latar belakang secara konsisten tanpa jeda efek kaca bening sedikit pun saat dok bergerak naik atau turun.
-- **Bersih Bebas Outline**: Seluruh border putih kontras dan inset highlight di sekeliling tombol FAB dan bilah dok telah dihapus total, mengembalikan estetika minimalis yang berpadu lembut dengan bayangan alami.
-
-### 4. 💧 Saklar Liquid Glass Waktu Pembuatan Tugas
-- **Saklar Fluida Peregangan Cairan**: Form tambah tugas baru kini dilengkapi opsi *"Sertakan Waktu & Tanggal Dibuat"* dengan animasi fisika fluida (*stretching, detaching, spring rebound*).
-- **Animasi Buka-Tutup Halus**: Sub-bar kustomisasi tanggal dan jam muncul dan menutup dengan transisi ekspansi/kolaps vertikal CSS yang lembut tanpa loncatan seketika.
-
-### 5. 🌊 Efek Liquid Murni (*Natural Fluid Dynamics*)
-- **🧪 Tabung Fluida Progres Tabungan & Anggaran (*Liquid Level Fill*)**: Bilah progres dengan ujung lengkung kapiler (*meniscus*) dan transisi fluida elastis yang mengayun lembut (*slosh & settle*).
-- **🫧 Centang Tugas Riak Cairan (*Liquid Ripple Splash*)**: Ceklis tugas memancarkan gelombang riak fluida melingkar ganda dengan ikon centang yang mengapung ke atas layaknya gelembung cairan (*floating bubble rise*).
-- **🪙 Tetesan Transaksi Tangki Saldo (*Droplet Fusion*)**: Pencatatan uang masuk dan keluar memicu tetesan partikel fluida yang tercebur ke tangki saldo dan memantik riak dinamis pada gelombang saldo.
-- **⚡ Akselerasi 120 FPS & State Reaktif 100%**: Menghilangkan gesture Pull-to-Refresh konvensional demi melepaskan beban listener sentuhan (*zero touch overhead*). Semua pembaruan data kini berlangsung instan dan scrolling layar berjalan sehalus 120 FPS native tanpa lag.
-
-### 6. 🧹 Optimalisasi Performa Bersih
-- **Pembersihan Modul Kunci Internal**: Seluruh modul kunci PIN dan pola internal ditiadakan sepenuhnya sesuai preferensi pengguna, meningkatkan kecepatan pemuatan awal dan mengandalkan sistem penguncian bawaan perangkat HP yang lebih aman dan terintegrasi.
+Seluruh catatan riwayat pembaruan versi terdahulu telah didokumentasikan secara lengkap dan rapi di:
+👉 [**Halaman Resmi GitHub Releases**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases)
 
 ---
 
@@ -234,5 +170,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.15.OTA • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.16.OTA • Era Super-App Finansial & Produktivitas</b></sub>
 </div>
