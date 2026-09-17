@@ -2,14 +2,14 @@
   <img src="icon-512.png" width="128" height="128" alt="Logo Dasbor Pribadi" style="border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);" />
 </p>
 
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.17.OTA
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.18.OTA
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.17.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.18.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.17.OTA)** dengan dukungan **Akselerasi 120 FPS & Zero Lag**, **Eliminasi Total Beban Scrolling (Bebas GPU Layer Explosion)**, **Akselerasi Hardware Sidebar Instan (Bebas Tertahan)**, **Dok Navigasi Berbasis GPU Transform**, **Scroll Throttling Bebas Reflow Thrashing**, **Checklist Hapus Data Terpilih (Selective Reset Data)**, **Pemulihan Animasi Saklar Fluida & Transisi Mode Renggang 60 FPS**, **Penyematan Logo Resmi di GitHub**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.18.OTA)** dengan dukungan **Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)**, **Mini Progress Bar & Persentase Langkah**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Pemulihan Animasi Saklar Fluida & Transisi Mode Renggang 60 FPS**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -18,28 +18,29 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
 | 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer 100% mandiri offline-first dengan Hybrid Auth Bridge & OTA otomatis |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.17.OTA |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.18.OTA |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (Cloud Realtime) |
 
 ---
 
-## 🚀 Pembaruan Versi Sekarang (v33.17.OTA)
+## 🚀 Pembaruan Versi Sekarang (v33.18.OTA)
 
-### 1. ⚡ Scrolling Sehalus Sutra (60/120 FPS Native & Zero Layer Explosion)
-- **Pembebasan Memori GPU VRAM**: Menghapus deklarasi `will-change: transform` dan `will-change: max-height, opacity` statis permanen dari seluruh kartu daftar transaksi dan tugas yang sebelumnya menciptakan ratusan GPU compositing layer berlebih.
-- **Akselerasi On-Demand Cerdas**: Layer GPU dan hardware-accelerated transforms kini hanya diaktifkan secara dinamis saat kartu sedang disentuh atau digeser (`is-swiping` / gesture sentuh aktif). Scrolling kini berjalan sangat ringan tanpa hambatan beban rendering.
+### 1. 🧩 Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)
+- **Pemecahan Tugas Bertahap**: Pecah tugas kompleks menjadi langkah-langkah kerja kecil yang realistis dan terorganisir.
+- **Draf Langkah Fleksibel**: Tambahkan sub-tugas secara langsung saat membuat tugas baru menggunakan antarmuka draf chip langkah sementara.
+- **Penambahan Langkah Inline**: Tambahkan sub-tugas baru kapan saja langsung pada kartu tugas yang sudah ada melalui kolom input inline responsif.
 
-### 2. 🚀 Akselerasi Perangkat Keras Menu Sidebar Instan (Bebas Tertahan)
-- **Eliminasi Layar Penuh Gaussian Blur**: Menggantikan efek `backdrop-blur-sm` layar penuh berlebih pada overlay dengan lapisan semi-transparan berkinerja tinggi (`bg-black/50`) yang melenyapkan 100% beban fill-rate GPU saat sidebar dibuka.
-- **Layer Komposit Mandiri**: Menyematkan akselerasi perangkat keras independen (`will-change: transform`, `backface-visibility: hidden`, `contain: layout paint`) pada `#sidebar` sehingga menu langsung meluncur responsif seketika tanpa jeda awal (*zero latency*).
+### 2. 📊 Mini Progress Bar & Persentase Langkah Otomatis
+- **Indikator Visual Real-Time**: Lencana status `X/Y Langkah` dan mini progress bar horizontal menghitung persentase penyelesaian sub-tugas secara otomatis.
+- **Perayaan Penyelesaian**: Saat seluruh sub-langkah tuntas, kartu menampilkan lencana hijau sukses lengkap dengan efek suara haptic dan Dynamic Island perayaan.
 
-### 3. 🚤 Dok Navigasi Mengambang Berbasis GPU Transform (Bebas Reflow Layout)
-- **Transisi Murni GPU Thread**: Menggantikan pergerakan dok navigasi dari transisi posisi layout fisik (`bottom`) menjadi GPU composited (`transform: translate3d(0, 110px, 0)`).
-- **Nol Hentakan Layout**: Gerakan dok menyelam saat scroll ke bawah dan naik ke permukaan saat scroll ke atas berjalan 100% di GPU thread tanpa memicu *layout reflow* dan *repaint* CPU.
+### 3. ⚡ Akordeon Langkah Collapsible
+- **Antarmuka Ramping & Bersih**: Daftar sub-langkah dapat dibuka dan ditutup dengan akordeon interaktif, menjaga tampilan daftar tugas utama tetap padat dan rapi.
+- **Checklist Cepat**: Cukup ketuk kotak centang pada setiap langkah untuk menandai status selesai/belum selesai seketika.
 
-### 4. ⏱️ Scroll Throttling Presisi & Eliminasi Reflow Thrashing
-- **Sinkronisasi `requestAnimationFrame`**: Event scroll pada kontainer utama kini disinkronkan langsung dengan *refresh rate* layar perangkat (60Hz / 120Hz).
-- **Bebas Layout Thrashing**: Menghilangkan pembacaan dimensi DOM sinkron berulang (`scrollHeight` & `clientHeight`) di setiap frame pergerakan scroll.
+### 4. 🔄 Sinkronisasi Status Cerdas & Indikator Widget Beranda
+- **Sinkronisasi Otomatis**: Menandai tugas utama sebagai selesai otomatis menyelesaikan seluruh sub-langkah di dalamnya.
+- **Lencana Progres di Widget Beranda**: Kartu tugas di widget halaman depan Beranda menyematkan lencana progres langkah dan mini bar untuk memantau progres tugas tanpa harus membuka tab Tugas.
 
 ---
 
@@ -164,5 +165,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.17.OTA • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.18.OTA • Era Super-App Finansial & Produktivitas</b></sub>
 </div>
