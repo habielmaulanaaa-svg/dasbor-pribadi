@@ -87,18 +87,18 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK (Sub-Tugas & Produktivitas) v33.18.OTA"
+          name: "Dasbor Pribadi Standalone APK (Perbaikan & Optimasi Sub-Tugas) v33.19.OTA"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.18.OTA)
-            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)**, **Mini Progress Bar & Persentase Langkah**, **Akordeon Langkah Collapsible**, **Sinkronisasi Cerdas & Indikator Widget Beranda**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.19.OTA)
+            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Resolusi Tampilan Penuh Akordeon Sub-Tugas (Anti-Kliping)**, **Penyempurnaan Nomenklatur "Sub Tugas"**, **Isolasi Gesture Sentuh Cerdas**, **Animasi Penyusutan Halus Adaptif**, **Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v33.18.OTA
-            - **Fitur Baru v33.18.OTA**:
-              - 🧩 **Sub-Tugas Bertingkat (*Task Steps & Checklist*)**: Pecah tugas besar menjadi langkah-langkah kecil terarah. Mendukung draft langkah saat membuat tugas baru serta penambahan langkah inline langsung di kartu tugas.
-              - 📊 **Mini Progress Bar & Persentase Langkah**: Visualisasi progres real-time dengan progress bar dinamis dan indikator persentase langkah tuntas, lengkap dengan perayaan confetti dan notifikasi Dynamic Island.
-              - ⚡ **Akordeon Langkah Collapsible**: Checklist sub-tugas dapat dibuka dan ditutup dengan akordeon interaktif, menjaga antarmuka kartu tugas tetap ramping dan rapi.
-              - 🔄 **Sinkronisasi Cerdas & Widget Beranda**: Menandai tugas utama selesai otomatis mencentang semua sub-tugasnya. Di halaman Beranda, kartu tugas menyematkan lencana progres langkah yang informatif.
+            - **Versi**: v33.19.OTA
+            - **Fitur Baru v33.19.OTA**:
+              - 🔓 **Resolusi Tampilan Penuh Akordeon (Bebas Terpotong)**: Menghilangkan batasan tinggi statis pada wadah kartu tugas sehingga seluruh daftar sub-tugas dan form input inline dapat terbuka secara utuh dan leluasa tanpa terpotong (anti-clipping).
+              - 🏷️ **Penyempurnaan Nomenklatur "Sub Tugas"**: Memperbarui istilah seluruh antarmuka dari "Langkah" menjadi "Sub Tugas" pada form input, badge progres, tombol aksi, notifikasi Dynamic Island, hingga widget Beranda.
+              - 🖐️ **Isolasi Gesture Sentuh Cerdas**: Sentuhan pada checkbox sub-tugas dan kolom input kini diisolasi dari deteksi usap (swipe-to-delete), mencegah pergeseran kartu tugas yang tidak disengaja saat mengetik atau mencentang.
+              - 💫 **Animasi Penyusutan Halus Adaptif**: Transisi penyelesaian dan penghapusan kartu tugas kini menghitung tinggi aktual secara dinamis, menghasilkan efek keruntuhan (collapse) 60 FPS yang sangat halus berapapun jumlah sub-tugasnya.
               - 🚀 **Akselerasi 120 FPS & Zero Lag**: Navigasi dan scrolling super halus bebas reflow thrashing.
               - 🔑 **Hybrid Auth Bridge**: Login Google resmi lancar 100% tanpa kendala.
               - 📱 **100% Standalone APK (Offline-First)**: Dibuka instan tanpa butuh koneksi internet sama sekali.

@@ -2,14 +2,14 @@
   <img src="icon-512.png" width="128" height="128" alt="Logo Dasbor Pribadi" style="border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);" />
 </p>
 
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.18.OTA
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.19.OTA
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.18.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.19.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.18.OTA)** dengan dukungan **Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)**, **Mini Progress Bar & Persentase Langkah**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Pemulihan Animasi Saklar Fluida & Transisi Mode Renggang 60 FPS**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.19.OTA)** dengan dukungan **Resolusi Tampilan Penuh Akordeon Sub-Tugas (Anti-Kliping)**, **Penyempurnaan Nomenklatur "Sub Tugas"**, **Isolasi Gesture Sentuh Cerdas**, **Animasi Penyusutan Halus Adaptif**, **Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Pemulihan Animasi Saklar Fluida & Transisi Mode Renggang 60 FPS**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -18,29 +18,26 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
 | 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer 100% mandiri offline-first dengan Hybrid Auth Bridge & OTA otomatis |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.18.OTA |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.19.OTA |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (Cloud Realtime) |
 
 ---
 
-## 🚀 Pembaruan Versi Sekarang (v33.18.OTA)
+## 🚀 Pembaruan Versi Sekarang (v33.19.OTA)
 
-### 1. 🧩 Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)
-- **Pemecahan Tugas Bertahap**: Pecah tugas kompleks menjadi langkah-langkah kerja kecil yang realistis dan terorganisir.
-- **Draf Langkah Fleksibel**: Tambahkan sub-tugas secara langsung saat membuat tugas baru menggunakan antarmuka draf chip langkah sementara.
-- **Penambahan Langkah Inline**: Tambahkan sub-tugas baru kapan saja langsung pada kartu tugas yang sudah ada melalui kolom input inline responsif.
+### 1. 🔓 Resolusi Tampilan Penuh Akordeon Sub-Tugas (Anti-Kliping)
+- **Ekspansi Tinggi Natural**: Menghapus pembatasan `max-height` statis pada wadah kartu tugas sehingga akordeon daftar sub-tugas dan form penambahan sub-tugas baru dapat terbuka secara utuh dan leluasa tanpa terpotong (*anti-clipping*).
+- **Pengalaman Visual Menyeluruh**: Seluruh daftar sub-tugas yang panjang kini dapat di-scroll atau ditinjau secara penuh di dalam kartu tugas.
 
-### 2. 📊 Mini Progress Bar & Persentase Langkah Otomatis
-- **Indikator Visual Real-Time**: Lencana status `X/Y Langkah` dan mini progress bar horizontal menghitung persentase penyelesaian sub-tugas secara otomatis.
-- **Perayaan Penyelesaian**: Saat seluruh sub-langkah tuntas, kartu menampilkan lencana hijau sukses lengkap dengan efek suara haptic dan Dynamic Island perayaan.
+### 2. 🏷️ Penyempurnaan Nomenklatur "Sub Tugas"
+- **Konsistensi Bahasa**: Menggantikan kata "Langkah" menjadi "Sub Tugas" secara konsisten di seluruh antarmuka aplikasi.
+- **Titik Perubahan**: Form pembuatan tugas baru (*Sub-Tugas (Opsional)*, draf chip, dan placeholder), lencana progres kartu tugas (`X/Y Sub Tugas`), tombol aksi tambah, notifikasi Dynamic Island, hingga widget tugas di halaman Beranda.
 
-### 3. ⚡ Akordeon Langkah Collapsible
-- **Antarmuka Ramping & Bersih**: Daftar sub-langkah dapat dibuka dan ditutup dengan akordeon interaktif, menjaga tampilan daftar tugas utama tetap padat dan rapi.
-- **Checklist Cepat**: Cukup ketuk kotak centang pada setiap langkah untuk menandai status selesai/belum selesai seketika.
+### 3. 🖐️ Isolasi Gesture Sentuh Cerdas
+- **Bebas Gesekan Tidak Disengaja**: Interaksi sentuhan atau pengetikan pada checkbox sub-tugas dan kolom input inline kini secara cerdas diabaikan dari pendeteksi usap (*swipe-to-delete*), mencegah kartu tergeser ke samping saat berinteraksi dengan sub-tugas.
 
-### 4. 🔄 Sinkronisasi Status Cerdas & Indikator Widget Beranda
-- **Sinkronisasi Otomatis**: Menandai tugas utama sebagai selesai otomatis menyelesaikan seluruh sub-langkah di dalamnya.
-- **Lencana Progres di Widget Beranda**: Kartu tugas di widget halaman depan Beranda menyematkan lencana progres langkah dan mini bar untuk memantau progres tugas tanpa harus membuka tab Tugas.
+### 4. 💫 Animasi Penyusutan Halus Adaptif
+- **Transisi 60 FPS Sempurna**: Transisi penyelesaian atau penghapusan tugas kini mengunci tinggi aktual secara dinamis tepat sebelum kelas keruntuhan diterapkan, menjamin efek keruntuhan kartu selalu mengalir mulus tanpa patah berapapun jumlah sub-tugasnya.
 
 ---
 
@@ -165,5 +162,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.18.OTA • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.19.OTA • Era Super-App Finansial & Produktivitas</b></sub>
 </div>
