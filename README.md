@@ -2,14 +2,14 @@
   <img src="icon-512.png" width="128" height="128" alt="Logo Dasbor Pribadi" style="border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);" />
 </p>
 
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.21.OTA
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.22.OTA
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.21.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.22.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.21.OTA)** dengan dukungan **Animasi Ekspansi Akordeon Sub-Tugas Fluida Modern (CSS Grid 0fr ➔ 1fr)**, **Rotasi Ikon Pegas Elastis (*Spring Arrow Bounce*)**, **Respon Sentuh Mikro-Taktil & Auto-Fokus Cepat**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Opsi Sembunyikan & Tampilkan Tanggal Fleksibel**, **Preservasi Akordeon Sub-Tugas & Pembaruan In-Place 60 FPS**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.22.OTA)** dengan dukungan **Eliminasi Efek Melompat/Bouncing Kasar Akordeon Sub-Tugas**, **Kurva Deselerasi Murni (*Pure Ease-Out*)**, **Isolasi Padding Internal Anti-Jank**, **Rotasi Panah Presisi**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Opsi Sembunyikan & Tampilkan Tanggal Fleksibel**, **Preservasi Akordeon Sub-Tugas & Pembaruan In-Place 60 FPS**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -18,24 +18,24 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
 | 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer 100% mandiri offline-first dengan Hybrid Auth Bridge & OTA otomatis |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.21.OTA |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.22.OTA |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (Cloud Realtime) |
 
 ---
 
-## 🚀 Pembaruan Versi Sekarang (v33.21.OTA)
+## 🚀 Pembaruan Versi Sekarang (v33.22.OTA)
 
-### 1. 📱 Animasi Ekspansi Akordeon Sub-Tugas Fluida Modern (CSS Grid 0fr ➔ 1fr)
-- **Deselerasi Natural Tanpa Kliping**: Membuka dan menutup daftar sub-tugas menggunakan arsitektur modern CSS Grid (`grid-template-rows: 0fr` beralih ke `1fr`) dipadukan kurva deselerasi fluida iOS/modern `cubic-bezier(0.16, 1, 0.3, 1)`. Seluruh daftar mengembang secara organik tanpa sentakan atau pemotongan.
+### 1. 🪶 Eliminasi Efek Melompat / Bouncing Kasar
+- **Gerakan Tenang & Mulus**: Menghilangkan kurva over-bounce dan auto-focus timeout yang memicu lonjakan viewport, menghasilkan gerakan buka-tutup akordeon sub-tugas yang berhenti dengan tenang, presisi, dan sangat mulus tanpa melompat-lompat.
 
-### 2. 🍃 Efek Masuk Berjenjang (*Cascading Glide & Scale*)
-- **Visual Halus Era Modern**: Saat akordeon terbuka, baris sub-tugas dan form input meluncur turun dengan pergeseran vertikal lembut dan transisi skala mikro (`0.985` ➔ `1.0`), menciptakan sensasi visual yang elegan dan berkelas.
+### 2. 〰️ Kurva Deselerasi Murni (*Pure Quart Ease-Out*)
+- **Transisi Halus 60 FPS**: Menerapkan timing function `cubic-bezier(0.25, 1, 0.5, 1)` untuk ekspansi tinggi CSS Grid dan translasi internal sehingga meluncur cepat di awal lalu melambat secara anggun ke posisi akhir tanpa efek membal.
 
-### 3. 🔄 Rotasi Ikon Pegas Elastis (*Spring Arrow Bounce*)
-- **Fisika Pegas Dinamis**: Ikon panah indikator berputar 180 derajat dengan kurva pegas elastis `cubic-bezier(0.34, 1.56, 0.64, 1)` yang memiliki efek sedikit membal (*overshoot*), menghidupkan elemen antarmuka saat ditekan.
+### 3. 📐 Isolasi Margin & Padding Internal
+- **Bebas Layout Jank**: Seluruh jarak padding dan garis tepi kini terisolasi di dalam kontainer konten internal untuk mencegah lonjakan layout saat bertransisi.
 
-### 4. ⌨️ Respon Sentuh Mikro-Taktil & Auto-Fokus Cepat
-- **Interaksi Ergonomis**: Tombol sub-tugas memiliki mikro-animasi tekan taktil (`active:scale-95`), serta saat akordeon dibuka kolom pengetikan sub-tugas baru akan otomatis terfokus untuk input cepat.
+### 4. 🧭 Rotasi Panah Presisi
+- **Tanpa Getaran**: Panah indikator berputar tepat 180° dengan kurva halus tanpa getaran atau ayunan berlebih, selaras dengan irama ekspansi kartu tugas.
 
 ---
 
@@ -162,5 +162,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.21.OTA • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.22.OTA • Era Super-App Finansial & Produktivitas</b></sub>
 </div>
