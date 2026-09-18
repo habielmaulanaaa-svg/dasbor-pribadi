@@ -504,6 +504,61 @@
         }
 
         /* ==========================================
+           ANIMASI EKSPANSI AKORDEON SUB TUGAS MODERN (CSS GRID FLUID PHYSICS)
+           ========================================== */
+        .subtasks-accordion-grid {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            margin-top: 0;
+            padding-top: 0;
+            border-top: 1px solid transparent;
+            transition: grid-template-rows 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                        margin-top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        padding-top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-top-color 0.3s ease;
+            will-change: grid-template-rows, opacity;
+        }
+        .subtasks-accordion-grid.expanded {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top-color: rgba(241, 245, 249, 1);
+        }
+        .dark .subtasks-accordion-grid.expanded {
+            border-top-color: rgba(36, 47, 61, 0.8);
+        }
+        .subtasks-accordion-inner {
+            overflow: hidden;
+            min-height: 0;
+        }
+        .subtasks-accordion-inner > .subtasks-content-body {
+            transform: translateY(-8px) scale(0.985);
+            opacity: 0;
+            transition: transform 0.36s cubic-bezier(0.2, 0.9, 0.3, 1.05),
+                        opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .subtasks-accordion-grid.expanded .subtasks-accordion-inner > .subtasks-content-body {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        /* Rotasi panah akordeon dengan kurva elastis modern */
+        .subtasks-arrow-spring {
+            transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: transform;
+        }
+        /* Animasi kartu item sub-tugas */
+        .subtask-item-card {
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.18s ease;
+        }
+        .subtask-item-card:active {
+            transform: scale(0.985);
+        }
+
+        /* ==========================================
            1. FLUID PHYSICS TOGGLE SWITCH (OPSI B)
            ========================================== */
         .fluid-switch-btn {
@@ -1516,7 +1571,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.20.OTA</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.21.OTA</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -1594,7 +1649,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Dasbor APK Mandiri v33.20.OTA (OTA Aktif)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Dasbor APK Mandiri v33.21.OTA (OTA Aktif)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -1764,44 +1819,44 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.20.OTA</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.21.OTA</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <!-- Milestone v33.20.OTA -->
+                <!-- Milestone v33.21.OTA -->
                 <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-cyan-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-emerald-500 text-xs"></i> Rilis Stabil • v33.20.OTA</span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2 py-0.5 rounded-full shadow-xs">Animasi Cairan &amp; Tanggal Sub-Tugas</span>
+                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-emerald-500 text-xs"></i> Rilis Stabil • v33.21.OTA</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2 py-0.5 rounded-full shadow-xs">Animasi Fluida Modern Sub-Tugas</span>
                     </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Animasi Cairan Bar Sub-Tugas Hijau Mengalir, Tanggal Otomatis (Tanpa Waktu), &amp; Kontrol Sembunyikan Tanggal</p>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Animasi Ekspansi Akordeon Sub-Tugas CSS Grid Fluida, Pegas Elastis (Spring Physics), &amp; Transisi Halus Era Modern</p>
                     <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-tint text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <i class="fas fa-layer-group text-emerald-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Animasi Cairan Bar Sub-Tugas (Liquid Flow):</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Bar progres sub-tugas hadir dengan gradien hijau emerald cerah yang mengalir halus ke kanan dengan kurva elastis, denyut cairan bergelombang (*liquid wave shimmer*), dan kilau denyut saat sub-tugas dicentang.</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Ekspansi Akordeon CSS Grid Fluida (0fr ➔ 1fr):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Saat tombol sub-tugas ditekan, wadah daftar meluncur dan mengembang sangat mulus tanpa jeda (zero-clipping) menggunakan transisi CSS Grid alami dengan kurva deselerasi fluida iOS/modern.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-calendar-alt text-teal-500 mt-0.5 text-xs shrink-0"></i>
+                            <i class="fas fa-wind text-teal-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Tanggal Otomatis Sub-Tugas (Tanpa Waktu):</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Setiap penambahan sub-tugas baru otomatis menyematkan tanggal dibuat dengan format tanggal, bulan, dan tahun tanpa jam/menit (contoh: 18 Sep 2026).</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Efek Masuk Berjenjang (Cascading Glide &amp; Scale):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Setiap baris sub-tugas dan form input meluncur turun dengan pergeseran vertikal halus serta transisi skala mikro (scale 0.985 ➔ 1.0) yang sangat elegan dan memanjakan mata.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-eye-slash text-indigo-500 mt-0.5 text-xs shrink-0"></i>
+                            <i class="fas fa-sync-alt text-indigo-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Opsi Sembunyikan &amp; Tampilkan Tanggal:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Pengguna dapat dengan fleksibel menyembunyikan atau memunculkan kembali tanggal sub-tugas melalui menu pengaturan, form draf tugas, maupun toggle cepat pada kartu tugas.</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Rotasi Ikon Pegas Elastis (Spring Arrow Bounce):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Ikon panah indikator berputar 180 derajat dengan pantulan pegas alami (*spring curve overshoot*), memberikan kesan antarmuka hidup dan dinamis.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-bolt text-amber-500 mt-0.5 text-xs shrink-0"></i>
+                            <i class="fas fa-keyboard text-amber-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Preservasi Akordeon &amp; Pembaruan In-Place 60 FPS:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Status buka/tutup akordeon sub-tugas terjaga stabil dan pencentangan checklist diperbarui seketika secara in-place tanpa menutup akordeon atau memicu kedipan.</p>
+                                <span class="font-bold text-slate-800 dark:text-white">Respon Sentuh Taktil &amp; Auto-Fokus Instan:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Tombol memiliki efek mikro-tekan (*active scale 0.95*), dan saat akordeon dibuka kolom input sub-tugas baru akan otomatis terfokus untuk pengetikan cepat.</p>
                             </div>
                         </div>
                     </div>
@@ -6466,14 +6521,18 @@
             var container = document.getElementById(`subtasks-container-${taskId}`);
             var arrow = document.getElementById(`subtasks-arrow-${taskId}`);
             if (!container) return;
-            var isHidden = container.classList.toggle('hidden');
-            if (isHidden) {
-                activeOpenSubtasks.delete(taskId);
-            } else {
+            var isExpanded = container.classList.toggle('expanded');
+            if (isExpanded) {
                 activeOpenSubtasks.add(taskId);
+                var input = document.getElementById(`input-new-subtask-${taskId}`);
+                if (input) {
+                    setTimeout(function() { input.focus(); }, 180);
+                }
+            } else {
+                activeOpenSubtasks.delete(taskId);
             }
             if (arrow) {
-                arrow.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+                arrow.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
             }
         }
 
@@ -7506,9 +7565,9 @@
                 subtasksBarHTML = `
                 <div class="mt-2.5 pt-2 border-t border-slate-100 dark:border-[#242f3d]/60">
                     <div class="flex items-center justify-between gap-2 mb-1.5">
-                        <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="inline-flex items-center gap-1.5 text-[10px] font-bold ${badgeClass} px-2 py-0.5 rounded-lg border focus:outline-none hover:opacity-85 transition-opacity">
+                        <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="inline-flex items-center gap-1.5 text-[10px] font-bold ${badgeClass} px-2 py-0.5 rounded-lg border focus:outline-none hover:opacity-85 active:scale-95 transition-all">
                             <i class="fas fa-tasks text-[9px]"></i> <span id="subtasks-count-${task.id}">${doneSt}/${totalSt} Sub Tugas</span>
-                            <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] transform transition-transform duration-200" style="${isAccordionOpen ? 'transform: rotate(180deg);' : ''}"></i>
+                            <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] subtasks-arrow-spring" style="${isAccordionOpen ? 'transform: rotate(180deg);' : 'transform: rotate(0deg);'}"></i>
                         </button>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="toggleOpsiSubtaskTanggal()" class="text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 text-[10px] flex items-center gap-1 focus:outline-none transition-colors p-0.5" title="${dataState.optSubtaskTanggalDibuat !== false ? 'Sembunyikan Tanggal Sub Tugas' : 'Tampilkan Tanggal Sub Tugas'}">
@@ -7525,7 +7584,7 @@
             } else if (!task.selesai) {
                 subtasksBarHTML = `
                 <div class="mt-1.5">
-                    <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors focus:outline-none">
+                    <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 active:scale-95 transition-all focus:outline-none">
                         <i class="fas fa-plus-circle text-[9px]"></i> Tambah Sub Tugas
                     </button>
                 </div>`;
@@ -7540,30 +7599,34 @@
                 var dateBadgeHTML = `<span class="subtask-date-badge text-[9px] font-medium text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-[#1f2937] px-1.5 py-0.5 rounded-md flex items-center gap-1 shrink-0 ${isDateHidden ? 'hidden' : ''}"><i class="far fa-calendar-alt text-[8px] opacity-75"></i> ${stDate}</span>`;
 
                 subtasksListHTML += `
-                <div class="flex items-center justify-between gap-2 p-1.5 px-2 bg-slate-50 dark:bg-[#242f3d]/60 rounded-xl border border-slate-200/70 dark:border-[#313f52]/50 text-xs">
+                <div class="subtask-item-card flex items-center justify-between gap-2 p-1.5 px-2 bg-slate-50/90 dark:bg-[#242f3d]/60 rounded-xl border border-slate-200/70 dark:border-[#313f52]/50 text-xs shadow-2xs hover:bg-slate-100/70 dark:hover:bg-[#242f3d]/80 transition-colors">
                     <label class="flex items-center gap-2 cursor-pointer select-none flex-1 min-w-0">
                         <input type="checkbox" id="subtask-cb-${task.id}-${st.id}" onchange="toggleSubtask(${task.id}, ${st.id})" ${stChecked} class="w-3.5 h-3.5 rounded text-emerald-600 focus:ring-0 focus:outline-none cursor-pointer accent-emerald-500">
                         <span id="subtask-text-${task.id}-${st.id}" class="text-xs ${stTextClass} break-words">${escapeHtml(st.text)}</span>
                     </label>
                     <div class="flex items-center gap-1.5 shrink-0">
                         ${dateBadgeHTML}
-                        <button type="button" onclick="hapusSubtask(${task.id}, ${st.id})" class="text-slate-300 hover:text-red-500 p-1 focus:outline-none" title="Hapus"><i class="fas fa-times text-[10px]"></i></button>
+                        <button type="button" onclick="hapusSubtask(${task.id}, ${st.id})" class="text-slate-300 hover:text-red-500 active:scale-90 p-1 focus:outline-none transition-transform" title="Hapus"><i class="fas fa-times text-[10px]"></i></button>
                     </div>
                 </div>`;
             });
 
             var subtasksAccordion = `
-            <div id="subtasks-container-${task.id}" class="${isAccordionOpen ? '' : 'hidden'} mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d]/80 space-y-1.5">
-                <div class="space-y-1 max-h-48 overflow-y-auto pr-0.5 empty:hidden">
-                    ${subtasksListHTML}
+            <div id="subtasks-container-${task.id}" class="subtasks-accordion-grid ${isAccordionOpen ? 'expanded' : ''} border-slate-100 dark:border-[#242f3d]/80">
+                <div class="subtasks-accordion-inner">
+                    <div class="subtasks-content-body space-y-2 pt-1 pb-0.5">
+                        <div class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 empty:hidden touch-pan-y">
+                            ${subtasksListHTML}
+                        </div>
+                        ${!task.selesai ? `
+                        <div class="flex items-center gap-1.5 pt-0.5">
+                            <input type="text" id="input-new-subtask-${task.id}" placeholder="Ketik sub tugas baru..." onkeydown="if(event.key==='Enter'){event.preventDefault(); tambahSubtaskInline(${task.id});}" class="flex-1 rounded-xl px-2.5 py-1.5 text-xs font-medium bg-slate-100 dark:bg-[#242f3d] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all">
+                            <button type="button" onclick="tambahSubtaskInline(${task.id})" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1 shadow-xs">
+                                <i class="fas fa-plus text-[10px]"></i>
+                            </button>
+                        </div>` : ''}
+                    </div>
                 </div>
-                ${!task.selesai ? `
-                <div class="flex items-center gap-1.5 mt-2">
-                    <input type="text" id="input-new-subtask-${task.id}" placeholder="Ketik sub tugas baru..." onkeydown="if(event.key==='Enter'){event.preventDefault(); tambahSubtaskInline(${task.id});}" class="flex-1 rounded-xl px-2.5 py-1.5 text-xs font-medium bg-slate-100 dark:bg-[#242f3d] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                    <button type="button" onclick="tambahSubtaskInline(${task.id})" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shrink-0 transition-colors flex items-center gap-1">
-                        <i class="fas fa-plus text-[10px]"></i>
-                    </button>
-                </div>` : ''}
             </div>`;
 
             return `<li class="swipe-wrapper relative overflow-hidden rounded-2xl">
@@ -8777,7 +8840,7 @@
 
             // Fallback: Jika di dalam APK tetapi native bridge belum terpasang (APK belum di-update)
             if (window.DasborBridge || window.location.protocol === 'file:') {
-                alert("Pembaruan APK Diperlukan:\n\nFitur masuk dengan Google resmi membutuhkan instalasi file APK versi v33.20.OTA atau lebih baru.\n\nSilakan unduh dan pasang pembaruan APK terbaru.");
+                alert("Pembaruan APK Diperlukan:\n\nFitur masuk dengan Google resmi membutuhkan instalasi file APK versi v33.21.OTA atau lebih baru.\n\nSilakan unduh dan pasang pembaruan APK terbaru.");
                 return;
             }
 
@@ -9073,7 +9136,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v33.20.OTA';
+        const CURRENT_APP_VERSION = 'v33.21.OTA';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {

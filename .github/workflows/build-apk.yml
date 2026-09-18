@@ -87,18 +87,21 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK (Animasi Cairan & Tanggal Sub-Tugas) v33.20.OTA"
+          name: "Dasbor Pribadi Standalone APK (Animasi Fluida Modern Sub-Tugas) v33.21.OTA"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.20.OTA)
-            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Opsi Sembunyikan/Tampilkan Tanggal**, **Preservasi Akordeon & Pembaruan In-Place 60 FPS**, **Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.21.OTA)
+            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Animasi Ekspansi Akordeon Sub-Tugas Fluida Modern (CSS Grid 0fr ➔ 1fr)**, **Rotasi Ikon Pegas Elastis (*Spring Arrow Bounce*)**, **Respon Sentuh Mikro-Taktil & Auto-Fokus Cepat**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Opsi Sembunyikan/Tampilkan Tanggal**, **Preservasi Akordeon & Pembaruan In-Place 60 FPS**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v33.20.OTA
-            - **Fitur Baru v33.20.OTA**:
-              - 🌊 **Animasi Cairan Bar Sub-Tugas (Liquid Flow Bar)**: Bar progres sub-tugas bergradien hijau emerald cerah yang mengalir halus ke kanan dengan efek denyut cairan elastis (*liquid surge animation*) dan kilau gelombang mengalir saat dicentang.
-              - 📅 **Penyematan Tanggal Otomatis (Tanpa Waktu)**: Setiap penambahan sub-tugas baru secara otomatis merekam tanggal dibuat berformat tanggal, bulan, dan tahun tanpa jam/menit (contoh: 18 Sep 2026).
-              - 👁️ **Opsi Sembunyikan & Tampilkan Tanggal**: Fleksibilitas penuh mengatur visibilitas tanggal sub-tugas melalui menu pengaturan, form draf tugas, maupun toggle langsung pada kartu tugas.
-              - ⚡ **Preservasi Akordeon & Pembaruan In-Place 60 FPS**: Menjaga status akordeon tetap terbuka stabil saat berinteraksi dan mengalirkan animasi bar hijau secara instan tanpa re-render DOM total.
+            - **Versi**: v33.21.OTA
+            - **Fitur Baru v33.21.OTA**:
+              - 📱 **Animasi Ekspansi Akordeon Fluida Modern**: Membuka dan menutup daftar sub-tugas menggunakan CSS Grid natural (`grid-template-rows: 0fr ➔ 1fr`) dengan kurva deselerasi fluida iOS/modern, bebas patah atau kliping.
+              - 🍃 **Efek Masuk Meluncur & Skala Mikro (*Cascading Glide & Scale*)**: Baris sub-tugas meluncur turun dengan pergeseran vertikal halus serta transisi skala mikro (`0.985 ➔ 1.0`).
+              - 🔄 **Rotasi Ikon Pegas Elastis (*Spring Arrow Bounce*)**: Panah indikator berputar dinamis dengan efek pantulan pegas alami `cubic-bezier(0.34, 1.56, 0.64, 1)`.
+              - ⌨️ **Respon Sentuh Mikro-Taktil & Auto-Fokus Cepat**: Tombol memiliki animasi tekan mikro (`active:scale-95`) dan kolom input langsung terfokus secara otomatis saat akordeon dibuka.
+              - 🌊 **Animasi Cairan Bar Sub-Tugas (Liquid Flow Bar)**: Bar progres sub-tugas hijau mengalir halus ke kanan dengan efek denyut cairan saat dicentang.
+              - 📅 **Penyematan Tanggal Otomatis (Tanpa Waktu)**: Format tanggal, bulan, dan tahun tanpa jam/menit (contoh: 18 Sep 2026).
+              - 👁️ **Opsi Sembunyikan & Tampilkan Tanggal**: Kontrol penuh visibilitas tanggal sub-tugas.
               - 🚀 **Akselerasi 120 FPS & Zero Lag**: Navigasi dan scrolling super halus bebas reflow thrashing.
               - 🔑 **Hybrid Auth Bridge**: Login Google resmi lancar 100% tanpa kendala.
               - 📱 **100% Standalone APK (Offline-First)**: Dibuka instan tanpa butuh koneksi internet sama sekali.
