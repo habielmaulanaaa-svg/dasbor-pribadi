@@ -413,9 +413,13 @@ public class MainActivity extends AppCompatActivity {
                     notifyWebDynamicIsland("Pembaruan OTA", "Memeriksa versi terbaru...", "fas fa-sync fa-spin", "bg-primary-500/20 text-primary-400");
                 }
 
-                URL url = new URL(OTA_URL);
+                String targetUrl = OTA_URL + (OTA_URL.contains("?") ? "&" : "?") + "ts=" + System.currentTimeMillis();
+                URL url = new URL(targetUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
+                conn.setRequestProperty("Cache-Control", "no-cache, no-store, must-revalidate");
+                conn.setRequestProperty("Pragma", "no-cache");
+                conn.setRequestProperty("Expires", "0");
                 conn.setConnectTimeout(8000);
                 conn.setReadTimeout(12000);
                 conn.connect();
