@@ -2,14 +2,14 @@
   <img src="icon-512.png" width="128" height="128" alt="Logo Dasbor Pribadi" style="border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);" />
 </p>
 
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.22.OTA
+# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.23.OTA
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.22.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.23.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.22.OTA)** dengan dukungan **Eliminasi Efek Melompat/Bouncing Kasar Akordeon Sub-Tugas**, **Kurva Deselerasi Murni (*Pure Ease-Out*)**, **Isolasi Padding Internal Anti-Jank**, **Rotasi Panah Presisi**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Opsi Sembunyikan & Tampilkan Tanggal Fleksibel**, **Preservasi Akordeon Sub-Tugas & Pembaruan In-Place 60 FPS**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.23.OTA)** dengan dukungan **Standardisasi Seluruh Animasi Dasbor ke Era Cairan (Fluid Physics)**, **Universal CSS Grid Accordion (0fr ➔ 1fr)** pada seluruh Stack Kartu (Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, dan Widget Beranda), **Drawer Formulir Mengalir Murni Tanpa Bouncing**, **Sub-Bar Waktu Grid Fluida**, **Rotasi Panah Chevron Sinkron Presisi**, **Eliminasi Efek Melompat/Bouncing Kasar Akordeon Sub-Tugas**, **Kurva Deselerasi Murni (*Pure Ease-Out*)**, **Isolasi Padding Internal Anti-Jank**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Opsi Sembunyikan & Tampilkan Tanggal Fleksibel**, **Preservasi Akordeon Sub-Tugas & Pembaruan In-Place 60 FPS**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -18,30 +18,34 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
 | 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer 100% mandiri offline-first dengan Hybrid Auth Bridge & OTA otomatis |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.22.OTA |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.23.OTA |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (Cloud Realtime) |
 
 ---
 
-## 🚀 Pembaruan Versi Sekarang (v33.22.OTA)
+## 🚀 Pembaruan Versi Sekarang (v33.23.OTA)
 
-### 1. 🪶 Eliminasi Efek Melompat / Bouncing Kasar
-- **Gerakan Tenang & Mulus**: Menghilangkan kurva over-bounce dan auto-focus timeout yang memicu lonjakan viewport, menghasilkan gerakan buka-tutup akordeon sub-tugas yang berhenti dengan tenang, presisi, dan sangat mulus tanpa melompat-lompat.
+### 1. 🌊 Standardisasi CSS Grid Fluid Physics Universal (0fr ➔ 1fr)
+- **Ekspansi Alami 60 FPS**: Seluruh stack kartu dasbor (Tugas Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, dan Widget Beranda) telah dimigrasikan dari trik kuno `max-height: 2500px` ke arsitektur CSS Grid fluida murni. Tinggi kartu bertransisi eksak sesuai konten sebenarnya tanpa distorsi.
 
-### 2. 〰️ Kurva Deselerasi Murni (*Pure Quart Ease-Out*)
-- **Transisi Halus 60 FPS**: Menerapkan timing function `cubic-bezier(0.25, 1, 0.5, 1)` untuk ekspansi tinggi CSS Grid dan translasi internal sehingga meluncur cepat di awal lalu melambat secara anggun ke posisi akhir tanpa efek membal.
+### 2. ⚡ Eliminasi Delay Kosong & Bouncing Kasar
+- **Murni Deselerasi (*Quart Ease-Out*)**: Menghapus `springAccordionUnfurl` dan timing kasar, digantikan kurva fluida `cubic-bezier(0.25, 1, 0.5, 1)`. Durasi buka-tutup konsisten dan bebas jeda kosong tak terlihat saat ditutup.
 
-### 3. 📐 Isolasi Margin & Padding Internal
-- **Bebas Layout Jank**: Seluruh jarak padding dan garis tepi kini terisolasi di dalam kontainer konten internal untuk mencegah lonjakan layout saat bertransisi.
+### 3. 📝 Drawer Formulir & Sub-Bar Waktu Mengalir Halus
+- **Formulir & Opsi Fluida**: Form Tugas Baru, Jurnal Harian, Target Impian Tabungan, Banner Aplikasi APK, dan Sub-Bar Waktu Tugas kini meluncur keluar-masuk dengan transisi cairan yang anggun dan elegan.
 
-### 4. 🧭 Rotasi Panah Presisi
-- **Tanpa Getaran**: Panah indikator berputar tepat 180° dengan kurva halus tanpa getaran atau ayunan berlebih, selaras dengan irama ekspansi kartu tugas.
-
----
+### 4. 🧭 Rotasi Panah Chevron Sinkron Presisi
+- **Indikator Seirama**: Seluruh ikon panah panah header stack dan banner berputar tepat 180° menggunakan timing fluida yang sinkron penuh dengan peregangan kartu.
 
 ---
 
 ## 📜 Arsip Pembaruan Versi Sebelumnya
+
+### Milestone v33.22.OTA
+- **Eliminasi Efek Melompat / Bouncing Kasar Sub-Tugas**: Menghilangkan kurva over-bounce dan auto-focus timeout yang memicu lonjakan viewport, menghasilkan gerakan buka-tutup akordeon sub-tugas yang tenang, presisi, dan mulus.
+- **Kurva Deselerasi Murni (*Pure Quart Ease-Out*)**: Menerapkan `cubic-bezier(0.25, 1, 0.5, 1)` untuk ekspansi tinggi CSS Grid dan translasi internal.
+- **Isolasi Margin & Padding Internal**: Seluruh jarak padding dan garis tepi terisolasi di dalam kontainer konten internal untuk mencegah lonjakan layout saat bertransisi.
+- **Rotasi Panah Presisi**: Panah indikator berputar tepat 180° tanpa getaran over-bounce.
 
 Seluruh catatan riwayat pembaruan versi terdahulu telah didokumentasikan secara lengkap dan rapi di:
 👉 [**Halaman Resmi GitHub Releases**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases)
@@ -162,5 +166,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.22.OTA • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v33.23.OTA • Era Super-App Finansial & Produktivitas</b></sub>
 </div>

@@ -87,18 +87,19 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK (Penyempurnaan Animasi & Anti-Bounce) v33.22.OTA"
+          name: "Dasbor Pribadi Standalone APK (Standardisasi Animasi Fluida Seluruh Dasbor) v33.23.OTA"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.22.OTA)
-            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Eliminasi Efek Melompat/Bouncing Kasar Akordeon Sub-Tugas**, **Kurva Deselerasi Murni (*Pure Ease-Out*)**, **Isolasi Padding Internal Anti-Jank**, **Rotasi Panah Presisi**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Opsi Sembunyikan/Tampilkan Tanggal**, **Preservasi Akordeon & Pembaruan In-Place 60 FPS**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.23.OTA)
+            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Standardisasi Seluruh Animasi Dasbor ke Era Cairan (Fluid Physics)**, **Universal CSS Grid Accordion (0fr ➔ 1fr)** pada seluruh Stack Kartu (Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, dan Widget Beranda), **Drawer Formulir Mengalir Murni Tanpa Bouncing**, **Sub-Bar Waktu Grid Fluida**, **Rotasi Panah Chevron Sinkron Presisi**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v33.22.OTA
-            - **Fitur Baru v33.22.OTA**:
-              - 🪶 **Eliminasi Efek Melompat / Bouncing Kasar**: Menghilangkan kurva over-bounce dan auto-focus timeout yang memicu lonjakan viewport, menghasilkan gerakan buka-tutup akordeon yang berhenti dengan tenang, presisi, dan sangat mulus.
-              - 〰️ **Kurva Deselerasi Murni (*Pure Quart Ease-Out*)**: Menerapkan `cubic-bezier(0.25, 1, 0.5, 1)` untuk ekspansi CSS Grid dan translasi internal sehingga meluncur cepat di awal lalu melambat secara anggun ke posisi akhir tanpa membal.
-              - 📐 **Isolasi Margin & Padding Internal**: Seluruh jarak padding dan garis tepi kini terisolasi di dalam kontainer konten internal untuk mencegah lonjakan layout saat bertransisi.
-              - 🧭 **Rotasi Panah Presisi**: Panah indikator berputar tepat 180° tanpa getaran over-bounce.
+            - **Versi**: v33.23.OTA
+            - **Fitur Baru v33.23.OTA**:
+              - 🌊 **Standardisasi CSS Grid Fluid Physics Universal (0fr ➔ 1fr)**: Seluruh stack kartu dasbor (Tugas Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, dan Widget Beranda) telah ditingkatkan ke teknologi CSS Grid fluida murni.
+              - ⚡ **Eliminasi Delay Kosong & Bouncing Kasar**: Menghapus `max-height: 2500px` dan keyframes spring kasar, digantikan oleh durasi konstan alami dan kurva deselerasi murni (*Quart Ease-Out* `cubic-bezier(0.25, 1, 0.5, 1)`).
+              - 📝 **Drawer Formulir & Sub-Bar Waktu Fluida**: Form Tugas Baru, Jurnal, Target Tabungan, Banner APK, dan Sub-Bar Waktu Tugas kini meluncur dan merenggang sangat mulus seperti cairan.
+              - 🧭 **Rotasi Panah Chevron Presisi Terpadu**: Seluruh ikon panah indikator berputar tepat 180° seirama dengan cairan kartu tanpa getaran.
+              - 🪶 **Anti-Bounce & Isolasi Padding**: Nol lompatan viewport layout dan margin/padding internal terisolasi sempurna pada tinggi 0px.
               - 🌊 **Animasi Cairan Bar Sub-Tugas (Liquid Flow Bar)**: Bar progres sub-tugas hijau mengalir halus ke kanan dengan efek denyut cairan saat dicentang.
               - 📅 **Penyematan Tanggal Otomatis (Tanpa Waktu)**: Format tanggal, bulan, dan tahun tanpa jam/menit (contoh: 18 Sep 2026).
               - 👁️ **Opsi Sembunyikan & Tampilkan Tanggal**: Kontrol penuh visibilitas tanggal sub-tugas.
