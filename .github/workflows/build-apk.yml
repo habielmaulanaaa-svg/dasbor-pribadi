@@ -87,18 +87,18 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK (Perbaikan & Optimasi Sub-Tugas) v33.19.OTA"
+          name: "Dasbor Pribadi Standalone APK (Animasi Cairan & Tanggal Sub-Tugas) v33.20.OTA"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.19.OTA)
-            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Resolusi Tampilan Penuh Akordeon Sub-Tugas (Anti-Kliping)**, **Penyempurnaan Nomenklatur "Sub Tugas"**, **Isolasi Gesture Sentuh Cerdas**, **Animasi Penyusutan Halus Adaptif**, **Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.20.OTA)
+            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Opsi Sembunyikan/Tampilkan Tanggal**, **Preservasi Akordeon & Pembaruan In-Place 60 FPS**, **Sub-Tugas Bertingkat (*Task Steps & Mini Checklist*)**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v33.19.OTA
-            - **Fitur Baru v33.19.OTA**:
-              - 🔓 **Resolusi Tampilan Penuh Akordeon (Bebas Terpotong)**: Menghilangkan batasan tinggi statis pada wadah kartu tugas sehingga seluruh daftar sub-tugas dan form input inline dapat terbuka secara utuh dan leluasa tanpa terpotong (anti-clipping).
-              - 🏷️ **Penyempurnaan Nomenklatur "Sub Tugas"**: Memperbarui istilah seluruh antarmuka dari "Langkah" menjadi "Sub Tugas" pada form input, badge progres, tombol aksi, notifikasi Dynamic Island, hingga widget Beranda.
-              - 🖐️ **Isolasi Gesture Sentuh Cerdas**: Sentuhan pada checkbox sub-tugas dan kolom input kini diisolasi dari deteksi usap (swipe-to-delete), mencegah pergeseran kartu tugas yang tidak disengaja saat mengetik atau mencentang.
-              - 💫 **Animasi Penyusutan Halus Adaptif**: Transisi penyelesaian dan penghapusan kartu tugas kini menghitung tinggi aktual secara dinamis, menghasilkan efek keruntuhan (collapse) 60 FPS yang sangat halus berapapun jumlah sub-tugasnya.
+            - **Versi**: v33.20.OTA
+            - **Fitur Baru v33.20.OTA**:
+              - 🌊 **Animasi Cairan Bar Sub-Tugas (Liquid Flow Bar)**: Bar progres sub-tugas bergradien hijau emerald cerah yang mengalir halus ke kanan dengan efek denyut cairan elastis (*liquid surge animation*) dan kilau gelombang mengalir saat dicentang.
+              - 📅 **Penyematan Tanggal Otomatis (Tanpa Waktu)**: Setiap penambahan sub-tugas baru secara otomatis merekam tanggal dibuat berformat tanggal, bulan, dan tahun tanpa jam/menit (contoh: 18 Sep 2026).
+              - 👁️ **Opsi Sembunyikan & Tampilkan Tanggal**: Fleksibilitas penuh mengatur visibilitas tanggal sub-tugas melalui menu pengaturan, form draf tugas, maupun toggle langsung pada kartu tugas.
+              - ⚡ **Preservasi Akordeon & Pembaruan In-Place 60 FPS**: Menjaga status akordeon tetap terbuka stabil saat berinteraksi dan mengalirkan animasi bar hijau secara instan tanpa re-render DOM total.
               - 🚀 **Akselerasi 120 FPS & Zero Lag**: Navigasi dan scrolling super halus bebas reflow thrashing.
               - 🔑 **Hybrid Auth Bridge**: Login Google resmi lancar 100% tanpa kendala.
               - 📱 **100% Standalone APK (Offline-First)**: Dibuka instan tanpa butuh koneksi internet sama sekali.
