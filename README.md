@@ -2,14 +2,26 @@
   <img src="icon-512.png" width="128" height="128" alt="Logo Dasbor Pribadi" style="border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);" />
 </p>
 
-# 📱 Dasbor Pribadi Mobile — Era Super-App Finansial & Produktivitas v33.24.OTA
+# 📱 Dasbor Pribadi Mobile — Era Platform Stabil v1.0.0 (Stable)
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v33.24.OTA-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v1.0.0%20(Stable)-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah berevolusi menjadi **Super-App Finansial & Produktivitas (v33.24.OTA)** dengan dukungan **Kapsul Cairan Suasana Hati (Liquid Mood Mercury Pill)**, **Filter Riwayat Transaksi Pas 100% (Grid 5 Kolom)**, **Reduksi Bouncing Kartu Dompet & Multi-Dompet**, **Standardisasi Seluruh Animasi Dasbor ke Era Cairan (Fluid Physics)**, **Universal CSS Grid Accordion (0fr ➔ 1fr)** pada seluruh Stack Kartu (Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, dan Widget Beranda), **Drawer Formulir Mengalir Murni Tanpa Bouncing**, **Sub-Bar Waktu Grid Fluida**, **Rotasi Panah Chevron Sinkron Presisi**, **Eliminasi Efek Melompat/Bouncing Kasar Akordeon Sub-Tugas**, **Kurva Deselerasi Murni (*Pure Ease-Out*)**, **Isolasi Padding Internal Anti-Jank**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Opsi Sembunyikan & Tampilkan Tanggal Fleksibel**, **Preservasi Akordeon Sub-Tugas & Pembaruan In-Place 60 FPS**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge (Login Google Resmi Lancar)**, **100% APK Mandiri Bebas Web (Offline-First)**, **Background OTA Update Engine (Over-The-Air)**, **JavaScript Native Bridge Terpadu**, **Dok Navigasi & FAB Terpadu (*Smooth Surface*)**, **Kalender Terpadu 360°**, **3 Home Screen Widgets Android**, **Multi-Dompet**, **Sistem Anggaran Bulanan**, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi merilis tonggak stabil perdananya: **v1.0.0 (Stable)**! Mengadopsi standar industri **Semantic Versioning (SemVer)** 3 tingkatan, aplikasi ini menggabungkan keindahan **CSS Grid Fluid Physics (0fr ➔ 1fr)** di seluruh dasbor, indikator kapsul cairan mengalir (*Liquid Mercury*), respons mikro-taktil 120 FPS tanpa bouncing kasar, multi-dompet keuangan, kalender aktivitas 360°, **100% APK Mandiri Bebas Web (Offline-First)** dengan mesin OTA otomatis, dan sinkronisasi **Google Cloud 24/7**.
+
+---
+
+## 🏷️ Skema Semantic Versioning Resmi (`MAJOR.MINOR.PATCH`)
+
+Aplikasi ini menggunakan skema penomoran versi 3 tingkatan dengan penanda resmi `(Stable)`:
+
+| Tingkat | Format | Deskripsi & Aturan | Contoh |
+|:---:|:---:|---|---|
+| **PATCH** | `1.0.X (Stable)` | Digunakan untuk **perbaikan bug / hotfix / perbaikan visual ringan** tanpa menambah fitur baru. | `1.0.0` ➔ `1.0.1 (Stable)` |
+| **MINOR** | `1.X.0 (Stable)` | Digunakan saat ada **penambahan fitur baru** yang tetap kompatibel dengan data sebelumnya. Angka *patch* di-reset kembali ke `0`. | `1.0.1` ➔ `1.1.0 (Stable)` |
+| **MAJOR** | `X.0.0 (Stable)` | Digunakan untuk **perombakan antarmuka (UI) besar-besaran**, restrukturisasi sistem mendasar, atau penambahan modul masif. | `1.1.0` ➔ `2.0.0 (Stable)` |
 
 ---
 
@@ -18,44 +30,27 @@ Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-
 | Saluran | Link Akses | Keterangan |
 |---|---|---|
 | 📲 **Download Langsung APK** | [**dasbor-pribadi.apk**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk) | Installer 100% mandiri offline-first dengan Hybrid Auth Bridge & OTA otomatis |
-| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v33.24.OTA |
+| 📦 **GitHub Releases** | [**Halaman Rilis `apk-latest`**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases/tag/apk-latest) | Arsip rilis resmi & changelog APK v1.0.0 (Stable) |
 | 🌐 **Akses Web PWA** | [**habielmaulanaaa-svg.github.io/dasbor-pribadi**](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/) | Versi web browser / iOS Safari / Desktop (Cloud Realtime) |
 
 ---
 
-## 🚀 Pembaruan Versi Sekarang (v33.24.OTA)
+## 🚀 Fitur Unggulan Tonggak Stabil v1.0.0 (Stable)
 
-### 1. 💧 Kapsul Cairan Suasana Hati (*Liquid Mood Mercury Pill*)
-- **Meluncur Halus Layaknya FAB & Dok**: Animasi pantul/bouncing kasar saat memilih suasana hati emoji jurnal dihapus sepenuhnya. Digantikan oleh kapsul merkuri cair fluida murni yang meluncur mengalir di bawah emoji dengan deformasi fluida lembut saat berpindah.
+### 1. 🌟 Rilis Platform Stabil Perdana & Semantic Versioning
+- Peresmian versi awal stabil `1.0.0 (Stable)` dengan kode build Android `versionCode 100000` untuk transisi instalasi mulus tanpa hambatan.
 
-### 2. 📊 Filter Riwayat Transaksi Pas 100% (*Grid 5 Kolom*)
-- **Simetris & Bebas Ruang Kosong**: Menghilangkan ruang kosong di sebelah kanan filter riwayat transaksi. Kini tersusun merata dalam grid 5 kolom pas (Semua, Hari Ini, Minggu Ini, Bulan Ini, dan Tahun Ini) lengkap dengan logika filter per pekan dan tahun di JavaScript.
+### 2. 🌊 Universal CSS Grid Fluid Physics (0fr ➔ 1fr)
+- Seluruh stack kartu dasbor (Tugas Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, Widget Beranda, dan Drawer Formulir) kini merenggang lembut secara matematis dengan kurva deselerasi murni (*Quart Ease-Out* `cubic-bezier(0.25, 1, 0.5, 1)`).
 
-### 3. 💼 Reduksi Bouncing Kartu Dompet & Multi-Dompet
-- **Denyut Fluida Tenang**: Mengurangi animasi bouncing berlebih kartu dompet tunai/bank/e-wallet saat ditekan menjadi denyut fluida alami yang tenang dan elegan.
+### 3. 💧 Indikator Cairan Mengalir (*Liquid Mercury Indicator*)
+- Kapsul merkuri cair fluida dinamis terpasang pada Dok Navigasi, Speed-Dial FAB, Selektor Suasana Hati Jurnal, dan Filter Riwayat Transaksi 5 Kolom pas 100%.
 
----
+### 4. 💼 Multi-Dompet & Kantong Keuangan
+- Manajemen kas terpisah ke dalam 3 dompet: **Tunai**, **Rekening Bank**, dan **E-Wallet** dengan denyut fluida mikro yang tenang.
 
-## 📜 Arsip Pembaruan Versi Sebelumnya
-
-### Milestone v33.23.OTA
-- **Standardisasi CSS Grid Fluid Physics Universal (0fr ➔ 1fr)**: Seluruh stack kartu dasbor (Tugas Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, dan Widget Beranda) dimigrasikan ke arsitektur CSS Grid fluida murni.
-- **Eliminasi Delay Kosong & Bouncing Kasar**: Menghapus `max-height: 2500px` dan timing kasar, digantikan kurva fluida `cubic-bezier(0.25, 1, 0.5, 1)`.
-- **Drawer Formulir & Sub-Bar Waktu Mengalir Halus**: Form Tugas Baru, Jurnal Harian, Target Tabungan, Banner APK, dan Sub-Bar Waktu Tugas meluncur keluar-masuk dengan transisi fluida.
-- **Rotasi Panah Chevron Sinkron Presisi**: Seluruh ikon panah header stack dan banner berputar 180° seirama cairan kartu.
-
----
-
-## 📜 Arsip Pembaruan Versi Sebelumnya
-
-### Milestone v33.22.OTA
-- **Eliminasi Efek Melompat / Bouncing Kasar Sub-Tugas**: Menghilangkan kurva over-bounce dan auto-focus timeout yang memicu lonjakan viewport, menghasilkan gerakan buka-tutup akordeon sub-tugas yang tenang, presisi, dan mulus.
-- **Kurva Deselerasi Murni (*Pure Quart Ease-Out*)**: Menerapkan `cubic-bezier(0.25, 1, 0.5, 1)` untuk ekspansi tinggi CSS Grid dan translasi internal.
-- **Isolasi Margin & Padding Internal**: Seluruh jarak padding dan garis tepi terisolasi di dalam kontainer konten internal untuk mencegah lonjakan layout saat bertransisi.
-- **Rotasi Panah Presisi**: Panah indikator berputar tepat 180° tanpa getaran over-bounce.
-
-Seluruh catatan riwayat pembaruan versi terdahulu telah didokumentasikan secara lengkap dan rapi di:
-👉 [**Halaman Resmi GitHub Releases**](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases)
+### 5. 📅 Sub-Tugas Cerdas & Kalender Terpadu 360°
+- Animasi bar progres sub-tugas hijau mengalir, tanggal otomatis tanpa waktu, opsi sembunyikan/tampilkan tanggal, dan kalender aktivitas harian komprehensif.
 
 ---
 
@@ -141,7 +136,7 @@ dasbor-mobile/
 │   └── build-apk.yml          # Otomatisasi GitHub Actions (Compile Gradle, Release, Deploy Pages)
 ├── android/                   # Proyek Native Android (Java & Android Gradle Plugin)
 │   ├── app/
-│   │   ├── build.gradle       # Konfigurasi aplikasi Android (v33.11.P5)
+│   │   ├── build.gradle       # Konfigurasi aplikasi Android (v1.0.0 Stable)
 │   │   └── src/main/
 │   │       ├── AndroidManifest.xml # Izin, intent filter dasbor://sync, & deklarasi 3 Widget
 │   │       ├── java/com/dasbor/pribadi/
@@ -153,7 +148,7 @@ dasbor-mobile/
 ├── dasbor-pribadi.apk         # Binary APK rilis terbaru (otomatis terupdate via CI/CD)
 ├── index.html                 # Core App: UI super-app, multi-wallet, budget, subs, cloud
 ├── manifest.json              # Web App Manifest PWA
-├── sw.js                      # Service Worker (Cache management & OTA pipeline v33.11.P5)
+├── sw.js                      # Service Worker (Cache management & OTA pipeline v1.0.0 Stable)
 ├── icon-192.png               # Ikon Web PWA 192x192
 ├── icon-512.png               # Ikon Web PWA 512x512
 └── README.md                  # Dokumentasi resmi proyek
@@ -173,5 +168,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v33.24.OTA • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v1.0.0 (Stable) • Era Super-App Finansial & Produktivitas</b></sub>
 </div>
