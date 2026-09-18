@@ -2,14 +2,14 @@
   <img src="icon-512.png" width="128" height="128" alt="Logo Dasbor Pribadi" style="border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);" />
 </p>
 
-# 📱 Dasbor Pribadi Mobile — Era Platform Stabil v1.0.0 (Stable)
+# 📱 Dasbor Pribadi Mobile — Era Platform Stabil v1.0.1 (Stable)
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v1.0.0%20(Stable)-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v1.0.1%20(Stable)-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi merilis tonggak stabil perdananya: **v1.0.0 (Stable)**! Mengadopsi standar industri **Semantic Versioning (SemVer)** 3 tingkatan, aplikasi ini menggabungkan keindahan **CSS Grid Fluid Physics (0fr ➔ 1fr)** di seluruh dasbor, indikator kapsul cairan mengalir (*Liquid Mercury*), respons mikro-taktil 120 FPS tanpa bouncing kasar, multi-dompet keuangan, kalender aktivitas 360°, **100% APK Mandiri Bebas Web (Offline-First)** dengan mesin OTA otomatis, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi mengadopsi standar industri **Semantic Versioning (SemVer)** 3 tingkatan, dimulai dari rilis stabil **v1.0.0 (Stable)** dan patch pembaruan **v1.0.1 (Stable)** (*In-Place Dynamic Overwrite Notification*). Aplikasi ini menggabungkan keindahan **CSS Grid Fluid Physics (0fr ➔ 1fr)** di seluruh dasbor, indikator kapsul cairan mengalir (*Liquid Mercury*), respons mikro-taktil 120 FPS tanpa bouncing kasar, multi-dompet keuangan, kalender aktivitas 360°, **100% APK Mandiri Bebas Web (Offline-First)** dengan mesin OTA otomatis, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -136,7 +136,7 @@ dasbor-mobile/
 │   └── build-apk.yml          # Otomatisasi GitHub Actions (Compile Gradle, Release, Deploy Pages)
 ├── android/                   # Proyek Native Android (Java & Android Gradle Plugin)
 │   ├── app/
-│   │   ├── build.gradle       # Konfigurasi aplikasi Android (v1.0.0 Stable)
+│   │   ├── build.gradle       # Konfigurasi aplikasi Android (v1.0.1 Stable)
 │   │   └── src/main/
 │   │       ├── AndroidManifest.xml # Izin, intent filter dasbor://sync, & deklarasi 3 Widget
 │   │       ├── java/com/dasbor/pribadi/
@@ -148,7 +148,7 @@ dasbor-mobile/
 ├── dasbor-pribadi.apk         # Binary APK rilis terbaru (otomatis terupdate via CI/CD)
 ├── index.html                 # Core App: UI super-app, multi-wallet, budget, subs, cloud
 ├── manifest.json              # Web App Manifest PWA
-├── sw.js                      # Service Worker (Cache management & OTA pipeline v1.0.0 Stable)
+├── sw.js                      # Service Worker (Cache management & OTA pipeline v1.0.1 Stable)
 ├── icon-192.png               # Ikon Web PWA 192x192
 ├── icon-512.png               # Ikon Web PWA 512x512
 └── README.md                  # Dokumentasi resmi proyek
@@ -168,5 +168,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v1.0.0 (Stable) • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v1.0.1 (Stable) • Era Super-App Finansial & Produktivitas</b></sub>
 </div>

@@ -1375,6 +1375,14 @@
             animation: islandDropletRetract 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
+        #dynamic-island.island-morph-pulse {
+            animation: islandMorphPulse 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .island-text-swap {
+            animation: islandTextSwap 0.20s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
         @keyframes islandDropletDrop {
             0% {
                 transform: translate3d(-50%, -130%, 0) scale(0.5, 1.6);
@@ -1410,6 +1418,32 @@
             100% {
                 transform: translate3d(-50%, -130%, 0) scale(0.45, 1.6);
                 opacity: 0;
+            }
+        }
+
+        @keyframes islandMorphPulse {
+            0% {
+                transform: translate3d(-50%, 0, 0) scale(1, 1);
+            }
+            35% {
+                transform: translate3d(-50%, 0, 0) scale(1.05, 0.94);
+            }
+            70% {
+                transform: translate3d(-50%, 0, 0) scale(0.98, 1.02);
+            }
+            100% {
+                transform: translate3d(-50%, 0, 0) scale(1, 1);
+            }
+        }
+
+        @keyframes islandTextSwap {
+            0% {
+                opacity: 0.35;
+                transform: translateY(-2px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -1449,6 +1483,9 @@
                 transform: translate3d(-50%, 0, 0) scale(1, 1) !important;
                 opacity: 0 !important;
                 transition: opacity 0.2s ease !important;
+            }
+            #dynamic-island.island-morph-pulse, .island-text-swap {
+                animation: none !important;
             }
             #floating-dock-container {
                 animation: none !important;
@@ -1570,7 +1607,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v1.0.0 (Stable)</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v1.0.1 (Stable)</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -1648,7 +1685,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Dasbor APK Mandiri v1.0.0 (Stable) (OTA Aktif)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Dasbor APK Mandiri v1.0.1 (Stable) (OTA Aktif)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -1819,10 +1856,35 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v1.0.0 (Stable)</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v1.0.1 (Stable)</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v1.0.1 (Stable) -->
+                <div class="p-3.5 bg-gradient-to-br from-indigo-50 via-sky-50 to-emerald-50 dark:from-indigo-950/40 dark:via-sky-950/30 dark:to-emerald-900/20 rounded-2xl border border-indigo-200 dark:border-indigo-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-bell text-indigo-500 text-xs"></i> Rilis Stabil • v1.0.1 (Stable)</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-indigo-600 to-sky-600 text-white px-2 py-0.5 rounded-full shadow-xs">In-Place Overwrite</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Optimasi Notifikasi Toast: In-Place Dynamic Overwrite (Anti-Antrean) &amp; Fluid Morph Pulse</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-indigo-100 dark:border-indigo-900/40">
+                            <i class="fas fa-bolt text-indigo-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Tanpa Antrean Berantai:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Mencentang banyak tugas beruntun tidak lagi memicu antrean buka-tutup berulang. Kapsul tetap di tempat dan konten langsung berganti seketika.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-indigo-100 dark:border-indigo-900/40">
+                            <i class="fas fa-water text-sky-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Denyut Fluida Mikro (*Fluid Morph Pulse*):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Pergantian teks disertai denyut fluida mikro halus dan timer penutupan diperpanjang otomatis setiap kali ada tombol baru yang ditekan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v1.0.0 (Stable) -->
                 <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-cyan-900/20 rounded-2xl border border-emerald-300 dark:border-emerald-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -3394,61 +3456,92 @@
         const DEFAULT_FINANCE_WIDGETS = ['dompet', 'skor_kesehatan', 'anggaran', 'tagihan', 'alokasi', 'form_transaksi', 'riwayat'];
         let isRekapBannerDismissed = false;
 
-        // SISTEM ANTREAN NOTIFIKASI DINAMIS (ANTI-TABRAKAN / ANTI-OVERLAP)
-        let dynamicIslandQueue = [];
+        // SISTEM NOTIFIKASI DINAMIS: IN-PLACE MORPHING & OVERWRITE (ANTI-ANTREAN)
         let isIslandActive = false;
         let isOtaToastActive = false;
         let islandTimeout = null;
+        let islandOutTimeout = null;
 
         function triggerDynamicIsland(title, msg, iconClass, iconColor, duration) {
-            dynamicIslandQueue.push({
-                title: title || "Aktivitas",
-                msg: msg || "Aksi berhasil",
-                iconClass: iconClass || "fas fa-check-circle",
-                iconColor: iconColor || "bg-emerald-500/20 text-emerald-400 dark:text-emerald-600",
-                duration: duration || 2700
-            });
-            processDynamicIslandQueue();
-        }
-
-        function processDynamicIslandQueue() {
-            if (isOtaToastActive) return; // Menunggu notifikasi pembaruan OTA selesai
-            if (isIslandActive) return;   // Menunggu notifikasi yang sedang tayang selesai
-            if (dynamicIslandQueue.length === 0) return;
-
-            var item = dynamicIslandQueue.shift();
-            isIslandActive = true;
+            if (isOtaToastActive) return; // Menunggu notifikasi pembaruan OTA selesai jika sedang tayang
 
             var island = document.getElementById('dynamic-island');
             var tEl = document.getElementById('island-title');
             var mEl = document.getElementById('island-msg');
             var iEl = document.getElementById('island-icon');
-            if(!island || !tEl || !mEl) {
+            if (!island || !tEl || !mEl) return;
+
+            var finalTitle = title || "Aktivitas";
+            var finalMsg = msg || "Aksi berhasil";
+            var finalIconClass = iconClass || "fas fa-check-circle";
+            var finalIconColor = iconColor || "bg-emerald-500/20 text-emerald-400 dark:text-emerald-600";
+            var finalDuration = duration || 2300;
+
+            // Jika sedang dalam proses animasi keluar (retract), batalkan segera & tampilkan kembali
+            if (islandOutTimeout) {
+                clearTimeout(islandOutTimeout);
+                islandOutTimeout = null;
+                island.classList.remove('island-droplet-out');
+            }
+
+            if (!isIslandActive) {
+                // Keadaan 1: Kapsul belum muncul di layar (Pemicu Pertama)
+                tEl.innerText = finalTitle;
+                mEl.innerText = finalMsg;
+                if (iEl) {
+                    iEl.className = `w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 ${finalIconColor}`;
+                    iEl.innerHTML = `<i class="${finalIconClass}"></i>`;
+                }
+
+                island.classList.remove('island-droplet-out', 'island-morph-pulse');
+                void island.offsetWidth;
+                island.classList.add('island-droplet-in');
+                isIslandActive = true;
+            } else {
+                // Keadaan 2: Kapsul SUDAH ada di layar (In-Place Overwrite / Timpa Tanpa Menunggu Antrean)
+                tEl.innerText = finalTitle;
+                mEl.innerText = finalMsg;
+                if (iEl) {
+                    iEl.className = `w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 ${finalIconColor}`;
+                    iEl.innerHTML = `<i class="${finalIconClass}"></i>`;
+                }
+
+                // Efek denyut fluida mikro (morph pulse) pada kapsul & swap teks
+                island.classList.remove('island-morph-pulse');
+                void island.offsetWidth;
+                island.classList.add('island-morph-pulse');
+
+                var textWrap = tEl.parentElement;
+                if (textWrap) {
+                    textWrap.classList.remove('island-text-swap');
+                    void textWrap.offsetWidth;
+                    textWrap.classList.add('island-text-swap');
+                }
+            }
+
+            // Reset timer penutupan: diperpanjang kembali dari 0 setiap kali aksi baru ditekan
+            if (islandTimeout) clearTimeout(islandTimeout);
+            islandTimeout = setTimeout(() => {
+                closeDynamicIsland();
+            }, finalDuration);
+        }
+
+        function closeDynamicIsland() {
+            var island = document.getElementById('dynamic-island');
+            if (!island || !isIslandActive) {
                 isIslandActive = false;
                 return;
             }
 
-            tEl.innerText = item.title;
-            mEl.innerText = item.msg;
-            if(iEl) {
-                iEl.className = `w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 ${item.iconColor}`;
-                iEl.innerHTML = `<i class="${item.iconClass}"></i>`;
-            }
+            island.classList.remove('island-droplet-in', 'island-morph-pulse');
+            island.classList.add('island-droplet-out');
 
-            island.classList.remove('island-droplet-out');
-            void island.offsetWidth;
-            island.classList.add('island-droplet-in');
-
-            if (islandTimeout) clearTimeout(islandTimeout);
-            islandTimeout = setTimeout(() => {
-                island.classList.remove('island-droplet-in');
-                island.classList.add('island-droplet-out');
-                setTimeout(() => {
-                    island.classList.remove('island-droplet-out');
-                    isIslandActive = false;
-                    processDynamicIslandQueue(); // Lanjutkan ke antrean berikutnya
-                }, 380);
-            }, item.duration);
+            if (islandOutTimeout) clearTimeout(islandOutTimeout);
+            islandOutTimeout = setTimeout(() => {
+                island.classList.remove('island-droplet-out');
+                isIslandActive = false;
+                islandOutTimeout = null;
+            }, 350);
         }
 
         function showToast(message) {
@@ -8911,7 +9004,7 @@
 
             // Fallback: Jika di dalam APK tetapi native bridge belum terpasang (APK belum di-update)
             if (window.DasborBridge || window.location.protocol === 'file:') {
-                alert("Pembaruan APK Diperlukan:\n\nFitur masuk dengan Google resmi membutuhkan instalasi file APK versi v1.0.0 (Stable) atau lebih baru.\n\nSilakan unduh dan pasang pembaruan APK terbaru.");
+                alert("Pembaruan APK Diperlukan:\n\nFitur masuk dengan Google resmi membutuhkan instalasi file APK versi v1.0.1 (Stable) atau lebih baru.\n\nSilakan unduh dan pasang pembaruan APK terbaru.");
                 return;
             }
 
@@ -9207,7 +9300,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v1.0.0 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.0.1 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {

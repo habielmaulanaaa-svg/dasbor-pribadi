@@ -93,14 +93,16 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK v1.0.0 (Stable)"
+          name: "Dasbor Pribadi Standalone APK v1.0.1 (Stable)"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.0.0 (Stable)
-            Tonggak Rilis Stabil Perdana (**Grand Milestone**) aplikasi manajemen keuangan & produktivitas pribadi yang telah mencapai tingkat stabilitas maksimal, responsif 120 FPS, 100% Mandiri (**Offline-First**), dan berstandar resmi **Semantic Versioning (SemVer)** `MAJOR.MINOR.PATCH (Stable)`.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.0.1 (Stable)
+            Rilis Stabil (Patch Pembaruan) aplikasi manajemen keuangan & produktivitas pribadi dengan optimasi sistem notifikasi toast (*In-Place Dynamic Overwrite & Fluid Morphing*), penomoran resmi **Semantic Versioning (SemVer)** `1.0.1 (Stable)`, dan perbaikan alur centang tugas berantai.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v1.0.0 (Stable)
-            - **Fitur Utama & Keunggulan v1.0.0 (Stable)**:
+            - **Versi**: v1.0.1 (Stable)
+            - **Pembaruan di v1.0.1 (Stable)**:
+              - 🔔 **In-Place Dynamic Overwrite (Anti-Antrean)**: Mencentang banyak tugas berurutan kini langsung menimpa teks pada kapsul Dynamic Island yang sedang melayang tanpa memicu antrean buka-tutup berulang.
+              - 💧 **Denyut Fluida Mikro (*Fluid Morph Pulse*)**: Efek visual pergantian konten teks yang hidup dan perpanjangan timer penutupan otomatis (*debounced dismiss*).
               - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Format baku `1.0.X` (Bugfix), `1.X.0` (Fitur Baru), dan `X.0.0` (Perombakan Besar).
               - 🌊 **Universal CSS Grid Fluid Physics (0fr ➔ 1fr)**: Seluruh stack kartu dasbor (Tugas Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan, dan Widget Beranda) mengembang alami tanpa lonjakan layout.
               - 💧 **Indikator Kapsul Cairan Mengalir (*Liquid Mercury*)**: Dock Navigasi, Speed-Dial FAB, Mood Selector Jurnal, dan Filter Transaksi 5 Kolom mengalir anggun dengan kurva deselerasi murni.
