@@ -93,16 +93,16 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK v1.0.1 (Stable)"
+          name: "Dasbor Pribadi Standalone APK v1.0.2 (Stable)"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.0.1 (Stable)
-            Rilis Stabil (Patch Pembaruan) aplikasi manajemen keuangan & produktivitas pribadi dengan optimasi sistem notifikasi toast (*In-Place Dynamic Overwrite & Fluid Morphing*), penomoran resmi **Semantic Versioning (SemVer)** `1.0.1 (Stable)`, dan perbaikan alur centang tugas berantai.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.0.2 (Stable)
+            Rilis Stabil (Patch Hotfix) aplikasi manajemen keuangan & produktivitas pribadi: perbaikan bug animasi toast notifikasi (*layer isolation fix*) dan pencegahan race condition ceklis tugas ganda berurutan.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v1.0.1 (Stable)
-            - **Pembaruan di v1.0.1 (Stable)**:
-              - 🔔 **In-Place Dynamic Overwrite (Anti-Antrean)**: Mencentang banyak tugas berurutan kini langsung menimpa teks pada kapsul Dynamic Island yang sedang melayang tanpa memicu antrean buka-tutup berulang.
-              - 💧 **Denyut Fluida Mikro (*Fluid Morph Pulse*)**: Efek visual pergantian konten teks yang hidup dan perpanjangan timer penutupan otomatis (*debounced dismiss*).
+            - **Versi**: v1.0.2 (Stable)
+            - **Pembaruan di v1.0.2 (Stable)**:
+              - 🛡️ **Isolasi Lapisan Animasi Toast**: Animasi buka-tutup kontainer luar dan denyut fluida mikro kapsul dalam dipisahkan secara independen, menghilangkan bug hilangnya toast setelah 0.28s dan kilatan saat menutup.
+              - ⚡ **Pengaman Dobel Centang (Race Condition Guard)**: Menambahkan `activeTogglingTasks` agar penekanan berulang pada tugas yang sama tidak memicu status ganda.
               - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Format baku `1.0.X` (Bugfix), `1.X.0` (Fitur Baru), dan `X.0.0` (Perombakan Besar).
               - 🌊 **Universal CSS Grid Fluid Physics (0fr ➔ 1fr)**: Seluruh stack kartu dasbor (Tugas Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan, dan Widget Beranda) mengembang alami tanpa lonjakan layout.
               - 💧 **Indikator Kapsul Cairan Mengalir (*Liquid Mercury*)**: Dock Navigasi, Speed-Dial FAB, Mood Selector Jurnal, dan Filter Transaksi 5 Kolom mengalir anggun dengan kurva deselerasi murni.
