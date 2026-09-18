@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dasbor-pwa-v33-23-ota';
+const CACHE_NAME = 'dasbor-pwa-v33-24-ota';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

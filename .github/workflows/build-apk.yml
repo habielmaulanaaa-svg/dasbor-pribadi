@@ -87,17 +87,20 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK (Standardisasi Animasi Fluida Seluruh Dasbor) v33.23.OTA"
+          name: "Dasbor Pribadi Standalone APK (Liquid Mood Pill & Grid 5 Pas) v33.24.OTA"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.23.OTA)
-            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Standardisasi Seluruh Animasi Dasbor ke Era Cairan (Fluid Physics)**, **Universal CSS Grid Accordion (0fr ➔ 1fr)** pada seluruh Stack Kartu (Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, dan Widget Beranda), **Drawer Formulir Mengalir Murni Tanpa Bouncing**, **Sub-Bar Waktu Grid Fluida**, **Rotasi Panah Chevron Sinkron Presisi**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri (v33.24.OTA)
+            Aplikasi resmi Android 100% Mandiri (**Offline-First**) kini hadir dengan **Kapsul Cairan Suasana Hati (Liquid Mood Mercury Pill)**, **Filter Riwayat Transaksi Pas 100% (Grid 5 Kolom)**, **Reduksi Bouncing Kartu Dompet & Multi-Dompet**, **Standardisasi Seluruh Animasi Dasbor ke Era Cairan (Fluid Physics)**, **Universal CSS Grid Accordion (0fr ➔ 1fr)** pada seluruh Stack Kartu (Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, dan Widget Beranda), **Drawer Formulir Mengalir Murni Tanpa Bouncing**, **Sub-Bar Waktu Grid Fluida**, **Rotasi Panah Chevron Sinkron Presisi**, **Animasi Cairan Bar Sub-Tugas Hijau Mengalir**, **Penyematan Tanggal Otomatis (Tanpa Waktu)**, **Akselerasi 120 FPS & Zero Lag**, **Selective Reset Data**, **Hybrid Auth Bridge** (Google Login Lancar Resmi), **Pembaruan Otomatis (OTA)**, **Widget Home Screen**, dan **Sinkronisasi Cloud Storage**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v33.23.OTA
-            - **Fitur Baru v33.23.OTA**:
+            - **Versi**: v33.24.OTA
+            - **Fitur Baru v33.24.OTA**:
+              - 💧 **Kapsul Cairan Suasana Hati (Liquid Mood Mercury Pill)**: Menggantikan animasi membal/pantul kasar tombol suasana hati jurnal dengan kapsul merkuri cair fluida murni yang meluncur mengalir mulus layaknya dock navigasi dan tombol FAB saat memilih emoji.
+              - 📊 **Filter Riwayat Transaksi Pas 100% (Grid 5 Kolom)**: Menghilangkan ruang kosong di sebelah kanan filter riwayat transaksi, kini tersusun merata dan pas 100% (Semua, Hari Ini, Minggu Ini, Bulan Ini, Tahun Ini) lengkap dengan logika filter per pekan dan tahun di JavaScript.
+              - 💼 **Reduksi Bouncing Kartu Kantong & Dompet**: Mengurangi animasi bouncing berlebih kartu dompet (tunai/bank/e-wallet) saat dipilih menjadi denyut fluida alami yang tenang.
               - 🌊 **Standardisasi CSS Grid Fluid Physics Universal (0fr ➔ 1fr)**: Seluruh stack kartu dasbor (Tugas Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan Tercapai, dan Widget Beranda) telah ditingkatkan ke teknologi CSS Grid fluida murni.
               - ⚡ **Eliminasi Delay Kosong & Bouncing Kasar**: Menghapus `max-height: 2500px` dan keyframes spring kasar, digantikan oleh durasi konstan alami dan kurva deselerasi murni (*Quart Ease-Out* `cubic-bezier(0.25, 1, 0.5, 1)`).
-              - 📝 **Drawer Formulir & Sub-Bar Waktu Fluida**: Form Tugas Baru, Jurnal, Target Tabungan, Banner APK, dan Sub-Bar Waktu Tugas kini meluncur dan merenggang sangat mulus seperti cairan.
+              - 📝 **Drawer Formulir & Sub-Bar Waktu Fluida**: Form Tugas Baru, Jurnal, Target Tabungan, Banner APK, dan Sub-Bar Waktu Tugas meluncur mulus seperti cairan.
               - 🧭 **Rotasi Panah Chevron Presisi Terpadu**: Seluruh ikon panah indikator berputar tepat 180° seirama dengan cairan kartu tanpa getaran.
               - 🪶 **Anti-Bounce & Isolasi Padding**: Nol lompatan viewport layout dan margin/padding internal terisolasi sempurna pada tinggi 0px.
               - 🌊 **Animasi Cairan Bar Sub-Tugas (Liquid Flow Bar)**: Bar progres sub-tugas hijau mengalir halus ke kanan dengan efek denyut cairan saat dicentang.

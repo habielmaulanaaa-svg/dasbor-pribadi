@@ -1126,58 +1126,52 @@
             box-shadow: 0 0 5px rgba(0,0,0,0.3); cursor: pointer;
         }
 
-        /* MOOD SELECTOR PRESISI DENGAN DEFORMASI FLUIDA APPLE iOS (NO BUBBLES) */
+        /* MOOD SELECTOR: LIQUID MERCURY SLIDING INDICATOR */
+        #mood-selector-track {
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        #mood-liquid-mercury-pill {
+            position: absolute;
+            border-radius: 14px;
+            background-color: #ffffff;
+            border: 2px solid hsl(var(--theme-h), 83%, 53%);
+            box-shadow: 0 4px 16px -2px hsla(var(--theme-h), 83%, 53%, 0.35);
+            z-index: 0;
+            pointer-events: none;
+            will-change: left, width, top, height, opacity, transform;
+            transition: left 0.32s cubic-bezier(0.25, 1, 0.5, 1), 
+                        width 0.32s cubic-bezier(0.25, 1, 0.5, 1),
+                        transform 0.32s cubic-bezier(0.25, 1, 0.5, 1),
+                        top 0.20s ease,
+                        height 0.20s ease,
+                        opacity 0.20s ease;
+            opacity: 0;
+        }
+        #mood-liquid-mercury-pill.mercury-flow-active {
+            transform: scaleX(1.06) scaleY(0.96);
+        }
+        .dark #mood-liquid-mercury-pill {
+            background-color: #242f3d;
+            border-color: hsl(var(--theme-h), 83%, 53%);
+            box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.45);
+        }
         .mood-btn { 
             position: relative;
-            overflow: hidden;
-            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                        background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                        border-color 0.25s ease, 
-                        box-shadow 0.3s ease; 
-            border: 1.5px solid transparent; 
+            z-index: 1;
+            transition: transform 0.24s cubic-bezier(0.25, 1, 0.5, 1); 
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             will-change: transform;
+            background: transparent;
+            border: none;
         }
         .mood-btn:active { 
-            transform: scale(0.88, 1.14); 
+            transform: scale(0.92); 
         }
         .mood-btn.selected { 
-            transform: scale(1.06); 
-            background-color: #ffffff; 
-            border-color: hsl(var(--theme-h), 83%, 53%); 
-            box-shadow: 0 4px 14px rgba(0,0,0,0.09); 
-        }
-        .dark .mood-btn.selected { 
-            background-color: #242f3d; 
-            border-color: hsl(var(--theme-h), 83%, 53%); 
-            box-shadow: 0 4px 16px rgba(0,0,0,0.32); 
-        }
-        /* Gelombang Permukaan Fluida Halus saat Dipilih (Fluid Surface Ripple - NO BUBBLES) */
-        .mood-btn::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(circle, hsla(var(--theme-h), 83%, 53%, 0.24) 0%, transparent 72%);
-            opacity: 0;
-            transform: scale(0.4);
-            pointer-events: none;
-            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
-        }
-        .mood-btn.fluid-mood-press {
-            animation: iosFluidMoodDrop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        .mood-btn.fluid-mood-press::after {
-            opacity: 1;
-            transform: scale(1.6);
-        }
-        @keyframes iosFluidMoodDrop {
-            0% { transform: scale(1, 1); }
-            28% { transform: scale(0.85, 1.18); border-radius: 18px 12px 18px 12px; }
-            55% { transform: scale(1.14, 0.90); border-radius: 12px 18px 12px 18px; }
-            80% { transform: scale(0.98, 1.03); border-radius: 14px; }
-            100% { transform: scale(1.06, 1.06); border-radius: 14px; }
+            transform: scale(1.12); 
         }
         
         .prio-btn.active { border-color: hsl(var(--theme-h), 83%, 53%); font-weight: 900; }
@@ -1196,8 +1190,8 @@
             pointer-events: none;
             z-index: 0;
             will-change: left, width, top, height, opacity;
-            transition: left 0.30s cubic-bezier(0.34, 1.35, 0.64, 1), 
-                        width 0.30s cubic-bezier(0.34, 1.35, 0.64, 1), 
+            transition: left 0.30s cubic-bezier(0.25, 1, 0.5, 1), 
+                        width 0.30s cubic-bezier(0.25, 1, 0.5, 1), 
                         top 0.20s ease, 
                         height 0.20s ease,
                         opacity 0.20s ease;
@@ -1426,21 +1420,20 @@
         .wallet-card {
             position: relative;
             overflow: hidden;
-            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+            transition: transform 0.24s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.24s ease, border-color 0.24s ease;
             will-change: transform;
         }
         .wallet-card.wallet-droplet-active {
-            transform: scale(1.025);
-            box-shadow: 0 4px 18px -2px rgba(14, 165, 233, 0.25);
+            transform: scale(1.02);
+            box-shadow: 0 4px 14px -2px hsla(var(--theme-h), 83%, 53%, 0.3);
         }
         .wallet-card.wallet-droplet-pop {
-            animation: walletDropletPop 0.42s cubic-bezier(0.18, 0.9, 0.32, 1);
+            animation: walletDropletPop 0.28s cubic-bezier(0.25, 1, 0.5, 1);
         }
         @keyframes walletDropletPop {
-            0% { transform: scale(0.92, 1.08); }
-            40% { transform: scale(1.07, 0.93); }
-            70% { transform: scale(0.98, 1.02); }
-            100% { transform: scale(1.025); }
+            0% { transform: scale(0.97); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1.02); }
         }
 
         /* SINKRONISASI AKSESIBILITAS SISTEM (PREFERS-REDUCED-MOTION) */
@@ -1577,7 +1570,7 @@
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
                     <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.23.OTA</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v33.24.OTA</span>
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
@@ -1655,7 +1648,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Sistem & Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Dasbor APK Mandiri v33.23.OTA (OTA Aktif)</div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> Dasbor APK Mandiri v33.24.OTA (OTA Aktif)</div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
@@ -1826,10 +1819,42 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.23.OTA</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v33.24.OTA</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v33.24.OTA -->
+                <div class="p-3.5 bg-gradient-to-br from-primary-50 via-teal-50 to-sky-50 dark:from-primary-950/40 dark:via-teal-950/30 dark:to-sky-900/20 rounded-2xl border border-primary-200 dark:border-primary-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-sparkles text-primary-500 text-xs"></i> Rilis Stabil • v33.24.OTA</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-primary-600 to-teal-600 text-white px-2 py-0.5 rounded-full shadow-xs">Liquid Mood &amp; Grid 5 Pas</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Indikator Cairan Suasana Hati (Liquid Mood Pill), Filter Transaksi Pas 100%, &amp; Reduksi Bouncing Dompet</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
+                            <i class="fas fa-smile-beam text-amber-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Liquid Mood Mercury Pill:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Animasi pantul/bouncing kasar pada tombol suasana hati jurnal dihilangkan sepenuhnya, digantikan oleh kapsul cairan mengalir (*Liquid Mercury*) yang meluncur mulus di bawah emoji saat dipilih layaknya dock dan FAB.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
+                            <i class="fas fa-filter text-primary-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Filter Riwayat Transaksi Pas 100% (Grid 5 Kolom):</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Ruang kosong di kanan filter transaksi telah dihilangkan. Kini tersusun dalam 5 kolom merata dan simetris (Semua, Hari Ini, Minggu Ini, Bulan Ini, Tahun Ini) lengkap dengan logika filter per pekan dan tahun.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
+                            <i class="fas fa-wallet text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Reduksi Bouncing Kartu Dompet:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Efek bouncing pada kartu dompet tunai/bank/e-wallet saat ditekan kini diperhalus menjadi denyut fluida alami yang tenang dan tidak memantul berlebihan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v33.23.OTA -->
                 <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-cyan-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -3023,13 +3048,14 @@
                         </span>
                         <div id="finance-arrows-riwayat"></div>
                     </div>
-                    <!-- Filter Rentang Waktu Transaksi dengan Liquid Mercury Indicator -->
-                    <div id="filter-transaksi-track" class="relative flex items-center gap-1.5 mb-2 overflow-x-auto p-1 rounded-2xl bg-slate-100 dark:bg-[#111923] border border-slate-200/80 dark:border-[#242f3d]">
+                    <!-- Filter Rentang Waktu Transaksi dengan Liquid Mercury Indicator (Grid 5 Kolom Merata & Pas) -->
+                    <div id="filter-transaksi-track" class="relative grid grid-cols-5 gap-1 mb-2 p-1 rounded-2xl bg-slate-100 dark:bg-[#111923] border border-slate-200/80 dark:border-[#242f3d]">
                         <div id="filter-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl bg-primary-600 shadow-[0_3px_12px_hsl(var(--theme-h),83%,53%,0.4)] z-0"></div>
-                        <button type="button" onclick="setPeriodeTransaksi('semua', this)" class="period-btn active text-[10px] font-bold px-3 py-1.5 rounded-xl shrink-0">Semua</button>
-                        <button type="button" onclick="setPeriodeTransaksi('hari-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl shrink-0">Hari Ini</button>
-                        <button type="button" onclick="setPeriodeTransaksi('minggu-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl shrink-0">Minggu Ini</button>
-                        <button type="button" onclick="setPeriodeTransaksi('bulan-ini', this)" class="period-btn text-[10px] font-bold px-3 py-1.5 rounded-xl shrink-0">Bulan Ini</button>
+                        <button type="button" onclick="setPeriodeTransaksi('semua', this)" class="period-btn active relative z-10 text-[10px] font-bold py-1.5 px-0.5 rounded-xl text-center truncate">Semua</button>
+                        <button type="button" onclick="setPeriodeTransaksi('hari-ini', this)" class="period-btn relative z-10 text-[10px] font-bold py-1.5 px-0.5 rounded-xl text-center truncate">Hari Ini</button>
+                        <button type="button" onclick="setPeriodeTransaksi('minggu-ini', this)" class="period-btn relative z-10 text-[10px] font-bold py-1.5 px-0.5 rounded-xl text-center truncate">Minggu Ini</button>
+                        <button type="button" onclick="setPeriodeTransaksi('bulan-ini', this)" class="period-btn relative z-10 text-[10px] font-bold py-1.5 px-0.5 rounded-xl text-center truncate">Bulan Ini</button>
+                        <button type="button" onclick="setPeriodeTransaksi('tahun-ini', this)" class="period-btn relative z-10 text-[10px] font-bold py-1.5 px-0.5 rounded-xl text-center truncate">Tahun Ini</button>
                     </div>
 
                     <!-- Instant Search Bar Riwayat Transaksi -->
@@ -3079,13 +3105,14 @@
                 <div class="accordion-inner">
                     <div class="bg-white dark:bg-[#17212b] p-5 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-lg mb-4">
                         <label class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-2">Suasana Hati</label>
-                        <!-- GRID 5 EMOJI PRESISI TANPA CELAH SUDUT -->
-                        <div class="grid grid-cols-5 gap-1.5 bg-slate-100 dark:bg-[#0e1621] rounded-2xl p-1.5 mb-3 border border-slate-200 dark:border-[#313f52]">
-                            <button type="button" onclick="selectMood('😊', this)" class="mood-btn selected w-full h-11 text-xl flex items-center justify-center rounded-xl transition-all">😊</button>
-                            <button type="button" onclick="selectMood('🥳', this)" class="mood-btn w-full h-11 text-xl flex items-center justify-center rounded-xl transition-all">🥳</button>
-                            <button type="button" onclick="selectMood('😐', this)" class="mood-btn w-full h-11 text-xl flex items-center justify-center rounded-xl transition-all">😐</button>
-                            <button type="button" onclick="selectMood('😫', this)" class="mood-btn w-full h-11 text-xl flex items-center justify-center rounded-xl transition-all">😫</button>
-                            <button type="button" onclick="selectMood('😴', this)" class="mood-btn w-full h-11 text-xl flex items-center justify-center rounded-xl transition-all">😴</button>
+                        <!-- GRID 5 EMOJI DENGAN INDIKATOR CAIRAN (LIQUID MERCURY PILL) -->
+                        <div id="mood-selector-track" class="relative grid grid-cols-5 gap-1.5 bg-slate-100 dark:bg-[#0e1621] rounded-2xl p-1.5 mb-3 border border-slate-200 dark:border-[#313f52]">
+                            <div id="mood-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl bg-white dark:bg-[#242f3d] border-2 border-primary-500 shadow-md z-0"></div>
+                            <button type="button" onclick="selectMood('😊', this)" class="mood-btn selected relative z-10 w-full h-11 text-xl flex items-center justify-center rounded-xl">😊</button>
+                            <button type="button" onclick="selectMood('🥳', this)" class="mood-btn relative z-10 w-full h-11 text-xl flex items-center justify-center rounded-xl">🥳</button>
+                            <button type="button" onclick="selectMood('😐', this)" class="mood-btn relative z-10 w-full h-11 text-xl flex items-center justify-center rounded-xl">😐</button>
+                            <button type="button" onclick="selectMood('😫', this)" class="mood-btn relative z-10 w-full h-11 text-xl flex items-center justify-center rounded-xl">😫</button>
+                            <button type="button" onclick="selectMood('😴', this)" class="mood-btn relative z-10 w-full h-11 text-xl flex items-center justify-center rounded-xl">😴</button>
                         </div>
 
                         <!-- INPUT JUDUL JURNAL ROUNDED-2XL KONSISTEN -->
@@ -3753,7 +3780,7 @@
                         card.classList.remove('wallet-droplet-pop');
                         void card.offsetWidth;
                         card.classList.add('ring-2', 'ring-primary-500', 'wallet-droplet-active', 'wallet-droplet-pop');
-                        setTimeout(function() { card.classList.remove('wallet-droplet-pop'); }, 450);
+                        setTimeout(function() { card.classList.remove('wallet-droplet-pop'); }, 300);
                     } else {
                         card.classList.remove('ring-2', 'ring-primary-500', 'wallet-droplet-active', 'wallet-droplet-pop');
                     }
@@ -5489,6 +5516,15 @@
                     updateFilterMercuryPill(null, false);
                 }, 120);
             }
+
+            if (tabId === 'jurnal') {
+                setTimeout(function() {
+                    updateMoodMercuryPill(null, false);
+                }, 40);
+                setTimeout(function() {
+                    updateMoodMercuryPill(null, false);
+                }, 120);
+            }
         }
 
         // ==========================================
@@ -6109,6 +6145,14 @@
                         }, 150);
                     }
                 }
+                if (id === 'jurnal-input-area' && isOpen) {
+                    setTimeout(function() {
+                        updateMoodMercuryPill(null, false);
+                    }, 40);
+                    setTimeout(function() {
+                        updateMoodMercuryPill(null, false);
+                    }, 150);
+                }
             }
         }
         
@@ -6201,7 +6245,45 @@
             if (animate === false) {
                 pill.style.transition = 'none';
             } else {
-                pill.style.transition = 'left 0.30s cubic-bezier(0.34, 1.35, 0.64, 1), width 0.30s cubic-bezier(0.34, 1.35, 0.64, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.style.transition = 'left 0.30s cubic-bezier(0.25, 1, 0.5, 1), width 0.30s cubic-bezier(0.25, 1, 0.5, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+            }
+
+            pill.style.left = btn.offsetLeft + 'px';
+            pill.style.top = btn.offsetTop + 'px';
+            pill.style.width = w + 'px';
+            pill.style.height = h + 'px';
+            pill.style.opacity = '1';
+        }
+
+        function updateMoodMercuryPill(btn, animate) {
+            var pill = document.getElementById('mood-liquid-mercury-pill');
+            var track = document.getElementById('mood-selector-track');
+            if (!pill || !track) return;
+            if (!btn) {
+                btn = track.querySelector('.mood-btn.selected');
+            }
+            if (!btn) return;
+
+            var w = btn.offsetWidth;
+            var h = btn.offsetHeight;
+            if (w === 0 || h === 0) {
+                requestAnimationFrame(function() {
+                    updateMoodMercuryPill(btn, false);
+                });
+                return;
+            }
+
+            if (animate === false) {
+                pill.style.transition = 'none';
+            } else {
+                pill.style.transition = 'left 0.32s cubic-bezier(0.25, 1, 0.5, 1), width 0.32s cubic-bezier(0.25, 1, 0.5, 1), transform 0.32s cubic-bezier(0.25, 1, 0.5, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.classList.remove('mercury-flow-active');
+                void pill.offsetWidth;
+                pill.classList.add('mercury-flow-active');
+                if (pill._flowTimer) clearTimeout(pill._flowTimer);
+                pill._flowTimer = setTimeout(function() {
+                    pill.classList.remove('mercury-flow-active');
+                }, 340);
             }
 
             pill.style.left = btn.offsetLeft + 'px';
@@ -7287,13 +7369,11 @@
         function selectMood(mood, element) {
             selectedMoodIcon = mood;
             document.querySelectorAll('.mood-btn').forEach(btn => {
-                btn.classList.remove('selected', 'fluid-mood-press');
+                btn.classList.remove('selected');
             });
-            element.classList.add('selected', 'fluid-mood-press');
+            element.classList.add('selected');
+            updateMoodMercuryPill(element, true);
             triggerHaptic('light');
-            setTimeout(function() {
-                element.classList.remove('fluid-mood-press');
-            }, 460);
         }
 
         let _isAddingJurnal = false;
@@ -7800,7 +7880,13 @@
 
             var rKeuangan = document.getElementById('stack-riwayat-keuangan');
             if(rKeuangan) {
+                var now = new Date();
                 var todayIso = getRekapDateString();
+                var currentYearStr = String(now.getFullYear());
+                var dayOfWeek = (now.getDay() + 6) % 7; // Senin = 0, Minggu = 6
+                var mondayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dayOfWeek);
+                var startOfWeekIso = `${mondayDate.getFullYear()}-${String(mondayDate.getMonth() + 1).padStart(2, '0')}-${String(mondayDate.getDate()).padStart(2, '0')}`;
+
                 var filteredTrx = dataState.transaksi.filter(t => {
                     if (searchQueryTransaksi && !t.catatan.toLowerCase().includes(searchQueryTransaksi) && (!t.kategori || !t.kategori.toLowerCase().includes(searchQueryTransaksi))) {
                         return false;
@@ -7809,7 +7895,9 @@
                         return false;
                     }
                     if (periodeTransaksiVal === 'hari-ini') return t.isoDate === todayIso;
+                    if (periodeTransaksiVal === 'minggu-ini') return t.isoDate && t.isoDate >= startOfWeekIso && t.isoDate <= todayIso;
                     if (periodeTransaksiVal === 'bulan-ini') return t.isoDate && t.isoDate.startsWith(currentMonthStr);
+                    if (periodeTransaksiVal === 'tahun-ini') return t.isoDate && t.isoDate.startsWith(currentYearStr);
                     return true;
                 });
 
@@ -8457,12 +8545,13 @@
             setTimeout(dismissSkeleton, 600);
             handleUrlActionShortcuts();
 
-            // Inisialisasi Indikator Merkuri Dok Navigasi & Filter Transaksi
+            // Inisialisasi Indikator Merkuri Dok Navigasi & Filter Transaksi & Mood
             setTimeout(function() {
                 var activeTabEl = document.querySelector('.tab-content.active');
                 var activeTabKey = activeTabEl ? activeTabEl.id : 'beranda';
                 updateMercuryPill(activeTabKey, false);
                 updateFilterMercuryPill(null, false);
+                updateMoodMercuryPill(null, false);
                 initFluidCardInteractions();
                 initFluidToggleGestures();
             }, 80);
@@ -8470,6 +8559,7 @@
                 var cur = document.querySelector('.tab-content.active');
                 updateMercuryPill(cur ? cur.id : 'beranda', false);
                 updateFilterMercuryPill(null, false);
+                updateMoodMercuryPill(null, false);
             });
         }
 
@@ -8853,7 +8943,7 @@
 
             // Fallback: Jika di dalam APK tetapi native bridge belum terpasang (APK belum di-update)
             if (window.DasborBridge || window.location.protocol === 'file:') {
-                alert("Pembaruan APK Diperlukan:\n\nFitur masuk dengan Google resmi membutuhkan instalasi file APK versi v33.23.OTA atau lebih baru.\n\nSilakan unduh dan pasang pembaruan APK terbaru.");
+                alert("Pembaruan APK Diperlukan:\n\nFitur masuk dengan Google resmi membutuhkan instalasi file APK versi v33.24.OTA atau lebih baru.\n\nSilakan unduh dan pasang pembaruan APK terbaru.");
                 return;
             }
 
@@ -9149,7 +9239,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v33.23.OTA';
+        const CURRENT_APP_VERSION = 'v33.24.OTA';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
