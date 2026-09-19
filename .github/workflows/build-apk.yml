@@ -93,21 +93,20 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK v1.1.0 (Stable)"
+          name: "Dasbor Pribadi Standalone APK v1.1.1 (Stable)"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.1.0 (Stable)
-            Tonggak Rilis Fitur Resmi (MINOR Release) aplikasi manajemen keuangan & produktivitas pribadi: penambahan **Sistem Pilihan Bahasa Resmi Bilingual (Bahasa Indonesia 🇮🇩 & English 🇬🇧)** dengan mesin i18n zero-dependency, penyeragaman tata bahasa antarmuka, dan sinkronisasi lintas perangkat.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.1.1 (Stable)
+            Rilis Perbaikan Resmi (PATCH Release) aplikasi manajemen keuangan & produktivitas pribadi: penyempurnaan **100% Cakupan Dwibahasa Menyeluruh (Comprehensive Bilingual Coverage ID 🇮🇩 & EN 🇬🇧)** pada seluruh modul Keuangan, formulir modal bottom-sheet, reset selektif, kalender aktivitas terpadu, hingga ekspor laporan cetak/PDF.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v1.1.0 (Stable)
-            - **Pembaruan Utama di v1.1.0 (Stable)**:
-              - 🌐 **Sistem Pilihan Bahasa Resmi (Bilingual i18n ID & EN)**: Beralih mulus antara Bahasa Indonesia dan English seketika tanpa reload halaman.
-              - 🗣️ **Tata Bahasa Rapi & Bebas Campur Aduk**: Seluruh label antarmuka (Header, Dok Navigasi, Beranda, Manajemen Tugas, Keuangan, Jurnal, Pengaturan, hingga Dynamic Island Toast) kini 100% konsisten dalam bahasa terpilih.
-              - 📅 **Format Tanggal Dinamis Cerdas**: Nama hari dan bulan pada kalender, riwayat transaksi, dan sub tugas otomatis menyesuaikan bahasa aktif (ID / EN).
-              - 💾 **Persistensi & Cloud Sync Multibahasa**: Pilihan bahasa tersimpan aman di penyimpanan lokal HP / SQLite dan tersinkronisasi otomatis ke Google Cloud Firestore.
-              - 🛡️ **Isolasi Lapisan Animasi Toast**: Animasi notifikasi dinamis responsif dengan dukungan pesan bilingual interaktif.
-              - ⚡ **Pengaman Dobel Centang (Race Condition Guard)**: Tugas centang ganda berjalan mulus tanpa duplikasi status.
-              - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Naik ke versi MINOR `v1.1.0 (Stable)` sesuai standar perilisan fitur baru.
+            - **Versi**: v1.1.1 (Stable)
+            - **Pembaruan Utama di v1.1.1 (Stable)**:
+              - 🌐 **100% Cakupan Dwibahasa Penuh (Zero Untranslated Elements)**: Seluruh modul keuangan, ringkasan transaksi, kartu anggaran bulanan, langganan rutin, selector dompet, catatan belanja, hingga formulir reset selektif kini 100% bilingual tanpa ada teks Indonesia yang tertinggal saat mode English aktif.
+              - 🗓️ **Kalender Terpadu & Tanggal Dinamis Bilingual**: Nama bulan, singkatan hari (Sun-Sat), status tenggat, rincian aktivitas harian, dan tanggal pembuatan sub tugas otomatis disinkronkan dengan standar locale aktif.
+              - 📄 **Cetak & Pratinjau Laporan PDF Multibahasa**: Pratinjau kartu laporan resmi dan area cetak dokumen otomatis mengikuti bahasa terpilih pengguna.
+              - 🧹 **Modal Hapus Data Selektif Terjemahan Penuh**: Seluruh opsi kategori, hitungan item dinamis, badge peringatan keamanan, dan dialog konfirmasi kini 100% dwibahasa.
+              - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Naik ke versi PATCH `v1.1.1 (Stable)` (`versionCode 110001`) sesuai standar stabilitas industri.
+              - 📱 **Sistem Pilihan Bahasa Resmi (Bilingual i18n ID & EN)**: Beralih mulus antara Bahasa Indonesia dan English seketika tanpa reload halaman.
               - 🌊 **Universal CSS Grid Fluid Physics (0fr ➔ 1fr)**: Seluruh kartu dasbor mengembang dan mengempis secara alami.
               - 💧 **Indikator Kapsul Cairan Mengalir (*Liquid Mercury*)**: Dock Navigasi, Selector Bahasa, Speed-Dial FAB, dan Filter Transaksi.
               - 📊 **Filter Riwayat Transaksi Pas 100%**: Grid 5 kolom merata simetris (Semua, Hari Ini, Minggu Ini, Bulan Ini, Tahun Ini).
