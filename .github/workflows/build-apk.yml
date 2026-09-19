@@ -93,19 +93,23 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK v1.0.2 (Stable)"
+          name: "Dasbor Pribadi Standalone APK v1.1.0 (Stable)"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.0.2 (Stable)
-            Rilis Stabil (Patch Hotfix) aplikasi manajemen keuangan & produktivitas pribadi: perbaikan bug animasi toast notifikasi (*layer isolation fix*) dan pencegahan race condition ceklis tugas ganda berurutan.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.1.0 (Stable)
+            Tonggak Rilis Fitur Resmi (MINOR Release) aplikasi manajemen keuangan & produktivitas pribadi: penambahan **Sistem Pilihan Bahasa Resmi Bilingual (Bahasa Indonesia 🇮🇩 & English 🇬🇧)** dengan mesin i18n zero-dependency, penyeragaman tata bahasa antarmuka, dan sinkronisasi lintas perangkat.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v1.0.2 (Stable)
-            - **Pembaruan di v1.0.2 (Stable)**:
-              - 🛡️ **Isolasi Lapisan Animasi Toast**: Animasi buka-tutup kontainer luar dan denyut fluida mikro kapsul dalam dipisahkan secara independen, menghilangkan bug hilangnya toast setelah 0.28s dan kilatan saat menutup.
-              - ⚡ **Pengaman Dobel Centang (Race Condition Guard)**: Menambahkan `activeTogglingTasks` agar penekanan berulang pada tugas yang sama tidak memicu status ganda.
-              - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Format baku `1.0.X` (Bugfix), `1.X.0` (Fitur Baru), dan `X.0.0` (Perombakan Besar).
-              - 🌊 **Universal CSS Grid Fluid Physics (0fr ➔ 1fr)**: Seluruh stack kartu dasbor (Tugas Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan, dan Widget Beranda) mengembang alami tanpa lonjakan layout.
-              - 💧 **Indikator Kapsul Cairan Mengalir (*Liquid Mercury*)**: Dock Navigasi, Speed-Dial FAB, Mood Selector Jurnal, dan Filter Transaksi 5 Kolom mengalir anggun dengan kurva deselerasi murni.
+            - **Versi**: v1.1.0 (Stable)
+            - **Pembaruan Utama di v1.1.0 (Stable)**:
+              - 🌐 **Sistem Pilihan Bahasa Resmi (Bilingual i18n ID & EN)**: Beralih mulus antara Bahasa Indonesia dan English seketika tanpa reload halaman.
+              - 🗣️ **Tata Bahasa Rapi & Bebas Campur Aduk**: Seluruh label antarmuka (Header, Dok Navigasi, Beranda, Manajemen Tugas, Keuangan, Jurnal, Pengaturan, hingga Dynamic Island Toast) kini 100% konsisten dalam bahasa terpilih.
+              - 📅 **Format Tanggal Dinamis Cerdas**: Nama hari dan bulan pada kalender, riwayat transaksi, dan sub tugas otomatis menyesuaikan bahasa aktif (ID / EN).
+              - 💾 **Persistensi & Cloud Sync Multibahasa**: Pilihan bahasa tersimpan aman di penyimpanan lokal HP / SQLite dan tersinkronisasi otomatis ke Google Cloud Firestore.
+              - 🛡️ **Isolasi Lapisan Animasi Toast**: Animasi notifikasi dinamis responsif dengan dukungan pesan bilingual interaktif.
+              - ⚡ **Pengaman Dobel Centang (Race Condition Guard)**: Tugas centang ganda berjalan mulus tanpa duplikasi status.
+              - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Naik ke versi MINOR `v1.1.0 (Stable)` sesuai standar perilisan fitur baru.
+              - 🌊 **Universal CSS Grid Fluid Physics (0fr ➔ 1fr)**: Seluruh kartu dasbor mengembang dan mengempis secara alami.
+              - 💧 **Indikator Kapsul Cairan Mengalir (*Liquid Mercury*)**: Dock Navigasi, Selector Bahasa, Speed-Dial FAB, dan Filter Transaksi.
               - 📊 **Filter Riwayat Transaksi Pas 100%**: Grid 5 kolom merata simetris (Semua, Hari Ini, Minggu Ini, Bulan Ini, Tahun Ini).
               - 💼 **Multi-Dompet & Kantong Keuangan**: Tunai, Rekening Bank, dan E-Wallet dengan peredaman bouncing denyut fluida.
               - 📅 **Sistem Sub-Tugas Cerdas**: Animasi cairan bar progres hijau mengalir, tanggal otomatis, dan toggle visibilitas fleksibel.
