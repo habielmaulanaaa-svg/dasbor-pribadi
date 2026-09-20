@@ -2,14 +2,14 @@
   <img src="icon-512.png" width="128" height="128" alt="Logo Dasbor Pribadi" style="border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);" />
 </p>
 
-# 📱 Dasbor Pribadi Mobile — Era Platform Stabil v1.1.2 (Stable)
+# 📱 Dasbor Pribadi Mobile — Era Platform Stabil v1.1.3 (Stable)
 
-[![Android APK Release](https://img.shields.io/badge/APK%20Release-v1.1.2%20(Stable)-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
+[![Android APK Release](https://img.shields.io/badge/APK%20Release-v1.1.3%20(Stable)-emerald?style=for-the-badge&logo=android&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/dasbor-pribadi.apk)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-Online%2024%2F7-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![GitHub Actions CI/CD](https://img.shields.io/badge/CI%2FCD-Automated%20Build-purple?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/habielmaulanaaa-svg/dasbor-pribadi/actions)
 
-Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi mengadopsi standar industri **Semantic Versioning (SemVer)** 3 tingkatan: **v1.0.0 (Stable)**, patch **v1.0.1 (Stable)**, patch **v1.0.2 (Stable)**, rilis fitur minor **v1.1.0 (Stable)**, patch **v1.1.1 (Stable)**, dan kini disempurnakan pada rilis patch **v1.1.2 (Stable)** dengan **100% Cakupan Dwibahasa Manajemen Tugas (Bahasa Indonesia 🇮🇩 & English 🇬🇧)** dan **Perbaikan Kalibrasi Otomatis Indikator Cairan Merkuri FAB/Dock (Auto-Recalibration)**. Aplikasi ini menggabungkan keindahan **CSS Grid Fluid Physics (0fr ➔ 1fr)** di seluruh dasbor, indikator kapsul cairan mengalir (*Liquid Mercury*), respons mikro-taktil 120 FPS tanpa bouncing kasar, multi-dompet keuangan, kalender aktivitas 360°, **100% APK Mandiri Bebas Web (Offline-First)** dengan mesin OTA otomatis, dan sinkronisasi **Google Cloud 24/7**.
+Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi all-in-one yang telah resmi mengadopsi standar industri **Semantic Versioning (SemVer)** 3 tingkatan: **v1.0.0 (Stable)**, patch **v1.0.1 (Stable)**, patch **v1.0.2 (Stable)**, rilis fitur minor **v1.1.0 (Stable)**, patch **v1.1.1 (Stable)**, patch **v1.1.2 (Stable)**, dan kini disempurnakan pada rilis patch **v1.1.3 (Stable)** dengan **Notifikasi Toast Dynamic Island Anti-Hilang saat Undo**, **Animasi Elastis Cairan Kenyal Centang Beruntun (Rapid Checklist Squash & Stretch Jelly Physics 15%)**, serta **Perlindungan Animasi Kartu Tugas saat Re-Render**. Aplikasi ini menggabungkan keindahan **CSS Grid Fluid Physics (0fr ➔ 1fr)** di seluruh dasbor, indikator kapsul cairan mengalir (*Liquid Mercury*), respons mikro-taktil 120 FPS tanpa bouncing kasar, multi-dompet keuangan, kalender aktivitas 360°, **100% APK Mandiri Bebas Web (Offline-First)** dengan mesin OTA otomatis, dan sinkronisasi **Google Cloud 24/7**.
 
 ---
 
@@ -168,5 +168,5 @@ Repositori ini dilengkapi dengan pipeline otomatis **GitHub Actions**:
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v1.1.0 (Stable) • Era Super-App Finansial & Produktivitas</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v1.1.3 (Stable) • Era Super-App Finansial & Produktivitas</b></sub>
 </div>

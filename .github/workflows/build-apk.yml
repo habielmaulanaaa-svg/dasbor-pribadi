@@ -93,17 +93,19 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK v1.1.2 (Stable)"
+          name: "Dasbor Pribadi Standalone APK v1.1.3 (Stable)"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.1.2 (Stable)
-            Rilis Perbaikan Resmi (PATCH Release) aplikasi manajemen keuangan & produktivitas pribadi: penyempurnaan **100% Cakupan Dwibahasa Manajemen Tugas (Task Management Full Bilingual ID 🇮🇩 & EN 🇬🇧)** dan **Perbaikan Kalibrasi Otomatis Indikator Cairan Merkuri FAB/Dock (Auto-Recalibration Fix)**.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.1.3 (Stable)
+            Rilis Perbaikan Resmi (PATCH Release) aplikasi manajemen keuangan & produktivitas pribadi: penyempurnaan **Notifikasi Toast Dynamic Island Anti-Hilang saat Undo (Dynamic Island State Machine Fix)**, **Animasi Elastis Cairan Kenyal Centang Beruntun (Rapid Checklist Jelly Physics)**, dan **Perlindungan Animasi Kartu Tugas saat Re-Render**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v1.1.2 (Stable)
-            - **Pembaruan Utama di v1.1.2 (Stable)**:
-              - 📝 **100% Dwibahasa Manajemen Tugas (Task Management)**: Seluruh header akordeon 3 tumpukan tugas (Tugas Deadline, Tugas Reguler, Tugas Selesai), tombol "Tugas Baru" / "Minimize", indikator switch tanggal sub-tugas, kartu ringkasan tugas di Beranda, counter sub-tugas, dialog konfirmasi hapus, notifikasi Dynamic Island, dan sinkronisasi widget native kini 100% bilingual tanpa ada teks Indonesia yang tertinggal saat mode English aktif.
-              - 💧 **Perbaikan Kalibrasi Otomatis Cairan Merkuri FAB / Dock Navigasi**: Indikator cairan merkuri (`#nav-liquid-mercury-pill` dan `#filter-liquid-mercury-pill`) kini otomatis terkalibrasi presisi seketika saat beralih bahasa tanpa meleset dan tanpa perlu ditekan manual, berkat integrasi `ResizeObserver` reaktif dan kalibrasi otomatis `recalibratePills()`.
-              - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Naik ke versi PATCH `v1.1.2 (Stable)` (`versionCode 110002`) sesuai standar stabilitas industri.
+            - **Versi**: v1.1.3 (Stable)
+            - **Pembaruan Utama di v1.1.3 (Stable)**:
+              - 🔔 **Dynamic Island State Machine Anti-Hilang**: Memperbaiki siklus hidup toast Dynamic Island agar saat tombol Undo ditekan (termasuk saat island sedang dalam jendela retract 350ms), toast konfirmasi Undo dipastikan selalu muncul kembali tanpa pernah hilang atau tidak terlihat.
+              - ⚡ **Animasi Elastis Cairan Kenyal (Squash & Stretch Jelly Physics 15%)**: Penekanan cepat pada beberapa centang tugas beruntun kini memainkan denyut elastisitas cairan kenyal (`islandMorphPulse`), rotasi ikon pop (`islandIconPop`), dan teks meluncur vertikal (`islandTextSwap`).
+              - 🛡️ **Perlindungan Animasi Kartu Tugas saat Checklist Beruntun**: Mengintegrasikan pelacakan tugas aktif (`activeTogglingTasks`) ke dalam generator HTML kartu tugas sehingga animasi fade-out & shrink height (`completing-item`) tidak lagi ter-reset jika tugas lain menyelesaikan transisinya terlebih dahulu.
+              - ↩️ **Visual Feedback Tombol Urungkan (Undo)**: Tombol Undo kini dilengkapi efek riak sentuh cairan amber (`liquid-bubble-rise`) dan ikon berputar halus (`fa-spin`) untuk konfirmasi aksi yang memuaskan.
+              - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Naik ke versi PATCH `v1.1.3 (Stable)` (`versionCode 110003`) sesuai standar stabilitas industri.
               - 📱 **Sistem Pilihan Bahasa Resmi (Bilingual i18n ID & EN)**: Beralih mulus antara Bahasa Indonesia dan English seketika tanpa reload halaman.
               - 🌊 **Universal CSS Grid Fluid Physics (0fr ➔ 1fr)**: Seluruh kartu dasbor mengembang dan mengempis secara alami.
               - 💼 **Multi-Dompet & Kantong Keuangan**: Tunai, Rekening Bank, dan E-Wallet dengan peredaman bouncing denyut fluida.
