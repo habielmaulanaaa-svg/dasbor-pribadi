@@ -1696,7 +1696,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor APK Mandiri v1.1.1 (Stable) (OTA Aktif)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor APK Mandiri v1.1.2 (Stable) (OTA Aktif)</span></div>
                     
                     <!-- SELEKTOR BAHASA (BILINGUAL i18n ID & EN) -->
                     <div class="bg-slate-100/80 dark:bg-[#242f3d]/70 rounded-2xl p-2 border border-slate-200/80 dark:border-[#313f52]/80">
@@ -1885,10 +1885,35 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v1.1.1 (Stable)</h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v1.1.2 (Stable)</h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v1.1.2 (Stable) -->
+                <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-sky-50 to-amber-50 dark:from-emerald-950/40 dark:via-sky-950/30 dark:to-amber-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-check-double text-emerald-500 text-xs"></i> Patch Rilis • v1.1.2 (Stable)</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-sky-600 text-white px-2 py-0.5 rounded-full shadow-xs">Task i18n &amp; FAB Liquid Fix</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Penyempurnaan Bahasa Manajemen Tugas &amp; Kalibrasi Otomatis Cairan FAB/Dock</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-tasks text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">100% Dwibahasa Manajemen Tugas:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Seluruh tumpukan tugas (Deadline, Reguler, Selesai), tombol aksi, toggle tanggal sub-tugas, dialog konfirmasi hapus, dan notifikasi kini 100% beralih ke Bahasa Inggris saat mode EN dipilih.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-tint text-sky-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Kalibrasi Otomatis Cairan FAB &amp; Dock:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Cairan indikator merkuri pada dok navigasi kini otomatis beradaptasi presisi dengan ukuran teks tombol saat beralih bahasa menggunakan ResizeObserver reaktif.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v1.1.1 (Stable) -->
                 <div class="p-3.5 bg-gradient-to-br from-amber-50 via-sky-50 to-emerald-50 dark:from-amber-950/40 dark:via-sky-950/30 dark:to-emerald-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -2891,7 +2916,7 @@
                                         <i class="fas fa-tasks text-primary-500 text-xs"></i> <span data-i18n="tasks_subtasks_label">Sub-Tugas (Opsional)</span>
                                     </span>
                                     <div class="flex items-center gap-1.5">
-                                        <button type="button" onclick="toggleOpsiSubtaskTanggal()" id="btn-toggle-subtask-date-form" class="inline-flex items-center gap-1 text-[9px] font-bold text-slate-400 hover:text-primary-500 transition-colors px-1.5 py-0.5 rounded-lg border border-slate-200 dark:border-[#313f52] focus:outline-none" title="Sembunyikan / Tampilkan Tanggal Sub Tugas">
+                                        <button type="button" onclick="toggleOpsiSubtaskTanggal()" id="btn-toggle-subtask-date-form" class="inline-flex items-center gap-1 text-[9px] font-bold text-slate-400 hover:text-primary-500 transition-colors px-1.5 py-0.5 rounded-lg border border-slate-200 dark:border-[#313f52] focus:outline-none" title="Sembunyikan / Tampilkan Tanggal Sub Tugas" data-i18n-title="tasks_subtasks_date_tooltip">
                                             <i id="icon-subtask-date-form" class="fas fa-calendar-alt text-primary-500 text-[8px]"></i>
                                             <span id="text-subtask-date-form" data-i18n="tasks_subtasks_date_active">Tgl Aktif</span>
                                         </button>
@@ -2919,7 +2944,7 @@
                 <!-- Stack Deadline -->
                 <div>
                     <button type="button" onclick="toggleStack('stack-deadline', 'icon-deadline', parseInt(document.getElementById('count-deadline').innerText))" class="widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-shadow compact-pad">
-                        <div class="flex items-center gap-2"><i class="fas fa-clock text-orange-500"></i><span class="font-bold">Tugas Deadline (<span id="count-deadline">0</span>)</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-clock text-orange-500"></i><span class="font-bold"><span data-i18n="tasks_stack_deadline">Tugas Deadline</span> (<span id="count-deadline">0</span>)</span></div>
                         <i id="icon-deadline" class="fas fa-chevron-down text-slate-400 stack-chevron-icon hidden"></i>
                     </button>
                     <div id="stack-deadline" class="accordion-content"></div>
@@ -2927,7 +2952,7 @@
                 <!-- Stack Reguler -->
                 <div>
                     <button type="button" onclick="toggleStack('stack-reguler', 'icon-reguler', parseInt(document.getElementById('count-reguler').innerText))" class="widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-shadow compact-pad">
-                        <div class="flex items-center gap-2"><i class="fas fa-book text-primary-500"></i><span class="font-bold">Tugas Reguler (<span id="count-reguler">0</span>)</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-book text-primary-500"></i><span class="font-bold"><span data-i18n="tasks_stack_regular">Tugas Reguler</span> (<span id="count-reguler">0</span>)</span></div>
                         <i id="icon-reguler" class="fas fa-chevron-down text-slate-400 stack-chevron-icon hidden"></i>
                     </button>
                     <div id="stack-reguler" class="accordion-content"></div>
@@ -2935,7 +2960,7 @@
                 <!-- Stack Selesai -->
                 <div>
                     <button type="button" onclick="toggleStack('stack-completed', 'icon-completed', parseInt(document.getElementById('count-completed').innerText))" class="widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-shadow compact-pad">
-                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span class="font-bold">Tugas Selesai (<span id="count-completed">0</span>)</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span class="font-bold"><span data-i18n="tasks_stack_completed">Tugas Selesai</span> (<span id="count-completed">0</span>)</span></div>
                         <i id="icon-completed" class="fas fa-chevron-down text-slate-400 stack-chevron-icon hidden"></i>
                     </button>
                     <div id="stack-completed" class="accordion-content"></div>
@@ -3591,9 +3616,15 @@
                 tasks_time_label: "Waktu:",
                 tasks_subtasks_label: "Sub-Tugas (Opsional)",
                 tasks_subtasks_date_active: "Tgl Aktif",
+                tasks_subtasks_date_inactive: "Tgl Nonaktif",
+                tasks_subtasks_date_tooltip: "Sembunyikan / Tampilkan Tanggal Sub Tugas",
                 tasks_subtasks_placeholder: "Ketik sub tugas...",
                 tasks_subtasks_add_btn: "Tambah",
                 tasks_btn_save: "Simpan Tugas",
+                tasks_minimize_btn: "Minimize",
+                tasks_minimize_tooltip: "Minimize / Tutup Form",
+                tasks_btn_tooltip: "Tambah Tugas Baru",
+                confirm_delete_task: "Hapus tugas ini?",
                 tasks_stack_deadline: "Tugas Deadline",
                 tasks_stack_regular: "Tugas Reguler",
                 tasks_stack_completed: "Tugas Selesai",
@@ -3639,7 +3670,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "Dasbor APK Mandiri v1.1.1 (Stable) (OTA Aktif)",
+                settings_app_name_version: "Dasbor APK Mandiri v1.1.2 (Stable) (OTA Aktif)",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
                 settings_gradient_title: "Gradasi Saldo",
@@ -3899,6 +3930,16 @@
                 subtasks_placeholder_inline: "Ketik sub tugas baru...",
                 subtasks_tooltip_show_date: "Tampilkan Tanggal Sub Tugas",
                 subtasks_tooltip_hide_date: "Sembunyikan Tanggal Sub Tugas",
+                toast_task_title: "Tugas",
+                toast_task_name_empty: "Nama tugas tidak boleh kosong!",
+                toast_task_new_title: "Tugas Baru",
+                toast_task_added_suffix: "berhasil ditambahkan",
+                toast_subtask_title: "Sub-Tugas",
+                toast_subtask_added_suffix: "ditambahkan ke",
+                toast_subtasks_all_done_title: "Sub Tugas Tuntas! 🎉",
+                toast_subtasks_all_done_suffix: "selesai",
+                widget_synced_title: "Widget Disinkronkan",
+                widget_all_tasks_done: "Semua tugas selesai ✨",
 
                 // Deadlines & Savings
                 deadline_overdue_days: "Terlewat {n} Hari",
@@ -4003,9 +4044,15 @@
                 tasks_time_label: "Time:",
                 tasks_subtasks_label: "Subtasks (Optional)",
                 tasks_subtasks_date_active: "Active Date",
+                tasks_subtasks_date_inactive: "Date Inactive",
+                tasks_subtasks_date_tooltip: "Hide / Show Subtask Dates",
                 tasks_subtasks_placeholder: "Type subtask...",
                 tasks_subtasks_add_btn: "Add",
                 tasks_btn_save: "Save Task",
+                tasks_minimize_btn: "Minimize",
+                tasks_minimize_tooltip: "Minimize / Close Form",
+                tasks_btn_tooltip: "Add New Task",
+                confirm_delete_task: "Delete this task?",
                 tasks_stack_deadline: "Deadline Tasks",
                 tasks_stack_regular: "Regular Tasks",
                 tasks_stack_completed: "Completed Tasks",
@@ -4051,7 +4098,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "Dasbor Standalone APK v1.1.1 (Stable) (OTA Active)",
+                settings_app_name_version: "Dasbor Standalone APK v1.1.2 (Stable) (OTA Active)",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
                 settings_gradient_title: "Balance Gradient",
@@ -4311,6 +4358,16 @@
                 subtasks_placeholder_inline: "Type new subtask...",
                 subtasks_tooltip_show_date: "Show Subtask Dates",
                 subtasks_tooltip_hide_date: "Hide Subtask Dates",
+                toast_task_title: "Task",
+                toast_task_name_empty: "Task name cannot be empty!",
+                toast_task_new_title: "New Task",
+                toast_task_added_suffix: "added successfully",
+                toast_subtask_title: "Subtask",
+                toast_subtask_added_suffix: "added to",
+                toast_subtasks_all_done_title: "Subtasks Completed! 🎉",
+                toast_subtasks_all_done_suffix: "done",
+                widget_synced_title: "Widget Synced",
+                widget_all_tasks_done: "All tasks completed ✨",
 
                 // Deadlines & Savings
                 deadline_overdue_days: "Overdue {n} Days",
@@ -4373,6 +4430,18 @@
             return kat;
         }
 
+        function recalibratePills(animate) {
+            var activeTabEl = document.querySelector('.tab-content.active');
+            var activeTabKey = (activeTabEl && activeTabEl.id) ? activeTabEl.id : 'beranda';
+            
+            var dock = document.getElementById('bottom-nav-dock');
+            if (dock) void dock.offsetWidth;
+            
+            if (typeof updateMercuryPill === 'function') updateMercuryPill(activeTabKey, !!animate);
+            if (typeof updateFilterMercuryPill === 'function') updateFilterMercuryPill(null, !!animate);
+            if (typeof updateMoodMercuryPill === 'function') updateMoodMercuryPill(null, !!animate);
+        }
+
         function applyLanguageToDOM() {
             // 1. innerText
             document.querySelectorAll('[data-i18n]').forEach(function(el) {
@@ -4424,6 +4493,36 @@
 
             // 6. Dynamic active toggle badge
             if (typeof updateActiveToggleCount === 'function') updateActiveToggleCount();
+
+            // 7. Dynamic task toggle button on #tugas
+            var taskToggleBtn = document.getElementById('btn-toggle-tugas-form');
+            var taskInputArea = document.getElementById('tugas-input-area');
+            if (taskToggleBtn) {
+                var isFormOpen = taskInputArea && taskInputArea.classList.contains('open');
+                if (isFormOpen) {
+                    taskToggleBtn.innerHTML = '<i class="fas fa-chevron-up text-xs"></i><span data-i18n="tasks_minimize_btn">' + t('tasks_minimize_btn', 'Minimize') + '</span>';
+                    taskToggleBtn.title = t('tasks_minimize_tooltip', 'Minimize / Tutup Form');
+                } else {
+                    taskToggleBtn.innerHTML = '<i class="fas fa-plus text-xs"></i><span data-i18n="tasks_add_btn">' + t('tasks_add_btn', 'Tugas Baru') + '</span>';
+                    taskToggleBtn.title = t('tasks_btn_tooltip', 'Tambah Tugas Baru');
+                }
+            }
+
+            // 8. Dynamic subtask date toggle text
+            var formText = document.getElementById('text-subtask-date-form');
+            if (formText) {
+                var isAktif = (dataState && dataState.optSubtaskTanggalDibuat !== false);
+                formText.innerText = isAktif ? t('tasks_subtasks_date_active', 'Tgl Aktif') : t('tasks_subtasks_date_inactive', 'Tgl Nonaktif');
+            }
+
+            // 9. Recalibrate liquid mercury pills on floating dock & filters
+            recalibratePills(false);
+            requestAnimationFrame(function() {
+                recalibratePills(false);
+            });
+            setTimeout(function() {
+                recalibratePills(false);
+            }, 60);
         }
 
         function setAppLanguage(lang) {
@@ -4437,6 +4536,15 @@
             
             // Re-render modul dinamis
             if (typeof perbaruiTampilan === 'function') perbaruiTampilan();
+
+            // Recalibrate pills smoothly
+            recalibratePills(true);
+            requestAnimationFrame(function() {
+                recalibratePills(true);
+            });
+            setTimeout(function() {
+                recalibratePills(false);
+            }, 80);
             
             // Tampilkan Dynamic Island Toast bilingual
             triggerDynamicIsland(
@@ -4876,7 +4984,14 @@
             // Update indikator tombol pada form pembuatan tugas
             var formText = document.getElementById('text-subtask-date-form');
             var formIcon = document.getElementById('icon-subtask-date-form');
-            if (formText) formText.innerText = isAktif ? 'Tgl Aktif' : 'Tgl Mati';
+            var formBtn = document.getElementById('btn-toggle-subtask-date-form');
+            if (formText) {
+                formText.innerText = isAktif ? t('tasks_subtasks_date_active', 'Tgl Aktif') : t('tasks_subtasks_date_inactive', 'Tgl Nonaktif');
+                formText.setAttribute('data-i18n', isAktif ? 'tasks_subtasks_date_active' : 'tasks_subtasks_date_inactive');
+            }
+            if (formBtn) {
+                formBtn.title = t('tasks_subtasks_date_tooltip', 'Sembunyikan / Tampilkan Tanggal Sub Tugas');
+            }
             if (formIcon) {
                 formIcon.className = isAktif ? 'fas fa-calendar-alt text-primary-500 text-[8px]' : 'far fa-calendar text-slate-400 text-[8px]';
             }
@@ -6699,7 +6814,8 @@
                 taskInput.classList.remove('open');
                 if (plusIcon) plusIcon.style.transform = 'rotate(0deg)';
                 if (taskToggleBtn) {
-                    taskToggleBtn.innerHTML = '<i class="fas fa-plus text-xs"></i><span>Tugas Baru</span>';
+                    taskToggleBtn.innerHTML = '<i class="fas fa-plus text-xs"></i><span data-i18n="tasks_add_btn">' + t('tasks_add_btn', 'Tugas Baru') + '</span>';
+                    taskToggleBtn.title = t('tasks_btn_tooltip', 'Tambah Tugas Baru');
                     taskToggleBtn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-600 hover:bg-primary-700 active:scale-95 text-white text-xs font-bold shadow-md transition-all';
                 }
             }
@@ -7324,12 +7440,12 @@
                     var btn = document.getElementById('btn-toggle-tugas-form');
                     if (btn) {
                         if (isOpen) {
-                            btn.innerHTML = '<i class="fas fa-chevron-up text-xs"></i><span>Minimize</span>';
-                            btn.title = 'Minimize / Tutup Form';
+                            btn.innerHTML = '<i class="fas fa-chevron-up text-xs"></i><span data-i18n="tasks_minimize_btn">' + t('tasks_minimize_btn', 'Minimize') + '</span>';
+                            btn.title = t('tasks_minimize_tooltip', 'Minimize / Tutup Form');
                             btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-600 hover:bg-slate-700 active:scale-95 text-white text-xs font-bold shadow-md transition-all';
                         } else {
-                            btn.innerHTML = '<i class="fas fa-plus text-xs"></i><span>Tugas Baru</span>';
-                            btn.title = 'Tambah Tugas Baru';
+                            btn.innerHTML = '<i class="fas fa-plus text-xs"></i><span data-i18n="tasks_add_btn">' + t('tasks_add_btn', 'Tugas Baru') + '</span>';
+                            btn.title = t('tasks_btn_tooltip', 'Tambah Tugas Baru');
                             btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-600 hover:bg-primary-700 active:scale-95 text-white text-xs font-bold shadow-md transition-all';
                         }
                     }
@@ -7716,9 +7832,59 @@
         function formatWaktuDibuat(dateInput) {
             var d = (dateInput instanceof Date) ? dateInput : (dateInput ? new Date(dateInput) : new Date());
             if (isNaN(d.getTime())) d = new Date();
-            var tgl = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            var tgl = d.toLocaleDateString(getAppLocale(), { day: 'numeric', month: 'short', year: 'numeric' });
             var jam = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
             return `${tgl}, ${jam}`;
+        }
+
+        function formatDisplayTaskCreatedAt(task) {
+            if (!task) return '';
+            var raw = task.waktuDibuatIso || task.createdAt || task.waktuDibuat;
+            if (!raw) return '';
+            var d = new Date(raw);
+            if (!isNaN(d.getTime())) {
+                return formatWaktuDibuat(d);
+            }
+            if (typeof raw === 'string') {
+                var isEn = (dataState && dataState.language === 'en');
+                var idToEnMonths = { 'Mei': 'May', 'Agu': 'Aug', 'Okt': 'Oct', 'Des': 'Dec' };
+                var enToIdMonths = { 'May': 'Mei', 'Aug': 'Agu', 'Oct': 'Okt', 'Dec': 'Des' };
+                if (isEn) {
+                    for (var m in idToEnMonths) {
+                        if (raw.includes(m)) return raw.replace(m, idToEnMonths[m]);
+                    }
+                } else {
+                    for (var m in enToIdMonths) {
+                        if (raw.includes(m)) return raw.replace(m, enToIdMonths[m]);
+                    }
+                }
+            }
+            return raw;
+        }
+
+        function formatDisplaySubtaskDate(st) {
+            if (!st) return '';
+            var raw = (typeof st === 'object') ? (st.isoDate || st.createdAt || st.tanggalDibuat) : st;
+            if (!raw) return '';
+            var d = new Date(raw);
+            if (!isNaN(d.getTime())) {
+                return formatTanggalSubtask(d);
+            }
+            if (typeof raw === 'string') {
+                var isEn = (dataState && dataState.language === 'en');
+                var idToEnMonths = { 'Mei': 'May', 'Agu': 'Aug', 'Okt': 'Oct', 'Des': 'Dec' };
+                var enToIdMonths = { 'May': 'Mei', 'Aug': 'Agu', 'Oct': 'Okt', 'Dec': 'Des' };
+                if (isEn) {
+                    for (var m in idToEnMonths) {
+                        if (raw.includes(m)) return raw.replace(m, idToEnMonths[m]);
+                    }
+                } else {
+                    for (var m in enToIdMonths) {
+                        if (raw.includes(m)) return raw.replace(m, enToIdMonths[m]);
+                    }
+                }
+            }
+            return raw;
         }
 
         function toggleOpsiWaktuTugas() {
@@ -7863,7 +8029,7 @@
 
             // 2. Update Counter dan Badge
             var countEl = document.getElementById(`subtasks-count-${taskId}`);
-            if (countEl) countEl.innerText = `${done}/${total} Sub Tugas`;
+            if (countEl) countEl.innerText = `${done}/${total} ${t('subtasks_count_label', 'Sub Tugas')}`;
 
             var pctEl = document.getElementById(`subtasks-pct-${taskId}`);
             if (pctEl) {
@@ -7887,7 +8053,13 @@
             debouncedSyncToCloud();
 
             if (isAllDone) {
-                triggerDynamicIsland("Sub Tugas Tuntas! 🎉", `Semua sub tugas "${task.nama}" selesai`, "fas fa-check-double", "bg-emerald-500/20 text-emerald-400");
+                var isEn = (dataState && dataState.language === 'en');
+                triggerDynamicIsland(
+                    t('toast_subtasks_all_done_title', "Sub Tugas Tuntas! 🎉"), 
+                    isEn ? `All subtasks for "${task.nama}" done` : `Semua sub tugas "${task.nama}" selesai`, 
+                    "fas fa-check-double", 
+                    "bg-emerald-500/20 text-emerald-400"
+                );
             }
         }
 
@@ -7906,6 +8078,7 @@
             task.subtasks.push({
                 id: generateUniqueId(),
                 text: val,
+                isoDate: new Date().toISOString(),
                 tanggalDibuat: formatTanggalSubtask(),
                 selesai: false
             });
@@ -7913,7 +8086,13 @@
             input.value = '';
             simpanData();
             triggerHaptic('success');
-            triggerDynamicIsland("Sub-Tugas", `Sub tugas baru ditambahkan ke "${task.nama}"`, "fas fa-plus", "bg-emerald-500/20 text-emerald-400");
+            var isEn = (dataState && dataState.language === 'en');
+            triggerDynamicIsland(
+                t('toast_subtask_title', "Sub-Tugas"), 
+                isEn ? `New subtask added to "${task.nama}"` : `Sub tugas baru ditambahkan ke "${task.nama}"`, 
+                "fas fa-plus", 
+                "bg-emerald-500/20 text-emerald-400"
+            );
         }
 
         function hapusSubtask(taskId, subtaskId) {
@@ -7934,25 +8113,29 @@
             var nama = inputNama.value.trim();
             var dl = inputDl.value;
             
-            if (!nama) { triggerDynamicIsland("Tugas", "Nama tugas tidak boleh kosong!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400"); inputNama.focus(); return; }
+            if (!nama) { triggerDynamicIsland(t('toast_task_title', "Tugas"), t('toast_task_name_empty', "Nama tugas tidak boleh kosong!"), "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400"); inputNama.focus(); return; }
 
             _isAddingTugas = true;
             setTimeout(function() { _isAddingTugas = false; }, 400);
 
             var isWaktuAktif = (dataState.optTugasWaktuDibuat !== false);
             var waktuDibuat = null;
+            var waktuDibuatIso = null;
             if (isWaktuAktif) {
                 var inputDt = document.getElementById('input-tugas-custom-datetime');
                 var valDt = (inputDt && inputDt.value) ? new Date(inputDt.value) : new Date();
                 waktuDibuat = formatWaktuDibuat(valDt);
+                waktuDibuatIso = isNaN(valDt.getTime()) ? new Date().toISOString() : valDt.toISOString();
             }
 
             var subtasks = tempSubtasks.map(function(st, idx) {
                 var text = (typeof st === 'object') ? st.text : st;
                 var tgl = (typeof st === 'object' && st.tanggalDibuat) ? st.tanggalDibuat : formatTanggalSubtask();
+                var iso = (typeof st === 'object' && st.isoDate) ? st.isoDate : new Date().toISOString();
                 return {
                     id: generateUniqueId() + idx + 1,
                     text: text,
+                    isoDate: iso,
                     tanggalDibuat: tgl,
                     selesai: false
                 };
@@ -7964,6 +8147,7 @@
                 deadline: dl || null, 
                 prioritas: selectedPrioritasVal || 'sedang',
                 waktuDibuat: waktuDibuat,
+                waktuDibuatIso: waktuDibuatIso,
                 selesai: false,
                 subtasks: subtasks
             });
@@ -7988,7 +8172,7 @@
                 document.getElementById('icon-reguler').style.transform = 'rotate(180deg)';
             }
             simpanData();
-            triggerDynamicIsland("Tugas Baru", `"${nama}" berhasil ditambahkan`, "fas fa-plus-circle", "bg-primary-500/20 text-primary-400");
+            triggerDynamicIsland(t('toast_task_new_title', "Tugas Baru"), `"${nama}" ${t('toast_task_added_suffix', 'berhasil ditambahkan')}`, "fas fa-plus-circle", "bg-primary-500/20 text-primary-400");
         }
 
         // TOGGLE STATUS TUGAS DENGAN PURE FADE-OUT & SMOOTH DROP-IN ANIMATION
@@ -8084,7 +8268,7 @@
 
         // HAPUS TUGAS DENGAN PURE FADE-OUT & SMOOTH HEIGHT COLLAPSE
         function hapusTugas(id, btnEl) { 
-            if(confirm("Hapus tugas ini?")) { 
+            if(confirm(t('confirm_delete_task', "Hapus tugas ini?"))) { 
                 let card = btnEl ? btnEl.closest('.swipe-wrapper') || btnEl.closest('.swipe-item') : null;
                 let exec = () => {
                     dataState.tugas = dataState.tugas.filter(t => t.id !== id);
@@ -8740,17 +8924,18 @@
                 var dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
                 if(!isNaN(dateObj.getTime())) {
                     tglNum = dateObj.getDate();
-                    blnStr = dateObj.toLocaleDateString('id-ID', { month: 'short' });
+                    blnStr = dateObj.toLocaleDateString(getAppLocale(), { month: 'short' });
                 }
             } catch(e) {}
 
             var iconWarning = dlInfo.overdue ? '<i class="fas fa-exclamation-triangle mr-1"></i>' : '';
             var prioBadge = task.prioritas === 'tinggi' 
-                ? '<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 Tinggi</span>' 
-                : (task.prioritas === 'rendah' ? '<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 Rendah</span>' : '');
+                ? `<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 ${t('priority_high_label', 'Tinggi')}</span>` 
+                : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 ${t('priority_low_label', 'Rendah')}</span>` : '');
 
-            var badgeWaktuDibuat = task.waktuDibuat 
-                ? `<p class="text-[9px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1 mt-0.5"><i class="far fa-clock text-[8px]"></i> Dibuat: ${task.waktuDibuat}</p>` 
+            var formattedCreatedAt = formatDisplayTaskCreatedAt(task);
+            var badgeWaktuDibuat = formattedCreatedAt 
+                ? `<p class="text-[9px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1 mt-0.5"><i class="far fa-clock text-[8px]"></i> ${t('created_prefix', 'Dibuat:')} ${formattedCreatedAt}</p>` 
                 : '';
 
             var subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
@@ -8762,7 +8947,7 @@
                 subtaskWidgetBadge = `
                 <div class="mt-1 flex items-center gap-2">
                     <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-md bg-white/70 dark:bg-[#17212b]/60 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/50">
-                        🧩 ${doneSt}/${totalSt} Sub Tugas
+                        🧩 ${doneSt}/${totalSt} ${t('subtasks_count_label', 'Sub Tugas')}
                     </span>
                     <div class="w-14 h-1 bg-slate-200/80 dark:bg-slate-700 rounded-full overflow-hidden">
                         <div class="h-full ${doneSt === totalSt ? 'bg-emerald-500' : 'bg-primary-500'} rounded-full" style="width: ${pct}%"></div>
@@ -8790,11 +8975,12 @@
         function renderRegulerWidgetCard(task) {
             if(!task || typeof task !== 'object') return '';
             var prioBadge = task.prioritas === 'tinggi' 
-                ? '<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 Tinggi</span>' 
-                : (task.prioritas === 'rendah' ? '<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 Rendah</span>' : '');
+                ? `<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 ${t('priority_high_label', 'Tinggi')}</span>` 
+                : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 ${t('priority_low_label', 'Rendah')}</span>` : '');
 
-            var badgeWaktuDibuat = task.waktuDibuat 
-                ? `<p class="text-[9px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1 mt-0.5"><i class="far fa-clock text-[8px]"></i> Dibuat: ${task.waktuDibuat}</p>` 
+            var formattedCreatedAt = formatDisplayTaskCreatedAt(task);
+            var badgeWaktuDibuat = formattedCreatedAt 
+                ? `<p class="text-[9px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1 mt-0.5"><i class="far fa-clock text-[8px]"></i> ${t('created_prefix', 'Dibuat:')} ${formattedCreatedAt}</p>` 
                 : '';
 
             var subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
@@ -8806,7 +8992,7 @@
                 subtaskWidgetBadge = `
                 <div class="mt-1 flex items-center gap-2">
                     <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-md bg-white/70 dark:bg-[#17212b]/60 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/50">
-                        🧩 ${doneSt}/${totalSt} Sub Tugas
+                        🧩 ${doneSt}/${totalSt} ${t('subtasks_count_label', 'Sub Tugas')}
                     </span>
                     <div class="w-14 h-1 bg-slate-200/80 dark:bg-slate-700 rounded-full overflow-hidden">
                         <div class="h-full ${doneSt === totalSt ? 'bg-emerald-500' : 'bg-primary-500'} rounded-full" style="width: ${pct}%"></div>
@@ -8845,8 +9031,9 @@
                 badgeDL = `<p class="text-[10px] ${dlInfo.badgeClass} mt-0.5 flex items-center">${iconDl}${dlInfo.text}</p>`;
             }
 
-            var badgeWaktuDibuat = task.waktuDibuat 
-                ? `<p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1 mt-0.5"><i class="far fa-clock text-[9px]"></i> ${t('created_prefix', 'Dibuat:')} ${task.waktuDibuat}</p>` 
+            var formattedCreatedAt = formatDisplayTaskCreatedAt(task);
+            var badgeWaktuDibuat = formattedCreatedAt 
+                ? `<p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1 mt-0.5"><i class="far fa-clock text-[9px]"></i> ${t('created_prefix', 'Dibuat:')} ${formattedCreatedAt}</p>` 
                 : '';
 
             var prioBadge = task.prioritas === 'tinggi'
@@ -8909,7 +9096,7 @@
             subtasks.forEach(function(st) {
                 var stChecked = st.selesai ? 'checked' : '';
                 var stTextClass = st.selesai ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-700 dark:text-slate-200 font-semibold';
-                var stDate = st.tanggalDibuat || formatTanggalSubtask();
+                var stDate = formatDisplaySubtaskDate(st);
                 var dateBadgeHTML = `<span class="subtask-date-badge text-[9px] font-medium text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-[#1f2937] px-1.5 py-0.5 rounded-md flex items-center gap-1 shrink-0 ${isDateHidden ? 'hidden' : ''}"><i class="far fa-calendar-alt text-[8px] opacity-75"></i> ${stDate}</span>`;
 
                 subtasksListHTML += `
@@ -9799,11 +9986,28 @@
                 initFluidToggleGestures();
             }, 80);
             window.addEventListener('resize', function() {
-                var cur = document.querySelector('.tab-content.active');
-                updateMercuryPill(cur ? cur.id : 'beranda', false);
-                updateFilterMercuryPill(null, false);
-                updateMoodMercuryPill(null, false);
+                recalibratePills(false);
             });
+
+            // Auto-recalibrate mercury pills jika ukuran dock atau track filter berubah (anti-meleset 100%)
+            if (window.ResizeObserver) {
+                try {
+                    var navDock = document.getElementById('bottom-nav-dock');
+                    if (navDock) {
+                        var roNav = new ResizeObserver(function() {
+                            recalibratePills(false);
+                        });
+                        roNav.observe(navDock);
+                    }
+                    var filterTrack = document.getElementById('filter-transaksi-track');
+                    if (filterTrack) {
+                        var roFilter = new ResizeObserver(function() {
+                            updateFilterMercuryPill(null, false);
+                        });
+                        roFilter.observe(filterTrack);
+                    }
+                } catch(e) {}
+            }
         }
 
         function handleNativeAction(action) {
@@ -9885,10 +10089,11 @@
                     ? dataState.tugas.filter(function(t) { return !t.selesai; }) 
                     : [];
                 var taskCount = pendingTasks.length;
-                var topTask = 'Semua tugas selesai ✨';
+                var isEn = (dataState && dataState.language === 'en');
+                var topTask = isEn ? 'All tasks completed ✨' : 'Semua tugas selesai ✨';
                 if (pendingTasks.length > 0) {
                     var firstTask = pendingTasks[0];
-                    topTask = (firstTask.nama || firstTask.judul || 'Tugas Baru').trim();
+                    topTask = (firstTask.nama || firstTask.judul || (isEn ? 'New Task' : 'Tugas Baru')).trim();
                     if (firstTask.deadline) {
                         topTask += ' (' + firstTask.deadline + ')';
                     }
@@ -9899,7 +10104,12 @@
                     window.DasborBridge.updateWidgetData(formatted, String(taskCount), topTask);
                     if (isManual) {
                         triggerHaptic('medium');
-                        triggerDynamicIsland("Widget Disinkronkan", "Saldo " + formatted + " & " + taskCount + " tugas terkirim via Native Bridge!", "fas fa-check-circle", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(
+                            t('widget_synced_title', "Widget Disinkronkan"), 
+                            isEn ? `Balance ${formatted} & ${taskCount} tasks sent via Native Bridge!` : `Saldo ${formatted} & ${taskCount} tugas terkirim via Native Bridge!`, 
+                            "fas fa-check-circle", 
+                            "bg-emerald-500/20 text-emerald-400"
+                        );
                     }
                     return;
                 }
@@ -9912,7 +10122,12 @@
                     '&topTask=' + encodeURIComponent(topTask);
 
                 triggerHaptic('medium');
-                triggerDynamicIsland("Widget Disinkronkan", "Saldo " + formatted + " & " + taskCount + " tugas terkirim!", "fas fa-check-circle", "bg-emerald-500/20 text-emerald-400");
+                triggerDynamicIsland(
+                    t('widget_synced_title', "Widget Disinkronkan"), 
+                    isEn ? `Balance ${formatted} & ${taskCount} tasks sent!` : `Saldo ${formatted} & ${taskCount} tugas terkirim!`, 
+                    "fas fa-check-circle", 
+                    "bg-emerald-500/20 text-emerald-400"
+                );
                 var link = document.createElement('a');
                 link.href = syncUri;
                 document.body.appendChild(link);
@@ -10482,7 +10697,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v1.1.1 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.1.2 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {

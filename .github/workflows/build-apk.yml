@@ -93,23 +93,19 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: apk-latest
-          name: "Dasbor Pribadi Standalone APK v1.1.1 (Stable)"
+          name: "Dasbor Pribadi Standalone APK v1.1.2 (Stable)"
           body: |
-            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.1.1 (Stable)
-            Rilis Perbaikan Resmi (PATCH Release) aplikasi manajemen keuangan & produktivitas pribadi: penyempurnaan **100% Cakupan Dwibahasa Menyeluruh (Comprehensive Bilingual Coverage ID 🇮🇩 & EN 🇬🇧)** pada seluruh modul Keuangan, formulir modal bottom-sheet, reset selektif, kalender aktivitas terpadu, hingga ekspor laporan cetak/PDF.
+            ### 📱 Dasbor Pribadi 100% APK Mandiri — v1.1.2 (Stable)
+            Rilis Perbaikan Resmi (PATCH Release) aplikasi manajemen keuangan & produktivitas pribadi: penyempurnaan **100% Cakupan Dwibahasa Manajemen Tugas (Task Management Full Bilingual ID 🇮🇩 & EN 🇬🇧)** dan **Perbaikan Kalibrasi Otomatis Indikator Cairan Merkuri FAB/Dock (Auto-Recalibration Fix)**.
             
             - **Nama File**: `dasbor-pribadi.apk`
-            - **Versi**: v1.1.1 (Stable)
-            - **Pembaruan Utama di v1.1.1 (Stable)**:
-              - 🌐 **100% Cakupan Dwibahasa Penuh (Zero Untranslated Elements)**: Seluruh modul keuangan, ringkasan transaksi, kartu anggaran bulanan, langganan rutin, selector dompet, catatan belanja, hingga formulir reset selektif kini 100% bilingual tanpa ada teks Indonesia yang tertinggal saat mode English aktif.
-              - 🗓️ **Kalender Terpadu & Tanggal Dinamis Bilingual**: Nama bulan, singkatan hari (Sun-Sat), status tenggat, rincian aktivitas harian, dan tanggal pembuatan sub tugas otomatis disinkronkan dengan standar locale aktif.
-              - 📄 **Cetak & Pratinjau Laporan PDF Multibahasa**: Pratinjau kartu laporan resmi dan area cetak dokumen otomatis mengikuti bahasa terpilih pengguna.
-              - 🧹 **Modal Hapus Data Selektif Terjemahan Penuh**: Seluruh opsi kategori, hitungan item dinamis, badge peringatan keamanan, dan dialog konfirmasi kini 100% dwibahasa.
-              - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Naik ke versi PATCH `v1.1.1 (Stable)` (`versionCode 110001`) sesuai standar stabilitas industri.
+            - **Versi**: v1.1.2 (Stable)
+            - **Pembaruan Utama di v1.1.2 (Stable)**:
+              - 📝 **100% Dwibahasa Manajemen Tugas (Task Management)**: Seluruh header akordeon 3 tumpukan tugas (Tugas Deadline, Tugas Reguler, Tugas Selesai), tombol "Tugas Baru" / "Minimize", indikator switch tanggal sub-tugas, kartu ringkasan tugas di Beranda, counter sub-tugas, dialog konfirmasi hapus, notifikasi Dynamic Island, dan sinkronisasi widget native kini 100% bilingual tanpa ada teks Indonesia yang tertinggal saat mode English aktif.
+              - 💧 **Perbaikan Kalibrasi Otomatis Cairan Merkuri FAB / Dock Navigasi**: Indikator cairan merkuri (`#nav-liquid-mercury-pill` dan `#filter-liquid-mercury-pill`) kini otomatis terkalibrasi presisi seketika saat beralih bahasa tanpa meleset dan tanpa perlu ditekan manual, berkat integrasi `ResizeObserver` reaktif dan kalibrasi otomatis `recalibratePills()`.
+              - 🌟 **Skema Semantic Versioning (SemVer) 3 Tingkatan**: Naik ke versi PATCH `v1.1.2 (Stable)` (`versionCode 110002`) sesuai standar stabilitas industri.
               - 📱 **Sistem Pilihan Bahasa Resmi (Bilingual i18n ID & EN)**: Beralih mulus antara Bahasa Indonesia dan English seketika tanpa reload halaman.
               - 🌊 **Universal CSS Grid Fluid Physics (0fr ➔ 1fr)**: Seluruh kartu dasbor mengembang dan mengempis secara alami.
-              - 💧 **Indikator Kapsul Cairan Mengalir (*Liquid Mercury*)**: Dock Navigasi, Selector Bahasa, Speed-Dial FAB, dan Filter Transaksi.
-              - 📊 **Filter Riwayat Transaksi Pas 100%**: Grid 5 kolom merata simetris (Semua, Hari Ini, Minggu Ini, Bulan Ini, Tahun Ini).
               - 💼 **Multi-Dompet & Kantong Keuangan**: Tunai, Rekening Bank, dan E-Wallet dengan peredaman bouncing denyut fluida.
               - 📅 **Sistem Sub-Tugas Cerdas**: Animasi cairan bar progres hijau mengalir, tanggal otomatis, dan toggle visibilitas fleksibel.
               - 🗓️ **Kalender Terpadu 360° & Diagram Analisis**: Kilas balik, pelacak tagihan rutin, sistem anggaran bulanan, dan skor kesehatan finansial.
