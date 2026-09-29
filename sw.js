@@ -1,7 +1,8 @@
-const CACHE_NAME = 'dasbor-pwa-v1-1-3-stable';
+const CACHE_NAME = 'dasbor-pwa-v1-1-4-stable';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './privacy.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',

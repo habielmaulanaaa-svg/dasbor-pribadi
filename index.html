@@ -6,6 +6,19 @@
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#2563eb" id="meta-theme-color">
     
+    <!-- SECURITY: CONTENT SECURITY POLICY (CSP) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.gstatic.com https://apis.google.com https://accounts.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob: https://*.googleusercontent.com https://ui-avatars.com https://raw.githubusercontent.com https://habielmaulanaaa-svg.github.io; connect-src 'self' https://*.firestore.googleapis.com https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://api.github.com https://raw.githubusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com https://*.firebaseapp.com; base-uri 'self'; object-src 'none';">
+
+    <!-- SEO & CANONICAL TAGS -->
+    <link rel="canonical" href="https://habielmaulanaaa-svg.github.io/dasbor-pribadi/">
+    <meta name="description" content="Dasbor Pribadi - Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi offline-first dengan sinkronisasi cloud.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Dasbor Pribadi Premium">
+    <meta property="og:description" content="Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi offline-first.">
+    <meta property="og:url" content="https://habielmaulanaaa-svg.github.io/dasbor-pribadi/">
+    <meta property="og:image" content="https://habielmaulanaaa-svg.github.io/dasbor-pribadi/icon-512.png">
+    <meta property="og:type" content="website">
+
     <!-- PWA & MOBILE NATIVE TAGS -->
     <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
@@ -1625,7 +1638,7 @@
         </div>
         <div class="flex items-center gap-1.5 shrink-0">
             <button type="button" onclick="installPWAApp()" class="bg-primary-600 hover:bg-primary-700 text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-md transition-colors">Install</button>
-            <button type="button" onclick="dismissPWABanner()" class="text-slate-400 hover:text-slate-600 p-1.5 text-xs"><i class="fas fa-times"></i></button>
+            <button type="button" onclick="dismissPWABanner()" aria-label="Tutup banner instalasi" title="Tutup" class="text-slate-400 hover:text-slate-600 p-1.5 text-xs"><i class="fas fa-times"></i></button>
         </div>
     </div>
 
@@ -1642,7 +1655,7 @@
                 </div>
                 <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
-            <button type="button" onclick="event.stopPropagation(); dismissOtaToast();" class="text-slate-400 hover:text-white p-1 text-xs shrink-0 ml-0.5" title="Tutup">
+            <button type="button" onclick="event.stopPropagation(); dismissOtaToast();" aria-label="Tutup notifikasi pembaruan" class="text-slate-400 hover:text-white p-1 text-xs shrink-0 ml-0.5" title="Tutup">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -1655,7 +1668,7 @@
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white dark:bg-[#17212b] shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 flex flex-col">
         <div class="bg-primary-600 p-5 text-white flex justify-between items-center shrink-0 shadow-md">
             <h2 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-layer-group"></i> Menu Dasbor</h2>
-            <button type="button" onclick="toggleSidebar()" class="text-primary-200 hover:text-white text-2xl focus:outline-none"><i class="fas fa-times"></i></button>
+            <button type="button" onclick="toggleSidebar()" aria-label="Tutup navigasi sidebar" title="Tutup navigasi" class="text-primary-200 hover:text-white text-2xl focus:outline-none"><i class="fas fa-times"></i></button>
         </div>
         
         <!-- SEKSI AKUN GOOGLE & CLOUD SYNC -->
@@ -1709,14 +1722,14 @@
         <!-- Sektor Pengaturan & Tema di Dasar Sidebar -->
         <div class="p-4 border-t border-slate-200 dark:border-[#242f3d] flex justify-between items-center mt-auto relative shrink-0 bg-slate-50 dark:bg-[#0e1621]/60">
             <div>
-                <button type="button" onclick="toggleSettings()" class="w-12 h-12 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-10 hover:bg-slate-100 dark:hover:bg-[#313f52] transition-colors">
+                <button type="button" onclick="toggleSettings()" aria-label="Buka menu pengaturan" title="Pengaturan Sistem" class="w-12 h-12 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-10 hover:bg-slate-100 dark:hover:bg-[#313f52] transition-colors">
                     <i id="icon-gear" class="fas fa-cog text-lg transform transition-transform duration-300"></i>
                 </button>
 
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-20 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor APK Mandiri v1.1.3 (Stable) (OTA Aktif)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fab fa-android text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor APK Mandiri v1.1.4 (Stable) (OTA Aktif)</span></div>
                     
                     <!-- SELEKTOR BAHASA (BILINGUAL i18n ID & EN) -->
                     <div class="bg-slate-100/80 dark:bg-[#242f3d]/70 rounded-2xl p-2 border border-slate-200/80 dark:border-[#313f52]/80">
@@ -1880,6 +1893,12 @@
                         </div>
                     </div>
 
+                    <!-- Kebijakan Privasi / Privacy Policy Link -->
+                    <a href="privacy.html" class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center justify-between transition-colors border border-slate-200/50 dark:border-[#313f52]/50">
+                        <span class="flex items-center"><i class="fas fa-user-shield mr-2 text-emerald-500"></i> <span data-i18n="settings_privacy_policy">Kebijakan Privasi</span></span>
+                        <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
+                    </a>
+
                     <!-- Kontak & Feedback (Dipindahkan ke paling bawah) -->
                     <div class="mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d] text-center">
                         <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Kontak &amp; Feedback</p>
@@ -1891,7 +1910,7 @@
             </div>
 
             <!-- Tombol Dark Mode GPU-Accelerated Zero Lag Morph -->
-            <button type="button" id="btn-dark-mode-toggle" onclick="toggleDarkMode()" class="w-12 h-12 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-yellow-400 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none hover:bg-slate-100 dark:hover:bg-[#313f52] relative overflow-hidden">
+            <button type="button" id="btn-dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Ganti mode gelap atau terang" title="Ganti Tema" class="w-12 h-12 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-yellow-400 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none hover:bg-slate-100 dark:hover:bg-[#313f52] relative overflow-hidden">
                 <div class="relative w-6 h-6 flex items-center justify-center pointer-events-none">
                     <i id="icon-moon" class="theme-icon-morph fas fa-moon text-lg absolute text-slate-700 transform scale-100 rotate-0 opacity-100 dark:scale-0 dark:-rotate-90 dark:opacity-0"></i>
                     <i id="icon-sun" class="theme-icon-morph fas fa-sun text-lg absolute text-yellow-400 transform scale-0 rotate-90 opacity-0 dark:scale-100 dark:rotate-0 dark:opacity-100"></i>
@@ -1905,10 +1924,35 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v1.1.3 (Stable)</h3>
-                <button type="button" onclick="closeBottomSheet('changelog-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v1.1.4 (Stable)</h3>
+                <button type="button" onclick="closeBottomSheet('changelog-modal')" aria-label="Tutup catatan pembaruan" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v1.1.4 (Stable) -->
+                <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-primary-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-primary-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500 text-xs"></i> Patch Rilis • v1.1.4 (Stable)</span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2 py-0.5 rounded-full shadow-xs">Audit &amp; Security Hardening</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Peningkatan Aksesibilitas WCAG, Keamanan CSP, Kebijakan Privasi, &amp; SEO Kanonikal</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-universal-access text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Aksesibilitas Standar WCAG 2.1:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Seluruh tombol ikonik pada antarmuka kini dilengkapi atribut <code>aria-label</code> dan <code>title</code> bilingual untuk dukungan penuh pembaca layar (screen reader).</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
+                            <i class="fas fa-lock text-teal-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Keamanan CSP &amp; Kebijakan Privasi:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Perlindungan Content-Security-Policy (CSP) teruji serta penerbitan halaman resmi <code>privacy.html</code> dan tautan kebijakan privasi di menu pengaturan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v1.1.3 (Stable) -->
                 <div class="p-3.5 bg-gradient-to-br from-purple-50 via-indigo-50 to-emerald-50 dark:from-purple-950/40 dark:via-indigo-950/30 dark:to-emerald-900/20 rounded-2xl border border-purple-200 dark:border-purple-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -2125,7 +2169,7 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-chart-pie text-sky-500"></i> <span data-i18n="analysis_modal_title">Analisis &amp; Statistik Keuangan</span></h3>
-                <button type="button" onclick="closeBottomSheet('analisis-keuangan-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('analisis-keuangan-modal')" aria-label="Tutup analisis keuangan" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
 
             <!-- Filter Periode Analisis -->
@@ -2210,7 +2254,7 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-clipboard-check text-rose-500"></i> <span data-i18n="quick_notes_title">Catatan &amp; Daftar Belanjaan</span></h3>
-                <button type="button" onclick="closeBottomSheet('catatan-kilat-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('catatan-kilat-modal')" aria-label="Tutup catatan kilat" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
 
             <!-- Form Tambah Catatan / Item Belanja -->
@@ -2264,7 +2308,7 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-bullseye text-amber-500"></i> <span data-i18n="calc_modal_title">Kalkulator &amp; Rencana Impian</span></h3>
-                <button type="button" onclick="closeBottomSheet('kalkulator-keuangan-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('kalkulator-keuangan-modal')" aria-label="Tutup kalkulator impian" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
 
             <div class="space-y-3 overflow-y-auto pr-1 flex-1">
@@ -2346,7 +2390,7 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-calendar-check text-primary-500"></i> <span data-i18n="rekap_modal_title">Setor Rekap Hari Ini</span></h3>
-                <button type="button" onclick="closeBottomSheet('rekap-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('rekap-modal')" aria-label="Tutup setor rekap" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3 font-semibold" data-i18n="rekap_modal_desc">Tuliskan pencapaian dan hal bermakna hari ini:</p>
             
@@ -2355,11 +2399,11 @@
             <div class="flex items-center justify-between mb-4 bg-slate-50 dark:bg-[#242f3d]/40 p-3 rounded-2xl border border-slate-200 dark:border-[#313f52]">
                 <span class="text-xs font-bold text-slate-600 dark:text-slate-300" data-i18n="rekap_rating_label">Rating Hari Ini:</span>
                 <div class="flex gap-2 text-amber-400 text-base" id="star-rating-container">
-                    <button type="button" onclick="selectRekapRating(1)" class="star-btn"><i class="fas fa-star"></i></button>
-                    <button type="button" onclick="selectRekapRating(2)" class="star-btn"><i class="fas fa-star"></i></button>
-                    <button type="button" onclick="selectRekapRating(3)" class="star-btn"><i class="fas fa-star"></i></button>
-                    <button type="button" onclick="selectRekapRating(4)" class="star-btn"><i class="fas fa-star"></i></button>
-                    <button type="button" onclick="selectRekapRating(5)" class="star-btn"><i class="fas fa-star"></i></button>
+                    <button type="button" onclick="selectRekapRating(1)" class="star-btn" aria-label="Bintang 1 dari 5" title="1 Bintang"><i class="fas fa-star"></i></button>
+                    <button type="button" onclick="selectRekapRating(2)" class="star-btn" aria-label="Bintang 2 dari 5" title="2 Bintang"><i class="fas fa-star"></i></button>
+                    <button type="button" onclick="selectRekapRating(3)" class="star-btn" aria-label="Bintang 3 dari 5" title="3 Bintang"><i class="fas fa-star"></i></button>
+                    <button type="button" onclick="selectRekapRating(4)" class="star-btn" aria-label="Bintang 4 dari 5" title="4 Bintang"><i class="fas fa-star"></i></button>
+                    <button type="button" onclick="selectRekapRating(5)" class="star-btn" aria-label="Bintang 5 dari 5" title="5 Bintang"><i class="fas fa-star"></i></button>
                 </div>
             </div>
 
@@ -2374,7 +2418,7 @@
             <div class="drag-handle w-12 h-1.5 bg-white/40 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3">
                 <span class="text-xs bg-white/20 px-3 py-1 rounded-full font-bold uppercase tracking-wider" data-i18n="wrapped_modal_title">Kilas Balik Tahunan</span>
-                <button type="button" onclick="closeBottomSheet('wrapped-modal')" class="text-white/70 hover:text-white"><i class="fas fa-times text-base"></i></button>
+                <button type="button" onclick="closeBottomSheet('wrapped-modal')" aria-label="Tutup kilas balik tahunan" class="text-white/70 hover:text-white"><i class="fas fa-times text-base"></i></button>
             </div>
 
             <h2 class="text-xl font-black mb-1" data-i18n="wrapped_journey_title">Perjalanan Anda Tahun Ini 🚀</h2>
@@ -2414,7 +2458,7 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-sliders-h text-purple-500"></i> <span data-i18n="widget_mgr_home_title">Atur Widget Beranda</span></h3>
-                <button type="button" onclick="closeBottomSheet('widget-manager-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('widget-manager-modal')" aria-label="Tutup atur widget beranda" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 font-semibold" data-i18n="widget_mgr_home_desc">Pilih widget yang ingin ditampilkan di halaman Beranda:</p>
             
@@ -2447,7 +2491,7 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-sliders-h text-emerald-500"></i> <span data-i18n="widget_mgr_fin_title">Atur Widget Keuangan</span></h3>
-                <button type="button" onclick="closeBottomSheet('finance-widget-manager-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('finance-widget-manager-modal')" aria-label="Tutup atur widget keuangan" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 font-semibold" data-i18n="widget_mgr_fin_desc">Pilih widget yang ingin ditampilkan di halaman Kelola Keuangan:</p>
             
@@ -2495,18 +2539,18 @@
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
                     <i class="fas fa-calendar-alt text-primary-500"></i> <span data-i18n="calendar_modal_title">Kalender Terpadu &amp; Rekap</span>
                 </h3>
-                <button type="button" onclick="closeBottomSheet('activity-calendar-modal')" class="text-slate-400 hover:text-slate-600 p-1">
+                <button type="button" onclick="closeBottomSheet('activity-calendar-modal')" aria-label="Tutup kalender terpadu" class="text-slate-400 hover:text-slate-600 p-1">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
 
             <!-- Header Navigasi Bulan -->
             <div class="flex items-center justify-between bg-slate-50 dark:bg-[#242f3d]/50 p-2.5 rounded-2xl mb-3 border border-slate-200 dark:border-[#313f52]">
-                <button type="button" onclick="changeCalendarMonth(-1)" class="w-8 h-8 rounded-xl bg-white dark:bg-[#17212b] text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-[#313f52] shadow-xs transition-all active:scale-95">
+                <button type="button" onclick="changeCalendarMonth(-1)" aria-label="Bulan sebelumnya" title="Bulan Sebelumnya" class="w-8 h-8 rounded-xl bg-white dark:bg-[#17212b] text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-[#313f52] shadow-xs transition-all active:scale-95">
                     <i class="fas fa-chevron-left text-xs"></i>
                 </button>
                 <span id="calendar-month-year-title" class="text-xs font-black text-slate-800 dark:text-white"></span>
-                <button type="button" onclick="changeCalendarMonth(1)" class="w-8 h-8 rounded-xl bg-white dark:bg-[#17212b] text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-[#313f52] shadow-xs transition-all active:scale-95">
+                <button type="button" onclick="changeCalendarMonth(1)" aria-label="Bulan berikutnya" title="Bulan Berikutnya" class="w-8 h-8 rounded-xl bg-white dark:bg-[#17212b] text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-[#313f52] shadow-xs transition-all active:scale-95">
                     <i class="fas fa-chevron-right text-xs"></i>
                 </button>
             </div>
@@ -2544,7 +2588,7 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-file-pdf text-red-500"></i> <span data-i18n="pdf_modal_title">Laporan Keuangan &amp; Aktivitas</span></h3>
-                <button type="button" onclick="closeBottomSheet('pdf-report-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('pdf-report-modal')" aria-label="Tutup pratinjau cetak PDF" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             
             <div id="pdf-preview-content" class="space-y-3 text-xs mb-4"></div>
@@ -2562,7 +2606,7 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-bullseye text-amber-500"></i> <span data-i18n="budget_modal_title">Limit Anggaran Bulanan</span></h3>
-                <button type="button" onclick="closeBottomSheet('budget-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('budget-modal')" aria-label="Tutup limit anggaran" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3" data-i18n="budget_modal_desc">Tentukan batas maksimal pengeluaran per kategori setiap bulan. Kosongkan atau isi 0 jika tanpa batas.</p>
             
@@ -2602,7 +2646,7 @@
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
                 <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-calendar-check text-purple-500"></i> <span data-i18n="subs_modal_title">Kelola Tagihan &amp; Langganan</span></h3>
-                <button type="button" onclick="closeBottomSheet('subscription-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('subscription-modal')" aria-label="Tutup tagihan dan langganan" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             
             <!-- Form Tambah Langganan -->
@@ -2650,7 +2694,7 @@
                         <p class="text-[10px] text-slate-400 font-medium" data-i18n="reset_modal_desc">Centang kategori data yang ingin Anda bersihkan</p>
                     </div>
                 </div>
-                <button type="button" onclick="closeBottomSheet('modal-reset-selektif')" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-[#242f3d] transition-colors"><i class="fas fa-times"></i></button>
+                <button type="button" onclick="closeBottomSheet('modal-reset-selektif')" aria-label="Tutup hapus data terpilih" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-[#242f3d] transition-colors"><i class="fas fa-times"></i></button>
             </div>
 
             <!-- Tombol Aksi Cepat Pilih Semua / Batal Pilih -->
@@ -2783,15 +2827,15 @@
     <!-- HEADER ATAS BERSIH -->
     <header id="app-header" class="bg-primary-600 text-white p-4 shadow-md z-30 flex justify-between items-center shrink-0 sticky top-0">
         <div class="flex items-center gap-3">
-            <button id="header-bars-btn" type="button" onclick="toggleSidebar()" class="text-white hover:text-primary-200 text-xl focus:outline-none"><i class="fas fa-bars"></i></button>
-            <button id="header-back-btn" type="button" onclick="switchTab('beranda')" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none" title="Kembali ke Beranda" data-i18n-title="header_back_tooltip"><i class="fas fa-arrow-left"></i></button>
+            <button id="header-bars-btn" type="button" onclick="toggleSidebar()" aria-label="Buka navigasi sidebar" title="Menu Navigasi" class="text-white hover:text-primary-200 text-xl focus:outline-none"><i class="fas fa-bars"></i></button>
+            <button id="header-back-btn" type="button" onclick="switchTab('beranda')" aria-label="Kembali ke Beranda" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none" title="Kembali ke Beranda" data-i18n-title="header_back_tooltip"><i class="fas fa-arrow-left"></i></button>
             <h1 id="header-title" class="text-xl font-bold tracking-wide transition-opacity duration-300" data-i18n="app_title">Dasbor</h1>
         </div>
         <div class="flex items-center gap-2">
-            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md flex items-center justify-center text-white text-xs transition-all shadow-xs" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
+            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md flex items-center justify-center text-white text-xs transition-all shadow-xs" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
                 <i class="fas fa-calendar-alt"></i>
             </button>
-            <button type="button" onclick="toggleSidebar()" id="header-account-btn" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md transition-all text-xs font-bold text-white focus:outline-none shadow-xs" title="Status Cloud &amp; Akun">
+            <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md transition-all text-xs font-bold text-white focus:outline-none shadow-xs" title="Status Cloud &amp; Akun">
                 <i class="fas fa-cloud text-xs" id="header-cloud-status-icon"></i>
                 <span id="header-user-badge-text" class="text-[11px] max-w-[85px] truncate" data-i18n="cloud_status_local">Lokal</span>
             </button>
@@ -2812,7 +2856,7 @@
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
                     <button type="button" onclick="openRekapModal()" class="bg-amber-500 text-white font-bold text-[11px] px-2.5 py-1 rounded-xl shadow-sm hover:bg-amber-600 transition-colors" data-i18n="home_rekap_btn">+ Setor</button>
-                    <button type="button" onclick="dismissRekapBanner()" title="Tutup pengingat" class="text-amber-600 dark:text-amber-300 hover:text-amber-800 p-1 text-xs"><i class="fas fa-times"></i></button>
+                    <button type="button" onclick="dismissRekapBanner()" aria-label="Tutup pengingat rekap" title="Tutup pengingat" class="text-amber-600 dark:text-amber-300 hover:text-amber-800 p-1 text-xs"><i class="fas fa-times"></i></button>
                 </div>
             </div>
 
@@ -2846,7 +2890,7 @@
                         <div class="flex justify-between items-center mb-1">
                             <p class="text-white/90 text-sm font-semibold flex items-center gap-2">
                                 <span data-i18n="home_balance_title">Total Saldo Tersedia</span>
-                                <button type="button" onclick="togglePrivacyMode()" title="Sembunyikan/Tampilkan Saldo" class="opacity-80 hover:opacity-100 focus:outline-none"><i id="card-eye-icon" class="fas fa-eye text-xs"></i></button>
+                                <button type="button" onclick="togglePrivacyMode()" aria-label="Sembunyikan atau tampilkan saldo" title="Sembunyikan/Tampilkan Saldo" class="opacity-80 hover:opacity-100 focus:outline-none"><i id="card-eye-icon" class="fas fa-eye text-xs"></i></button>
                             </p>
                         </div>
                         <h3 id="stat-saldo" data-val="0" onclick="runSmartInsightsSequence(true)" title="Ketuk untuk memutar ulang Wawasan Pintar" class="text-3xl font-black tracking-tight cursor-pointer select-none active:opacity-90">Rp 0</h3>
@@ -2899,7 +2943,7 @@
             <div class="relative mb-3">
                 <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
                 <input type="text" id="search-tugas" placeholder="Cari nama tugas..." data-i18n-placeholder="tasks_search_placeholder" oninput="filterTugas(this.value)" class="w-full rounded-2xl pl-9 pr-8 py-2.5 text-xs font-bold border border-slate-200 dark:border-[#242f3d] focus:outline-none focus:ring-2 focus:ring-primary-500">
-                <button type="button" onclick="clearSearchTugas()" id="btn-clear-search-tugas" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"><i class="fas fa-times-circle text-xs"></i></button>
+                <button type="button" onclick="clearSearchTugas()" id="btn-clear-search-tugas" aria-label="Hapus teks pencarian tugas" title="Hapus pencarian" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"><i class="fas fa-times-circle text-xs"></i></button>
             </div>
             
             <!-- Area Input Tugas -->
@@ -3273,7 +3317,7 @@
                     <div class="relative mb-2">
                         <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
                         <input type="text" id="search-transaksi" placeholder="Cari transaksi..." data-i18n-placeholder="finances_search_placeholder" oninput="filterTransaksi(this.value)" class="w-full rounded-2xl pl-9 pr-8 py-2.5 text-xs font-bold border border-slate-200 dark:border-[#242f3d] focus:outline-none focus:ring-2 focus:ring-primary-500">
-                        <button type="button" onclick="clearSearchTransaksi()" id="btn-clear-search-transaksi" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"><i class="fas fa-times-circle text-xs"></i></button>
+                        <button type="button" onclick="clearSearchTransaksi()" id="btn-clear-search-transaksi" aria-label="Hapus teks pencarian transaksi" title="Hapus pencarian" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"><i class="fas fa-times-circle text-xs"></i></button>
                     </div>
 
                     <!-- Accordion Riwayat Transaksi -->
@@ -3400,7 +3444,7 @@
             </div>
 
             <!-- Tombol FAB Utama -->
-            <button type="button" id="fab-quick-add" onclick="toggleFabSpeedDial()" class="w-12 h-12 rounded-full border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] text-base">
+            <button type="button" id="fab-quick-add" onclick="toggleFabSpeedDial()" aria-label="Menu Aksi Cepat Tambah Data" title="Aksi Cepat" class="w-12 h-12 rounded-full border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] text-base">
                 <i id="fab-plus-icon" class="fas fa-plus text-primary-600 dark:text-primary-400 transform transition-transform duration-300"></i>
             </button>
         </div>
@@ -3715,7 +3759,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "Dasbor APK Mandiri v1.1.3 (Stable) (OTA Aktif)",
+                settings_app_name_version: "Dasbor APK Mandiri v1.1.4 (Stable) (OTA Aktif)",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
                 settings_gradient_title: "Gradasi Saldo",
@@ -3744,6 +3788,7 @@
                 settings_android_banner_desc: "Bar Aksi (4x1) & Kartu Saldo (4x2)",
                 settings_download_apk: "Unduh File APK",
                 settings_sync_widget: "Sinkronkan Saldo ke Widget",
+                settings_privacy_policy: "Kebijakan Privasi",
                 settings_contact_feedback: "Kontak & Feedback",
 
                 // Sidebar
@@ -4143,7 +4188,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "Dasbor Standalone APK v1.1.3 (Stable) (OTA Active)",
+                settings_app_name_version: "Dasbor Standalone APK v1.1.4 (Stable) (OTA Active)",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
                 settings_gradient_title: "Balance Gradient",
@@ -4172,6 +4217,7 @@
                 settings_android_banner_desc: "Action Bar (4x1) & Balance Card (4x2)",
                 settings_download_apk: "Download APK File",
                 settings_sync_widget: "Sync Balance to Widget",
+                settings_privacy_policy: "Privacy Policy",
                 settings_contact_feedback: "Contact & Feedback",
 
                 // Sidebar
@@ -5276,7 +5322,7 @@
                             </div>
                             <span class="text-[10px] font-black text-rose-600 dark:text-rose-400">${formatRupiah(s.nominal)} ${t('subs_per_month', '/ bln')}</span>
                         </div>
-                        <button type="button" onclick="hapusLangganan(${s.id})" class="text-slate-300 hover:text-red-500 p-1.5"><i class="fas fa-trash text-xs"></i></button>
+                        <button type="button" onclick="hapusLangganan(${s.id})" aria-label="${t('savings_delete_tooltip', 'Hapus')}" title="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 p-1.5"><i class="fas fa-trash text-xs"></i></button>
                     </div>
                 `;
             }).join('');
@@ -6112,7 +6158,7 @@
                         </div>
                         <div class="flex items-center gap-2 shrink-0">
                             ${badge}
-                            <button type="button" onclick="hapusCatatanKilat(${item.id})" class="text-slate-400 hover:text-rose-500 p-1 rounded-lg transition-colors" title="${t('savings_delete_tooltip', 'Hapus')}">
+                            <button type="button" onclick="hapusCatatanKilat(${item.id})" aria-label="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-400 hover:text-rose-500 p-1 rounded-lg transition-colors" title="${t('savings_delete_tooltip', 'Hapus')}">
                                 <i class="fas fa-trash-alt text-xs"></i>
                             </button>
                         </div>
@@ -8034,7 +8080,7 @@
                     </span>
                     <div class="flex items-center gap-1.5 shrink-0">
                         <span class="subtask-date-badge text-[9px] font-medium text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-[#1f2937] px-1.5 py-0.5 rounded-md flex items-center gap-1 ${isDateHidden ? 'hidden' : ''}"><i class="far fa-calendar-alt text-[8px] opacity-75"></i> ${tgl}</span>
-                        <button type="button" onclick="hapusTempSubtask(${idx})" class="text-slate-400 hover:text-red-500 p-0.5 focus:outline-none" title="${t('savings_delete_tooltip', 'Hapus')}"><i class="fas fa-times text-xs"></i></button>
+                        <button type="button" onclick="hapusTempSubtask(${idx})" aria-label="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-400 hover:text-red-500 p-0.5 focus:outline-none" title="${t('savings_delete_tooltip', 'Hapus')}"><i class="fas fa-times text-xs"></i></button>
                     </div>
                 </div>`;
             });
@@ -8590,7 +8636,7 @@
                     </span>
                     <div class="flex items-center gap-1.5">
                         ${!isDone ? `<button type="button" onclick="setorTabungan(${tab.id})" class="text-[10px] bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300 font-bold px-2.5 py-0.5 rounded-lg hover:bg-emerald-200">${t('savings_deposit_btn', '+ Setor')}</button>` : ''}
-                        <button type="button" onclick="hapusTargetTabungan(${tab.id})" class="text-slate-400 hover:text-red-500 p-0.5 transition-colors" title="${t('savings_delete_tooltip', 'Hapus')}"><i class="fas fa-trash text-[10px]"></i></button>
+                        <button type="button" onclick="hapusTargetTabungan(${tab.id})" aria-label="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-400 hover:text-red-500 p-0.5 transition-colors" title="${t('savings_delete_tooltip', 'Hapus')}"><i class="fas fa-trash text-[10px]"></i></button>
                     </div>
                 </div>
                 <div class="liquid-progress-track my-2">
@@ -9094,11 +9140,14 @@
             var animStrikeClass = ((task.selesai && isJustToggled) || isActivelyToggling) ? ' animate-strike-fade' : '';
             var isTaskChecked = task.selesai || isActivelyToggling;
 
+            var labelSelesai = isTaskChecked 
+                ? (task.selesai ? t('task_tooltip_undo', 'Urungkan Tugas') : t('task_tooltip_done', 'Tandai Selesai'))
+                : t('task_tooltip_done', 'Tandai Selesai');
             var btnSelesai = isTaskChecked 
-                ? `<button type="button" onclick="toggleStatusTugas(${task.id})" class="w-8 h-8 rounded-full ${task.selesai ? 'bg-primary-100 dark:bg-primary-900/50 text-primary-500' : 'bg-emerald-500 text-white'} flex items-center justify-center${animCheckClass}" title="${task.selesai ? t('task_tooltip_undo', 'Urungkan Tugas') : t('task_tooltip_done', 'Tandai Selesai')}"><i class="fas ${task.selesai ? 'fa-undo' : 'fa-check'} text-xs"></i></button>`
-                : `<button type="button" onclick="toggleStatusTugas(${task.id})" class="w-8 h-8 rounded-full border-2 border-slate-300 dark:border-[#313f52] text-slate-400 hover:bg-green-500 hover:text-white flex items-center justify-center transition-colors${animCheckClass}" title="${t('task_tooltip_done', 'Tandai Selesai')}"><i class="fas fa-check text-xs"></i></button>`;
+                ? `<button type="button" onclick="toggleStatusTugas(${task.id})" class="w-8 h-8 rounded-full ${task.selesai ? 'bg-primary-100 dark:bg-primary-900/50 text-primary-500' : 'bg-emerald-500 text-white'} flex items-center justify-center${animCheckClass}" aria-label="${labelSelesai}" title="${labelSelesai}"><i class="fas ${task.selesai ? 'fa-undo' : 'fa-check'} text-xs"></i></button>`
+                : `<button type="button" onclick="toggleStatusTugas(${task.id})" class="w-8 h-8 rounded-full border-2 border-slate-300 dark:border-[#313f52] text-slate-400 hover:bg-green-500 hover:text-white flex items-center justify-center transition-colors${animCheckClass}" aria-label="${labelSelesai}" title="${labelSelesai}"><i class="fas fa-check text-xs"></i></button>`;
             
-            var btnHapus = `<button type="button" onclick="hapusTugas(${task.id}, this)" class="text-slate-300 hover:text-red-500 p-1.5 focus:outline-none" title="${t('task_tooltip_delete', 'Hapus Tugas')}"><i class="fas fa-trash text-xs"></i></button>`;
+            var btnHapus = `<button type="button" onclick="hapusTugas(${task.id}, this)" class="text-slate-300 hover:text-red-500 p-1.5 focus:outline-none" aria-label="${t('task_tooltip_delete', 'Hapus Tugas')}" title="${t('task_tooltip_delete', 'Hapus Tugas')}"><i class="fas fa-trash text-xs"></i></button>`;
 
             var badgeDL = '';
             if(task.deadline && !task.selesai) {
@@ -9147,7 +9196,7 @@
                             <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] subtasks-arrow-spring" style="${isAccordionOpen ? 'transform: rotate(180deg);' : 'transform: rotate(0deg);'}"></i>
                         </button>
                         <div class="flex items-center gap-2">
-                            <button type="button" onclick="toggleOpsiSubtaskTanggal()" class="text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 text-[10px] flex items-center gap-1 focus:outline-none transition-colors p-0.5" title="${dataState.optSubtaskTanggalDibuat !== false ? t('subtasks_tooltip_hide_date', 'Sembunyikan Tanggal Sub Tugas') : t('subtasks_tooltip_show_date', 'Tampilkan Tanggal Sub Tugas')}">
+                            <button type="button" onclick="toggleOpsiSubtaskTanggal()" aria-label="${dataState.optSubtaskTanggalDibuat !== false ? t('subtasks_tooltip_hide_date', 'Sembunyikan Tanggal Sub Tugas') : t('subtasks_tooltip_show_date', 'Tampilkan Tanggal Sub Tugas')}" class="text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 text-[10px] flex items-center gap-1 focus:outline-none transition-colors p-0.5" title="${dataState.optSubtaskTanggalDibuat !== false ? t('subtasks_tooltip_hide_date', 'Sembunyikan Tanggal Sub Tugas') : t('subtasks_tooltip_show_date', 'Tampilkan Tanggal Sub Tugas')}">
                                 <i class="${dataState.optSubtaskTanggalDibuat !== false ? 'fas fa-calendar-alt text-emerald-500' : 'far fa-calendar text-slate-400'} text-[10px]"></i>
                             </button>
                             <span id="subtasks-pct-${task.id}" class="text-[10px] font-black text-emerald-600 dark:text-emerald-400">${pct}%</span>
@@ -9183,7 +9232,7 @@
                     </label>
                     <div class="flex items-center gap-1.5 shrink-0">
                         ${dateBadgeHTML}
-                        <button type="button" onclick="hapusSubtask(${task.id}, ${st.id})" class="text-slate-300 hover:text-red-500 active:scale-90 p-1 focus:outline-none transition-transform" title="${t('savings_delete_tooltip', 'Hapus')}"><i class="fas fa-times text-[10px]"></i></button>
+                        <button type="button" onclick="hapusSubtask(${task.id}, ${st.id})" aria-label="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 active:scale-90 p-1 focus:outline-none transition-transform" title="${t('savings_delete_tooltip', 'Hapus')}"><i class="fas fa-times text-[10px]"></i></button>
                     </div>
                 </div>`;
             });
@@ -9198,7 +9247,7 @@
                         ${!task.selesai ? `
                         <div class="flex items-center gap-1.5 pt-0.5">
                             <input type="text" id="input-new-subtask-${task.id}" placeholder="${t('subtasks_placeholder_inline', 'Ketik sub tugas baru...')}" onkeydown="if(event.key==='Enter'){event.preventDefault(); tambahSubtaskInline(${task.id});}" class="flex-1 rounded-xl px-2.5 py-1.5 text-xs font-medium bg-slate-100 dark:bg-[#242f3d] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all">
-                            <button type="button" onclick="tambahSubtaskInline(${task.id})" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1 shadow-xs">
+                            <button type="button" onclick="tambahSubtaskInline(${task.id})" aria-label="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" title="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1 shadow-xs">
                                 <i class="fas fa-plus text-[10px]"></i>
                             </button>
                         </div>` : ''}
@@ -9401,7 +9450,7 @@
                             </div>
                             <div class="flex items-center gap-2 shrink-0">
                                 <span class="text-xs font-black ${trx.jenis === 'masuk' ? 'text-green-600' : 'text-red-600'}">${trx.jenis === 'masuk' ? '+' : '-'} ${formatRupiah(trx.nominal)}</span>
-                                <button type="button" onclick="hapusTransaksi(${trx.id}, this)" class="text-slate-300 hover:text-red-500 p-1"><i class="fas fa-trash text-xs"></i></button>
+                                <button type="button" onclick="hapusTransaksi(${trx.id}, this)" aria-label="${t('savings_delete_tooltip', 'Hapus')}" title="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 p-1"><i class="fas fa-trash text-xs"></i></button>
                             </div>
                         </li>
                     `).join('')}</ul>`
@@ -9424,7 +9473,7 @@
                         <div class="jurnal-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm relative overflow-hidden compact-pad">
                             <div class="flex justify-between items-start mb-1">
                                 <span class="text-[10px] text-slate-400 font-bold">${j.tanggal}</span>
-                                <div class="flex items-center gap-2"><span>${j.mood || '😊'}</span><button type="button" onclick="hapusJurnal(${j.id}, this)" class="text-slate-300 hover:text-red-500"><i class="fas fa-trash text-xs"></i></button></div>
+                                <div class="flex items-center gap-2"><span>${j.mood || '😊'}</span><button type="button" onclick="hapusJurnal(${j.id}, this)" aria-label="${t('savings_delete_tooltip', 'Hapus')}" title="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 p-1"><i class="fas fa-trash text-xs"></i></button></div>
                             </div>
                             <h3 class="font-bold text-slate-800 dark:text-white text-sm mb-1 compact-text-title">${escapeHtml(j.judul)}</h3>
                             <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">${escapeHtml(j.isi)}</p>
@@ -9443,10 +9492,10 @@
             var isLast = (index >= total - 1);
             var html = '<div class="flex items-center gap-1">';
             if (!isFirst) {
-                html += `<button type="button" onclick="moveWidget('${key}', 'up')" title="Geser ke Atas" class="text-slate-400 hover:text-primary-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-up"></i></button>`;
+                html += `<button type="button" onclick="moveWidget('${key}', 'up')" title="Geser ke Atas" aria-label="Geser Widget ke Atas" class="text-slate-400 hover:text-primary-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-up"></i></button>`;
             }
             if (!isLast) {
-                html += `<button type="button" onclick="moveWidget('${key}', 'down')" title="Geser ke Bawah" class="text-slate-400 hover:text-primary-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-down"></i></button>`;
+                html += `<button type="button" onclick="moveWidget('${key}', 'down')" title="Geser ke Bawah" aria-label="Geser Widget ke Bawah" class="text-slate-400 hover:text-primary-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-down"></i></button>`;
             }
             html += '</div>';
             return html;
@@ -9458,10 +9507,10 @@
             var isLast = (index >= total - 1);
             var html = '<div class="flex items-center gap-1">';
             if (!isFirst) {
-                html += `<button type="button" onclick="moveFinanceWidget('${key}', 'up')" title="Geser ke Atas" class="text-slate-400 hover:text-emerald-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-up"></i></button>`;
+                html += `<button type="button" onclick="moveFinanceWidget('${key}', 'up')" title="Geser ke Atas" aria-label="Geser Widget Keuangan ke Atas" class="text-slate-400 hover:text-emerald-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-up"></i></button>`;
             }
             if (!isLast) {
-                html += `<button type="button" onclick="moveFinanceWidget('${key}', 'down')" title="Geser ke Bawah" class="text-slate-400 hover:text-emerald-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-down"></i></button>`;
+                html += `<button type="button" onclick="moveFinanceWidget('${key}', 'down')" title="Geser ke Bawah" aria-label="Geser Widget Keuangan ke Bawah" class="text-slate-400 hover:text-emerald-500 p-1 text-[10px] transition-colors"><i class="fas fa-chevron-down"></i></button>`;
             }
             html += '</div>';
             return html;
@@ -10773,7 +10822,7 @@
             }, 1200);
         }
 
-        const CURRENT_APP_VERSION = 'v1.1.3 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.1.4 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {

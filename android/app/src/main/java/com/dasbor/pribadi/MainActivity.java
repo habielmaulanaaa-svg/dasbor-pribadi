@@ -550,7 +550,7 @@ public class MainActivity extends AppCompatActivity {
 
         @JavascriptInterface
         public String getAppVersion() {
-            return "v1.1.3 (Stable)";
+            return "v1.1.4 (Stable)";
         }
 
         @JavascriptInterface
