@@ -168,12 +168,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl();
-                return handleUrlScheme(uri);
+                return handleUrlScheme(view, uri);
             }
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return handleUrlScheme(Uri.parse(url));
+                return handleUrlScheme(view, Uri.parse(url));
             }
 
             @Override
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         loadAppContent(null);
     }
 
-    private boolean handleUrlScheme(Uri uri) {
+    private boolean handleUrlScheme(WebView view, Uri uri) {
         if (uri == null) return false;
         String scheme = uri.getScheme();
 
@@ -214,6 +214,24 @@ public class MainActivity extends AppCompatActivity {
 
         // 2. Skema file lokal
         if ("file".equalsIgnoreCase(scheme)) {
+            String path = uri.getPath();
+            if (path != null && path.endsWith("privacy.html")) {
+                File otaDir = new File(getFilesDir(), "ota_bundle");
+                File privacyFile = new File(otaDir, "privacy.html");
+                if (!privacyFile.exists() || privacyFile.length() < 1000) {
+                    copyAssetToFile("privacy.html", privacyFile);
+                }
+                if (privacyFile.exists() && privacyFile.length() > 1000) {
+                    view.loadUrl("file://" + privacyFile.getAbsolutePath());
+                } else {
+                    view.loadUrl("file:///android_asset/privacy.html");
+                }
+                return true;
+            }
+            if (path != null && path.endsWith("index.html")) {
+                loadAppContent(null);
+                return true;
+            }
             return false;
         }
 
@@ -230,10 +248,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadAppContent(String targetAction) {
         File otaDir = new File(getFilesDir(), "ota_bundle");
+        if (!otaDir.exists()) otaDir.mkdirs();
         File otaFile = new File(otaDir, "index.html");
+        File privacyOta = new File(otaDir, "privacy.html");
 
         if (!otaFile.exists() || otaFile.length() < 50000) {
             copyAssetToFile("index.html", otaFile);
+        }
+        if (!privacyOta.exists() || privacyOta.length() < 1000) {
+            copyAssetToFile("privacy.html", privacyOta);
         }
 
         String targetUrl;
@@ -615,6 +638,22 @@ public class MainActivity extends AppCompatActivity {
         @JavascriptInterface
         public void reloadApp() {
             mainHandler.post(() -> MainActivity.this.loadAppContent(null));
+        }
+
+        @JavascriptInterface
+        public void openPrivacyPolicy() {
+            mainHandler.post(() -> {
+                File otaDir = new File(getFilesDir(), "ota_bundle");
+                File privacyFile = new File(otaDir, "privacy.html");
+                if (!privacyFile.exists() || privacyFile.length() < 1000) {
+                    copyAssetToFile("privacy.html", privacyFile);
+                }
+                if (privacyFile.exists() && privacyFile.length() > 1000) {
+                    webView.loadUrl("file://" + privacyFile.getAbsolutePath());
+                } else {
+                    webView.loadUrl("file:///android_asset/privacy.html");
+                }
+            });
         }
     }
 

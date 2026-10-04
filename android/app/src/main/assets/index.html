@@ -1893,11 +1893,11 @@
                         </div>
                     </div>
 
-                    <!-- Kebijakan Privasi / Privacy Policy Link -->
-                    <a href="privacy.html" class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center justify-between transition-colors border border-slate-200/50 dark:border-[#313f52]/50">
+                    <!-- Kebijakan Privasi / Privacy Policy Modal Trigger -->
+                    <button type="button" onclick="openBottomSheet('privacy-modal')" class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center justify-between transition-colors border border-slate-200/50 dark:border-[#313f52]/50">
                         <span class="flex items-center"><i class="fas fa-user-shield mr-2 text-emerald-500"></i> <span data-i18n="settings_privacy_policy">Kebijakan Privasi</span></span>
                         <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
-                    </a>
+                    </button>
 
                     <!-- Kontak & Feedback (Dipindahkan ke paling bawah) -->
                     <div class="mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d] text-center">
@@ -1964,6 +1964,73 @@
                 </div>
             </div>
             <button type="button" onclick="closeBottomSheet('changelog-modal')" class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md transition-colors" data-i18n="changelog_btn_close">Tutup Catatan</button>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet: Kebijakan Privasi (In-App Privacy Policy) -->
+    <div id="privacy-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
+        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
+            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-user-shield text-emerald-500"></i>
+                    <span data-i18n="privacy_modal_title">Kebijakan Privasi</span>
+                </h3>
+                <button type="button" onclick="closeBottomSheet('privacy-modal')" aria-label="Tutup kebijakan privasi" data-i18n-aria="privacy_btn_close_aria" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-primary-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-primary-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                            <i class="fas fa-shield-alt text-emerald-500 text-xs"></i>
+                            <span data-i18n="privacy_badge_offline">100% Offline-First & Zero-Knowledge</span>
+                        </span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium" data-i18n="privacy_subtitle">Terakhir diperbarui: 29 September 2026 • Versi Dokumen 1.1</p>
+                </div>
+
+                <div class="space-y-2.5 text-[11px] text-slate-700 dark:text-slate-300">
+                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
+                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec1_title">1. Arsitektur Offline-First & Penyimpanan Lokal</h4>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec1_desc">Seluruh catatan keuangan dan produktivitas tersimpan secara default di penyimpanan internal perangkat Anda (localStorage). Pengembang tidak memiliki akses langsung ke perangkat Anda atau catatan keuangan pribadi Anda.</p>
+                    </div>
+
+                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
+                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec2_title">2. Layanan Cloud Opsional (Google Firebase)</h4>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec2_desc">Penyimpanan cloud bersifat opsional. Jika Anda memilih masuk dengan akun Google, hanya email dan ID yang digunakan untuk otentikasi aman via Google Firebase. Data tidak pernah dibagikan atau dijual ke pihak ketiga.</p>
+                    </div>
+
+                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
+                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec3_title">3. Bebas Cookie & Pelacak Iklan</h4>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec3_desc">Aplikasi ini tidak menggunakan cookie iklan, analitik komersial, maupun pelacak perilaku. Penyimpanan lokal hanya digunakan secara teknis untuk mengingat preferensi tema, bahasa, dan saldo offline Anda.</p>
+                    </div>
+
+                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
+                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec4_title">4. Hak Pengguna & Kontrol Penuh Data</h4>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec4_desc">Anda memiliki kontrol 100%: Anda dapat mengekspor cadangan data JSON kapan saja, menghapus data selektif, atau keluar akun untuk menghentikan sinkronisasi cloud.</p>
+                    </div>
+
+                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
+                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec5_title">5. Keamanan & Enkripsi</h4>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec5_desc">Transmisi cloud dilindungi enkripsi standar industri HTTPS/TLS serta aturan keamanan Firestore Security Rules yang membatasi akses baca dan tulis hanya untuk pemilik akun terotentikasi.</p>
+                    </div>
+
+                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
+                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec6_title">6. Kontak & Pertanyaan</h4>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec6_desc">Pertanyaan atau permintaan penghapusan akun data cloud dapat diajukan melalui repositori resmi di GitHub: habielmaulanaaa-svg/dasbor-pribadi.</p>
+                    </div>
+                </div>
+
+                <!-- Tautan Dokumen Eksternal Standalone -->
+                <div class="p-3 bg-slate-50 dark:bg-[#1f2c3d]/60 rounded-2xl border border-dashed border-slate-200 dark:border-[#313f52] text-center">
+                    <a href="privacy.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 dark:text-primary-400 hover:underline" data-i18n="privacy_btn_open_external">
+                        Buka Halaman Mandiri (privacy.html) ↗
+                    </a>
+                </div>
+            </div>
+            <button type="button" onclick="closeBottomSheet('privacy-modal')" class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md transition-colors" data-i18n="privacy_btn_close">Tutup Kebijakan Privasi</button>
         </div>
     </div>
 
@@ -4005,7 +4072,27 @@
                 apk_standalone_title: "APK Mandiri & Widget",
                 apk_standalone_desc: "100% Offline-First + OTA Aktif",
                 apk_standalone_badge: "Dasbor APK Mandiri",
-                ota_active_badge: "OTA Aktif"
+                ota_active_badge: "OTA Aktif",
+
+                // Modal Kebijakan Privasi In-App
+                privacy_modal_title: "Kebijakan Privasi",
+                privacy_badge_offline: "100% Offline-First & Zero-Knowledge",
+                privacy_subtitle: "Terakhir diperbarui: 29 September 2026 • Versi Dokumen 1.1",
+                privacy_btn_close: "Tutup Kebijakan Privasi",
+                privacy_btn_close_aria: "Tutup kebijakan privasi",
+                privacy_btn_open_external: "Buka Halaman Mandiri (privacy.html) ↗",
+                privacy_sec1_title: "1. Arsitektur Offline-First & Penyimpanan Lokal",
+                privacy_sec1_desc: "Seluruh catatan keuangan dan produktivitas tersimpan secara default di penyimpanan internal perangkat Anda (localStorage). Pengembang tidak memiliki akses langsung ke perangkat Anda atau catatan keuangan pribadi Anda.",
+                privacy_sec2_title: "2. Layanan Cloud Opsional (Google Firebase)",
+                privacy_sec2_desc: "Penyimpanan cloud bersifat opsional. Jika Anda memilih masuk dengan akun Google, hanya email dan ID yang digunakan untuk otentikasi aman via Google Firebase. Data tidak pernah dibagikan atau dijual ke pihak ketiga.",
+                privacy_sec3_title: "3. Bebas Cookie & Pelacak Iklan",
+                privacy_sec3_desc: "Aplikasi ini tidak menggunakan cookie iklan, analitik komersial, maupun pelacak perilaku. Penyimpanan lokal hanya digunakan secara teknis untuk mengingat preferensi tema, bahasa, dan saldo offline Anda.",
+                privacy_sec4_title: "4. Hak Pengguna & Kontrol Penuh Data",
+                privacy_sec4_desc: "Anda memiliki kontrol 100%: Anda dapat mengekspor cadangan data JSON kapan saja, menghapus data selektif, atau keluar akun untuk menghentikan sinkronisasi cloud.",
+                privacy_sec5_title: "5. Keamanan & Enkripsi",
+                privacy_sec5_desc: "Transmisi cloud dilindungi enkripsi standar industri HTTPS/TLS serta aturan keamanan Firestore Security Rules yang membatasi akses baca dan tulis hanya untuk pemilik akun terotentikasi.",
+                privacy_sec6_title: "6. Kontak & Pertanyaan",
+                privacy_sec6_desc: "Pertanyaan atau permintaan penghapusan akun data cloud dapat diajukan melalui repositori resmi di GitHub: habielmaulanaaa-svg/dasbor-pribadi."
             },
             en: {
                 // Header & Navigation
@@ -4559,7 +4646,27 @@
                 apk_standalone_title: "Standalone APK & Widgets",
                 apk_standalone_desc: "100% Offline-First + OTA Active",
                 apk_standalone_badge: "Dasbor Standalone APK",
-                ota_active_badge: "OTA Active"
+                ota_active_badge: "OTA Active",
+
+                // In-App Privacy Policy Modal
+                privacy_modal_title: "Privacy Policy",
+                privacy_badge_offline: "100% Offline-First & Zero-Knowledge",
+                privacy_subtitle: "Last updated: September 29, 2026 • Document Version 1.1",
+                privacy_btn_close: "Close Privacy Policy",
+                privacy_btn_close_aria: "Close privacy policy",
+                privacy_btn_open_external: "Open Standalone Page (privacy.html) ↗",
+                privacy_sec1_title: "1. Offline-First Architecture & Local Storage",
+                privacy_sec1_desc: "All financial records and productivity entries are stored by default on your device's internal storage (localStorage). The developer has no direct access to your device or your personal records.",
+                privacy_sec2_title: "2. Optional Cloud Services (Google Firebase)",
+                privacy_sec2_desc: "Cloud synchronization is entirely optional. If you sign in with Google, only your email and ID are used for secure authentication via Google Firebase. Your data is never shared or sold to third parties.",
+                privacy_sec3_title: "3. Zero Tracking Cookies & Ads",
+                privacy_sec3_desc: "This application does not use tracking cookies, commercial analytics, or behavioral trackers. Local storage is strictly used to preserve theme settings, language preferences, and offline balances.",
+                privacy_sec4_title: "4. User Rights & Data Control",
+                privacy_sec4_desc: "You retain 100% control: you can export complete JSON backups at any time, selectively delete data, or sign out to stop cloud synchronization.",
+                privacy_sec5_title: "5. Security & Encryption",
+                privacy_sec5_desc: "Cloud transmission is protected by industry-standard HTTPS/TLS encryption and strict Firestore Security Rules restricting read and write access strictly to the authenticated account owner.",
+                privacy_sec6_title: "6. Contact & Inquiries",
+                privacy_sec6_desc: "Inquiries or cloud account deletion requests can be submitted via our official GitHub repository: habielmaulanaaa-svg/dasbor-pribadi."
             }
         };
 
@@ -5769,6 +5876,12 @@
             var sheet = sheetBackdrop.querySelector('.bottom-sheet-content');
             if (!sheet || sheet._hasSwipeAttached) return;
             sheet._hasSwipeAttached = true;
+
+            sheetBackdrop.addEventListener('click', function(e) {
+                if (e.target === sheetBackdrop) {
+                    closeBottomSheet(sheetBackdrop.id);
+                }
+            });
 
             var startY = 0, currentY = 0, isDragging = false;
             var handle = sheet.querySelector('.drag-handle');
@@ -9884,7 +9997,8 @@
             var elKeuangan = document.getElementById('badge-count-keuangan');
             if (elKeuangan) {
                 var jmlTrx = (dataState.transaksi || []).length;
-                elKeuangan.innerText = `${jmlTrx} Trx (${formatRupiah(dataState.saldo || 0)})`;
+                var trxUnit = isEn ? (jmlTrx === 1 ? 'Transaction' : 'Transactions') : 'Transaksi';
+                elKeuangan.innerText = `${jmlTrx} ${trxUnit} (${formatRupiah(dataState.saldo || 0)})`;
             }
             var elTugas = document.getElementById('badge-count-tugas');
             if (elTugas) {
