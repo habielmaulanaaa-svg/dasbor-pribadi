@@ -28,8 +28,8 @@
     <link rel="apple-touch-icon" href="icon-192.png">
     
     <title>Dasbor Pribadi Premium</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS (Local Bundle for 100% Offline PWA & APK Support) -->
+    <script src="tailwind.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -10683,7 +10683,7 @@
                         <div class="p-3 bg-white dark:bg-[#17212b] rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 shadow-xs">
                             <div class="flex items-center gap-2.5 mb-2">
                                 <div class="relative shrink-0">
-                                    <img src="${photoUrl}" alt="Avatar" class="w-8 h-8 rounded-full object-cover border border-primary-400 shadow-xs" referrerpolicy="no-referrer">
+                                    <img src="${photoUrl}" alt="Avatar" onerror="this.onerror=null; this.src='icon-192.png';" class="w-8 h-8 rounded-full object-cover border border-primary-400 shadow-xs" referrerpolicy="no-referrer">
                                     <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#17212b]"></span>
                                 </div>
                                 <div class="min-w-0 flex-1">

@@ -251,12 +251,16 @@ public class MainActivity extends AppCompatActivity {
         if (!otaDir.exists()) otaDir.mkdirs();
         File otaFile = new File(otaDir, "index.html");
         File privacyOta = new File(otaDir, "privacy.html");
+        File tailwindOta = new File(otaDir, "tailwind.js");
 
         if (!otaFile.exists() || otaFile.length() < 50000) {
             copyAssetToFile("index.html", otaFile);
         }
         if (!privacyOta.exists() || privacyOta.length() < 1000) {
             copyAssetToFile("privacy.html", privacyOta);
+        }
+        if (!tailwindOta.exists() || tailwindOta.length() < 10000) {
+            copyAssetToFile("tailwind.js", tailwindOta);
         }
 
         String targetUrl;
