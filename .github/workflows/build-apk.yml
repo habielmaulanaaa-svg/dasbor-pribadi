@@ -38,6 +38,7 @@ jobs:
         run: |
           mkdir -p android/app/src/main/assets
           cp index.html android/app/src/main/assets/
+          cp privacy.html android/app/src/main/assets/ || true
           cp auth-bridge.html android/app/src/main/assets/ || true
           cp manifest.json android/app/src/main/assets/ || true
           cp icon-192.png android/app/src/main/assets/ || true
