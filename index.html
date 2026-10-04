@@ -1619,8 +1619,8 @@
                 <i class="fas fa-check-circle"></i>
             </div>
             <div id="island-text-box" class="flex flex-col min-w-0 pr-1">
-                <span id="island-title" class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-wider">Pemberitahuan</span>
-                <span id="island-msg" class="text-xs font-bold truncate">Aksi Berhasil</span>
+                <span id="island-title" class="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-wider"></span>
+                <span id="island-msg" class="text-xs font-bold truncate"></span>
             </div>
         </div>
     </div>
@@ -1632,13 +1632,13 @@
                 D
             </div>
             <div class="flex flex-col min-w-0">
-                <span class="text-xs font-black text-slate-800 dark:text-white truncate">Install Aplikasi Dasbor</span>
-                <span class="text-[10px] text-slate-500 dark:text-slate-400 font-semibold">Gunakan secara native & offline di HP</span>
+                <span class="text-xs font-black text-slate-800 dark:text-white truncate" data-i18n="pwa_banner_title">Install Aplikasi Dasbor</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400 font-semibold" data-i18n="pwa_banner_desc">Gunakan secara native & offline di HP</span>
             </div>
         </div>
         <div class="flex items-center gap-1.5 shrink-0">
-            <button type="button" onclick="installPWAApp()" class="bg-primary-600 hover:bg-primary-700 text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-md transition-colors">Install</button>
-            <button type="button" onclick="dismissPWABanner()" aria-label="Tutup banner instalasi" title="Tutup" class="text-slate-400 hover:text-slate-600 p-1.5 text-xs"><i class="fas fa-times"></i></button>
+            <button type="button" onclick="installPWAApp()" class="bg-primary-600 hover:bg-primary-700 text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-md transition-colors" data-i18n="pwa_banner_btn">Install</button>
+            <button type="button" onclick="dismissPWABanner()" aria-label="Tutup banner instalasi" data-i18n-aria="pwa_banner_close_aria" title="Tutup" data-i18n-title="subs_btn_close" class="text-slate-400 hover:text-slate-600 p-1.5 text-xs"><i class="fas fa-times"></i></button>
         </div>
     </div>
 
@@ -1650,12 +1650,12 @@
             </div>
             <div class="flex flex-col min-w-0 pr-1">
                 <div class="flex items-center gap-1.5">
-                    <span class="text-[9px] uppercase font-black tracking-wider text-primary-400">Pembaruan Berhasil</span>
-                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v1.1.0 (Stable)</span>
+                    <span class="text-[9px] uppercase font-black tracking-wider text-primary-400" data-i18n="ota_toast_title">Pembaruan Berhasil</span>
+                    <span id="ota-toast-version-badge" class="bg-primary-500/20 text-primary-300 px-1.5 py-0.2 rounded text-[9px] font-bold">v1.1.4 (Stable)</span>
                 </div>
-                <span class="text-xs font-bold text-slate-100 truncate">Ketuk untuk lihat catatan rilis 📋</span>
+                <span class="text-xs font-bold text-slate-100 truncate" data-i18n="ota_toast_desc">Ketuk untuk lihat catatan rilis 📋</span>
             </div>
-            <button type="button" onclick="event.stopPropagation(); dismissOtaToast();" aria-label="Tutup notifikasi pembaruan" class="text-slate-400 hover:text-white p-1 text-xs shrink-0 ml-0.5" title="Tutup">
+            <button type="button" onclick="event.stopPropagation(); dismissOtaToast();" aria-label="Tutup notifikasi pembaruan" data-i18n-aria="ota_toast_close_aria" class="text-slate-400 hover:text-white p-1 text-xs shrink-0 ml-0.5" title="Tutup" data-i18n-title="subs_btn_close">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -1667,8 +1667,8 @@
     <!-- Sidebar Samping -->
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white dark:bg-[#17212b] shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 flex flex-col">
         <div class="bg-primary-600 p-5 text-white flex justify-between items-center shrink-0 shadow-md">
-            <h2 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-layer-group"></i> Menu Dasbor</h2>
-            <button type="button" onclick="toggleSidebar()" aria-label="Tutup navigasi sidebar" title="Tutup navigasi" class="text-primary-200 hover:text-white text-2xl focus:outline-none"><i class="fas fa-times"></i></button>
+            <h2 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-layer-group"></i> <span data-i18n="sidebar_menu_title">Menu Dasbor</span></h2>
+            <button type="button" onclick="toggleSidebar()" aria-label="Tutup navigasi sidebar" data-i18n-aria="sidebar_close_aria" title="Tutup navigasi" data-i18n-title="sidebar_close_aria" class="text-primary-200 hover:text-white text-2xl focus:outline-none"><i class="fas fa-times"></i></button>
         </div>
         
         <!-- SEKSI AKUN GOOGLE & CLOUD SYNC -->
@@ -1924,226 +1924,30 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> Catatan Pembaruan v1.1.4 (Stable)</h3>
-                <button type="button" onclick="closeBottomSheet('changelog-modal')" aria-label="Tutup catatan pembaruan" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> <span data-i18n="changelog_title">Catatan Pembaruan v1.1.4 (Stable)</span></h3>
+                <button type="button" onclick="closeBottomSheet('changelog-modal')" aria-label="Tutup catatan pembaruan" data-i18n-aria="changelog_aria_close" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
                 <!-- Milestone v1.1.4 (Stable) -->
                 <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-primary-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-primary-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500 text-xs"></i> Patch Rilis • v1.1.4 (Stable)</span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2 py-0.5 rounded-full shadow-xs">Audit &amp; Security Hardening</span>
+                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500 text-xs"></i> <span data-i18n="changelog_badge_patch">Patch Rilis • v1.1.4 (Stable)</span></span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2 py-0.5 rounded-full shadow-xs" data-i18n="changelog_badge_tag">Audit &amp; Security Hardening</span>
                     </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Peningkatan Aksesibilitas WCAG, Keamanan CSP, Kebijakan Privasi, &amp; SEO Kanonikal</p>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug" data-i18n="changelog_summary">Peningkatan Aksesibilitas WCAG, Keamanan CSP, Kebijakan Privasi, &amp; SEO Kanonikal</p>
                     <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
                             <i class="fas fa-universal-access text-emerald-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Aksesibilitas Standar WCAG 2.1:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Seluruh tombol ikonik pada antarmuka kini dilengkapi atribut <code>aria-label</code> dan <code>title</code> bilingual untuk dukungan penuh pembaca layar (screen reader).</p>
+                                <span class="font-bold text-slate-800 dark:text-white" data-i18n="changelog_p1_title">Aksesibilitas Standar WCAG 2.1:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5" data-i18n="changelog_p1_desc">Seluruh tombol ikonik pada antarmuka kini dilengkapi atribut <code>aria-label</code> dan <code>title</code> bilingual untuk dukungan penuh pembaca layar (screen reader).</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
                             <i class="fas fa-lock text-teal-500 mt-0.5 text-xs shrink-0"></i>
                             <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Keamanan CSP &amp; Kebijakan Privasi:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Perlindungan Content-Security-Policy (CSP) teruji serta penerbitan halaman resmi <code>privacy.html</code> dan tautan kebijakan privasi di menu pengaturan.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.1.3 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-purple-50 via-indigo-50 to-emerald-50 dark:from-purple-950/40 dark:via-indigo-950/30 dark:to-emerald-900/20 rounded-2xl border border-purple-200 dark:border-purple-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400 flex items-center gap-1.5"><i class="fas fa-bell text-purple-500 text-xs"></i> Patch Rilis • v1.1.3 (Stable)</span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-2 py-0.5 rounded-full shadow-xs">Toast &amp; Rapid Checklist Fix</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Penyempurnaan Notifikasi Toast Dynamic Island &amp; Animasi Beruntun Tugas/Undo</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-purple-100 dark:border-purple-900/40">
-                            <i class="fas fa-comment-dots text-purple-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Dynamic Island Anti-Hilang:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Memperbaiki state machine toast Dynamic Island agar tidak pernah hilang/invisible saat tombol urungkan (Undo) ditekan, bahkan ketika toast sedang dalam jendela retract.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-purple-100 dark:border-purple-900/40">
-                            <i class="fas fa-bolt text-indigo-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Animasi Checklist Cepat &amp; Jelly Physics:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Penekanan cepat pada beberapa centang tugas beruntun kini memainkan transisi elastis cairan kenyal (squash &amp; stretch jelly physics), rotasi pop ikon, teks bergulir vertikal, dan kartu tugas tidak lagi saling menginterupsi.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.1.2 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-sky-50 to-amber-50 dark:from-emerald-950/40 dark:via-sky-950/30 dark:to-amber-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-check-double text-emerald-500 text-xs"></i> Patch Rilis • v1.1.2 (Stable)</span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-sky-600 text-white px-2 py-0.5 rounded-full shadow-xs">Task i18n &amp; FAB Liquid Fix</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Penyempurnaan Bahasa Manajemen Tugas &amp; Kalibrasi Otomatis Cairan FAB/Dock</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-tasks text-emerald-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">100% Dwibahasa Manajemen Tugas:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Seluruh tumpukan tugas (Deadline, Reguler, Selesai), tombol aksi, toggle tanggal sub-tugas, dialog konfirmasi hapus, dan notifikasi kini 100% beralih ke Bahasa Inggris saat mode EN dipilih.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-tint text-sky-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Kalibrasi Otomatis Cairan FAB &amp; Dock:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Cairan indikator merkuri pada dok navigasi kini otomatis beradaptasi presisi dengan ukuran teks tombol saat beralih bahasa menggunakan ResizeObserver reaktif.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.1.1 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-amber-50 via-sky-50 to-emerald-50 dark:from-amber-950/40 dark:via-sky-950/30 dark:to-emerald-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-tools text-amber-500 text-xs"></i> Patch Rilis • v1.1.1 (Stable)</span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-amber-600 to-emerald-600 text-white px-2 py-0.5 rounded-full shadow-xs">100% Bilingual Coverage</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Cakupan 100% Dwibahasa Menyeluruh (Keuangan, Bottom Sheets, &amp; Tanggal)</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
-                            <i class="fas fa-language text-amber-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Cakupan Keuangan &amp; Bottom Sheets Penuh:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Seluruh elemen tab Keuangan, formulir transaksi, chip dompet, limit anggaran, tagihan/langganan, catatan belanja, reset selektif, kalender terpadu, dan cetak PDF kini 100% bilingual (ID &amp; EN).</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
-                            <i class="fas fa-calendar-alt text-sky-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Lokalisasi Tanggal Dinamis &amp; Smart Insights:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Penanggalan subtasks, wawasan pintar cerdas (smart insights), dan kalender aktivitas otomatis mengikuti standar locale bahasa terpilih.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.1.0 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-indigo-50 via-sky-50 to-primary-50 dark:from-indigo-950/40 dark:via-sky-950/30 dark:to-primary-900/20 rounded-2xl border border-primary-200 dark:border-primary-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center gap-1.5"><i class="fas fa-globe text-primary-500 text-xs"></i> Rilis Fitur Baru • v1.1.0 (Stable)</span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-primary-600 to-indigo-600 text-white px-2 py-0.5 rounded-full shadow-xs">Sistem Multibahasa</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Dukungan Dwibahasa Resmi (Bahasa Indonesia &amp; English) &amp; Penyeragaman Antarmuka</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
-                            <i class="fas fa-language text-primary-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Pilihan Bahasa Instan:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Pengguna dapat dengan mudah berganti antara Bahasa Indonesia dan English di Menu Pengaturan secara reaktif seketika tanpa reload.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
-                            <i class="fas fa-spell-check text-sky-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Penyeragaman Tata Bahasa Antarmuka:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Menghilangkan seluruh istilah campur aduk pada Beranda, Tugas, Keuangan, Jurnal, dan Notifikasi sehingga konsisten dan profesional.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-primary-100 dark:border-primary-900/40">
-                            <i class="fas fa-cloud-upload-alt text-emerald-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Persistensi &amp; Sinkronisasi Cloud:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Preferensi bahasa tersimpan permanen di penyimpanan lokal/native dan tersinkronisasi otomatis dengan Google Cloud Firestore.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.0.2 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-cyan-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-check-double text-emerald-500 text-xs"></i> Rilis Stabil • v1.0.2 (Stable)</span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2 py-0.5 rounded-full shadow-xs">Hotfix Animasi Toast</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Perbaikan Bug Animasi Toast &amp; Pencegahan Race Condition Ceklis Tugas</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-layer-group text-emerald-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Isolasi Lapisan Animasi Kapsul:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Memisahkan animasi posisi buka-tutup pada wrapper luar dan denyut fluida mikro pada kapsul dalam. Menghilangkan bug hilangnya toast setelah 0.28s dan kilatan saat menutup.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-shield-alt text-teal-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Pengaman Dobel Centang (Debounced Guard):</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Menambahkan pengaman <code>activeTogglingTasks</code> agar penekanan tugas yang sama secara cepat berturut-turut tidak memicu status ganda.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.0.1 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-indigo-50 via-sky-50 to-emerald-50 dark:from-indigo-950/40 dark:via-sky-950/30 dark:to-emerald-900/20 rounded-2xl border border-indigo-200 dark:border-indigo-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-bell text-indigo-500 text-xs"></i> Rilis Stabil • v1.0.1 (Stable)</span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-indigo-600 to-sky-600 text-white px-2 py-0.5 rounded-full shadow-xs">In-Place Overwrite</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Optimasi Notifikasi Toast: In-Place Dynamic Overwrite (Anti-Antrean) &amp; Fluid Morph Pulse</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-indigo-100 dark:border-indigo-900/40">
-                            <i class="fas fa-bolt text-indigo-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Tanpa Antrean Berantai:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Mencentang banyak tugas beruntun tidak lagi memicu antrean buka-tutup berulang. Kapsul tetap di tempat dan konten langsung berganti seketika.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-indigo-100 dark:border-indigo-900/40">
-                            <i class="fas fa-water text-sky-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Denyut Fluida Mikro (*Fluid Morph Pulse*):</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Pergantian teks disertai denyut fluida mikro halus dan timer penutupan diperpanjang otomatis setiap kali ada tombol baru yang ditekan.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.0.0 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-cyan-900/20 rounded-2xl border border-emerald-300 dark:border-emerald-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-certificate text-emerald-500 text-xs"></i> Rilis Perdana Resmi • v1.0.0 (Stable)</span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2 py-0.5 rounded-full shadow-xs">Era Platform Stabil</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Rilis Akbar Stabil Pertama: Standardisasi SemVer 3 Tingkatan, CSS Grid Fluid Physics Universal, &amp; Arsitektur Super-App Lengkap</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-code-branch text-emerald-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Skema Semantic Versioning (SemVer) Resmi:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Memulai era baru dengan penomoran 3 tingkat: <code>MAJOR.MINOR.PATCH (Stable)</code>. Patch (1.0.x) untuk perbaikan bug, Minor (1.x.0) untuk fitur baru, dan Major (x.0.0) untuk perombakan besar.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-water text-teal-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Universal CSS Grid Fluid Physics (0fr ➔ 1fr):</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Seluruh kartu (Deadline, Reguler, Selesai, Riwayat Keuangan, Tabungan, Beranda, dan Formulir) merenggang secara matematis alami dengan durasi konstan bebas jank.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-tint text-sky-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Indikator Kapsul Cairan Mengalir (*Liquid Mercury*):</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Kapsul cairan dinamis terpasang pada Dok Navigasi, Speed-Dial FAB, Selektor Suasana Hati, dan Filter Transaksi 5 Kolom pas 100%.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-shield-alt text-indigo-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">100% APK Mandiri Offline-First &amp; Hybrid Cloud:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Bekerja seketika tanpa internet, sinkronisasi Google Cloud 24/7, multi-dompet keuangan, kalender aktivitas 360°, dan OTA update otomatis di latar belakang.</p>
+                                <span class="font-bold text-slate-800 dark:text-white" data-i18n="changelog_p2_title">Keamanan CSP &amp; Kebijakan Privasi:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5" data-i18n="changelog_p2_desc">Perlindungan Content-Security-Policy (CSP) teruji serta penerbitan halaman resmi <code>privacy.html</code> dan tautan kebijakan privasi di menu pengaturan.</p>
                             </div>
                         </div>
                     </div>
@@ -2152,14 +1956,14 @@
                 <!-- Tautan Arsip Catatan Rilis GitHub -->
                 <div class="p-3 bg-slate-50 dark:bg-[#1f2c3d]/60 rounded-2xl border border-dashed border-slate-200 dark:border-[#313f52] text-center space-y-1.5">
                     <p class="text-[11px] text-slate-500 dark:text-slate-400">
-                        <i class="fab fa-github text-slate-700 dark:text-slate-300 mr-1"></i> Catatan rilis versi-versi terdahulu tersimpan rapi di GitHub Releases.
+                        <i class="fab fa-github text-slate-700 dark:text-slate-300 mr-1"></i> <span data-i18n="changelog_archive_desc">Catatan rilis versi-versi terdahulu tersimpan rapi di GitHub Releases.</span>
                     </p>
                     <a href="https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 dark:text-primary-400 hover:underline">
-                        Buka Arsip Catatan Rilis <i class="fas fa-external-link-alt text-[10px]"></i>
+                        <span data-i18n="changelog_archive_link">Buka Arsip Catatan Rilis</span> <i class="fas fa-external-link-alt text-[10px]"></i>
                     </a>
                 </div>
             </div>
-            <button type="button" onclick="closeBottomSheet('changelog-modal')" class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md transition-colors">Tutup Catatan</button>
+            <button type="button" onclick="closeBottomSheet('changelog-modal')" class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md transition-colors" data-i18n="changelog_btn_close">Tutup Catatan</button>
         </div>
     </div>
 
@@ -2240,7 +2044,7 @@
                 <!-- Smart Insight Advice -->
                 <div id="analisis-insight-box" class="p-3 bg-sky-50/70 dark:bg-sky-950/30 rounded-2xl border border-sky-100 dark:border-sky-900/40 text-xs text-sky-800 dark:text-sky-300 font-medium flex items-start gap-2.5">
                     <i class="fas fa-lightbulb text-sky-500 mt-0.5 shrink-0"></i>
-                    <span id="analisis-insight-text">Catat pengeluaran Anda untuk melihat analisis gaya belanja harian Anda.</span>
+                    <span id="analisis-insight-text" data-i18n="analysis_default_insight">Catat pengeluaran Anda untuk melihat analisis gaya belanja harian Anda.</span>
                 </div>
             </div>
 
@@ -2294,7 +2098,7 @@
 
             <!-- Footer Controls -->
             <div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-[#242f3d] flex items-center justify-between shrink-0">
-                <span id="catatan-counter-text" class="text-[11px] font-semibold text-slate-400">0 selesai dari 0 item</span>
+                <span id="catatan-counter-text" class="text-[11px] font-semibold text-slate-400"></span>
                 <button type="button" onclick="bersihkanCatatanSelesai()" class="text-[11px] font-bold text-rose-500 hover:text-rose-600 py-1 px-2.5 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all">
                     <i class="fas fa-broom mr-1"></i> <span data-i18n="quick_notes_btn_clear_done">Bersihkan Selesai</span>
                 </button>
@@ -2432,7 +2236,7 @@
                 </div>
                 <div class="bg-white/95 rounded-2xl p-3.5 shadow-sm flex flex-col">
                     <span class="text-[10px] font-bold text-slate-400 uppercase" data-i18n="wrapped_tasks_done">Tugas Tuntas</span>
-                    <span id="wrap-total-tugas" class="text-lg font-black text-emerald-600 mt-0.5">0 Tugas</span>
+                    <span id="wrap-total-tugas" class="text-lg font-black text-emerald-600 mt-0.5">0</span>
                     <span class="text-[10px] text-slate-500 font-bold" data-i18n="wrapped_tasks_suffix">Selesai</span>
                 </div>
             </div>
@@ -2440,11 +2244,11 @@
             <div class="bg-white/95 rounded-2xl p-3.5 mb-5 text-slate-800 shadow-sm space-y-2 text-xs font-bold">
                 <div class="flex justify-between">
                     <span class="text-slate-500" data-i18n="wrapped_savings_achieved">Tabungan Tercapai:</span>
-                    <span id="wrap-total-tabungan" class="text-emerald-600">0 Impian</span>
+                    <span id="wrap-total-tabungan" class="text-emerald-600">0</span>
                 </div>
                 <div class="flex justify-between">
                     <span class="text-slate-500" data-i18n="wrapped_mood_dominant">Suasana Hati Dominan:</span>
-                    <span id="wrap-mood-dominan">😊 Bahagia</span>
+                    <span id="wrap-mood-dominan">😊</span>
                 </div>
             </div>
 
@@ -2827,15 +2631,15 @@
     <!-- HEADER ATAS BERSIH -->
     <header id="app-header" class="bg-primary-600 text-white p-4 shadow-md z-30 flex justify-between items-center shrink-0 sticky top-0">
         <div class="flex items-center gap-3">
-            <button id="header-bars-btn" type="button" onclick="toggleSidebar()" aria-label="Buka navigasi sidebar" title="Menu Navigasi" class="text-white hover:text-primary-200 text-xl focus:outline-none"><i class="fas fa-bars"></i></button>
-            <button id="header-back-btn" type="button" onclick="switchTab('beranda')" aria-label="Kembali ke Beranda" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none" title="Kembali ke Beranda" data-i18n-title="header_back_tooltip"><i class="fas fa-arrow-left"></i></button>
+            <button id="header-bars-btn" type="button" onclick="toggleSidebar()" aria-label="Buka navigasi sidebar" data-i18n-aria="header_bars_aria" title="Menu Navigasi" data-i18n-title="sidebar_menu_title" class="text-white hover:text-primary-200 text-xl focus:outline-none"><i class="fas fa-bars"></i></button>
+            <button id="header-back-btn" type="button" onclick="switchTab('beranda')" aria-label="Kembali ke Beranda" data-i18n-aria="header_back_tooltip" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none" title="Kembali ke Beranda" data-i18n-title="header_back_tooltip"><i class="fas fa-arrow-left"></i></button>
             <h1 id="header-title" class="text-xl font-bold tracking-wide transition-opacity duration-300" data-i18n="app_title">Dasbor</h1>
         </div>
         <div class="flex items-center gap-2">
-            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md flex items-center justify-center text-white text-xs transition-all shadow-xs" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
+            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" data-i18n-aria="calendar_title" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md flex items-center justify-center text-white text-xs transition-all shadow-xs" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
                 <i class="fas fa-calendar-alt"></i>
             </button>
-            <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md transition-all text-xs font-bold text-white focus:outline-none shadow-xs" title="Status Cloud &amp; Akun">
+            <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" data-i18n-aria="header_account_aria" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md transition-all text-xs font-bold text-white focus:outline-none shadow-xs" title="Status Cloud &amp; Akun" data-i18n-title="header_account_title">
                 <i class="fas fa-cloud text-xs" id="header-cloud-status-icon"></i>
                 <span id="header-user-badge-text" class="text-[11px] max-w-[85px] truncate" data-i18n="cloud_status_local">Lokal</span>
             </button>
@@ -3009,7 +2813,7 @@
                                             <i id="icon-subtask-date-form" class="fas fa-calendar-alt text-primary-500 text-[8px]"></i>
                                             <span id="text-subtask-date-form" data-i18n="tasks_subtasks_date_active">Tgl Aktif</span>
                                         </button>
-                                        <span id="temp-subtasks-count-badge" class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 hidden">0 Sub Tugas</span>
+                                        <span id="temp-subtasks-count-badge" class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 hidden"></span>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2 mb-2">
@@ -3106,7 +2910,7 @@
                             <i class="fas fa-wallet text-primary-500"></i> <span data-i18n="finances_wallets_title">Kantong &amp; Multi-Dompet</span>
                         </h3>
                         <div class="flex items-center gap-2">
-                            <span id="active-wallet-filter-text" class="text-[10px] font-bold text-primary-500">Semua Dompet</span>
+                            <span id="active-wallet-filter-text" class="text-[10px] font-bold text-primary-500" data-i18n="wallet_all">Semua Dompet</span>
                             <div id="finance-arrows-dompet"></div>
                         </div>
                     </div>
@@ -3149,7 +2953,7 @@
                             <i class="fas fa-heartbeat text-rose-500"></i> <span data-i18n="finances_health_score_title">Skor Kesehatan Finansial</span>
                         </h3>
                         <div class="flex items-center gap-2">
-                            <span id="health-score-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">🌟 Sangat Sehat</span>
+                            <span id="health-score-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" data-i18n="health_score_very_healthy">🌟 Sangat Sehat</span>
                             <div id="finance-arrows-skor_kesehatan"></div>
                         </div>
                     </div>
@@ -3162,7 +2966,7 @@
                             <div class="w-full bg-slate-100 dark:bg-[#242f3d] h-2 rounded-full overflow-hidden mb-1.5">
                                 <div id="health-score-progress" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full transition-all duration-500" style="width: 85%"></div>
                             </div>
-                            <p id="health-score-tip" class="text-[10px] text-slate-600 dark:text-slate-300 leading-tight">Keuangan sangat stabil. Pertahankan rasio simpanan di atas 20% bulan ini.</p>
+                            <p id="health-score-tip" class="text-[10px] text-slate-600 dark:text-slate-300 leading-tight"></p>
                         </div>
                     </div>
                 </div>
@@ -3217,7 +3021,7 @@
                                 <circle cx="18" cy="18" r="14" fill="transparent" stroke="currentColor" stroke-width="4.5" class="text-slate-100 dark:text-[#242f3d]"></circle>
                                 <g id="donut-segments"></g>
                             </svg>
-                            <span id="donut-total-items" class="absolute text-[10px] font-black text-center text-slate-700 dark:text-slate-200 leading-tight">0 Catatan</span>
+                            <span id="donut-total-items" class="absolute text-[10px] font-black text-center text-slate-700 dark:text-slate-200 leading-tight">0</span>
                         </div>
                         <div id="donut-legend" class="flex-1 space-y-1.5 text-[11px] font-bold"></div>
                     </div>
@@ -3350,7 +3154,7 @@
                     <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
                         <i class="fas fa-chart-line text-amber-500"></i> <span data-i18n="journal_mood_trend">Tren Suasana Hati</span>
                     </h3>
-                    <span id="dominant-mood-badge" class="text-[10px] bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 font-black px-2.5 py-0.5 rounded-full">😊 Dominan Bahagia</span>
+                    <span id="dominant-mood-badge" class="text-[10px] bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 font-black px-2.5 py-0.5 rounded-full">😊</span>
                 </div>
                 <div id="mood-progress-bars" class="w-full bg-slate-100 dark:bg-[#242f3d] h-2.5 rounded-full overflow-hidden flex mb-2.5"></div>
                 <div id="mood-legend" class="flex justify-between text-[10px] font-bold text-slate-500 dark:text-slate-400"></div>
@@ -3524,7 +3328,12 @@
             }
 
             // 2. Jika berjalan di Web Browser / PWA Service Worker
-            triggerDynamicIsland("Pembaruan PWA", "Memeriksa versi web terbaru...", "fas fa-sync-alt", "bg-primary-500/20 text-primary-400");
+            triggerDynamicIsland(
+                (typeof t === 'function' ? t('toast_pwa_update_title', 'Pembaruan PWA') : 'Pembaruan PWA'),
+                (typeof t === 'function' ? t('toast_pwa_update_desc', 'Memeriksa versi web terbaru...') : 'Memeriksa versi web terbaru...'),
+                "fas fa-sync-alt",
+                "bg-primary-500/20 text-primary-400"
+            );
             
             try {
                 if ('serviceWorker' in navigator) {
@@ -3565,12 +3374,20 @@
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        triggerDynamicIsland("Instalasi", "Aplikasi sedang di-install ke HP 🚀", "fas fa-download", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(
+                            (typeof t === 'function' ? t('toast_pwa_install_title', 'Instalasi') : 'Instalasi'),
+                            (typeof t === 'function' ? t('toast_pwa_install_desc', 'Aplikasi sedang di-install ke HP 🚀') : 'Aplikasi sedang di-install ke HP 🚀'),
+                            "fas fa-download",
+                            "bg-emerald-500/20 text-emerald-400"
+                        );
                     }
                     deferredPrompt = null;
                 });
             } else {
-                alert("Untuk meng-install di Perangkat Android:\n1. Buka menu titik tiga (⋮) di kanan atas browser Chrome.\n2. Pilih 'Install Aplikasi' atau 'Tambahkan ke Layar Utama'.");
+                var isEn = (typeof dataState !== 'undefined' && dataState && dataState.language === 'en');
+                alert(isEn 
+                    ? "To install on Android device:\n1. Open the three-dots menu (⋮) at the top right of Chrome.\n2. Tap 'Install app' or 'Add to Home screen'."
+                    : "Untuk meng-install di Perangkat Android:\n1. Buka menu titik tiga (⋮) di kanan atas browser Chrome.\n2. Pilih 'Install Aplikasi' atau 'Tambahkan ke Layar Utama'.");
             }
         }
 
@@ -4063,7 +3880,132 @@
                 calendar_details_title: "Rincian Tanggal",
                 pdf_modal_title: "Laporan Keuangan & Aktivitas",
                 pdf_btn_print: "Cetak / PDF",
-                pdf_btn_close: "Tutup"
+                pdf_btn_close: "Tutup",
+
+                // Catatan Pembaruan (Changelog v1.1.4)
+                changelog_title: "Catatan Pembaruan v1.1.4 (Stable)",
+                changelog_aria_close: "Tutup catatan pembaruan",
+                changelog_badge_patch: "Patch Rilis • v1.1.4 (Stable)",
+                changelog_badge_tag: "Audit & Keamanan",
+                changelog_summary: "Peningkatan Aksesibilitas WCAG, Keamanan CSP, Kebijakan Privasi, & SEO Kanonikal",
+                changelog_p1_title: "Aksesibilitas Standar WCAG 2.1:",
+                changelog_p1_desc: "Seluruh tombol ikonik pada antarmuka kini dilengkapi atribut aria-label dan title bilingual untuk dukungan penuh pembaca layar (screen reader).",
+                changelog_p2_title: "Keamanan CSP & Kebijakan Privasi:",
+                changelog_p2_desc: "Perlindungan Content-Security-Policy (CSP) teruji serta penerbitan halaman resmi privacy.html dan tautan kebijakan privasi di menu pengaturan.",
+                changelog_archive_desc: "Catatan rilis versi-versi terdahulu tersimpan rapi di GitHub Releases.",
+                changelog_archive_link: "Buka Arsip Catatan Rilis",
+                changelog_btn_close: "Tutup Catatan",
+
+                // OTA Toast & Navigasi Header
+                ota_toast_title: "Pembaruan Berhasil",
+                ota_toast_desc: "Ketuk untuk lihat catatan rilis 📋",
+                ota_toast_close_aria: "Tutup notifikasi pembaruan",
+                header_bars_aria: "Buka navigasi sidebar",
+                header_account_aria: "Status Cloud & Akun",
+                header_account_title: "Status Cloud & Akun",
+                sidebar_close_aria: "Tutup navigasi sidebar",
+
+                // Smart Insight
+                analysis_default_insight: "Catat pengeluaran Anda untuk melihat analisis gaya belanja harian Anda.",
+
+                // Dialog Konfirmasi Native
+                confirm_delete_subscription: "Hapus pengingat langganan ini?",
+                confirm_delete_dream_target: "Hapus target impian ini?",
+                confirm_delete_transaction: "Hapus transaksi ini?",
+                confirm_delete_journal: "Hapus jurnal ini?",
+                confirm_google_logout: "Keluar dari akun Google Anda? Data saat ini tetap tersimpan aman di perangkat ini.",
+                confirm_cloud_pull_overwrite: "Tarik data dari Cloud dan timpa data di perangkat ini? Semua data di perangkat ini akan mengikuti data Cloud.",
+
+                // Dynamic Island Toasts & Alerts
+                toast_sub_new_title: "Langganan Baru 📅",
+                toast_sub_deleted_title: "Dihapus",
+                toast_sub_deleted_desc: "Langganan berhasil dihapus",
+                toast_sub_paid_title: "Tagihan Dibayar ✅",
+                toast_widget_title: "Widget",
+                toast_fin_widget_title: "Widget Keuangan",
+                toast_widget_layout_updated: "Tata letak diperbarui",
+                toast_savings_title: "Target Tabungan",
+                toast_target_input_valid: "Masukkan nama & target valid!",
+                toast_dream_new_title: "Impian Baru 🎯",
+                toast_congrats_title: "Selamat! 🎉",
+                toast_savings_deposit_title: "Setor Tabungan",
+                toast_savings_deleted: "Target tabungan dihapus",
+                toast_finances_valid_amount: "Masukkan nominal valid!",
+                toast_budget_warning_title: "Peringatan Anggaran ⚠️",
+                toast_trx_deleted: "Transaksi dihapus",
+                toast_journal_empty: "Jurnal masih kosong!",
+                toast_journal_saved: "Catatan disimpan",
+                toast_journal_deleted: "Catatan jurnal dihapus",
+                toast_theme_reset_desc: "Tema direset ke biru bawaan",
+                toast_dark_mode_active: "Mode Gelap Aktif 🌙",
+                toast_light_mode_active: "Mode Terang Aktif ☀️",
+                toast_rekap_empty: "Tulis catatan terlebih dahulu!",
+                toast_rekap_saved: "Catatan hari ini tersimpan! ⭐",
+                toast_backup_title: "Cadangan",
+                toast_backup_desc: "Cadangan berhasil diunduh 📥",
+                toast_restore_title: "Pulihkan",
+                toast_restore_desc: "Data berhasil dipulihkan! 🎉",
+                toast_backup_fail: "Gagal mengunduh cadangan!",
+                toast_restore_invalid: "File cadangan tidak valid!",
+                toast_google_connecting: "Menghubungkan Akun...",
+                toast_google_opening: "Membuka Google Login Resmi",
+                toast_google_welcome: "Halo, ",
+                toast_google_login_success: "Berhasil Masuk!",
+                toast_google_signout_title: "Keluar Akun",
+                toast_google_signout_desc: "Beralih ke mode penyimpanan lokal",
+                toast_cloud_synced_title: "Cloud Tersinkron ☁️",
+                toast_cloud_synced_desc: "Data akun Anda berhasil dimuat",
+                toast_cloud_active_title: "Cloud Aktif ☁️",
+                toast_cloud_active_desc: "Data awal disimpan ke Akun Google Anda",
+                toast_cloud_saved_title: "Tersimpan di Cloud ☁️",
+                toast_cloud_saved_desc: "Semua data aman tersinkronisasi",
+                toast_sync_failed_title: "Sinkronisasi Gagal",
+                toast_cloud_download_failed: "Gagal mengunduh data cloud",
+                toast_cloud_permission_denied: "Izin Firestore ditolak (Periksa Rules di Console)",
+                toast_cloud_retry_soon: "Akan dicoba saat koneksi stabil",
+                sync_badge_saving: "Menyimpan...",
+                sync_badge_synced: "Tersinkron ",
+                sync_badge_pending: "Menunggu simpan...",
+                sync_badge_offline: "Gagal (Offline)",
+                sync_badge_permission_denied: "Izin Ditolak (Rules)",
+                sync_badge_connection_lost: "Koneksi Terputus",
+                sync_badge_session_expired: "Sesi Berakhir",
+                sync_btn_sync_now: "Sinkron",
+                sync_btn_sign_out: "Keluar",
+                sync_account_cloud_title: "Sinkronisasi Cloud",
+                sync_account_cloud_desc: "Simpan data lintas perangkat",
+                sync_btn_google_signin: "Masuk dengan Google",
+
+                // PWA & Instalasi
+                toast_pwa_update_title: "Pembaruan PWA",
+                toast_pwa_update_desc: "Memeriksa versi web terbaru...",
+                toast_pwa_install_title: "Instalasi",
+                toast_pwa_install_desc: "Aplikasi sedang di-install ke HP 🚀",
+                pwa_banner_title: "Install Aplikasi Dasbor",
+                pwa_banner_desc: "Gunakan secara native & offline di HP",
+                pwa_banner_btn: "Install",
+                pwa_banner_close_aria: "Tutup banner instalasi",
+
+                // Anggaran & Langganan
+                toast_budget_saved_title: "Anggaran Disimpan 🎯",
+                toast_budget_saved_desc: "Limit pengeluaran bulanan telah diperbarui",
+                toast_sub_name_empty: "Masukkan nama tagihan!",
+                toast_sub_invalid_date: "Tanggal harus antara 1 sampai 31!",
+
+                // Transaksi & Jurnal
+                toast_income_title: "Pemasukan 💰",
+                toast_expense_title: "Pengeluaran 💸",
+                journal_note_default: "Catatan",
+
+                // Cloud & Akun Tambahan
+                sync_badge_active: "Cloud Aktif",
+                sync_user_default: "Pengguna",
+                sync_cloud_user_default: "Pengguna Cloud",
+                toast_google_opening_browser: "Membuka Google Login",
+                apk_standalone_title: "APK Mandiri & Widget",
+                apk_standalone_desc: "100% Offline-First + OTA Aktif",
+                apk_standalone_badge: "Dasbor APK Mandiri",
+                ota_active_badge: "OTA Aktif"
             },
             en: {
                 // Header & Navigation
@@ -4492,7 +4434,132 @@
                 calendar_details_title: "Date Details",
                 pdf_modal_title: "Financial & Activity Report",
                 pdf_btn_print: "Print / PDF",
-                pdf_btn_close: "Close"
+                pdf_btn_close: "Close",
+
+                // Release Notes (Changelog v1.1.4)
+                changelog_title: "Release Notes v1.1.4 (Stable)",
+                changelog_aria_close: "Close release notes",
+                changelog_badge_patch: "Patch Release • v1.1.4 (Stable)",
+                changelog_badge_tag: "Audit & Hardening",
+                changelog_summary: "WCAG Accessibility, CSP Security, Privacy Policy, & Canonical SEO",
+                changelog_p1_title: "WCAG 2.1 Standard Accessibility:",
+                changelog_p1_desc: "All iconic interface buttons now feature bilingual aria-label and title attributes for full screen reader accessibility.",
+                changelog_p2_title: "CSP Security & Privacy Policy:",
+                changelog_p2_desc: "Robust Content-Security-Policy (CSP) protection and official privacy.html page linked in system settings.",
+                changelog_archive_desc: "Release notes for past versions are safely archived on GitHub Releases.",
+                changelog_archive_link: "Open Release Notes Archive",
+                changelog_btn_close: "Close Notes",
+
+                // OTA Toast & Header Navigation
+                ota_toast_title: "Update Successful",
+                ota_toast_desc: "Tap to view release notes 📋",
+                ota_toast_close_aria: "Close update notification",
+                header_bars_aria: "Open sidebar navigation",
+                header_account_aria: "Cloud & Account Status",
+                header_account_title: "Cloud & Account Status",
+                sidebar_close_aria: "Close sidebar navigation",
+
+                // Smart Insight
+                analysis_default_insight: "Record your expenses to view your daily spending analysis.",
+
+                // Native Confirmation Dialogs
+                confirm_delete_subscription: "Delete this subscription reminder?",
+                confirm_delete_dream_target: "Delete this dream goal?",
+                confirm_delete_transaction: "Delete this transaction?",
+                confirm_delete_journal: "Delete this journal entry?",
+                confirm_google_logout: "Sign out of your Google account? Your current data will remain safe on this device.",
+                confirm_cloud_pull_overwrite: "Pull data from Cloud and overwrite data on this device? All local data will match Cloud data.",
+
+                // Dynamic Island Toasts & Alerts
+                toast_sub_new_title: "New Subscription 📅",
+                toast_sub_deleted_title: "Deleted",
+                toast_sub_deleted_desc: "Subscription deleted successfully",
+                toast_sub_paid_title: "Bill Paid ✅",
+                toast_widget_title: "Widget",
+                toast_fin_widget_title: "Finance Widgets",
+                toast_widget_layout_updated: "Layout updated",
+                toast_savings_title: "Savings Goals",
+                toast_target_input_valid: "Please enter a valid title & target!",
+                toast_dream_new_title: "New Goal 🎯",
+                toast_congrats_title: "Congratulations! 🎉",
+                toast_savings_deposit_title: "Savings Deposit",
+                toast_savings_deleted: "Savings goal deleted",
+                toast_finances_valid_amount: "Please enter a valid amount!",
+                toast_budget_warning_title: "Budget Warning ⚠️",
+                toast_trx_deleted: "Transaction deleted",
+                toast_journal_empty: "Journal is empty!",
+                toast_journal_saved: "Note saved",
+                toast_journal_deleted: "Journal entry deleted",
+                toast_theme_reset_desc: "Theme reset to default blue",
+                toast_dark_mode_active: "Dark Mode Active 🌙",
+                toast_light_mode_active: "Light Mode Active ☀️",
+                toast_rekap_empty: "Please write your note first!",
+                toast_rekap_saved: "Today's note saved! ⭐",
+                toast_backup_title: "Backup",
+                toast_backup_desc: "Backup downloaded successfully 📥",
+                toast_restore_title: "Restore",
+                toast_restore_desc: "Data restored successfully! 🎉",
+                toast_backup_fail: "Failed to download backup!",
+                toast_restore_invalid: "Invalid backup file format!",
+                toast_google_connecting: "Connecting Account...",
+                toast_google_opening: "Opening Official Google Sign-In",
+                toast_google_welcome: "Hello, ",
+                toast_google_login_success: "Signed In Successfully!",
+                toast_google_signout_title: "Signed Out",
+                toast_google_signout_desc: "Switched to local offline mode",
+                toast_cloud_synced_title: "Cloud Synced ☁️",
+                toast_cloud_synced_desc: "Your account data loaded successfully",
+                toast_cloud_active_title: "Cloud Active ☁️",
+                toast_cloud_active_desc: "Initial data saved to your Google Account",
+                toast_cloud_saved_title: "Saved to Cloud ☁️",
+                toast_cloud_saved_desc: "All data safely synchronized",
+                toast_sync_failed_title: "Sync Failed",
+                toast_cloud_download_failed: "Failed to download cloud data",
+                toast_cloud_permission_denied: "Firestore permission denied (Check Console Rules)",
+                toast_cloud_retry_soon: "Will retry when connection is stable",
+                sync_badge_saving: "Saving...",
+                sync_badge_synced: "Synced ",
+                sync_badge_pending: "Pending save...",
+                sync_badge_offline: "Failed (Offline)",
+                sync_badge_permission_denied: "Permission Denied (Rules)",
+                sync_badge_connection_lost: "Connection Lost",
+                sync_badge_session_expired: "Session Expired",
+                sync_btn_sync_now: "Sync Now",
+                sync_btn_sign_out: "Sign Out",
+                sync_account_cloud_title: "Cloud Synchronization",
+                sync_account_cloud_desc: "Sync data across devices",
+                sync_btn_google_signin: "Sign in with Google",
+
+                // PWA & Installation
+                toast_pwa_update_title: "PWA Update",
+                toast_pwa_update_desc: "Checking for latest web version...",
+                toast_pwa_install_title: "Installation",
+                toast_pwa_install_desc: "App is installing to device 🚀",
+                pwa_banner_title: "Install Dashboard App",
+                pwa_banner_desc: "Use natively & offline on your phone",
+                pwa_banner_btn: "Install",
+                pwa_banner_close_aria: "Dismiss install banner",
+
+                // Budgets & Subscriptions
+                toast_budget_saved_title: "Budget Saved 🎯",
+                toast_budget_saved_desc: "Monthly expense limits updated",
+                toast_sub_name_empty: "Please enter bill name!",
+                toast_sub_invalid_date: "Date must be between 1 and 31!",
+
+                // Transactions & Journal
+                toast_income_title: "Income 💰",
+                toast_expense_title: "Expense 💸",
+                journal_note_default: "Note",
+
+                // Cloud & Account Additions
+                sync_badge_active: "Cloud Active",
+                sync_user_default: "User",
+                sync_cloud_user_default: "Cloud User",
+                toast_google_opening_browser: "Opening Google Sign-In",
+                apk_standalone_title: "Standalone APK & Widgets",
+                apk_standalone_desc: "100% Offline-First + OTA Active",
+                apk_standalone_badge: "Dasbor Standalone APK",
+                ota_active_badge: "OTA Active"
             }
         };
 
@@ -4510,15 +4577,27 @@
         function getKategoriLabel(kat) {
             if (!kat) return '';
             var isEn = (dataState && dataState.language === 'en');
-            if (!isEn) return kat;
-            if (kat.includes('Makan') || kat.includes('🍔')) return '🍔 Food & Drink';
-            if (kat.includes('Transport') || kat.includes('🚗')) return '🚗 Transportation';
-            if (kat.includes('Belanja') || kat.includes('🛍️')) return '🛍️ Shopping';
-            if (kat.includes('Tagihan') || kat.includes('💡')) return '💡 Bills & Utilities';
-            if (kat.includes('Lainnya') || kat.includes('📁')) return '📁 Other';
-            if (kat.includes('Pemasukan') || kat.includes('💰')) return '💰 Income';
-            if (kat.includes('Transaksi') || kat.includes('💳')) return '📁 Transaction';
-            return kat;
+            if (isEn) {
+                if (kat.includes('Makan') || kat.includes('Food') || kat.includes('🍔')) return '🍔 Food & Drink';
+                if (kat.includes('Transport') || kat.includes('🚗')) return '🚗 Transportation';
+                if (kat.includes('Belanja') || kat.includes('Shopping') || kat.includes('🛍️')) return '🛍️ Shopping';
+                if (kat.includes('Tagihan') || kat.includes('Bills') || kat.includes('💡') || kat.includes('📄')) return '💡 Bills & Utilities';
+                if (kat.includes('Hiburan') || kat.includes('Entertainment') || kat.includes('🎉')) return '🎉 Entertainment';
+                if (kat.includes('Lainnya') || kat.includes('Other') || kat.includes('📁')) return '📁 Other';
+                if (kat.includes('Pemasukan') || kat.includes('Income') || kat.includes('💰')) return '💰 Income';
+                if (kat.includes('Transaksi') || kat.includes('Transaction') || kat.includes('💳')) return '📁 Transaction';
+                return kat;
+            } else {
+                if (kat.includes('Food') || kat.includes('Makan') || kat.includes('🍔')) return '🍔 Makan';
+                if (kat.includes('Transportation') || kat.includes('Transport') || kat.includes('🚗')) return '🚗 Transport';
+                if (kat.includes('Shopping') || kat.includes('Belanja') || kat.includes('🛍️')) return '🛍️ Belanja';
+                if (kat.includes('Bills') || kat.includes('Tagihan') || kat.includes('💡') || kat.includes('📄')) return '💡 Tagihan';
+                if (kat.includes('Entertainment') || kat.includes('Hiburan') || kat.includes('🎉')) return '🎉 Hiburan';
+                if (kat.includes('Other') || kat.includes('Lainnya') || kat.includes('📁')) return '📁 Lainnya';
+                if (kat.includes('Income') || kat.includes('Pemasukan') || kat.includes('💰')) return '💰 Pemasukan';
+                if (kat.includes('Transaction') || kat.includes('Transaksi') || kat.includes('💳')) return '📁 Transaksi';
+                return kat;
+            }
         }
 
         function recalibratePills(animate) {
@@ -4570,7 +4649,16 @@
                 }
             });
 
-            // 5. Dynamic active wallet text
+            // 5. aria-label
+            document.querySelectorAll('[data-i18n-aria]').forEach(function(el) {
+                var key = el.getAttribute('data-i18n-aria');
+                if (key) {
+                    var val = t(key);
+                    if (val) el.setAttribute('aria-label', val);
+                }
+            });
+
+            // 6. Dynamic active wallet text
             var walletFilterEl = document.getElementById('active-wallet-filter-text');
             if (walletFilterEl && typeof activeWalletFilter !== 'undefined') {
                 var names = {
@@ -4582,10 +4670,10 @@
                 walletFilterEl.innerText = names[activeWalletFilter] || t('wallet_all', 'Semua Dompet');
             }
 
-            // 6. Dynamic active toggle badge
+            // 7. Dynamic active toggle badge
             if (typeof updateActiveToggleCount === 'function') updateActiveToggleCount();
 
-            // 7. Dynamic task toggle button on #tugas
+            // 8. Dynamic task toggle button on #tugas
             var taskToggleBtn = document.getElementById('btn-toggle-tugas-form');
             var taskInputArea = document.getElementById('tugas-input-area');
             if (taskToggleBtn) {
@@ -4599,14 +4687,21 @@
                 }
             }
 
-            // 8. Dynamic subtask date toggle text
+            // 9. Dynamic subtask date toggle text
             var formText = document.getElementById('text-subtask-date-form');
             if (formText) {
                 var isAktif = (dataState && dataState.optSubtaskTanggalDibuat !== false);
                 formText.innerText = isAktif ? t('tasks_subtasks_date_active', 'Tgl Aktif') : t('tasks_subtasks_date_inactive', 'Tgl Nonaktif');
             }
 
-            // 9. Recalibrate liquid mercury pills on floating dock & filters
+            // 10. Re-render dynamic components that have language-dependent labels
+            if (typeof renderHealthScore === 'function') renderHealthScore();
+            if (typeof renderDonutKategori === 'function') renderDonutKategori();
+            if (typeof renderMoodAnalytics === 'function') renderMoodAnalytics();
+            if (typeof updateAuthUI === 'function') updateAuthUI(currentUser);
+            if (typeof checkOtaVersionNotification === 'function') checkOtaVersionNotification();
+
+            // 11. Recalibrate liquid mercury pills on floating dock & filters
             recalibratePills(false);
             requestAnimationFrame(function() {
                 recalibratePills(false);
@@ -4627,6 +4722,8 @@
             
             // Re-render modul dinamis
             if (typeof perbaruiTampilan === 'function') perbaruiTampilan();
+            if (typeof renderCatatanKilat === 'function') renderCatatanKilat();
+            if (typeof renderSubscriptions === 'function') renderSubscriptions();
 
             // Recalibrate pills smoothly
             recalibratePills(true);
@@ -5221,7 +5318,7 @@
             simpanData();
             closeBottomSheet('budget-modal');
             triggerHaptic('success');
-            triggerDynamicIsland("Anggaran Disimpan 🎯", "Limit pengeluaran bulanan telah diperbarui", "fas fa-bullseye", "bg-emerald-500/20 text-emerald-400");
+            triggerDynamicIsland(t('toast_budget_saved_title', "Anggaran Disimpan 🎯"), t('toast_budget_saved_desc', "Limit pengeluaran bulanan telah diperbarui"), "fas fa-bullseye", "bg-emerald-500/20 text-emerald-400");
         }
 
         function renderBudgets() {
@@ -5339,17 +5436,17 @@
 
             if (!nama) {
                 triggerHaptic('error');
-                triggerDynamicIsland("Langganan", "Masukkan nama tagihan!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
+                triggerDynamicIsland(t('subs_widget_title', "Langganan"), t('toast_sub_name_empty', "Masukkan nama tagihan!"), "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
                 return;
             }
             if (isNaN(nominal) || nominal <= 0) {
                 triggerHaptic('error');
-                triggerDynamicIsland("Langganan", "Masukkan nominal valid!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
+                triggerDynamicIsland(t('subs_widget_title', "Langganan"), t('toast_finances_valid_amount', "Masukkan nominal valid!"), "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
                 return;
             }
             if (isNaN(tgl) || tgl < 1 || tgl > 31) {
                 triggerHaptic('error');
-                triggerDynamicIsland("Langganan", "Tanggal harus antara 1 sampai 31!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
+                triggerDynamicIsland(t('subs_widget_title', "Langganan"), t('toast_sub_invalid_date', "Tanggal harus antara 1 sampai 31!"), "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
                 return;
             }
 
@@ -5375,16 +5472,17 @@
             simpanData();
             renderSubscriptionModalList();
             triggerHaptic('success');
-            triggerDynamicIsland("Langganan Baru 📅", `Pengingat "${nama}" berhasil disimpan`, "fas fa-bell", "bg-purple-500/20 text-purple-400");
+            var isEn = (dataState && dataState.language === 'en');
+            triggerDynamicIsland(t('toast_sub_new_title', "Langganan Baru 📅"), isEn ? `Reminder "${nama}" saved successfully` : `Pengingat "${nama}" berhasil disimpan`, "fas fa-bell", "bg-purple-500/20 text-purple-400");
         }
 
         function hapusLangganan(id) {
-            if (!confirm("Hapus pengingat langganan ini?")) return;
+            if (!confirm(t('confirm_delete_subscription', "Hapus pengingat langganan ini?"))) return;
             dataState.subscriptions = (dataState.subscriptions || []).filter(function(s) { return s.id !== id; });
             simpanData();
             renderSubscriptionModalList();
             triggerHaptic('medium');
-            triggerDynamicIsland("Dihapus", "Langganan berhasil dihapus", "fas fa-trash", "bg-red-500/20 text-red-400");
+            triggerDynamicIsland(t('toast_sub_deleted_title', "Dihapus"), t('toast_sub_deleted_desc', "Langganan berhasil dihapus"), "fas fa-trash", "bg-red-500/20 text-red-400");
         }
 
         let _isPayingSub = false;
@@ -5396,7 +5494,8 @@
             _isPayingSub = true;
             setTimeout(function() { _isPayingSub = false; }, 500);
 
-            var notePrefix = (dataState && dataState.language === 'en') ? 'Subscription:' : 'Bayar Langganan:';
+            var isEn = (dataState && dataState.language === 'en');
+            var notePrefix = isEn ? 'Subscription:' : 'Bayar Langganan:';
             dataState.transaksi.push({
                 id: generateUniqueId(),
                 jenis: 'keluar',
@@ -5410,7 +5509,7 @@
 
             simpanData();
             triggerHaptic('success');
-            triggerDynamicIsland("Tagihan Dibayar ✅", `${sub.nama} ${formatRupiah(sub.nominal)} dicatat ke pengeluaran!`, "fas fa-receipt", "bg-emerald-500/20 text-emerald-400");
+            triggerDynamicIsland(t('toast_sub_paid_title', "Tagihan Dibayar ✅"), isEn ? `${sub.nama} ${formatRupiah(sub.nominal)} recorded to expenses!` : `${sub.nama} ${formatRupiah(sub.nominal)} dicatat ke pengeluaran!`, "fas fa-receipt", "bg-emerald-500/20 text-emerald-400");
         }
 
         function renderSubscriptions() {
@@ -5757,13 +5856,14 @@
             var selesaiTugas = (dataState.tugas || []).filter(t => t.selesai).length;
             var targetTercapai = (dataState.targetTabungan || []).filter(t => t.terkumpul >= t.target).length;
 
-            document.getElementById('wrap-hari-terisi').innerText = `${totalHari} / 365 Hari`;
-            document.getElementById('wrap-pct-terisi').innerText = `${pct}% Tahun Ini`;
-            document.getElementById('wrap-total-tugas').innerText = `${selesaiTugas} Tugas Selesai`;
-            document.getElementById('wrap-total-tabungan').innerText = `${targetTercapai} Impian Terwujud`;
+            var isEn = (dataState && dataState.language === 'en');
+            document.getElementById('wrap-hari-terisi').innerText = `${totalHari} / 365 ${isEn ? 'Days' : 'Hari'}`;
+            document.getElementById('wrap-pct-terisi').innerText = `${pct}% ${isEn ? 'This Year' : 'Tahun Ini'}`;
+            document.getElementById('wrap-total-tugas').innerText = `${selesaiTugas} ${isEn ? 'Tasks Completed' : 'Tugas Selesai'}`;
+            document.getElementById('wrap-total-tabungan').innerText = `${targetTercapai} ${isEn ? 'Goals Achieved' : 'Impian Terwujud'}`;
             
             var dominantBadge = document.getElementById('dominant-mood-badge');
-            document.getElementById('wrap-mood-dominan').innerText = dominantBadge ? dominantBadge.innerText : '😊 Bahagia';
+            document.getElementById('wrap-mood-dominan').innerText = dominantBadge ? dominantBadge.innerText : (isEn ? '😊 Happy' : '😊 Bahagia');
 
             openBottomSheet('wrapped-modal');
         }
@@ -5791,7 +5891,7 @@
                 dataState.hiddenWidgets = dataState.hiddenWidgets.filter(k => k !== key);
             }
             simpanData();
-            triggerDynamicIsland("Widget", "Tata letak diperbarui", "fas fa-sliders-h", "bg-purple-500/20 text-purple-400");
+            triggerDynamicIsland(t('toast_widget_title', "Widget"), t('toast_widget_layout_updated', "Tata letak diperbarui"), "fas fa-sliders-h", "bg-purple-500/20 text-purple-400");
         }
 
         function openFinanceWidgetManagerModal() {
@@ -5815,7 +5915,7 @@
                 dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(k => k !== key);
             }
             simpanData();
-            triggerDynamicIsland("Widget Keuangan", "Tata letak diperbarui", "fas fa-wallet", "bg-emerald-500/20 text-emerald-400");
+            triggerDynamicIsland(t('toast_fin_widget_title', "Widget Keuangan"), t('toast_widget_layout_updated', "Tata letak diperbarui"), "fas fa-wallet", "bg-emerald-500/20 text-emerald-400");
         }
 
         // --- FITUR 1: ANALISIS & STATISTIK KEUANGAN ---
@@ -6204,7 +6304,9 @@
             input.value = '';
             simpanData();
             triggerHaptic('success');
-            triggerDynamicIsland("Catatan Kilat", selectedTipe === 'belanja' ? "🛒 Item belanjaan ditambahkan" : "📝 Memo tersimpan", "fas fa-clipboard-check", "bg-rose-500/20 text-rose-400");
+            var isEn = (dataState && dataState.language === 'en');
+            var msg = selectedTipe === 'belanja' ? (isEn ? "🛒 Shopping item added" : "🛒 Item belanjaan ditambahkan") : (isEn ? "📝 Quick memo saved" : "📝 Memo tersimpan");
+            triggerDynamicIsland(t('quick_notes_title', "Catatan Kilat"), msg, "fas fa-clipboard-check", "bg-rose-500/20 text-rose-400");
             renderCatatanKilat();
             setTimeout(() => {
                 delete newItem._isNew;
@@ -6246,9 +6348,10 @@
 
         function bersihkanCatatanSelesai() {
             if (!Array.isArray(dataState.catatanKilat)) return;
+            var isEn = (dataState && dataState.language === 'en');
             var countDone = dataState.catatanKilat.filter(c => c.done).length;
             if (countDone === 0) {
-                triggerDynamicIsland("Catatan Kilat", "Tidak ada item selesai untuk dibersihkan", "fas fa-info-circle", "bg-sky-500/20 text-sky-400");
+                triggerDynamicIsland(t('quick_notes_title', "Catatan Kilat"), isEn ? "No completed items to clear" : "Tidak ada item selesai untuk dibersihkan", "fas fa-info-circle", "bg-sky-500/20 text-sky-400");
                 return;
             }
             var doneEls = document.querySelectorAll('#catatan-list-container .catatan-item-done');
@@ -6258,20 +6361,19 @@
                 setTimeout(() => {
                     dataState.catatanKilat = dataState.catatanKilat.filter(c => !c.done);
                     simpanData();
-                    triggerDynamicIsland("Catatan Kilat", `${countDone} item selesai telah dibersihkan`, "fas fa-broom", "bg-rose-500/20 text-rose-400");
+                    triggerDynamicIsland(t('quick_notes_title', "Catatan Kilat"), isEn ? `${countDone} completed items cleared` : `${countDone} item selesai telah dibersihkan`, "fas fa-broom", "bg-rose-500/20 text-rose-400");
                     renderCatatanKilat();
                 }, 300);
             } else {
                 dataState.catatanKilat = dataState.catatanKilat.filter(c => !c.done);
                 simpanData();
                 triggerHaptic('medium');
-                triggerDynamicIsland("Catatan Kilat", `${countDone} item selesai telah dibersihkan`, "fas fa-broom", "bg-rose-500/20 text-rose-400");
+                triggerDynamicIsland(t('quick_notes_title', "Catatan Kilat"), isEn ? `${countDone} completed items cleared` : `${countDone} item selesai telah dibersihkan`, "fas fa-broom", "bg-rose-500/20 text-rose-400");
                 renderCatatanKilat();
             }
         }
 
         // --- FITUR: KALKULATOR & RENCANA IMPIAN (TERPADU DENGAN TARGET TABUNGAN) ---
-        const idDateLongFormatter = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
         let _calcSimulasiRaf = null;
 
         function openKalkulatorModal(presetId) {
@@ -6283,7 +6385,7 @@
                 var presetSelect = document.getElementById('select-kalkulator-preset');
                 if (presetSelect) {
                     var targets = dataState.targetTabungan || [];
-                    var html = '<option value="">-- Buat Target Baru / Kustom --</option>';
+                    var html = `<option value="">${t('calc_preset_default', '-- Buat Target Baru / Kustom --')}</option>`;
                     targets.forEach(t => {
                         html += `<option value="${t.id}">${escapeHtml(t.judul)} (${formatRupiah(t.target)})</option>`;
                     });
@@ -6450,9 +6552,10 @@
             var tgt = evaluateQuickMath(document.getElementById('calc-target-nominal')?.value) || 0;
             var current = evaluateQuickMath(document.getElementById('calc-target-terkumpul')?.value) || 0;
 
+            var isEn = (dataState && dataState.language === 'en');
             if (!jud || tgt <= 0) {
                 triggerHaptic('error');
-                triggerDynamicIsland("Tabungan", "Masukkan nama dan nominal target impian!", "fas fa-exclamation-circle", "bg-rose-500/20 text-rose-400");
+                triggerDynamicIsland(t('toast_savings_title', "Tabungan"), isEn ? "Please enter a valid title and target amount!" : "Masukkan nama dan nominal target impian!", "fas fa-exclamation-circle", "bg-rose-500/20 text-rose-400");
                 return;
             }
 
@@ -6467,7 +6570,7 @@
             if (typeof confetti === 'function') {
                 confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
             }
-            triggerDynamicIsland("Impian Baru 🎯", `"${jud}" ditambahkan ke Target Tabungan!`, "fas fa-bullseye", "bg-amber-500/20 text-amber-400");
+            triggerDynamicIsland(t('toast_dream_new_title', "Impian Baru 🎯"), isEn ? `"${jud}" added to Savings Goals!` : `"${jud}" ditambahkan ke Target Tabungan!`, "fas fa-bullseye", "bg-amber-500/20 text-amber-400");
             closeBottomSheet('kalkulator-keuangan-modal');
             setTimeout(() => {
                 delete newItem._isNew;
@@ -6669,8 +6772,8 @@
                 let a = document.createElement('a');
                 a.href = dataStr; a.download = `dasbor_backup_${getRekapDateString()}.json`;
                 document.body.appendChild(a); a.click(); a.remove();
-                triggerDynamicIsland("Backup", "Cadangan berhasil diunduh 📥", "fas fa-download", "bg-emerald-500/20 text-emerald-400");
-            } catch(e) { alert("Gagal mengunduh cadangan!"); }
+                triggerDynamicIsland(t('toast_backup_title', "Cadangan"), t('toast_backup_desc', "Cadangan berhasil diunduh 📥"), "fas fa-download", "bg-emerald-500/20 text-emerald-400");
+            } catch(e) { alert(t('toast_backup_fail', "Gagal mengunduh cadangan!")); }
         }
 
         function importData(event) {
@@ -6695,9 +6798,9 @@
                         applyCardGradientVisual();
                         updateActiveToggleCount();
                         simpanData();
-                        triggerDynamicIsland("Pulihkan", "Data berhasil dipulihkan! 🎉", "fas fa-upload", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(t('toast_restore_title', "Pulihkan"), t('toast_restore_desc', "Data berhasil dipulihkan! 🎉"), "fas fa-upload", "bg-emerald-500/20 text-emerald-400");
                     }
-                } catch(err) { alert("File tidak valid!"); }
+                } catch(err) { alert(t('toast_restore_invalid', "File cadangan tidak valid!")); }
             };
             reader.readAsText(file);
         }
@@ -7607,7 +7710,7 @@
         function resetThemeColor() {
             document.getElementById('theme-color-slider').value = 221;
             changeThemeColor(221);
-            triggerDynamicIsland("Warna", "Tema direset ke biru bawaan", "fas fa-palette", "bg-primary-500/20 text-primary-400");
+            triggerDynamicIsland(t('settings_theme_color', "Warna"), t('toast_theme_reset_desc', "Tema direset ke biru bawaan"), "fas fa-palette", "bg-primary-500/20 text-primary-400");
         }
 
         // ZERO-LAG 120 FPS DARK MODE SWITCH
@@ -7620,7 +7723,7 @@
             
             updateAmbientGlow();
             applyCardGradientVisual();
-            triggerDynamicIsland("Mode Tampilan", willBeDark ? "Mode Gelap Aktif 🌙" : "Mode Terang Aktif ☀️", willBeDark ? "fas fa-moon" : "fas fa-sun", willBeDark ? "bg-indigo-500/20 text-indigo-400" : "bg-amber-500/20 text-amber-400");
+            triggerDynamicIsland(t('toast_appearance_title', "Mode Tampilan"), willBeDark ? t('toast_dark_mode_active', "Mode Gelap Aktif 🌙") : t('toast_light_mode_active', "Mode Terang Aktif ☀️"), willBeDark ? "fas fa-moon" : "fas fa-sun", willBeDark ? "bg-indigo-500/20 text-indigo-400" : "bg-amber-500/20 text-amber-400");
         }
 
         function filterTugas(query) {
@@ -7915,7 +8018,7 @@
 
         function simpanRekapHarian() {
             var isi = document.getElementById('input-rekap-isi').value.trim();
-            if (!isi) { triggerDynamicIsland("Rekap", "Tulis catatan terlebih dahulu!", "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); return; }
+            if (!isi) { triggerDynamicIsland(t('widget_rekap_title', "Rekap"), t('toast_rekap_empty', "Tulis catatan terlebih dahulu!"), "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); return; }
             
             var todayStr = getRekapDateString();
             if (!Array.isArray(dataState.rekapHarian)) dataState.rekapHarian = [];
@@ -7928,7 +8031,7 @@
 
             closeBottomSheet('rekap-modal');
             simpanData();
-            triggerDynamicIsland("Rekap Harian", "Catatan hari ini tersimpan! ⭐", "fas fa-calendar-check", "bg-emerald-500/20 text-emerald-400");
+            triggerDynamicIsland(t('widget_rekap_title', "Rekap Harian"), t('toast_rekap_saved', "Catatan hari ini tersimpan! ⭐"), "fas fa-calendar-check", "bg-emerald-500/20 text-emerald-400");
         }
 
         // --- HELPER & TOGGLE WAKTU TUGAS ---
@@ -8533,7 +8636,7 @@
             var tgt = evaluateQuickMath(document.getElementById('input-tabungan-target').value);
             if (!jud || isNaN(tgt) || tgt <= 0) { 
                 triggerHaptic('error');
-                triggerDynamicIsland("Tabungan", "Masukkan nama & target valid!", "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); 
+                triggerDynamicIsland(t('toast_savings_title', "Tabungan"), t('toast_target_input_valid', "Masukkan nama & target valid!"), "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); 
                 return; 
             }
 
@@ -8553,14 +8656,17 @@
             if (typeof confetti === 'function') {
                 confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
             }
-            triggerDynamicIsland("Impian Baru 🎯", `Target "${jud}" berhasil dibuat!`, "fas fa-piggy-bank", "bg-emerald-500/20 text-emerald-400");
+            var isEn = (dataState && dataState.language === 'en');
+            triggerDynamicIsland(t('toast_dream_new_title', "Impian Baru 🎯"), isEn ? `Goal "${jud}" created successfully!` : `Target "${jud}" berhasil dibuat!`, "fas fa-piggy-bank", "bg-emerald-500/20 text-emerald-400");
             setTimeout(() => {
                 delete newItem._isNew;
             }, 1500);
         }
 
         function setorTabungan(id) {
-            var nominalStr = prompt("Masukkan jumlah setor ke tabungan (Rp): misal 50,000");
+            var isEn = (dataState && dataState.language === 'en');
+            var promptText = isEn ? "Enter deposit amount (Rp): e.g. 50,000" : "Masukkan jumlah setor ke tabungan (Rp): misal 50,000";
+            var nominalStr = prompt(promptText);
             if (!nominalStr) return;
             var nominal = evaluateQuickMath(nominalStr);
             if (isNaN(nominal) || nominal <= 0) return;
@@ -8569,10 +8675,10 @@
                 if(dataState.targetTabungan[i].id === id) {
                     dataState.targetTabungan[i].terkumpul += nominal;
                     if(dataState.targetTabungan[i].terkumpul >= dataState.targetTabungan[i].target) {
-                        triggerDynamicIsland("Selamat! 🎉", `Target "${dataState.targetTabungan[i].judul}" tercapai!`, "fas fa-trophy", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(t('toast_congrats_title', "Selamat! 🎉"), isEn ? `Goal "${dataState.targetTabungan[i].judul}" reached!` : `Target "${dataState.targetTabungan[i].judul}" tercapai!`, "fas fa-trophy", "bg-emerald-500/20 text-emerald-400");
                         triggerGrandCelebration();
                     } else {
-                        triggerDynamicIsland("Setor Tabungan", `+${formatRupiah(nominal)} ke "${dataState.targetTabungan[i].judul}"`, "fas fa-piggy-bank", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(t('toast_savings_deposit_title', "Setor Tabungan"), `+${formatRupiah(nominal)} ${isEn ? 'to' : 'ke'} "${dataState.targetTabungan[i].judul}"`, "fas fa-piggy-bank", "bg-emerald-500/20 text-emerald-400");
                     }
                     break;
                 }
@@ -8581,7 +8687,7 @@
         }
 
         function hapusTargetTabungan(id) {
-            if(confirm("Hapus target impian ini?")) {
+            if(confirm(t('confirm_delete_dream_target', "Hapus target impian ini?"))) {
                 var cardEl = document.getElementById('savings-card-' + id);
                 triggerHaptic('medium');
                 if (cardEl) {
@@ -8589,12 +8695,12 @@
                     setTimeout(() => {
                         dataState.targetTabungan = (dataState.targetTabungan || []).filter(t => t.id !== id);
                         simpanData();
-                        triggerDynamicIsland("Target Impian", "Target tabungan dihapus", "fas fa-trash-alt", "bg-rose-500/20 text-rose-400");
+                        triggerDynamicIsland(t('toast_target_deleted_title', "Target Impian"), t('toast_savings_deleted', "Target tabungan dihapus"), "fas fa-trash-alt", "bg-rose-500/20 text-rose-400");
                     }, 350);
                 } else {
                     dataState.targetTabungan = (dataState.targetTabungan || []).filter(t => t.id !== id);
                     simpanData();
-                    triggerDynamicIsland("Target Impian", "Target tabungan dihapus", "fas fa-trash-alt", "bg-rose-500/20 text-rose-400");
+                    triggerDynamicIsland(t('toast_target_deleted_title', "Target Impian"), t('toast_savings_deleted', "Target tabungan dihapus"), "fas fa-trash-alt", "bg-rose-500/20 text-rose-400");
                 }
             }
         }
@@ -8813,14 +8919,15 @@
             
             if (isNaN(nilai) || nilai <= 0) { 
                 triggerHaptic('error');
-                triggerDynamicIsland("Keuangan", "Masukkan nominal valid!", "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400"); 
+                triggerDynamicIsland(t('finances_title', "Keuangan"), t('toast_finances_valid_amount', "Masukkan nominal valid!"), "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400"); 
                 return; 
             }
 
             _isAddingUang = true;
             setTimeout(function() { _isAddingUang = false; }, 400);
 
-            var ket = inputCatatan.value.trim() || (jenis === 'masuk' ? 'Pemasukan' : 'Pengeluaran');
+            var isEn = (typeof dataState !== 'undefined' && dataState && dataState.language === 'en');
+            var ket = inputCatatan.value.trim() || (jenis === 'masuk' ? t('finances_tab_income', 'Pemasukan') : t('finances_tab_expense', 'Pengeluaran'));
             var targetWallet = (jenis === 'masuk') ? (selectedFormWalletMasuk || 'tunai') : (selectedFormWalletKeluar || 'tunai');
             dataState.transaksi.push({
                 id: generateUniqueId(), 
@@ -8830,7 +8937,7 @@
                 walletId: targetWallet,
                 kategori: (jenis === 'keluar') ? (selectedKategoriVal || '📁 Lainnya') : '💰 Pemasukan',
                 isoDate: getRekapDateString(),
-                tanggal: getWibDate().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })
+                tanggal: getWibDate().toLocaleDateString(getAppLocale(), { day: 'numeric', month: 'short' })
             });
 
             inputNominal.value = ''; 
@@ -8853,7 +8960,8 @@
             }
 
             triggerHaptic('success');
-            triggerDynamicIsland(jenis === 'masuk' ? "Pemasukan 💰" : "Pengeluaran 💸", `${jenis === 'masuk' ? '+' : '-'} ${formatRupiah(nilai)} (${ket})`, jenis === 'masuk' ? "fas fa-arrow-down" : "fas fa-arrow-up", jenis === 'masuk' ? "bg-emerald-500/20 text-emerald-400" : "bg-rose-500/20 text-rose-400");
+            var trxTitle = jenis === 'masuk' ? t('toast_income_title', "Pemasukan 💰") : t('toast_expense_title', "Pengeluaran 💸");
+            triggerDynamicIsland(trxTitle, `${jenis === 'masuk' ? '+' : '-'} ${formatRupiah(nilai)} (${ket})`, jenis === 'masuk' ? "fas fa-arrow-down" : "fas fa-arrow-up", jenis === 'masuk' ? "bg-emerald-500/20 text-emerald-400" : "bg-rose-500/20 text-rose-400");
 
             // Cek Peringatan Anggaran jika Pengeluaran
             if (jenis === 'keluar' && dataState.budgets && dataState.budgets[selectedKategoriVal]) {
@@ -8866,7 +8974,12 @@
                         .reduce((sum, t) => sum + (t.nominal || 0), 0);
                     if (totalSpent > limit) {
                         setTimeout(function() {
-                            triggerDynamicIsland("Peringatan Anggaran ⚠️", `Pengeluaran ${selectedKategoriVal} melampaui limit (${formatRupiah(totalSpent)} / ${formatRupiah(limit)})!`, "fas fa-exclamation-circle", "bg-rose-500/20 text-rose-400");
+                            var warnTitle = t('toast_budget_warning_title', "Peringatan Anggaran ⚠️");
+                            var katLabel = getKategoriLabel(selectedKategoriVal);
+                            var warnMsg = isEn 
+                                ? `Spending on ${katLabel} exceeded limit (${formatRupiah(totalSpent)} / ${formatRupiah(limit)})!`
+                                : `Pengeluaran ${katLabel} melampaui limit (${formatRupiah(totalSpent)} / ${formatRupiah(limit)})!`;
+                            triggerDynamicIsland(warnTitle, warnMsg, "fas fa-exclamation-circle", "bg-rose-500/20 text-rose-400");
                         }, 2500);
                     }
                 }
@@ -8875,12 +8988,12 @@
 
         // HAPUS TRANSAKSI DENGAN PURE FADE-OUT & SMOOTH HEIGHT COLLAPSE
         function hapusTransaksi(id, btnEl) {
-            if(confirm("Hapus transaksi ini?")) {
+            if(confirm(t('confirm_delete_transaction', "Hapus transaksi ini?"))) {
                 let li = btnEl ? btnEl.closest('li') : null;
                 let exec = () => {
                     dataState.transaksi = dataState.transaksi.filter(t => t.id !== id);
                     simpanData();
-                    triggerDynamicIsland("Keuangan", "Transaksi dihapus", "fas fa-trash", "bg-red-500/20 text-red-400");
+                    triggerDynamicIsland(t('finances_title', "Keuangan"), t('toast_trx_deleted', "Transaksi dihapus"), "fas fa-trash", "bg-red-500/20 text-red-400");
                 };
                 if(li) { 
                     li.classList.add('removing-item'); 
@@ -8907,28 +9020,28 @@
             if (_isAddingJurnal) return;
             var jud = document.getElementById('jurnal-judul').value.trim();
             var isi = document.getElementById('jurnal-isi').value.trim();
-            if (!jud && !isi) { triggerDynamicIsland("Jurnal", "Jurnal masih kosong!", "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); return; }
+            if (!jud && !isi) { triggerDynamicIsland(t('journal_title', "Jurnal"), t('toast_journal_empty', "Jurnal masih kosong!"), "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); return; }
 
             _isAddingJurnal = true;
             setTimeout(function() { _isAddingJurnal = false; }, 400);
 
             dataState.jurnal.push({ 
-                id: generateUniqueId(), judul: jud || 'Catatan', isi: isi, mood: selectedMoodIcon, 
-                tanggal: new Date().toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' }) 
+                id: generateUniqueId(), judul: jud || t('journal_note_default', 'Catatan'), isi: isi, mood: selectedMoodIcon, 
+                tanggal: new Date().toLocaleDateString(getAppLocale(), { weekday: 'short', day: 'numeric', month: 'short' }) 
             });
             document.getElementById('jurnal-judul').value = ''; document.getElementById('jurnal-isi').value = '';
             toggleInput('jurnal-input-area'); 
             simpanData();
-            triggerDynamicIsland("Jurnal Harian", `Catatan disimpan ${selectedMoodIcon}`, "fas fa-book", "bg-primary-500/20 text-primary-400");
+            triggerDynamicIsland(t('journal_title', "Jurnal Harian"), `${t('toast_journal_saved', 'Catatan disimpan')} ${selectedMoodIcon}`, "fas fa-book", "bg-primary-500/20 text-primary-400");
         }
 
         function hapusJurnal(id, btnEl) {
-            if(confirm("Hapus jurnal ini?")) {
+            if(confirm(t('confirm_delete_journal', "Hapus jurnal ini?"))) {
                 let card = btnEl ? btnEl.closest('.jurnal-card') : null;
                 let exec = () => {
                     dataState.jurnal = dataState.jurnal.filter(j => j.id !== id);
                     simpanData();
-                    triggerDynamicIsland("Jurnal", "Catatan jurnal dihapus", "fas fa-trash", "bg-red-500/20 text-red-400");
+                    triggerDynamicIsland(t('journal_title', "Jurnal"), t('toast_journal_deleted', "Catatan jurnal dihapus"), "fas fa-trash", "bg-red-500/20 text-red-400");
                 };
                 if(card) { 
                     card.classList.add('removing-item'); 
@@ -9443,7 +9556,7 @@
                             <div class="min-w-0 flex-1 pr-2">
                                 <p class="text-xs font-bold text-slate-800 dark:text-white truncate compact-text-title">${escapeHtml(trx.catatan)}</p>
                                 <div class="flex items-center gap-1.5 mt-0.5 flex-wrap">
-                                    <span class="text-[9px] ${getCategoryBadgeClass(trx.kategori)} px-2 py-0.5 rounded-lg font-bold">${escapeHtml(trx.kategori || '📁 Transaksi')}</span>
+                                    <span class="text-[9px] ${getCategoryBadgeClass(trx.kategori)} px-2 py-0.5 rounded-lg font-bold">${escapeHtml(getKategoriLabel(trx.kategori) || (dataState && dataState.language === 'en' ? '📁 Transaction' : '📁 Transaksi'))}</span>
                                     ${getWalletBadge(trx.walletId)}
                                     <span class="text-[10px] text-slate-400 font-medium">${trx.tanggal}</span>
                                 </div>
@@ -10417,6 +10530,7 @@
             const sec = document.getElementById('sidebar-account-section');
             const headerIcon = document.getElementById('header-cloud-status-icon');
             const headerText = document.getElementById('header-user-badge-text');
+            var isEn = (typeof dataState !== 'undefined' && dataState && dataState.language === 'en');
 
             if (!user) {
                 if (sec) {
@@ -10427,8 +10541,8 @@
                                     <i class="fas fa-cloud"></i>
                                 </div>
                                 <div class="min-w-0 flex-1">
-                                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Sinkronisasi Cloud</div>
-                                    <div class="text-[10px] text-slate-400 truncate">Simpan data lintas perangkat</div>
+                                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">${t('sync_account_cloud_title', 'Sinkronisasi Cloud')}</div>
+                                    <div class="text-[10px] text-slate-400 truncate">${t('sync_account_cloud_desc', 'Simpan data lintas perangkat')}</div>
                                 </div>
                             </div>
                             <button type="button" onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-2 py-2 px-3 bg-white dark:bg-[#242f3d] hover:bg-slate-50 dark:hover:bg-[#313f52] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[#313f52] rounded-xl text-xs font-bold shadow-xs transition-all active:scale-95">
@@ -10438,18 +10552,17 @@
                                     <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
                                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                                 </svg>
-                                <span>Masuk dengan Google</span>
+                                <span>${t('sync_btn_google_signin', 'Masuk dengan Google')}</span>
                             </button>
                         </div>
                     `;
                 }
                 if (headerIcon) headerIcon.className = "fas fa-cloud text-xs text-primary-200";
-                if (headerText) headerText.innerText = "Lokal";
+                if (headerText) headerText.innerText = isEn ? "Local" : "Lokal";
             } else {
                 const photoUrl = user.photoURL || ('https://ui-avatars.com/api/?name=' + encodeURIComponent(user.displayName || 'User') + '&background=2563eb&color=fff');
-                const name = escapeHtml(user.displayName || 'Pengguna Cloud');
+                const name = escapeHtml(user.displayName || t('sync_cloud_user_default', 'Pengguna Cloud'));
                 const email = escapeHtml(user.email || '');
-                const firstName = escapeHtml((user.displayName || 'Pengguna').split(' ')[0]);
 
                 if (sec) {
                     sec.innerHTML = `
@@ -10466,16 +10579,16 @@
                             </div>
                             <div class="flex items-center justify-between text-[10px] font-semibold text-slate-500 dark:text-slate-400 mb-2 px-0.5">
                                 <span class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold">
-                                    <i class="fas fa-check-circle text-[10px]"></i> Cloud Aktif
+                                    <i class="fas fa-check-circle text-[10px]"></i> ${t('sync_badge_active', 'Cloud Aktif')}
                                 </span>
-                                <span id="cloud-last-synced-badge" class="text-slate-400 text-[9px] truncate">Tersinkron</span>
+                                <span id="cloud-last-synced-badge" class="text-slate-400 text-[9px] truncate">${t('sync_badge_synced', 'Tersinkron')}</span>
                             </div>
                             <div class="grid grid-cols-2 gap-1.5">
                                 <button type="button" onclick="manualSyncCloud()" id="btn-manual-sync" class="flex items-center justify-center gap-1.5 py-1.5 px-2 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-xl text-[11px] font-bold transition-all active:scale-95">
-                                    <i id="cloud-sync-icon" class="fas fa-sync-alt text-[10px]"></i> Sinkron
+                                    <i id="cloud-sync-icon" class="fas fa-sync-alt text-[10px]"></i> ${t('sync_btn_sync_now', 'Sinkron')}
                                 </button>
                                 <button type="button" onclick="logoutGoogle()" class="flex items-center justify-center gap-1.5 py-1.5 px-2 bg-slate-100 dark:bg-[#242f3d] hover:bg-red-50 dark:hover:bg-red-950/30 text-slate-600 hover:text-red-600 dark:text-slate-300 dark:hover:text-red-400 rounded-xl text-[11px] font-bold transition-all active:scale-95">
-                                    <i class="fas fa-sign-out-alt text-[10px]"></i> Keluar
+                                    <i class="fas fa-sign-out-alt text-[10px]"></i> ${t('sync_btn_sign_out', 'Keluar')}
                                 </button>
                             </div>
                         </div>
@@ -10490,25 +10603,26 @@
             const badge = document.getElementById('cloud-last-synced-badge');
             const syncIcon = document.getElementById('cloud-sync-icon');
             const headerIcon = document.getElementById('header-cloud-status-icon');
+            var isEn = (typeof dataState !== 'undefined' && dataState && dataState.language === 'en');
 
             if (status === 'saving' || status === 'syncing') {
-                if (badge) badge.innerText = "Menyimpan...";
+                if (badge) badge.innerText = t('sync_badge_saving', "Menyimpan...");
                 if (syncIcon) syncIcon.classList.add('fa-spin');
                 if (headerIcon) headerIcon.className = "fas fa-sync-alt text-xs text-amber-300 fa-spin";
             } else if (status === 'synced') {
-                if (badge) badge.innerText = "Tersinkron " + formatTimeNow();
+                if (badge) badge.innerText = t('sync_badge_synced', "Tersinkron ") + formatTimeNow();
                 if (syncIcon) syncIcon.classList.remove('fa-spin');
                 if (headerIcon) headerIcon.className = "fas fa-check-circle text-xs text-emerald-300";
             } else if (status === 'pending') {
-                if (badge) badge.innerText = "Menunggu simpan...";
+                if (badge) badge.innerText = t('sync_badge_pending', "Menunggu simpan...");
                 if (headerIcon) headerIcon.className = "fas fa-cloud-upload-alt text-xs text-primary-200 animate-pulse";
             } else if (status === 'error') {
-                let errorText = "Gagal (Offline)";
+                let errorText = t('sync_badge_offline', "Gagal (Offline)");
                 if (err && err.code) {
-                    if (err.code === 'permission-denied') errorText = "Izin Ditolak (Rules)";
-                    else if (err.code === 'unavailable') errorText = "Koneksi Terputus";
-                    else if (err.code === 'unauthenticated') errorText = "Sesi Berakhir";
-                    else errorText = "Gagal (" + err.code + ")";
+                    if (err.code === 'permission-denied') errorText = t('sync_badge_permission_denied', "Izin Ditolak (Rules)");
+                    else if (err.code === 'unavailable') errorText = t('sync_badge_connection_lost', "Koneksi Terputus");
+                    else if (err.code === 'unauthenticated') errorText = t('sync_badge_session_expired', "Sesi Berakhir");
+                    else errorText = (isEn ? "Failed (" : "Gagal (") + err.code + ")";
                 }
                 if (badge) badge.innerText = errorText;
                 if (syncIcon) syncIcon.classList.remove('fa-spin');
@@ -10517,27 +10631,30 @@
         }
 
         function loginWithGoogle() {
+            var isEn = (typeof dataState !== 'undefined' && dataState && dataState.language === 'en');
             // Prioritas 1: Gunakan Hybrid Auth Bridge jika berjalan di dalam APK Mandiri
             if (window.DasborBridge && typeof window.DasborBridge.launchGoogleAuth === 'function') {
-                triggerDynamicIsland("Menghubungkan Akun...", "Membuka Google Login Resmi", "fab fa-google", "bg-primary-500/20 text-primary-400");
+                triggerDynamicIsland(t('toast_google_connecting', "Menghubungkan Akun..."), t('toast_google_opening', "Membuka Google Login Resmi"), "fab fa-google", "bg-primary-500/20 text-primary-400");
                 window.DasborBridge.launchGoogleAuth();
                 return;
             }
 
             // Fallback: Jika di dalam APK tetapi native bridge belum terpasang (APK belum di-update)
             if (window.DasborBridge || window.location.protocol === 'file:') {
-                alert("Pembaruan APK Diperlukan:\n\nFitur masuk dengan Google resmi membutuhkan instalasi file APK versi v1.1.0 (Stable) atau lebih baru.\n\nSilakan unduh dan pasang pembaruan APK terbaru.");
+                alert(isEn 
+                    ? "APK Update Required:\n\nOfficial Google sign-in requires APK version v1.1.0 (Stable) or newer.\n\nPlease download and install the latest APK update." 
+                    : "Pembaruan APK Diperlukan:\n\nFitur masuk dengan Google resmi membutuhkan instalasi file APK versi v1.1.0 (Stable) atau lebih baru.\n\nSilakan unduh dan pasang pembaruan APK terbaru.");
                 return;
             }
 
             if (!firebaseAuth) {
-                alert("Firebase belum siap. Silakan periksa koneksi internet Anda atau refresh halaman.");
+                alert(isEn ? "Firebase is not ready. Please check your internet connection or refresh." : "Firebase belum siap. Silakan periksa koneksi internet Anda atau refresh halaman.");
                 return;
             }
             const provider = new firebase.auth.GoogleAuthProvider();
             provider.setCustomParameters({ prompt: 'select_account' });
 
-            triggerDynamicIsland("Menghubungkan Akun...", "Membuka Google Login", "fab fa-google", "bg-primary-500/20 text-primary-400");
+            triggerDynamicIsland(t('toast_google_connecting', "Menghubungkan Akun..."), t('toast_google_opening_browser', "Membuka Google Login"), "fab fa-google", "bg-primary-500/20 text-primary-400");
 
             firebaseAuth.signInWithPopup(provider)
                 .then(function(result) {
@@ -10545,23 +10662,24 @@
                     saveLocalUserCache(currentUser);
                     updateAuthUI(currentUser);
                     syncFromCloud();
-                    triggerDynamicIsland("Berhasil Masuk!", "Halo, " + (result.user.displayName || 'Pengguna'), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                    triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (result.user.displayName || t('sync_user_default', 'Pengguna')), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
                 })
                 .catch(function(error) {
                     console.warn("Popup login error:", error.code, error.message);
                     if (error.code === 'auth/popup-blocked') {
-                        alert("Jendela pop-up Google diblokir oleh browser. Silakan izinkan pop-up untuk situs ini lalu tekan tombol login lagi.");
+                        alert(isEn ? "Google pop-up was blocked by browser. Please allow pop-ups for this site and retry." : "Jendela pop-up Google diblokir oleh browser. Silakan izinkan pop-up untuk situs ini lalu tekan tombol login lagi.");
                     } else if (error.code !== 'auth/popup-closed-by-user') {
-                        alert("Gagal masuk dengan Google: " + error.message);
+                        alert((isEn ? "Google sign-in failed: " : "Gagal masuk dengan Google: ") + error.message);
                     }
                 });
         }
 
         function handleAuthBridgeSuccess(idToken, name, email, photo, uid) {
             try {
+                var defaultName = t('sync_user_default', 'Pengguna');
                 var userObj = {
                     uid: uid || ('user_' + (email ? btoa(email).replace(/=/g, '') : Date.now())),
-                    displayName: name || 'Pengguna',
+                    displayName: name || defaultName,
                     email: email || '',
                     photoURL: photo || '',
                     idToken: idToken || ''
@@ -10582,20 +10700,20 @@
                                     updateAuthUI(currentUser);
                                 }
                                 syncFromCloud(true);
-                                triggerDynamicIsland("Berhasil Masuk!", "Halo, " + (currentUser.displayName || name || 'Pengguna'), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                                triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || name || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
                             })
                             .catch(function(err) {
                                 console.warn("signInWithCredential fallback:", err);
                                 syncFromCloud(true);
-                                triggerDynamicIsland("Berhasil Masuk!", "Halo, " + currentUser.displayName, "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                                triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
                             });
                     } catch(e) {
                         syncFromCloud(true);
-                        triggerDynamicIsland("Berhasil Masuk!", "Halo, " + currentUser.displayName, "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
                     }
                 } else {
                     syncFromCloud(true);
-                    triggerDynamicIsland("Berhasil Masuk!", "Halo, " + currentUser.displayName, "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                    triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
                 }
             } catch(e) {
                 console.error("handleAuthBridgeSuccess error:", e);
@@ -10603,7 +10721,7 @@
         }
 
         function logoutGoogle() {
-            if (!confirm("Keluar dari akun Google Anda? Data saat ini tetap tersimpan aman di perangkat ini.")) return;
+            if (!confirm(t('confirm_google_logout', "Keluar dari akun Google Anda? Data saat ini tetap tersimpan aman di perangkat ini."))) return;
             currentUser = null;
             saveLocalUserCache(null);
             safeStorage.removeItem('dasborAuthToken');
@@ -10611,7 +10729,7 @@
             if (firebaseAuth) {
                 firebaseAuth.signOut().catch(function() {});
             }
-            triggerDynamicIsland("Keluar Akun", "Beralih ke mode penyimpanan lokal", "fas fa-sign-out-alt", "bg-slate-500/20 text-slate-400");
+            triggerDynamicIsland(t('toast_google_signout_title', "Keluar Akun"), t('toast_google_signout_desc', "Beralih ke mode penyimpanan lokal"), "fas fa-sign-out-alt", "bg-slate-500/20 text-slate-400");
         }
 
         function syncFromCloud(silent = false) {
@@ -10727,7 +10845,7 @@
                             runSmartInsightsSequence();
                             updateSyncStatusUI('synced');
                             if (!silent) {
-                                triggerDynamicIsland("Cloud Tersinkron ☁️", "Data akun Anda berhasil dimuat", "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
+                                triggerDynamicIsland(t('toast_cloud_synced_title', "Cloud Tersinkron ☁️"), t('toast_cloud_synced_desc', "Data akun Anda berhasil dimuat"), "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
                             }
                         } else {
                             updateSyncStatusUI('synced');
@@ -10735,18 +10853,18 @@
                     } else {
                         // Pengguna baru pertama kali login: upload data lokal ke cloud
                         syncToCloud(false);
-                        triggerDynamicIsland("Cloud Aktif ☁️", "Data awal disimpan ke Akun Google Anda", "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(t('toast_cloud_active_title', "Cloud Aktif ☁️"), t('toast_cloud_active_desc', "Data awal disimpan ke Akun Google Anda"), "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
                     }
                 })
                 .catch(function(err) {
                     console.error("Gagal sinkron dari cloud:", err);
                     updateSyncStatusUI('error', err);
                     if (!silent) {
-                        let toastMsg = "Gagal mengunduh data cloud";
+                        let toastMsg = t('toast_cloud_download_failed', "Gagal mengunduh data cloud");
                         if (err && err.code === 'permission-denied') {
-                            toastMsg = "Izin Firestore ditolak (Periksa Rules di Console)";
+                            toastMsg = t('toast_cloud_permission_denied', "Izin Firestore ditolak (Periksa Rules di Console)");
                         }
-                        triggerDynamicIsland("Sinkronisasi Gagal", toastMsg, "fas fa-exclamation-triangle", "bg-rose-500/20 text-rose-400");
+                        triggerDynamicIsland(t('toast_sync_failed_title', "Sinkronisasi Gagal"), toastMsg, "fas fa-exclamation-triangle", "bg-rose-500/20 text-rose-400");
                     }
                 });
         }
@@ -10772,7 +10890,7 @@
                     isSyncingToCloud = false;
                     updateSyncStatusUI('synced');
                     if (showToast) {
-                        triggerDynamicIsland("Tersimpan di Cloud ☁️", "Semua data aman tersinkronisasi", "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(t('toast_cloud_saved_title', "Tersimpan di Cloud ☁️"), t('toast_cloud_saved_desc', "Semua data aman tersinkronisasi"), "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
                     }
                 })
                 .catch(function(err) {
@@ -10780,11 +10898,11 @@
                     console.error("Gagal menyimpan ke Firestore:", err);
                     updateSyncStatusUI('error', err);
                     if (showToast) {
-                        let toastMsg = "Akan dicoba saat koneksi stabil";
+                        let toastMsg = t('toast_cloud_retry_soon', "Akan dicoba saat koneksi stabil");
                         if (err && err.code === 'permission-denied') {
-                            toastMsg = "Izin Firestore ditolak (Periksa Rules di Console)";
+                            toastMsg = t('toast_cloud_permission_denied', "Izin Firestore ditolak (Periksa Rules di Console)");
                         }
-                        triggerDynamicIsland("Sinkronisasi Gagal", toastMsg, "fas fa-exclamation-triangle", "bg-amber-500/20 text-amber-400");
+                        triggerDynamicIsland(t('toast_sync_failed_title', "Sinkronisasi Gagal"), toastMsg, "fas fa-exclamation-triangle", "bg-amber-500/20 text-amber-400");
                     }
                 });
         }
@@ -10803,7 +10921,7 @@
                 loginWithGoogle();
                 return;
             }
-            if (confirm("Tarik data dari Cloud dan timpa data di perangkat ini? Semua data di perangkat ini akan mengikuti data Cloud.")) {
+            if (confirm(t('confirm_cloud_pull_overwrite', "Tarik data dari Cloud dan timpa data di perangkat ini? Semua data di perangkat ini akan mengikuti data Cloud."))) {
                 if (dataState) dataState.updatedAt = 0;
                 syncFromCloud(false);
             }
@@ -10836,7 +10954,7 @@
 
             if (verDisplay) {
                 if (isApk) {
-                    verDisplay.innerHTML = `<i class="fab fa-android text-emerald-500"></i> Dasbor APK Mandiri ${CURRENT_APP_VERSION} (OTA Aktif)`;
+                    verDisplay.innerHTML = `<i class="fab fa-android text-emerald-500"></i> ${t('apk_standalone_badge', 'Dasbor APK Mandiri')} ${CURRENT_APP_VERSION} (${t('ota_active_badge', 'OTA Aktif')})`;
                 } else {
                     verDisplay.innerHTML = `<i class="fas fa-cloud text-primary-500"></i> Dasbor Mobile ${CURRENT_APP_VERSION} (Cloud)`;
                 }
@@ -10848,8 +10966,8 @@
                 var bannerTitle = document.getElementById('android-banner-title');
                 var bannerDesc = document.getElementById('android-banner-desc');
                 if (downloadGroup) downloadGroup.classList.add('hidden');
-                if (bannerTitle) bannerTitle.innerText = 'APK Mandiri & Widget';
-                if (bannerDesc) bannerDesc.innerText = '100% Offline-First + OTA Aktif';
+                if (bannerTitle) bannerTitle.innerText = t('apk_standalone_title', 'APK Mandiri & Widget');
+                if (bannerDesc) bannerDesc.innerText = t('apk_standalone_desc', '100% Offline-First + OTA Aktif');
             }
 
             var toastBadge = document.getElementById('ota-toast-version-badge');
