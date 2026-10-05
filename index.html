@@ -339,14 +339,10 @@
             box-shadow: 0 4px 14px -3px hsla(var(--theme-h), 83%, 53%, 0.25) !important;
         }
 
-        /* Animasi Detak Badge saat Berubah */
-        @keyframes badgePulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-        .badge-pulse {
-            animation: badgePulse 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        /* Badge Aktif Statis & Kalem (Zero Bounce) */
+        #active-toggle-count-badge {
+            transform: none !important;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
         }
 
         /* Animasi Tambah & Hapus Target Impian */
@@ -1704,7 +1700,7 @@
 <body class="bg-slate-50 dark:bg-[#0e1621] text-slate-800 dark:text-slate-100 font-sans h-[100dvh] flex flex-col overflow-hidden relative">
 
     <!-- SKELETON LOADING -->
-    <div id="skeleton-loader" class="fixed inset-0 z-50 bg-slate-50/90 dark:bg-[#0e1621]/90 backdrop-blur-xl flex flex-col p-4 space-y-4 overflow-y-auto transition-opacity duration-500 ease-out">
+    <div id="skeleton-loader" class="fixed inset-0 z-50 bg-slate-50 dark:bg-[#0e1621] flex flex-col p-4 space-y-4 overflow-y-auto transition-opacity duration-500 ease-out">
         <div class="h-16 bg-white/70 dark:bg-[#17212b]/70 p-4 flex items-center justify-between border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm shrink-0 -mx-4 -mt-4 mb-2">
             <div class="w-8 h-8 skeleton rounded-xl ml-2"></div>
             <div class="w-28 h-6 skeleton rounded-xl"></div>
@@ -1779,7 +1775,7 @@
     </div>
 
     <!-- PWA INSTALL PROMPT BANNER -->
-    <div id="pwa-install-banner" class="fixed top-16 left-4 right-4 z-40 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-primary-500/40 rounded-3xl p-3.5 shadow-2xl flex items-center justify-between transition-all duration-300 transform -translate-y-24 opacity-0 pointer-events-none">
+    <div id="pwa-install-banner" class="fixed top-16 left-4 right-4 z-40 bg-white dark:bg-[#17212b] border border-primary-500/40 rounded-3xl p-3.5 shadow-2xl flex items-center justify-between transition-all duration-300 transform -translate-y-24 opacity-0 pointer-events-none">
         <div class="flex items-center gap-3 min-w-0">
             <div class="w-10 h-10 rounded-2xl bg-primary-600 text-white flex items-center justify-center text-lg font-black shadow-md shrink-0">
                 D
@@ -1873,7 +1869,7 @@
         </nav>
         
         <!-- LAPISAN PELINDUNG (BACKDROP CLICK-SHIELD) - OPSI 3 -->
-        <div id="settings-backdrop" onclick="toggleSettings()" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 z-20 cursor-pointer flex items-center justify-center">
+        <div id="settings-backdrop" onclick="toggleSettings()" class="absolute inset-0 bg-slate-900/60 dark:bg-black/80 z-20 cursor-pointer flex items-center justify-center">
             <div class="pointer-events-none text-[11px] font-bold text-white bg-slate-900/80 dark:bg-black/80 px-3 py-1.5 rounded-full border border-white/20 shadow-lg transform -translate-y-8 flex items-center gap-1.5">
                 <i class="fas fa-shield-alt text-emerald-400 text-xs"></i>
                 <span data-i18n="settings_tap_outside_close">Ketuk di luar untuk menutup</span>
@@ -1888,7 +1884,7 @@
                 </button>
 
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
-                <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
+                <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
                     <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.1.5 (Stable)</span></div>
                     
@@ -2027,11 +2023,11 @@
                         <i class="fas fa-trash-alt mr-2 text-rose-500"></i> <span data-i18n="settings_reset_data">Hapus Data Terpilih...</span>
                     </button>
 
-                    <!-- Kebijakan Privasi / Privacy Policy Modal Trigger -->
-                    <button type="button" onclick="openBottomSheet('privacy-modal')" class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center justify-between transition-colors border border-slate-200/50 dark:border-[#313f52]/50">
+                    <!-- Kebijakan Privasi / Privacy Policy Link (Direct Web Page) -->
+                    <a href="privacy.html" class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center justify-between transition-colors border border-slate-200/50 dark:border-[#313f52]/50">
                         <span class="flex items-center"><i class="fas fa-user-shield mr-2 text-emerald-500"></i> <span data-i18n="settings_privacy_policy">Kebijakan Privasi</span></span>
-                        <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
-                    </button>
+                        <i class="fas fa-external-link-alt text-[10px] text-slate-400"></i>
+                    </a>
 
                     <!-- Kontak & Feedback (Dipindahkan ke paling bawah) -->
                     <div class="mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d] text-center">
@@ -2119,72 +2115,7 @@
         </div>
     </div>
 
-    <!-- Bottom Sheet: Kebijakan Privasi (In-App Privacy Policy) -->
-    <div id="privacy-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
-        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
-            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
-            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
-                    <i class="fas fa-user-shield text-emerald-500"></i>
-                    <span data-i18n="privacy_modal_title">Kebijakan Privasi</span>
-                </h3>
-                <button type="button" onclick="closeBottomSheet('privacy-modal')" aria-label="Tutup kebijakan privasi" data-i18n-aria="privacy_btn_close_aria" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-primary-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-primary-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-                            <i class="fas fa-shield-alt text-emerald-500 text-xs"></i>
-                            <span data-i18n="privacy_badge_offline">100% Offline-First & Zero-Knowledge</span>
-                        </span>
-                    </div>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium" data-i18n="privacy_subtitle">Terakhir diperbarui: 29 September 2026 • Versi Dokumen 1.1</p>
-                </div>
 
-                <div class="space-y-2.5 text-[11px] text-slate-700 dark:text-slate-300">
-                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
-                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec1_title">1. Arsitektur Offline-First & Penyimpanan Lokal</h4>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec1_desc">Seluruh catatan keuangan dan produktivitas tersimpan secara default di penyimpanan internal perangkat Anda (localStorage). Pengembang tidak memiliki akses langsung ke perangkat Anda atau catatan keuangan pribadi Anda.</p>
-                    </div>
-
-                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
-                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec2_title">2. Layanan Cloud Opsional (Google Firebase)</h4>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec2_desc">Penyimpanan cloud bersifat opsional. Jika Anda memilih masuk dengan akun Google, hanya email dan ID yang digunakan untuk otentikasi aman via Google Firebase. Data tidak pernah dibagikan atau dijual ke pihak ketiga.</p>
-                    </div>
-
-                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
-                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec3_title">3. Bebas Cookie & Pelacak Iklan</h4>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec3_desc">Aplikasi ini tidak menggunakan cookie iklan, analitik komersial, maupun pelacak perilaku. Penyimpanan lokal hanya digunakan secara teknis untuk mengingat preferensi tema, bahasa, dan saldo offline Anda.</p>
-                    </div>
-
-                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
-                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec4_title">4. Hak Pengguna & Kontrol Penuh Data</h4>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec4_desc">Anda memiliki kontrol 100%: Anda dapat mengekspor cadangan data JSON kapan saja, menghapus data selektif, atau keluar akun untuk menghentikan sinkronisasi cloud.</p>
-                    </div>
-
-                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
-                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec5_title">5. Keamanan & Enkripsi</h4>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec5_desc">Transmisi cloud dilindungi enkripsi standar industri HTTPS/TLS serta aturan keamanan Firestore Security Rules yang membatasi akses baca dan tulis hanya untuk pemilik akun terotentikasi.</p>
-                    </div>
-
-                    <div class="bg-white/80 dark:bg-[#17212b]/80 p-3 rounded-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-1">
-                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5" data-i18n="privacy_sec6_title">6. Kontak & Pertanyaan</h4>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="privacy_sec6_desc">Pertanyaan atau permintaan penghapusan akun data cloud dapat diajukan melalui repositori resmi di GitHub: habielmaulanaaa-svg/dasbor-pribadi.</p>
-                    </div>
-                </div>
-
-                <!-- Tautan Dokumen Eksternal Standalone -->
-                <div class="p-3 bg-slate-50 dark:bg-[#1f2c3d]/60 rounded-2xl border border-dashed border-slate-200 dark:border-[#313f52] text-center">
-                    <a href="privacy.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 dark:text-primary-400 hover:underline" data-i18n="privacy_btn_open_external">
-                        Buka Halaman Mandiri (privacy.html) ↗
-                    </a>
-                </div>
-            </div>
-            <button type="button" onclick="closeBottomSheet('privacy-modal')" class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md transition-colors" data-i18n="privacy_btn_close">Tutup Kebijakan Privasi</button>
-        </div>
-    </div>
 
     <!-- Bottom Sheet: Analisis & Statistik Keuangan -->
     <div id="analisis-keuangan-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
@@ -2855,10 +2786,10 @@
             <h1 id="header-title" class="text-xl font-bold tracking-wide transition-opacity duration-300" data-i18n="app_title">Dasbor</h1>
         </div>
         <div class="flex items-center gap-2">
-            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" data-i18n-aria="calendar_title" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md flex items-center justify-center text-white text-xs transition-all shadow-xs" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
+            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" data-i18n-aria="calendar_title" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 flex items-center justify-center text-white text-xs transition-all shadow-xs" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
                 <i class="fas fa-calendar-alt"></i>
             </button>
-            <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" data-i18n-aria="header_account_aria" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 backdrop-blur-md transition-all text-xs font-bold text-white focus:outline-none shadow-xs" title="Status Cloud &amp; Akun" data-i18n-title="header_account_title">
+            <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" data-i18n-aria="header_account_aria" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 transition-all text-xs font-bold text-white focus:outline-none shadow-xs" title="Status Cloud &amp; Akun" data-i18n-title="header_account_title">
                 <i class="fas fa-cloud text-xs" id="header-cloud-status-icon"></i>
                 <span id="header-user-badge-text" class="text-[11px] max-w-[85px] truncate" data-i18n="cloud_status_local">Lokal</span>
             </button>
@@ -2872,7 +2803,7 @@
         <div id="beranda" class="tab-content active">
             
             <!-- Banner Pengingat Setor Rekap Harian -->
-            <div id="rekap-reminder-banner" class="hidden mb-3 px-3.5 py-2 rounded-2xl bg-amber-500/15 dark:bg-amber-500/20 border border-amber-500/30 text-amber-900 dark:text-amber-200 flex items-center justify-between shadow-sm backdrop-blur-md transition-all duration-300">
+            <div id="rekap-reminder-banner" class="hidden mb-3 px-3.5 py-2 rounded-2xl bg-amber-500/15 dark:bg-amber-500/20 border border-amber-500/30 text-amber-900 dark:text-amber-200 flex items-center justify-between shadow-sm transition-all duration-300">
                 <div class="flex items-center gap-2 text-xs font-bold truncate">
                     <i class="fas fa-bell text-amber-500 text-xs"></i>
                     <span data-i18n="home_rekap_reminder">Belum setor rekap hari ini</span>
@@ -2920,7 +2851,7 @@
                         
                         <!-- WADAH WAWASAN PINTAR BERGILIR (SMART INSIGHTS CAPSULE) -->
                         <div id="saldo-smart-insight-container" class="mt-2.5 overflow-hidden transition-all duration-500 ease-in-out opacity-0 max-h-0">
-                            <div id="saldo-smart-insight-pill" onclick="runSmartInsightsSequence(true)" title="Ketuk untuk putar ulang wawasan" data-i18n-title="home_insights_tap" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur-md border border-white/25 text-white text-[11px] font-semibold transition-opacity duration-400 shadow-xs cursor-pointer active:scale-95">
+                            <div id="saldo-smart-insight-pill" onclick="runSmartInsightsSequence(true)" title="Ketuk untuk putar ulang wawasan" data-i18n-title="home_insights_tap" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/25 dark:bg-black/40 border border-white/25 text-white text-[11px] font-semibold transition-opacity duration-400 shadow-xs cursor-pointer active:scale-95">
                                 <i id="saldo-smart-insight-icon" class="fas fa-lightbulb text-amber-300 text-xs"></i>
                                 <span id="saldo-smart-insight-text" class="truncate max-w-[270px]"></span>
                             </div>
@@ -5287,9 +5218,6 @@
             var badge = document.getElementById('active-toggle-count-badge');
             if (badge) {
                 badge.innerText = `${count} ${t('settings_active_badge', 'Aktif')}`;
-                badge.classList.remove('badge-pulse');
-                void badge.offsetWidth;
-                badge.classList.add('badge-pulse');
             }
 
             // Sinkronisasi status highlight kartu aktif (Opsi A)
@@ -5310,9 +5238,6 @@
             var stack = document.getElementById('settings-toggles-stack');
             var icon = document.getElementById('icon-settings-stack');
             if (stack && icon) {
-                if (window.navigator && typeof window.navigator.vibrate === 'function') {
-                    try { window.navigator.vibrate(10); } catch(e){}
-                }
                 stack.querySelectorAll('.animate-toggle-bounce, .fluid-switch-anim-on, .fluid-switch-anim-off').forEach(function(el) {
                     el.classList.remove('animate-toggle-bounce', 'fluid-switch-anim-on', 'fluid-switch-anim-off');
                 });
