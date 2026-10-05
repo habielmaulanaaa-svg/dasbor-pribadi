@@ -161,6 +161,16 @@
         .fluid-switch-btn.active .fluid-switch-knob {
             transform: translateX(20px);
         }
+
+        /* PULSING BADGE */
+        @keyframes badgePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        .badge-pulse {
+            animation: badgePulse 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
     </style>
 </head>
 <body class="bg-slate-100 dark:bg-[#0f172a] text-slate-800 dark:text-slate-100 min-h-screen p-4 md:p-8 flex flex-col items-center justify-start transition-colors duration-200">
@@ -256,6 +266,38 @@
                                 <div class="fluid-switch-knob"></div>
                             </button>
                         </div>
+
+                        <!-- Tema Otomatis -->
+                        <div onclick="handleToggle('autotheme')" id="row-autotheme" class="waterfall-item tactile-press py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                            <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
+                                <div class="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="flex flex-col min-w-0">
+                                    <span id="txt-auto-title" class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate">Tema Otomatis</span>
+                                    <span id="txt-auto-desc" class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5">Gelap 17:00 - 05:00 WIB, Terang 05:00 - 17:00 WIB</span>
+                                </div>
+                            </div>
+                            <button type="button" onclick="event.stopPropagation(); handleToggle('autotheme')" id="switch-autotheme" class="fluid-switch-btn" aria-label="Toggle Tema Otomatis">
+                                <div class="fluid-switch-knob"></div>
+                            </button>
+                        </div>
+
+                        <!-- Tanggal Sub Tugas -->
+                        <div onclick="handleToggle('subtask_date')" id="row-subtask_date" class="waterfall-item tactile-press waterfall-card-active py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                            <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
+                                <div class="w-7 h-7 rounded-lg bg-violet-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+                                    <i class="far fa-calendar-alt"></i>
+                                </div>
+                                <div class="flex flex-col min-w-0">
+                                    <span id="txt-subtask-title" class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate">Tanggal Sub Tugas</span>
+                                    <span id="txt-subtask-desc" class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5">Tampilkan tanggal pembuatan pada sub tugas</span>
+                                </div>
+                            </div>
+                            <button type="button" onclick="event.stopPropagation(); handleToggle('subtask_date')" id="switch-subtask_date" class="fluid-switch-btn active" aria-label="Toggle Tanggal Sub Tugas">
+                                <div class="fluid-switch-knob"></div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -348,7 +390,9 @@
         var state = {
             isOpen: true,
             gradient: true,
-            compact: false
+            compact: false,
+            autotheme: false,
+            subtask_date: true
         };
 
         // KAMUS KATA PROTOTYPE
@@ -356,11 +400,14 @@
             id: {
                 sysTitle: "Sistem & Tampilan",
                 optionsHeader: "Opsi Tampilan & Sistem",
-                activeBadge: "2 Aktif",
                 gradTitle: "Gradasi Saldo",
                 gradDesc: "Warna gradasi cerah & glow kartu",
                 compTitle: "Mode Ramping",
                 compDesc: "Padatkan kartu & tata letak ringkas",
+                autoTitle: "Tema Otomatis",
+                autoDesc: "Gelap 17:00 - 05:00 WIB, Terang 05:00 - 17:00 WIB",
+                subtaskTitle: "Tanggal Sub Tugas",
+                subtaskDesc: "Tampilkan tanggal pembuatan pada sub tugas",
                 changelog: "Catatan Rilis",
                 update: "Cek Pembaruan",
                 reset: "Hapus Data Terpilih...",
@@ -371,11 +418,14 @@
             en: {
                 sysTitle: "System & Appearance",
                 optionsHeader: "Display & System Options",
-                activeBadge: "2 Active",
                 gradTitle: "Balance Gradient",
                 gradDesc: "Vibrant gradient colors & card glow",
                 compTitle: "Compact Mode",
                 compDesc: "Compact cards & dense layout",
+                autoTitle: "Auto Theme",
+                autoDesc: "Dark 17:00 - 05:00 WIB, Light 05:00 - 17:00 WIB",
+                subtaskTitle: "Subtask Date",
+                subtaskDesc: "Show creation date on subtasks",
                 changelog: "Release Notes",
                 update: "Check Updates",
                 reset: "Delete Selected Data...",
@@ -385,6 +435,24 @@
             }
         };
 
+        // UPDATE BADGE JUMLAH AKTIF REAL-TIME
+        function updateActiveBadge() {
+            var count = 0;
+            if (state.gradient) count++;
+            if (state.compact) count++;
+            if (state.autotheme) count++;
+            if (state.subtask_date) count++;
+
+            var badge = document.getElementById('active-toggle-count-badge');
+            if (badge) {
+                var suffix = (currentLang === 'id') ? 'Aktif' : 'Active';
+                badge.innerText = count + ' ' + suffix;
+                badge.classList.remove('badge-pulse');
+                void badge.offsetWidth; // Force Reflow
+                badge.classList.add('badge-pulse');
+            }
+        }
+
         // GANTI BAHASA INTERAKTIF
         function switchLanguage(lang) {
             currentLang = lang;
@@ -392,11 +460,14 @@
 
             document.getElementById('txt-sys-title').innerText = data.sysTitle;
             document.getElementById('txt-options-header').innerText = data.optionsHeader;
-            document.getElementById('active-toggle-count-badge').innerText = data.activeBadge;
             document.getElementById('txt-grad-title').innerText = data.gradTitle;
             document.getElementById('txt-grad-desc').innerText = data.gradDesc;
             document.getElementById('txt-comp-title').innerText = data.compTitle;
             document.getElementById('txt-comp-desc').innerText = data.compDesc;
+            document.getElementById('txt-auto-title').innerText = data.autoTitle;
+            document.getElementById('txt-auto-desc').innerText = data.autoDesc;
+            document.getElementById('txt-subtask-title').innerText = data.subtaskTitle;
+            document.getElementById('txt-subtask-desc').innerText = data.subtaskDesc;
             document.getElementById('txt-changelog').innerText = data.changelog;
             document.getElementById('txt-update').innerText = data.update;
             document.getElementById('txt-reset').innerText = data.reset;
@@ -404,6 +475,8 @@
             document.getElementById('txt-contact-label').innerText = data.contactLabel;
             document.getElementById('txt-lang-label').innerText = data.langLabel;
             document.getElementById('current-lang-badge').innerText = lang.toUpperCase();
+
+            updateActiveBadge();
 
             var btnId = document.getElementById('btn-lang-id');
             var btnEn = document.getElementById('btn-lang-en');
@@ -422,6 +495,9 @@
 
         // AKORDEON TOGGLE
         function toggleSettingsToggleStack() {
+            if (window.navigator && typeof window.navigator.vibrate === 'function') {
+                try { window.navigator.vibrate(10); } catch(e){}
+            }
             state.isOpen = !state.isOpen;
             var stack = document.getElementById('settings-toggles-stack');
             var icon = document.getElementById('icon-settings-stack');
@@ -436,6 +512,9 @@
         }
 
         function handleToggle(key) {
+            if (window.navigator && typeof window.navigator.vibrate === 'function') {
+                try { window.navigator.vibrate(8); } catch(e){}
+            }
             state[key] = !state[key];
             var row = document.getElementById('row-' + key);
             var sw = document.getElementById('switch-' + key);
@@ -447,6 +526,9 @@
                 sw.classList.remove('active');
                 row.classList.remove('waterfall-card-active');
             }
+
+            // Update dinamis jumlah badge aktif
+            updateActiveBadge();
         }
 
         // GANTI LEBAR PERANGKAT (PC 340px vs Android 288px)
@@ -476,6 +558,9 @@
                 icon.className = 'fas fa-moon text-xs text-slate-600';
             }
         }
+
+        // INISIALISASI STATUS AWAL BADGE
+        updateActiveBadge();
     </script>
 </body>
 </html>
