@@ -57,49 +57,47 @@
         }
 
         /* ========================================================
-           APPLE SPRING PHYSICS: TRIGGER BUTTON (RODA GIGI)
+           APPLE SILKY SMOOTH PHYSICS: TRIGGER BUTTON (RODA GIGI)
+           Tanpa pantulan / overshoot, kurva Quart Ease-Out (0.16, 1, 0.3, 1)
            ======================================================== */
         .apple-trigger-spring {
-            transition: transform calc(0.36s * var(--anim-speed-factor)) cubic-bezier(0.34, 1.56, 0.64, 1), 
-                        box-shadow calc(0.28s * var(--anim-speed-factor)) ease, 
+            transition: transform calc(0.42s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow calc(0.35s * var(--anim-speed-factor)) ease, 
                         border-color 0.2s ease, 
                         background-color 0.2s ease;
             will-change: transform, box-shadow;
         }
         .apple-trigger-spring:active {
-            transform: scale(0.88) !important;
-            transition-duration: 0.1s !important;
+            transform: scale(0.91) !important;
+            transition-duration: 0.12s !important;
         }
         #btn-settings-toggle.active {
-            box-shadow: 0 0 0 3.5px hsla(var(--theme-h), 83%, 53%, 0.4), 
-                        0 12px 28px -6px hsla(var(--theme-h), 83%, 53%, 0.35) !important;
-            transform: scale(1.06);
+            box-shadow: 0 0 0 3px hsla(var(--theme-h), 83%, 53%, 0.35), 
+                        0 10px 24px -4px hsla(var(--theme-h), 83%, 53%, 0.3) !important;
+            transform: scale(1.035);
             border-color: hsl(var(--theme-h), 83%, 53%) !important;
         }
 
-        /* INERSIA MEKANIS PUTARAN RODA GIGI (APPLE DIGITAL CROWN PHYSICS) */
+        /* PUTARAN PRESISI RODA GIGI (0° KE 90° MULUS TANPA PANTULAN) */
         @keyframes appleCrownRotateCW {
             0% { transform: rotate(0deg); }
-            62% { transform: rotate(100deg); } /* Micro-overshoot */
-            84% { transform: rotate(88deg); }  /* Elastic rebound */
-            100% { transform: rotate(90deg); } /* Settled lock */
+            100% { transform: rotate(90deg); }
         }
         @keyframes appleCrownRotateCCW {
             0% { transform: rotate(90deg); }
-            62% { transform: rotate(-10deg); } /* Reverse micro-overshoot */
-            84% { transform: rotate(2deg); }   /* Elastic rebound */
-            100% { transform: rotate(0deg); }  /* Settled lock */
+            100% { transform: rotate(0deg); }
         }
         .gear-spin-open {
-            animation: appleCrownRotateCW calc(0.38s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: appleCrownRotateCW calc(0.44s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .gear-spin-close {
             animation: appleCrownRotateCCW calc(0.34s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         /* ========================================================
-           APPLE QUICK ACTION BLOSSOM: POP-UP SETTINGS MENU
+           APPLE SILKY GLIDE POP-UP: POP-UP SETTINGS MENU
            Origin: bottom-left (tepat di atas tombol gear)
+           Mekar perlahan dan meluncur mulus tanpa memantul (Zero Bounce)
            ======================================================== */
         #settings-menu {
             transform-origin: 20px bottom;
@@ -108,20 +106,12 @@
             -webkit-backdrop-filter: blur(28px) saturate(190%);
         }
 
-        /* MEKAR KE ATAS (BLOSSOM IN) DENGAN ELASTIC OVERSHOOT KHAS iOS */
+        /* MELUNCUR NAIK & MEKAR TANPA PANTULAN (ZERO BOUNCE GLIDE IN) */
         @keyframes appleBlossomIn {
             0% {
                 opacity: 0;
-                transform: scale(0.82) translateY(18px);
-                filter: blur(10px);
-            }
-            62% {
-                opacity: 1;
-                transform: scale(1.028) translateY(-2px);
-                filter: blur(0px);
-            }
-            84% {
-                transform: scale(0.994) translateY(0.5px);
+                transform: scale(0.90) translateY(14px);
+                filter: blur(6px);
             }
             100% {
                 opacity: 1;
@@ -130,7 +120,7 @@
             }
         }
 
-        /* MENGATUP KE BAWAH (BLOSSOM OUT) LEMBUT DAN CEPAT */
+        /* MENYUSUT TURUN LEMBUT (SILKY RETREAT OUT) */
         @keyframes appleBlossomOut {
             0% {
                 opacity: 1;
@@ -139,23 +129,23 @@
             }
             100% {
                 opacity: 0;
-                transform: scale(0.85) translateY(14px);
-                filter: blur(8px);
+                transform: scale(0.92) translateY(10px);
+                filter: blur(4px);
             }
         }
 
         .apple-blossom-in {
-            animation: appleBlossomIn calc(0.34s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: appleBlossomIn calc(0.44s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
         }
         .apple-blossom-out {
-            animation: appleBlossomOut calc(0.24s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: appleBlossomOut calc(0.32s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
         }
 
         /* BACKDROP SHIELD (OPSI 3) */
         #settings-backdrop {
             opacity: 0;
             pointer-events: none;
-            transition: opacity calc(0.28s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity calc(0.38s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity;
         }
         #settings-backdrop.active {
@@ -165,9 +155,9 @@
 
         /* TOMBOL DARK MODE KETIKA TERKUNCI (MUTED LOCK STATE) */
         #btn-dark-mode-toggle {
-            transition: transform calc(0.25s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity calc(0.25s * var(--anim-speed-factor)) ease, 
-                        filter calc(0.25s * var(--anim-speed-factor)) ease,
+            transition: transform calc(0.36s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity calc(0.36s * var(--anim-speed-factor)) ease, 
+                        filter calc(0.36s * var(--anim-speed-factor)) ease,
                         background-color 0.2s ease, 
                         border-color 0.2s ease;
             will-change: transform, opacity;
@@ -175,7 +165,7 @@
         #btn-dark-mode-toggle.locked {
             opacity: 0.3 !important;
             pointer-events: none !important;
-            transform: scale(0.92) !important;
+            transform: scale(0.93) !important;
             filter: grayscale(0.6) blur(0.3px) !important;
         }
 
@@ -313,7 +303,7 @@
         <div>
             <div class="flex items-center gap-2 mb-1.5 flex-wrap">
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5">
-                    <i class="fab fa-apple text-xs"></i> <span>Animasi: Apple Quick Action Blossom</span>
+                    <i class="fab fa-apple text-xs"></i> <span>Animasi: Apple Silky Glide (Tanpa Pantulan)</span>
                 </span>
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                     Opsi 3: Backdrop &amp; Lock-State
@@ -322,9 +312,9 @@
                     <i class="fas fa-ban text-[10px]"></i> <span>Haptic: Nonaktif (Bebas Getar)</span>
                 </span>
             </div>
-            <h1 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">Prototipe: Animasi Menu Pengaturan Ala Apple (iOS Physics)</h1>
+            <h1 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">Prototipe: Animasi Menu Pengaturan Ala Apple (Silky Glide, No Bounce)</h1>
             <p class="text-xs text-slate-300 mt-1 leading-relaxed max-w-2xl">
-                Efek mekar elastis (*spring blossom*) dari sudut tombol roda gigi, putaran inersia mekanis ala Digital Crown Apple Watch, kaca buram (*frosted glass*), dan pengamanan tombol di latar belakang tanpa getaran ponsel.
+                Meluncur lembut dan tenang dari sudut tombol roda gigi tanpa hentakan/pantulan (*zero bounce*), putaran presisi 90°, kaca buram (*frosted glass*), dan pengamanan tombol di latar belakang tanpa getaran ponsel.
             </p>
         </div>
 
@@ -596,10 +586,10 @@
                     </div>
                     <div class="flex items-center gap-1.5">
                         <button type="button" id="btn-speed-1x" onclick="setAnimSpeed(1)" class="px-2.5 py-1 rounded-xl text-[10.5px] font-bold transition-all bg-primary-600 text-white shadow-xs">
-                            1.0x (Normal iOS)
+                            1.0x (Tenang &amp; Mulus ~440ms)
                         </button>
-                        <button type="button" id="btn-speed-slow" onclick="setAnimSpeed(3)" class="px-2.5 py-1 rounded-xl text-[10.5px] font-bold transition-all bg-slate-800 text-slate-400 hover:text-white border border-slate-700">
-                            0.33x (Slow-Motion)
+                        <button type="button" id="btn-speed-slow" onclick="setAnimSpeed(2.5)" class="px-2.5 py-1 rounded-xl text-[10.5px] font-bold transition-all bg-slate-800 text-slate-400 hover:text-white border border-slate-700">
+                            0.4x (Slow-Motion)
                         </button>
                     </div>
                 </div>
@@ -607,13 +597,13 @@
                 <!-- CARA MENGUJI -->
                 <div class="p-3 bg-primary-950/40 rounded-2xl border border-primary-800/50 text-[11px] text-slate-300 space-y-1.5">
                     <div class="font-bold text-primary-300 flex items-center gap-1.5">
-                        <i class="fas fa-vial"></i> <span>Karakter Animasi Apple yang Diterapkan:</span>
+                        <i class="fas fa-vial"></i> <span>Karakter Animasi Baru yang Diterapkan:</span>
                     </div>
                     <ol class="list-decimal list-inside space-y-1 text-slate-300 pl-1 leading-relaxed">
-                        <li><strong>Spring Blossom Pop</strong>: Menu mekar elastis dari sudut tombol roda gigi (*transform-origin: bottom-left*) dengan lonjakan kenyal (*overshoot scale 1.028*).</li>
-                        <li><strong>Inersia Digital Crown Roda Gigi</strong>: Roda gigi berputar mekanis 90° dengan getaran mikro kenyal (berputar ke 100° lalu mengunci pas di 90°).</li>
-                        <li><strong>Penutupan Halus (*Spring Retreat*)</strong>: Saat ditutup, menu menyusut dan memudar ke arah tombol roda gigi tanpa hentakan.</li>
-                        <li><strong>Zero Haptic Vibration</strong>: Sesuai aturan Anda, getaran fisik ponsel dinonaktifkan sepenuhnya; sensasi kepuasan dihadirkan murni lewat visual fisika pegas.</li>
+                        <li><strong>Silky Glide (Tanpa Pantulan / Zero Bounce)</strong>: Menu meluncur dan mekar langsung ke posisi akhir tanpa gerakan membal (*overshoot*). Gerakan mengalir tenang dan elegan.</li>
+                        <li><strong>Kecepatan Ditenangkan</strong>: Durasi diperlambat menjadi ~440ms (buka) dan ~320ms (tutup) untuk sensasi mewah dan rileks.</li>
+                        <li><strong>Putaran Roda Gigi Presisi</strong>: Roda gigi berputar secara linear-decelerate dari 0° langsung ke 90° tanpa berayun melewati 90°.</li>
+                        <li><strong>Zero Haptic Vibration</strong>: Getaran ponsel dinonaktifkan sepenuhnya.</li>
                     </ol>
                 </div>
             </div>
@@ -763,8 +753,8 @@
                 updateHUD(true);
 
                 logEvent(
-                    '🌸 Apple Blossom: Menu DIBUKA', 
-                    'Menu mekar elastis dari sudut tombol roda gigi dengan inersia putaran 90°. Tombol belakang dikunci & backdrop aktif.', 
+                    '🌸 Silky Glide: Menu DIBUKA', 
+                    'Menu meluncur lembut dan mekar langsung ke posisi akhir tanpa pantulan. Putaran roda gigi tenang 0° ke 90°. Tombol belakang terkunci.', 
                     'apple'
                 );
             } else {
@@ -792,7 +782,7 @@
                 updateHUD(false);
 
                 // Setelah durasi animasi selesai, sembunyikan elemen secara bersih
-                const closeDuration = 240 * state.animSpeedFactor;
+                const closeDuration = 320 * state.animSpeedFactor;
                 setTimeout(() => {
                     if (!state.isSettingsOpen) {
                         menu.classList.add('hidden');
@@ -801,8 +791,8 @@
                 }, closeDuration);
 
                 logEvent(
-                    '🍃 Apple Retreat: Menu DITUTUP', 
-                    'Menu menyusut dan memudar kembali ke tombol roda gigi. Tombol dark mode kembali aktif normal.', 
+                    '🍃 Silky Retreat: Menu DITUTUP', 
+                    'Menu menyusut dan memudar tenang tanpa hentakan kembali ke tombol roda gigi. Tombol dark mode kembali aktif normal.', 
                     'info'
                 );
             }
