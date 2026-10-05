@@ -252,6 +252,7 @@
             will-change: transform;
         }
         .stack-chevron-icon.open {
+            transform: rotate(180deg);
             color: hsl(var(--theme-h), 83%, 53%) !important;
         }
 
@@ -1209,20 +1210,7 @@
 
         @keyframes popIn { from { transform: translateY(6px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         #settings-menu:not(.hidden) { animation: popIn 0.18s ease-out forwards; }
-        #settings-toggles-stack { 
-            max-height: 0; 
-            opacity: 0; 
-            overflow: hidden; 
-            transition: max-height 0.28s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s ease-in-out !important; 
-            -webkit-overflow-scrolling: touch;
-            touch-action: pan-y;
-        }
-        #settings-toggles-stack.open { 
-            max-height: 800px; 
-            opacity: 1; 
-            overflow-y: auto;
-            overscroll-behavior: contain;
-        }
+
 
         /* Slider Custom */
         #theme-color-slider {
@@ -1842,7 +1830,7 @@
                             </div>
                         </button>
                         
-                        <div id="settings-toggles-stack" class="accordion-content" style="touch-action: pan-y;">
+                        <div id="settings-toggles-stack" style="touch-action: pan-y;">
                             <div class="accordion-overflow min-h-0 overflow-hidden">
                                 <div class="accordion-inner space-y-1.5 px-2 pb-2.5 pt-1">
                                     <!-- 1. Toggle Gradasi Kartu Saldo -->
