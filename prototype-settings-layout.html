@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Prototype: Tata Letak Menu Pengaturan & Selektor Bahasa</title>
+    <!-- Tailwind CSS (Local Bundle) -->
+    <script src="tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --theme-h: 217;
+            --theme-s: 91%;
+            --theme-l: 60%;
+        }
+
+        * {
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* TACTILE TAP (SPRING SQUISH) FEEDBACK */
+        .tactile-press {
+            transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), background-color 0.18s ease, border-color 0.18s ease;
+            will-change: transform;
+        }
+        .tactile-press:active {
+            transform: scale(0.975);
+        }
+
+        /* ACCORDION SHELL: NO OPACITY CONFLICT, ZERO GAP PADDING WRAPPER */
+        #settings-toggles-stack {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 1 !important;
+            overflow: hidden;
+            transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            will-change: grid-template-rows;
+        }
+        #settings-toggles-stack.open {
+            grid-template-rows: 1fr !important;
+        }
+        #settings-toggles-stack > .accordion-overflow {
+            min-height: 0;
+            overflow: hidden;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: 0 !important;
+            transition: none !important;
+            transform: none !important;
+        }
+
+        /* WATERFALL CASCADE */
+        .waterfall-item {
+            opacity: 0;
+            transform: translateY(-16px) scale(0.97);
+            transition: 
+                opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.34s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+            will-change: opacity, transform;
+        }
+        #settings-toggles-stack.open .waterfall-item {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        #settings-toggles-stack.open .waterfall-item:nth-child(1) { transition-delay: 0.03s; }
+        #settings-toggles-stack.open .waterfall-item:nth-child(2) { transition-delay: 0.08s; }
+        #settings-toggles-stack.open .waterfall-item:nth-child(3) { transition-delay: 0.13s; }
+        #settings-toggles-stack.open .waterfall-item:nth-child(4) { transition-delay: 0.18s; }
+
+        #settings-toggles-stack:not(.open) .waterfall-item {
+            transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+            transition-delay: 0s;
+            opacity: 0;
+            transform: translateY(-8px) scale(0.98);
+        }
+
+        .waterfall-card-active {
+            border-color: hsla(var(--theme-h), 83%, 53%, 0.5) !important;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+            box-shadow: 0 2px 10px -2px hsla(var(--theme-h), 83%, 53%, 0.15) !important;
+        }
+        .dark .waterfall-card-active {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.18) 0%, rgba(23, 33, 43, 0.95) 100%) !important;
+            box-shadow: 0 4px 14px -3px hsla(var(--theme-h), 83%, 53%, 0.25) !important;
+        }
+
+        .stack-chevron-icon {
+            transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease !important;
+            will-change: transform;
+        }
+        .stack-chevron-icon.open {
+            transform: rotate(180deg);
+            color: hsl(var(--theme-h), 83%, 53%) !important;
+        }
+
+        /* FLUID SWITCH */
+        .fluid-switch-btn {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            border-radius: 9999px;
+            padding: 2.5px;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.24s cubic-bezier(0.2, 0.8, 0.4, 1), box-shadow 0.24s ease, border-color 0.24s ease;
+            border: 1.5px solid rgba(148, 163, 184, 0.4);
+            background-color: #cbd5e1;
+            box-sizing: border-box;
+            shrink: 0;
+        }
+        .dark .fluid-switch-btn {
+            background-color: #243040;
+            border-color: rgba(71, 85, 105, 0.55);
+        }
+        .fluid-switch-btn.active {
+            background-color: hsl(var(--theme-h), 83%, 53%);
+            border-color: hsl(var(--theme-h), 83%, 45%);
+            box-shadow: 0 0 10px hsla(var(--theme-h), 83%, 53%, 0.45);
+        }
+        .fluid-switch-knob {
+            width: 17px;
+            height: 17px;
+            border-radius: 9999px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+            pointer-events: none;
+            will-change: transform;
+            transform: translateX(0px);
+            transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.4, 1);
+        }
+        .fluid-switch-btn.active .fluid-switch-knob {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-[#0f172a] text-slate-800 dark:text-slate-100 min-h-screen p-4 md:p-8 flex flex-col items-center justify-start transition-colors duration-200">
+
+    <!-- TOP TOOLBAR & CONTROLS PROTOTYPE -->
+    <header class="w-full max-w-sm mb-5 flex flex-col gap-2.5">
+        <div class="flex items-center justify-between">
+            <div>
+                <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300">Layout Prototype</span>
+                <h1 class="text-base font-extrabold text-slate-800 dark:text-white mt-0.5">Tata Letak Bahasa &amp; Feedback</h1>
+            </div>
+            <!-- Theme Toggle Button -->
+            <button onclick="toggleTheme()" class="w-9 h-9 rounded-2xl bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-center text-slate-600 dark:text-slate-300 tactile-press">
+                <i id="theme-icon" class="fas fa-moon text-xs"></i>
+            </button>
+        </div>
+
+        <!-- Mode Lebar: PC/Laptop (340px) vs Android (288px) -->
+        <div class="p-2 bg-white/80 dark:bg-[#1e293b]/80 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xs flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5 text-[11px]">
+                <i class="fas fa-desktop text-primary-500"></i> Mode Tampilan:
+            </span>
+            <div class="flex items-center gap-1">
+                <button id="btn-device-pc" onclick="setDeviceWidth('pc')" class="px-2.5 py-1 rounded-lg font-bold text-[10px] bg-primary-600 text-white transition-all">Laptop (340px)</button>
+                <button id="btn-device-mobile" onclick="setDeviceWidth('mobile')" class="px-2.5 py-1 rounded-lg font-bold text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-all">Android (288px)</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOCKUP CONTAINER MENU PENGATURAN -->
+    <main id="settings-card-container" class="w-full max-w-[340px] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl rounded-3xl p-4 shadow-2xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-3 transition-all duration-300">
+        
+        <!-- Header Info Sistem -->
+        <div class="space-y-0.5 border-b border-slate-100 dark:border-[#242f3d] pb-2">
+            <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" id="txt-sys-title">Sistem &amp; Tampilan</div>
+            <div class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                <i class="fas fa-shield-alt text-emerald-500"></i> 
+                <span>Dasbor Pribadi Premium v1.1.5 (Stable)</span>
+            </div>
+        </div>
+
+        <!-- 1. AKORDEON OPSI TAMPILAN & SISTEM -->
+        <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
+            <button type="button" 
+                    id="btn-settings-toggle-header" 
+                    onclick="toggleSettingsToggleStack()" 
+                    class="tactile-press w-full py-2.5 px-3 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#313f52]/60 focus:outline-none select-none transition-colors">
+                <div class="flex items-center gap-2 min-w-0 pr-1.5">
+                    <span class="w-6 h-6 rounded-lg bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 shadow-xs shrink-0">
+                        <i class="fas fa-sliders-h text-[11px]"></i>
+                    </span>
+                    <span id="txt-options-header" class="tracking-tight text-slate-800 dark:text-slate-100 font-extrabold text-[12px] truncate">Opsi Tampilan &amp; Sistem</span>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <span id="active-toggle-count-badge" class="whitespace-nowrap shrink-0 text-[9px] bg-primary-100 dark:bg-primary-900/60 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full font-black border border-primary-200/60 dark:border-primary-700/50 leading-none transition-transform inline-flex items-center justify-center">
+                        2 Aktif
+                    </span>
+                    <i id="icon-settings-stack" class="fas fa-chevron-down text-slate-400 text-[11px] stack-chevron-icon shrink-0"></i>
+                </div>
+            </button>
+            
+            <div id="settings-toggles-stack" class="open">
+                <div class="accordion-overflow">
+                    <div class="space-y-1.5 px-2 pb-2.5 pt-1">
+                        <!-- Gradasi Saldo -->
+                        <div onclick="handleToggle('gradient')" id="row-gradient" class="waterfall-item tactile-press waterfall-card-active py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                            <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
+                                <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div class="flex flex-col min-w-0">
+                                    <span id="txt-grad-title" class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate">Gradasi Saldo</span>
+                                    <span id="txt-grad-desc" class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5">Warna gradasi cerah &amp; glow kartu</span>
+                                </div>
+                            </div>
+                            <button type="button" onclick="event.stopPropagation(); handleToggle('gradient')" id="switch-gradient" class="fluid-switch-btn active" aria-label="Toggle Gradasi Saldo">
+                                <div class="fluid-switch-knob"></div>
+                            </button>
+                        </div>
+
+                        <!-- Mode Ramping -->
+                        <div onclick="handleToggle('compact')" id="row-compact" class="waterfall-item tactile-press py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                            <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
+                                <div class="w-7 h-7 rounded-lg bg-teal-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+                                    <i class="fas fa-compress-alt"></i>
+                                </div>
+                                <div class="flex flex-col min-w-0">
+                                    <span id="txt-comp-title" class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate">Mode Ramping</span>
+                                    <span id="txt-comp-desc" class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5">Padatkan kartu &amp; tata letak ringkas</span>
+                                </div>
+                            </div>
+                            <button type="button" onclick="event.stopPropagation(); handleToggle('compact')" id="switch-compact" class="fluid-switch-btn" aria-label="Toggle Mode Ramping">
+                                <div class="fluid-switch-knob"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Tombol Aksi Cepat (Catatan Rilis & Cek Pembaruan) -->
+        <div class="grid grid-cols-2 gap-2">
+            <button type="button" class="text-left px-2.5 py-2 bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-[#313f52] rounded-xl text-[10px] font-bold transition-colors flex items-center gap-1.5 border border-slate-200 dark:border-[#313f52]">
+                <i class="fas fa-info-circle text-primary-500"></i> <span id="txt-changelog">Catatan Rilis</span>
+            </button>
+            <button type="button" class="text-left px-2.5 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/50 rounded-xl text-[10px] font-bold transition-colors flex items-center gap-1.5 border border-primary-200 dark:border-primary-800">
+                <i class="fas fa-sync-alt text-primary-500"></i> <span id="txt-update">Cek Pembaruan</span>
+            </button>
+        </div>
+
+        <!-- 3. Hapus Data & Kebijakan Privasi -->
+        <div class="space-y-1.5">
+            <button type="button" class="w-full text-left px-3 py-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-xl text-xs font-bold flex items-center justify-between transition-colors border border-rose-200/50 dark:border-rose-900/40">
+                <span class="flex items-center"><i class="fas fa-trash-alt mr-2"></i> <span id="txt-reset">Hapus Data Terpilih...</span></span>
+                <i class="fas fa-chevron-right text-[10px]"></i>
+            </button>
+
+            <button type="button" class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center justify-between transition-colors border border-slate-200/50 dark:border-[#313f52]/50">
+                <span class="flex items-center"><i class="fas fa-user-shield mr-2 text-emerald-500"></i> <span id="txt-privacy">Kebijakan Privasi</span></span>
+                <i class="fas fa-chevron-right text-[10px] text-slate-400"></i>
+            </button>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- 4. KONTAK & FEEDBACK EMAIL -->
+        <!-- ============================================================== -->
+        <div class="pt-2 border-t border-slate-100 dark:border-[#242f3d] text-center space-y-1">
+            <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider" id="txt-contact-label">Kontak &amp; Feedback</p>
+            <a href="mailto:habielmaulanaaa@gmail.com" class="text-[10.5px] font-bold text-primary-500 hover:text-primary-600 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 px-3 py-1.5 rounded-xl block border border-primary-100 dark:border-primary-800/40 transition-colors">
+                <i class="fas fa-envelope mr-1.5 text-[10px]"></i>habielmaulanaaa@gmail.com
+            </a>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- 5. POSISI BARU: SELEKTOR BAHASA (DI BAWAH EMAIL, TANPA BENDERA) -->
+        <!-- ============================================================== -->
+        <div class="bg-slate-100/80 dark:bg-[#242f3d]/70 rounded-2xl p-2 border border-slate-200/80 dark:border-[#313f52]/80 space-y-1.5">
+            <div class="flex items-center justify-between px-1">
+                <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fas fa-language text-primary-500 text-xs"></i> 
+                    <span id="txt-lang-label">Pilihan Bahasa / Language</span>
+                </span>
+                <span id="current-lang-badge" class="text-[9px] font-black uppercase tracking-wider bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full border border-primary-200/50 dark:border-primary-700/40">
+                    ID
+                </span>
+            </div>
+            
+            <!-- TRACK TOMBOL BAHASA (BEBAS EMOJI BENDERA) -->
+            <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-200/60 dark:bg-[#17212b]/60 rounded-xl">
+                <!-- Tombol Indonesia (Tanpa Bendera 🇮🇩) -->
+                <button type="button" 
+                        id="btn-lang-id" 
+                        onclick="switchLanguage('id')" 
+                        class="tactile-press py-1.5 px-3 rounded-lg text-xs font-extrabold flex items-center justify-center transition-all duration-200 bg-white dark:bg-[#242f3d] text-primary-600 dark:text-primary-400 shadow-xs border border-primary-200 dark:border-primary-800">
+                    Indonesia
+                </button>
+
+                <!-- Tombol English (Tanpa Bendera 🇬🇧) -->
+                <button type="button" 
+                        id="btn-lang-en" 
+                        onclick="switchLanguage('en')" 
+                        class="tactile-press py-1.5 px-3 rounded-lg text-xs font-extrabold flex items-center justify-center transition-all duration-200 text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-white/5 border border-transparent">
+                    English
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- KETERANGAN PROTOTYPE -->
+    <footer class="w-full max-w-sm mt-5 p-3.5 bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-xs space-y-2 text-slate-500 dark:text-slate-400">
+        <div class="font-bold text-slate-800 dark:text-white flex items-center gap-1.5">
+            <i class="fas fa-check-circle text-emerald-500"></i> Perubahan yang Diterapkan di Prototipe Ini:
+        </div>
+        <ul class="list-disc list-inside space-y-1 text-[11px]">
+            <li><strong>Posisi Baru:</strong> Bagian <em>Pilihan Bahasa</em> kini diletakkan di bawah <em>Email Feedback</em>.</li>
+            <li><strong>Tanpa Bendera:</strong> Emoji 🇮🇩 dan 🇬🇧 dihilangkan; tombol tampil bersih dengan tipografi modern <strong>Indonesia</strong> dan <strong>English</strong>.</li>
+            <li><strong>Interaktif:</strong> Klik tombol bahasa untuk melihat teks langsung berganti bahasa Indonesia &amp; Inggris.</li>
+            <li><strong>Uji Ukuran:</strong> Gunakan tombol di atas untuk melihat perbandingan tata letak di layar PC (340px) dan Android (288px).</li>
+        </ul>
+    </footer>
+
+    <script>
+        var currentLang = 'id';
+        var state = {
+            isOpen: true,
+            gradient: true,
+            compact: false
+        };
+
+        // KAMUS KATA PROTOTYPE
+        var i18nData = {
+            id: {
+                sysTitle: "Sistem & Tampilan",
+                optionsHeader: "Opsi Tampilan & Sistem",
+                activeBadge: "2 Aktif",
+                gradTitle: "Gradasi Saldo",
+                gradDesc: "Warna gradasi cerah & glow kartu",
+                compTitle: "Mode Ramping",
+                compDesc: "Padatkan kartu & tata letak ringkas",
+                changelog: "Catatan Rilis",
+                update: "Cek Pembaruan",
+                reset: "Hapus Data Terpilih...",
+                privacy: "Kebijakan Privasi",
+                contactLabel: "Kontak & Feedback",
+                langLabel: "Pilihan Bahasa / Language"
+            },
+            en: {
+                sysTitle: "System & Appearance",
+                optionsHeader: "Display & System Options",
+                activeBadge: "2 Active",
+                gradTitle: "Balance Gradient",
+                gradDesc: "Vibrant gradient colors & card glow",
+                compTitle: "Compact Mode",
+                compDesc: "Compact cards & dense layout",
+                changelog: "Release Notes",
+                update: "Check Updates",
+                reset: "Delete Selected Data...",
+                privacy: "Privacy Policy",
+                contactLabel: "Contact & Feedback",
+                langLabel: "Language Options"
+            }
+        };
+
+        // GANTI BAHASA INTERAKTIF
+        function switchLanguage(lang) {
+            currentLang = lang;
+            var data = i18nData[lang];
+
+            document.getElementById('txt-sys-title').innerText = data.sysTitle;
+            document.getElementById('txt-options-header').innerText = data.optionsHeader;
+            document.getElementById('active-toggle-count-badge').innerText = data.activeBadge;
+            document.getElementById('txt-grad-title').innerText = data.gradTitle;
+            document.getElementById('txt-grad-desc').innerText = data.gradDesc;
+            document.getElementById('txt-comp-title').innerText = data.compTitle;
+            document.getElementById('txt-comp-desc').innerText = data.compDesc;
+            document.getElementById('txt-changelog').innerText = data.changelog;
+            document.getElementById('txt-update').innerText = data.update;
+            document.getElementById('txt-reset').innerText = data.reset;
+            document.getElementById('txt-privacy').innerText = data.privacy;
+            document.getElementById('txt-contact-label').innerText = data.contactLabel;
+            document.getElementById('txt-lang-label').innerText = data.langLabel;
+            document.getElementById('current-lang-badge').innerText = lang.toUpperCase();
+
+            var btnId = document.getElementById('btn-lang-id');
+            var btnEn = document.getElementById('btn-lang-en');
+
+            var activeClass = "tactile-press py-1.5 px-3 rounded-lg text-xs font-extrabold flex items-center justify-center transition-all duration-200 bg-white dark:bg-[#242f3d] text-primary-600 dark:text-primary-400 shadow-xs border border-primary-200 dark:border-primary-800";
+            var inactiveClass = "tactile-press py-1.5 px-3 rounded-lg text-xs font-extrabold flex items-center justify-center transition-all duration-200 text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-white/5 border border-transparent";
+
+            if (lang === 'id') {
+                btnId.className = activeClass;
+                btnEn.className = inactiveClass;
+            } else {
+                btnId.className = inactiveClass;
+                btnEn.className = activeClass;
+            }
+        }
+
+        // AKORDEON TOGGLE
+        function toggleSettingsToggleStack() {
+            state.isOpen = !state.isOpen;
+            var stack = document.getElementById('settings-toggles-stack');
+            var icon = document.getElementById('icon-settings-stack');
+
+            if (state.isOpen) {
+                stack.classList.add('open');
+                icon.classList.add('open');
+            } else {
+                stack.classList.remove('open');
+                icon.classList.remove('open');
+            }
+        }
+
+        function handleToggle(key) {
+            state[key] = !state[key];
+            var row = document.getElementById('row-' + key);
+            var sw = document.getElementById('switch-' + key);
+
+            if (state[key]) {
+                sw.classList.add('active');
+                row.classList.add('waterfall-card-active');
+            } else {
+                sw.classList.remove('active');
+                row.classList.remove('waterfall-card-active');
+            }
+        }
+
+        // GANTI LEBAR PERANGKAT (PC 340px vs Android 288px)
+        function setDeviceWidth(mode) {
+            var card = document.getElementById('settings-card-container');
+            var btnPc = document.getElementById('btn-device-pc');
+            var btnMobile = document.getElementById('btn-device-mobile');
+
+            if (mode === 'pc') {
+                card.style.maxWidth = '340px';
+                btnPc.className = "px-2.5 py-1 rounded-lg font-bold text-[10px] bg-primary-600 text-white transition-all";
+                btnMobile.className = "px-2.5 py-1 rounded-lg font-bold text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-all";
+            } else {
+                card.style.maxWidth = '288px';
+                btnMobile.className = "px-2.5 py-1 rounded-lg font-bold text-[10px] bg-primary-600 text-white transition-all";
+                btnPc.className = "px-2.5 py-1 rounded-lg font-bold text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-all";
+            }
+        }
+
+        // DARK MODE TOGGLE
+        function toggleTheme() {
+            var isDark = document.documentElement.classList.toggle('dark');
+            var icon = document.getElementById('theme-icon');
+            if (isDark) {
+                icon.className = 'fas fa-sun text-xs text-amber-400';
+            } else {
+                icon.className = 'fas fa-moon text-xs text-slate-600';
+            }
+        }
+    </script>
+</body>
+</html>
