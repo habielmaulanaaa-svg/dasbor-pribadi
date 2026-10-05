@@ -57,25 +57,22 @@
         }
 
         /* ========================================================
-           APPLE SILKY SMOOTH PHYSICS: TRIGGER BUTTON (RODA GIGI)
-           Tanpa pantulan / overshoot, kurva Quart Ease-Out (0.16, 1, 0.3, 1)
+           TRIGGER BUTTON (RODA GIGI) - ZERO BOUNCE & ZERO SCALE
            ======================================================== */
-        .apple-trigger-spring {
-            transition: transform calc(0.42s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
-                        box-shadow calc(0.35s * var(--anim-speed-factor)) ease, 
+        #btn-settings-toggle {
+            transition: box-shadow calc(0.32s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
                         border-color 0.2s ease, 
-                        background-color 0.2s ease;
-            will-change: transform, box-shadow;
+                        background-color 0.2s ease,
+                        opacity 0.15s ease;
         }
-        .apple-trigger-spring:active {
-            transform: scale(0.91) !important;
-            transition-duration: 0.12s !important;
+        #btn-settings-toggle:active {
+            opacity: 0.82;
         }
         #btn-settings-toggle.active {
             box-shadow: 0 0 0 3px hsla(var(--theme-h), 83%, 53%, 0.35), 
-                        0 10px 24px -4px hsla(var(--theme-h), 83%, 53%, 0.3) !important;
-            transform: scale(1.035);
+                        0 4px 14px -2px hsla(var(--theme-h), 83%, 53%, 0.25) !important;
             border-color: hsl(var(--theme-h), 83%, 53%) !important;
+            transform: none !important;
         }
 
         /* PUTARAN PRESISI RODA GIGI (0° KE 90° MULUS TANPA PANTULAN) */
@@ -88,88 +85,97 @@
             100% { transform: rotate(0deg); }
         }
         .gear-spin-open {
-            animation: appleCrownRotateCW calc(0.44s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: appleCrownRotateCW calc(0.42s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .gear-spin-close {
-            animation: appleCrownRotateCCW calc(0.34s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: appleCrownRotateCCW calc(0.32s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         /* ========================================================
-           SOLID CRISP GLIDE: POP-UP SETTINGS MENU
-           100% Solid Opaque (Tanpa Efek Blur), Meluncur Mulus & Nyaman
-           Origin: bottom-left (tepat di atas tombol gear)
+           PURE CRISP SOLID GLIDE: POP-UP SETTINGS MENU
+           Bebas scale (Mencegah blur resampling GPU) - 100% Tajam
            ======================================================== */
         #settings-menu {
-            transform-origin: 20px bottom;
-            will-change: transform, opacity;
+            transform: translate3d(0, 0, 0);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
-        /* MELUNCUR NAIK SOLID & MEKAR LEMBUT (CRISP SOLID GLIDE IN) */
-        @keyframes appleBlossomIn {
+        /* MELUNCUR NAIK CRISP & TAJAM DARI BAWAH (ZERO BLUR, ZERO BOUNCE) */
+        @keyframes settingsGlideIn {
             0% {
                 opacity: 0;
-                transform: scale(0.93) translateY(14px);
+                transform: translate3d(0, 12px, 0);
             }
             100% {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: translate3d(0, 0, 0);
             }
         }
 
-        /* MENYUSUT TURUN LEMBUT (CRISP SOLID GLIDE OUT) */
-        @keyframes appleBlossomOut {
+        /* MENYUSUT TURUN LEMBUT (CRISP RETREAT) */
+        @keyframes settingsGlideOut {
             0% {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: translate3d(0, 0, 0);
             }
             100% {
                 opacity: 0;
-                transform: scale(0.95) translateY(10px);
+                transform: translate3d(0, 8px, 0);
             }
         }
 
         .apple-blossom-in {
-            animation: appleBlossomIn calc(0.40s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: settingsGlideIn calc(0.32s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
         }
         .apple-blossom-out {
-            animation: appleBlossomOut calc(0.28s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: settingsGlideOut calc(0.22s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+        }
+
+        /* BADGE JUMLAH TOGGLE AKTIF (100% DIAM & ROCK-SOLID TANPA PANTULAN) */
+        #active-toggle-count-badge {
+            transform: none !important;
+            animation: none !important;
+            transition: none !important;
         }
 
         /* BACKDROP SHIELD (OPSI 3 - SOLID SCRIM TANPA BLUR) */
         #settings-backdrop {
             opacity: 0;
             pointer-events: none;
-            transition: opacity calc(0.35s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity;
+            transition: opacity calc(0.3s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1);
         }
         #settings-backdrop.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        /* TOMBOL DARK MODE KETIKA TERKUNCI (MUTED LOCK STATE - BEBAS BLUR) */
+        /* TOMBOL DARK MODE KETIKA TERKUNCI (MUTED LOCK STATE - BEBAS BLUR & BEBAS SCALE) */
         #btn-dark-mode-toggle {
-            transition: transform calc(0.35s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity calc(0.35s * var(--anim-speed-factor)) ease, 
+            transition: opacity calc(0.3s * var(--anim-speed-factor)) ease, 
                         background-color 0.2s ease, 
                         border-color 0.2s ease;
-            will-change: transform, opacity;
+        }
+        #btn-dark-mode-toggle:active {
+            opacity: 0.82;
         }
         #btn-dark-mode-toggle.locked {
             opacity: 0.32 !important;
             pointer-events: none !important;
-            transform: scale(0.93) !important;
+            transform: none !important;
             filter: grayscale(0.5) !important;
         }
 
         /* TOMBOL NAVIGASI BELAKANG KETIKA TERKUNCI */
         .sidebar-nav-btn {
-            transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+            transition: opacity 0.25s ease, filter 0.25s ease;
         }
         .sidebar-nav-btn.locked {
             opacity: 0.45 !important;
             pointer-events: none !important;
-            transform: scale(0.985);
+            transform: none !important;
             filter: grayscale(0.4);
         }
 
@@ -179,7 +185,7 @@
             grid-template-rows: 0fr;
             opacity: 1 !important;
             overflow: hidden;
-            transition: grid-template-rows calc(0.3s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) !important;
+            transition: grid-template-rows calc(0.28s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) !important;
             will-change: grid-template-rows;
         }
         #settings-toggles-stack.open {
@@ -195,42 +201,42 @@
             transform: none !important;
         }
 
-        /* WATERFALL CASCADE ITEMS */
+        /* WATERFALL CASCADE ITEMS (ZERO SCALE, ZERO BLUR) */
         .waterfall-item {
             opacity: 0;
-            transform: translateY(-16px) scale(0.97);
+            transform: translateY(-8px);
             transition: 
-                opacity calc(0.26s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1),
-                transform calc(0.34s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1),
+                opacity calc(0.22s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1),
+                transform calc(0.26s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1),
                 background-color 0.2s ease,
                 border-color 0.2s ease,
                 box-shadow 0.2s ease;
-            will-change: opacity, transform;
         }
         #settings-toggles-stack.open .waterfall-item {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
-        #settings-toggles-stack.open .waterfall-item:nth-child(1) { transition-delay: calc(0.03s * var(--anim-speed-factor)); }
-        #settings-toggles-stack.open .waterfall-item:nth-child(2) { transition-delay: calc(0.08s * var(--anim-speed-factor)); }
-        #settings-toggles-stack.open .waterfall-item:nth-child(3) { transition-delay: calc(0.13s * var(--anim-speed-factor)); }
-        #settings-toggles-stack.open .waterfall-item:nth-child(4) { transition-delay: calc(0.18s * var(--anim-speed-factor)); }
+        #settings-toggles-stack.open .waterfall-item:nth-child(1) { transition-delay: calc(0.02s * var(--anim-speed-factor)); }
+        #settings-toggles-stack.open .waterfall-item:nth-child(2) { transition-delay: calc(0.06s * var(--anim-speed-factor)); }
+        #settings-toggles-stack.open .waterfall-item:nth-child(3) { transition-delay: calc(0.10s * var(--anim-speed-factor)); }
+        #settings-toggles-stack.open .waterfall-item:nth-child(4) { transition-delay: calc(0.14s * var(--anim-speed-factor)); }
 
         #settings-toggles-stack:not(.open) .waterfall-item {
-            transition: transform calc(0.24s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity calc(0.2s * var(--anim-speed-factor)) ease;
+            transition: transform calc(0.2s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity calc(0.18s * var(--anim-speed-factor)) ease;
             transition-delay: 0s;
             opacity: 0;
-            transform: translateY(-8px) scale(0.98);
+            transform: translateY(-6px);
         }
 
         .waterfall-card-active {
             border-color: hsla(var(--theme-h), 83%, 53%, 0.5) !important;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%) !important;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, #ffffff 100%) !important;
             box-shadow: 0 2px 10px -2px hsla(var(--theme-h), 83%, 53%, 0.15) !important;
         }
         .dark .waterfall-card-active {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(23, 33, 43, 0.98) 100%) !important;
+            border-color: hsla(var(--theme-h), 83%, 53%, 0.5) !important;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, #17212b 100%) !important;
             box-shadow: 0 4px 14px -3px hsla(var(--theme-h), 83%, 53%, 0.25) !important;
         }
 
@@ -273,15 +279,7 @@
             transform: translateX(18px);
         }
 
-        /* BADGE PULSE */
-        @keyframes badgePulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-        .badge-pulse {
-            animation: badgePulse 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+
 
         /* DARK MODE ZERO-LAG MORPH ICON */
         .theme-icon-morph {
@@ -292,7 +290,7 @@
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col items-center justify-start p-3 sm:p-6 md:p-8">
 
     <!-- HEADER PROTOTYPE & DESKRIPSI -->
-    <header class="w-full max-w-4xl mb-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-slate-800/80 p-4 sm:p-5 rounded-3xl border border-slate-700/80 shadow-2xl backdrop-blur-md">
+    <header class="w-full max-w-4xl mb-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-slate-800 p-4 sm:p-5 rounded-3xl border border-slate-700/80 shadow-2xl">
         <div>
             <div class="flex items-center gap-2 mb-1.5 flex-wrap">
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5">
@@ -386,8 +384,8 @@
                     
                     <!-- WRAPPER TOMBOL PENGATURAN & POPUP MENU -->
                     <div>
-                        <!-- TOMBOL GEAR PENGATURAN (ELEVATED Z-30, APPLE SPRING PRESS & GLOWING RING) -->
-                        <button type="button" id="btn-settings-toggle" onclick="toggleSettingsMenu()" aria-label="Buka menu pengaturan" title="Pengaturan Sistem" class="apple-trigger-spring w-11 h-11 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-30 hover:bg-slate-100 dark:hover:bg-[#313f52]">
+                        <!-- TOMBOL GEAR PENGATURAN (ELEVATED Z-30, GLOWING RING TANPA BOUNCE) -->
+                        <button type="button" id="btn-settings-toggle" onclick="toggleSettingsMenu()" aria-label="Buka menu pengaturan" title="Pengaturan Sistem" class="w-11 h-11 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-30 hover:bg-slate-100 dark:hover:bg-[#313f52]">
                             <i id="icon-gear" class="fas fa-cog text-base"></i>
                         </button>
 
@@ -407,7 +405,7 @@
 
                             <!-- 1. AKORDEON TOGGLE OPSI (WATERFALL CASCADE) -->
                             <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
-                                <button type="button" id="btn-settings-toggle-header" onclick="toggleAccordionStack()" class="apple-trigger-spring w-full py-2 px-2.5 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#313f52]/60 focus:outline-none select-none">
+                                <button type="button" id="btn-settings-toggle-header" onclick="toggleAccordionStack()" class="w-full py-2 px-2.5 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#313f52]/60 focus:outline-none select-none transition-colors">
                                     <div class="flex items-center gap-2 min-w-0 pr-1.5">
                                         <span class="w-5 h-5 rounded-lg bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 shadow-xs shrink-0">
                                             <i class="fas fa-sliders-h text-[10px]"></i>
@@ -415,7 +413,7 @@
                                         <span class="tracking-tight text-slate-800 dark:text-slate-100 font-extrabold text-[11px] truncate">Opsi Tampilan &amp; Sistem</span>
                                     </div>
                                     <div class="flex items-center gap-1.5 shrink-0">
-                                        <span id="active-toggle-count-badge" class="whitespace-nowrap shrink-0 text-[9px] bg-primary-100 dark:bg-primary-900/60 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full font-black border border-primary-200/60 dark:border-primary-700/50 leading-none transition-transform inline-flex items-center justify-center">2 Aktif</span>
+                                        <span id="active-toggle-count-badge" class="whitespace-nowrap shrink-0 text-[9px] bg-primary-100 dark:bg-primary-900/60 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full font-black border border-primary-200/60 dark:border-primary-700/50 leading-none inline-flex items-center justify-center">2 Aktif</span>
                                         <i id="icon-settings-stack" class="fas fa-chevron-down text-slate-400 text-[10px] stack-chevron-icon shrink-0"></i>
                                     </div>
                                 </button>
@@ -423,8 +421,8 @@
                                 <div id="settings-toggles-stack" class="open" style="touch-action: pan-y;">
                                     <div class="accordion-overflow">
                                         <div class="space-y-1.5 px-2 pb-2 pt-1">
-                                            <!-- Toggle 1: Gradasi Saldo -->
-                                            <div onclick="handleToggle('gradient')" id="row-gradient" class="waterfall-item apple-trigger-spring waterfall-card-active py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                                             <!-- Toggle 1: Gradasi Saldo -->
+                                            <div onclick="handleToggle('gradient')" id="row-gradient" class="waterfall-item waterfall-card-active py-1.5 px-2 bg-white dark:bg-[#17212b] rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
                                                 <div class="flex items-center gap-2 min-w-0 pr-1.5 pointer-events-none">
                                                     <div class="w-6 h-6 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-[10px] shadow-xs shrink-0"><i class="fas fa-palette"></i></div>
                                                     <div class="flex flex-col min-w-0">
@@ -436,7 +434,7 @@
                                             </div>
 
                                             <!-- Toggle 2: Mode Ramping -->
-                                            <div onclick="handleToggle('compact')" id="row-compact" class="waterfall-item apple-trigger-spring py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                                            <div onclick="handleToggle('compact')" id="row-compact" class="waterfall-item py-1.5 px-2 bg-white dark:bg-[#17212b] rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
                                                 <div class="flex items-center gap-2 min-w-0 pr-1.5 pointer-events-none">
                                                     <div class="w-6 h-6 rounded-lg bg-teal-500 flex items-center justify-center text-white text-[10px] shadow-xs shrink-0"><i class="fas fa-compress-alt"></i></div>
                                                     <div class="flex flex-col min-w-0">
@@ -448,7 +446,7 @@
                                             </div>
 
                                             <!-- Toggle 3: Tema Otomatis -->
-                                            <div onclick="handleToggle('autotheme')" id="row-autotheme" class="waterfall-item apple-trigger-spring py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                                            <div onclick="handleToggle('autotheme')" id="row-autotheme" class="waterfall-item py-1.5 px-2 bg-white dark:bg-[#17212b] rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
                                                 <div class="flex items-center gap-2 min-w-0 pr-1.5 pointer-events-none">
                                                     <div class="w-6 h-6 rounded-lg bg-amber-500 flex items-center justify-center text-white text-[10px] shadow-xs shrink-0"><i class="fas fa-clock"></i></div>
                                                     <div class="flex flex-col min-w-0">
@@ -460,7 +458,7 @@
                                             </div>
 
                                             <!-- Toggle 4: Tanggal Sub Tugas -->
-                                            <div onclick="handleToggle('subtask_date')" id="row-subtask-date" class="waterfall-item apple-trigger-spring waterfall-card-active py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                                            <div onclick="handleToggle('subtask_date')" id="row-subtask-date" class="waterfall-item waterfall-card-active py-1.5 px-2 bg-white dark:bg-[#17212b] rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
                                                 <div class="flex items-center gap-2 min-w-0 pr-1.5 pointer-events-none">
                                                     <div class="w-6 h-6 rounded-lg bg-violet-500 flex items-center justify-center text-white text-[10px] shadow-xs shrink-0"><i class="far fa-calendar-alt"></i></div>
                                                     <div class="flex flex-col min-w-0">
@@ -514,7 +512,7 @@
                     </div>
 
                     <!-- TOMBOL DARK/LIGHT MODE (Z-10, DIKUNCI / DILINDUNGI SAAT SETTINGS TERBUKA) -->
-                    <button type="button" id="btn-dark-mode-toggle" onclick="handleDarkModeClick()" aria-label="Ganti tema gelap atau terang" title="Ganti Tema" class="apple-trigger-spring w-11 h-11 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-yellow-400 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-10 hover:bg-slate-100 dark:hover:bg-[#313f52] overflow-hidden">
+                    <button type="button" id="btn-dark-mode-toggle" onclick="handleDarkModeClick()" aria-label="Ganti tema gelap atau terang" title="Ganti Tema" class="w-11 h-11 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-yellow-400 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-10 hover:bg-slate-100 dark:hover:bg-[#313f52] overflow-hidden">
                         <div class="relative w-5 h-5 flex items-center justify-center pointer-events-none">
                             <i id="icon-moon" class="theme-icon-morph fas fa-moon text-base absolute text-slate-700 transform scale-100 rotate-0 opacity-100 dark:scale-0 dark:-rotate-90 dark:opacity-0"></i>
                             <i id="icon-sun" class="theme-icon-morph fas fa-sun text-base absolute text-yellow-400 transform scale-0 rotate-90 opacity-0 dark:scale-100 dark:rotate-0 dark:opacity-100"></i>
@@ -775,7 +773,7 @@
                 updateHUD(false);
 
                 // Setelah durasi animasi selesai, sembunyikan elemen secara bersih
-                const closeDuration = 280 * state.animSpeedFactor;
+                const closeDuration = 220 * state.animSpeedFactor;
                 setTimeout(() => {
                     if (!state.isSettingsOpen) {
                         menu.classList.add('hidden');
@@ -920,9 +918,6 @@
             if (badge) {
                 const label = state.currentLang === 'id' ? 'Aktif' : 'Active';
                 badge.innerText = `${activeCount} ${label}`;
-                badge.classList.remove('badge-pulse');
-                void badge.offsetWidth;
-                badge.classList.add('badge-pulse');
             }
         }
 
@@ -975,8 +970,7 @@
         // INISIALISASI
         document.addEventListener('DOMContentLoaded', () => {
             updateActiveBadge();
-            // Buka settings menu secara default saat halaman dimuat agar pengguna langsung melihat animasi
-            toggleSettingsMenu();
+            logEvent('Sistem Siap', 'Silakan ketuk tombol roda gigi pengaturan untuk menguji animasi kemunculan.', 'info');
         });
     </script>
 </body>
