@@ -248,8 +248,84 @@
 
         /* Rotasi panah chevron fluida terpadu (bebas over-bounce) */
         .stack-chevron-icon {
-            transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease !important;
             will-change: transform;
+        }
+        .stack-chevron-icon.open {
+            color: hsl(var(--theme-h), 83%, 53%) !important;
+        }
+
+        /* TACTILE TAP (SPRING SQUISH) FEEDBACK */
+        .tactile-press {
+            transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), background-color 0.18s ease, border-color 0.18s ease;
+            will-change: transform;
+        }
+        .tactile-press:active {
+            transform: scale(0.975);
+        }
+
+        /* ========================================================
+           STAGGERED WATERFALL CASCADE: OPSI TAMPILAN & SISTEM (OPSI A)
+           ======================================================== */
+        .waterfall-item {
+            opacity: 0;
+            transform: translateY(-16px) scale(0.97);
+            transition: 
+                opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.34s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+            will-change: opacity, transform;
+        }
+
+        /* Saat akordeon TERBUKA: tiap baris turun berurutan */
+        #settings-toggles-stack.open .waterfall-item {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Progressive Staggered Delays */
+        #settings-toggles-stack.open .waterfall-item:nth-child(1) {
+            transition-delay: 0.03s;
+        }
+        #settings-toggles-stack.open .waterfall-item:nth-child(2) {
+            transition-delay: 0.08s;
+        }
+        #settings-toggles-stack.open .waterfall-item:nth-child(3) {
+            transition-delay: 0.13s;
+        }
+        #settings-toggles-stack.open .waterfall-item:nth-child(4) {
+            transition-delay: 0.18s;
+        }
+
+        /* Saat akordeon MENUTUP: lipat kembali cepat tanpa delay bertingkat */
+        #settings-toggles-stack:not(.open) .waterfall-item {
+            transition-duration: 0.18s;
+            transition-delay: 0s;
+            opacity: 0;
+            transform: translateY(-10px) scale(0.98);
+        }
+
+        /* CARD ACTIVE HIGHLIGHT STATE */
+        .waterfall-card-active {
+            border-color: hsla(var(--theme-h), 83%, 53%, 0.5) !important;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+            box-shadow: 0 2px 10px -2px hsla(var(--theme-h), 83%, 53%, 0.15) !important;
+        }
+        .dark .waterfall-card-active {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.18) 0%, rgba(23, 33, 43, 0.95) 100%) !important;
+            box-shadow: 0 4px 14px -3px hsla(var(--theme-h), 83%, 53%, 0.25) !important;
+        }
+
+        /* Animasi Detak Badge saat Berubah */
+        @keyframes badgePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        .badge-pulse {
+            animation: badgePulse 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* Animasi Tambah & Hapus Target Impian */
@@ -1749,58 +1825,81 @@
                         </div>
                     </div>
                     
-                    <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (SLIM & NON-BOUNCING) -->
-                    <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60">
-                        <button type="button" id="btn-settings-toggle-header" onclick="toggleSettingsToggleStack()" class="no-bounce w-full py-2 px-2.5 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-[#313f52]/50 transition-colors focus:outline-none">
-                            <span class="flex items-center gap-1.5"><i class="fas fa-sliders-h text-primary-500"></i> <span data-i18n="settings_options_stack">Opsi Tampilan &amp; Sistem</span></span>
-                            <div class="flex items-center gap-1.5">
-                                <span id="active-toggle-count-badge" class="text-[9px] bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full font-black">2 Aktif</span>
-                                <i id="icon-settings-stack" class="fas fa-chevron-down text-slate-400 text-[10px] stack-chevron-icon"></i>
+                    <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
+                    <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
+                        <button type="button" id="btn-settings-toggle-header" onclick="toggleSettingsToggleStack()" class="tactile-press w-full py-2.5 px-3 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#313f52]/60 focus:outline-none select-none transition-colors">
+                            <span class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 shadow-xs">
+                                    <i class="fas fa-sliders-h text-[11px]"></i>
+                                </span>
+                                <span class="tracking-tight text-slate-800 dark:text-slate-100 font-extrabold text-[12px]" data-i18n="settings_options_stack">Opsi Tampilan &amp; Sistem</span>
+                            </span>
+                            <div class="flex items-center gap-2">
+                                <span id="active-toggle-count-badge" class="text-[9px] bg-primary-100 dark:bg-primary-900/60 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full font-black border border-primary-200/60 dark:border-primary-700/50 transition-transform">2 Aktif</span>
+                                <i id="icon-settings-stack" class="fas fa-chevron-down text-slate-400 text-[11px] stack-chevron-icon"></i>
                             </div>
                         </button>
                         
                         <div id="settings-toggles-stack" class="accordion-content" style="touch-action: pan-y;">
-                            <div class="accordion-inner space-y-1 px-1.5 pb-2.5 pt-0.5">
+                            <div class="accordion-inner space-y-1.5 px-2 pb-2.5 pt-1">
                                 <!-- 1. Toggle Gradasi Kartu Saldo -->
-                                <div onclick="toggleCardGradient()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
-                                    <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
-                                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-palette text-primary-500 text-[10px]"></i> <span data-i18n="settings_gradient_title">Gradasi Saldo</span></span>
-                                        <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5" data-i18n="settings_gradient_desc">Warna gradasi cerah &amp; glow</span>
+                                <div onclick="toggleCardGradient()" id="row-toggle-gradient" style="touch-action: pan-y;" class="waterfall-item tactile-press py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none touch-pan-y">
+                                    <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
+                                        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+                                            <i class="fas fa-palette"></i>
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate" data-i18n="settings_gradient_title">Gradasi Saldo</span>
+                                            <span class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5" data-i18n="settings_gradient_desc">Warna gradasi cerah &amp; glow kartu</span>
+                                        </div>
                                     </div>
                                     <button type="button" onclick="event.stopPropagation(); toggleCardGradient()" id="btn-toggle-gradient" class="fluid-switch-btn active focus:outline-none shrink-0" aria-label="Toggle Gradasi Saldo">
                                         <div id="gradient-switch-knob" class="fluid-switch-knob"></div>
                                     </button>
                                 </div>
 
-
-                                <!-- 3. Toggle Kepadatan Compact Mode -->
-                                <div onclick="toggleCompactMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
-                                    <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
-                                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-compress-alt text-primary-500 text-[10px]"></i> <span data-i18n="settings_compact_title">Mode Ramping</span></span>
-                                        <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5" data-i18n="settings_compact_desc">Padatkan kartu &amp; tata letak ringkas</span>
+                                <!-- 2. Toggle Kepadatan Compact Mode -->
+                                <div onclick="toggleCompactMode()" id="row-toggle-compact" style="touch-action: pan-y;" class="waterfall-item tactile-press py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none touch-pan-y">
+                                    <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
+                                        <div class="w-7 h-7 rounded-lg bg-teal-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+                                            <i class="fas fa-compress-alt"></i>
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate" data-i18n="settings_compact_title">Mode Ramping</span>
+                                            <span class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5" data-i18n="settings_compact_desc">Padatkan kartu &amp; tata letak ringkas</span>
+                                        </div>
                                     </div>
                                     <button type="button" onclick="event.stopPropagation(); toggleCompactMode()" id="btn-toggle-compact" class="fluid-switch-btn focus:outline-none shrink-0" aria-label="Toggle Mode Ramping">
                                         <div id="compact-switch-knob" class="fluid-switch-knob"></div>
                                     </button>
                                 </div>
 
-
-                                <!-- 5. Toggle Tema Otomatis Mengikuti Waktu -->
-                                <div onclick="toggleAutoThemeMode()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
-                                    <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
-                                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="fas fa-clock text-primary-500 text-[10px]"></i> <span data-i18n="settings_autotheme_title">Tema Otomatis</span></span>
-                                        <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5" data-i18n="settings_autotheme_desc">Gelap 17:00 - 05:00 WIB, Terang 05:00 - 17:00 WIB</span>
+                                <!-- 3. Toggle Tema Otomatis Mengikuti Waktu -->
+                                <div onclick="toggleAutoThemeMode()" id="row-toggle-autotheme" style="touch-action: pan-y;" class="waterfall-item tactile-press py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none touch-pan-y">
+                                    <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
+                                        <div class="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate" data-i18n="settings_autotheme_title">Tema Otomatis</span>
+                                            <span class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5" data-i18n="settings_autotheme_desc">Gelap 17:00 - 05:00 WIB, Terang 05:00 - 17:00 WIB</span>
+                                        </div>
                                     </div>
                                     <button type="button" onclick="event.stopPropagation(); toggleAutoThemeMode()" id="btn-toggle-autotheme" class="fluid-switch-btn focus:outline-none shrink-0" aria-label="Toggle Tema Otomatis">
                                         <div id="autotheme-switch-knob" class="fluid-switch-knob"></div>
                                     </button>
                                 </div>
 
-                                <!-- 6. Toggle Tanggal Sub Tugas -->
-                                <div onclick="toggleOpsiSubtaskTanggal()" style="touch-action: pan-y;" class="toggle-item-card py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between shadow-none cursor-pointer select-none touch-pan-y">
-                                    <div class="flex flex-col pr-1.5 min-w-0 pointer-events-none">
-                                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 truncate"><i class="far fa-calendar-alt text-primary-500 text-[10px]"></i> <span data-i18n="settings_subtask_date_title">Tanggal Sub Tugas</span></span>
-                                        <span class="text-[8.5px] text-slate-400 font-medium leading-tight mt-0.5" data-i18n="settings_subtask_date_desc">Tampilkan tanggal pembuatan pada sub tugas</span>
+                                <!-- 4. Toggle Tanggal Sub Tugas -->
+                                <div onclick="toggleOpsiSubtaskTanggal()" id="row-toggle-subtask-date" style="touch-action: pan-y;" class="waterfall-item tactile-press py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none touch-pan-y">
+                                    <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
+                                        <div class="w-7 h-7 rounded-lg bg-violet-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate" data-i18n="settings_subtask_date_title">Tanggal Sub Tugas</span>
+                                            <span class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5" data-i18n="settings_subtask_date_desc">Tampilkan tanggal pembuatan pada sub tugas</span>
+                                        </div>
                                     </div>
                                     <button type="button" onclick="event.stopPropagation(); toggleOpsiSubtaskTanggal()" id="btn-toggle-subtask-date" class="fluid-switch-btn active focus:outline-none shrink-0" aria-label="Toggle Tanggal Sub Tugas">
                                         <div id="subtask-date-switch-knob" class="fluid-switch-knob"></div>
@@ -5083,31 +5182,66 @@
             }
         }
 
-        // UPDATE BADGE JUMLAH TOGGLE AKTIF PADA MENU SETTING
+        // UPDATE BADGE JUMLAH TOGGLE AKTIF PADA MENU SETTING & SINKRONISASI HIGHLIGHT KARTU
         function updateActiveToggleCount() {
+            var isGrad = (dataState.cardGradient !== false);
+            var isCompact = Boolean(dataState.compactMode);
+            var isAutoTheme = Boolean(dataState.autoThemeMode);
+            var isSubtaskDate = (dataState.optSubtaskTanggalDibuat !== false);
+
             var count = 0;
-            if (dataState.cardGradient !== false) count++;
-            if (dataState.compactMode) count++;
-            if (dataState.autoThemeMode) count++;
-            if (dataState.optSubtaskTanggalDibuat !== false) count++;
+            if (isGrad) count++;
+            if (isCompact) count++;
+            if (isAutoTheme) count++;
+            if (isSubtaskDate) count++;
+
             var badge = document.getElementById('active-toggle-count-badge');
-            if (badge) badge.innerText = `${count} ${t('settings_active_badge', 'Aktif')}`;
+            if (badge) {
+                badge.innerText = `${count} ${t('settings_active_badge', 'Aktif')}`;
+                badge.classList.remove('badge-pulse');
+                void badge.offsetWidth;
+                badge.classList.add('badge-pulse');
+            }
+
+            // Sinkronisasi status highlight kartu aktif (Opsi A)
+            var rowGrad = document.getElementById('row-toggle-gradient');
+            if (rowGrad) rowGrad.classList.toggle('waterfall-card-active', isGrad);
+
+            var rowCompact = document.getElementById('row-toggle-compact');
+            if (rowCompact) rowCompact.classList.toggle('waterfall-card-active', isCompact);
+
+            var rowAutoTheme = document.getElementById('row-toggle-autotheme');
+            if (rowAutoTheme) rowAutoTheme.classList.toggle('waterfall-card-active', isAutoTheme);
+
+            var rowSubtaskDate = document.getElementById('row-toggle-subtask-date');
+            if (rowSubtaskDate) rowSubtaskDate.classList.toggle('waterfall-card-active', isSubtaskDate);
         }
 
         function toggleSettingsToggleStack() {
             var stack = document.getElementById('settings-toggles-stack');
             var icon = document.getElementById('icon-settings-stack');
             if (stack && icon) {
+                if (window.navigator && typeof window.navigator.vibrate === 'function') {
+                    try { window.navigator.vibrate(10); } catch(e){}
+                }
                 stack.querySelectorAll('.animate-toggle-bounce, .fluid-switch-anim-on, .fluid-switch-anim-off').forEach(function(el) {
                     el.classList.remove('animate-toggle-bounce', 'fluid-switch-anim-on', 'fluid-switch-anim-off');
                 });
                 var isOpen = stack.classList.toggle('open');
                 icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+                if (isOpen) {
+                    icon.classList.add('open');
+                } else {
+                    icon.classList.remove('open');
+                }
             }
         }
 
         // TOGGLE GRADASI KARTU SALDO (100% SENADA & CERAH SESUAI TEMA UTAMA)
         function toggleCardGradient() {
+            if (window.navigator && typeof window.navigator.vibrate === 'function') {
+                try { window.navigator.vibrate(8); } catch(e){}
+            }
             dataState.cardGradient = (dataState.cardGradient === undefined) ? false : !dataState.cardGradient;
             applyCardGradientVisual(true);
             updateActiveToggleCount();
@@ -5162,6 +5296,9 @@
 
 
         function toggleCompactMode() {
+            if (window.navigator && typeof window.navigator.vibrate === 'function') {
+                try { window.navigator.vibrate(8); } catch(e){}
+            }
             dataState.compactMode = !dataState.compactMode;
             document.body.classList.add('mode-transitioning');
             document.body.classList.toggle('compact-mode', dataState.compactMode);
@@ -5196,6 +5333,9 @@
         }
 
         function toggleAutoThemeMode() {
+            if (window.navigator && typeof window.navigator.vibrate === 'function') {
+                try { window.navigator.vibrate(8); } catch(e){}
+            }
             dataState.autoThemeMode = !dataState.autoThemeMode;
             var knobA = document.getElementById('autotheme-switch-knob');
             var btnA = document.getElementById('btn-toggle-autotheme');
@@ -5232,6 +5372,9 @@
         setInterval(applyAutoThemeClock, 60000);
 
         function toggleOpsiSubtaskTanggal() {
+            if (window.navigator && typeof window.navigator.vibrate === 'function') {
+                try { window.navigator.vibrate(8); } catch(e){}
+            }
             var isAktif = (dataState.optSubtaskTanggalDibuat === undefined) ? true : dataState.optSubtaskTanggalDibuat;
             isAktif = !isAktif;
             dataState.optSubtaskTanggalDibuat = isAktif;
