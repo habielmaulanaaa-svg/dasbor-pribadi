@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Prototype: Settings Backdrop & Lock-State Shield (Opsi 3)</title>
+    <title>Prototype: Apple Quick Action Blossom & Backdrop Shield (Opsi 3)</title>
     <!-- Tailwind CSS (Local Bundle with CDN fallback) -->
     <script src="tailwind.js"></script>
     <script>
@@ -41,6 +41,7 @@
             --theme-h: 217;
             --theme-s: 91%;
             --theme-l: 60%;
+            --anim-speed-factor: 1; /* 1 = normal, 3 = slow-mo */
         }
 
         * {
@@ -50,25 +51,111 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             user-select: none;
             -webkit-user-select: none;
         }
 
-        /* TACTILE TAP (SPRING SQUISH) FEEDBACK */
-        .tactile-press {
-            transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), background-color 0.18s ease, border-color 0.18s ease;
-            will-change: transform;
+        /* ========================================================
+           APPLE SPRING PHYSICS: TRIGGER BUTTON (RODA GIGI)
+           ======================================================== */
+        .apple-trigger-spring {
+            transition: transform calc(0.36s * var(--anim-speed-factor)) cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow calc(0.28s * var(--anim-speed-factor)) ease, 
+                        border-color 0.2s ease, 
+                        background-color 0.2s ease;
+            will-change: transform, box-shadow;
         }
-        .tactile-press:active {
-            transform: scale(0.97);
+        .apple-trigger-spring:active {
+            transform: scale(0.88) !important;
+            transition-duration: 0.1s !important;
+        }
+        #btn-settings-toggle.active {
+            box-shadow: 0 0 0 3.5px hsla(var(--theme-h), 83%, 53%, 0.4), 
+                        0 12px 28px -6px hsla(var(--theme-h), 83%, 53%, 0.35) !important;
+            transform: scale(1.06);
+            border-color: hsl(var(--theme-h), 83%, 53%) !important;
+        }
+
+        /* INERSIA MEKANIS PUTARAN RODA GIGI (APPLE DIGITAL CROWN PHYSICS) */
+        @keyframes appleCrownRotateCW {
+            0% { transform: rotate(0deg); }
+            62% { transform: rotate(100deg); } /* Micro-overshoot */
+            84% { transform: rotate(88deg); }  /* Elastic rebound */
+            100% { transform: rotate(90deg); } /* Settled lock */
+        }
+        @keyframes appleCrownRotateCCW {
+            0% { transform: rotate(90deg); }
+            62% { transform: rotate(-10deg); } /* Reverse micro-overshoot */
+            84% { transform: rotate(2deg); }   /* Elastic rebound */
+            100% { transform: rotate(0deg); }  /* Settled lock */
+        }
+        .gear-spin-open {
+            animation: appleCrownRotateCW calc(0.38s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .gear-spin-close {
+            animation: appleCrownRotateCCW calc(0.34s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* ========================================================
+           APPLE QUICK ACTION BLOSSOM: POP-UP SETTINGS MENU
+           Origin: bottom-left (tepat di atas tombol gear)
+           ======================================================== */
+        #settings-menu {
+            transform-origin: 20px bottom;
+            will-change: transform, opacity, filter;
+            backdrop-filter: blur(28px) saturate(190%);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+        }
+
+        /* MEKAR KE ATAS (BLOSSOM IN) DENGAN ELASTIC OVERSHOOT KHAS iOS */
+        @keyframes appleBlossomIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.82) translateY(18px);
+                filter: blur(10px);
+            }
+            62% {
+                opacity: 1;
+                transform: scale(1.028) translateY(-2px);
+                filter: blur(0px);
+            }
+            84% {
+                transform: scale(0.994) translateY(0.5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        /* MENGATUP KE BAWAH (BLOSSOM OUT) LEMBUT DAN CEPAT */
+        @keyframes appleBlossomOut {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.85) translateY(14px);
+                filter: blur(8px);
+            }
+        }
+
+        .apple-blossom-in {
+            animation: appleBlossomIn calc(0.34s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+        }
+        .apple-blossom-out {
+            animation: appleBlossomOut calc(0.24s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
         }
 
         /* BACKDROP SHIELD (OPSI 3) */
         #settings-backdrop {
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.28s ease;
+            transition: opacity calc(0.28s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity;
         }
         #settings-backdrop.active {
@@ -78,9 +165,9 @@
 
         /* TOMBOL DARK MODE KETIKA TERKUNCI (MUTED LOCK STATE) */
         #btn-dark-mode-toggle {
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity 0.25s ease, 
-                        filter 0.25s ease,
+            transition: transform calc(0.25s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity calc(0.25s * var(--anim-speed-factor)) ease, 
+                        filter calc(0.25s * var(--anim-speed-factor)) ease,
                         background-color 0.2s ease, 
                         border-color 0.2s ease;
             will-change: transform, opacity;
@@ -90,20 +177,6 @@
             pointer-events: none !important;
             transform: scale(0.92) !important;
             filter: grayscale(0.6) blur(0.3px) !important;
-        }
-
-        /* TOMBOL PENGATURAN KETIKA ELEVATED (Z-INDEX 30) */
-        #btn-settings-toggle {
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-                        box-shadow 0.25s ease, 
-                        border-color 0.2s ease, 
-                        background-color 0.2s ease;
-            will-change: transform, box-shadow;
-        }
-        #btn-settings-toggle.active {
-            box-shadow: 0 0 0 3px hsla(var(--theme-h), 83%, 53%, 0.45), 0 8px 20px -4px rgba(37, 99, 235, 0.3) !important;
-            transform: scale(1.05);
-            border-color: hsl(var(--theme-h), 83%, 53%) !important;
         }
 
         /* TOMBOL NAVIGASI BELAKANG KETIKA TERKUNCI */
@@ -117,28 +190,13 @@
             filter: grayscale(0.4);
         }
 
-        /* POP-UP SETTINGS MENU ANIMATION */
-        @keyframes popInMenu {
-            from {
-                transform: translateY(12px) scale(0.96);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-        }
-        #settings-menu:not(.hidden) {
-            animation: popInMenu 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
         /* ACCORDION SHELL: OPTION A WATERFALL CASCADE */
         #settings-toggles-stack {
             display: grid;
             grid-template-rows: 0fr;
             opacity: 1 !important;
             overflow: hidden;
-            transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            transition: grid-template-rows calc(0.3s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) !important;
             will-change: grid-template-rows;
         }
         #settings-toggles-stack.open {
@@ -159,8 +217,8 @@
             opacity: 0;
             transform: translateY(-16px) scale(0.97);
             transition: 
-                opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.34s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity calc(0.26s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1),
+                transform calc(0.34s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1),
                 background-color 0.2s ease,
                 border-color 0.2s ease,
                 box-shadow 0.2s ease;
@@ -170,13 +228,14 @@
             opacity: 1;
             transform: translateY(0) scale(1);
         }
-        #settings-toggles-stack.open .waterfall-item:nth-child(1) { transition-delay: 0.03s; }
-        #settings-toggles-stack.open .waterfall-item:nth-child(2) { transition-delay: 0.08s; }
-        #settings-toggles-stack.open .waterfall-item:nth-child(3) { transition-delay: 0.13s; }
-        #settings-toggles-stack.open .waterfall-item:nth-child(4) { transition-delay: 0.18s; }
+        #settings-toggles-stack.open .waterfall-item:nth-child(1) { transition-delay: calc(0.03s * var(--anim-speed-factor)); }
+        #settings-toggles-stack.open .waterfall-item:nth-child(2) { transition-delay: calc(0.08s * var(--anim-speed-factor)); }
+        #settings-toggles-stack.open .waterfall-item:nth-child(3) { transition-delay: calc(0.13s * var(--anim-speed-factor)); }
+        #settings-toggles-stack.open .waterfall-item:nth-child(4) { transition-delay: calc(0.18s * var(--anim-speed-factor)); }
 
         #settings-toggles-stack:not(.open) .waterfall-item {
-            transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+            transition: transform calc(0.24s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity calc(0.2s * var(--anim-speed-factor)) ease;
             transition-delay: 0s;
             opacity: 0;
             transform: translateY(-8px) scale(0.98);
@@ -193,7 +252,7 @@
         }
 
         .stack-chevron-icon {
-            transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease !important;
+            transition: transform calc(0.28s * var(--anim-speed-factor)) cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease !important;
             will-change: transform;
         }
         .stack-chevron-icon.open {
@@ -208,7 +267,7 @@
             height: 24px;
             border-radius: 9999px;
             background-color: #cbd5e1;
-            transition: background-color 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: background-color calc(0.24s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             padding: 2px;
         }
@@ -224,7 +283,7 @@
             border-radius: 9999px;
             background-color: #ffffff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform calc(0.24s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1);
             transform: translateX(0);
         }
         .fluid-switch-btn.active .fluid-switch-knob {
@@ -253,16 +312,19 @@
     <header class="w-full max-w-4xl mb-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-slate-800/80 p-4 sm:p-5 rounded-3xl border border-slate-700/80 shadow-2xl backdrop-blur-md">
         <div>
             <div class="flex items-center gap-2 mb-1.5 flex-wrap">
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                    Opsi 3: Backdrop Click-Shield &amp; Lock-State
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5">
+                    <i class="fab fa-apple text-xs"></i> <span>Animasi: Apple Quick Action Blossom</span>
                 </span>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-primary-500/20 text-primary-400 border border-primary-500/30">
-                    Interactive Test Bench
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    Opsi 3: Backdrop &amp; Lock-State
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold text-[9px] uppercase tracking-wider bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+                    <i class="fas fa-ban text-[10px]"></i> <span>Haptic: Nonaktif (Bebas Getar)</span>
                 </span>
             </div>
-            <h1 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">Prototipe: Pengamanan Tombol Belakang &amp; Backdrop Menu Pengaturan</h1>
+            <h1 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">Prototipe: Animasi Menu Pengaturan Ala Apple (iOS Physics)</h1>
             <p class="text-xs text-slate-300 mt-1 leading-relaxed max-w-2xl">
-                Uji coba pencegahan klik tidak sengaja pada tombol <strong>Mode Gelap/Terang</strong> dan tombol latar saat menu pengaturan terbuka. Tombol pengaturan tetap berada di lapisan teratas (<code class="text-primary-300">z-30</code>) agar dapat ditekan kapan saja untuk menutup menu.
+                Efek mekar elastis (*spring blossom*) dari sudut tombol roda gigi, putaran inersia mekanis ala Digital Crown Apple Watch, kaca buram (*frosted glass*), dan pengamanan tombol di latar belakang tanpa getaran ponsel.
             </p>
         </div>
 
@@ -328,28 +390,26 @@
 
                 <!-- ========================================================
                      LAPISAN PELINDUNG (BACKDROP CLICK-SHIELD) - OPSI 3
-                     Menutupi seluruh area sidebar di bawah menu settings & tombol gear
                      ======================================================== -->
-                <div id="settings-backdrop" onclick="handleBackdropClick(event)" class="absolute inset-0 bg-slate-900/35 dark:bg-black/55 backdrop-blur-[1.5px] z-20 cursor-pointer flex items-center justify-center">
-                    <!-- Indikator tooltip halus di tengah ketika backdrop aktif -->
-                    <div class="pointer-events-none text-[11px] font-bold text-white bg-slate-900/80 dark:bg-black/80 px-3 py-1.5 rounded-full border border-white/20 shadow-lg transform -translate-y-8 flex items-center gap-1.5">
+                <div id="settings-backdrop" onclick="handleBackdropClick(event)" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-[2px] z-20 cursor-pointer flex items-center justify-center">
+                    <div class="pointer-events-none text-[11px] font-bold text-white bg-slate-900/85 dark:bg-black/85 px-3 py-1.5 rounded-full border border-white/20 shadow-xl transform -translate-y-8 flex items-center gap-1.5">
                         <i class="fas fa-shield-alt text-emerald-400 text-xs"></i>
                         <span>Ketuk di luar untuk menutup</span>
                     </div>
                 </div>
 
-                <!-- 3. FOOTER DASAR SIDEBAR (TEMPAT TOMBOL PENGATURAN & DARK MODE) -->
+                <!-- 3. FOOTER DASAR SIDEBAR -->
                 <div class="p-3.5 border-t border-slate-200 dark:border-[#242f3d] flex justify-between items-center mt-auto relative shrink-0 bg-slate-50 dark:bg-[#0e1621]/60">
                     
                     <!-- WRAPPER TOMBOL PENGATURAN & POPUP MENU -->
                     <div>
-                        <!-- TOMBOL GEAR PENGATURAN (ELEVATED Z-30 AGAR SELALU BISA DIKLIK) -->
-                        <button type="button" id="btn-settings-toggle" onclick="toggleSettingsMenu()" aria-label="Buka menu pengaturan" title="Pengaturan Sistem" class="tactile-press w-11 h-11 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-30 hover:bg-slate-100 dark:hover:bg-[#313f52]">
-                            <i id="icon-gear" class="fas fa-cog text-base transform transition-transform duration-300"></i>
+                        <!-- TOMBOL GEAR PENGATURAN (ELEVATED Z-30, APPLE SPRING PRESS & GLOWING RING) -->
+                        <button type="button" id="btn-settings-toggle" onclick="toggleSettingsMenu()" aria-label="Buka menu pengaturan" title="Pengaturan Sistem" class="apple-trigger-spring w-11 h-11 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-30 hover:bg-slate-100 dark:hover:bg-[#313f52]">
+                            <i id="icon-gear" class="fas fa-cog text-base"></i>
                         </button>
 
-                        <!-- POP-UP MENU PENGATURAN (Z-30) -->
-                        <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-3.5 z-30 origin-bottom-left max-h-[460px] overflow-y-auto space-y-2.5 pb-6">
+                        <!-- POP-UP MENU PENGATURAN (Z-30, APPLE FROSTED GLASS & BLOSSOM POP) -->
+                        <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 border border-slate-200/90 dark:border-[#313f52]/90 rounded-3xl shadow-2xl p-3.5 z-30 max-h-[460px] overflow-y-auto space-y-2.5 pb-6">
                             
                             <!-- Header Pop-up -->
                             <div class="flex items-center justify-between">
@@ -364,7 +424,7 @@
 
                             <!-- 1. AKORDEON TOGGLE OPSI (WATERFALL CASCADE) -->
                             <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
-                                <button type="button" id="btn-settings-toggle-header" onclick="toggleAccordionStack()" class="tactile-press w-full py-2 px-2.5 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#313f52]/60 focus:outline-none select-none">
+                                <button type="button" id="btn-settings-toggle-header" onclick="toggleAccordionStack()" class="apple-trigger-spring w-full py-2 px-2.5 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#313f52]/60 focus:outline-none select-none">
                                     <div class="flex items-center gap-2 min-w-0 pr-1.5">
                                         <span class="w-5 h-5 rounded-lg bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 shadow-xs shrink-0">
                                             <i class="fas fa-sliders-h text-[10px]"></i>
@@ -381,7 +441,7 @@
                                     <div class="accordion-overflow">
                                         <div class="space-y-1.5 px-2 pb-2 pt-1">
                                             <!-- Toggle 1: Gradasi Saldo -->
-                                            <div onclick="handleToggle('gradient')" id="row-gradient" class="waterfall-item tactile-press waterfall-card-active py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                                            <div onclick="handleToggle('gradient')" id="row-gradient" class="waterfall-item apple-trigger-spring waterfall-card-active py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
                                                 <div class="flex items-center gap-2 min-w-0 pr-1.5 pointer-events-none">
                                                     <div class="w-6 h-6 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-[10px] shadow-xs shrink-0"><i class="fas fa-palette"></i></div>
                                                     <div class="flex flex-col min-w-0">
@@ -393,7 +453,7 @@
                                             </div>
 
                                             <!-- Toggle 2: Mode Ramping -->
-                                            <div onclick="handleToggle('compact')" id="row-compact" class="waterfall-item tactile-press py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                                            <div onclick="handleToggle('compact')" id="row-compact" class="waterfall-item apple-trigger-spring py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
                                                 <div class="flex items-center gap-2 min-w-0 pr-1.5 pointer-events-none">
                                                     <div class="w-6 h-6 rounded-lg bg-teal-500 flex items-center justify-center text-white text-[10px] shadow-xs shrink-0"><i class="fas fa-compress-alt"></i></div>
                                                     <div class="flex flex-col min-w-0">
@@ -405,7 +465,7 @@
                                             </div>
 
                                             <!-- Toggle 3: Tema Otomatis -->
-                                            <div onclick="handleToggle('autotheme')" id="row-autotheme" class="waterfall-item tactile-press py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                                            <div onclick="handleToggle('autotheme')" id="row-autotheme" class="waterfall-item apple-trigger-spring py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
                                                 <div class="flex items-center gap-2 min-w-0 pr-1.5 pointer-events-none">
                                                     <div class="w-6 h-6 rounded-lg bg-amber-500 flex items-center justify-center text-white text-[10px] shadow-xs shrink-0"><i class="fas fa-clock"></i></div>
                                                     <div class="flex flex-col min-w-0">
@@ -417,7 +477,7 @@
                                             </div>
 
                                             <!-- Toggle 4: Tanggal Sub Tugas -->
-                                            <div onclick="handleToggle('subtask_date')" id="row-subtask-date" class="waterfall-item tactile-press waterfall-card-active py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
+                                            <div onclick="handleToggle('subtask_date')" id="row-subtask-date" class="waterfall-item apple-trigger-spring waterfall-card-active py-1.5 px-2 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none">
                                                 <div class="flex items-center gap-2 min-w-0 pr-1.5 pointer-events-none">
                                                     <div class="w-6 h-6 rounded-lg bg-violet-500 flex items-center justify-center text-white text-[10px] shadow-xs shrink-0"><i class="far fa-calendar-alt"></i></div>
                                                     <div class="flex flex-col min-w-0">
@@ -471,7 +531,7 @@
                     </div>
 
                     <!-- TOMBOL DARK/LIGHT MODE (Z-10, DIKUNCI / DILINDUNGI SAAT SETTINGS TERBUKA) -->
-                    <button type="button" id="btn-dark-mode-toggle" onclick="handleDarkModeClick()" aria-label="Ganti tema gelap atau terang" title="Ganti Tema" class="tactile-press w-11 h-11 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-yellow-400 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-10 hover:bg-slate-100 dark:hover:bg-[#313f52] overflow-hidden">
+                    <button type="button" id="btn-dark-mode-toggle" onclick="handleDarkModeClick()" aria-label="Ganti tema gelap atau terang" title="Ganti Tema" class="apple-trigger-spring w-11 h-11 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-yellow-400 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-10 hover:bg-slate-100 dark:hover:bg-[#313f52] overflow-hidden">
                         <div class="relative w-5 h-5 flex items-center justify-center pointer-events-none">
                             <i id="icon-moon" class="theme-icon-morph fas fa-moon text-base absolute text-slate-700 transform scale-100 rotate-0 opacity-100 dark:scale-0 dark:-rotate-90 dark:opacity-0"></i>
                             <i id="icon-sun" class="theme-icon-morph fas fa-sun text-base absolute text-yellow-400 transform scale-0 rotate-90 opacity-0 dark:scale-100 dark:rotate-0 dark:opacity-100"></i>
@@ -482,16 +542,16 @@
             </div>
         </div>
 
-        <!-- KOLOM KANAN: HUD STATUS, DIAGNOSTIK & LOG PENGUJIAN REAL-TIME -->
+        <!-- KOLOM KANAN: HUD STATUS, DIAGNOSTIK & KONTROL KECEPATAN ANIMASI -->
         <div class="md:col-span-6 space-y-4">
             
             <!-- PANEL STATUS SISTEM -->
             <div class="bg-slate-800/90 rounded-3xl p-5 border border-slate-700/80 shadow-xl space-y-3.5">
                 <div class="flex items-center justify-between pb-2.5 border-b border-slate-700">
                     <h3 class="font-extrabold text-sm text-white flex items-center gap-2">
-                        <i class="fas fa-microchip text-primary-400"></i> <span>Status Interaksi Real-Time</span>
+                        <i class="fas fa-microchip text-primary-400"></i> <span>Status Interaksi &amp; Fisika Animasi</span>
                     </h3>
-                    <span class="text-[10px] font-mono text-slate-400">HUD Monitor</span>
+                    <span class="text-[10px] font-mono text-slate-400">Apple Spring Engine</span>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2.5">
@@ -528,16 +588,32 @@
                     </div>
                 </div>
 
+                <!-- KONTROL KECEPATAN ANIMASI (NORMAL VS SLOW-MOTION) -->
+                <div class="p-3 bg-slate-900/90 rounded-2xl border border-slate-700/70 flex items-center justify-between gap-2 flex-wrap">
+                    <div class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+                        <i class="fas fa-tachometer-alt text-primary-400"></i>
+                        <span>Kecepatan Animasi:</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button type="button" id="btn-speed-1x" onclick="setAnimSpeed(1)" class="px-2.5 py-1 rounded-xl text-[10.5px] font-bold transition-all bg-primary-600 text-white shadow-xs">
+                            1.0x (Normal iOS)
+                        </button>
+                        <button type="button" id="btn-speed-slow" onclick="setAnimSpeed(3)" class="px-2.5 py-1 rounded-xl text-[10.5px] font-bold transition-all bg-slate-800 text-slate-400 hover:text-white border border-slate-700">
+                            0.33x (Slow-Motion)
+                        </button>
+                    </div>
+                </div>
+
                 <!-- CARA MENGUJI -->
                 <div class="p-3 bg-primary-950/40 rounded-2xl border border-primary-800/50 text-[11px] text-slate-300 space-y-1.5">
                     <div class="font-bold text-primary-300 flex items-center gap-1.5">
-                        <i class="fas fa-vial"></i> <span>Skenario Pengujian yang Bisa Anda Coba:</span>
+                        <i class="fas fa-vial"></i> <span>Karakter Animasi Apple yang Diterapkan:</span>
                     </div>
                     <ol class="list-decimal list-inside space-y-1 text-slate-300 pl-1 leading-relaxed">
-                        <li><strong>Buka Pengaturan</strong>: Ketuk tombol roda gigi (<i class="fas fa-cog text-slate-400"></i>). Menu akan muncul dan tombol dark mode langsung meredup/terkunci.</li>
-                        <li><strong>Coba Ketuk Tombol Dark Mode</strong>: Sentuh area tombol dark mode. Anda akan melihat bahwa mode tidak berganti, melainkan klik diserap oleh pelindung dan menu pengaturan tertutup secara aman!</li>
-                        <li><strong>Coba Ketuk Tombol Navigasi Latar</strong>: Menu di latar belakang tidak akan bereaksi, hanya menutup menu pengaturan.</li>
-                        <li><strong>Tutup via Tombol Gear</strong>: Tombol gear tetap menyala terang di lapisan atas (<code class="text-primary-300">z-30</code>) dan langsung menutup menu ketika ditekan.</li>
+                        <li><strong>Spring Blossom Pop</strong>: Menu mekar elastis dari sudut tombol roda gigi (*transform-origin: bottom-left*) dengan lonjakan kenyal (*overshoot scale 1.028*).</li>
+                        <li><strong>Inersia Digital Crown Roda Gigi</strong>: Roda gigi berputar mekanis 90° dengan getaran mikro kenyal (berputar ke 100° lalu mengunci pas di 90°).</li>
+                        <li><strong>Penutupan Halus (*Spring Retreat*)</strong>: Saat ditutup, menu menyusut dan memudar ke arah tombol roda gigi tanpa hentakan.</li>
+                        <li><strong>Zero Haptic Vibration</strong>: Sesuai aturan Anda, getaran fisik ponsel dinonaktifkan sepenuhnya; sensasi kepuasan dihadirkan murni lewat visual fisika pegas.</li>
                     </ol>
                 </div>
             </div>
@@ -566,12 +642,14 @@
 
     <!-- LOGIKA JAVASCRIPT SIMULATOR -->
     <script>
-        // STATE UTAMA
+        // STATE UTAMA (TANPA HAPTIC / ZERO VIBRATION)
         const state = {
             isSettingsOpen: false,
             isDarkMode: false,
             isAccordionOpen: true,
             currentLang: 'id',
+            animSpeedFactor: 1,
+            isAnimating: false,
             toggles: {
                 gradient: true,
                 compact: false,
@@ -585,7 +663,6 @@
             const container = document.getElementById('event-log-container');
             if (!container) return;
 
-            // Bersihkan placeholder jika masih ada
             if (container.querySelector('.italic')) {
                 container.innerHTML = '';
             }
@@ -593,22 +670,18 @@
             const now = new Date();
             const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}.${String(Math.floor(now.getMilliseconds() / 100))}`;
 
-            let badgeColor = 'bg-primary-500/20 text-primary-300 border-primary-500/30';
             let icon = 'fas fa-info-circle';
 
             if (type === 'blocked') {
-                badgeColor = 'bg-rose-500/20 text-rose-300 border-rose-500/30';
                 icon = 'fas fa-shield-alt text-rose-400';
             } else if (type === 'success') {
-                badgeColor = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
                 icon = 'fas fa-check-circle text-emerald-400';
-            } else if (type === 'warning') {
-                badgeColor = 'bg-amber-500/20 text-amber-300 border-amber-500/30';
-                icon = 'fas fa-exclamation-triangle text-amber-400';
+            } else if (type === 'apple') {
+                icon = 'fab fa-apple text-indigo-400';
             }
 
             const item = document.createElement('div');
-            item.className = 'p-2 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start gap-2 animate-fade-in shadow-xs';
+            item.className = 'p-2 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start gap-2 shadow-xs';
             item.innerHTML = `
                 <div class="mt-0.5"><i class="${icon} text-xs"></i></div>
                 <div class="flex-1 min-w-0">
@@ -634,10 +707,27 @@
             }
         }
 
-        // TOGGLE MENU PENGATURAN & AKTIVASI OPSI 3 (BACKDROP + LOCK STATE)
+        // KONTROL KECEPATAN ANIMASI
+        function setAnimSpeed(factor) {
+            state.animSpeedFactor = factor;
+            document.documentElement.style.setProperty('--anim-speed-factor', factor);
+
+            const btn1x = document.getElementById('btn-speed-1x');
+            const btnSlow = document.getElementById('btn-speed-slow');
+
+            if (factor === 1) {
+                btn1x.className = 'px-2.5 py-1 rounded-xl text-[10.5px] font-bold transition-all bg-primary-600 text-white shadow-xs';
+                btnSlow.className = 'px-2.5 py-1 rounded-xl text-[10.5px] font-bold transition-all bg-slate-800 text-slate-400 hover:text-white border border-slate-700';
+                logEvent('Kecepatan Normal', 'Animasi diatur ke 1.0x (Kecepatan standar iOS ~340ms).', 'info');
+            } else {
+                btnSlow.className = 'px-2.5 py-1 rounded-xl text-[10.5px] font-bold transition-all bg-primary-600 text-white shadow-xs';
+                btn1x.className = 'px-2.5 py-1 rounded-xl text-[10.5px] font-bold transition-all bg-slate-800 text-slate-400 hover:text-white border border-slate-700';
+                logEvent('Mode Slow-Motion', 'Animasi diperlambat menjadi 0.33x untuk mengamati detail fisika pegas & inersia roda gigi.', 'apple');
+            }
+        }
+
+        // TOGGLE MENU PENGATURAN ALA APPLE QUICK ACTION BLOSSOM
         function toggleSettingsMenu() {
-            state.isSettingsOpen = !state.isSettingsOpen;
-            
             const menu = document.getElementById('settings-menu');
             const gear = document.getElementById('icon-gear');
             const btnGear = document.getElementById('btn-settings-toggle');
@@ -645,50 +735,74 @@
             const btnDarkMode = document.getElementById('btn-dark-mode-toggle');
             const navButtons = document.querySelectorAll('.sidebar-nav-btn');
 
-            if (state.isSettingsOpen) {
-                // 1. Tampilkan Pop-up
-                menu.classList.remove('hidden');
-                gear.style.transform = 'rotate(90deg)';
+            if (!state.isSettingsOpen) {
+                // ===================================
+                // 1. BUKA MENU: APPLE BLOSSOM IN
+                // ===================================
+                state.isSettingsOpen = true;
+
+                // Siapkan kelas animasi Apple
+                menu.classList.remove('hidden', 'apple-blossom-out');
+                menu.classList.add('apple-blossom-in');
+
+                // Inersia Roda Gigi (Digital Crown Style)
+                gear.classList.remove('gear-spin-close');
+                void gear.offsetWidth; // Force reflow
+                gear.classList.add('gear-spin-open');
+
+                // Tombol Trigger elevated & glowing ring
                 btnGear.classList.add('active');
 
-                // 2. Aktifkan Backdrop Click-Shield
+                // Backdrop Click-Shield
                 backdrop.classList.add('active');
 
-                // 3. Kunci dan Redupkan Tombol Dark Mode
+                // Kunci tombol dark mode & navigasi belakang
                 btnDarkMode.classList.add('locked');
-
-                // 4. Kunci Tombol Navigasi Latar
                 navButtons.forEach(btn => btn.classList.add('locked'));
 
-                // Update HUD
                 updateHUD(true);
 
                 logEvent(
-                    'Menu Pengaturan DIBUKA', 
-                    'Backdrop pelindung aktif. Tombol dark mode & navigasi belakang telah DIKUNCI (tidak bisa diklik secara sengaja/tak sengaja).', 
-                    'success'
+                    '🌸 Apple Blossom: Menu DIBUKA', 
+                    'Menu mekar elastis dari sudut tombol roda gigi dengan inersia putaran 90°. Tombol belakang dikunci & backdrop aktif.', 
+                    'apple'
                 );
             } else {
-                // 1. Sembunyikan Pop-up
-                menu.classList.add('hidden');
-                gear.style.transform = 'rotate(0deg)';
-                btnGear.classList.remove('active');
+                // ===================================
+                // 2. TUTUP MENU: APPLE BLOSSOM OUT
+                // ===================================
+                state.isSettingsOpen = false;
 
-                // 2. Nonaktifkan Backdrop
+                // Animasi mengatup halus ke sudut gear
+                menu.classList.remove('apple-blossom-in');
+                menu.classList.add('apple-blossom-out');
+
+                // Putaran balik roda gigi
+                gear.classList.remove('gear-spin-open');
+                void gear.offsetWidth;
+                gear.classList.add('gear-spin-close');
+
+                btnGear.classList.remove('active');
                 backdrop.classList.remove('active');
 
-                // 3. Buka Kunci Tombol Dark Mode
+                // Buka kunci tombol dark mode & navigasi belakang
                 btnDarkMode.classList.remove('locked');
-
-                // 4. Buka Kunci Tombol Navigasi Latar
                 navButtons.forEach(btn => btn.classList.remove('locked'));
 
-                // Update HUD
                 updateHUD(false);
 
+                // Setelah durasi animasi selesai, sembunyikan elemen secara bersih
+                const closeDuration = 240 * state.animSpeedFactor;
+                setTimeout(() => {
+                    if (!state.isSettingsOpen) {
+                        menu.classList.add('hidden');
+                        menu.classList.remove('apple-blossom-out');
+                    }
+                }, closeDuration);
+
                 logEvent(
-                    'Menu Pengaturan DITUTUP via Tombol Gear', 
-                    'Backdrop dinonaktifkan. Tombol dark mode dan navigasi kembali NORMAL dan dapat diklik seperti biasa.', 
+                    '🍃 Apple Retreat: Menu DITUTUP', 
+                    'Menu menyusut dan memudar kembali ke tombol roda gigi. Tombol dark mode kembali aktif normal.', 
                     'info'
                 );
             }
@@ -700,18 +814,16 @@
 
             logEvent(
                 '🛡️ Klik Diserap oleh Backdrop Click-Shield', 
-                'Klik mengenai area latar belakang (bukan menu setting). Sentuhan diserap secara aman tanpa memicu tombol di baliknya, dan menu pengaturan ditutup secara halus.', 
+                'Klik mengenai area luar menu. Sentuhan diserap aman tanpa memicu tombol di baliknya, dan menu pengaturan ditutup dengan animasi Apple Retreat.', 
                 'blocked'
             );
 
-            // Tutup menu secara elegan
             toggleSettingsMenu();
         }
 
         // HANDLER TOMBOL DARK MODE (DAPAT DIUJI SAAT TERKUNCI VS TERBUKA)
         function handleDarkModeClick() {
             if (state.isSettingsOpen) {
-                // Harus terproteksi, tidak boleh tembus ke sini jika CSS/Backdrop bekerja sempurna
                 logEvent(
                     '⚠️ Percobaan Klik Dark Mode Terdeteksi', 
                     'Tombol sedang dalam status TERKUNCI. Event dihentikan.', 
@@ -720,7 +832,6 @@
                 return;
             }
 
-            // Saat menu setting tertutup, tombol dark mode bekerja 100% normal
             state.isDarkMode = !state.isDarkMode;
             document.documentElement.classList.toggle('dark', state.isDarkMode);
             document.getElementById('sidebar-container').classList.toggle('dark', state.isDarkMode);
@@ -755,7 +866,7 @@
             const hudBackdrop = document.getElementById('hud-status-backdrop');
 
             if (isOpen) {
-                hudMenu.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> <span class="text-emerald-400">TERBUKA (Aktif)</span>';
+                hudMenu.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> <span class="text-emerald-400">TERBUKA (Apple Blossom)</span>';
                 hudLock.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-400"></span> <span class="text-rose-400 font-bold">TERKUNCI (Dilindungi)</span>';
                 hudBackdrop.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> <span class="text-emerald-400">AKTIF (Click-Shield Menyala)</span>';
             } else {
@@ -881,7 +992,7 @@
         // INISIALISASI
         document.addEventListener('DOMContentLoaded', () => {
             updateActiveBadge();
-            // Buka settings menu secara default saat halaman dimuat agar pengguna langsung dapat menguji
+            // Buka settings menu secara default saat halaman dimuat agar pengguna langsung melihat animasi
             toggleSettingsMenu();
         });
     </script>
