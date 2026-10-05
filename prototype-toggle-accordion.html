@@ -235,18 +235,18 @@
                     id="btn-accordion-header"
                     onclick="toggleAccordion()" 
                     class="tactile-press w-full py-2.5 px-3 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#313f52]/60 focus:outline-none select-none">
-                <span class="flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-lg bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 shadow-xs">
+                <div class="flex items-center gap-2 min-w-0 pr-1.5">
+                    <span class="w-6 h-6 rounded-lg bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 shadow-xs shrink-0">
                         <i class="fas fa-sliders-h text-[11px]"></i>
                     </span>
-                    <span class="tracking-tight text-slate-800 dark:text-slate-100 font-extrabold text-[12px]">Opsi Tampilan &amp; Sistem</span>
-                </span>
+                    <span class="tracking-tight text-slate-800 dark:text-slate-100 font-extrabold text-[12px] truncate">Opsi Tampilan &amp; Sistem</span>
+                </div>
                 
-                <div class="flex items-center gap-2">
-                    <span id="active-badge" class="text-[9px] bg-primary-100 dark:bg-primary-900/60 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full font-black border border-primary-200/60 dark:border-primary-700/50 transition-transform">
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <span id="active-badge" class="whitespace-nowrap shrink-0 text-[9px] bg-primary-100 dark:bg-primary-900/60 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full font-black border border-primary-200/60 dark:border-primary-700/50 leading-none transition-transform inline-flex items-center justify-center">
                         2 Aktif
                     </span>
-                    <i id="chevron-icon" class="fas fa-chevron-down text-slate-400 text-[11px] chevron-icon"></i>
+                    <i id="chevron-icon" class="fas fa-chevron-down text-slate-400 text-[11px] chevron-icon shrink-0"></i>
                 </div>
             </button>
 
