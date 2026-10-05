@@ -1827,24 +1827,6 @@
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
                     <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.1.5 (Stable)</span></div>
                     
-                    <!-- SELEKTOR BAHASA (BILINGUAL i18n ID & EN) -->
-                    <div class="bg-slate-100/80 dark:bg-[#242f3d]/70 rounded-2xl p-2 border border-slate-200/80 dark:border-[#313f52]/80">
-                        <div class="flex items-center justify-between mb-1.5 px-1">
-                            <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                                <i class="fas fa-language text-primary-500 text-xs"></i> <span data-i18n="settings_language">Pilihan Bahasa / Language</span>
-                            </span>
-                            <span id="current-lang-badge" class="text-[9px] font-black uppercase tracking-wider bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full">ID</span>
-                        </div>
-                        <div id="language-selector-track" class="grid grid-cols-2 gap-1.5 p-1 bg-slate-200/60 dark:bg-[#17212b]/60 rounded-xl">
-                            <button type="button" id="btn-lang-id" onclick="setAppLanguage('id')" class="no-bounce py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 bg-white dark:bg-[#242f3d] text-primary-600 dark:text-primary-400 shadow-sm border border-primary-200 dark:border-primary-800">
-                                <span>🇮🇩</span> <span>Indonesia</span>
-                            </button>
-                            <button type="button" id="btn-lang-en" onclick="setAppLanguage('en')" class="no-bounce py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-white/5 border border-transparent">
-                                <span>🇬🇧</span> <span>English</span>
-                            </button>
-                        </div>
-                    </div>
-                    
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
                         <button type="button" id="btn-settings-toggle-header" onclick="toggleSettingsToggleStack()" class="tactile-press w-full py-2.5 px-3 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-[#313f52]/60 focus:outline-none select-none transition-colors">
@@ -1988,8 +1970,26 @@
 
                     <!-- Kontak & Feedback (Dipindahkan ke paling bawah) -->
                     <div class="mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d] text-center">
-                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Kontak &amp; Feedback</p>
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5" data-i18n="settings_contact_feedback">Kontak &amp; Feedback</p>
                         <a href="mailto:habielmaulanaaa@gmail.com" class="text-[10px] font-bold text-primary-500 bg-primary-50 dark:bg-primary-900/30 px-2 py-1 rounded-lg block">habielmaulanaaa@gmail.com</a>
+                    </div>
+
+                    <!-- SELEKTOR BAHASA (BILINGUAL i18n ID & EN - DIPINDAHKAN DI BAWAH EMAIL FEEDBACK, TANPA BENDERA) -->
+                    <div class="bg-slate-100/80 dark:bg-[#242f3d]/70 rounded-2xl p-2 border border-slate-200/80 dark:border-[#313f52]/80 mt-2">
+                        <div class="flex items-center justify-between mb-1.5 px-1">
+                            <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fas fa-language text-primary-500 text-xs"></i> <span data-i18n="settings_language">Pilihan Bahasa / Language</span>
+                            </span>
+                            <span id="current-lang-badge" class="text-[9px] font-black uppercase tracking-wider bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-300 px-2 py-0.5 rounded-full border border-primary-200/50 dark:border-primary-700/40">ID</span>
+                        </div>
+                        <div id="language-selector-track" class="grid grid-cols-2 gap-1.5 p-1 bg-slate-200/60 dark:bg-[#17212b]/60 rounded-xl">
+                            <button type="button" id="btn-lang-id" onclick="setAppLanguage('id')" class="no-bounce py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center transition-all duration-200 bg-white dark:bg-[#242f3d] text-primary-600 dark:text-primary-400 shadow-sm border border-primary-200 dark:border-primary-800">
+                                <span>Indonesia</span>
+                            </button>
+                            <button type="button" id="btn-lang-en" onclick="setAppLanguage('en')" class="no-bounce py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-white/5 border border-transparent">
+                                <span>English</span>
+                            </button>
+                        </div>
                     </div>
                     <!-- Spacer scroll ekstra agar menu terbawah tidak tertutup tepi layar -->
                     <div class="h-16 w-full block shrink-0"></div>
@@ -3789,7 +3789,7 @@
                 toast_expense_saved: "Pengeluaran Berhasil Disimpan 💸",
                 toast_wallet_changed: "Filter Dompet Diperbarui 💼",
                 toast_theme_changed: "Tema Warna Diperbarui 🎨",
-                toast_lang_changed: "Bahasa berhasil diubah ke Bahasa Indonesia 🇮🇩",
+                toast_lang_changed: "Bahasa berhasil diubah ke Bahasa Indonesia",
                 toast_privacy_on: "Saldo disembunyikan 👁️",
                 toast_privacy_off: "Saldo ditampilkan 👁️",
 
@@ -4363,7 +4363,7 @@
                 toast_expense_saved: "Expense Recorded 💸",
                 toast_wallet_changed: "Wallet Filter Updated 💼",
                 toast_theme_changed: "Theme Color Updated 🎨",
-                toast_lang_changed: "Language changed to English 🇬🇧",
+                toast_lang_changed: "Language changed to English",
                 toast_privacy_on: "Balance hidden 👁️",
                 toast_privacy_off: "Balance revealed 👁️",
 
@@ -4950,11 +4950,11 @@
                 var inactiveClass = 'text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-white/5 border border-transparent';
                 
                 if (curLang === 'id') {
-                    btnId.className = 'no-bounce py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 ' + activeClass;
-                    btnEn.className = 'no-bounce py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 ' + inactiveClass;
+                    btnId.className = 'no-bounce py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center transition-all duration-200 ' + activeClass;
+                    btnEn.className = 'no-bounce py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center transition-all duration-200 ' + inactiveClass;
                 } else {
-                    btnEn.className = 'no-bounce py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 ' + activeClass;
-                    btnId.className = 'no-bounce py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 ' + inactiveClass;
+                    btnEn.className = 'no-bounce py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center transition-all duration-200 ' + activeClass;
+                    btnId.className = 'no-bounce py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center transition-all duration-200 ' + inactiveClass;
                 }
             }
         }
