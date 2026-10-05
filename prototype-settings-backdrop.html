@@ -95,57 +95,51 @@
         }
 
         /* ========================================================
-           APPLE SILKY GLIDE POP-UP: POP-UP SETTINGS MENU
+           SOLID CRISP GLIDE: POP-UP SETTINGS MENU
+           100% Solid Opaque (Tanpa Efek Blur), Meluncur Mulus & Nyaman
            Origin: bottom-left (tepat di atas tombol gear)
-           Mekar perlahan dan meluncur mulus tanpa memantul (Zero Bounce)
            ======================================================== */
         #settings-menu {
             transform-origin: 20px bottom;
-            will-change: transform, opacity, filter;
-            backdrop-filter: blur(28px) saturate(190%);
-            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            will-change: transform, opacity;
         }
 
-        /* MELUNCUR NAIK & MEKAR TANPA PANTULAN (ZERO BOUNCE GLIDE IN) */
+        /* MELUNCUR NAIK SOLID & MEKAR LEMBUT (CRISP SOLID GLIDE IN) */
         @keyframes appleBlossomIn {
             0% {
                 opacity: 0;
-                transform: scale(0.90) translateY(14px);
-                filter: blur(6px);
+                transform: scale(0.93) translateY(14px);
             }
             100% {
                 opacity: 1;
                 transform: scale(1) translateY(0);
-                filter: blur(0px);
             }
         }
 
-        /* MENYUSUT TURUN LEMBUT (SILKY RETREAT OUT) */
+        /* MENYUSUT TURUN LEMBUT (CRISP SOLID GLIDE OUT) */
         @keyframes appleBlossomOut {
             0% {
                 opacity: 1;
                 transform: scale(1) translateY(0);
-                filter: blur(0px);
             }
             100% {
                 opacity: 0;
-                transform: scale(0.92) translateY(10px);
-                filter: blur(4px);
+                transform: scale(0.95) translateY(10px);
             }
         }
 
         .apple-blossom-in {
-            animation: appleBlossomIn calc(0.44s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: appleBlossomIn calc(0.40s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
         }
         .apple-blossom-out {
-            animation: appleBlossomOut calc(0.32s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: appleBlossomOut calc(0.28s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
         }
 
-        /* BACKDROP SHIELD (OPSI 3) */
+        /* BACKDROP SHIELD (OPSI 3 - SOLID SCRIM TANPA BLUR) */
         #settings-backdrop {
             opacity: 0;
             pointer-events: none;
-            transition: opacity calc(0.38s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity calc(0.35s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity;
         }
         #settings-backdrop.active {
@@ -153,20 +147,19 @@
             pointer-events: auto;
         }
 
-        /* TOMBOL DARK MODE KETIKA TERKUNCI (MUTED LOCK STATE) */
+        /* TOMBOL DARK MODE KETIKA TERKUNCI (MUTED LOCK STATE - BEBAS BLUR) */
         #btn-dark-mode-toggle {
-            transition: transform calc(0.36s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity calc(0.36s * var(--anim-speed-factor)) ease, 
-                        filter calc(0.36s * var(--anim-speed-factor)) ease,
+            transition: transform calc(0.35s * var(--anim-speed-factor)) cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity calc(0.35s * var(--anim-speed-factor)) ease, 
                         background-color 0.2s ease, 
                         border-color 0.2s ease;
             will-change: transform, opacity;
         }
         #btn-dark-mode-toggle.locked {
-            opacity: 0.3 !important;
+            opacity: 0.32 !important;
             pointer-events: none !important;
             transform: scale(0.93) !important;
-            filter: grayscale(0.6) blur(0.3px) !important;
+            filter: grayscale(0.5) !important;
         }
 
         /* TOMBOL NAVIGASI BELAKANG KETIKA TERKUNCI */
@@ -303,7 +296,7 @@
         <div>
             <div class="flex items-center gap-2 mb-1.5 flex-wrap">
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5">
-                    <i class="fab fa-apple text-xs"></i> <span>Animasi: Apple Silky Glide (Tanpa Pantulan)</span>
+                    <i class="fab fa-apple text-xs"></i> <span>Animasi: Silky Glide (Solid, Bebas Blur)</span>
                 </span>
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                     Opsi 3: Backdrop &amp; Lock-State
@@ -312,9 +305,9 @@
                     <i class="fas fa-ban text-[10px]"></i> <span>Haptic: Nonaktif (Bebas Getar)</span>
                 </span>
             </div>
-            <h1 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">Prototipe: Animasi Menu Pengaturan Ala Apple (Silky Glide, No Bounce)</h1>
+            <h1 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">Prototipe: Animasi Menu Pengaturan Solid &amp; Mulus (Tanpa Blur &amp; Pantulan)</h1>
             <p class="text-xs text-slate-300 mt-1 leading-relaxed max-w-2xl">
-                Meluncur lembut dan tenang dari sudut tombol roda gigi tanpa hentakan/pantulan (*zero bounce*), putaran presisi 90°, kaca buram (*frosted glass*), dan pengamanan tombol di latar belakang tanpa getaran ponsel.
+                Tampilan solid 100% tanpa efek blur, meluncur halus dan nyaman dari sudut tombol roda gigi tanpa hentakan/pantulan (*zero bounce*), putaran presisi 90°, dan pengamanan tombol di latar belakang tanpa getaran ponsel.
             </p>
         </div>
 
@@ -381,8 +374,8 @@
                 <!-- ========================================================
                      LAPISAN PELINDUNG (BACKDROP CLICK-SHIELD) - OPSI 3
                      ======================================================== -->
-                <div id="settings-backdrop" onclick="handleBackdropClick(event)" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-[2px] z-20 cursor-pointer flex items-center justify-center">
-                    <div class="pointer-events-none text-[11px] font-bold text-white bg-slate-900/85 dark:bg-black/85 px-3 py-1.5 rounded-full border border-white/20 shadow-xl transform -translate-y-8 flex items-center gap-1.5">
+                <div id="settings-backdrop" onclick="handleBackdropClick(event)" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 z-20 cursor-pointer flex items-center justify-center">
+                    <div class="pointer-events-none text-[11px] font-bold text-white bg-slate-900 dark:bg-black px-3 py-1.5 rounded-full border border-white/20 shadow-xl transform -translate-y-8 flex items-center gap-1.5">
                         <i class="fas fa-shield-alt text-emerald-400 text-xs"></i>
                         <span>Ketuk di luar untuk menutup</span>
                     </div>
@@ -398,8 +391,8 @@
                             <i id="icon-gear" class="fas fa-cog text-base"></i>
                         </button>
 
-                        <!-- POP-UP MENU PENGATURAN (Z-30, APPLE FROSTED GLASS & BLOSSOM POP) -->
-                        <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white/95 dark:bg-[#17212b]/95 border border-slate-200/90 dark:border-[#313f52]/90 rounded-3xl shadow-2xl p-3.5 z-30 max-h-[460px] overflow-y-auto space-y-2.5 pb-6">
+                        <!-- POP-UP MENU PENGATURAN (Z-30, SOLID OPAQUE & CRISP SILKY GLIDE) -->
+                        <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200 dark:border-[#313f52] rounded-3xl shadow-2xl p-3.5 z-30 max-h-[460px] overflow-y-auto space-y-2.5 pb-6">
                             
                             <!-- Header Pop-up -->
                             <div class="flex items-center justify-between">
@@ -600,9 +593,9 @@
                         <i class="fas fa-vial"></i> <span>Karakter Animasi Baru yang Diterapkan:</span>
                     </div>
                     <ol class="list-decimal list-inside space-y-1 text-slate-300 pl-1 leading-relaxed">
-                        <li><strong>Silky Glide (Tanpa Pantulan / Zero Bounce)</strong>: Menu meluncur dan mekar langsung ke posisi akhir tanpa gerakan membal (*overshoot*). Gerakan mengalir tenang dan elegan.</li>
-                        <li><strong>Kecepatan Ditenangkan</strong>: Durasi diperlambat menjadi ~440ms (buka) dan ~320ms (tutup) untuk sensasi mewah dan rileks.</li>
-                        <li><strong>Putaran Roda Gigi Presisi</strong>: Roda gigi berputar secara linear-decelerate dari 0° langsung ke 90° tanpa berayun melewati 90°.</li>
+                        <li><strong>100% Solid &amp; Tajam (Bebas Efek Blur)</strong>: Seluruh efek filter blur telah dihapus. Latar kartu solid murni, teks dan ikon tetap tajam tanpa kabur, dan meluncur mulus tanpa pantulan (*zero bounce*).</li>
+                        <li><strong>Kecepatan Halus &amp; Enak Dilihat</strong>: Durasi ~400ms (buka) dan ~280ms (tutup) memberikan pergerakan yang sangat nyaman di mata, tidak terburu-buru dan tidak kaku.</li>
+                        <li><strong>Putaran Roda Gigi Presisi</strong>: Roda gigi berputar secara presisi dari 0° langsung ke 90° tanpa berayun melewati 90°.</li>
                         <li><strong>Zero Haptic Vibration</strong>: Getaran ponsel dinonaktifkan sepenuhnya.</li>
                     </ol>
                 </div>
@@ -782,7 +775,7 @@
                 updateHUD(false);
 
                 // Setelah durasi animasi selesai, sembunyikan elemen secara bersih
-                const closeDuration = 320 * state.animSpeedFactor;
+                const closeDuration = 280 * state.animSpeedFactor;
                 setTimeout(() => {
                     if (!state.isSettingsOpen) {
                         menu.classList.add('hidden');
@@ -792,7 +785,7 @@
 
                 logEvent(
                     '🍃 Silky Retreat: Menu DITUTUP', 
-                    'Menu menyusut dan memudar tenang tanpa hentakan kembali ke tombol roda gigi. Tombol dark mode kembali aktif normal.', 
+                    'Menu menyusut dan memudar secara solid tanpa blur dan tanpa hentakan kembali ke tombol roda gigi. Tombol dark mode kembali aktif normal.', 
                     'info'
                 );
             }
@@ -804,7 +797,7 @@
 
             logEvent(
                 '🛡️ Klik Diserap oleh Backdrop Click-Shield', 
-                'Klik mengenai area luar menu. Sentuhan diserap aman tanpa memicu tombol di baliknya, dan menu pengaturan ditutup dengan animasi Apple Retreat.', 
+                'Klik mengenai area luar menu. Sentuhan diserap aman tanpa memicu tombol di baliknya, dan menu pengaturan ditutup dengan mulus.', 
                 'blocked'
             );
 
