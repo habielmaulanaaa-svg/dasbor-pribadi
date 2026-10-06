@@ -4127,12 +4127,17 @@
                 toast_cloud_permission_denied: "Izin Firestore ditolak (Periksa Rules di Console)",
                 toast_cloud_retry_soon: "Akan dicoba saat koneksi stabil",
                 sync_badge_saving: "Menyimpan...",
+                sync_badge_connecting: "Menghubungkan...",
                 sync_badge_synced: "Tersinkron ",
                 sync_badge_pending: "Menunggu simpan...",
                 sync_badge_offline: "Gagal (Offline)",
                 sync_badge_permission_denied: "Izin Ditolak (Rules)",
                 sync_badge_connection_lost: "Koneksi Terputus",
                 sync_badge_session_expired: "Sesi Berakhir",
+                toast_network_online_title: "Terhubung Kembali 🌐",
+                toast_network_online_desc: "Koneksi internet aktif, data cloud tersinkronisasi",
+                toast_network_offline_title: "Koneksi Terputus",
+                toast_network_offline_desc: "Beralih ke mode luring (offline)",
                 sync_btn_sync_now: "Sinkron",
                 sync_btn_sign_out: "Keluar",
                 sync_account_cloud_title: "Sinkronisasi Cloud",
@@ -4702,12 +4707,17 @@
                 toast_cloud_permission_denied: "Firestore permission denied (Check Console Rules)",
                 toast_cloud_retry_soon: "Will retry when connection is stable",
                 sync_badge_saving: "Saving...",
+                sync_badge_connecting: "Connecting...",
                 sync_badge_synced: "Synced ",
                 sync_badge_pending: "Pending save...",
                 sync_badge_offline: "Failed (Offline)",
                 sync_badge_permission_denied: "Permission Denied (Rules)",
                 sync_badge_connection_lost: "Connection Lost",
                 sync_badge_session_expired: "Session Expired",
+                toast_network_online_title: "Reconnected 🌐",
+                toast_network_online_desc: "Internet connection active, cloud data synchronized",
+                toast_network_offline_title: "Connection Lost",
+                toast_network_offline_desc: "Switched to offline mode",
                 sync_btn_sync_now: "Sync Now",
                 sync_btn_sign_out: "Sign Out",
                 sync_account_cloud_title: "Cloud Synchronization",
@@ -10463,6 +10473,9 @@
             if (cachedUser && cachedUser.uid) {
                 currentUser = cachedUser;
                 updateAuthUI(currentUser);
+                if (!navigator.onLine) {
+                    updateSyncStatusUI('error', { code: 'unavailable' });
+                }
             }
             initFirebaseAuth();
 
@@ -10610,6 +10623,7 @@
                 if (cached && cached.uid) {
                     currentUser = cached;
                     updateAuthUI(currentUser);
+                    updateSyncStatusUI('error', { code: 'unavailable' });
                 } else {
                     updateAuthUI(null);
                 }
@@ -10690,6 +10704,7 @@
                 if (cached && cached.uid) {
                     currentUser = cached;
                     updateAuthUI(currentUser);
+                    updateSyncStatusUI('error', { code: 'unavailable' });
                 } else {
                     updateAuthUI(null);
                 }
@@ -10775,8 +10790,12 @@
             const headerIcon = document.getElementById('header-cloud-status-icon');
             var isEn = (typeof dataState !== 'undefined' && dataState && dataState.language === 'en');
 
-            if (status === 'saving' || status === 'syncing') {
+            if (status === 'saving') {
                 if (badge) badge.innerText = t('sync_badge_saving', "Menyimpan...");
+                if (syncIcon) syncIcon.classList.add('fa-spin');
+                if (headerIcon) headerIcon.className = "fas fa-sync-alt text-xs text-amber-300 fa-spin";
+            } else if (status === 'syncing') {
+                if (badge) badge.innerText = t('sync_badge_connecting', "Menghubungkan...");
                 if (syncIcon) syncIcon.classList.add('fa-spin');
                 if (headerIcon) headerIcon.className = "fas fa-sync-alt text-xs text-amber-300 fa-spin";
             } else if (status === 'synced') {
@@ -10902,12 +10921,18 @@
             triggerDynamicIsland(t('toast_google_signout_title', "Keluar Akun"), t('toast_google_signout_desc', "Beralih ke mode penyimpanan lokal"), "fas fa-sign-out-alt", "bg-slate-500/20 text-slate-400");
         }
 
-        function syncFromCloud(silent = false) {
+        let _cloudRetryTimer = null;
+
+        function syncFromCloud(silent = false, isRetry = false) {
             if (!currentUser || !firestoreDb) return;
             if (!silent) updateSyncStatusUI('syncing');
 
             firestoreDb.collection('users').doc(currentUser.uid).get()
                 .then(function(docSnap) {
+                    if (_cloudRetryTimer) {
+                        clearTimeout(_cloudRetryTimer);
+                        _cloudRetryTimer = null;
+                    }
                     if (docSnap.exists) {
                         const remote = docSnap.data();
                         if (remote && remote.dataState) {
@@ -11028,6 +11053,15 @@
                 })
                 .catch(function(err) {
                     console.error("Gagal sinkron dari cloud:", err);
+                    if (!isRetry && navigator.onLine && err && (err.code === 'unavailable' || (err.message && err.message.toLowerCase().includes('offline')))) {
+                        if (_cloudRetryTimer) clearTimeout(_cloudRetryTimer);
+                        _cloudRetryTimer = setTimeout(function() {
+                            if (navigator.onLine && currentUser) {
+                                syncFromCloud(true, true);
+                            }
+                        }, 2500);
+                        return;
+                    }
                     updateSyncStatusUI('error', err);
                     if (!silent) {
                         let toastMsg = t('toast_cloud_download_failed', "Gagal mengunduh data cloud");
@@ -11102,6 +11136,9 @@
                 loginWithGoogle();
                 return;
             }
+            if (firestoreDb && typeof firestoreDb.enableNetwork === 'function') {
+                try { firestoreDb.enableNetwork().catch(function() {}); } catch(e) {}
+            }
             var icon = document.getElementById('cloud-sync-icon');
             if (icon) icon.classList.add('fa-spin');
             syncFromCloud(false);
@@ -11109,6 +11146,118 @@
                 if (icon) icon.classList.remove('fa-spin');
             }, 1200);
         }
+
+        let _networkReconnectTimer = null;
+        let _lastOnlineNotificationTime = 0;
+        let _lastOfflineNotificationTime = 0;
+        let _wasOnline = navigator.onLine;
+
+        function handleNetworkOnline() {
+            if (_networkReconnectTimer) clearTimeout(_networkReconnectTimer);
+
+            // Inisialisasi ulang jika Firebase belum aktif
+            if (typeof firebase !== 'undefined' && (!firebaseApp || !firestoreDb)) {
+                initFirebaseAuth();
+            }
+
+            // Aktifkan kembali transport jaringan Firestore
+            if (firestoreDb && typeof firestoreDb.enableNetwork === 'function') {
+                try {
+                    firestoreDb.enableNetwork().catch(function(e) {
+                        console.warn("enableNetwork info:", e);
+                    });
+                } catch(e) {}
+            }
+
+            var user = currentUser || getCachedUser();
+            if (!user || !user.uid) return;
+
+            // Berikan indikator visual segera bahwa sistem sedang menghubungkan kembali
+            updateSyncStatusUI('syncing');
+
+            // Berikan jeda stabilisasi (1.2 detik) agar negosiasi DHCP dan DNS Wi-Fi Android rampung
+            _networkReconnectTimer = setTimeout(function() {
+                if (!currentUser) {
+                    currentUser = user;
+                    updateAuthUI(currentUser);
+                }
+
+                // Coba segarkan token otentikasi jika belum aktif
+                var savedToken = currentUser.idToken || safeStorage.getItem('dasborAuthToken');
+                if (savedToken && firebaseAuth && !firebaseAuth.currentUser) {
+                    try {
+                        var cred = firebase.auth.GoogleAuthProvider.credential(savedToken);
+                        firebaseAuth.signInWithCredential(cred).catch(function() {});
+                    } catch(e) {}
+                }
+
+                // Jalankan sinkronisasi hening dari cloud
+                syncFromCloud(true);
+
+                // Notifikasi visual Dynamic Island
+                var now = Date.now();
+                if (now - _lastOnlineNotificationTime > 10000) {
+                    _lastOnlineNotificationTime = now;
+                    triggerDynamicIsland(
+                        t('toast_network_online_title', "Terhubung Kembali 🌐"),
+                        t('toast_network_online_desc', "Koneksi internet aktif, data cloud tersinkronisasi"),
+                        "fas fa-wifi",
+                        "bg-emerald-500/20 text-emerald-400"
+                    );
+                }
+                _wasOnline = true;
+            }, 1200);
+        }
+
+        function handleNetworkOffline() {
+            if (_networkReconnectTimer) clearTimeout(_networkReconnectTimer);
+            if (typeof _cloudRetryTimer !== 'undefined' && _cloudRetryTimer) clearTimeout(_cloudRetryTimer);
+
+            var user = currentUser || getCachedUser();
+            if (user && user.uid) {
+                updateSyncStatusUI('error', { code: 'unavailable' });
+            }
+
+            // Hanya tampilkan notifikasi jika sebelumnya sedang online (bukan saat baru buka aplikasi dalam posisi offline)
+            if (_wasOnline) {
+                var now = Date.now();
+                if (now - _lastOfflineNotificationTime > 10000) {
+                    _lastOfflineNotificationTime = now;
+                    triggerDynamicIsland(
+                        t('toast_network_offline_title', "Koneksi Terputus"),
+                        t('toast_network_offline_desc', "Beralih ke mode luring (offline)"),
+                        "fas fa-exclamation-circle",
+                        "bg-rose-500/20 text-rose-400"
+                    );
+                }
+            }
+            _wasOnline = false;
+        }
+
+        function checkNetworkStateProbe() {
+            if (navigator.onLine) {
+                var headerIcon = document.getElementById('header-cloud-status-icon');
+                var badge = document.getElementById('cloud-last-synced-badge');
+                var isDisconnected = (headerIcon && headerIcon.classList.contains('fa-exclamation-circle')) ||
+                                     (badge && badge.innerText.includes('Terputus'));
+                if (isDisconnected) {
+                    handleNetworkOnline();
+                }
+            } else {
+                handleNetworkOffline();
+            }
+        }
+
+        window.addEventListener('online', handleNetworkOnline);
+        window.addEventListener('offline', handleNetworkOffline);
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                checkNetworkStateProbe();
+            }
+        });
+        window.addEventListener('focus', function() {
+            checkNetworkStateProbe();
+        });
 
         const CURRENT_APP_VERSION = 'v1.1.5 (Stable)';
         let otaAutoDismissTimer = null;
