@@ -216,39 +216,31 @@
         }
 
         /* ========================================================
-           ACCORDION, STACK CARDS & DRAWERS: CSS GRID FLUID PHYSICS
-           Standar fluida murni terpadu: Quart Ease-Out (0.25, 1, 0.5, 1)
+           ACCORDION & STACK CARDS: CSS GRID FLUID PHYSICS
+           Standar fluida murni terpadu: Apple Ease-Out (0.16, 1, 0.3, 1)
            ======================================================== */
-        .accordion-content { 
+        .accordion-content,
+        #settings-toggles-stack { 
             display: grid;
             grid-template-rows: 0fr;
-            opacity: 0; 
+            opacity: 1 !important; 
             overflow: hidden; 
-            transition: grid-template-rows 0.32s cubic-bezier(0.25, 1, 0.5, 1), 
-                        opacity 0.25s ease; 
-            will-change: grid-template-rows, opacity; 
+            transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important; 
+            will-change: grid-template-rows; 
         }
-        .accordion-content.open { 
-            grid-template-rows: 1fr; 
-            opacity: 1; 
+        .accordion-content.open,
+        #settings-toggles-stack.open { 
+            grid-template-rows: 1fr !important; 
         }
-        .accordion-content > * {
+        .accordion-content > *,
+        #settings-toggles-stack > * {
             min-height: 0;
             overflow: hidden;
-            transition: opacity 0.26s ease, transform 0.28s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .accordion-content:not(.open) > * {
-            opacity: 0;
-            transform: translateY(-4px);
-        }
-        .accordion-content.open > * {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         /* Rotasi panah chevron fluida terpadu (bebas over-bounce) */
         .stack-chevron-icon {
-            transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease !important;
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease !important;
             will-change: transform;
         }
         .stack-chevron-icon.open {
@@ -266,29 +258,10 @@
         }
 
         /* ========================================================
-           STAGGERED WATERFALL CASCADE: OPSI TAMPILAN & SISTEM (OPSI A)
+           STAGGERED WATERFALL CASCADE: SELURUH AKORDEON & DAFTAR (OPSI A)
            ======================================================== */
-        #settings-toggles-stack {
-            display: grid;
-            grid-template-rows: 0fr;
-            opacity: 1 !important;
-            overflow: hidden;
-            transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            will-change: grid-template-rows;
-        }
-        #settings-toggles-stack.open {
-            grid-template-rows: 1fr !important;
-        }
-        #settings-toggles-stack > .accordion-overflow {
-            min-height: 0;
-            overflow: hidden;
-            padding: 0 !important;
-            margin: 0 !important;
-            border: 0 !important;
-            transition: none !important;
-            transform: none !important;
-        }
-        .waterfall-item {
+        .waterfall-item,
+        .accordion-inner > * {
             opacity: 0;
             transform: translateY(-16px) scale(0.97);
             transition: 
@@ -301,31 +274,52 @@
         }
 
         /* Saat akordeon TERBUKA: tiap baris turun berurutan */
+        .accordion-content.open .accordion-inner > *,
         #settings-toggles-stack.open .waterfall-item {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
 
-        /* Progressive Staggered Delays */
-        #settings-toggles-stack.open .waterfall-item:nth-child(1) {
-            transition-delay: 0.03s;
-        }
-        #settings-toggles-stack.open .waterfall-item:nth-child(2) {
-            transition-delay: 0.08s;
-        }
-        #settings-toggles-stack.open .waterfall-item:nth-child(3) {
-            transition-delay: 0.13s;
-        }
-        #settings-toggles-stack.open .waterfall-item:nth-child(4) {
-            transition-delay: 0.18s;
-        }
+        /* Progressive Staggered Delays (Hingga 12 elemen bertingkat) */
+        .accordion-content.open .accordion-inner > *:nth-child(1),
+        #settings-toggles-stack.open .waterfall-item:nth-child(1) { transition-delay: 0.03s; }
+
+        .accordion-content.open .accordion-inner > *:nth-child(2),
+        #settings-toggles-stack.open .waterfall-item:nth-child(2) { transition-delay: 0.07s; }
+
+        .accordion-content.open .accordion-inner > *:nth-child(3),
+        #settings-toggles-stack.open .waterfall-item:nth-child(3) { transition-delay: 0.11s; }
+
+        .accordion-content.open .accordion-inner > *:nth-child(4),
+        #settings-toggles-stack.open .waterfall-item:nth-child(4) { transition-delay: 0.15s; }
+
+        .accordion-content.open .accordion-inner > *:nth-child(5),
+        #settings-toggles-stack.open .waterfall-item:nth-child(5) { transition-delay: 0.19s; }
+
+        .accordion-content.open .accordion-inner > *:nth-child(6) { transition-delay: 0.23s; }
+        .accordion-content.open .accordion-inner > *:nth-child(7) { transition-delay: 0.27s; }
+        .accordion-content.open .accordion-inner > *:nth-child(8) { transition-delay: 0.31s; }
+        .accordion-content.open .accordion-inner > *:nth-child(9) { transition-delay: 0.35s; }
+        .accordion-content.open .accordion-inner > *:nth-child(10) { transition-delay: 0.39s; }
+        .accordion-content.open .accordion-inner > *:nth-child(n+11) { transition-delay: 0.42s; }
 
         /* Saat akordeon MENUTUP: wadah mengatup tanpa celah void hitam */
+        .accordion-content:not(.open) .accordion-inner > *,
         #settings-toggles-stack:not(.open) .waterfall-item {
             transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
             transition-delay: 0s;
             opacity: 0;
             transform: translateY(-8px) scale(0.98);
+        }
+
+        #settings-toggles-stack > .accordion-overflow {
+            min-height: 0;
+            overflow: hidden;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: 0 !important;
+            transition: none !important;
+            transform: none !important;
         }
 
         /* CARD ACTIVE HIGHLIGHT STATE */
@@ -599,23 +593,20 @@
         .subtasks-accordion-grid {
             display: grid;
             grid-template-rows: 0fr;
-            opacity: 0;
-            transition: grid-template-rows 0.32s cubic-bezier(0.25, 1, 0.5, 1),
-                        opacity 0.25s ease;
-            will-change: grid-template-rows, opacity;
+            opacity: 1 !important;
+            overflow: hidden;
+            transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            will-change: grid-template-rows;
         }
         .subtasks-accordion-grid.expanded {
-            grid-template-rows: 1fr;
-            opacity: 1;
+            grid-template-rows: 1fr !important;
         }
         .subtasks-accordion-inner {
             overflow: hidden;
             min-height: 0;
         }
         .subtasks-accordion-inner > .subtasks-content-body {
-            opacity: 0;
-            transform: translateY(-4px);
-            transition: opacity 0.26s ease, transform 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 1;
             padding-top: 0.625rem;
             margin-top: 0.5rem;
             border-top: 1px solid rgba(241, 245, 249, 1);
@@ -623,21 +614,43 @@
         .dark .subtasks-accordion-inner > .subtasks-content-body {
             border-top-color: rgba(36, 47, 61, 0.8);
         }
-        .subtasks-accordion-grid.expanded .subtasks-accordion-inner > .subtasks-content-body {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Rotasi panah akordeon presisi & mulus tanpa over-bounce */
-        .subtasks-arrow-spring {
-            transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: transform;
-        }
-        /* Animasi kartu item sub-tugas */
+
+        /* Staggered Waterfall untuk Item Sub-Tugas */
         .subtask-item-card {
-            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.18s ease;
+            opacity: 0;
+            transform: translateY(-12px) scale(0.975);
+            transition: 
+                opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease,
+                border-color 0.2s ease;
+            will-change: opacity, transform;
         }
         .subtask-item-card:active {
             transform: scale(0.985);
+        }
+        .subtasks-accordion-grid.expanded .subtask-item-card {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(1) { transition-delay: 0.03s; }
+        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(2) { transition-delay: 0.07s; }
+        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(3) { transition-delay: 0.11s; }
+        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(4) { transition-delay: 0.15s; }
+        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(5) { transition-delay: 0.19s; }
+        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(n+6) { transition-delay: 0.23s; }
+
+        .subtasks-accordion-grid:not(.expanded) .subtask-item-card {
+            transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease;
+            transition-delay: 0s;
+            opacity: 0;
+            transform: translateY(-6px) scale(0.985);
+        }
+
+        /* Rotasi panah akordeon presisi & mulus tanpa over-bounce */
+        .subtasks-arrow-spring {
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
         }
 
         /* ==========================================
@@ -3034,7 +3047,7 @@
             <div class="space-y-3">
                 <!-- Stack Deadline -->
                 <div>
-                    <button type="button" onclick="toggleStack('stack-deadline', 'icon-deadline', parseInt(document.getElementById('count-deadline').innerText))" class="widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-shadow compact-pad">
+                    <button type="button" onclick="toggleStack('stack-deadline', 'icon-deadline', parseInt(document.getElementById('count-deadline').innerText))" class="tactile-press select-none focus:outline-none widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-shadow compact-pad">
                         <div class="flex items-center gap-2"><i class="fas fa-clock text-orange-500"></i><span class="font-bold"><span data-i18n="tasks_stack_deadline">Tugas Deadline</span> (<span id="count-deadline">0</span>)</span></div>
                         <i id="icon-deadline" class="fas fa-chevron-down text-slate-400 stack-chevron-icon hidden"></i>
                     </button>
@@ -3042,7 +3055,7 @@
                 </div>
                 <!-- Stack Reguler -->
                 <div>
-                    <button type="button" onclick="toggleStack('stack-reguler', 'icon-reguler', parseInt(document.getElementById('count-reguler').innerText))" class="widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-shadow compact-pad">
+                    <button type="button" onclick="toggleStack('stack-reguler', 'icon-reguler', parseInt(document.getElementById('count-reguler').innerText))" class="tactile-press select-none focus:outline-none widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-shadow compact-pad">
                         <div class="flex items-center gap-2"><i class="fas fa-book text-primary-500"></i><span class="font-bold"><span data-i18n="tasks_stack_regular">Tugas Reguler</span> (<span id="count-reguler">0</span>)</span></div>
                         <i id="icon-reguler" class="fas fa-chevron-down text-slate-400 stack-chevron-icon hidden"></i>
                     </button>
@@ -3050,7 +3063,7 @@
                 </div>
                 <!-- Stack Selesai -->
                 <div>
-                    <button type="button" onclick="toggleStack('stack-completed', 'icon-completed', parseInt(document.getElementById('count-completed').innerText))" class="widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-shadow compact-pad">
+                    <button type="button" onclick="toggleStack('stack-completed', 'icon-completed', parseInt(document.getElementById('count-completed').innerText))" class="tactile-press select-none focus:outline-none widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-shadow compact-pad">
                         <div class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span class="font-bold"><span data-i18n="tasks_stack_completed">Tugas Selesai</span> (<span id="count-completed">0</span>)</span></div>
                         <i id="icon-completed" class="fas fa-chevron-down text-slate-400 stack-chevron-icon hidden"></i>
                     </button>
@@ -3324,7 +3337,7 @@
 
                     <!-- Accordion Riwayat Transaksi -->
                     <div>
-                        <button type="button" onclick="toggleStack('stack-riwayat-keuangan', 'icon-riwayat-keuangan', parseInt(document.getElementById('count-transaksi').innerText))" class="widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center font-bold text-sm shadow-sm hover:shadow-md transition-shadow compact-pad">
+                        <button type="button" onclick="toggleStack('stack-riwayat-keuangan', 'icon-riwayat-keuangan', parseInt(document.getElementById('count-transaksi').innerText))" class="tactile-press select-none focus:outline-none widget-card w-full bg-white border border-slate-200 dark:bg-[#17212b] dark:border-[#242f3d] p-4 rounded-2xl flex justify-between items-center font-bold text-sm shadow-sm hover:shadow-md transition-shadow compact-pad">
                             <div class="flex items-center gap-2"><i class="fas fa-history text-primary-500"></i><span><span data-i18n="finances_history_stack">Daftar Transaksi</span> (<span id="count-transaksi">0</span>)</span></div>
                             <i id="icon-riwayat-keuangan" class="fas fa-chevron-down text-slate-400 stack-chevron-icon hidden"></i>
                         </button>
@@ -5311,6 +5324,7 @@
                 } else {
                     icon.classList.remove('open');
                 }
+                if (typeof triggerHaptic === 'function') triggerHaptic('light');
             }
         }
 
@@ -7980,6 +7994,7 @@
                         updateMoodMercuryPill(null, false);
                     }, 150);
                 }
+                if (typeof triggerHaptic === 'function') triggerHaptic('light');
             }
         }
         
@@ -7989,7 +8004,9 @@
             var icon = document.getElementById(iconId);
             if(stack && icon) {
                 var isOpen = stack.classList.toggle('open');
+                icon.classList.toggle('open', isOpen);
                 icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+                if (typeof triggerHaptic === 'function') triggerHaptic('light');
             }
         }
 
@@ -8534,7 +8551,9 @@
             }
             if (arrow) {
                 arrow.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+                arrow.classList.toggle('text-emerald-500', isExpanded);
             }
+            if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
 
         function toggleSubtask(taskId, subtaskId) {
@@ -8704,11 +8723,21 @@
             toggleInput('tugas-input-area');
             
             if (dl) {
-                document.getElementById('stack-deadline').classList.add('open');
-                document.getElementById('icon-deadline').style.transform = 'rotate(180deg)';
+                var stackDl = document.getElementById('stack-deadline');
+                var iconDl = document.getElementById('icon-deadline');
+                if (stackDl) stackDl.classList.add('open');
+                if (iconDl) {
+                    iconDl.style.transform = 'rotate(180deg)';
+                    iconDl.classList.add('open');
+                }
             } else {
-                document.getElementById('stack-reguler').classList.add('open');
-                document.getElementById('icon-reguler').style.transform = 'rotate(180deg)';
+                var stackReg = document.getElementById('stack-reguler');
+                var iconReg = document.getElementById('icon-reguler');
+                if (stackReg) stackReg.classList.add('open');
+                if (iconReg) {
+                    iconReg.style.transform = 'rotate(180deg)';
+                    iconReg.classList.add('open');
+                }
             }
             simpanData();
             triggerDynamicIsland(t('toast_task_new_title', "Tugas Baru"), `"${nama}" ${t('toast_task_added_suffix', 'berhasil ditambahkan')}`, "fas fa-plus-circle", "bg-primary-500/20 text-primary-400");
@@ -8790,12 +8819,18 @@
                             var stackDl = document.getElementById('stack-deadline');
                             var iconDl = document.getElementById('icon-deadline');
                             if (stackDl) stackDl.classList.add('open');
-                            if (iconDl) iconDl.style.transform = 'rotate(180deg)';
+                            if (iconDl) {
+                                iconDl.style.transform = 'rotate(180deg)';
+                                iconDl.classList.add('open');
+                            }
                         } else {
                             var stackReg = document.getElementById('stack-reguler');
                             var iconReg = document.getElementById('icon-reguler');
                             if (stackReg) stackReg.classList.add('open');
-                            if (iconReg) iconReg.style.transform = 'rotate(180deg)';
+                            if (iconReg) {
+                                iconReg.style.transform = 'rotate(180deg)';
+                                iconReg.classList.add('open');
+                            }
                         }
 
                         simpanData();
@@ -9856,7 +9891,10 @@
                     el.innerHTML = '';
                     el.classList.remove('open');
                     var iconEl = document.getElementById('icon-' + stackKey);
-                    if(iconEl) iconEl.style.transform = 'rotate(0deg)';
+                    if(iconEl) {
+                        iconEl.style.transform = 'rotate(0deg)';
+                        iconEl.classList.remove('open');
+                    }
                 }
             };
 
@@ -10096,7 +10134,7 @@
                 if (selesai.length > 0) {
                     var selesaiCards = selesai.map(tab => renderSavingsCard(tab, true)).join('');
                     htmlSelesai = `<div class="mt-3 pt-2 border-t border-slate-100 dark:border-[#242f3d]">
-                        <button type="button" onclick="toggleStack('stack-tabungan-tercapai', 'icon-tabungan-tercapai', ${selesai.length})" class="w-full bg-slate-100 dark:bg-[#242f3d]/50 hover:bg-slate-200 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-300 font-bold p-3 rounded-2xl flex justify-between items-center text-xs transition-colors focus:outline-none compact-pad">
+                        <button type="button" onclick="toggleStack('stack-tabungan-tercapai', 'icon-tabungan-tercapai', ${selesai.length})" class="tactile-press select-none w-full bg-slate-100 dark:bg-[#242f3d]/50 hover:bg-slate-200 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-300 font-bold p-3 rounded-2xl flex justify-between items-center text-xs transition-colors focus:outline-none compact-pad">
                             <span><i class="fas fa-check-circle text-emerald-500 mr-1.5"></i>${t('widget_savings_achieved')} (${selesai.length})</span>
                             <i class="fas fa-chevron-down text-slate-400 stack-chevron-icon" id="icon-tabungan-tercapai"></i>
                         </button>
@@ -10148,7 +10186,7 @@
                     if (restTasks.length > 0) {
                         var restCards = restTasks.map(function(t) { return renderWidgetCard(t); }).join('');
                         htmlRest = `<div class="mt-3">
-                            <button type="button" onclick="toggleStack('stack-deadline-lainnya', 'icon-deadline-lainnya', 1)" class="w-full bg-slate-100 dark:bg-[#242f3d]/50 hover:bg-slate-200 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-300 font-bold p-3 rounded-2xl flex justify-between items-center text-xs transition-colors focus:outline-none compact-pad">
+                            <button type="button" onclick="toggleStack('stack-deadline-lainnya', 'icon-deadline-lainnya', 1)" class="tactile-press select-none w-full bg-slate-100 dark:bg-[#242f3d]/50 hover:bg-slate-200 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-300 font-bold p-3 rounded-2xl flex justify-between items-center text-xs transition-colors focus:outline-none compact-pad">
                                 <span><i class="fas fa-layer-group mr-1.5 text-primary-500"></i>${t('widget_deadline_more')} (${restTasks.length})</span>
                                 <i class="fas fa-chevron-down text-slate-400 stack-chevron-icon" id="icon-deadline-lainnya"></i>
                             </button>
@@ -10178,7 +10216,7 @@
                 if (reg.length > 0) {
                     var htmlRegCards = reg.map(function(t) { return renderRegulerWidgetCard(t); }).join('');
                     htmlRegBody = `<div>
-                        <button type="button" onclick="toggleStack('stack-beranda-reguler', 'icon-beranda-reguler', ${reg.length})" class="w-full bg-slate-100 dark:bg-[#242f3d]/50 hover:bg-slate-200 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-300 font-bold p-3 rounded-2xl flex justify-between items-center text-xs transition-colors focus:outline-none compact-pad">
+                        <button type="button" onclick="toggleStack('stack-beranda-reguler', 'icon-beranda-reguler', ${reg.length})" class="tactile-press select-none w-full bg-slate-100 dark:bg-[#242f3d]/50 hover:bg-slate-200 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-300 font-bold p-3 rounded-2xl flex justify-between items-center text-xs transition-colors focus:outline-none compact-pad">
                             <span><i class="fas fa-layer-group mr-1.5 text-primary-500"></i>${t('widget_regular_view')} (${reg.length})</span>
                             <i class="fas fa-chevron-down text-slate-400 stack-chevron-icon" id="icon-beranda-reguler"></i>
                         </button>
