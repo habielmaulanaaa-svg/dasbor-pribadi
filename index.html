@@ -583,27 +583,7 @@
             background: linear-gradient(90deg, #047857 0%, #10b981 40%, #059669 80%, #34d399 100%);
             box-shadow: 0 0 12px rgba(16, 185, 129, 0.55);
         }
-        /* Gelombang kilau cairan mengalir halus ke kanan */
-        .subtask-liquid-fill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.55) 50%, 
-                transparent 100%
-            );
-            animation: liquidFlowWave 2.2s infinite cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        @keyframes liquidFlowWave {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(250%); }
-        }
-        /* Efek surge dinamis saat checklist sub-tugas ditekan */
+        /* Efek surge dinamis saat checklist sub-tugas ditekan (hanya aktif saat mencentang) */
         @keyframes liquidSurgePulse {
             0% { filter: brightness(1) drop-shadow(0 0 2px rgba(16, 185, 129, 0.4)); }
             40% { filter: brightness(1.25) drop-shadow(0 0 8px rgba(52, 211, 153, 0.75)); }
@@ -917,6 +897,39 @@
         }
 
         #container-input-waktu-tugas:not(.collapsed) > .container-waktu-inner {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 2e. ANIMASI HALUS SUB-BAR SUB-TUGAS (CSS GRID FLUID PHYSICS) */
+        #container-input-subtask-tugas {
+            display: grid;
+            grid-template-rows: 1fr;
+            opacity: 1;
+            transition: grid-template-rows 0.32s cubic-bezier(0.25, 1, 0.5, 1), 
+                        opacity 0.25s ease;
+            will-change: grid-template-rows, opacity;
+            overflow: hidden;
+        }
+
+        #container-input-subtask-tugas.collapsed {
+            grid-template-rows: 0fr !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        #container-input-subtask-tugas > .container-subtask-inner {
+            min-height: 0;
+            overflow: hidden;
+            transition: opacity 0.26s ease, transform 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #container-input-subtask-tugas.collapsed > .container-subtask-inner {
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+
+        #container-input-subtask-tugas:not(.collapsed) > .container-subtask-inner {
             opacity: 1;
             transform: translateY(0);
         }
@@ -2966,25 +2979,48 @@
 
                             <!-- Opsi Sub-Tugas / Checklist Bertingkat -->
                             <div class="p-3 rounded-2xl bg-slate-50 dark:bg-[#242f3d]/60 border border-slate-200/80 dark:border-[#313f52]/80 transition-all">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-[11px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
-                                        <i class="fas fa-tasks text-primary-500 text-xs"></i> <span data-i18n="tasks_subtasks_label">Sub-Tugas (Opsional)</span>
-                                    </span>
-                                    <div class="flex items-center gap-1.5">
-                                        <button type="button" onclick="toggleOpsiSubtaskTanggal()" id="btn-toggle-subtask-date-form" class="inline-flex items-center gap-1 text-[9px] font-bold text-slate-400 hover:text-primary-500 transition-colors px-1.5 py-0.5 rounded-lg border border-slate-200 dark:border-[#313f52] focus:outline-none" title="Sembunyikan / Tampilkan Tanggal Sub Tugas" data-i18n-title="tasks_subtasks_date_tooltip">
-                                            <i id="icon-subtask-date-form" class="fas fa-calendar-alt text-primary-500 text-[8px]"></i>
-                                            <span id="text-subtask-date-form" data-i18n="tasks_subtasks_date_active">Tanggal Aktif</span>
-                                        </button>
-                                        <span id="temp-subtasks-count-badge" class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 hidden"></span>
+                                <div class="flex items-center justify-between cursor-pointer select-none" onclick="toggleOpsiSubtaskTugas()">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="w-8 h-8 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center text-sm">
+                                            <i class="fas fa-tasks"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-bold text-slate-800 dark:text-slate-200" data-i18n="tasks_subtasks_label">Sub-Tugas (Opsional)</p>
+                                            <p class="text-[10px] text-slate-400 font-semibold" data-i18n="tasks_subtasks_desc">Bagi tugas menjadi beberapa langkah</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="flex items-center gap-2 mb-2">
-                                    <input type="text" id="input-subtask-draft" placeholder="Ketik sub tugas..." data-i18n-placeholder="tasks_subtasks_placeholder" onkeydown="if(event.key==='Enter'){event.preventDefault(); tambahTempSubtask();}" class="flex-1 rounded-xl px-3 py-2 text-xs font-bold bg-white dark:bg-[#17212b] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-primary-500">
-                                    <button type="button" onclick="tambahTempSubtask()" class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors shrink-0 flex items-center gap-1">
-                                        <i class="fas fa-plus text-[10px]"></i> <span data-i18n="tasks_subtasks_add_btn">Tambah</span>
+                                    <!-- Saklar Fluida Toggle Switch -->
+                                    <button type="button" onclick="event.stopPropagation(); toggleOpsiSubtaskTugas()" id="btn-toggle-opsi-subtask-tugas" class="fluid-switch-btn active no-bounce focus:outline-none shrink-0" aria-label="Toggle Sub-Tugas">
+                                        <div id="knob-opsi-subtask-tugas" class="fluid-switch-knob"></div>
                                     </button>
                                 </div>
-                                <div id="temp-subtasks-list" class="space-y-1.5 empty:hidden max-h-36 overflow-y-auto pr-1"></div>
+
+                                <!-- Sub-Bar Kustomisasi Input Sub-Tugas -->
+                                <div id="container-input-subtask-tugas">
+                                    <div class="container-subtask-inner">
+                                        <div class="mt-2.5 pt-2 border-t border-slate-200/80 dark:border-[#313f52]/80">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                                                    <i class="fas fa-list-check text-primary-500 text-xs"></i> <span data-i18n="tasks_subtasks_steps_label">Daftar Langkah:</span>
+                                                </span>
+                                                <div class="flex items-center gap-1.5">
+                                                    <button type="button" onclick="toggleOpsiSubtaskTanggal()" id="btn-toggle-subtask-date-form" class="inline-flex items-center gap-1 text-[9px] font-bold text-slate-400 hover:text-primary-500 transition-colors px-1.5 py-0.5 rounded-lg border border-slate-200 dark:border-[#313f52] focus:outline-none" title="Sembunyikan / Tampilkan Tanggal Sub Tugas" data-i18n-title="tasks_subtasks_date_tooltip">
+                                                        <i id="icon-subtask-date-form" class="fas fa-calendar-alt text-primary-500 text-[8px]"></i>
+                                                        <span id="text-subtask-date-form" data-i18n="tasks_subtasks_date_active">Tanggal Aktif</span>
+                                                    </button>
+                                                    <span id="temp-subtasks-count-badge" class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 hidden"></span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <input type="text" id="input-subtask-draft" placeholder="Ketik sub tugas..." data-i18n-placeholder="tasks_subtasks_placeholder" onkeydown="if(event.key==='Enter'){event.preventDefault(); tambahTempSubtask();}" class="flex-1 rounded-xl px-3 py-2 text-xs font-bold bg-white dark:bg-[#17212b] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                                                <button type="button" onclick="tambahTempSubtask()" class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors shrink-0 flex items-center gap-1">
+                                                    <i class="fas fa-plus text-[10px]"></i> <span data-i18n="tasks_subtasks_add_btn">Tambah</span>
+                                                </button>
+                                            </div>
+                                            <div id="temp-subtasks-list" class="space-y-1.5 empty:hidden max-h-36 overflow-y-auto pr-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <button type="button" onclick="tambahTugas()" class="w-full bg-primary-600 text-white py-2.5 rounded-2xl text-sm font-bold shadow-md hover:bg-primary-700 focus:outline-none transition-colors flex items-center justify-center gap-2">
@@ -3683,6 +3719,8 @@
                 tasks_created_time_desc: "Tahu kapan tugas ini dibuat",
                 tasks_time_label: "Waktu:",
                 tasks_subtasks_label: "Sub-Tugas (Opsional)",
+                tasks_subtasks_desc: "Bagi tugas menjadi beberapa langkah",
+                tasks_subtasks_steps_label: "Daftar Langkah:",
                 tasks_subtasks_date_active: "Tanggal Aktif",
                 tasks_subtasks_date_inactive: "Tanggal Nonaktif",
                 tasks_subtasks_date_tooltip: "Sembunyikan / Tampilkan Tanggal Sub Tugas",
@@ -4263,6 +4301,8 @@
                 tasks_created_time_desc: "Track when this task was created",
                 tasks_time_label: "Time:",
                 tasks_subtasks_label: "Subtasks (Optional)",
+                tasks_subtasks_desc: "Break tasks into manageable steps",
+                tasks_subtasks_steps_label: "Steps List:",
                 tasks_subtasks_date_active: "Active Date",
                 tasks_subtasks_date_inactive: "Date Inactive",
                 tasks_subtasks_date_tooltip: "Hide / Show Subtask Dates",
@@ -5009,6 +5049,7 @@
             },
             subscriptions: [],
             optTugasWaktuDibuat: true,
+            optSubtaskTugas: true,
             optSubtaskTanggalDibuat: true
         };
         
@@ -7922,6 +7963,7 @@
                     }
                     if (isOpen) {
                         updateOpsiWaktuTugasUI(dataState.optTugasWaktuDibuat !== false);
+                        updateOpsiSubtaskTugasUI(dataState.optSubtaskTugas !== false);
                         var inputDt = document.getElementById('input-tugas-custom-datetime');
                         if (inputDt) {
                             var now = new Date();
@@ -8392,6 +8434,34 @@
             }
         }
 
+        function toggleOpsiSubtaskTugas() {
+            var isAktif = (dataState.optSubtaskTugas === undefined) ? true : dataState.optSubtaskTugas;
+            isAktif = !isAktif;
+            dataState.optSubtaskTugas = isAktif;
+            simpanData();
+            updateOpsiSubtaskTugasUI(isAktif, true);
+            perbaruiTampilan();
+            triggerHaptic('light');
+        }
+
+        function updateOpsiSubtaskTugasUI(isAktif, triggerBounce = false) {
+            var btn = document.getElementById('btn-toggle-opsi-subtask-tugas');
+            var knob = document.getElementById('knob-opsi-subtask-tugas');
+            var container = document.getElementById('container-input-subtask-tugas');
+
+            if (btn && knob) {
+                setSwitchVisual(btn, knob, isAktif, triggerBounce);
+            }
+
+            if (container) {
+                if (isAktif) {
+                    container.classList.remove('collapsed');
+                } else {
+                    container.classList.add('collapsed');
+                }
+            }
+        }
+
         // --- MANAJEMEN SUB-TUGAS / CHECKLIST BERTINGKAT ---
         let tempSubtasks = [];
         let activeOpenSubtasks = new Set();
@@ -8399,7 +8469,7 @@
         function formatTanggalSubtask(dateInput) {
             var d = dateInput ? new Date(dateInput) : new Date();
             if (isNaN(d.getTime())) d = new Date();
-            return d.toLocaleDateString(getAppLocale(), { day: 'numeric', month: 'short', year: 'numeric' });
+            return d.toLocaleDateString(getAppLocale(), { day: 'numeric', month: 'long', year: 'numeric' });
         }
 
         function tambahTempSubtask() {
@@ -8601,7 +8671,8 @@
                 waktuDibuatIso = isNaN(valDt.getTime()) ? new Date().toISOString() : valDt.toISOString();
             }
 
-            var subtasks = tempSubtasks.map(function(st, idx) {
+            var isSubtaskAktif = (dataState.optSubtaskTugas !== false);
+            var subtasks = isSubtaskAktif ? tempSubtasks.map(function(st, idx) {
                 var text = (typeof st === 'object') ? st.text : st;
                 var tgl = (typeof st === 'object' && st.tanggalDibuat) ? st.tanggalDibuat : formatTanggalSubtask();
                 var iso = (typeof st === 'object' && st.isoDate) ? st.isoDate : new Date().toISOString();
@@ -8612,7 +8683,7 @@
                     tanggalDibuat: tgl,
                     selesai: false
                 };
-            });
+            }) : [];
 
             dataState.tugas.push({ 
                 id: generateUniqueId(), 
@@ -9562,6 +9633,7 @@
             var isAllDone = (totalSt > 0 && doneSt === totalSt);
             var isAccordionOpen = activeOpenSubtasks.has(task.id);
 
+            var isSubtaskFeatureActive = (dataState.optSubtaskTugas !== false);
             var subtasksBarHTML = '';
             if (totalSt > 0) {
                 var badgeClass = isAllDone 
@@ -9587,7 +9659,7 @@
                         <div id="subtask-liquid-bar-${task.id}" class="subtask-liquid-fill ${isAllDone ? 'all-done' : ''}" style="width: ${pct}%;"></div>
                     </div>
                 </div>`;
-            } else if (!task.selesai) {
+            } else if (!task.selesai && isSubtaskFeatureActive) {
                 subtasksBarHTML = `
                 <div class="mt-1.5">
                     <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 active:scale-95 transition-all focus:outline-none">
@@ -9617,23 +9689,26 @@
                 </div>`;
             });
 
-            var subtasksAccordion = `
-            <div id="subtasks-container-${task.id}" class="subtasks-accordion-grid ${isAccordionOpen ? 'expanded' : ''}">
-                <div class="subtasks-accordion-inner">
-                    <div class="subtasks-content-body space-y-2">
-                        <div class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 empty:hidden touch-pan-y">
-                            ${subtasksListHTML}
+            var subtasksAccordion = '';
+            if (totalSt > 0 || isSubtaskFeatureActive) {
+                subtasksAccordion = `
+                <div id="subtasks-container-${task.id}" class="subtasks-accordion-grid ${isAccordionOpen ? 'expanded' : ''}">
+                    <div class="subtasks-accordion-inner">
+                        <div class="subtasks-content-body space-y-2">
+                            <div class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 empty:hidden touch-pan-y">
+                                ${subtasksListHTML}
+                            </div>
+                            ${(!task.selesai && isSubtaskFeatureActive) ? `
+                            <div class="flex items-center gap-1.5 pt-0.5">
+                                <input type="text" id="input-new-subtask-${task.id}" placeholder="${t('subtasks_placeholder_inline', 'Ketik sub tugas baru...')}" onkeydown="if(event.key==='Enter'){event.preventDefault(); tambahSubtaskInline(${task.id});}" class="flex-1 rounded-xl px-2.5 py-1.5 text-xs font-medium bg-slate-100 dark:bg-[#242f3d] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all">
+                                <button type="button" onclick="tambahSubtaskInline(${task.id})" aria-label="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" title="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1 shadow-xs">
+                                    <i class="fas fa-plus text-[10px]"></i>
+                                </button>
+                            </div>` : ''}
                         </div>
-                        ${!task.selesai ? `
-                        <div class="flex items-center gap-1.5 pt-0.5">
-                            <input type="text" id="input-new-subtask-${task.id}" placeholder="${t('subtasks_placeholder_inline', 'Ketik sub tugas baru...')}" onkeydown="if(event.key==='Enter'){event.preventDefault(); tambahSubtaskInline(${task.id});}" class="flex-1 rounded-xl px-2.5 py-1.5 text-xs font-medium bg-slate-100 dark:bg-[#242f3d] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all">
-                            <button type="button" onclick="tambahSubtaskInline(${task.id})" aria-label="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" title="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1 shadow-xs">
-                                <i class="fas fa-plus text-[10px]"></i>
-                            </button>
-                        </div>` : ''}
                     </div>
-                </div>
-            </div>`;
+                </div>`;
+            }
 
             return `<li class="swipe-wrapper relative overflow-hidden rounded-2xl${isActivelyToggling ? ' completing-item' : ''}">
                 <!-- Underlayer Peek -->
@@ -10421,6 +10496,8 @@
             if(dataState.cardGradient === undefined) dataState.cardGradient = true;
             if(dataState.optTugasWaktuDibuat === undefined) dataState.optTugasWaktuDibuat = true;
             updateOpsiWaktuTugasUI(dataState.optTugasWaktuDibuat !== false);
+            if(dataState.optSubtaskTugas === undefined) dataState.optSubtaskTugas = true;
+            updateOpsiSubtaskTugasUI(dataState.optSubtaskTugas !== false);
             if(dataState.optSubtaskTanggalDibuat === undefined) dataState.optSubtaskTanggalDibuat = true;
             updateOpsiSubtaskTanggalUI(dataState.optSubtaskTanggalDibuat !== false);
 
@@ -11033,8 +11110,9 @@
                             else document.body.classList.remove('compact-mode');
 
                             document.body.classList.remove('glass-mode');
-
                             applyCardGradientVisual();
+                            updateOpsiWaktuTugasUI(dataState.optTugasWaktuDibuat !== false);
+                            updateOpsiSubtaskTugasUI(dataState.optSubtaskTugas !== false);
                             updateActiveToggleCount();
                             perbaruiTampilan();
                             runSmartInsightsSequence();
