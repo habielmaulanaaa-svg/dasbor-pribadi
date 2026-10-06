@@ -1205,14 +1205,16 @@
         .animate-strike-fade { animation: strikeFade 0.3s ease-out; }
 
         /* ========================================================
-           BACKDROP SHIELD & MUTED LOCK-STATE (OPSI 3)
+           BACKDROP SHIELD & MUTED LOCK-STATE (GPU-OPTIMIZED ZERO STUTTER)
            ======================================================== */
         #settings-backdrop {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s ease;
-            will-change: opacity, visibility;
+            transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.24s ease;
+            will-change: opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
         #settings-backdrop.active {
             opacity: 1;
@@ -1220,60 +1222,70 @@
             pointer-events: auto;
         }
 
-        /* TOMBOL DARK MODE KETIKA TERKUNCI (MUTED LOCK STATE) */
+        /* TOMBOL DARK MODE KETIKA TERKUNCI (MUTED LOCK STATE - ZERO GPU FILTER) */
         #btn-dark-mode-toggle {
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity 0.25s ease, 
-                        filter 0.25s ease,
+            transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 0.24s ease, 
                         background-color 0.2s ease, 
                         border-color 0.2s ease;
             will-change: transform, opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
         #btn-dark-mode-toggle.locked {
             opacity: 0.3 !important;
             pointer-events: none !important;
-            transform: scale(0.92) !important;
-            filter: grayscale(0.6) !important;
+            transform: scale(0.92) translateZ(0) !important;
         }
 
         /* TOMBOL PENGATURAN KETIKA ELEVATED (Z-INDEX 30) */
         #btn-settings-toggle {
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-                        box-shadow 0.25s ease, 
+            transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.24s ease, 
                         border-color 0.2s ease, 
                         background-color 0.2s ease;
-            will-change: transform, box-shadow;
+            will-change: transform;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
         #btn-settings-toggle.active {
-            box-shadow: 0 0 0 3px hsla(var(--theme-h), 83%, 53%, 0.45), 0 8px 20px -4px rgba(37, 99, 235, 0.3) !important;
-            transform: scale(1.05);
+            box-shadow: 0 0 0 3px hsla(var(--theme-h), 83%, 53%, 0.45), 0 6px 16px -4px rgba(37, 99, 235, 0.25) !important;
+            transform: scale(1.05) translateZ(0);
             border-color: hsl(var(--theme-h), 83%, 53%) !important;
         }
 
-        /* TOMBOL NAVIGASI BELAKANG KETIKA TERKUNCI */
+        /* TOMBOL NAVIGASI BELAKANG KETIKA TERKUNCI (BEBAS DARI HEAVY FILTER: GRAYSCALE) */
         .sidebar-nav-btn {
-            transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+            transition: opacity 0.24s ease, transform 0.24s ease;
+            will-change: opacity, transform;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
         .sidebar-nav-btn.locked {
-            opacity: 0.45 !important;
+            opacity: 0.38 !important;
             pointer-events: none !important;
-            transform: scale(0.985);
-            filter: grayscale(0.4);
+            transform: scale(0.985) translateZ(0);
         }
 
-        /* POP-UP SETTINGS MENU ANIMATION */
-        @keyframes popInMenu {
-            from {
-                transform: translateY(12px) scale(0.96);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
+        /* POP-UP SETTINGS MENU (GPU-ACCELERATED PRE-WARMED 120 FPS TRANSITION) */
+        #settings-menu {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translate3d(0, 10px, 0) scale(0.97);
+            transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.24s ease;
+            will-change: transform, opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform-origin: bottom left;
         }
-        #settings-menu:not(.hidden) {
-            animation: popInMenu 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        #settings-menu.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translate3d(0, 0, 0) scale(1);
         }
 
 
@@ -1880,11 +1892,11 @@
         <div class="p-4 border-t border-slate-200 dark:border-[#242f3d] flex justify-between items-center mt-auto relative shrink-0 bg-slate-50 dark:bg-[#0e1621]/60">
             <div>
                 <button type="button" id="btn-settings-toggle" onclick="toggleSettings()" aria-label="Buka menu pengaturan" title="Pengaturan Sistem" class="tactile-press w-12 h-12 rounded-full bg-white dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-[#313f52] shadow-sm focus:outline-none relative z-30 hover:bg-slate-100 dark:hover:bg-[#313f52] transition-colors">
-                    <i id="icon-gear" class="fas fa-cog text-lg transform transition-transform duration-300"></i>
+                    <i id="icon-gear" class="fas fa-cog text-lg transform transition-transform duration-200"></i>
                 </button>
 
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
-                <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="hidden absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-2xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
+                <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
                     <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.1.5 (Stable)</span></div>
                     
@@ -7156,7 +7168,7 @@
             sb.classList.toggle('-translate-x-full', !isHidden);
             ov.classList.toggle('hidden', !isHidden);
             requestAnimationFrame(() => ov.classList.toggle('opacity-0', !isHidden));
-            if (!isHidden && sm && !sm.classList.contains('hidden')) {
+            if (!isHidden && sm && sm.classList.contains('active')) {
                 toggleSettings();
             }
         }
@@ -7170,18 +7182,15 @@
             var navButtons = document.querySelectorAll('.sidebar-nav-btn');
 
             if(menu) {
-                menu.querySelectorAll('.animate-toggle-bounce, .animate-bounce-down, .animate-wiggle').forEach(function(el) {
-                    el.classList.remove('animate-toggle-bounce', 'animate-bounce-down', 'animate-wiggle');
-                });
-                var isHidden = menu.classList.toggle('hidden');
-                if(gear) gear.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(90deg)';
-                if(btnGear) btnGear.classList.toggle('active', !isHidden);
-                if(backdrop) backdrop.classList.toggle('active', !isHidden);
-                if(btnDarkMode) btnDarkMode.classList.toggle('locked', !isHidden);
+                var isOpen = menu.classList.toggle('active');
+                if(gear) gear.style.transform = isOpen ? 'rotate(90deg)' : 'rotate(0deg)';
+                if(btnGear) btnGear.classList.toggle('active', isOpen);
+                if(backdrop) backdrop.classList.toggle('active', isOpen);
+                if(btnDarkMode) btnDarkMode.classList.toggle('locked', isOpen);
                 if(navButtons) {
-                    navButtons.forEach(function(btn) {
-                        btn.classList.toggle('locked', !isHidden);
-                    });
+                    for(var i = 0; i < navButtons.length; i++) {
+                        navButtons[i].classList.toggle('locked', isOpen);
+                    }
                 }
             }
         }
@@ -7961,7 +7970,7 @@
         // ZERO-LAG 120 FPS DARK MODE SWITCH
         function toggleDarkMode() {
             var sm = document.getElementById('settings-menu');
-            if (sm && !sm.classList.contains('hidden')) return;
+            if (sm && sm.classList.contains('active')) return;
 
             var html = document.documentElement;
             var willBeDark = !html.classList.contains('dark');
