@@ -2,7 +2,7 @@
   <img src="icon-512.png" width="128" height="128" alt="Logo Dasbor Pribadi" style="border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);" />
 </p>
 
-# 📱 Dasbor Pribadi Mobile — Progressive Web App (PWA) v1.1.5 (Stable)
+# 📱 Dasbor Pribadi Mobile — Progressive Web App (PWA) v1.1.6 (Stable)
 
 [![Web PWA](https://img.shields.io/badge/Web%20PWA-100%25%20Offline--First-emerald?style=for-the-badge&logo=googlechrome&logoColor=white)](https://habielmaulanaaa-svg.github.io/dasbor-pribadi/)
 [![Cloud Database](https://img.shields.io/badge/Cloud%20Sync-Firebase%20Firestore-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
@@ -18,7 +18,7 @@ Aplikasi ini menggunakan skema penomoran versi 3 tingkatan dengan penanda resmi 
 
 | Tingkat | Format | Deskripsi & Aturan | Contoh |
 |:---:|:---:|---|---|
-| **PATCH** | `1.0.X (Stable)` | Digunakan untuk **perbaikan bug / hotfix / perbaikan visual ringan** tanpa menambah fitur baru. | `1.1.4` ➔ `1.1.5 (Stable)` |
+| **PATCH** | `1.0.X (Stable)` | Digunakan untuk **perbaikan bug / hotfix / perbaikan visual ringan** tanpa menambah fitur baru. | `1.1.5` ➔ `1.1.6 (Stable)` |
 | **MINOR** | `1.X.0 (Stable)` | Digunakan saat ada **penambahan fitur baru** yang tetap kompatibel dengan data sebelumnya. | `1.0.0` ➔ `1.1.0 (Stable)` |
 | **MAJOR** | `X.0.0 (Stable)` | Digunakan untuk **perombakan antarmuka (UI) besar-besaran** atau restrukturisasi sistem mendasar. | `1.1.0` ➔ `2.0.0 (Stable)` |
 
@@ -46,7 +46,7 @@ Aplikasi dapat dibuka dan diinstal langsung dari peramban ponsel tanpa perlu men
 
 1. **100% Offline-First & Zero-Knowledge**:
    - Seluruh data transaksi, tugas, dan jurnal tersimpan di `localStorage` perangkat.
-   - Seluruh pustaka styling Tailwind CSS dan ikon FontAwesome tersimpan lokal di cache perangkat melalui Service Worker (`dasbor-pwa-v1-1-5-stable`).
+   - Seluruh pustaka styling Tailwind CSS dan ikon FontAwesome tersimpan lokal di cache perangkat melalui Service Worker (`dasbor-pwa-v1-1-6-stable`).
    - Aplikasi dapat dibuka dan digunakan dengan lancar saat tidak ada koneksi internet (Mode Pesawat).
 2. **Multi-Dompet Keuangan (Multi-Wallet)**:
    - Kelola berbagai kantong dana (Tunai, Bank, E-Wallet, Tabungan) dengan sensor privasi saldo.
@@ -73,7 +73,7 @@ dasbor-mobile/
 ├── privacy.html               # Halaman Kebijakan Privasi (Privacy Policy) mandiri dwibahasa
 ├── tailwind.js                # Bundel lokal Tailwind CSS (100% Offline & bebas redirect)
 ├── manifest.json              # Web App Manifest PWA
-├── sw.js                      # Service Worker (Cache management v1.1.5 Stable)
+├── sw.js                      # Service Worker (Cache management v1.1.6 Stable)
 ├── icon-192.png               # Ikon Web PWA 192x192
 ├── icon-512.png               # Ikon Web PWA 512x512
 └── README.md                  # Dokumentasi resmi proyek
@@ -83,5 +83,5 @@ dasbor-mobile/
 
 <div align="center">
   <sub>Dikembangkan dengan ❤️ untuk kemudahan pencatatan finansial & produktivitas harian.</sub><br>
-  <sub><b>Dasbor Pribadi Mobile v1.1.5 (Stable) • Progressive Web App (PWA) Offline-First</b></sub>
+  <sub><b>Dasbor Pribadi Mobile v1.1.6 (Stable) • Progressive Web App (PWA) Offline-First</b></sub>
 </div>
