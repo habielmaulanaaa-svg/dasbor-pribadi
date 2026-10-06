@@ -5336,7 +5336,9 @@
             dataState.cardGradient = (dataState.cardGradient === undefined) ? false : !dataState.cardGradient;
             applyCardGradientVisual(true);
             updateActiveToggleCount();
+            dataState.updatedAt = Date.now();
             safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+            debouncedSyncToCloud();
             triggerDynamicIsland(
                 t('toast_appearance_title', "Tampilan"), 
                 dataState.cardGradient ? t('toast_gradient_on', "Gradasi & Glow Aktif 🎨") : t('toast_gradient_off', "Mode Solid Minimalis Aktif"), 
@@ -8022,7 +8024,11 @@
             clearTimeout(saveHueTimeout);
             saveHueTimeout = setTimeout(() => {
                 safeStorage.setItem('dasborHue', hue);
-            }, 80);
+                dataState.themeHue = hue;
+                dataState.updatedAt = Date.now();
+                safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+                debouncedSyncToCloud();
+            }, 300);
         }
 
         function resetThemeColor() {
@@ -8040,7 +8046,12 @@
             var willBeDark = !html.classList.contains('dark');
 
             html.classList.toggle('dark', willBeDark);
-            safeStorage.setItem('dasborDarkMode', willBeDark ? 'dark' : 'light');
+            var modeStr = willBeDark ? 'dark' : 'light';
+            safeStorage.setItem('dasborDarkMode', modeStr);
+            dataState.darkMode = modeStr;
+            dataState.updatedAt = Date.now();
+            safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+            debouncedSyncToCloud();
             
             updateAmbientGlow();
             applyCardGradientVisual();
@@ -10489,17 +10500,18 @@
         }
 
         function inisialisasiSistem() {
-            var savedHue = safeStorage.getItem('dasborHue');
-            if(savedHue) {
-                document.documentElement.style.setProperty('--theme-h', savedHue);
-                document.getElementById('theme-color-slider').value = savedHue;
-            }
-
             var saved = safeStorage.getItem('dasborSolidV2'); 
             if (saved) {
                 try { dataState = JSON.parse(saved); } catch(e) {}
             }
             refreshDynamicSkeleton();
+
+            var savedHue = safeStorage.getItem('dasborHue') || (dataState && dataState.themeHue);
+            if(savedHue) {
+                document.documentElement.style.setProperty('--theme-h', savedHue);
+                var slider = document.getElementById('theme-color-slider');
+                if (slider) slider.value = savedHue;
+            }
             
             if(!Array.isArray(dataState.tugas)) dataState.tugas = [];
             if(!Array.isArray(dataState.jurnal)) dataState.jurnal = [];
@@ -11119,21 +11131,25 @@
                             if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
                             if(dataState.saldo === undefined) dataState.saldo = 0;
 
-                            if (remote.themeHue) {
-                                safeStorage.setItem('dasborHue', remote.themeHue);
-                                document.documentElement.style.setProperty('--theme-h', remote.themeHue);
+                            var hueFromCloud = remote.themeHue || (dataState && dataState.themeHue);
+                            if (hueFromCloud) {
+                                safeStorage.setItem('dasborHue', hueFromCloud);
+                                dataState.themeHue = hueFromCloud;
+                                document.documentElement.style.setProperty('--theme-h', hueFromCloud);
                                 const slider = document.getElementById('theme-color-slider');
-                                if (slider) slider.value = remote.themeHue;
+                                if (slider) slider.value = hueFromCloud;
                             }
 
                             if (dataState.autoThemeMode) {
                                 applyAutoThemeClock();
                             } else {
-                                const localDark = safeStorage.getItem('dasborDarkMode');
-                                if (localDark === 'dark') {
+                                const modeToApply = (dataState && dataState.darkMode) || safeStorage.getItem('dasborDarkMode');
+                                if (modeToApply === 'dark') {
                                     document.documentElement.classList.add('dark');
-                                } else if (localDark === 'light') {
+                                    safeStorage.setItem('dasborDarkMode', 'dark');
+                                } else if (modeToApply === 'light') {
                                     document.documentElement.classList.remove('dark');
+                                    safeStorage.setItem('dasborDarkMode', 'light');
                                 }
                             }
 
@@ -11197,7 +11213,8 @@
 
             const payload = {
                 dataState: dataState,
-                themeHue: safeStorage.getItem('dasborHue') || '221',
+                themeHue: safeStorage.getItem('dasborHue') || (dataState && dataState.themeHue) || '221',
+                darkMode: (dataState && dataState.darkMode) || safeStorage.getItem('dasborDarkMode') || 'light',
                 lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
                 userEmail: currentUser.email || '',
                 userName: currentUser.displayName || dataState.userName || ''
