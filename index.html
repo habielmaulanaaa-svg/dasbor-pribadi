@@ -3343,7 +3343,7 @@
                     <span class="w-2 h-6 bg-primary-500 rounded-full"></span>
                     <h2 class="text-2xl font-bold dark:text-white" data-i18n="journal_title">Jurnal Harian</h2>
                 </div>
-                <button type="button" onclick="toggleInput('jurnal-input-area')" class="bg-primary-600 text-white px-3.5 py-2 rounded-2xl text-sm font-bold shadow-md hover:bg-primary-700 transition-colors flex items-center gap-1.5"><i class="fas fa-pen text-xs"></i> <span data-i18n="journal_btn_write">Catat</span></button>
+                <button type="button" id="btn-tambah-jurnal-top" onclick="toggleInput('jurnal-input-area')" class="hidden bg-primary-600 text-white px-3.5 py-2 rounded-2xl text-sm font-bold shadow-md hover:bg-primary-700 transition-colors flex items-center gap-1.5"><i class="fas fa-pen text-xs"></i> <span data-i18n="journal_btn_write">Catat</span></button>
             </div>
 
             <!-- Mood Tracker Analytics Bar -->
@@ -7035,12 +7035,7 @@
             setTimeout(() => {
                 h.classList.add('opacity-0');
                 setTimeout(() => { 
-                    var activeTab = document.querySelector('.tab-content.active');
-                    if (activeTab && activeTab.id === 'jurnal') {
-                        h.innerText = "Jurnal Harian";
-                    } else {
-                        h.innerText = "Dasbor";
-                    }
+                    h.innerText = t('app_title', 'Dasbor');
                     h.classList.remove('opacity-0'); 
                 }, 350); 
             }, 3200); 
@@ -7289,7 +7284,7 @@
                 }
                 if (backBtn) backBtn.classList.remove('hidden');
                 if (barsBtn) barsBtn.classList.add('hidden');
-                if (hTitle) hTitle.innerText = "Jurnal Harian";
+                if (hTitle) hTitle.innerText = t('app_title', 'Dasbor');
             } else {
                 if (floatingDock) {
                     floatingDock.classList.remove('hidden');
@@ -7300,7 +7295,7 @@
                 }
                 if (backBtn) backBtn.classList.add('hidden');
                 if (barsBtn) barsBtn.classList.remove('hidden');
-                if (hTitle) hTitle.innerText = "Dasbor";
+                if (hTitle) hTitle.innerText = t('app_title', 'Dasbor');
 
                 var tabKeys = ['beranda', 'tugas', 'keuangan'];
                 for (var j = 0; j < tabKeys.length; j++) {
@@ -9921,8 +9916,10 @@
 
             var lj = document.getElementById('daftar-jurnal');
             var kTxt = document.getElementById('jurnal-kosong-teks');
+            var btnTop = document.getElementById('btn-tambah-jurnal-top');
             if(lj) {
-                if(dataState.jurnal.length) {
+                if(dataState.jurnal && dataState.jurnal.length) {
+                    if(btnTop) btnTop.classList.remove('hidden');
                     if(kTxt) kTxt.classList.add('hidden');
                     lj.innerHTML = dataState.jurnal.slice().reverse().map(j => `
                         <div class="jurnal-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm relative overflow-hidden compact-pad">
@@ -9935,6 +9932,7 @@
                         </div>
                     `).join('');
                 } else {
+                    if(btnTop) btnTop.classList.add('hidden');
                     lj.innerHTML = '';
                     if(kTxt) kTxt.classList.remove('hidden');
                 }
