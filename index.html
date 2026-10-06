@@ -2049,10 +2049,6 @@
                         <input type="file" accept=".json" onchange="importData(event)" class="hidden">
                     </label>
 
-                    <button type="button" onclick="forcePullFromCloud()" class="w-full text-left px-3 py-2 text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
-                        <i class="fas fa-cloud-download-alt mr-2 text-sky-500"></i> <span data-i18n="settings_cloud_pull">Tarik Data dari Cloud (Pull)</span>
-                    </button>
-
                     <button type="button" onclick="generateReceipt()" class="w-full text-left px-3 py-2 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
                         <i class="fas fa-receipt mr-2"></i> <span data-i18n="settings_print_pdf">Cetak Laporan (PDF)</span>
                     </button>
@@ -4189,7 +4185,8 @@
                 toast_network_online_desc: "Koneksi internet aktif, data cloud tersinkronisasi",
                 toast_network_offline_title: "Koneksi Terputus",
                 toast_network_offline_desc: "Beralih ke mode luring (offline)",
-                sync_btn_sync_now: "Sinkron",
+                sync_btn_sync_now: "Tarik Data",
+                sync_btn_pull_tooltip: "Tarik data terbaru dari Cloud",
                 sync_btn_sign_out: "Keluar",
                 sync_account_cloud_title: "Sinkronisasi Cloud",
                 sync_account_cloud_desc: "Simpan data lintas perangkat",
@@ -4771,7 +4768,8 @@
                 toast_network_online_desc: "Internet connection active, cloud data synchronized",
                 toast_network_offline_title: "Connection Lost",
                 toast_network_offline_desc: "Switched to offline mode",
-                sync_btn_sync_now: "Sync Now",
+                sync_btn_sync_now: "Pull Data",
+                sync_btn_pull_tooltip: "Pull latest data from Cloud",
                 sync_btn_sign_out: "Sign Out",
                 sync_account_cloud_title: "Cloud Synchronization",
                 sync_account_cloud_desc: "Sync data across devices",
@@ -10894,8 +10892,8 @@
                                 <span id="cloud-last-synced-badge" class="text-slate-400 text-[9px] truncate">${t('sync_badge_synced', 'Tersinkron')}</span>
                             </div>
                             <div class="grid grid-cols-2 gap-1.5">
-                                <button type="button" onclick="manualSyncCloud()" id="btn-manual-sync" class="flex items-center justify-center gap-1.5 py-1.5 px-2 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-xl text-[11px] font-bold transition-all active:scale-95">
-                                    <i id="cloud-sync-icon" class="fas fa-sync-alt text-[10px]"></i> ${t('sync_btn_sync_now', 'Sinkron')}
+                                <button type="button" onclick="manualSyncCloud()" id="btn-manual-sync" class="flex items-center justify-center gap-1.5 py-1.5 px-2 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-xl text-[11px] font-bold transition-all active:scale-95" title="${t('sync_btn_pull_tooltip', 'Tarik data terbaru dari Cloud')}">
+                                    <i id="cloud-sync-icon" class="fas fa-cloud-download-alt text-[10px]"></i> ${t('sync_btn_sync_now', 'Tarik Data')}
                                 </button>
                                 <button type="button" onclick="logoutGoogle()" class="flex items-center justify-center gap-1.5 py-1.5 px-2 bg-slate-100 dark:bg-[#242f3d] hover:bg-red-50 dark:hover:bg-red-950/30 text-slate-600 hover:text-red-600 dark:text-slate-300 dark:hover:text-red-400 rounded-xl text-[11px] font-bold transition-all active:scale-95">
                                     <i class="fas fa-sign-out-alt text-[10px]"></i> ${t('sync_btn_sign_out', 'Keluar')}
@@ -10917,15 +10915,15 @@
 
             if (status === 'saving') {
                 if (badge) badge.innerText = t('sync_badge_saving', "Menyimpan...");
-                if (syncIcon) syncIcon.classList.add('fa-spin');
+                if (syncIcon) syncIcon.className = 'fas fa-sync-alt fa-spin text-[10px]';
                 if (headerIcon) headerIcon.className = "fas fa-sync-alt text-xs text-amber-300 fa-spin";
             } else if (status === 'syncing') {
                 if (badge) badge.innerText = t('sync_badge_connecting', "Menghubungkan...");
-                if (syncIcon) syncIcon.classList.add('fa-spin');
+                if (syncIcon) syncIcon.className = 'fas fa-sync-alt fa-spin text-[10px]';
                 if (headerIcon) headerIcon.className = "fas fa-sync-alt text-xs text-amber-300 fa-spin";
             } else if (status === 'synced') {
                 if (badge) badge.innerText = t('sync_badge_synced', "Tersinkron ") + formatTimeNow();
-                if (syncIcon) syncIcon.classList.remove('fa-spin');
+                if (syncIcon) syncIcon.className = 'fas fa-cloud-download-alt text-[10px]';
                 if (headerIcon) headerIcon.className = "fas fa-check-circle text-xs text-emerald-300";
             } else if (status === 'pending') {
                 if (badge) badge.innerText = t('sync_badge_pending', "Menunggu simpan...");
@@ -10939,7 +10937,7 @@
                     else errorText = (isEn ? "Failed (" : "Gagal (") + err.code + ")";
                 }
                 if (badge) badge.innerText = errorText;
-                if (syncIcon) syncIcon.classList.remove('fa-spin');
+                if (syncIcon) syncIcon.className = 'fas fa-cloud-download-alt text-[10px]';
                 if (headerIcon) headerIcon.className = "fas fa-exclamation-circle text-xs text-red-300";
             }
         }
@@ -11267,14 +11265,15 @@
                 loginWithGoogle();
                 return;
             }
+            if (typeof triggerHaptic === 'function') triggerHaptic('light');
             if (firestoreDb && typeof firestoreDb.enableNetwork === 'function') {
                 try { firestoreDb.enableNetwork().catch(function() {}); } catch(e) {}
             }
             var icon = document.getElementById('cloud-sync-icon');
-            if (icon) icon.classList.add('fa-spin');
+            if (icon) icon.className = 'fas fa-spinner fa-spin text-[10px]';
             syncFromCloud(false);
             setTimeout(function() {
-                if (icon) icon.classList.remove('fa-spin');
+                if (icon) icon.className = 'fas fa-cloud-download-alt text-[10px]';
             }, 1200);
         }
 
