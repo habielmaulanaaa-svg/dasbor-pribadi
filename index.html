@@ -47,6 +47,7 @@
                             700: 'hsl(var(--theme-h), 83%, 43%)',
                             800: 'hsl(var(--theme-h), 80%, 25%)',
                             900: 'hsl(var(--theme-h), 80%, 15%)',
+                            950: 'hsl(var(--theme-h), 80%, 8%)',
                         }
                     }
                 }
@@ -764,10 +765,22 @@
         /* ==========================================
            2. QUICK ACTION CARD POPOVER (2X2 GRID, 100% HARDWARE ACCELERATED, ANTI-LAG ANDROID)
            ========================================== */
+        @keyframes fluidFabPulse {
+            0% { transform: scale(1); }
+            35% { transform: scale(0.90, 0.90); }
+            65% { transform: scale(1.08, 1.08); }
+            85% { transform: scale(0.98, 0.98); }
+            100% { transform: scale(1); }
+        }
+        .animate-fab-pulse {
+            animation: fluidFabPulse 0.34s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
         #fab-plus-icon {
             transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
 
+        /* Default / Mobile / Android (< 640px): Muncul di atas tombol FAB */
         #fab-speed-dial-menu {
             transform-origin: bottom right;
             will-change: transform, opacity;
@@ -789,6 +802,37 @@
             transform: translate3d(0, 12px, 0) scale(0.92) !important;
             opacity: 0 !important;
             pointer-events: none !important;
+        }
+
+        /* Windows / Desktop (>= 640px): Muncul di samping kanan tombol FAB */
+        @media (min-width: 640px) {
+            #fab-speed-dial-menu {
+                bottom: 0 !important;
+                left: calc(100% + 14px) !important;
+                right: auto !important;
+                transform-origin: bottom left !important;
+                transform: translate3d(-12px, 0, 0) scale(0.92);
+            }
+
+            #fab-speed-dial-menu.card-open {
+                transform: translate3d(0, 0, 0) scale(1) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+
+            #fab-speed-dial-menu.card-closed {
+                transform: translate3d(-12px, 0, 0) scale(0.92) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+
+        /* Dark mode palette backup untuk opsi Tugas Baru */
+        .dark #fab-btn-tugas {
+            background-color: hsla(var(--theme-h), 80%, 10%, 0.45) !important;
+        }
+        .dark #fab-btn-tugas:hover {
+            background-color: hsla(var(--theme-h), 80%, 15%, 0.6) !important;
         }
 
         /* ==========================================
@@ -3380,48 +3424,47 @@
         <!-- Container Tombol Aksi Speed Dial FAB -->
         <div class="relative">
             <!-- Menu Melayang Quick Action Card (2x2 Grid Popover) -->
-            <div id="fab-speed-dial-menu" class="hidden card-closed absolute bottom-16 right-0 w-64 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl rounded-[28px] p-3 shadow-[0_16px_40px_rgba(0,0,0,0.18)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.6)] border border-slate-200/90 dark:border-[#313f52]/90 z-40 pointer-events-none select-none">
-                <!-- Header Card Mini -->
-                <div class="flex items-center justify-between px-2 pt-0.5 pb-2 border-b border-slate-100 dark:border-[#242f3d] mb-2">
+            <div id="fab-speed-dial-menu" class="hidden card-closed absolute bottom-16 right-0 w-72 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl rounded-[28px] p-3 shadow-[0_16px_40px_rgba(0,0,0,0.18)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.6)] border border-slate-200/90 dark:border-[#313f52]/90 z-40 pointer-events-none select-none">
+                <!-- Header Card Mini (Bebas Dot) -->
+                <div class="flex items-center justify-start px-2 pt-0.5 pb-2 border-b border-slate-100 dark:border-[#242f3d] mb-2">
                     <span class="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                         <i class="fas fa-bolt text-amber-500 text-[10px]"></i>
                         <span data-i18n="quick_actions_title">Aksi Cepat</span>
                     </span>
-                    <span class="w-2 h-2 rounded-full bg-primary-500"></span>
                 </div>
 
                 <!-- 2x2 Grid Aksi -->
                 <div class="grid grid-cols-2 gap-2">
                     <!-- 1. Catat Pemasukan -->
-                    <button type="button" onclick="fabAction('pemasukan')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/25 hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40 active:scale-95 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 transition-all text-center group">
+                    <button type="button" id="fab-btn-pemasukan" onclick="fabAction('pemasukan')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/35 hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40 active:scale-95 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 transition-all text-center group">
                         <div class="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
                             <i class="fas fa-plus"></i>
                         </div>
-                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate w-full" data-i18n="fab_pemasukan">Catat Pemasukan</span>
+                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight w-full text-center" data-i18n="fab_pemasukan">Catat Pemasukan</span>
                     </button>
 
                     <!-- 2. Catat Pengeluaran -->
-                    <button type="button" onclick="fabAction('pengeluaran')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-rose-50/70 dark:bg-rose-950/25 hover:bg-rose-100/60 dark:hover:bg-rose-900/40 active:scale-95 border border-rose-500/25 text-rose-600 dark:text-rose-400 transition-all text-center group">
+                    <button type="button" id="fab-btn-pengeluaran" onclick="fabAction('pengeluaran')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-rose-50/70 dark:bg-rose-950/35 hover:bg-rose-100/60 dark:hover:bg-rose-900/40 active:scale-95 border border-rose-500/25 text-rose-600 dark:text-rose-400 transition-all text-center group">
                         <div class="w-9 h-9 rounded-xl bg-rose-500 text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
                             <i class="fas fa-minus"></i>
                         </div>
-                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate w-full" data-i18n="fab_pengeluaran">Catat Pengeluaran</span>
+                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight w-full text-center" data-i18n="fab_pengeluaran">Catat Pengeluaran</span>
                     </button>
 
                     <!-- 3. Tugas Baru -->
-                    <button type="button" onclick="fabAction('tugas')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-primary-50/70 dark:bg-primary-950/25 hover:bg-primary-100/60 dark:hover:bg-primary-900/40 active:scale-95 border border-primary-500/25 text-primary-600 dark:text-primary-400 transition-all text-center group">
+                    <button type="button" id="fab-btn-tugas" onclick="fabAction('tugas')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-primary-50/70 dark:bg-primary-950/40 hover:bg-primary-100/60 dark:hover:bg-primary-900/40 active:scale-95 border border-primary-500/25 text-primary-600 dark:text-primary-400 transition-all text-center group">
                         <div class="w-9 h-9 rounded-xl bg-primary-500 text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
                             <i class="fas fa-check"></i>
                         </div>
-                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate w-full" data-i18n="fab_tugas">Tugas Baru</span>
+                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight w-full text-center" data-i18n="fab_tugas">Tugas Baru</span>
                     </button>
 
                     <!-- 4. Catatan Kilat -->
-                    <button type="button" onclick="fabAction('catatan')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-amber-50/70 dark:bg-amber-950/25 hover:bg-amber-100/60 dark:hover:bg-amber-900/40 active:scale-95 border border-amber-500/25 text-amber-600 dark:text-amber-400 transition-all text-center group">
+                    <button type="button" id="fab-btn-catatan" onclick="fabAction('catatan')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-amber-50/70 dark:bg-amber-950/35 hover:bg-amber-100/60 dark:hover:bg-amber-900/40 active:scale-95 border border-amber-500/25 text-amber-600 dark:text-amber-400 transition-all text-center group">
                         <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
                             <i class="fas fa-bolt"></i>
                         </div>
-                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate w-full" data-i18n="fab_catatan">Catatan Kilat</span>
+                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight w-full text-center" data-i18n="fab_catatan">Catatan Kilat</span>
                     </button>
                 </div>
             </div>
@@ -7360,34 +7403,52 @@
         // ==========================================
         let isFabOpen = false;
 
+        function triggerFabBounce() {
+            var fabBtn = document.getElementById('fab-quick-add');
+            if (!fabBtn) return;
+            fabBtn.classList.remove('animate-fab-pulse');
+            void fabBtn.offsetWidth; // Force layout reflow untuk mengulang animasi CSS seketika
+            fabBtn.classList.add('animate-fab-pulse');
+        }
+
         function toggleFabSpeedDial() {
+            if (isFabOpen) {
+                closeFabSpeedDial(true); // Klik manual tombol silang (X) untuk menutup
+            } else {
+                openFabSpeedDial();
+            }
+        }
+
+        function openFabSpeedDial() {
             var menu = document.getElementById('fab-speed-dial-menu');
             var icon = document.getElementById('fab-plus-icon');
             if (!menu || !icon) return;
 
-            isFabOpen = !isFabOpen;
-            if (isFabOpen) {
-                menu.classList.remove('hidden');
-                void menu.offsetWidth; // Force layout for instant smooth CSS transition
-                menu.classList.remove('card-closed');
-                menu.classList.add('card-open');
-                icon.style.transform = 'rotate(45deg)';
-            } else {
-                closeFabSpeedDial();
-            }
+            isFabOpen = true;
+            triggerFabBounce();
+
+            menu.classList.remove('hidden');
+            void menu.offsetWidth; // Force layout for instant smooth CSS transition
+            menu.classList.remove('card-closed');
+            menu.classList.add('card-open');
+            icon.style.transform = 'rotate(45deg)';
         }
 
-        function closeFabSpeedDial() {
+        function closeFabSpeedDial(isManual) {
             if (!isFabOpen) return; // Prevent any phantom bouncing/closing when already closed!
             var menu = document.getElementById('fab-speed-dial-menu');
             var icon = document.getElementById('fab-plus-icon');
             isFabOpen = false;
 
+            if (isManual) {
+                triggerFabBounce();
+            }
+
             if (icon) icon.style.transform = 'rotate(0deg)';
             if (menu) {
                 menu.classList.remove('card-open');
                 menu.classList.add('card-closed');
-                setTimeout(() => {
+                setTimeout(function() {
                     if (!isFabOpen) {
                         menu.classList.add('hidden');
                     }
