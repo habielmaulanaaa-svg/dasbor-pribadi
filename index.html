@@ -1775,16 +1775,15 @@
                     var raw = localStorage.getItem('dasborSolidV2');
                     var container = document.getElementById('skeleton-dynamic-widgets');
                     if (!container) return;
-                    var order = ['rekap', 'tabungan', 'deadline', 'reguler'];
+                    var order = ['tabungan', 'deadline', 'reguler'];
                     var hidden = [];
                     if (raw) {
                         var parsed = JSON.parse(raw);
-                        if (Array.isArray(parsed.widgetOrder)) order = parsed.widgetOrder;
+                        if (Array.isArray(parsed.widgetOrder)) order = parsed.widgetOrder.filter(function(k) { return k !== 'rekap'; });
                         if (Array.isArray(parsed.hiddenWidgets)) hidden = parsed.hiddenWidgets;
                     }
-                    var activeWidgets = order.filter(function(k) { return !hidden.includes(k); });
+                    var activeWidgets = order.filter(function(k) { return !hidden.includes(k) && k !== 'rekap'; });
                     var templates = {
-                        rekap: '<div class="h-32 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-32 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-16 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="w-full h-12 bg-white/40 dark:bg-slate-700/40 rounded-2xl"></div><div class="flex justify-between items-center pt-1 border-t border-white/20 dark:border-slate-700/20"><div class="w-24 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div><div class="w-20 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div></div>',
                         tabungan: '<div class="h-36 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-36 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-16 h-6 bg-white/40 dark:bg-slate-700/40 rounded-xl"></div></div><div class="space-y-2"><div class="flex justify-between"><div class="w-28 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div><div class="w-12 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div></div><div class="w-full h-2.5 bg-white/30 dark:bg-slate-700/30 rounded-full"></div></div><div class="w-40 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div>',
                         deadline: '<div class="h-28 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-28 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-14 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="flex items-center gap-3"><div class="w-10 h-10 bg-white/40 dark:bg-slate-700/40 rounded-xl shrink-0"></div><div class="flex-1 space-y-2"><div class="w-3/4 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div><div class="w-1/2 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div></div></div>',
                         reguler: '<div class="h-24 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-32 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-12 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="w-full h-9 bg-white/35 dark:bg-slate-700/35 rounded-2xl"></div></div>'
@@ -1874,10 +1873,10 @@
                 <div class="w-9 h-9 rounded-xl bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-500 shadow-inner"><i class="fas fa-book text-sm"></i></div>
                 <span data-i18n="sidebar_journal">Jurnal Harian &amp; Mood</span>
             </button>
-            <!-- 3. Kalender Terpadu & Rekap -->
+            <!-- 3. Rekap Harian & Kalender -->
             <button type="button" onclick="toggleSidebar(); openActivityCalendar();" class="sidebar-nav-btn w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-primary-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
                 <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-600 shadow-inner"><i class="fas fa-calendar-alt text-sm"></i></div>
-                <span data-i18n="sidebar_calendar">Kalender Terpadu &amp; Rekap</span>
+                <span data-i18n="sidebar_calendar">Rekap Harian &amp; Kalender</span>
             </button>
             <!-- 4. Atur Widget Beranda -->
             <button type="button" onclick="openWidgetManagerModal()" class="sidebar-nav-btn w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-primary-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
@@ -2452,10 +2451,6 @@
             
             <div class="space-y-2 mb-4" id="widget-toggle-list">
                 <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-calendar-check text-primary-500"></i> <span data-i18n="home_rekap_title">Rekap Harian</span></span>
-                    <input type="checkbox" id="w-toggle-rekap" onchange="toggleWidgetVisibility('rekap', this.checked)" class="w-4 h-4 accent-primary-600 cursor-pointer">
-                </div>
-                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
                     <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-piggy-bank text-emerald-500"></i> <span data-i18n="home_savings_title">Target Tabungan</span></span>
                     <input type="checkbox" id="w-toggle-tabungan" onchange="toggleWidgetVisibility('tabungan', this.checked)" class="w-4 h-4 accent-primary-600 cursor-pointer">
                 </div>
@@ -2837,14 +2832,16 @@
         <div id="beranda" class="tab-content active">
             
             <!-- Banner Pengingat Setor Rekap Harian -->
-            <div id="rekap-reminder-banner" class="hidden mb-3 px-3.5 py-2 rounded-2xl bg-amber-500/15 dark:bg-amber-500/20 border border-amber-500/30 text-amber-900 dark:text-amber-200 flex items-center justify-between shadow-sm transition-all duration-300">
-                <div class="flex items-center gap-2 text-xs font-bold truncate">
-                    <i class="fas fa-bell text-amber-500 text-xs"></i>
+            <div id="rekap-reminder-banner" class="hidden mb-3 px-3.5 py-2.5 rounded-2xl bg-amber-500/15 dark:bg-amber-500/20 border border-amber-500/30 text-amber-900 dark:text-amber-200 flex items-center justify-between shadow-sm transition-all duration-300">
+                <div class="flex items-center gap-2.5 text-xs font-bold truncate">
+                    <div class="w-7 h-7 rounded-xl bg-amber-500/20 flex items-center justify-center shrink-0">
+                        <i class="fas fa-bell text-amber-500 text-xs"></i>
+                    </div>
                     <span data-i18n="home_rekap_reminder">Belum setor rekap hari ini</span>
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
-                    <button type="button" onclick="openRekapModal()" class="bg-amber-500 text-white font-bold text-[11px] px-2.5 py-1 rounded-xl shadow-sm hover:bg-amber-600 transition-colors" data-i18n="home_rekap_btn">+ Setor</button>
-                    <button type="button" onclick="dismissRekapBanner()" aria-label="Tutup pengingat rekap" title="Tutup pengingat" class="text-amber-600 dark:text-amber-300 hover:text-amber-800 p-1 text-xs"><i class="fas fa-times"></i></button>
+                    <button type="button" onclick="openRekapModal()" class="bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5" data-i18n="home_rekap_btn"><i class="fas fa-pen-fancy text-[10px]"></i><span>+ Setor</span></button>
+                    <button type="button" onclick="dismissRekapBanner()" aria-label="Tutup pengingat rekap" title="Tutup pengingat" class="w-7 h-7 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-300 hover:bg-amber-500/20 transition-colors text-xs"><i class="fas fa-times"></i></button>
                 </div>
             </div>
 
@@ -3822,7 +3819,7 @@
                 sidebar_menu_title: "Menu Dasbor",
                 sidebar_yearly_wrapped: "Kilas Balik Tahunan",
                 sidebar_journal: "Jurnal Harian & Mood",
-                sidebar_calendar: "Kalender Terpadu & Rekap",
+                sidebar_calendar: "Rekap Harian & Kalender",
                 sidebar_home_widgets: "Atur Widget Beranda",
                 sidebar_finance_widgets: "Atur Widget Keuangan",
                 sidebar_analysis: "Analisis & Statistik",
@@ -4405,7 +4402,7 @@
                 sidebar_menu_title: "Dashboard Menu",
                 sidebar_yearly_wrapped: "Yearly Wrapped",
                 sidebar_journal: "Daily Journal & Mood",
-                sidebar_calendar: "Activity Calendar & Recap",
+                sidebar_calendar: "Daily Recap & Calendar",
                 sidebar_home_widgets: "Manage Home Widgets",
                 sidebar_finance_widgets: "Manage Finance Widgets",
                 sidebar_analysis: "Analysis & Statistics",
@@ -5040,7 +5037,7 @@
             cardGradient: true,
             hapticFeedback: true,
             hiddenWidgets: [],
-            widgetOrder: ['rekap', 'tabungan', 'deadline', 'reguler'],
+            widgetOrder: ['tabungan', 'deadline', 'reguler'],
             rekapHarian: [],
             tugas: [], 
             transaksi: [], 
@@ -6014,6 +6011,7 @@
 
             setTimeout(() => {
                 isRekapBannerDismissed = false;
+                try { safeStorage.removeItem('rekapBannerDismissedDate'); } catch(e) {}
                 applyAutoThemeClock();
 
                 // Sinkronisasi kalender terpadu ke tanggal WIB baru
@@ -6137,9 +6135,24 @@
             else openBottomSheet('changelog-modal');
         }
 
-        function openRekapModal() {
+        var rekapTargetDateIso = null;
+        function openRekapModal(targetDate) {
             var todayStr = getRekapDateString();
-            var existing = (dataState.rekapHarian || []).find(r => r.tanggal === todayStr);
+            var dateStr = (typeof targetDate === 'string' && targetDate.length === 10) ? targetDate : todayStr;
+            rekapTargetDateIso = dateStr;
+            var isEn = (dataState && dataState.language === 'en');
+            var isToday = (dateStr === todayStr);
+
+            var titleEl = document.querySelector('#rekap-modal [data-i18n="rekap_modal_title"]');
+            if (titleEl) {
+                if (isToday) {
+                    titleEl.innerText = isEn ? "Today's Daily Recap" : "Setor Rekap Hari Ini";
+                } else {
+                    titleEl.innerText = (isEn ? "Daily Recap: " : "Rekap Tanggal: ") + dateStr;
+                }
+            }
+
+            var existing = (dataState.rekapHarian || []).find(r => r.tanggal === dateStr);
             if (existing) {
                 document.getElementById('input-rekap-isi').value = existing.isi || '';
                 selectRekapRating(existing.rating || 5);
@@ -6188,10 +6201,12 @@
             if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
             
             var hw = dataState.hiddenWidgets || [];
-            document.getElementById('w-toggle-rekap').checked = !hw.includes('rekap');
-            document.getElementById('w-toggle-tabungan').checked = !hw.includes('tabungan');
-            document.getElementById('w-toggle-deadline').checked = !hw.includes('deadline');
-            document.getElementById('w-toggle-reguler').checked = !hw.includes('reguler');
+            var chkTabungan = document.getElementById('w-toggle-tabungan');
+            var chkDeadline = document.getElementById('w-toggle-deadline');
+            var chkReguler = document.getElementById('w-toggle-reguler');
+            if (chkTabungan) chkTabungan.checked = !hw.includes('tabungan');
+            if (chkDeadline) chkDeadline.checked = !hw.includes('deadline');
+            if (chkReguler) chkReguler.checked = !hw.includes('reguler');
 
             openBottomSheet('widget-manager-modal');
         }
@@ -7099,8 +7114,9 @@
                         if(!dataState.transaksi) dataState.transaksi = [];
                         if(!dataState.targetTabungan) dataState.targetTabungan = [];
                         if(!dataState.rekapHarian) dataState.rekapHarian = [];
-                        if(!dataState.hiddenWidgets) dataState.hiddenWidgets = [];
-                        if(!dataState.widgetOrder) dataState.widgetOrder = ['rekap', 'tabungan', 'deadline', 'reguler'];
+                        if(!dataState.widgetOrder) dataState.widgetOrder = ['tabungan', 'deadline', 'reguler'];
+                        dataState.widgetOrder = dataState.widgetOrder.filter(k => k !== 'rekap');
+                        dataState.hiddenWidgets = (dataState.hiddenWidgets || []).filter(k => k !== 'rekap');
                         if(dataState.cardGradient === undefined) dataState.cardGradient = true;
                         document.getElementById('input-user-name').value = dataState.userName || 'Pengguna';
                         applyCardGradientVisual();
@@ -7850,16 +7866,21 @@
 
             var html = '';
 
-            // 1. Seksi Jurnal & Refleksi Harian
+            // 1. Seksi Rekap Harian & Refleksi
             if (rekap) {
                 var ratingStars = '⭐'.repeat(rekap.rating || 5);
                 html += `
                     <div class="p-3 rounded-2xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border border-amber-300 dark:border-amber-700/60 shadow-xs mb-2">
                         <div class="flex items-center justify-between mb-1.5">
                             <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
-                                <i class="fas fa-book-open text-xs text-amber-500"></i> ${isEn ? 'Daily Journal & Reflection' : 'Jurnal & Refleksi Harian'}
+                                <i class="fas fa-book-open text-xs text-amber-500"></i> ${isEn ? 'Daily Recap & Reflection' : 'Rekap Harian & Refleksi'}
                             </span>
-                            <span class="text-xs" title="${isEn ? 'Day Rating' : 'Rating Hari'}">${ratingStars}</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs" title="${isEn ? 'Day Rating' : 'Rating Hari'}">${ratingStars}</span>
+                                <button type="button" onclick="closeBottomSheet('activity-calendar-modal'); openRekapModal('${actCalSelectedDateIso}');" class="text-[10px] font-bold text-amber-600 dark:text-amber-400 hover:underline px-1.5 py-0.5 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-950/40 transition-colors">
+                                    <i class="fas fa-pen text-[9px] mr-1"></i>${isEn ? 'Edit' : 'Ubah'}
+                                </button>
+                            </div>
                         </div>
                         <p class="text-xs text-slate-700 dark:text-slate-200 font-semibold leading-relaxed whitespace-pre-wrap">${escapeHtml(rekap.isi || (isEn ? 'No notes.' : 'Tidak ada catatan.'))}</p>
                     </div>
@@ -7869,10 +7890,22 @@
                     <div class="p-2.5 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-dashed border-amber-300 dark:border-amber-800/60 flex items-center justify-between gap-2 mb-2">
                         <div class="flex items-center gap-2 min-w-0">
                             <span class="w-6 h-6 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xs shrink-0"><i class="fas fa-pen"></i></span>
-                            <span class="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">${isEn ? 'No journal for today yet' : 'Belum ada jurnal hari ini'}</span>
+                            <span class="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">${isEn ? 'No recap for today yet' : 'Belum setor rekap hari ini'}</span>
                         </div>
-                        <button type="button" onclick="closeBottomSheet('activity-calendar-modal'); openRekapModal();" class="px-2.5 py-1 rounded-xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-white text-xs font-bold shadow-xs transition-all shrink-0">
-                            ${isEn ? '+ Write Journal' : '+ Tulis Jurnal'}
+                        <button type="button" onclick="closeBottomSheet('activity-calendar-modal'); openRekapModal('${actCalSelectedDateIso}');" class="px-2.5 py-1 rounded-xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-white text-xs font-bold shadow-xs transition-all shrink-0">
+                            ${isEn ? '+ Recap' : '+ Setor Rekap'}
+                        </button>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="p-2.5 rounded-2xl bg-slate-50 dark:bg-[#242f3d]/40 border border-dashed border-slate-200 dark:border-[#313f52] flex items-center justify-between gap-2 mb-2">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span class="w-6 h-6 rounded-lg bg-slate-100 dark:bg-[#313f52] text-slate-500 dark:text-slate-400 flex items-center justify-center text-xs shrink-0"><i class="fas fa-calendar-plus"></i></span>
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 truncate">${isEn ? 'No recap on this date' : 'Belum ada rekap di tanggal ini'}</span>
+                        </div>
+                        <button type="button" onclick="closeBottomSheet('activity-calendar-modal'); openRekapModal('${actCalSelectedDateIso}');" class="px-2.5 py-1 rounded-xl bg-slate-200 dark:bg-[#313f52] hover:bg-slate-300 dark:hover:bg-[#3d4d63] text-slate-700 dark:text-slate-200 text-xs font-bold shadow-xs transition-all shrink-0">
+                            ${isEn ? '+ Add' : '+ Isi'}
                         </button>
                     </div>
                 `;
@@ -8176,12 +8209,13 @@
         function moveWidget(key, dir) {
             if (isSwappingWidget) return;
             var hidden = dataState.hiddenWidgets || [];
-            var rawArr = Array.isArray(dataState.widgetOrder) ? [...dataState.widgetOrder] : ['rekap', 'tabungan', 'deadline', 'reguler'];
+            var DEFAULT_HOME_WIDGETS = ['tabungan', 'deadline', 'reguler'];
+            var rawArr = Array.isArray(dataState.widgetOrder) ? [...dataState.widgetOrder] : [...DEFAULT_HOME_WIDGETS];
             var fullArr = [];
             rawArr.forEach(k => {
-                if (['rekap', 'tabungan', 'deadline', 'reguler'].includes(k) && !fullArr.includes(k)) fullArr.push(k);
+                if (DEFAULT_HOME_WIDGETS.includes(k) && !fullArr.includes(k)) fullArr.push(k);
             });
-            ['rekap', 'tabungan', 'deadline', 'reguler'].forEach(k => {
+            DEFAULT_HOME_WIDGETS.forEach(k => {
                 if (!fullArr.includes(k)) fullArr.push(k);
             });
             dataState.widgetOrder = fullArr;
@@ -8331,6 +8365,10 @@
 
         function dismissRekapBanner() {
             isRekapBannerDismissed = true;
+            try {
+                var todayStr = getRekapDateString();
+                safeStorage.setItem('rekapBannerDismissedDate', todayStr);
+            } catch(e) {}
             var b = document.getElementById('rekap-reminder-banner');
             if(b) {
                 b.classList.add('opacity-0', 'scale-95');
@@ -8350,17 +8388,21 @@
             var isi = document.getElementById('input-rekap-isi').value.trim();
             if (!isi) { triggerDynamicIsland(t('widget_rekap_title', "Rekap"), t('toast_rekap_empty', "Tulis catatan terlebih dahulu!"), "fas fa-exclamation-circle", "bg-red-500/20 text-red-400"); return; }
             
-            var todayStr = getRekapDateString();
+            var targetDate = rekapTargetDateIso || getRekapDateString();
             if (!Array.isArray(dataState.rekapHarian)) dataState.rekapHarian = [];
 
-            var idx = dataState.rekapHarian.findIndex(r => r.tanggal === todayStr);
-            var rekapObj = { tanggal: todayStr, isi: isi, rating: selectedRatingRekap, timestamp: Date.now() };
+            var idx = dataState.rekapHarian.findIndex(r => r.tanggal === targetDate);
+            var rekapObj = { tanggal: targetDate, isi: isi, rating: selectedRatingRekap, timestamp: Date.now() };
 
             if (idx >= 0) dataState.rekapHarian[idx] = rekapObj;
             else dataState.rekapHarian.push(rekapObj);
 
+            try { safeStorage.removeItem('rekapBannerDismissedDate'); } catch(e) {}
+            isRekapBannerDismissed = false;
+
             closeBottomSheet('rekap-modal');
             simpanData();
+            if (typeof renderActivityCalendar === 'function') renderActivityCalendar();
             triggerDynamicIsland(t('widget_rekap_title', "Rekap Harian"), t('toast_rekap_saved', "Catatan hari ini tersimpan! ⭐"), "fas fa-calendar-check", "bg-emerald-500/20 text-emerald-400");
         }
 
@@ -10075,7 +10117,9 @@
 
             var reminderBanner = document.getElementById('rekap-reminder-banner');
             if (reminderBanner) {
-                if (hasCheckedInToday || isRekapBannerDismissed) {
+                var dismissedDate = null;
+                try { dismissedDate = safeStorage.getItem('rekapBannerDismissedDate'); } catch(e) {}
+                if (hasCheckedInToday || isRekapBannerDismissed || (dismissedDate === todayStr)) {
                     reminderBanner.classList.add('hidden');
                 } else {
                     reminderBanner.classList.remove('hidden', 'opacity-0', 'scale-95');
@@ -10083,54 +10127,11 @@
             }
 
             var hiddenWidgets = dataState.hiddenWidgets || [];
-            var widgetOrder = (dataState.widgetOrder || ['rekap', 'tabungan', 'deadline', 'reguler']).filter(k => !hiddenWidgets.includes(k));
+            var widgetOrder = (dataState.widgetOrder || ['tabungan', 'deadline', 'reguler']).filter(k => !hiddenWidgets.includes(k) && k !== 'rekap');
             var totalWidgets = widgetOrder.length;
             var htmlBlocks = {};
 
-            // 1. Widget Rekap Harian
-            if (!hiddenWidgets.includes('rekap')) {
-                var idxRekap = widgetOrder.indexOf('rekap');
-                var totalRekap = (dataState.rekapHarian || []).length;
-                var rekapContentHtml = '';
-
-                if (hasCheckedInToday) {
-                    rekapContentHtml = `<div class="p-3.5 bg-gradient-to-r from-primary-50 to-primary-100/60 dark:from-primary-900/50 dark:to-primary-950/70 rounded-2xl border-2 border-primary-400/80 dark:border-primary-500/80 shadow-sm compact-pad">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-black text-primary-700 dark:text-primary-300 flex items-center gap-1.5">
-                                <i class="fas fa-check-circle text-emerald-500 text-sm"></i> ${t('widget_rekap_saved')}
-                            </span>
-                            <span class="text-xs text-amber-400 font-bold">${'⭐'.repeat(todayRekap.rating || 5)}</span>
-                        </div>
-                        <div class="bg-white/80 dark:bg-[#17212b]/80 p-2.5 rounded-xl border border-primary-200/60 dark:border-primary-800/40 mb-2.5 shadow-inner">
-                            <p class="text-xs text-slate-800 dark:text-slate-100 font-bold leading-relaxed line-clamp-3">${todayRekap.isi}</p>
-                        </div>
-                        <button type="button" onclick="openRekapModal()" class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 rounded-xl text-xs font-bold shadow-md transition-colors flex items-center justify-center gap-1.5">
-                            <i class="fas fa-pen text-[10px]"></i> ${t('widget_rekap_edit')}
-                        </button>
-                    </div>`;
-                } else {
-                    rekapContentHtml = `<div class="p-3 bg-slate-50 dark:bg-[#242f3d]/40 rounded-2xl border border-slate-200 dark:border-[#313f52] text-center compact-pad">
-                        <p class="text-xs text-slate-500 dark:text-slate-300 font-semibold mb-2.5">${t('widget_rekap_empty')}</p>
-                        <button type="button" onclick="openRekapModal()" class="w-full bg-primary-600 text-white text-xs font-bold py-2 rounded-xl shadow-sm hover:bg-primary-700 transition-colors">${t('widget_rekap_deposit_btn')}</button>
-                    </div>`;
-                }
-
-                htmlBlocks['rekap'] = `<div id="widget-card-rekap" class="widget-card bg-white dark:bg-[#17212b] p-5 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="font-bold text-slate-700 dark:text-slate-200 text-sm flex items-center gap-2">
-                            <i class="fas fa-calendar-check text-primary-500"></i> ${t('widget_rekap_title')}
-                        </h3>
-                        ${renderSmartArrows('rekap', idxRekap, totalWidgets)}
-                    </div>
-                    ${rekapContentHtml}
-                    <div class="mt-3 pt-2 border-t border-slate-100 dark:border-[#242f3d] flex justify-between items-center text-xs font-bold">
-                        <span class="text-slate-500 dark:text-slate-400">${t('widget_rekap_total_filled')} <b class="text-primary-500 dark:text-primary-400">${totalRekap} ${t('widget_rekap_days')}</b></span>
-                        <button type="button" onclick="openCalendarModal()" class="text-primary-600 dark:text-primary-400 hover:underline flex items-center gap-1">${t('widget_rekap_open_calendar')}</button>
-                    </div>
-                </div>`;
-            }
-
-            // 2. Widget Target Tabungan
+            // 1. Widget Target Tabungan
             if (!hiddenWidgets.includes('tabungan')) {
                 var idxTabungan = widgetOrder.indexOf('tabungan');
                 var berjalan = [], selesai = [];
@@ -10458,24 +10459,23 @@
         function refreshDynamicSkeleton() {
             var container = document.getElementById('skeleton-dynamic-widgets');
             if (!container) return;
-            var order = ['rekap', 'tabungan', 'deadline', 'reguler'];
+            var order = ['tabungan', 'deadline', 'reguler'];
             var hidden = [];
             if (typeof dataState !== 'undefined' && dataState) {
-                if (Array.isArray(dataState.widgetOrder)) order = dataState.widgetOrder;
+                if (Array.isArray(dataState.widgetOrder)) order = dataState.widgetOrder.filter(function(k) { return k !== 'rekap'; });
                 if (Array.isArray(dataState.hiddenWidgets)) hidden = dataState.hiddenWidgets;
             } else {
                 try {
                     var raw = localStorage.getItem('dasborSolidV2');
                     if (raw) {
                         var parsed = JSON.parse(raw);
-                        if (Array.isArray(parsed.widgetOrder)) order = parsed.widgetOrder;
+                        if (Array.isArray(parsed.widgetOrder)) order = parsed.widgetOrder.filter(function(k) { return k !== 'rekap'; });
                         if (Array.isArray(parsed.hiddenWidgets)) hidden = parsed.hiddenWidgets;
                     }
                 } catch(e) {}
             }
-            var activeWidgets = order.filter(function(k) { return !hidden.includes(k); });
+            var activeWidgets = order.filter(function(k) { return !hidden.includes(k) && k !== 'rekap'; });
             var templates = {
-                rekap: '<div class="h-32 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-32 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-16 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="w-full h-12 bg-white/40 dark:bg-slate-700/40 rounded-2xl"></div><div class="flex justify-between items-center pt-1 border-t border-white/20 dark:border-slate-700/20"><div class="w-24 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div><div class="w-20 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div></div>',
                 tabungan: '<div class="h-36 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-36 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-16 h-6 bg-white/40 dark:bg-slate-700/40 rounded-xl"></div></div><div class="space-y-2"><div class="flex justify-between"><div class="w-28 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div><div class="w-12 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div></div><div class="w-full h-2.5 bg-white/30 dark:bg-slate-700/30 rounded-full"></div></div><div class="w-40 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div>',
                 deadline: '<div class="h-28 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-28 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-14 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="flex items-center gap-3"><div class="w-10 h-10 bg-white/40 dark:bg-slate-700/40 rounded-xl shrink-0"></div><div class="flex-1 space-y-2"><div class="w-3/4 h-3.5 bg-white/40 dark:bg-slate-700/40 rounded-md"></div><div class="w-1/2 h-3 bg-white/30 dark:bg-slate-700/30 rounded-md"></div></div></div></div>',
                 reguler: '<div class="h-24 skeleton rounded-3xl border border-slate-200/40 dark:border-slate-700/40 shadow-sm p-5 flex flex-col justify-between shrink-0"><div class="flex justify-between items-center"><div class="w-32 h-4 bg-white/40 dark:bg-slate-700/40 rounded-lg"></div><div class="w-12 h-4 bg-white/30 dark:bg-slate-700/30 rounded-lg"></div></div><div class="w-full h-9 bg-white/35 dark:bg-slate-700/35 rounded-2xl"></div></div>'
@@ -10518,7 +10518,12 @@
             if(!Array.isArray(dataState.rekapHarian)) dataState.rekapHarian = [];
             if(!Array.isArray(dataState.catatanKilat)) dataState.catatanKilat = [];
             if(!Array.isArray(dataState.hiddenWidgets)) dataState.hiddenWidgets = [];
-            if(!Array.isArray(dataState.widgetOrder)) dataState.widgetOrder = ['rekap', 'tabungan', 'deadline', 'reguler'];
+            if(!Array.isArray(dataState.widgetOrder)) dataState.widgetOrder = ['tabungan', 'deadline', 'reguler'];
+            dataState.widgetOrder = dataState.widgetOrder.filter(k => k !== 'rekap');
+            ['tabungan', 'deadline', 'reguler'].forEach(k => {
+                if (!dataState.widgetOrder.includes(k)) dataState.widgetOrder.push(k);
+            });
+            dataState.hiddenWidgets = dataState.hiddenWidgets.filter(k => k !== 'rekap');
             if(!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
             if(!Array.isArray(dataState.financeWidgetOrder)) dataState.financeWidgetOrder = [...DEFAULT_FINANCE_WIDGETS];
             dataState.financeWidgetOrder = dataState.financeWidgetOrder.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
@@ -11111,8 +11116,12 @@
                             if(!Array.isArray(dataState.jurnal)) dataState.jurnal = [];
                             if(!Array.isArray(dataState.rekapHarian)) dataState.rekapHarian = [];
                             if(!Array.isArray(dataState.catatanKilat)) dataState.catatanKilat = [];
-                            if(!Array.isArray(dataState.hiddenWidgets)) dataState.hiddenWidgets = [];
-                            if(!Array.isArray(dataState.widgetOrder)) dataState.widgetOrder = ['rekap', 'tabungan', 'deadline', 'reguler'];
+                            if(!Array.isArray(dataState.widgetOrder)) dataState.widgetOrder = ['tabungan', 'deadline', 'reguler'];
+                            dataState.widgetOrder = dataState.widgetOrder.filter(k => k !== 'rekap');
+                            ['tabungan', 'deadline', 'reguler'].forEach(k => {
+                                if (!dataState.widgetOrder.includes(k)) dataState.widgetOrder.push(k);
+                            });
+                            dataState.hiddenWidgets = (dataState.hiddenWidgets || []).filter(k => k !== 'rekap');
                             if(!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
                             if(!Array.isArray(dataState.financeWidgetOrder)) dataState.financeWidgetOrder = [...DEFAULT_FINANCE_WIDGETS];
                             dataState.financeWidgetOrder = dataState.financeWidgetOrder.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
