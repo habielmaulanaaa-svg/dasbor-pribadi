@@ -762,85 +762,34 @@
         }
 
         /* ==========================================
-           2. SPEED-DIAL FAB: SILK FLUID SPRING & LIQUID BOUNCE (OPSI A)
+           2. QUICK ACTION CARD POPOVER (2X2 GRID, 100% HARDWARE ACCELERATED, ANTI-LAG ANDROID)
            ========================================== */
-        @keyframes fluidFabPulse {
-            0% { transform: scale(1); }
-            35% { transform: scale(0.92, 0.92); }
-            65% { transform: scale(1.08, 1.08); }
-            85% { transform: scale(0.98, 0.98); }
-            100% { transform: scale(1); }
-        }
-        .animate-fab-pulse {
-            animation: fluidFabPulse 0.34s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
         #fab-plus-icon {
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
 
-        /* Silk Fluid Spring Emerge: Lembut, elastis terukur, 100% GPU Hardware Accelerated */
-        @keyframes silkFluidEmerge {
-            0% {
-                transform: translate3d(0, 24px, 0) scale(0.6, 0.6);
-                opacity: 0;
-            }
-            52% {
-                transform: translate3d(0, -4px, 0) scale(1.06, 1.06);
-                opacity: 0.95;
-            }
-            78% {
-                transform: translate3d(0, 1.5px, 0) scale(0.98, 0.98);
-                opacity: 1;
-            }
-            100% {
-                transform: translate3d(0, 0px, 0) scale(1, 1);
-                opacity: 1;
-            }
-        }
-
-        /* Silk Fluid Retract: Meluncur turun secara lembut dan menyerap ke FAB */
-        @keyframes silkFluidRetract {
-            0% {
-                transform: translate3d(0, 0px, 0) scale(1, 1);
-                opacity: 1;
-            }
-            25% {
-                transform: translate3d(0, -3px, 0) scale(1.02, 1.02);
-                opacity: 0.95;
-            }
-            100% {
-                transform: translate3d(0, 20px, 0) scale(0.5, 0.5);
-                opacity: 0;
-            }
-        }
-
-        .fab-bubble-item {
+        #fab-speed-dial-menu {
+            transform-origin: bottom right;
             will-change: transform, opacity;
-            transform-origin: center bottom;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            transform: translate3d(0, 0, 0);
-            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .fab-bubble-item.emerge {
-            animation: silkFluidEmerge 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-        .fab-bubble-item.retract {
-            animation: silkFluidRetract 0.22s cubic-bezier(0.4, 0, 0.2, 1) both;
+            transform: translate3d(0, 12px, 0) scale(0.92);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease !important;
         }
 
-        /* Staggered Budding Sequence (Bottom to Top: dari terdekat FAB ke atas) */
-        .fab-bubble-item:nth-child(4).emerge { animation-delay: 0s; }
-        .fab-bubble-item:nth-child(3).emerge { animation-delay: 0.03s; }
-        .fab-bubble-item:nth-child(2).emerge { animation-delay: 0.06s; }
-        .fab-bubble-item:nth-child(1).emerge { animation-delay: 0.09s; }
+        #fab-speed-dial-menu.card-open {
+            transform: translate3d(0, 0, 0) scale(1) !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
 
-        /* Staggered Suction Sequence (Top to Bottom: melipat mundur cepat & mulus) */
-        .fab-bubble-item:nth-child(1).retract { animation-delay: 0s; }
-        .fab-bubble-item:nth-child(2).retract { animation-delay: 0.02s; }
-        .fab-bubble-item:nth-child(3).retract { animation-delay: 0.04s; }
-        .fab-bubble-item:nth-child(4).retract { animation-delay: 0.06s; }
+        #fab-speed-dial-menu.card-closed {
+            transform: translate3d(0, 12px, 0) scale(0.92) !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
 
         /* ==========================================
            2b. DOCK BUOYANCY: UNIFIED SCROLL SUBMERGE & SMOOTH SURFACE (100% GPU TRANSFORM ACCELERATED)
@@ -3430,24 +3379,51 @@
 
         <!-- Container Tombol Aksi Speed Dial FAB -->
         <div class="relative">
-            <!-- Menu Melayang Speed Dial (Icon Bubbles Murni) -->
-            <div id="fab-speed-dial-menu" class="hidden absolute bottom-14 left-0 right-0 w-12 mx-auto flex flex-col items-center gap-2.5 mb-1 z-40 pointer-events-none">
-                <!-- 1. Catatan Kilat -->
-                <button type="button" onclick="fabAction('catatan')" title="Catatan Kilat" aria-label="Catatan Kilat" data-i18n-title="fab_catatan" data-i18n-aria="fab_catatan" class="fab-bubble-item w-11 h-11 rounded-full bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-[0_8px_20px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5)] border border-amber-500/30 text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-950/30 active:scale-90 transition-all flex items-center justify-center text-sm">
-                    <i class="fas fa-bolt"></i>
-                </button>
-                <!-- 2. Pemasukan -->
-                <button type="button" onclick="fabAction('pemasukan')" title="Catat Pemasukan" aria-label="Catat Pemasukan" data-i18n-title="fab_pemasukan" data-i18n-aria="fab_pemasukan" class="fab-bubble-item w-11 h-11 rounded-full bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-[0_8px_20px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5)] border border-emerald-500/30 text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 active:scale-90 transition-all flex items-center justify-center text-sm">
-                    <i class="fas fa-plus"></i>
-                </button>
-                <!-- 3. Pengeluaran -->
-                <button type="button" onclick="fabAction('pengeluaran')" title="Catat Pengeluaran" aria-label="Catat Pengeluaran" data-i18n-title="fab_pengeluaran" data-i18n-aria="fab_pengeluaran" class="fab-bubble-item w-11 h-11 rounded-full bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-[0_8px_20px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5)] border border-rose-500/30 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 active:scale-90 transition-all flex items-center justify-center text-sm">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <!-- 4. Tugas Baru -->
-                <button type="button" onclick="fabAction('tugas')" title="Tugas Baru" aria-label="Tugas Baru" data-i18n-title="fab_tugas" data-i18n-aria="fab_tugas" class="fab-bubble-item w-11 h-11 rounded-full bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-md shadow-[0_8px_20px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5)] border border-primary-500/30 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/30 active:scale-90 transition-all flex items-center justify-center text-sm">
-                    <i class="fas fa-check-circle"></i>
-                </button>
+            <!-- Menu Melayang Quick Action Card (2x2 Grid Popover) -->
+            <div id="fab-speed-dial-menu" class="hidden card-closed absolute bottom-16 right-0 w-64 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl rounded-[28px] p-3 shadow-[0_16px_40px_rgba(0,0,0,0.18)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.6)] border border-slate-200/90 dark:border-[#313f52]/90 z-40 pointer-events-none select-none">
+                <!-- Header Card Mini -->
+                <div class="flex items-center justify-between px-2 pt-0.5 pb-2 border-b border-slate-100 dark:border-[#242f3d] mb-2">
+                    <span class="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fas fa-bolt text-amber-500 text-[10px]"></i>
+                        <span data-i18n="quick_actions_title">Aksi Cepat</span>
+                    </span>
+                    <span class="w-2 h-2 rounded-full bg-primary-500"></span>
+                </div>
+
+                <!-- 2x2 Grid Aksi -->
+                <div class="grid grid-cols-2 gap-2">
+                    <!-- 1. Catat Pemasukan -->
+                    <button type="button" onclick="fabAction('pemasukan')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/25 hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40 active:scale-95 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 transition-all text-center group">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate w-full" data-i18n="fab_pemasukan">Catat Pemasukan</span>
+                    </button>
+
+                    <!-- 2. Catat Pengeluaran -->
+                    <button type="button" onclick="fabAction('pengeluaran')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-rose-50/70 dark:bg-rose-950/25 hover:bg-rose-100/60 dark:hover:bg-rose-900/40 active:scale-95 border border-rose-500/25 text-rose-600 dark:text-rose-400 transition-all text-center group">
+                        <div class="w-9 h-9 rounded-xl bg-rose-500 text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
+                            <i class="fas fa-minus"></i>
+                        </div>
+                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate w-full" data-i18n="fab_pengeluaran">Catat Pengeluaran</span>
+                    </button>
+
+                    <!-- 3. Tugas Baru -->
+                    <button type="button" onclick="fabAction('tugas')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-primary-50/70 dark:bg-primary-950/25 hover:bg-primary-100/60 dark:hover:bg-primary-900/40 active:scale-95 border border-primary-500/25 text-primary-600 dark:text-primary-400 transition-all text-center group">
+                        <div class="w-9 h-9 rounded-xl bg-primary-500 text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate w-full" data-i18n="fab_tugas">Tugas Baru</span>
+                    </button>
+
+                    <!-- 4. Catatan Kilat -->
+                    <button type="button" onclick="fabAction('catatan')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-amber-50/70 dark:bg-amber-950/25 hover:bg-amber-100/60 dark:hover:bg-amber-900/40 active:scale-95 border border-amber-500/25 text-amber-600 dark:text-amber-400 transition-all text-center group">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate w-full" data-i18n="fab_catatan">Catatan Kilat</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Tombol FAB Utama -->
@@ -3662,6 +3638,7 @@
                 nav_beranda: "Beranda",
                 nav_tugas: "Tugas",
                 nav_keuangan: "Uang",
+                quick_actions_title: "Aksi Cepat",
                 fab_catatan: "Catatan Kilat",
                 fab_pemasukan: "Catat Pemasukan",
                 fab_pengeluaran: "Catat Pengeluaran",
@@ -4245,6 +4222,7 @@
                 nav_beranda: "Home",
                 nav_tugas: "Tasks",
                 nav_keuangan: "Finances",
+                quick_actions_title: "Quick Actions",
                 fab_catatan: "Quick Note",
                 fab_pemasukan: "Record Income",
                 fab_pengeluaran: "Record Expense",
@@ -7378,31 +7356,21 @@
         }
 
         // ==========================================
-        // FITUR V33.11: SPEED-DIAL FLOATING ACTION BUTTON (FAB) (FLUID BUDDING BUBBLES)
+        // FITUR: QUICK ACTION CARD (2X2 GRID POPOVER - ZERO LAG & STABLE)
         // ==========================================
         let isFabOpen = false;
 
         function toggleFabSpeedDial() {
             var menu = document.getElementById('fab-speed-dial-menu');
             var icon = document.getElementById('fab-plus-icon');
-            var fabBtn = document.getElementById('fab-quick-add');
             if (!menu || !icon) return;
 
             isFabOpen = !isFabOpen;
             if (isFabOpen) {
-                if (fabBtn) {
-                    fabBtn.classList.remove('animate-fab-pulse');
-                    void fabBtn.offsetWidth;
-                    fabBtn.classList.add('animate-fab-pulse');
-                }
-                menu.classList.remove('hidden', 'pointer-events-none');
-                menu.classList.add('pointer-events-auto');
-
-                var items = menu.querySelectorAll('.fab-bubble-item');
-                items.forEach(function(item) {
-                    item.classList.remove('retract');
-                    item.classList.add('emerge');
-                });
+                menu.classList.remove('hidden');
+                void menu.offsetWidth; // Force layout for instant smooth CSS transition
+                menu.classList.remove('card-closed');
+                menu.classList.add('card-open');
                 icon.style.transform = 'rotate(45deg)';
             } else {
                 closeFabSpeedDial();
@@ -7410,37 +7378,21 @@
         }
 
         function closeFabSpeedDial() {
+            if (!isFabOpen) return; // Prevent any phantom bouncing/closing when already closed!
             var menu = document.getElementById('fab-speed-dial-menu');
             var icon = document.getElementById('fab-plus-icon');
-            var fabBtn = document.getElementById('fab-quick-add');
-            if (!menu) return;
             isFabOpen = false;
 
-            if (fabBtn) {
-                fabBtn.classList.remove('animate-fab-pulse');
-                void fabBtn.offsetWidth;
-                fabBtn.classList.add('animate-fab-pulse');
-            }
-
-            menu.classList.remove('pointer-events-auto');
-            menu.classList.add('pointer-events-none');
             if (icon) icon.style.transform = 'rotate(0deg)';
-
-            var items = menu.querySelectorAll('.fab-bubble-item');
-            items.forEach(function(item) {
-                item.classList.remove('emerge');
-                item.classList.add('retract');
-            });
-
-            // Waktu tunggu: delay terlama (66ms) + durasi retract (220ms) + buffer = 320ms
-            setTimeout(() => {
-                if (!isFabOpen) {
-                    menu.classList.add('hidden');
-                    items.forEach(function(item) {
-                        item.classList.remove('retract');
-                    });
-                }
-            }, 320);
+            if (menu) {
+                menu.classList.remove('card-open');
+                menu.classList.add('card-closed');
+                setTimeout(() => {
+                    if (!isFabOpen) {
+                        menu.classList.add('hidden');
+                    }
+                }, 220);
+            }
         }
 
         // ==========================================
