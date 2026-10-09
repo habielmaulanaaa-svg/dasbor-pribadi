@@ -2070,20 +2070,22 @@
 
 
         /* ==========================================
-           7. SELEKTOR DOMPET TETESAN MENGALIR & PERPINDAHAN WARNA HALUS (SEPERTI PRIORITAS)
+           7. SELEKTOR DOMPET TERPADU GAYA PRIORITAS TUGAS (TETESAN MERKURI & PERPINDAHAN WARNA HALUS)
            ========================================== */
-        #wallet-cards-track {
+        #wallet-selector-track {
             position: relative;
+            user-select: none;
+            -webkit-user-select: none;
         }
-        #wallet-liquid-mercury-aura {
+
+        #wallet-liquid-mercury-pill {
             position: absolute;
-            border-radius: 16px;
+            border-radius: 12px;
             pointer-events: none;
             z-index: 0;
-            will-change: left, width, top, height, opacity, background-color, border-color, box-shadow, transform;
+            will-change: left, width, top, height, opacity, transform, background-color, box-shadow;
             transform-origin: center center;
-            border-width: 1.5px;
-            border-style: solid;
+            opacity: 0;
         }
 
         @keyframes walletMercuryStretch {
@@ -2104,79 +2106,50 @@
             }
         }
 
-        #wallet-liquid-mercury-aura.mercury-flow-active {
+        #wallet-liquid-mercury-pill.mercury-flow-active {
             animation: walletMercuryStretch 0.38s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .wallet-card {
+        .wallet-btn {
             position: relative;
-            overflow: hidden;
-            transition: background-color 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-                        border-color 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-                        box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.28s cubic-bezier(0.34, 1.45, 0.64, 1),
-                        opacity 0.28s ease !important;
-            will-change: background-color, border-color, box-shadow, transform, opacity;
+            z-index: 1;
+            background: transparent !important;
+            border: 1px solid transparent !important;
+            color: #64748b;
+            transition: color 0.24s ease, transform 0.24s cubic-bezier(0.34, 1.45, 0.64, 1);
+            outline: none !important;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        /* State Aktif Tunai (Emerald) */
-        .wallet-card.active-tunai {
-            background-color: rgba(16, 185, 129, 0.16) !important;
-            border-color: #10b981 !important;
-            box-shadow: 0 6px 20px -2px rgba(16, 185, 129, 0.45) !important;
-            transform: translateY(-2px) scale(1.03) !important;
-            opacity: 1 !important;
-        }
-        .dark .wallet-card.active-tunai {
-            background-color: rgba(6, 78, 59, 0.5) !important;
-            border-color: #10b981 !important;
-            box-shadow: 0 6px 22px -2px rgba(16, 185, 129, 0.55) !important;
+        .dark .wallet-btn {
+            color: #94a3b8;
         }
 
-        /* State Aktif Bank (Blue Sapphire) */
-        .wallet-card.active-bank {
-            background-color: rgba(59, 130, 246, 0.16) !important;
-            border-color: #3b82f6 !important;
-            box-shadow: 0 6px 20px -2px rgba(59, 130, 246, 0.45) !important;
-            transform: translateY(-2px) scale(1.03) !important;
-            opacity: 1 !important;
-        }
-        .dark .wallet-card.active-bank {
-            background-color: rgba(30, 58, 138, 0.5) !important;
-            border-color: #3b82f6 !important;
-            box-shadow: 0 6px 22px -2px rgba(59, 130, 246, 0.55) !important;
+        .wallet-btn:hover {
+            color: #1e293b;
         }
 
-        /* State Aktif E-Wallet (Purple Amethyst) */
-        .wallet-card.active-ewallet {
-            background-color: rgba(168, 85, 247, 0.16) !important;
-            border-color: #a855f7 !important;
-            box-shadow: 0 6px 20px -2px rgba(168, 85, 247, 0.45) !important;
-            transform: translateY(-2px) scale(1.03) !important;
-            opacity: 1 !important;
-        }
-        .dark .wallet-card.active-ewallet {
-            background-color: rgba(88, 28, 135, 0.5) !important;
-            border-color: #a855f7 !important;
-            box-shadow: 0 6px 22px -2px rgba(168, 85, 247, 0.55) !important;
+        .dark .wallet-btn:hover {
+            color: #f1f5f9;
         }
 
-        /* Saat salah satu dompet terpilih, dompet lain sedikit redup halus */
-        .wallet-card.wallet-dimmed {
-            opacity: 0.55 !important;
-            transform: scale(0.97) !important;
-            box-shadow: none !important;
+        @keyframes walletBtnPop {
+            0% { transform: scale(0.93); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1.02); }
         }
 
-        /* Fluid Droplet Pop Animation saat ditekan */
-        .wallet-card.wallet-droplet-pop {
-            animation: walletDropletStretch 0.34s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        .wallet-btn.active {
+            color: #ffffff !important;
+            font-weight: 800 !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            animation: walletBtnPop 0.32s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
         }
-        @keyframes walletDropletStretch {
-            0% { transform: scale(1, 1); }
-            30% { transform: scale(0.93, 1.07); }
-            65% { transform: translateY(-2px) scale(1.06, 0.96); }
-            100% { transform: translateY(-2px) scale(1.03, 1.03); }
+
+        .wallet-btn:active {
+            transform: scale(0.92);
         }
 
         /* SINKRONISASI AKSESIBILITAS SISTEM (PREFERS-REDUCED-MOTION) */
@@ -2200,8 +2173,7 @@
                 animation: none !important;
                 transition: none !important;
             }
-            .wallet-card.wallet-droplet-pop,
-            #wallet-liquid-mercury-aura.mercury-flow-active,
+            #wallet-liquid-mercury-pill.mercury-flow-active,
             #filter-liquid-mercury-pill.mercury-flow-active {
                 animation: none !important;
             }
@@ -3555,41 +3527,32 @@
                         <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
                             <i class="fas fa-wallet text-primary-500"></i> <span data-i18n="finances_wallets_title">Kantong &amp; Multi-Dompet</span>
                         </h3>
-                        <div class="flex items-center gap-2">
-                            <span id="active-wallet-filter-text" class="text-[10px] font-bold text-primary-500" data-i18n="wallet_all">Semua Dompet</span>
-                            <div id="finance-arrows-dompet"></div>
-                        </div>
+                        <div id="finance-arrows-dompet"></div>
                     </div>
-                    <!-- 3 Kartu Dompet: Tunai, Rekening Bank, E-Wallet -->
-                    <div id="wallet-cards-track" class="relative grid grid-cols-3 gap-2 mb-2.5">
-                        <div id="wallet-liquid-mercury-aura" class="absolute pointer-events-none rounded-2xl z-0 opacity-0"></div>
-                        <div onclick="filterByWallet('tunai')" id="card-wallet-tunai" class="wallet-card relative z-10 cursor-pointer p-2.5 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-800/40 flex flex-col active:scale-95">
-                            <div class="flex items-center justify-between text-emerald-600 dark:text-emerald-400 mb-1">
-                                <i class="fas fa-money-bill-wave text-xs"></i>
-                                <span class="text-[8.5px] font-black uppercase" data-i18n="wallet_cash">Tunai</span>
-                            </div>
-                            <span id="stat-wallet-tunai" class="text-xs font-black text-slate-800 dark:text-white truncate">Rp 0</span>
-                        </div>
+                    <!-- Track Selektor Kantong & Multi-Dompet Terpadu (Gaya Prioritas Tugas) -->
+                    <div id="wallet-selector-track" class="relative grid grid-cols-4 gap-1 p-1 rounded-2xl bg-slate-100 dark:bg-[#0e1621] border border-slate-200/80 dark:border-[#313f52]/80 select-none overflow-hidden touch-pan-y">
+                        <!-- Liquid Mercury Pill Indicator (Mengalir & Berganti Warna dengan Halus) -->
+                        <div id="wallet-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl z-0 will-change-transform"></div>
 
-                        <div onclick="filterByWallet('bank')" id="card-wallet-bank" class="wallet-card relative z-10 cursor-pointer p-2.5 rounded-2xl bg-blue-50/60 dark:bg-blue-950/20 border border-blue-200/80 dark:border-blue-800/40 flex flex-col active:scale-95">
-                            <div class="flex items-center justify-between text-blue-600 dark:text-blue-400 mb-1">
-                                <i class="fas fa-university text-xs"></i>
-                                <span class="text-[8.5px] font-black uppercase" data-i18n="wallet_bank">Bank</span>
-                            </div>
-                            <span id="stat-wallet-bank" class="text-xs font-black text-slate-800 dark:text-white truncate">Rp 0</span>
-                        </div>
+                        <button type="button" data-wallet="semua" onclick="filterByWallet('semua', this)" class="wallet-btn active relative z-10 py-2 px-1 rounded-xl text-center flex flex-col items-center justify-center focus:outline-none transition-all">
+                            <span class="text-[9.5px] font-bold flex items-center gap-1 opacity-90"><i class="fas fa-layer-group text-[9px]"></i> <span data-i18n="wallet_all">Semua</span></span>
+                            <span id="stat-wallet-semua" class="text-[11px] font-black mt-0.5 truncate max-w-full">Rp 0</span>
+                        </button>
 
-                        <div onclick="filterByWallet('ewallet')" id="card-wallet-ewallet" class="wallet-card relative z-10 cursor-pointer p-2.5 rounded-2xl bg-purple-50/60 dark:bg-purple-950/20 border border-purple-200/80 dark:border-purple-800/40 flex flex-col active:scale-95">
-                            <div class="flex items-center justify-between text-purple-600 dark:text-purple-400 mb-1">
-                                <i class="fas fa-mobile-alt text-xs"></i>
-                                <span class="text-[8.5px] font-black uppercase" data-i18n="wallet_ewallet">E-Wallet</span>
-                            </div>
-                            <span id="stat-wallet-ewallet" class="text-xs font-black text-slate-800 dark:text-white truncate">Rp 0</span>
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-center text-[10px] text-slate-400">
-                        <span data-i18n="finances_wallet_tap_tip">*Ketuk dompet untuk filter riwayat</span>
-                        <button type="button" onclick="filterByWallet('semua')" data-i18n="finances_btn_reset_filter" class="text-primary-500 font-bold hover:underline">Reset Filter</button>
+                        <button type="button" data-wallet="tunai" onclick="filterByWallet('tunai', this)" class="wallet-btn relative z-10 py-2 px-1 rounded-xl text-center flex flex-col items-center justify-center focus:outline-none transition-all">
+                            <span class="text-[9.5px] font-bold flex items-center gap-1 opacity-90">💵 <span data-i18n="wallet_cash">Tunai</span></span>
+                            <span id="stat-wallet-tunai" class="text-[11px] font-black mt-0.5 truncate max-w-full">Rp 0</span>
+                        </button>
+
+                        <button type="button" data-wallet="bank" onclick="filterByWallet('bank', this)" class="wallet-btn relative z-10 py-2 px-1 rounded-xl text-center flex flex-col items-center justify-center focus:outline-none transition-all">
+                            <span class="text-[9.5px] font-bold flex items-center gap-1 opacity-90">🏦 <span data-i18n="wallet_bank">Bank</span></span>
+                            <span id="stat-wallet-bank" class="text-[11px] font-black mt-0.5 truncate max-w-full">Rp 0</span>
+                        </button>
+
+                        <button type="button" data-wallet="ewallet" onclick="filterByWallet('ewallet', this)" class="wallet-btn relative z-10 py-2 px-1 rounded-xl text-center flex flex-col items-center justify-center focus:outline-none transition-all">
+                            <span class="text-[9.5px] font-bold flex items-center gap-1 opacity-90">📱 <span data-i18n="wallet_ewallet">E-Wallet</span></span>
+                            <span id="stat-wallet-ewallet" class="text-[11px] font-black mt-0.5 truncate max-w-full">Rp 0</span>
+                        </button>
                     </div>
                 </div>
 
@@ -4230,7 +4193,7 @@
                 finances_total_expense: "Total Keluar",
                 finances_ratio_title: "PEMASUKAN vs PENGELUARAN",
                 finances_wallets_title: "Kantong & Multi-Dompet",
-                wallet_all: "Semua Dompet",
+                wallet_all: "Semua",
                 wallet_cash: "Tunai",
                 wallet_bank: "Bank",
                 wallet_ewallet: "E-Wallet",
@@ -4817,7 +4780,7 @@
                 finances_total_expense: "Total Expense",
                 finances_ratio_title: "INCOME vs EXPENSE",
                 finances_wallets_title: "Wallets & Accounts",
-                wallet_all: "All Wallets",
+                wallet_all: "All",
                 wallet_cash: "Cash",
                 wallet_bank: "Bank",
                 wallet_ewallet: "E-Wallet",
@@ -5362,7 +5325,7 @@
             if (typeof updateFilterMercuryPill === 'function') updateFilterMercuryPill(null, !!animate);
             if (typeof updateMoodMercuryPill === 'function') updateMoodMercuryPill(null, !!animate);
             if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, !!animate);
-            if (typeof updateWalletMercuryAura === 'function' && typeof activeWalletFilter !== 'undefined') updateWalletMercuryAura(activeWalletFilter, !!animate);
+            if (typeof updateWalletMercuryPill === 'function') updateWalletMercuryPill(null, !!animate);
         }
 
         function applyLanguageToDOM() {
@@ -5411,17 +5374,7 @@
                 }
             });
 
-            // 6. Dynamic active wallet text
-            var walletFilterEl = document.getElementById('active-wallet-filter-text');
-            if (walletFilterEl && typeof activeWalletFilter !== 'undefined') {
-                var names = {
-                    'tunai': `💵 ${t('wallet_cash', 'Tunai')}`,
-                    'bank': `🏦 ${t('wallet_bank', 'Bank')}`,
-                    'ewallet': `📱 ${t('wallet_ewallet', 'E-Wallet')}`,
-                    'semua': t('wallet_all', 'Semua Dompet')
-                };
-                walletFilterEl.innerText = names[activeWalletFilter] || t('wallet_all', 'Semua Dompet');
-            }
+
 
             // 7. Dynamic active toggle badge
             if (typeof updateActiveToggleCount === 'function') updateActiveToggleCount();
@@ -6023,70 +5976,77 @@
         // ==========================================
         // FITUR V33.00: MULTI-DOMPET / KANTONG KEUANGAN
         // ==========================================
-        function updateWalletMercuryAura(wId, animate) {
-            var aura = document.getElementById('wallet-liquid-mercury-aura');
-            var track = document.getElementById('wallet-cards-track');
-            if (!aura || !track) return;
-
-            if (!wId || wId === 'semua') {
-                aura.style.opacity = '0';
-                return;
+        function updateWalletMercuryPill(btn, animate) {
+            var pill = document.getElementById('wallet-liquid-mercury-pill');
+            var track = document.getElementById('wallet-selector-track');
+            if (!pill || !track) return;
+            if (!btn) {
+                btn = track.querySelector('.wallet-btn.active') || 
+                      track.querySelector('.wallet-btn[data-wallet="' + (activeWalletFilter || 'semua') + '"]') || 
+                      track.querySelector('.wallet-btn');
             }
+            if (!btn) return;
 
-            var card = document.getElementById('card-wallet-' + wId);
-            if (!card) return;
-
-            var w = card.offsetWidth;
-            var h = card.offsetHeight;
+            var w = btn.offsetWidth;
+            var h = btn.offsetHeight;
             if (w === 0 || h === 0) {
                 requestAnimationFrame(function() {
-                    updateWalletMercuryAura(wId, false);
+                    updateWalletMercuryPill(btn, false);
                 });
                 return;
             }
 
+            var walletKey = btn.getAttribute('data-wallet') || activeWalletFilter || 'semua';
             var isDark = document.documentElement.classList.contains('dark');
+
             var colorMap = {
+                semua: {
+                    bg: isDark ? 'hsl(var(--theme-h, 217), var(--theme-s, 80%), 46%)' : 'hsl(var(--theme-h, 217), var(--theme-s, 90%), 54%)',
+                    shadow: isDark ? '0 4px 20px hsla(var(--theme-h, 217), var(--theme-s, 90%), 50%, 0.55)' : '0 4px 18px hsla(var(--theme-h, 217), var(--theme-s, 90%), 50%, 0.42)'
+                },
                 tunai: {
-                    border: '#10b981',
-                    bg: isDark ? 'rgba(6, 78, 59, 0.45)' : 'rgba(209, 250, 229, 0.85)',
-                    shadow: isDark ? '0 8px 24px -2px rgba(16, 185, 129, 0.55)' : '0 8px 22px -2px rgba(16, 185, 129, 0.4)'
+                    bg: isDark ? '#059669' : '#10b981',
+                    shadow: isDark ? '0 4px 20px rgba(5, 150, 105, 0.6)' : '0 4px 18px rgba(16, 185, 129, 0.45)'
                 },
                 bank: {
-                    border: '#3b82f6',
-                    bg: isDark ? 'rgba(30, 58, 138, 0.45)' : 'rgba(219, 234, 254, 0.85)',
-                    shadow: isDark ? '0 8px 24px -2px rgba(59, 130, 246, 0.55)' : '0 8px 22px -2px rgba(59, 130, 246, 0.4)'
+                    bg: isDark ? '#2563eb' : '#3b82f6',
+                    shadow: isDark ? '0 4px 20px rgba(37, 99, 235, 0.6)' : '0 4px 18px rgba(59, 130, 246, 0.45)'
                 },
                 ewallet: {
-                    border: '#a855f7',
-                    bg: isDark ? 'rgba(88, 28, 135, 0.45)' : 'rgba(243, 232, 255, 0.85)',
-                    shadow: isDark ? '0 8px 24px -2px rgba(168, 85, 247, 0.55)' : '0 8px 22px -2px rgba(168, 85, 247, 0.4)'
+                    bg: isDark ? '#9333ea' : '#a855f7',
+                    shadow: isDark ? '0 4px 20px rgba(147, 51, 234, 0.6)' : '0 4px 18px rgba(168, 85, 247, 0.45)'
                 }
             };
 
-            var curColor = colorMap[wId] || colorMap.tunai;
+            var curColor = colorMap[walletKey] || colorMap.semua;
 
             if (animate === false) {
-                aura.style.transition = 'none';
+                pill.style.transition = 'none';
             } else {
-                aura.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.30s ease, border-color 0.30s ease, box-shadow 0.30s ease, top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
-                aura.classList.remove('mercury-flow-active');
-                void aura.offsetWidth;
-                aura.classList.add('mercury-flow-active');
-                if (aura._flowTimer) clearTimeout(aura._flowTimer);
-                aura._flowTimer = setTimeout(function() {
-                    aura.classList.remove('mercury-flow-active');
+                pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.30s ease, box-shadow 0.30s ease, top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.classList.remove('mercury-flow-active');
+                void pill.offsetWidth;
+                pill.classList.add('mercury-flow-active');
+                if (pill._flowTimer) clearTimeout(pill._flowTimer);
+                pill._flowTimer = setTimeout(function() {
+                    pill.classList.remove('mercury-flow-active');
                 }, 380);
             }
 
-            aura.style.left = card.offsetLeft + 'px';
-            aura.style.top = card.offsetTop + 'px';
-            aura.style.width = w + 'px';
-            aura.style.height = h + 'px';
-            aura.style.backgroundColor = curColor.bg;
-            aura.style.borderColor = curColor.border;
-            aura.style.boxShadow = curColor.shadow;
-            aura.style.opacity = '1';
+            pill.style.left = btn.offsetLeft + 'px';
+            pill.style.top = btn.offsetTop + 'px';
+            pill.style.width = w + 'px';
+            pill.style.height = h + 'px';
+            pill.style.backgroundColor = curColor.bg;
+            pill.style.boxShadow = curColor.shadow;
+            pill.style.opacity = '1';
+        }
+
+        // Alias kompatibilitas
+        function updateWalletMercuryAura(wId, animate) {
+            var track = document.getElementById('wallet-selector-track');
+            var btn = track ? track.querySelector('.wallet-btn[data-wallet="' + (wId || activeWalletFilter || 'semua') + '"]') : null;
+            updateWalletMercuryPill(btn, animate);
         }
 
         function selectFormWallet(walletId, mode, btnEl) {
@@ -6114,57 +6074,89 @@
             }
         }
 
-        function filterByWallet(walletId) {
+        function filterByWallet(walletId, btn) {
             triggerHaptic('light');
-            activeWalletFilter = walletId;
-            var textEl = document.getElementById('active-wallet-filter-text');
-            var badgeColors = {
-                'tunai': 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800/40',
-                'bank': 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded-full border border-blue-300 dark:border-blue-800/40',
-                'ewallet': 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-2 py-0.5 rounded-full border border-purple-300 dark:border-purple-800/40',
-                'semua': 'text-primary-500'
-            };
-            if (textEl) {
-                var names = {
-                    'tunai': `💵 ${t('wallet_cash', 'Tunai')}`,
-                    'bank': `🏦 ${t('wallet_bank', 'Bank')}`,
-                    'ewallet': `📱 ${t('wallet_ewallet', 'E-Wallet')}`,
-                    'semua': t('wallet_all', 'Semua Dompet')
-                };
-                textEl.innerText = names[walletId] || t('wallet_all', 'Semua Dompet');
-                textEl.className = 'text-[10px] font-bold transition-all duration-300 ' + (badgeColors[walletId] || 'text-primary-500');
+            activeWalletFilter = walletId || 'semua';
+            var track = document.getElementById('wallet-selector-track');
+            if (track) {
+                track.querySelectorAll('.wallet-btn').forEach(function(b) {
+                    b.classList.remove('active');
+                });
             }
+            if (!btn && track) {
+                btn = track.querySelector('.wallet-btn[data-wallet="' + activeWalletFilter + '"]');
+            }
+            if (btn) {
+                void btn.offsetWidth;
+                btn.classList.add('active');
+            }
+            updateWalletMercuryPill(btn, true);
+            perbaruiTampilan();
+        }
 
-            var isAnySelected = (walletId === 'tunai' || walletId === 'bank' || walletId === 'ewallet');
+        function initWalletTrackGestures() {
+            var track = document.getElementById('wallet-selector-track');
+            if (!track || track._gestureInit) return;
+            track._gestureInit = true;
 
-            ['tunai', 'bank', 'ewallet'].forEach(function(wId) {
-                var card = document.getElementById('card-wallet-' + wId);
-                if (card) {
-                    card.classList.remove('active-tunai', 'active-bank', 'active-ewallet', 'wallet-dimmed', 'wallet-droplet-pop');
-                    if (activeWalletFilter === wId) {
-                        card.classList.add('active-' + wId);
-                        void card.offsetWidth;
-                        card.classList.add('wallet-droplet-pop');
-                        setTimeout(function() { card.classList.remove('wallet-droplet-pop'); }, 350);
-                    } else if (isAnySelected) {
-                        card.classList.add('wallet-dimmed');
+            var startX = 0;
+            var startY = 0;
+            var isSwiping = false;
+            var walletOrder = ['semua', 'tunai', 'bank', 'ewallet'];
+
+            track.addEventListener('touchstart', function(e) {
+                if (!e.touches || !e.touches[0]) return;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                isSwiping = true;
+            }, { passive: true });
+
+            track.addEventListener('touchend', function(e) {
+                if (!isSwiping || !e.changedTouches || !e.changedTouches[0]) return;
+                isSwiping = false;
+                var endX = e.changedTouches[0].clientX;
+                var endY = e.changedTouches[0].clientY;
+                var diffX = endX - startX;
+                var diffY = endY - startY;
+
+                if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY) * 1.3) {
+                    var currentIndex = walletOrder.indexOf(activeWalletFilter);
+                    if (currentIndex === -1) currentIndex = 0;
+                    if (diffX < 0) {
+                        // Geser kiri -> Dompet berikutnya
+                        if (currentIndex < walletOrder.length - 1) {
+                            var nextWallet = walletOrder[currentIndex + 1];
+                            var nextBtn = track.querySelector('.wallet-btn[data-wallet="' + nextWallet + '"]');
+                            filterByWallet(nextWallet, nextBtn);
+                        }
+                    } else {
+                        // Geser kanan -> Dompet sebelumnya
+                        if (currentIndex > 0) {
+                            var prevWallet = walletOrder[currentIndex - 1];
+                            var prevBtn = track.querySelector('.wallet-btn[data-wallet="' + prevWallet + '"]');
+                            filterByWallet(prevWallet, prevBtn);
+                        }
                     }
                 }
-            });
-
-            updateWalletMercuryAura(walletId, true);
-            perbaruiTampilan();
+            }, { passive: true });
         }
 
         function renderWallets() {
             var balances = { tunai: 0, bank: 0, ewallet: 0 };
+            var totalSemua = 0;
             (dataState.transaksi || []).forEach(function(t) {
                 var w = t.walletId || 'tunai';
                 if (balances[w] === undefined) balances[w] = 0;
-                if (t.jenis === 'masuk') balances[w] += (t.nominal || 0);
-                else balances[w] -= (t.nominal || 0);
+                if (t.jenis === 'masuk') {
+                    balances[w] += (t.nominal || 0);
+                    totalSemua += (t.nominal || 0);
+                } else {
+                    balances[w] -= (t.nominal || 0);
+                    totalSemua -= (t.nominal || 0);
+                }
             });
 
+            animateNumber('stat-wallet-semua', totalSemua, true);
             animateNumber('stat-wallet-tunai', balances.tunai || 0, true);
             animateNumber('stat-wallet-bank', balances.bank || 0, true);
             animateNumber('stat-wallet-ewallet', balances.ewallet || 0, true);
@@ -7786,14 +7778,14 @@
                 applyFinanceWidgetOrder();
                 setTimeout(function() {
                     updateFilterMercuryPill(null, false);
-                    if (typeof updateWalletMercuryAura === 'function' && typeof activeWalletFilter !== 'undefined') {
-                        updateWalletMercuryAura(activeWalletFilter, false);
+                    if (typeof updateWalletMercuryPill === 'function') {
+                        updateWalletMercuryPill(null, false);
                     }
                 }, 40);
                 setTimeout(function() {
                     updateFilterMercuryPill(null, false);
-                    if (typeof updateWalletMercuryAura === 'function' && typeof activeWalletFilter !== 'undefined') {
-                        updateWalletMercuryAura(activeWalletFilter, false);
+                    if (typeof updateWalletMercuryPill === 'function') {
+                        updateWalletMercuryPill(null, false);
                     }
                 }, 120);
             }
@@ -11144,6 +11136,8 @@
                 updateFilterMercuryPill(null, false);
                 updateMoodMercuryPill(null, false);
                 if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, false);
+                if (typeof updateWalletMercuryPill === 'function') updateWalletMercuryPill(null, false);
+                if (typeof initWalletTrackGestures === 'function') initWalletTrackGestures();
                 initFluidCardInteractions();
                 initFluidToggleGestures();
             }, 80);
@@ -11175,11 +11169,11 @@
                         });
                         roPrio.observe(prioTrack);
                     }
-                    var walletTrack = document.getElementById('wallet-cards-track');
+                    var walletTrack = document.getElementById('wallet-selector-track');
                     if (walletTrack) {
                         var roWallet = new ResizeObserver(function() {
-                            if (typeof updateWalletMercuryAura === 'function' && typeof activeWalletFilter !== 'undefined') {
-                                updateWalletMercuryAura(activeWalletFilter, false);
+                            if (typeof updateWalletMercuryPill === 'function') {
+                                updateWalletMercuryPill(null, false);
                             }
                         });
                         roWallet.observe(walletTrack);
