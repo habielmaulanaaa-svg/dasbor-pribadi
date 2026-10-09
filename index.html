@@ -3949,15 +3949,7 @@
                 }
             });
 
-            // Cek update otomatis saat user kembali membuka aplikasi dari recent apps / multitasking
-            document.addEventListener('visibilitychange', function() {
-                if (document.visibilityState === 'visible' && swRegistration) {
-                    if (swRegistration.waiting && navigator.serviceWorker.controller) {
-                        swRegistration.waiting.postMessage({ action: 'skipWaiting' });
-                    }
-                    swRegistration.update();
-                }
-            });
+            // Cek update otomatis saat resume ditangani secara terpusat oleh handleAppVisibilityResume()
         }
 
         // FUNGSI CEK & PAKSA PEMBARUAN PINTAR (SMART UPDATE ADAPTIF: APK MANDIRI / WEB PWA)
@@ -5915,9 +5907,7 @@
                 applyCardGradientVisual();
             }
         }
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'visible') applyAutoThemeClock();
-        });
+        // Evaluasi auto-theme saat resume ditangani secara terpusat oleh handleAppVisibilityResume()
         setInterval(applyAutoThemeClock, 60000);
 
         function toggleOpsiSubtaskTanggal() {
@@ -7437,11 +7427,22 @@
             let obj = document.getElementById(id);
             if(!obj) return;
             if (dataState.isPrivacyMode && isCurrency) {
+                if (obj._animRafId) cancelAnimationFrame(obj._animRafId);
+                obj._animRafId = null;
                 obj.innerText = "Rp ••••••••";
                 return;
             }
             let startVal = parseInt(obj.getAttribute('data-val')) || 0;
-            if(startVal === endVal) { obj.innerText = isCurrency ? formatRupiah(endVal) : endVal; return; }
+            if(startVal === endVal) {
+                if (obj._animRafId) cancelAnimationFrame(obj._animRafId);
+                obj._animRafId = null;
+                obj.innerText = isCurrency ? formatRupiah(endVal) : endVal;
+                return;
+            }
+            if (obj._animRafId) {
+                cancelAnimationFrame(obj._animRafId);
+                obj._animRafId = null;
+            }
             obj.setAttribute('data-val', endVal);
             let duration = 300, startTime = null;
             function step(t) {
@@ -7450,10 +7451,14 @@
                 let ease = 1 - Math.pow(1 - progress, 3);
                 let currentVal = Math.floor(ease * (endVal - startVal) + startVal);
                 obj.innerText = isCurrency ? formatRupiah(currentVal) : currentVal;
-                if (progress < 1) window.requestAnimationFrame(step);
-                else obj.innerText = isCurrency ? formatRupiah(endVal) : endVal;
+                if (progress < 1) {
+                    obj._animRafId = window.requestAnimationFrame(step);
+                } else {
+                    obj._animRafId = null;
+                    obj.innerText = isCurrency ? formatRupiah(endVal) : endVal;
+                }
             }
-            window.requestAnimationFrame(step);
+            obj._animRafId = window.requestAnimationFrame(step);
         }
 
         function changeUserName(newName) { 
@@ -9417,41 +9422,66 @@
             }
         }
 
-        // SWIPE GESTURE HANDLERS (GPU-EFFICIENT ON-DEMAND COMPOSITING)
-        function attachSwipeGestures(el, taskId) {
-            let startX = 0, startY = 0, currentX = 0, isTouching = false, hasMoved = false;
-            let rAF = null;
-            let wrapper = el.closest('.swipe-wrapper');
-            let leftLayer = wrapper ? wrapper.querySelector('.swipe-underlayer-left') : null;
-            let rightLayer = wrapper ? wrapper.querySelector('.swipe-underlayer-right') : null;
+        // ==========================================
+        // GESTUR SWIPE TUGAS TERDELEGASI (ZERO MEMORY LEAK & ZERO LISTENER RE-ATTACHMENT)
+        // ==========================================
+        let _swipeActiveItem = null;
+        let _swipeActiveTaskId = null;
+        let _swipeActiveWrapper = null;
+        let _swipeLeftLayer = null;
+        let _swipeRightLayer = null;
+        let _swipeStartX = 0, _swipeStartY = 0, _swipeCurrentX = 0;
+        let _isSwipingActive = false, _hasSwipedActive = false;
+        let _swipeRafId = null;
 
-            el.addEventListener('touchstart', (e) => {
-                if (e.target.closest('button, input, label, textarea')) return;
-                el.style.willChange = 'transform';
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-                currentX = startX;
-                isTouching = true;
-                hasMoved = false;
-                el.style.transition = 'none';
+        function initDelegatedTaskSwipeGestures() {
+            var container = document.getElementById('tugas');
+            if (!container || container._swipeDelegated) return;
+            container._swipeDelegated = true;
+
+            container.addEventListener('touchstart', (e) => {
+                if (!e.touches || !e.touches[0]) return;
+                // Jangan picu swipe jika menyentuh tombol aksi, input, checkbox, atau bodi sub-tugas
+                if (e.target.closest('button, input, label, textarea, .subtasks-accordion-grid')) return;
+
+                var item = e.target.closest('.swipe-item');
+                if (!item) return;
+
+                var taskId = item.getAttribute('data-task-id') || (item.id ? item.id.replace('task-li-', '') : null);
+                if (!taskId) return;
+
+                _swipeActiveItem = item;
+                _swipeActiveTaskId = parseInt(taskId) || taskId;
+                _swipeActiveWrapper = item.closest('.swipe-wrapper');
+                _swipeLeftLayer = _swipeActiveWrapper ? _swipeActiveWrapper.querySelector('.swipe-underlayer-left') : null;
+                _swipeRightLayer = _swipeActiveWrapper ? _swipeActiveWrapper.querySelector('.swipe-underlayer-right') : null;
+
+                _swipeStartX = e.touches[0].clientX;
+                _swipeStartY = e.touches[0].clientY;
+                _swipeCurrentX = _swipeStartX;
+                _isSwipingActive = true;
+                _hasSwipedActive = false;
+                _swipeActiveItem.style.willChange = 'transform';
+                _swipeActiveItem.style.transition = 'none';
             }, { passive: true });
 
-            el.addEventListener('touchmove', (e) => {
-                if (!isTouching) return;
+            container.addEventListener('touchmove', (e) => {
+                if (!_isSwipingActive || !_swipeActiveItem || !e.touches || !e.touches[0]) return;
+
                 let touchX = e.touches[0].clientX;
                 let touchY = e.touches[0].clientY;
-                let diffX = touchX - startX;
-                let diffY = touchY - startY;
+                let diffX = touchX - _swipeStartX;
+                let diffY = touchY - _swipeStartY;
 
-                if (!hasMoved && Math.abs(diffY) > Math.abs(diffX)) {
-                    isTouching = false;
-                    el.style.willChange = 'auto';
+                if (!_hasSwipedActive && Math.abs(diffY) > Math.abs(diffX)) {
+                    _isSwipingActive = false;
+                    if (_swipeActiveItem) _swipeActiveItem.style.willChange = 'auto';
                     return;
                 }
 
                 if (Math.abs(diffX) > 8) {
-                    hasMoved = true;
-                    currentX = touchX;
+                    _hasSwipedActive = true;
+                    _swipeCurrentX = touchX;
                     // Viscous Rubber-Band Damping (iOS-style non-linear elastic stretch past 60px)
                     let rawX = diffX;
                     let sign = Math.sign(rawX) || 1;
@@ -9465,27 +9495,41 @@
                         let dampedOver = (over * 50) / (over + 50); // asymptote at 60 + 50 = 110px
                         dampedDiff = sign * (threshold + dampedOver);
                     }
-                    
-                    if (rAF) cancelAnimationFrame(rAF);
-                    rAF = requestAnimationFrame(() => {
-                        el.style.transform = `translate3d(${dampedDiff}px, 0, 0)`;
-                        if (leftLayer && rightLayer) {
+
+                    if (_swipeRafId) cancelAnimationFrame(_swipeRafId);
+                    _swipeRafId = requestAnimationFrame(() => {
+                        if (!_swipeActiveItem) return;
+                        _swipeActiveItem.style.transform = `translate3d(${dampedDiff}px, 0, 0)`;
+                        if (_swipeLeftLayer && _swipeRightLayer) {
                             if (dampedDiff > 0) {
-                                leftLayer.style.opacity = Math.min(dampedDiff / 50, 1);
-                                rightLayer.style.opacity = '0';
+                                _swipeLeftLayer.style.opacity = Math.min(dampedDiff / 50, 1);
+                                _swipeRightLayer.style.opacity = '0';
                             } else {
-                                rightLayer.style.opacity = Math.min(Math.abs(dampedDiff) / 50, 1);
-                                leftLayer.style.opacity = '0';
+                                _swipeRightLayer.style.opacity = Math.min(Math.abs(dampedDiff) / 50, 1);
+                                _swipeLeftLayer.style.opacity = '0';
                             }
                         }
                     });
                 }
             }, { passive: true });
 
-            const handleTouchEnd = () => {
-                if (!isTouching) return;
-                isTouching = false;
-                if (rAF) cancelAnimationFrame(rAF);
+            const handleDelegatedTouchEnd = () => {
+                if (!_isSwipingActive || !_swipeActiveItem) return;
+                _isSwipingActive = false;
+                if (_swipeRafId) cancelAnimationFrame(_swipeRafId);
+
+                let el = _swipeActiveItem;
+                let taskId = _swipeActiveTaskId;
+                let leftLayer = _swipeLeftLayer;
+                let rightLayer = _swipeRightLayer;
+                let hasMoved = _hasSwipedActive;
+                let diff = _swipeCurrentX - _swipeStartX;
+
+                _swipeActiveItem = null;
+                _swipeActiveTaskId = null;
+                _swipeActiveWrapper = null;
+                _swipeLeftLayer = null;
+                _swipeRightLayer = null;
 
                 if (!hasMoved) {
                     el.style.transition = '';
@@ -9493,14 +9537,11 @@
                     el.style.willChange = 'auto';
                     if (leftLayer) leftLayer.style.opacity = '0';
                     if (rightLayer) rightLayer.style.opacity = '0';
-                    startX = 0; currentX = 0;
                     return;
                 }
-                hasMoved = false;
-                let diff = currentX - startX;
-                
+
                 if (diff > 65) {
-                    // Action triggered: swipe right (selesai)
+                    // Action triggered: swipe right (selesai / urungkan)
                     el.style.transition = 'transform 0.22s cubic-bezier(0.2, 0.8, 0.4, 1)';
                     el.style.transform = 'translate3d(120px, 0, 0)';
                     setTimeout(() => {
@@ -9529,11 +9570,17 @@
                     if (leftLayer) leftLayer.style.opacity = '0';
                     if (rightLayer) rightLayer.style.opacity = '0';
                 }
-                startX = 0; currentX = 0;
             };
 
-            el.addEventListener('touchend', handleTouchEnd, { passive: true });
-            el.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+            container.addEventListener('touchend', handleDelegatedTouchEnd, { passive: true });
+            container.addEventListener('touchcancel', handleDelegatedTouchEnd, { passive: true });
+        }
+
+        // Backward compatibility stub
+        function attachSwipeGestures(el, taskId) {
+            if (typeof initDelegatedTaskSwipeGestures === 'function') {
+                initDelegatedTaskSwipeGestures();
+            }
         }
 
         // --- CRUD TARGET TABUNGAN ---
@@ -10302,7 +10349,7 @@
                     ${t('swipe_delete', 'Hapus')} <i class="fas fa-trash text-base"></i>
                 </div>
                 <!-- Kartu Depan -->
-                <div id="task-li-${task.id}" class="swipe-item relative z-10 rounded-2xl border border-slate-200 dark:border-[#242f3d] bg-white dark:bg-[#17212b] p-3.5 flex flex-col shadow-sm compact-pad">
+                <div id="task-li-${task.id}" data-task-id="${task.id}" class="swipe-item relative z-10 rounded-2xl border border-slate-200 dark:border-[#242f3d] bg-white dark:bg-[#17212b] p-3.5 flex flex-col shadow-sm compact-pad">
                     <div class="flex items-center justify-between w-full">
                         <div class="flex-1 min-w-0 pr-3">
                             <div class="flex items-center gap-1.5 flex-wrap">
@@ -10439,10 +10486,6 @@
                 var iconEl = document.getElementById('icon-' + stackKey);
                 if(arr.length > 0) {
                     el.innerHTML = `<ul class="accordion-inner space-y-2 px-1 pt-2">${arr.map(t => generateTaskHTML(t)).join('')}</ul>`;
-                    arr.forEach(t => {
-                        var item = document.getElementById(`task-li-${t.id}`);
-                        if(item) attachSwipeGestures(item, t.id);
-                    });
                     if(iconEl) {
                         var isOpen = el.classList.contains('open');
                         iconEl.classList.toggle('open', isOpen);
@@ -10471,42 +10514,60 @@
                 var mondayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dayOfWeek);
                 var startOfWeekIso = `${mondayDate.getFullYear()}-${String(mondayDate.getMonth() + 1).padStart(2, '0')}-${String(mondayDate.getDate()).padStart(2, '0')}`;
 
-                var filteredTrx = dataState.transaksi.filter(t => {
-                    if (searchQueryTransaksi && !t.catatan.toLowerCase().includes(searchQueryTransaksi) && (!t.kategori || !t.kategori.toLowerCase().includes(searchQueryTransaksi))) {
-                        return false;
-                    }
-                    if (activeWalletFilter !== 'semua' && (t.walletId || 'tunai') !== activeWalletFilter) {
-                        return false;
-                    }
-                    if (periodeTransaksiVal === 'hari-ini') return t.isoDate === todayIso;
-                    if (periodeTransaksiVal === 'minggu-ini') return t.isoDate && t.isoDate >= startOfWeekIso && t.isoDate <= todayIso;
-                    if (periodeTransaksiVal === 'bulan-ini') return t.isoDate && t.isoDate.startsWith(currentMonthStr);
-                    if (periodeTransaksiVal === 'tahun-ini') return t.isoDate && t.isoDate.startsWith(currentYearStr);
-                    return true;
-                });
+                var trxCount = (dataState.transaksi || []).length;
+                var trxHeadId = trxCount > 0 ? dataState.transaksi[0].id : 0;
+                var trxTailId = trxCount > 0 ? dataState.transaksi[trxCount - 1].id : 0;
+                var trxRenderSig = [
+                    trxCount,
+                    trxHeadId,
+                    trxTailId,
+                    searchQueryTransaksi || '',
+                    activeWalletFilter || 'semua',
+                    periodeTransaksiVal || 'semua',
+                    dataState.language || 'id',
+                    dataState.isPrivacyMode ? '1' : '0',
+                    todayIso
+                ].join('|');
 
-                rKeuangan.innerHTML = filteredTrx.length 
-                    ? `<ul class="accordion-inner space-y-2 px-1 pt-2">${filteredTrx.slice().reverse().map(trx => `
-                        <li class="flex items-center justify-between p-3.5 bg-white dark:bg-[#17212b] rounded-2xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
-                            <div class="min-w-0 flex-1 pr-2">
-                                <p class="text-xs font-bold text-slate-800 dark:text-white truncate compact-text-title">${escapeHtml(trx.catatan)}</p>
-                                <div class="flex items-center gap-1.5 mt-0.5 flex-wrap">
-                                    <span class="text-[9px] ${getCategoryBadgeClass(trx.kategori)} px-2 py-0.5 rounded-lg font-bold">${escapeHtml(getKategoriLabel(trx.kategori) || (dataState && dataState.language === 'en' ? '📁 Transaction' : '📁 Transaksi'))}</span>
-                                    ${getWalletBadge(trx.walletId)}
-                                    <span class="text-[10px] text-slate-400 font-medium">${trx.tanggal}</span>
+                if (rKeuangan._lastRenderSig !== trxRenderSig || !rKeuangan.firstElementChild) {
+                    rKeuangan._lastRenderSig = trxRenderSig;
+                    var filteredTrx = dataState.transaksi.filter(t => {
+                        if (searchQueryTransaksi && !t.catatan.toLowerCase().includes(searchQueryTransaksi) && (!t.kategori || !t.kategori.toLowerCase().includes(searchQueryTransaksi))) {
+                            return false;
+                        }
+                        if (activeWalletFilter !== 'semua' && (t.walletId || 'tunai') !== activeWalletFilter) {
+                            return false;
+                        }
+                        if (periodeTransaksiVal === 'hari-ini') return t.isoDate === todayIso;
+                        if (periodeTransaksiVal === 'minggu-ini') return t.isoDate && t.isoDate >= startOfWeekIso && t.isoDate <= todayIso;
+                        if (periodeTransaksiVal === 'bulan-ini') return t.isoDate && t.isoDate.startsWith(currentMonthStr);
+                        if (periodeTransaksiVal === 'tahun-ini') return t.isoDate && t.isoDate.startsWith(currentYearStr);
+                        return true;
+                    });
+
+                    rKeuangan.innerHTML = filteredTrx.length 
+                        ? `<ul class="accordion-inner space-y-2 px-1 pt-2">${filteredTrx.slice().reverse().map(trx => `
+                            <li class="flex items-center justify-between p-3.5 bg-white dark:bg-[#17212b] rounded-2xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
+                                <div class="min-w-0 flex-1 pr-2">
+                                    <p class="text-xs font-bold text-slate-800 dark:text-white truncate compact-text-title">${escapeHtml(trx.catatan)}</p>
+                                    <div class="flex items-center gap-1.5 mt-0.5 flex-wrap">
+                                        <span class="text-[9px] ${getCategoryBadgeClass(trx.kategori)} px-2 py-0.5 rounded-lg font-bold">${escapeHtml(getKategoriLabel(trx.kategori) || (dataState && dataState.language === 'en' ? '📁 Transaction' : '📁 Transaksi'))}</span>
+                                        ${getWalletBadge(trx.walletId)}
+                                        <span class="text-[10px] text-slate-400 font-medium">${trx.tanggal}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flex items-center gap-2 shrink-0">
-                                <span class="text-xs font-black ${trx.jenis === 'masuk' ? 'text-green-600' : 'text-red-600'}">${trx.jenis === 'masuk' ? '+' : '-'} ${formatRupiah(trx.nominal)}</span>
-                                <button type="button" onclick="hapusTransaksi(${trx.id}, this)" aria-label="${t('savings_delete_tooltip', 'Hapus')}" title="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 p-1"><i class="fas fa-trash text-xs"></i></button>
-                            </div>
-                        </li>
-                    `).join('')}</ul>`
-                    : `<div class="accordion-inner px-1 pt-2"><div class="p-4 text-center rounded-2xl bg-slate-50 dark:bg-[#242f3d]/30 border border-dashed border-slate-200 dark:border-[#313f52]">
-                        <div class="w-10 h-10 mx-auto rounded-full bg-primary-50 dark:bg-primary-950/30 text-primary-500 flex items-center justify-center text-base mb-1.5">💳</div>
-                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200">${t('finances_no_transactions', 'Belum ada transaksi')}</p>
-                        <p class="text-[10px] text-slate-400 font-semibold">${t('finances_record_prompt', 'Catat pemasukan atau pengeluaran Anda.')}</p>
-                    </div></div>`;
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <span class="text-xs font-black ${trx.jenis === 'masuk' ? 'text-green-600' : 'text-red-600'}">${trx.jenis === 'masuk' ? '+' : '-'} ${formatRupiah(trx.nominal)}</span>
+                                    <button type="button" onclick="hapusTransaksi(${trx.id}, this)" aria-label="${t('savings_delete_tooltip', 'Hapus')}" title="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 p-1"><i class="fas fa-trash text-xs"></i></button>
+                                </div>
+                            </li>
+                        `).join('')}</ul>`
+                        : `<div class="accordion-inner px-1 pt-2"><div class="p-4 text-center rounded-2xl bg-slate-50 dark:bg-[#242f3d]/30 border border-dashed border-slate-200 dark:border-[#313f52]">
+                            <div class="w-10 h-10 mx-auto rounded-full bg-primary-50 dark:bg-primary-950/30 text-primary-500 flex items-center justify-center text-base mb-1.5">💳</div>
+                            <p class="text-xs font-bold text-slate-700 dark:text-slate-200">${t('finances_no_transactions', 'Belum ada transaksi')}</p>
+                            <p class="text-[10px] text-slate-400 font-semibold">${t('finances_record_prompt', 'Catat pemasukan atau pengeluaran Anda.')}</p>
+                        </div></div>`;
+                }
             }
 
             renderBerandaWidgets(dl, reg);
@@ -10516,23 +10577,31 @@
             var kTxt = document.getElementById('jurnal-kosong-teks');
             var btnTop = document.getElementById('btn-tambah-jurnal-top');
             if(lj) {
-                if(dataState.jurnal && dataState.jurnal.length) {
-                    if(btnTop) btnTop.classList.remove('hidden');
-                    if(kTxt) kTxt.classList.add('hidden');
-                    lj.innerHTML = dataState.jurnal.slice().reverse().map(j => `
-                        <div class="jurnal-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm relative overflow-hidden compact-pad">
-                            <div class="flex justify-between items-start mb-1">
-                                <span class="text-[10px] text-slate-400 font-bold">${j.tanggal}</span>
-                                <div class="flex items-center gap-2"><span>${j.mood || '😊'}</span><button type="button" onclick="hapusJurnal(${j.id}, this)" aria-label="${t('savings_delete_tooltip', 'Hapus')}" title="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 p-1"><i class="fas fa-trash text-xs"></i></button></div>
+                var jCount = (dataState.jurnal || []).length;
+                var jHeadId = jCount > 0 ? dataState.jurnal[0].id : 0;
+                var jTailId = jCount > 0 ? dataState.jurnal[jCount - 1].id : 0;
+                var jRenderSig = [jCount, jHeadId, jTailId, dataState.language || 'id'].join('|');
+
+                if (lj._lastRenderSig !== jRenderSig || (!lj.firstElementChild && jCount > 0)) {
+                    lj._lastRenderSig = jRenderSig;
+                    if(jCount > 0) {
+                        if(btnTop) btnTop.classList.remove('hidden');
+                        if(kTxt) kTxt.classList.add('hidden');
+                        lj.innerHTML = dataState.jurnal.slice().reverse().map(j => `
+                            <div class="jurnal-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm relative overflow-hidden compact-pad">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="text-[10px] text-slate-400 font-bold">${j.tanggal}</span>
+                                    <div class="flex items-center gap-2"><span>${j.mood || '😊'}</span><button type="button" onclick="hapusJurnal(${j.id}, this)" aria-label="${t('savings_delete_tooltip', 'Hapus')}" title="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 p-1"><i class="fas fa-trash text-xs"></i></button></div>
+                                </div>
+                                <h3 class="font-bold text-slate-800 dark:text-white text-sm mb-1 compact-text-title">${escapeHtml(j.judul)}</h3>
+                                <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">${escapeHtml(j.isi)}</p>
                             </div>
-                            <h3 class="font-bold text-slate-800 dark:text-white text-sm mb-1 compact-text-title">${escapeHtml(j.judul)}</h3>
-                            <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">${escapeHtml(j.isi)}</p>
-                        </div>
-                    `).join('');
-                } else {
-                    if(btnTop) btnTop.classList.add('hidden');
-                    lj.innerHTML = '';
-                    if(kTxt) kTxt.classList.remove('hidden');
+                        `).join('');
+                    } else {
+                        if(btnTop) btnTop.classList.add('hidden');
+                        lj.innerHTML = '';
+                        if(kTxt) kTxt.classList.remove('hidden');
+                    }
                 }
             }
         }
@@ -11138,6 +11207,7 @@
                 if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, false);
                 if (typeof updateWalletMercuryPill === 'function') updateWalletMercuryPill(null, false);
                 if (typeof initWalletTrackGestures === 'function') initWalletTrackGestures();
+                if (typeof initDelegatedTaskSwipeGestures === 'function') initDelegatedTaskSwipeGestures();
                 initFluidCardInteractions();
                 initFluidToggleGestures();
             }, 80);
@@ -12005,15 +12075,38 @@
             }
         }
 
-        window.addEventListener('online', handleNetworkOnline);
-        window.addEventListener('offline', handleNetworkOffline);
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'visible') {
+        // HANDLER SENTRAL: Resume aplikasi saat pengguna kembali membuka aplikasi (Poin 4 Optimasi Memori)
+        function handleAppVisibilityResume() {
+            if (document.visibilityState !== 'visible') return;
+
+            // 1. Cek update otomatis Service Worker jika tersedia
+            if (typeof swRegistration !== 'undefined' && swRegistration) {
+                try {
+                    if (swRegistration.waiting && navigator.serviceWorker && navigator.serviceWorker.controller) {
+                        swRegistration.waiting.postMessage({ action: 'skipWaiting' });
+                    }
+                    if (typeof swRegistration.update === 'function') {
+                        swRegistration.update().catch(function() {});
+                    }
+                } catch(e) {}
+            }
+
+            // 2. Evaluasi sinkronisasi jam tema otomatis
+            if (typeof applyAutoThemeClock === 'function') {
+                applyAutoThemeClock();
+            }
+
+            // 3. Probe status koneksi jaringan
+            if (typeof checkNetworkStateProbe === 'function') {
                 checkNetworkStateProbe();
             }
-        });
+        }
+
+        window.addEventListener('online', handleNetworkOnline);
+        window.addEventListener('offline', handleNetworkOffline);
+        document.addEventListener('visibilitychange', handleAppVisibilityResume);
         window.addEventListener('focus', function() {
-            checkNetworkStateProbe();
+            if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
         const CURRENT_APP_VERSION = 'v1.1.6 (Stable)';
