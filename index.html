@@ -8237,15 +8237,22 @@
         }
         
         function toggleStack(stackId, iconId, count) {
-            if (count === 0) return; 
             var stack = document.getElementById(stackId);
             var icon = document.getElementById(iconId);
-            if(stack && icon) {
-                var isOpen = stack.classList.toggle('open');
-                icon.classList.toggle('open', isOpen);
-                icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
-                if (typeof triggerHaptic === 'function') triggerHaptic('light');
+            if (!stack) return; 
+
+            var numItems = (typeof count === 'number' && !isNaN(count)) 
+                ? count 
+                : (parseInt(count, 10) || stack.querySelectorAll('.swipe-wrapper, li, .widget-card').length);
+            if (numItems <= 0) return; 
+
+            var willBeOpen = !stack.classList.contains('open');
+            stack.classList.toggle('open', willBeOpen);
+            if (icon) {
+                icon.classList.toggle('open', willBeOpen);
+                icon.style.transform = willBeOpen ? 'rotate(180deg)' : 'rotate(0deg)';
             }
+            if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
 
         function bukaJurnal() { toggleSidebar(); switchTab('jurnal'); }
@@ -9109,10 +9116,10 @@
                         if (Array.isArray(targetTask.subtasks)) {
                             targetTask.subtasks.forEach(s => s.selesai = true);
                         }
+                        activeTogglingTasks.delete(id);
                         lastToggledId = id;
                         simpanData();
                         lastToggledId = null;
-                        activeTogglingTasks.delete(id);
 
                         var totalAktifSesudah = dataState.tugas.filter(t => !t.selesai).length;
                         if (totalAktifSesudah === 0) {
@@ -9136,7 +9143,6 @@
 
                     setTimeout(() => {
                         targetTask.selesai = false;
-                        lastToggledId = id;
                         
                         // Buka stack tujuan secara otomatis
                         if (targetTask.deadline) {
@@ -9157,9 +9163,10 @@
                             }
                         }
 
+                        activeTogglingTasks.delete(id);
+                        lastToggledId = id;
                         simpanData();
                         lastToggledId = null;
-                        activeTogglingTasks.delete(id);
                         triggerDynamicIsland(t('toast_task_undo_title', "Tugas Diurungkan"), `"${targetTask.nama}" ${t('toast_task_undo_suffix', 'dikembalikan ↩️')}`, "fas fa-undo", "bg-amber-500/20 text-amber-400");
                     }, 280);
                 }
@@ -9940,16 +9947,15 @@
 
         function generateTaskHTML(task) {
             var isJustToggled = (task.id === lastToggledId);
-            var isActivelyToggling = (typeof activeTogglingTasks !== 'undefined') && activeTogglingTasks.has(task.id);
-            var animCheckClass = (isJustToggled || isActivelyToggling) ? ' liquid-task-btn animating-ripple liquid-bubble-rise' : '';
-            var animStrikeClass = ((task.selesai && isJustToggled) || isActivelyToggling) ? ' animate-strike-fade' : '';
-            var isTaskChecked = task.selesai || isActivelyToggling;
+            var animCheckClass = isJustToggled ? ' liquid-task-btn animating-ripple liquid-bubble-rise' : '';
+            var animStrikeClass = (task.selesai && isJustToggled) ? ' animate-strike-fade' : '';
+            var isTaskChecked = !!task.selesai;
 
             var labelSelesai = isTaskChecked 
-                ? (task.selesai ? t('task_tooltip_undo', 'Urungkan Tugas') : t('task_tooltip_done', 'Tandai Selesai'))
+                ? t('task_tooltip_undo', 'Urungkan Tugas')
                 : t('task_tooltip_done', 'Tandai Selesai');
             var btnSelesai = isTaskChecked 
-                ? `<button type="button" onclick="toggleStatusTugas(${task.id})" class="w-8 h-8 rounded-full ${task.selesai ? 'bg-primary-100 dark:bg-primary-900/50 text-primary-500' : 'bg-emerald-500 text-white'} flex items-center justify-center${animCheckClass}" aria-label="${labelSelesai}" title="${labelSelesai}"><i class="fas ${task.selesai ? 'fa-undo' : 'fa-check'} text-xs"></i></button>`
+                ? `<button type="button" onclick="toggleStatusTugas(${task.id})" class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-500 flex items-center justify-center${animCheckClass}" aria-label="${labelSelesai}" title="${labelSelesai}"><i class="fas fa-undo text-xs"></i></button>`
                 : `<button type="button" onclick="toggleStatusTugas(${task.id})" class="w-8 h-8 rounded-full border-2 border-slate-300 dark:border-[#313f52] text-slate-400 hover:bg-green-500 hover:text-white flex items-center justify-center transition-colors${animCheckClass}" aria-label="${labelSelesai}" title="${labelSelesai}"><i class="fas fa-check text-xs"></i></button>`;
             
             var btnHapus = `<button type="button" onclick="hapusTugas(${task.id}, this)" class="text-slate-300 hover:text-red-500 p-1.5 focus:outline-none" aria-label="${t('task_tooltip_delete', 'Hapus Tugas')}" title="${t('task_tooltip_delete', 'Hapus Tugas')}"><i class="fas fa-trash text-xs"></i></button>`;
@@ -10064,7 +10070,7 @@
                 </div>`;
             }
 
-            return `<li class="swipe-wrapper relative overflow-hidden rounded-2xl${isActivelyToggling ? ' completing-item' : ''}">
+            return `<li class="swipe-wrapper relative overflow-hidden rounded-2xl">
                 <!-- Underlayer Peek -->
                 ${leftUnderlayerHTML}
                 <div class="swipe-underlayer-right absolute inset-y-0 right-0 w-full bg-red-500 flex items-center justify-end px-4 text-white font-black text-xs gap-1.5 opacity-0 pointer-events-none">
@@ -10205,16 +10211,21 @@
             const renderStackClean = (arr, id, stackKey) => {
                 var el = document.getElementById(id);
                 if(!el) return;
+                var iconEl = document.getElementById('icon-' + stackKey);
                 if(arr.length > 0) {
                     el.innerHTML = `<ul class="accordion-inner space-y-2 px-1 pt-2">${arr.map(t => generateTaskHTML(t)).join('')}</ul>`;
                     arr.forEach(t => {
                         var item = document.getElementById(`task-li-${t.id}`);
                         if(item) attachSwipeGestures(item, t.id);
                     });
+                    if(iconEl) {
+                        var isOpen = el.classList.contains('open');
+                        iconEl.classList.toggle('open', isOpen);
+                        iconEl.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
                 } else {
                     el.innerHTML = '';
                     el.classList.remove('open');
-                    var iconEl = document.getElementById('icon-' + stackKey);
                     if(iconEl) {
                         iconEl.style.transform = 'rotate(0deg)';
                         iconEl.classList.remove('open');
