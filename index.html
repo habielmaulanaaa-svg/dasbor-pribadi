@@ -2837,10 +2837,6 @@
                     <input type="checkbox" id="w-toggle-fin-anggaran" onchange="toggleFinanceWidgetVisibility('anggaran', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
                 </div>
                 <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-calendar-check text-purple-500"></i> <span data-i18n="finances_subscriptions_title">Tagihan &amp; Langganan Rutin</span></span>
-                    <input type="checkbox" id="w-toggle-fin-tagihan" onchange="toggleFinanceWidgetVisibility('tagihan', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
-                </div>
-                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200 dark:border-[#313f52] flex items-center justify-between">
                     <span class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2"><i class="fas fa-chart-pie text-sky-500"></i> <span data-i18n="finances_allocation_title">Alokasi Pengeluaran (Donut)</span></span>
                     <input type="checkbox" id="w-toggle-fin-alokasi" onchange="toggleFinanceWidgetVisibility('alokasi', this.checked)" class="w-4 h-4 accent-emerald-600 cursor-pointer">
                 </div>
@@ -2965,45 +2961,6 @@
                 <button type="button" onclick="saveBudgets()" class="bg-primary-600 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md hover:bg-primary-700" data-i18n="budget_btn_save">Simpan Anggaran</button>
                 <button type="button" onclick="closeBottomSheet('budget-modal')" class="bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-300 py-2.5 rounded-2xl text-xs font-bold hover:bg-slate-200" data-i18n="budget_btn_cancel">Batal</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Bottom Sheet: Kelola Tagihan & Langganan Rutin -->
-    <div id="subscription-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
-        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col overflow-y-auto">
-            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
-            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-calendar-check text-purple-500"></i> <span data-i18n="subs_modal_title">Kelola Tagihan &amp; Langganan</span></h3>
-                <button type="button" onclick="closeBottomSheet('subscription-modal')" aria-label="Tutup tagihan dan langganan" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
-            </div>
-            
-            <!-- Form Tambah Langganan -->
-            <div class="p-3.5 bg-purple-50/50 dark:bg-purple-950/20 rounded-2xl border border-purple-200/60 dark:border-purple-800/40 mb-4 space-y-2.5">
-                <span class="text-[10px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400 block" data-i18n="subs_add_title">+ Tambah Tagihan Baru</span>
-                <input type="text" id="input-sub-nama" placeholder="Nama Tagihan (contoh: Netflix, PLN, WiFi)..." data-i18n-placeholder="subs_placeholder_name" class="w-full border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none">
-                <input type="text" inputmode="numeric" id="input-sub-nominal" placeholder="Nominal (Rp) contoh: 150,000..." data-i18n-placeholder="subs_placeholder_nominal" oninput="handleNominalInput(this)" class="w-full border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none">
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1" data-i18n="subs_label_due_date">Tanggal Jatuh Tempo (Tanggal 1-31)</label>
-                        <input type="number" id="input-sub-tanggal" min="1" max="31" placeholder="15" class="w-full border rounded-xl px-3 py-2 text-xs font-bold focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1" data-i18n="subs_label_source_wallet">Dompet Sumber</label>
-                        <select id="input-sub-wallet" class="w-full border rounded-xl px-2 py-2 text-xs font-bold focus:outline-none bg-white dark:bg-[#17212b]">
-                            <option value="tunai" data-i18n="wallet_cash">💵 Tunai</option>
-                            <option value="bank" selected data-i18n="finances_wallet_bank_account">🏦 Rekening Bank</option>
-                            <option value="ewallet" data-i18n="wallet_ewallet">📱 E-Wallet</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="button" onclick="tambahLangganan()" class="w-full bg-purple-600 text-white py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-purple-700 transition-colors" data-i18n="subs_btn_save">+ Simpan Tagihan Rutin</button>
-            </div>
-
-            <!-- Daftar Langganan Aktif -->
-            <span class="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-2" data-i18n="subs_active_list">Daftar Langganan Aktif</span>
-            <div id="modal-list-subscriptions" class="space-y-2 mb-4"></div>
-
-            <button type="button" onclick="closeBottomSheet('subscription-modal')" class="w-full bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-300 py-2.5 rounded-2xl text-xs font-bold hover:bg-slate-200 mt-auto" data-i18n="subs_btn_close">Tutup</button>
         </div>
     </div>
 
@@ -3543,24 +3500,6 @@
                     </div>
                 </div>
 
-                <!-- 5. WIDGET: PELACAK TAGIHAN & LANGGANAN RUTIN -->
-                <div id="finance-widget-tagihan" class="finance-widget-block widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="font-bold text-slate-700 dark:text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                            <i class="fas fa-calendar-check text-purple-500"></i> <span data-i18n="finances_subscriptions_title">Tagihan &amp; Langganan Rutin</span>
-                        </h3>
-                        <div class="flex items-center gap-2">
-                            <button type="button" onclick="openBottomSheet('subscription-modal')" class="text-[10px] font-bold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1">
-                                <i class="fas fa-plus"></i> <span data-i18n="finances_btn_manage">Kelola</span>
-                            </button>
-                            <div id="finance-arrows-tagihan"></div>
-                        </div>
-                    </div>
-                    <div id="subscription-cards-container" class="space-y-2">
-                        <!-- Subscriptions dynamically rendered by renderSubscriptions() -->
-                    </div>
-                </div>
-
                 <!-- 6. WIDGET: DIAGRAM DONUT ALOKASI PENGELUARAN -->
                 <div id="finance-widget-alokasi" class="finance-widget-block widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
                     <div class="flex justify-between items-center mb-3">
@@ -3594,9 +3533,20 @@
                         <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
                             <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-3 text-sm flex items-center"><i class="fas fa-arrow-down text-green-500 mr-2"></i><span data-i18n="finances_tab_income">Pemasukan</span></h3>
                             <div class="space-y-2">
-                                <div>
-                                    <input type="text" id="input-masuk-nominal" inputmode="numeric" placeholder="Nominal (Rp) misal: 50,000 atau 20,000+15,000..." data-i18n-placeholder="finances_placeholder_nominal_income" oninput="handleNominalInput(this, 'preview-masuk-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
-                                    <div id="preview-masuk-math" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hidden pl-1 pt-1"></div>
+                                <div class="space-y-1.5">
+                                    <div class="relative flex items-center">
+                                        <input type="text" id="input-masuk-nominal" inputmode="numeric" placeholder="Tambah pemasukan (Rp)..." data-i18n-placeholder="finances_placeholder_nominal_income" oninput="handleNominalInput(this, 'preview-masuk-math')" class="w-full border rounded-xl pl-3 pr-9 py-2 text-sm font-bold focus:outline-none">
+                                        <button type="button" onclick="toggleNominalHint('masuk')" title="Petunjuk &amp; kalkulator" class="absolute right-2.5 w-6 h-6 rounded-lg flex items-center justify-center text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 active:scale-90 transition-all text-xs" aria-label="Petunjuk nominal pemasukan">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </div>
+                                    <div id="hint-masuk-nominal" class="hidden text-[11px] font-medium bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/40 text-emerald-800 dark:text-emerald-300 p-2.5 rounded-xl">
+                                        <div class="flex items-start gap-1.5">
+                                            <i class="fas fa-lightbulb text-emerald-500 mt-0.5 shrink-0"></i>
+                                            <span><strong data-i18n="finances_hint_title">Format &amp; Kalkulator:</strong> <span data-i18n="finances_hint_income_desc">Ketik nominal langsung (misal: 50.000) atau kalkulator otomatis (misal: 20.000+15.000 / 50.000*2).</span></span>
+                                        </div>
+                                    </div>
+                                    <div id="preview-masuk-math" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hidden pl-1 pt-0.5"></div>
                                 </div>
                                 <input type="text" id="input-masuk-catatan" placeholder="Keterangan..." data-i18n-placeholder="finances_placeholder_description" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
                                 
@@ -3619,9 +3569,20 @@
                         <div class="widget-card bg-white dark:bg-[#17212b] p-4 rounded-3xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
                             <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-2 text-sm flex items-center"><i class="fas fa-arrow-up text-red-500 mr-2"></i><span data-i18n="finances_tab_expense">Pengeluaran</span></h3>
                             <div class="space-y-2">
-                                <div>
-                                    <input type="text" id="input-keluar-nominal" inputmode="numeric" placeholder="Nominal (Rp) misal: 50,000 atau 25,000*2..." data-i18n-placeholder="finances_placeholder_nominal_expense" oninput="handleNominalInput(this, 'preview-keluar-math')" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
-                                    <div id="preview-keluar-math" class="text-xs font-bold text-rose-600 dark:text-rose-400 hidden pl-1 pt-1"></div>
+                                <div class="space-y-1.5">
+                                    <div class="relative flex items-center">
+                                        <input type="text" id="input-keluar-nominal" inputmode="numeric" placeholder="Jumlah uang keluar (Rp)..." data-i18n-placeholder="finances_placeholder_nominal_expense" oninput="handleNominalInput(this, 'preview-keluar-math')" class="w-full border rounded-xl pl-3 pr-9 py-2 text-sm font-bold focus:outline-none">
+                                        <button type="button" onclick="toggleNominalHint('keluar')" title="Petunjuk &amp; kalkulator" class="absolute right-2.5 w-6 h-6 rounded-lg flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 active:scale-90 transition-all text-xs" aria-label="Petunjuk nominal pengeluaran">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </div>
+                                    <div id="hint-keluar-nominal" class="hidden text-[11px] font-medium bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-800/40 text-rose-800 dark:text-rose-300 p-2.5 rounded-xl">
+                                        <div class="flex items-start gap-1.5">
+                                            <i class="fas fa-lightbulb text-rose-500 mt-0.5 shrink-0"></i>
+                                            <span><strong data-i18n="finances_hint_title">Format &amp; Kalkulator:</strong> <span data-i18n="finances_hint_expense_desc">Ketik nominal langsung (misal: 50.000) atau kalkulator otomatis (misal: 25.000*2 / 15.000+35.000).</span></span>
+                                        </div>
+                                    </div>
+                                    <div id="preview-keluar-math" class="text-xs font-bold text-rose-600 dark:text-rose-400 hidden pl-1 pt-0.5"></div>
                                 </div>
                                 <input type="text" id="input-keluar-catatan" placeholder="Keterangan..." data-i18n-placeholder="finances_placeholder_description" class="w-full border rounded-xl px-3 py-2 text-sm font-bold focus:outline-none">
                                 
@@ -4254,8 +4215,11 @@
                 finances_label_category: "Kategori",
                 finances_btn_add_income: "Tambah Pemasukan",
                 finances_btn_add_expense: "Catat Pengeluaran",
-                finances_placeholder_nominal_income: "Nominal (Rp) misal: 50,000 atau 20,000+15,000...",
-                finances_placeholder_nominal_expense: "Nominal (Rp) misal: 50,000 atau 25,000*2...",
+                finances_placeholder_nominal_income: "Tambah pemasukan (Rp)...",
+                finances_placeholder_nominal_expense: "Jumlah uang keluar (Rp)...",
+                finances_hint_title: "Format & Kalkulator:",
+                finances_hint_income_desc: "Ketik nominal langsung (misal: 50.000) atau kalkulator otomatis (misal: 20.000+15.000 / 50.000*2).",
+                finances_hint_expense_desc: "Ketik nominal langsung (misal: 50.000) atau kalkulator otomatis (misal: 25.000*2 / 15.000+35.000).",
                 finances_placeholder_description: "Keterangan...",
                 finances_wallet_tap_tip: "*Ketuk dompet untuk filter riwayat",
                 finances_btn_reset_filter: "Reset Filter",
@@ -4838,8 +4802,11 @@
                 finances_label_category: "Category",
                 finances_btn_add_income: "Add Income",
                 finances_btn_add_expense: "Record Expense",
-                finances_placeholder_nominal_income: "Amount (Rp) e.g. 50,000 or 20,000+15,000...",
-                finances_placeholder_nominal_expense: "Amount (Rp) e.g. 50,000 or 25,000*2...",
+                finances_placeholder_nominal_income: "Add income (Rp)...",
+                finances_placeholder_nominal_expense: "Expense amount (Rp)...",
+                finances_hint_title: "Format & Calculator:",
+                finances_hint_income_desc: "Enter amount directly (e.g., 50,000) or calculate instantly (e.g., 20,000+15,000 / 50,000*2).",
+                finances_hint_expense_desc: "Enter amount directly (e.g., 50,000) or calculate instantly (e.g., 25,000*2 / 15,000+35,000).",
                 finances_placeholder_description: "Description / note...",
                 finances_wallet_tap_tip: "*Tap wallet to filter history",
                 finances_btn_reset_filter: "Reset Filter",
@@ -5414,6 +5381,8 @@
             hapticFeedback: true,
             hiddenWidgets: [],
             widgetOrder: ['tabungan', 'deadline', 'reguler'],
+            hiddenFinanceWidgets: ['skor_kesehatan', 'anggaran', 'alokasi'],
+            financeWidgetOrder: ['dompet', 'skor_kesehatan', 'anggaran', 'alokasi', 'form_transaksi', 'riwayat'],
             rekapHarian: [],
             tugas: [], 
             transaksi: [], 
@@ -5451,7 +5420,7 @@
         let saveHueTimeout = null;
         let isSwappingWidget = false;
         let isSwappingFinanceWidget = false;
-        const DEFAULT_FINANCE_WIDGETS = ['dompet', 'skor_kesehatan', 'anggaran', 'tagihan', 'alokasi', 'form_transaksi', 'riwayat'];
+        const DEFAULT_FINANCE_WIDGETS = ['dompet', 'skor_kesehatan', 'anggaran', 'alokasi', 'form_transaksi', 'riwayat'];
         let isRekapBannerDismissed = false;
 
         // SISTEM NOTIFIKASI DINAMIS: IN-PLACE MORPHING & OVERWRITE (ANTI-ANTREAN & ANTI-HILANG)
@@ -6084,186 +6053,8 @@
             container.innerHTML = html;
         }
 
-        // ==========================================
-        // FITUR V33.00: PELACAK TAGIHAN & LANGGANAN RUTIN
-        // ==========================================
-        function openSubscriptionModal() {
-            renderSubscriptionModalList();
-            openBottomSheet('subscription-modal');
-        }
-
-        function renderSubscriptionModalList() {
-            var listEl = document.getElementById('modal-list-subscriptions');
-            if (!listEl) return;
-            var subs = dataState.subscriptions || [];
-            if (subs.length === 0) {
-                listEl.innerHTML = `
-                    <div class="p-3 text-center rounded-2xl bg-slate-50 dark:bg-[#242f3d]/30 border border-dashed border-slate-200 dark:border-[#313f52] text-slate-400 text-xs">
-                        ${t('subs_empty_list', 'Belum ada langganan atau tagihan rutin.')}
-                    </div>
-                `;
-                return;
-            }
-            listEl.innerHTML = subs.map(function(s) {
-                return `
-                    <div class="flex items-center justify-between p-2.5 bg-white dark:bg-[#242f3d]/50 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60">
-                        <div class="min-w-0 flex-1 pr-2">
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-xs font-bold text-slate-800 dark:text-white truncate">${escapeHtml(s.nama)}</span>
-                                <span class="text-[9px] px-1.5 py-0.5 rounded bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-300 font-bold">${t('subs_due_day_prefix', 'Tanggal')} ${s.tanggalJatuhTempo}</span>
-                            </div>
-                            <span class="text-[10px] font-black text-rose-600 dark:text-rose-400">${formatRupiah(s.nominal)} ${t('subs_per_month', '/ bulan')}</span>
-                        </div>
-                        <button type="button" onclick="hapusLangganan(${s.id})" aria-label="${t('savings_delete_tooltip', 'Hapus')}" title="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 p-1.5"><i class="fas fa-trash text-xs"></i></button>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        let _isAddingLangganan = false;
-        function tambahLangganan() {
-            if (_isAddingLangganan) return;
-            var nama = (document.getElementById('input-sub-nama').value || '').trim();
-            var nominalStr = document.getElementById('input-sub-nominal').value || '';
-            var nominal = parseInt(nominalStr.replace(/[^0-9]/g, ''), 10);
-            var tgl = parseInt(document.getElementById('input-sub-tanggal').value, 10);
-            var walletId = document.getElementById('input-sub-wallet').value || 'bank';
-
-            if (!nama) {
-                triggerHaptic('error');
-                triggerDynamicIsland(t('subs_widget_title', "Langganan"), t('toast_sub_name_empty', "Masukkan nama tagihan!"), "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
-                return;
-            }
-            if (isNaN(nominal) || nominal <= 0) {
-                triggerHaptic('error');
-                triggerDynamicIsland(t('subs_widget_title', "Langganan"), t('toast_finances_valid_amount', "Masukkan nominal valid!"), "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
-                return;
-            }
-            if (isNaN(tgl) || tgl < 1 || tgl > 31) {
-                triggerHaptic('error');
-                triggerDynamicIsland(t('subs_widget_title', "Langganan"), t('toast_sub_invalid_date', "Tanggal harus antara 1 sampai 31!"), "fas fa-exclamation-triangle", "bg-red-500/20 text-red-400");
-                return;
-            }
-
-            _isAddingLangganan = true;
-            setTimeout(function() { _isAddingLangganan = false; }, 400);
-
-            if (!Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
-            dataState.subscriptions.push({
-                id: generateUniqueId(),
-                nama: nama,
-                nominal: nominal,
-                tanggalJatuhTempo: tgl,
-                kategori: '💡 Tagihan',
-                walletId: walletId
-            });
-
-            document.getElementById('input-sub-nama').value = '';
-            document.getElementById('input-sub-nominal').value = '';
-            document.getElementById('input-sub-tanggal').value = '';
-            var prev = document.getElementById('preview-sub-nominal');
-            if (prev) { prev.classList.add('hidden'); prev.innerHTML = ''; }
-
-            simpanData();
-            renderSubscriptionModalList();
-            triggerHaptic('success');
-            var isEn = (dataState && dataState.language === 'en');
-            triggerDynamicIsland(t('toast_sub_new_title', "Langganan Baru 📅"), isEn ? `Reminder "${nama}" saved successfully` : `Pengingat "${nama}" berhasil disimpan`, "fas fa-bell", "bg-purple-500/20 text-purple-400");
-        }
-
-        function hapusLangganan(id) {
-            if (!confirm(t('confirm_delete_subscription', "Hapus pengingat langganan ini?"))) return;
-            dataState.subscriptions = (dataState.subscriptions || []).filter(function(s) { return s.id !== id; });
-            simpanData();
-            renderSubscriptionModalList();
-            triggerHaptic('medium');
-            triggerDynamicIsland(t('toast_sub_deleted_title', "Dihapus"), t('toast_sub_deleted_desc', "Langganan berhasil dihapus"), "fas fa-trash", "bg-red-500/20 text-red-400");
-        }
-
-        let _isPayingSub = false;
-        function bayarLangganan(id) {
-            if (_isPayingSub) return;
-            var sub = (dataState.subscriptions || []).find(function(s) { return s.id === id; });
-            if (!sub) return;
-
-            _isPayingSub = true;
-            setTimeout(function() { _isPayingSub = false; }, 500);
-
-            var isEn = (dataState && dataState.language === 'en');
-            var notePrefix = isEn ? 'Subscription:' : 'Bayar Langganan:';
-            dataState.transaksi.push({
-                id: generateUniqueId(),
-                jenis: 'keluar',
-                nominal: sub.nominal,
-                catatan: `${notePrefix} ${sub.nama}`,
-                kategori: '💡 Tagihan',
-                walletId: sub.walletId || 'bank',
-                isoDate: getRekapDateString(),
-                tanggal: getWibDate().toLocaleDateString(getAppLocale(), { day: 'numeric', month: 'short' })
-            });
-
-            simpanData();
-            triggerHaptic('success');
-            triggerDynamicIsland(t('toast_sub_paid_title', "Tagihan Dibayar ✅"), isEn ? `${sub.nama} ${formatRupiah(sub.nominal)} recorded to expenses!` : `${sub.nama} ${formatRupiah(sub.nominal)} dicatat ke pengeluaran!`, "fas fa-receipt", "bg-emerald-500/20 text-emerald-400");
-        }
-
-        function renderSubscriptions() {
-            var container = document.getElementById('subscription-cards-container');
-            if (!container) return;
-            var subs = dataState.subscriptions || [];
-
-            if (subs.length === 0) {
-                container.innerHTML = `
-                    <div class="p-3 text-center rounded-2xl bg-slate-50 dark:bg-[#242f3d]/30 border border-dashed border-slate-200 dark:border-[#313f52]">
-                        <p class="text-[11px] font-bold text-slate-600 dark:text-slate-300">${t('subs_empty_list', 'Belum ada tagihan rutin')}</p>
-                        <p class="text-[9px] text-slate-400 mt-0.5">${(dataState && dataState.language === 'en') ? 'Track WiFi, Netflix, PLN bills for due date countdown.' : 'Catat langganan WiFi, Netflix, PLN untuk countdown jatuh tempo.'}</p>
-                    </div>
-                `;
-                return;
-            }
-
-            var todayDate = new Date().getDate();
-            var daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
-
-            container.innerHTML = subs.map(function(s) {
-                var diff = s.tanggalJatuhTempo - todayDate;
-                var countdownText = '';
-                var badgeClass = '';
-
-                if (diff === 0) {
-                    countdownText = t('subs_due_today', 'Hari Ini!');
-                    badgeClass = 'bg-rose-500 text-white animate-bounce';
-                } else if (diff > 0 && diff <= 3) {
-                    countdownText = `H-${diff}`;
-                    badgeClass = 'bg-amber-500 text-white animate-pulse';
-                } else if (diff > 0) {
-                    countdownText = `H-${diff}`;
-                    badgeClass = 'bg-purple-100 dark:bg-purple-950/50 text-purple-600 dark:text-purple-300';
-                } else {
-                    var nextDiff = (daysInMonth - todayDate) + s.tanggalJatuhTempo;
-                    countdownText = `H-${nextDiff}`;
-                    badgeClass = 'bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400';
-                }
-
-                return `
-                    <div class="p-3 bg-slate-50/70 dark:bg-[#242f3d]/40 rounded-2xl border border-slate-200/60 dark:border-[#313f52]/60 flex items-center justify-between">
-                        <div class="min-w-0 flex-1 pr-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs font-bold text-slate-800 dark:text-white truncate">${escapeHtml(s.nama)}</span>
-                                <span class="text-[9px] font-black px-2 py-0.5 rounded-full ${badgeClass}">${countdownText}</span>
-                            </div>
-                            <div class="flex items-center gap-1.5 mt-0.5">
-                                <span class="text-[11px] font-black text-slate-700 dark:text-slate-200">${formatRupiah(s.nominal)}</span>
-                                <span class="text-[9px] text-slate-400">${t('subs_due_date_info', 'Jatuh tempo tanggal')} ${s.tanggalJatuhTempo}</span>
-                            </div>
-                        </div>
-                        <button type="button" onclick="bayarLangganan(${s.id})" class="px-2.5 py-1.5 bg-purple-600 hover:bg-purple-700 active:scale-95 text-white rounded-xl text-[10px] font-bold transition-all shadow-xs flex items-center gap-1 shrink-0">
-                            <i class="fas fa-check"></i> ${t('subs_btn_pay', 'Bayar')}
-                        </button>
-                    </div>
-                `;
-            }).join('');
-        }
+        // Fitur Tagihan & Langganan Rutin telah dinonaktifkan/dihapus sesuai arahan pengguna
+        function renderSubscriptions() {}
 
         // ==========================================
         // FITUR V33.00: SKOR KESEHATAN FINANSIAL
@@ -9778,6 +9569,14 @@
             handleNominalInput(inputEl, previewId);
         }
 
+        function toggleNominalHint(jenis) {
+            var hintEl = document.getElementById(jenis === 'masuk' ? 'hint-masuk-nominal' : 'hint-keluar-nominal');
+            if (!hintEl) return;
+            var isHidden = hintEl.classList.contains('hidden');
+            hintEl.classList.toggle('hidden', !isHidden);
+            triggerHaptic('light');
+        }
+
         // --- LIQUID BALANCE TANK DROPLET FUSION & JELLY PULSE ---
         function triggerBalanceJellyPulse(type) {
             var card = document.getElementById('saldo-card-bg');
@@ -11011,13 +10810,21 @@
                 if (!dataState.widgetOrder.includes(k)) dataState.widgetOrder.push(k);
             });
             dataState.hiddenWidgets = dataState.hiddenWidgets.filter(k => k !== 'rekap');
-            if(!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
+            if(!Array.isArray(dataState.hiddenFinanceWidgets)) {
+                dataState.hiddenFinanceWidgets = ['skor_kesehatan', 'anggaran', 'alokasi'];
+            }
+            if (!dataState.v_fin_defaults_v2) {
+                ['skor_kesehatan', 'anggaran', 'alokasi'].forEach(k => {
+                    if (!dataState.hiddenFinanceWidgets.includes(k)) dataState.hiddenFinanceWidgets.push(k);
+                });
+                dataState.v_fin_defaults_v2 = true;
+            }
+            dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(k => k !== 'tagihan' && DEFAULT_FINANCE_WIDGETS.includes(k));
             if(!Array.isArray(dataState.financeWidgetOrder)) dataState.financeWidgetOrder = [...DEFAULT_FINANCE_WIDGETS];
-            dataState.financeWidgetOrder = dataState.financeWidgetOrder.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
+            dataState.financeWidgetOrder = dataState.financeWidgetOrder.filter(k => k !== 'tagihan' && DEFAULT_FINANCE_WIDGETS.includes(k));
             DEFAULT_FINANCE_WIDGETS.forEach(k => {
                 if (!dataState.financeWidgetOrder.includes(k)) dataState.financeWidgetOrder.push(k);
             });
-            dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
             if(!Array.isArray(dataState.wallets)) dataState.wallets = [
                 { id: 'tunai', nama: 'Tunai' },
                 { id: 'bank', nama: 'Bank' },
@@ -11675,13 +11482,15 @@
                                 if (!dataState.widgetOrder.includes(k)) dataState.widgetOrder.push(k);
                             });
                             dataState.hiddenWidgets = (dataState.hiddenWidgets || []).filter(k => k !== 'rekap');
-                            if(!Array.isArray(dataState.hiddenFinanceWidgets)) dataState.hiddenFinanceWidgets = [];
+                            if(!Array.isArray(dataState.hiddenFinanceWidgets)) {
+                                dataState.hiddenFinanceWidgets = ['skor_kesehatan', 'anggaran', 'alokasi'];
+                            }
+                            dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(k => k !== 'tagihan' && DEFAULT_FINANCE_WIDGETS.includes(k));
                             if(!Array.isArray(dataState.financeWidgetOrder)) dataState.financeWidgetOrder = [...DEFAULT_FINANCE_WIDGETS];
-                            dataState.financeWidgetOrder = dataState.financeWidgetOrder.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
+                            dataState.financeWidgetOrder = dataState.financeWidgetOrder.filter(k => k !== 'tagihan' && DEFAULT_FINANCE_WIDGETS.includes(k));
                             DEFAULT_FINANCE_WIDGETS.forEach(k => {
                                 if (!dataState.financeWidgetOrder.includes(k)) dataState.financeWidgetOrder.push(k);
                             });
-                            dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(k => DEFAULT_FINANCE_WIDGETS.includes(k));
                             if(!Array.isArray(dataState.wallets)) dataState.wallets = [
                                 { id: 'tunai', nama: 'Tunai' }, { id: 'bank', nama: 'Bank' }, { id: 'ewallet', nama: 'E-Wallet' }
                             ];
