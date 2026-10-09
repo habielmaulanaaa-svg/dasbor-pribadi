@@ -225,23 +225,57 @@
             max-width: 0;
             opacity: 0;
             margin-left: 0;
-            transform: scale(0.85) translateX(10px);
+            transform: scale(0.85) translateX(12px);
             overflow: hidden;
             pointer-events: none;
+            /* Transisi menutup (exit): santai, tenang, dan halus tanpa hentakan */
             transition: 
-                max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                margin-left 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                max-width 0.52s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.38s ease,
+                margin-left 0.52s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.50s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: max-width, opacity, margin-left, transform;
         }
 
         .header-cloud-sync-container.active {
-            max-width: 140px;
+            max-width: 145px;
             opacity: 1;
-            margin-left: 8px; /* Menggeser tombol kalender ke kiri secara halus */
+            margin-left: 8px; /* Menggeser tombol kalender ke kiri dengan pantulan fluida halus */
             transform: scale(1) translateX(0);
             pointer-events: auto;
+            /* Transisi membuka (enter): pelan dengan pantulan pegas fluida alami yang lembut */
+            transition: 
+                max-width 0.54s cubic-bezier(0.34, 1.20, 0.64, 1),
+                opacity 0.38s ease,
+                margin-left 0.54s cubic-bezier(0.34, 1.20, 0.64, 1),
+                transform 0.54s cubic-bezier(0.34, 1.20, 0.64, 1);
+        }
+
+        /* Denyut fluida halus saat ada aktivitas bertubi-tubi yang masuk secara cepat */
+        @keyframes cloudRapidActionPulse {
+            0% { transform: scale(1); }
+            40% { transform: scale(0.95); }
+            75% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        .header-cloud-sync-container.pulse-action #header-account-btn {
+            animation: cloudRapidActionPulse 0.34s cubic-bezier(0.25, 1.15, 0.45, 1);
+        }
+
+        /* Micro-bounce sukses saat data beres tersimpan */
+        @keyframes cloudSuccessMicroBounce {
+            0% { transform: scale(1); }
+            45% { transform: scale(1.06); }
+            80% { transform: scale(0.98); }
+            100% { transform: scale(1); }
+        }
+        .header-cloud-sync-container.success-bounce #header-account-btn {
+            animation: cloudSuccessMicroBounce 0.40s cubic-bezier(0.34, 1.25, 0.64, 1);
+        }
+
+        #header-calendar-btn {
+            transition: transform 0.54s cubic-bezier(0.34, 1.20, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+            will-change: transform;
         }
 
         /* ========================================================
@@ -11053,6 +11087,7 @@
         let currentUser = null;
         let cloudSyncTimer = null;
         let isSyncingToCloud = false;
+        let _hasPendingCloudSync = false;
 
         function formatTimeNow() {
             const now = new Date();
@@ -11270,7 +11305,21 @@
                 _cloudHideTimeout = null;
             }
 
-            wrapper.classList.add('active');
+            const wasActive = wrapper.classList.contains('active');
+
+            // Tangani aktivitas cepat bertubi-tubi:
+            // Jika pill sudah dalam posisi aktif (sedang tampil), jangan restart animasi masuknya.
+            // Cukup berikan denyut fluida taktil lembut (pulse-action) sebagai feedback seketika.
+            if (wasActive && (status === 'pending' || status === 'saving')) {
+                wrapper.classList.remove('success-bounce');
+                wrapper.classList.remove('pulse-action');
+                void wrapper.offsetWidth;
+                wrapper.classList.add('pulse-action');
+            } else if (!wasActive) {
+                wrapper.classList.remove('success-bounce');
+                wrapper.classList.remove('pulse-action');
+                wrapper.classList.add('active');
+            }
 
             if (status === 'pending') {
                 if (headerIcon) headerIcon.className = "fas fa-cloud-upload-alt text-xs text-primary-200 animate-pulse";
@@ -11282,18 +11331,24 @@
                 if (headerIcon) headerIcon.className = "fas fa-check-circle text-xs text-emerald-300";
                 if (headerText) headerText.innerText = isEn ? "Saved" : "Tersimpan";
 
+                wrapper.classList.remove('pulse-action');
+                wrapper.classList.remove('success-bounce');
+                void wrapper.offsetWidth;
+                wrapper.classList.add('success-bounce');
+
+                // Tampilkan selama 1.4 detik agar terbaca jelas, lalu meluncur kembali secara santai & halus
                 _cloudHideTimeout = setTimeout(function() {
-                    wrapper.classList.remove('active');
+                    wrapper.classList.remove('active', 'success-bounce', 'pulse-action');
                     _cloudHideTimeout = null;
-                }, 1000);
+                }, 1400);
             } else if (status === 'error') {
                 if (headerIcon) headerIcon.className = "fas fa-exclamation-circle text-xs text-rose-300";
                 if (headerText) headerText.innerText = isEn ? "Offline" : "Offline";
 
                 _cloudHideTimeout = setTimeout(function() {
-                    wrapper.classList.remove('active');
+                    wrapper.classList.remove('active', 'success-bounce', 'pulse-action');
                     _cloudHideTimeout = null;
-                }, 2000);
+                }, 2200);
             }
         }
 
@@ -11596,6 +11651,7 @@
             if (!currentUser || !firestoreDb) return;
 
             isSyncingToCloud = true;
+            _hasPendingCloudSync = false;
             updateSyncStatusUI('saving');
 
             if (!dataState.updatedAt) dataState.updatedAt = Date.now();
@@ -11612,13 +11668,20 @@
             firestoreDb.collection('users').doc(currentUser.uid).set(payload, { merge: true })
                 .then(function() {
                     isSyncingToCloud = false;
-                    updateSyncStatusUI('synced');
-                    if (showToast) {
-                        triggerDynamicIsland(t('toast_cloud_saved_title', "Tersimpan di Cloud ☁️"), t('toast_cloud_saved_desc', "Semua data aman tersinkronisasi"), "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
+                    // Jika ada aktivitas pengguna baru yang masuk saat request Firestore sedang berjalan di jaringan:
+                    if (_hasPendingCloudSync) {
+                        _hasPendingCloudSync = false;
+                        debouncedSyncToCloud();
+                    } else {
+                        updateSyncStatusUI('synced');
+                        if (showToast) {
+                            triggerDynamicIsland(t('toast_cloud_saved_title', "Tersimpan di Cloud ☁️"), t('toast_cloud_saved_desc', "Semua data aman tersinkronisasi"), "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
+                        }
                     }
                 })
                 .catch(function(err) {
                     isSyncingToCloud = false;
+                    _hasPendingCloudSync = false;
                     console.error("Gagal menyimpan ke Firestore:", err);
                     updateSyncStatusUI('error', err);
                     if (showToast) {
@@ -11634,14 +11697,21 @@
         function debouncedSyncToCloud() {
             var isCloudUser = !!(currentUser && firestoreDb);
             showDynamicHeaderCloudSync('pending', isCloudUser);
+            _hasPendingCloudSync = true;
             if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
             cloudSyncTimer = setTimeout(function() {
                 if (isCloudUser) {
+                    // Jika Firestore sedang dalam proses upload aktif di latar belakang,
+                    // biarkan in-flight request menyelesaikannya lalu mengambil data terbaru secara berurutan.
+                    if (isSyncingToCloud) {
+                        return;
+                    }
                     syncToCloud(false);
                 } else {
+                    _hasPendingCloudSync = false;
                     showDynamicHeaderCloudSync('synced', false);
                 }
-            }, 350);
+            }, 500);
         }
 
         function forcePullFromCloud() {
