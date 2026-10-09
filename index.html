@@ -217,6 +217,34 @@
         }
 
         /* ========================================================
+           HEADER DYNAMIC CLOUD SYNC PILL & FLUID CALENDAR SHIFT
+           ======================================================== */
+        .header-cloud-sync-container {
+            display: inline-flex;
+            align-items: center;
+            max-width: 0;
+            opacity: 0;
+            margin-left: 0;
+            transform: scale(0.85) translateX(10px);
+            overflow: hidden;
+            pointer-events: none;
+            transition: 
+                max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                margin-left 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: max-width, opacity, margin-left, transform;
+        }
+
+        .header-cloud-sync-container.active {
+            max-width: 140px;
+            opacity: 1;
+            margin-left: 8px; /* Menggeser tombol kalender ke kiri secara halus */
+            transform: scale(1) translateX(0);
+            pointer-events: auto;
+        }
+
+        /* ========================================================
            ACCORDION & STACK CARDS: CSS GRID FLUID PHYSICS
            Standar fluida murni terpadu: Apple Ease-Out (0.16, 1, 0.3, 1)
            ======================================================== */
@@ -2985,10 +3013,16 @@
             <button id="header-back-btn" type="button" onclick="switchTab('beranda')" aria-label="Kembali ke Beranda" data-i18n-aria="header_back_tooltip" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none" title="Kembali ke Beranda" data-i18n-title="header_back_tooltip"><i class="fas fa-arrow-left"></i></button>
             <h1 id="header-title" class="text-xl font-bold tracking-wide transition-opacity duration-300" data-i18n="app_title">Dasbor</h1>
         </div>
-        <div class="flex items-center gap-2">
-            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" data-i18n-aria="calendar_title" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 flex items-center justify-center text-white text-xs transition-all shadow-xs" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
+        <div class="flex items-center">
+            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" data-i18n-aria="calendar_title" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 flex items-center justify-center text-white text-xs transition-all duration-300 shadow-xs shrink-0" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
                 <i class="fas fa-calendar-alt"></i>
             </button>
+            <div id="header-cloud-wrapper" class="header-cloud-sync-container">
+                <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" class="flex items-center gap-1.5 px-2.5 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 transition-all text-xs font-bold text-white focus:outline-none shadow-xs whitespace-nowrap select-none" title="Status Cloud &amp; Akun">
+                    <i class="fas fa-cloud text-xs" id="header-cloud-status-icon"></i>
+                    <span id="header-user-badge-text" class="text-[11px] font-semibold tracking-wide">Cloud</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -11204,27 +11238,65 @@
             }
         }
 
+        let _cloudHideTimeout = null;
+        function showDynamicHeaderCloudSync(status, isCloud = true) {
+            const wrapper = document.getElementById('header-cloud-wrapper');
+            const headerIcon = document.getElementById('header-cloud-status-icon');
+            const headerText = document.getElementById('header-user-badge-text');
+            var isEn = (typeof dataState !== 'undefined' && dataState && dataState.language === 'en');
+            if (!wrapper) return;
+
+            if (_cloudHideTimeout) {
+                clearTimeout(_cloudHideTimeout);
+                _cloudHideTimeout = null;
+            }
+
+            wrapper.classList.add('active');
+
+            if (status === 'pending') {
+                if (headerIcon) headerIcon.className = "fas fa-cloud-upload-alt text-xs text-primary-200 animate-pulse";
+                if (headerText) headerText.innerText = isEn ? "Saving..." : "Menyimpan...";
+            } else if (status === 'saving' || status === 'syncing') {
+                if (headerIcon) headerIcon.className = "fas fa-sync-alt text-xs text-amber-300 fa-spin";
+                if (headerText) headerText.innerText = isEn ? "Saving..." : "Menyimpan...";
+            } else if (status === 'synced') {
+                if (headerIcon) headerIcon.className = "fas fa-check-circle text-xs text-emerald-300";
+                if (headerText) headerText.innerText = isEn ? "Saved" : "Tersimpan";
+
+                _cloudHideTimeout = setTimeout(function() {
+                    wrapper.classList.remove('active');
+                    _cloudHideTimeout = null;
+                }, 1000);
+            } else if (status === 'error') {
+                if (headerIcon) headerIcon.className = "fas fa-exclamation-circle text-xs text-rose-300";
+                if (headerText) headerText.innerText = isEn ? "Offline" : "Offline";
+
+                _cloudHideTimeout = setTimeout(function() {
+                    wrapper.classList.remove('active');
+                    _cloudHideTimeout = null;
+                }, 2000);
+            }
+        }
+
         function updateSyncStatusUI(status, err) {
             const badge = document.getElementById('cloud-last-synced-badge');
             const syncIcon = document.getElementById('cloud-sync-icon');
-            const headerIcon = document.getElementById('header-cloud-status-icon');
             var isEn = (typeof dataState !== 'undefined' && dataState && dataState.language === 'en');
+
+            // Trigger animasi geser kalender dan pill cloud dinamis di header
+            showDynamicHeaderCloudSync(status, !!(currentUser && firestoreDb));
 
             if (status === 'saving') {
                 if (badge) badge.innerText = t('sync_badge_saving', "Menyimpan...");
                 if (syncIcon) syncIcon.className = 'fas fa-sync-alt fa-spin text-[10px]';
-                if (headerIcon) headerIcon.className = "fas fa-sync-alt text-xs text-amber-300 fa-spin";
             } else if (status === 'syncing') {
                 if (badge) badge.innerText = t('sync_badge_connecting', "Menghubungkan...");
                 if (syncIcon) syncIcon.className = 'fas fa-sync-alt fa-spin text-[10px]';
-                if (headerIcon) headerIcon.className = "fas fa-sync-alt text-xs text-amber-300 fa-spin";
             } else if (status === 'synced') {
                 if (badge) badge.innerText = t('sync_badge_synced', "Tersinkron ") + formatTimeNow();
                 if (syncIcon) syncIcon.className = 'fas fa-cloud-download-alt text-[10px]';
-                if (headerIcon) headerIcon.className = "fas fa-check-circle text-xs text-emerald-300";
             } else if (status === 'pending') {
                 if (badge) badge.innerText = t('sync_badge_pending', "Menunggu simpan...");
-                if (headerIcon) headerIcon.className = "fas fa-cloud-upload-alt text-xs text-primary-200 animate-pulse";
             } else if (status === 'error') {
                 let errorText = t('sync_badge_offline', "Gagal (Offline)");
                 if (err && err.code) {
@@ -11235,7 +11307,6 @@
                 }
                 if (badge) badge.innerText = errorText;
                 if (syncIcon) syncIcon.className = 'fas fa-cloud-download-alt text-[10px]';
-                if (headerIcon) headerIcon.className = "fas fa-exclamation-circle text-xs text-red-300";
             }
         }
 
@@ -11542,12 +11613,16 @@
         }
 
         function debouncedSyncToCloud() {
-            if (!currentUser || !firestoreDb) return;
-            updateSyncStatusUI('pending');
+            var isCloudUser = !!(currentUser && firestoreDb);
+            showDynamicHeaderCloudSync('pending', isCloudUser);
             if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
             cloudSyncTimer = setTimeout(function() {
-                syncToCloud(false);
-            }, 1500);
+                if (isCloudUser) {
+                    syncToCloud(false);
+                } else {
+                    showDynamicHeaderCloudSync('synced', false);
+                }
+            }, 350);
         }
 
         function forcePullFromCloud() {
