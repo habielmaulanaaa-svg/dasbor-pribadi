@@ -832,21 +832,37 @@
            2. QUICK ACTION CARD POPOVER: LIQUID SPRING & FLUID BOUNCE PHYSICS
            ========================================== */
         
-        /* Pulse membal tombol FAB bulat: pantulan cairan alami tanpa melebihi batas wadah */
+        /* Pulse membal tombol FAB bulat: pantulan cairan alami (droplet jelly squash & stretch) */
         @keyframes fluidFabPulse {
-            0% { transform: scale(1); }
-            28% { transform: scale(0.92, 0.92); }
-            55% { transform: scale(1.05, 1.05); }
-            76% { transform: scale(0.98, 0.98); }
-            88% { transform: scale(1.01, 1.01); }
-            100% { transform: scale(1); }
+            0% { 
+                transform: scale(1, 1); 
+            }
+            22% { 
+                /* Kompresi cairan melebar saat ditekan */
+                transform: scale(1.18, 0.82); 
+            }
+            48% { 
+                /* Lentingan cairan melompat memanjang elastis */
+                transform: scale(0.86, 1.18); 
+            }
+            72% { 
+                /* Rebound sekunder osilasi cairan kenyal */
+                transform: scale(1.07, 0.94); 
+            }
+            88% { 
+                /* Mikro-redaman cairan kembali stabil */
+                transform: scale(0.98, 1.02); 
+            }
+            100% { 
+                transform: scale(1, 1); 
+            }
         }
         .animate-fab-pulse {
-            animation: fluidFabPulse 0.36s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: fluidFabPulse 0.46s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         #fab-plus-icon {
-            transition: transform 0.36s cubic-bezier(0.34, 1.15, 0.64, 1) !important;
+            transition: transform 0.42s cubic-bezier(0.34, 1.45, 0.64, 1) !important;
         }
 
         /* Fluid Emerge Bouncing: Mobile / Android (< 640px) */
@@ -1047,6 +1063,15 @@
             -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
             outline: none !important;
         }
+        #fab-quick-add {
+            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.4, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            will-change: transform;
+        }
+        #fab-quick-add:active {
+            transform: scale(0.88, 0.88);
+        }
         .dark #bottom-nav-dock,
         .dark #fab-quick-add {
             background-color: rgba(23, 33, 43, 0.75) !important;
@@ -1143,20 +1168,21 @@
             z-index: 1;
             pointer-events: none;
             will-change: transform, left, width;
-            transition: left 0.32s cubic-bezier(0.25, 1.12, 0.45, 1), 
-                        width 0.32s cubic-bezier(0.25, 1.12, 0.45, 1), 
+            transition: left 0.34s cubic-bezier(0.22, 1, 0.36, 1), 
+                        width 0.34s cubic-bezier(0.22, 1, 0.36, 1), 
                         top 0.25s ease, 
                         height 0.25s ease;
             transform-origin: center center;
         }
-        @keyframes mercuryStretch {
+        @keyframes navMercuryStretch {
             0% { transform: scale(1, 1); }
-            38% { transform: scale(1.04, 0.96); }
-            72% { transform: scale(0.98, 1.02); }
+            30% { transform: scale(1.10, 0.90); }
+            62% { transform: scale(0.94, 1.08); }
+            82% { transform: scale(1.03, 0.98); }
             100% { transform: scale(1, 1); }
         }
-        .mercury-flow-active {
-            animation: mercuryStretch 0.32s cubic-bezier(0.25, 1.12, 0.45, 1);
+        #nav-liquid-mercury-pill.mercury-flow-active {
+            animation: navMercuryStretch 0.36s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         /* ==========================================
@@ -1528,27 +1554,54 @@
             z-index: 0;
             pointer-events: none;
             will-change: left, width, top, height, opacity, transform;
-            transition: left 0.30s cubic-bezier(0.25, 1.12, 0.45, 1), 
-                        width 0.30s cubic-bezier(0.25, 1.12, 0.45, 1),
-                        transform 0.30s cubic-bezier(0.25, 1.12, 0.45, 1),
+            transition: left 0.32s cubic-bezier(0.22, 1, 0.36, 1), 
+                        width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
                         top 0.20s ease,
                         height 0.20s ease,
                         opacity 0.20s ease;
             opacity: 0;
             transform-origin: center center;
         }
+        @keyframes moodMercuryStretch {
+            0% {
+                transform: scale(1, 1);
+            }
+            28% {
+                /* Pil cairan merkuri meregang horizontal saat meluncur */
+                transform: scaleX(1.12) scaleY(0.88);
+            }
+            58% {
+                /* Tiba di emoji tujuan: kompresi horizontal ke dalam dan membal vertikal kenyal */
+                transform: scaleX(0.92) scaleY(1.10);
+            }
+            80% {
+                /* Osilasi riak sekunder cairan */
+                transform: scaleX(1.03) scaleY(0.98);
+            }
+            100% {
+                transform: scale(1, 1);
+            }
+        }
         #mood-liquid-mercury-pill.mercury-flow-active {
-            transform: scaleX(1.03) scaleY(0.97);
+            animation: moodMercuryStretch 0.38s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .dark #mood-liquid-mercury-pill {
             background-color: #242f3d;
             border-color: hsl(var(--theme-h), 83%, 53%);
             box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.45);
         }
+
+        @keyframes moodEmojiPop {
+            0% { transform: scale(0.90); }
+            45% { transform: scale(1.24); }
+            75% { transform: scale(1.10); }
+            100% { transform: scale(1.15); }
+        }
+
         .mood-btn { 
             position: relative;
             z-index: 1;
-            transition: transform 0.24s cubic-bezier(0.25, 1.12, 0.45, 1); 
+            transition: transform 0.28s cubic-bezier(0.34, 1.45, 0.64, 1); 
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             will-change: transform;
@@ -1556,10 +1609,10 @@
             border: none;
         }
         .mood-btn:active { 
-            transform: scale(0.94); 
+            transform: scale(0.88); 
         }
         .mood-btn.selected { 
-            transform: scale(1.06); 
+            animation: moodEmojiPop 0.36s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
         }
         /* ==========================================
            1d. PRIORITAS TUGAS BARU: LIQUID MERCURY FLOW & DYNAMIC COLOR MORPH
@@ -1577,11 +1630,10 @@
             pointer-events: none;
             z-index: 0;
             will-change: left, width, top, height, transform, background-color, box-shadow;
-            transition: left 0.32s cubic-bezier(0.25, 1.12, 0.45, 1), 
-                        width 0.32s cubic-bezier(0.25, 1.12, 0.45, 1), 
-                        background-color 0.28s cubic-bezier(0.22, 1, 0.36, 1), 
-                        box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), 
-                        transform 0.32s cubic-bezier(0.25, 1.12, 0.45, 1),
+            transition: left 0.32s cubic-bezier(0.22, 1, 0.36, 1), 
+                        width 0.32s cubic-bezier(0.22, 1, 0.36, 1), 
+                        background-color 0.30s ease, 
+                        box-shadow 0.30s ease,
                         top 0.20s ease, 
                         height 0.20s ease, 
                         opacity 0.20s ease;
@@ -1589,8 +1641,29 @@
             transform-origin: center center;
         }
 
+        @keyframes prioMercuryStretch {
+            0% {
+                transform: scale(1, 1);
+            }
+            28% {
+                /* Aliran merkuri meregang horizontal sepanjang jalur pergerakan */
+                transform: scaleX(1.10) scaleY(0.90);
+            }
+            58% {
+                /* Saat tiba di slot tujuan: kompresi horizontal ke dalam dan membal elastis ke atas */
+                transform: scaleX(0.93) scaleY(1.09);
+            }
+            80% {
+                /* Riak kedua cairan kenyal */
+                transform: scaleX(1.03) scaleY(0.98);
+            }
+            100% {
+                transform: scale(1, 1);
+            }
+        }
+
         #prio-liquid-mercury-pill.mercury-flow-active {
-            transform: scaleX(1.04) scaleY(0.96);
+            animation: prioMercuryStretch 0.38s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .prio-btn {
@@ -1599,7 +1672,7 @@
             background: transparent !important;
             border: 1px solid transparent !important;
             color: #64748b;
-            transition: color 0.24s ease, transform 0.14s cubic-bezier(0.2, 0.8, 0.4, 1);
+            transition: color 0.24s ease, transform 0.24s cubic-bezier(0.34, 1.45, 0.64, 1);
             outline: none !important;
             cursor: pointer;
             user-select: none;
@@ -1618,15 +1691,21 @@
             color: #f1f5f9;
         }
 
+        @keyframes prioBtnPop {
+            0% { transform: scale(0.92); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1.04); }
+        }
+
         .prio-btn.active {
             color: #ffffff !important;
             font-weight: 900 !important;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-            transform: scale(1.02);
+            animation: prioBtnPop 0.32s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
         }
 
         .prio-btn:active {
-            transform: scale(0.92);
+            transform: scale(0.90);
         }
         /* 2. LIQUID FILTER PILL: SLIDING MERCURY INDICATOR */
         #filter-transaksi-track {
@@ -8465,14 +8544,14 @@
             if (animate === false) {
                 pill.style.transition = 'none';
             } else {
-                pill.style.transition = 'left 0.30s cubic-bezier(0.25, 1.12, 0.45, 1), width 0.30s cubic-bezier(0.25, 1.12, 0.45, 1), transform 0.30s cubic-bezier(0.25, 1.12, 0.45, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
                 pill.classList.remove('mercury-flow-active');
                 void pill.offsetWidth;
                 pill.classList.add('mercury-flow-active');
                 if (pill._flowTimer) clearTimeout(pill._flowTimer);
                 pill._flowTimer = setTimeout(function() {
                     pill.classList.remove('mercury-flow-active');
-                }, 300);
+                }, 380);
             }
 
             pill.style.left = btn.offsetLeft + 'px';
@@ -8531,14 +8610,14 @@
             if (animate === false) {
                 pill.style.transition = 'none';
             } else {
-                pill.style.transition = 'left 0.32s cubic-bezier(0.25, 1.12, 0.45, 1), width 0.32s cubic-bezier(0.25, 1.12, 0.45, 1), background-color 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.32s cubic-bezier(0.25, 1.12, 0.45, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.30s ease, box-shadow 0.30s ease, top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
                 pill.classList.remove('mercury-flow-active');
                 void pill.offsetWidth;
                 pill.classList.add('mercury-flow-active');
                 if (pill._flowTimer) clearTimeout(pill._flowTimer);
                 pill._flowTimer = setTimeout(function() {
                     pill.classList.remove('mercury-flow-active');
-                }, 320);
+                }, 380);
             }
 
             pill.style.left = btn.offsetLeft + 'px';
@@ -8558,7 +8637,10 @@
             } else {
                 document.querySelectorAll('.prio-btn').forEach(b => b.classList.remove('active'));
             }
-            if (btn) btn.classList.add('active');
+            if (btn) {
+                void btn.offsetWidth;
+                btn.classList.add('active');
+            }
             updatePrioMercuryPill(btn, true);
             if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
@@ -9796,7 +9878,10 @@
             document.querySelectorAll('.mood-btn').forEach(btn => {
                 btn.classList.remove('selected');
             });
-            element.classList.add('selected');
+            if (element) {
+                void element.offsetWidth;
+                element.classList.add('selected');
+            }
             updateMoodMercuryPill(element, true);
             triggerHaptic('light');
         }
