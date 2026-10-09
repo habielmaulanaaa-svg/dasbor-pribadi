@@ -222,25 +222,30 @@
         .header-cloud-sync-container {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             max-width: 0;
             opacity: 0;
             margin-left: 0;
+            padding: 0;
             transform: scale(0.85) translateX(12px);
             overflow: hidden;
             pointer-events: none;
+            box-sizing: content-box;
             /* Transisi menutup (exit): santai, tenang, dan halus tanpa hentakan */
             transition: 
                 max-width 0.52s cubic-bezier(0.25, 1, 0.5, 1),
                 opacity 0.38s ease,
                 margin-left 0.52s cubic-bezier(0.25, 1, 0.5, 1),
+                padding 0.52s cubic-bezier(0.25, 1, 0.5, 1),
                 transform 0.50s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: max-width, opacity, margin-left, transform;
         }
 
         .header-cloud-sync-container.active {
-            max-width: 145px;
+            max-width: 175px;
             opacity: 1;
             margin-left: 8px; /* Menggeser tombol kalender ke kiri dengan pantulan fluida halus */
+            padding: 4px 6px; /* Ruang nafas elastis agar pantulan bounce dan rounded pill tidak terpotong */
             transform: scale(1) translateX(0);
             pointer-events: auto;
             /* Transisi membuka (enter): pelan dengan pantulan pegas fluida alami yang lembut */
@@ -248,7 +253,13 @@
                 max-width 0.54s cubic-bezier(0.34, 1.20, 0.64, 1),
                 opacity 0.38s ease,
                 margin-left 0.54s cubic-bezier(0.34, 1.20, 0.64, 1),
+                padding 0.54s cubic-bezier(0.34, 1.20, 0.64, 1),
                 transform 0.54s cubic-bezier(0.34, 1.20, 0.64, 1);
+        }
+
+        /* Saat indikator sukses membal, lepaskan pembatasan overflow agar bulat pill & efek pantul utuh sempurna */
+        .header-cloud-sync-container.active.success-bounce {
+            overflow: visible;
         }
 
         /* Denyut fluida halus saat ada aktivitas bertubi-tubi yang masuk secara cepat */
@@ -3150,7 +3161,7 @@
                 <i class="fas fa-calendar-alt"></i>
             </button>
             <div id="header-cloud-wrapper" class="header-cloud-sync-container">
-                <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" class="flex items-center gap-1.5 px-2.5 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 transition-all text-xs font-bold text-white focus:outline-none shadow-xs whitespace-nowrap select-none" title="Status Cloud &amp; Akun">
+                <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" class="flex items-center gap-1.5 px-3 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 transition-all text-xs font-bold text-white focus:outline-none shadow-xs whitespace-nowrap select-none shrink-0" title="Status Cloud &amp; Akun">
                     <i class="fas fa-cloud text-xs" id="header-cloud-status-icon"></i>
                     <span id="header-user-badge-text" class="text-[11px] font-semibold tracking-wide">Cloud</span>
                 </button>
