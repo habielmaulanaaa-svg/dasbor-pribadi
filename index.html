@@ -1482,9 +1482,71 @@
         .mood-btn.selected { 
             transform: scale(1.12); 
         }
-        
-        .prio-btn.active { border-color: hsl(var(--theme-h), 83%, 53%); font-weight: 900; }
-        
+        /* ==========================================
+           1d. PRIORITAS TUGAS BARU: LIQUID MERCURY FLOW & DYNAMIC COLOR MORPH
+           ========================================== */
+        #prioritas-selector-track {
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #prio-liquid-mercury-pill {
+            position: absolute;
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 0;
+            will-change: left, width, top, height, transform, background-color, box-shadow;
+            transition: left 0.34s cubic-bezier(0.34, 1.45, 0.64, 1), 
+                        width 0.34s cubic-bezier(0.34, 1.45, 0.64, 1), 
+                        background-color 0.32s cubic-bezier(0.22, 1, 0.36, 1), 
+                        box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1), 
+                        transform 0.34s cubic-bezier(0.34, 1.45, 0.64, 1),
+                        top 0.20s ease, 
+                        height 0.20s ease, 
+                        opacity 0.20s ease;
+            opacity: 0;
+        }
+
+        #prio-liquid-mercury-pill.mercury-flow-active {
+            transform: scaleX(1.10) scaleY(0.92);
+        }
+
+        .prio-btn {
+            position: relative;
+            z-index: 1;
+            background: transparent !important;
+            border: 1px solid transparent !important;
+            color: #64748b;
+            transition: color 0.24s ease, transform 0.14s cubic-bezier(0.2, 0.8, 0.4, 1);
+            outline: none !important;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .dark .prio-btn {
+            color: #94a3b8;
+        }
+
+        .prio-btn:hover {
+            color: #1e293b;
+        }
+
+        .dark .prio-btn:hover {
+            color: #f1f5f9;
+        }
+
+        .prio-btn.active {
+            color: #ffffff !important;
+            font-weight: 900 !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transform: scale(1.02);
+        }
+
+        .prio-btn:active {
+            transform: scale(0.92);
+        }
         /* 2. LIQUID FILTER PILL: SLIDING MERCURY INDICATOR */
         #filter-transaksi-track {
             position: relative;
@@ -3044,10 +3106,13 @@
                         <input type="text" id="input-tugas-nama" placeholder="Ketik nama tugas di sini..." data-i18n-placeholder="tasks_placeholder_name" onkeydown="if(event.key==='Enter') tambahTugas()" class="w-full rounded-2xl px-3.5 py-2.5 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary-500 mb-3 border">
                         
                         <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="tasks_label_priority">Prioritas Tugas</label>
-                        <div class="grid grid-cols-3 gap-2 mb-3">
-                            <button type="button" onclick="selectPrioritas('tinggi', this)" class="prio-btn py-1.5 px-2 rounded-xl text-xs font-bold border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 flex items-center justify-center gap-1" data-i18n="priority_high">🔴 Tinggi</button>
-                            <button type="button" onclick="selectPrioritas('sedang', this)" class="prio-btn active py-1.5 px-2 rounded-xl text-xs font-bold border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 flex items-center justify-center gap-1" data-i18n="priority_medium">🟡 Sedang</button>
-                            <button type="button" onclick="selectPrioritas('rendah', this)" class="prio-btn py-1.5 px-2 rounded-xl text-xs font-bold border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400 flex items-center justify-center gap-1" data-i18n="priority_low">🟢 Rendah</button>
+                        <div id="prioritas-selector-track" class="relative grid grid-cols-3 gap-1 p-1 rounded-2xl bg-slate-100 dark:bg-[#0e1621] border border-slate-200/80 dark:border-[#313f52]/80 mb-3 select-none">
+                            <!-- Liquid Mercury Pill Indicator (Mengalir & Berganti Warna) -->
+                            <div id="prio-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl z-0 will-change-transform"></div>
+
+                            <button type="button" data-prio="tinggi" onclick="selectPrioritas('tinggi', this)" class="prio-btn relative z-10 py-2 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_high">🔴 Tinggi</button>
+                            <button type="button" data-prio="sedang" onclick="selectPrioritas('sedang', this)" class="prio-btn active relative z-10 py-2 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_medium">🟡 Sedang</button>
+                            <button type="button" data-prio="rendah" onclick="selectPrioritas('rendah', this)" class="prio-btn relative z-10 py-2 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_low">🟢 Rendah</button>
                         </div>
 
                         <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="tasks_label_deadline">Tenggat Waktu / Deadline (Opsional)</label>
@@ -5001,6 +5066,7 @@
             if (typeof updateMercuryPill === 'function') updateMercuryPill(activeTabKey, !!animate);
             if (typeof updateFilterMercuryPill === 'function') updateFilterMercuryPill(null, !!animate);
             if (typeof updateMoodMercuryPill === 'function') updateMoodMercuryPill(null, !!animate);
+            if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, !!animate);
         }
 
         function applyLanguageToDOM() {
@@ -7487,6 +7553,15 @@
                 }
             }
 
+            if (tabId === 'tugas') {
+                setTimeout(function() {
+                    if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, false);
+                }, 40);
+                setTimeout(function() {
+                    if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, false);
+                }, 120);
+            }
+
             if (tabId === 'keuangan') {
                 applyFinanceWidgetOrder();
                 setTimeout(function() {
@@ -8141,6 +8216,14 @@
                         }, 150);
                     }
                 }
+                if (id === 'tugas-input-area' && isOpen) {
+                    setTimeout(function() {
+                        if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, false);
+                    }, 40);
+                    setTimeout(function() {
+                        if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, false);
+                    }, 150);
+                }
                 if (id === 'jurnal-input-area' && isOpen) {
                     setTimeout(function() {
                         updateMoodMercuryPill(null, false);
@@ -8208,6 +8291,7 @@
             
             updateAmbientGlow();
             applyCardGradientVisual();
+            recalibratePills(false);
             triggerDynamicIsland(t('toast_appearance_title', "Mode Tampilan"), willBeDark ? t('toast_dark_mode_active', "Mode Gelap Aktif 🌙") : t('toast_light_mode_active', "Mode Terang Aktif ☀️"), willBeDark ? "fas fa-moon" : "fas fa-sun", willBeDark ? "bg-indigo-500/20 text-indigo-400" : "bg-amber-500/20 text-amber-400");
         }
 
@@ -8312,10 +8396,77 @@
             perbaruiTampilan();
         }
 
+        function updatePrioMercuryPill(btn, animate) {
+            var pill = document.getElementById('prio-liquid-mercury-pill');
+            var track = document.getElementById('prioritas-selector-track');
+            if (!pill || !track) return;
+            if (!btn) {
+                btn = track.querySelector('.prio-btn.active') || track.querySelector('.prio-btn[data-prio="sedang"]') || track.querySelector('.prio-btn');
+            }
+            if (!btn) return;
+
+            var w = btn.offsetWidth;
+            var h = btn.offsetHeight;
+            if (w === 0 || h === 0) {
+                requestAnimationFrame(function() {
+                    updatePrioMercuryPill(btn, false);
+                });
+                return;
+            }
+
+            var prio = btn.getAttribute('data-prio') || 'sedang';
+            var isDark = document.documentElement.classList.contains('dark');
+
+            var colorMap = {
+                tinggi: {
+                    bg: isDark ? '#e11d48' : '#f43f5e',
+                    shadow: isDark ? '0 4px 20px rgba(225, 29, 72, 0.6)' : '0 4px 18px rgba(244, 63, 94, 0.45)'
+                },
+                sedang: {
+                    bg: isDark ? '#d97706' : '#f59e0b',
+                    shadow: isDark ? '0 4px 20px rgba(217, 119, 6, 0.6)' : '0 4px 18px rgba(245, 158, 11, 0.45)'
+                },
+                rendah: {
+                    bg: isDark ? '#059669' : '#10b981',
+                    shadow: isDark ? '0 4px 20px rgba(5, 150, 105, 0.6)' : '0 4px 18px rgba(16, 185, 129, 0.45)'
+                }
+            };
+
+            var curColor = colorMap[prio] || colorMap.sedang;
+
+            if (animate === false) {
+                pill.style.transition = 'none';
+            } else {
+                pill.style.transition = 'left 0.34s cubic-bezier(0.34, 1.45, 0.64, 1), width 0.34s cubic-bezier(0.34, 1.45, 0.64, 1), background-color 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1), transform 0.34s cubic-bezier(0.34, 1.45, 0.64, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.classList.remove('mercury-flow-active');
+                void pill.offsetWidth;
+                pill.classList.add('mercury-flow-active');
+                if (pill._flowTimer) clearTimeout(pill._flowTimer);
+                pill._flowTimer = setTimeout(function() {
+                    pill.classList.remove('mercury-flow-active');
+                }, 340);
+            }
+
+            pill.style.left = btn.offsetLeft + 'px';
+            pill.style.top = btn.offsetTop + 'px';
+            pill.style.width = w + 'px';
+            pill.style.height = h + 'px';
+            pill.style.backgroundColor = curColor.bg;
+            pill.style.boxShadow = curColor.shadow;
+            pill.style.opacity = '1';
+        }
+
         function selectPrioritas(val, btn) {
             selectedPrioritasVal = val;
-            document.querySelectorAll('.prio-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            var track = document.getElementById('prioritas-selector-track');
+            if (track) {
+                track.querySelectorAll('.prio-btn').forEach(b => b.classList.remove('active'));
+            } else {
+                document.querySelectorAll('.prio-btn').forEach(b => b.classList.remove('active'));
+            }
+            if (btn) btn.classList.add('active');
+            updatePrioMercuryPill(btn, true);
+            if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
 
         function selectKategori(val, btn) {
@@ -10739,6 +10890,7 @@
                 updateMercuryPill(activeTabKey, false);
                 updateFilterMercuryPill(null, false);
                 updateMoodMercuryPill(null, false);
+                if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, false);
                 initFluidCardInteractions();
                 initFluidToggleGestures();
             }, 80);
@@ -10746,7 +10898,7 @@
                 recalibratePills(false);
             });
 
-            // Auto-recalibrate mercury pills jika ukuran dock atau track filter berubah (anti-meleset 100%)
+            // Auto-recalibrate mercury pills jika ukuran dock atau track filter/prioritas berubah (anti-meleset 100%)
             if (window.ResizeObserver) {
                 try {
                     var navDock = document.getElementById('bottom-nav-dock');
@@ -10762,6 +10914,13 @@
                             updateFilterMercuryPill(null, false);
                         });
                         roFilter.observe(filterTrack);
+                    }
+                    var prioTrack = document.getElementById('prioritas-selector-track');
+                    if (prioTrack) {
+                        var roPrio = new ResizeObserver(function() {
+                            if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, false);
+                        });
+                        roPrio.observe(prioTrack);
                     }
                 } catch(e) {}
             }
