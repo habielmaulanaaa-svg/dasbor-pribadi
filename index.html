@@ -5376,7 +5376,8 @@
                 t('toast_notification', "Pemberitahuan"), 
                 t('toast_lang_changed'), 
                 'fas fa-language', 
-                'bg-primary-500/20 text-primary-400'
+                'bg-primary-500/20 text-primary-400',
+                true
             );
         }
 
@@ -5459,7 +5460,18 @@
         let islandTimeout = null;
         let islandOutTimeout = null;
 
-        function triggerDynamicIsland(title, msg, iconClass, iconColor, duration) {
+        function triggerDynamicIsland(title, msg, iconClass, iconColor, duration, isSetting = false) {
+            // Dukungan jika isSetting dilewatkan pada argumen ke-5 (misal jika duration tidak diisi / bernilai boolean)
+            if (typeof duration === 'boolean') {
+                isSetting = duration;
+                duration = 2300;
+            }
+
+            // ATURAN BARU: Toast notifikasi HANYA ditampilkan saat mengubah Pengaturan / Sistem (isSetting === true).
+            // Saat menambah tugas, keuangan, maupun aktivitas pembuatan konten di dasbor, toast ditiadakan
+            // karena kartu data langsung muncul di layar dan proses penyimpanan sudah divisualisasikan oleh indikator cloud header.
+            if (!isSetting) return;
+
             if (isOtaToastActive) return; // Menunggu notifikasi pembaruan OTA selesai jika sedang tayang
 
             var island = document.getElementById('dynamic-island');
@@ -5713,7 +5725,8 @@
                 t('toast_appearance_title', "Tampilan"), 
                 dataState.cardGradient ? t('toast_gradient_on', "Gradasi & Glow Aktif 🎨") : t('toast_gradient_off', "Mode Solid Minimalis Aktif"), 
                 "fas fa-palette", 
-                "bg-primary-500/20 text-primary-400"
+                "bg-primary-500/20 text-primary-400",
+                true
             );
         }
 
@@ -5778,7 +5791,8 @@
                 t('toast_appearance_title', "Tampilan"), 
                 dataState.compactMode ? t('toast_compact_on', "Mode Ramping Aktif 🎛️") : t('toast_compact_off', "Mode Santai Aktif"), 
                 "fas fa-compress-alt", 
-                "bg-primary-500/20 text-primary-400"
+                "bg-primary-500/20 text-primary-400",
+                true
             );
         }
 
@@ -5810,7 +5824,8 @@
                 t('toast_theme_auto_title', "Tema Otomatis"), 
                 dataState.autoThemeMode ? t('toast_autotheme_on', "Siklus WIB Aktif (Gelap 17:00 - 05:00) 🌓") : t('toast_autotheme_off', "Mode Manual Aktif"), 
                 "fas fa-clock", 
-                "bg-amber-500/20 text-amber-400"
+                "bg-amber-500/20 text-amber-400",
+                true
             );
         }
 
@@ -5848,7 +5863,8 @@
                 t('toast_subtask_date_title', "Tanggal Sub Tugas"),
                 isAktif ? t('toast_subtask_date_on', "Tanggal sub tugas ditampilkan 📅") : t('toast_subtask_date_off', "Tanggal sub tugas disembunyikan 👁️"),
                 isAktif ? "fas fa-calendar-check" : "fas fa-calendar-times",
-                "bg-primary-500/20 text-primary-400"
+                "bg-primary-500/20 text-primary-400",
+                true
             );
         }
 
@@ -6594,7 +6610,7 @@
                 dataState.hiddenWidgets = dataState.hiddenWidgets.filter(k => k !== key);
             }
             simpanData();
-            triggerDynamicIsland(t('toast_widget_title', "Widget"), t('toast_widget_layout_updated', "Tata letak diperbarui"), "fas fa-sliders-h", "bg-purple-500/20 text-purple-400");
+            triggerDynamicIsland(t('toast_widget_title', "Widget"), t('toast_widget_layout_updated', "Tata letak diperbarui"), "fas fa-sliders-h", "bg-purple-500/20 text-purple-400", true);
         }
 
         function openFinanceWidgetManagerModal() {
@@ -6618,7 +6634,7 @@
                 dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(k => k !== key);
             }
             simpanData();
-            triggerDynamicIsland(t('toast_fin_widget_title', "Widget Keuangan"), t('toast_widget_layout_updated', "Tata letak diperbarui"), "fas fa-wallet", "bg-emerald-500/20 text-emerald-400");
+            triggerDynamicIsland(t('toast_fin_widget_title', "Widget Keuangan"), t('toast_widget_layout_updated', "Tata letak diperbarui"), "fas fa-wallet", "bg-emerald-500/20 text-emerald-400", true);
         }
 
         // --- FITUR 1: ANALISIS & STATISTIK KEUANGAN ---
@@ -7470,7 +7486,7 @@
                 let a = document.createElement('a');
                 a.href = dataStr; a.download = `dasbor_backup_${getRekapDateString()}.json`;
                 document.body.appendChild(a); a.click(); a.remove();
-                triggerDynamicIsland(t('toast_backup_title', "Cadangan"), t('toast_backup_desc', "Cadangan berhasil diunduh 📥"), "fas fa-download", "bg-emerald-500/20 text-emerald-400");
+                triggerDynamicIsland(t('toast_backup_title', "Cadangan"), t('toast_backup_desc', "Cadangan berhasil diunduh 📥"), "fas fa-download", "bg-emerald-500/20 text-emerald-400", true);
             } catch(e) { alert(t('toast_backup_fail', "Gagal mengunduh cadangan!")); }
         }
 
@@ -7497,7 +7513,7 @@
                         applyCardGradientVisual();
                         updateActiveToggleCount();
                         simpanData();
-                        triggerDynamicIsland(t('toast_restore_title', "Pulihkan"), t('toast_restore_desc', "Data berhasil dipulihkan! 🎉"), "fas fa-upload", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(t('toast_restore_title', "Pulihkan"), t('toast_restore_desc', "Data berhasil dipulihkan! 🎉"), "fas fa-upload", "bg-emerald-500/20 text-emerald-400", true);
                     }
                 } catch(err) { alert(t('toast_restore_invalid', "File cadangan tidak valid!")); }
             };
@@ -8457,7 +8473,7 @@
         function resetThemeColor() {
             document.getElementById('theme-color-slider').value = 221;
             changeThemeColor(221);
-            triggerDynamicIsland(t('settings_theme_color', "Warna"), t('toast_theme_reset_desc', "Tema direset ke biru bawaan"), "fas fa-palette", "bg-primary-500/20 text-primary-400");
+            triggerDynamicIsland(t('settings_theme_color', "Warna"), t('toast_theme_reset_desc', "Tema direset ke biru bawaan"), "fas fa-palette", "bg-primary-500/20 text-primary-400", true);
         }
 
         // ZERO-LAG 120 FPS DARK MODE SWITCH
@@ -8479,7 +8495,7 @@
             updateAmbientGlow();
             applyCardGradientVisual();
             recalibratePills(false);
-            triggerDynamicIsland(t('toast_appearance_title', "Mode Tampilan"), willBeDark ? t('toast_dark_mode_active', "Mode Gelap Aktif 🌙") : t('toast_light_mode_active', "Mode Terang Aktif ☀️"), willBeDark ? "fas fa-moon" : "fas fa-sun", willBeDark ? "bg-indigo-500/20 text-indigo-400" : "bg-amber-500/20 text-amber-400");
+            triggerDynamicIsland(t('toast_appearance_title', "Mode Tampilan"), willBeDark ? t('toast_dark_mode_active', "Mode Gelap Aktif 🌙") : t('toast_light_mode_active', "Mode Terang Aktif ☀️"), willBeDark ? "fas fa-moon" : "fas fa-sun", willBeDark ? "bg-indigo-500/20 text-indigo-400" : "bg-amber-500/20 text-amber-400", true);
         }
 
         function filterTugas(query) {
@@ -10918,7 +10934,8 @@
                 isEn ? "Data Cleared" : "Hapus Terpilih", 
                 isEn ? `${terpilih.length} data categories successfully deleted` : `${terpilih.length} kategori data berhasil dibersihkan`, 
                 "fas fa-trash-alt", 
-                "bg-rose-500/20 text-rose-400"
+                "bg-rose-500/20 text-rose-400",
+                true
             );
         }
 
@@ -11487,7 +11504,7 @@
             var isEn = (typeof dataState !== 'undefined' && dataState && dataState.language === 'en');
             // Prioritas 1: Gunakan Hybrid Auth Bridge jika berjalan di dalam APK Mandiri
             if (window.DasborBridge && typeof window.DasborBridge.launchGoogleAuth === 'function') {
-                triggerDynamicIsland(t('toast_google_connecting', "Menghubungkan Akun..."), t('toast_google_opening', "Membuka Google Login Resmi"), "fab fa-google", "bg-primary-500/20 text-primary-400");
+                triggerDynamicIsland(t('toast_google_connecting', "Menghubungkan Akun..."), t('toast_google_opening', "Membuka Google Login Resmi"), "fab fa-google", "bg-primary-500/20 text-primary-400", true);
                 window.DasborBridge.launchGoogleAuth();
                 return;
             }
@@ -11507,7 +11524,7 @@
             const provider = new firebase.auth.GoogleAuthProvider();
             provider.setCustomParameters({ prompt: 'select_account' });
 
-            triggerDynamicIsland(t('toast_google_connecting', "Menghubungkan Akun..."), t('toast_google_opening_browser', "Membuka Google Login"), "fab fa-google", "bg-primary-500/20 text-primary-400");
+            triggerDynamicIsland(t('toast_google_connecting', "Menghubungkan Akun..."), t('toast_google_opening_browser', "Membuka Google Login"), "fab fa-google", "bg-primary-500/20 text-primary-400", true);
 
             firebaseAuth.signInWithPopup(provider)
                 .then(function(result) {
@@ -11515,7 +11532,7 @@
                     saveLocalUserCache(currentUser);
                     updateAuthUI(currentUser);
                     syncFromCloud();
-                    triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (result.user.displayName || t('sync_user_default', 'Pengguna')), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                    triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (result.user.displayName || t('sync_user_default', 'Pengguna')), "fab fa-google", "bg-emerald-500/20 text-emerald-400", true);
                 })
                 .catch(function(error) {
                     console.warn("Popup login error:", error.code, error.message);
@@ -11553,20 +11570,20 @@
                                     updateAuthUI(currentUser);
                                 }
                                 syncFromCloud(true);
-                                triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || name || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                                triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || name || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400", true);
                             })
                             .catch(function(err) {
                                 console.warn("signInWithCredential fallback:", err);
                                 syncFromCloud(true);
-                                triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                                triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400", true);
                             });
                     } catch(e) {
                         syncFromCloud(true);
-                        triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400", true);
                     }
                 } else {
                     syncFromCloud(true);
-                    triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400");
+                    triggerDynamicIsland(t('toast_google_login_success', "Berhasil Masuk!"), t('toast_google_welcome', "Halo, ") + (currentUser.displayName || defaultName), "fab fa-google", "bg-emerald-500/20 text-emerald-400", true);
                 }
             } catch(e) {
                 console.error("handleAuthBridgeSuccess error:", e);
@@ -11582,7 +11599,7 @@
             if (firebaseAuth) {
                 firebaseAuth.signOut().catch(function() {});
             }
-            triggerDynamicIsland(t('toast_google_signout_title', "Keluar Akun"), t('toast_google_signout_desc', "Beralih ke mode penyimpanan lokal"), "fas fa-sign-out-alt", "bg-slate-500/20 text-slate-400");
+            triggerDynamicIsland(t('toast_google_signout_title', "Keluar Akun"), t('toast_google_signout_desc', "Beralih ke mode penyimpanan lokal"), "fas fa-sign-out-alt", "bg-slate-500/20 text-slate-400", true);
         }
 
         let _cloudRetryTimer = null;
@@ -11713,7 +11730,7 @@
                             runSmartInsightsSequence();
                             updateSyncStatusUI('synced');
                             if (!silent) {
-                                triggerDynamicIsland(t('toast_cloud_synced_title', "Cloud Tersinkron ☁️"), t('toast_cloud_synced_desc', "Data akun Anda berhasil dimuat"), "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400");
+                                triggerDynamicIsland(t('toast_cloud_synced_title', "Cloud Tersinkron ☁️"), t('toast_cloud_synced_desc', "Data akun Anda berhasil dimuat"), "fas fa-cloud-download-alt", "bg-emerald-500/20 text-emerald-400", true);
                             }
                         } else {
                             updateSyncStatusUI('synced');
@@ -11721,7 +11738,7 @@
                     } else {
                         // Pengguna baru pertama kali login: upload data lokal ke cloud
                         syncToCloud(false);
-                        triggerDynamicIsland(t('toast_cloud_active_title', "Cloud Aktif ☁️"), t('toast_cloud_active_desc', "Data awal disimpan ke Akun Google Anda"), "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
+                        triggerDynamicIsland(t('toast_cloud_active_title', "Cloud Aktif ☁️"), t('toast_cloud_active_desc', "Data awal disimpan ke Akun Google Anda"), "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400", true);
                     }
                 })
                 .catch(function(err) {
@@ -11741,7 +11758,7 @@
                         if (err && err.code === 'permission-denied') {
                             toastMsg = t('toast_cloud_permission_denied', "Izin Firestore ditolak (Periksa Rules di Console)");
                         }
-                        triggerDynamicIsland(t('toast_sync_failed_title', "Sinkronisasi Gagal"), toastMsg, "fas fa-exclamation-triangle", "bg-rose-500/20 text-rose-400");
+                        triggerDynamicIsland(t('toast_sync_failed_title', "Sinkronisasi Gagal"), toastMsg, "fas fa-exclamation-triangle", "bg-rose-500/20 text-rose-400", true);
                     }
                 });
         }
@@ -11774,7 +11791,7 @@
                     } else {
                         updateSyncStatusUI('synced');
                         if (showToast) {
-                            triggerDynamicIsland(t('toast_cloud_saved_title', "Tersimpan di Cloud ☁️"), t('toast_cloud_saved_desc', "Semua data aman tersinkronisasi"), "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400");
+                            triggerDynamicIsland(t('toast_cloud_saved_title', "Tersimpan di Cloud ☁️"), t('toast_cloud_saved_desc', "Semua data aman tersinkronisasi"), "fas fa-cloud-upload-alt", "bg-emerald-500/20 text-emerald-400", true);
                         }
                     }
                 })
@@ -11788,7 +11805,7 @@
                         if (err && err.code === 'permission-denied') {
                             toastMsg = t('toast_cloud_permission_denied', "Izin Firestore ditolak (Periksa Rules di Console)");
                         }
-                        triggerDynamicIsland(t('toast_sync_failed_title', "Sinkronisasi Gagal"), toastMsg, "fas fa-exclamation-triangle", "bg-amber-500/20 text-amber-400");
+                        triggerDynamicIsland(t('toast_sync_failed_title', "Sinkronisasi Gagal"), toastMsg, "fas fa-exclamation-triangle", "bg-amber-500/20 text-amber-400", true);
                     }
                 });
         }
@@ -11896,7 +11913,8 @@
                         t('toast_network_online_title', "Terhubung Kembali 🌐"),
                         t('toast_network_online_desc', "Koneksi internet aktif, data cloud tersinkronisasi"),
                         "fas fa-wifi",
-                        "bg-emerald-500/20 text-emerald-400"
+                        "bg-emerald-500/20 text-emerald-400",
+                        true
                     );
                 }
                 _wasOnline = true;
@@ -11921,7 +11939,8 @@
                         t('toast_network_offline_title', "Koneksi Terputus"),
                         t('toast_network_offline_desc', "Beralih ke mode luring (offline)"),
                         "fas fa-exclamation-circle",
-                        "bg-rose-500/20 text-rose-400"
+                        "bg-rose-500/20 text-rose-400",
+                        true
                     );
                 }
             }
