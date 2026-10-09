@@ -9133,26 +9133,6 @@
 
                     setTimeout(() => {
                         targetTask.selesai = false;
-                        
-                        // Buka stack tujuan secara otomatis
-                        if (targetTask.deadline) {
-                            var stackDl = document.getElementById('stack-deadline');
-                            var iconDl = document.getElementById('icon-deadline');
-                            if (stackDl) stackDl.classList.add('open');
-                            if (iconDl) {
-                                iconDl.style.transform = 'rotate(180deg)';
-                                iconDl.classList.add('open');
-                            }
-                        } else {
-                            var stackReg = document.getElementById('stack-reguler');
-                            var iconReg = document.getElementById('icon-reguler');
-                            if (stackReg) stackReg.classList.add('open');
-                            if (iconReg) {
-                                iconReg.style.transform = 'rotate(180deg)';
-                                iconReg.classList.add('open');
-                            }
-                        }
-
                         activeTogglingTasks.delete(id);
                         lastToggledId = id;
                         simpanData();
