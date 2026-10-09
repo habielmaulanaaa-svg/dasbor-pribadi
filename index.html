@@ -3535,9 +3535,11 @@
                             <div class="space-y-2">
                                 <div class="space-y-1.5">
                                     <div class="relative flex items-center">
-                                        <input type="text" id="input-masuk-nominal" inputmode="numeric" placeholder="Tambah pemasukan (Rp)..." data-i18n-placeholder="finances_placeholder_nominal_income" oninput="handleNominalInput(this, 'preview-masuk-math')" class="w-full border rounded-xl pl-3 pr-9 py-2 text-sm font-bold focus:outline-none">
-                                        <button type="button" onclick="toggleNominalHint('masuk')" title="Petunjuk &amp; kalkulator" class="absolute right-2.5 w-6 h-6 rounded-lg flex items-center justify-center text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 active:scale-90 transition-all text-xs" aria-label="Petunjuk nominal pemasukan">
-                                            <i class="fas fa-info-circle"></i>
+                                        <input type="text" id="input-masuk-nominal" inputmode="numeric" placeholder="Tambah pemasukan (Rp)..." data-i18n-placeholder="finances_placeholder_nominal_income" oninput="handleNominalInput(this, 'preview-masuk-math')" class="w-full border rounded-xl pl-3 pr-11 py-2 text-sm font-bold focus:outline-none">
+                                        <button type="button" onclick="toggleNominalHint('masuk')" title="Petunjuk &amp; kalkulator" class="absolute right-0 top-0 bottom-0 w-11 flex items-center justify-center text-slate-400 hover:text-emerald-500 active:scale-95 transition-all text-xs touch-manipulation focus:outline-none" aria-label="Petunjuk nominal pemasukan">
+                                            <span class="w-6 h-6 rounded-lg flex items-center justify-center hover:bg-emerald-50 dark:hover:bg-emerald-950/40">
+                                                <i class="fas fa-info-circle"></i>
+                                            </span>
                                         </button>
                                     </div>
                                     <div id="hint-masuk-nominal" class="hidden text-[11px] font-medium bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/40 text-emerald-800 dark:text-emerald-300 p-2.5 rounded-xl">
@@ -3571,9 +3573,11 @@
                             <div class="space-y-2">
                                 <div class="space-y-1.5">
                                     <div class="relative flex items-center">
-                                        <input type="text" id="input-keluar-nominal" inputmode="numeric" placeholder="Jumlah uang keluar (Rp)..." data-i18n-placeholder="finances_placeholder_nominal_expense" oninput="handleNominalInput(this, 'preview-keluar-math')" class="w-full border rounded-xl pl-3 pr-9 py-2 text-sm font-bold focus:outline-none">
-                                        <button type="button" onclick="toggleNominalHint('keluar')" title="Petunjuk &amp; kalkulator" class="absolute right-2.5 w-6 h-6 rounded-lg flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 active:scale-90 transition-all text-xs" aria-label="Petunjuk nominal pengeluaran">
-                                            <i class="fas fa-info-circle"></i>
+                                        <input type="text" id="input-keluar-nominal" inputmode="numeric" placeholder="Jumlah uang keluar (Rp)..." data-i18n-placeholder="finances_placeholder_nominal_expense" oninput="handleNominalInput(this, 'preview-keluar-math')" class="w-full border rounded-xl pl-3 pr-11 py-2 text-sm font-bold focus:outline-none">
+                                        <button type="button" onclick="toggleNominalHint('keluar')" title="Petunjuk &amp; kalkulator" class="absolute right-0 top-0 bottom-0 w-11 flex items-center justify-center text-slate-400 hover:text-rose-500 active:scale-95 transition-all text-xs touch-manipulation focus:outline-none" aria-label="Petunjuk nominal pengeluaran">
+                                            <span class="w-6 h-6 rounded-lg flex items-center justify-center hover:bg-rose-50 dark:hover:bg-rose-950/40">
+                                                <i class="fas fa-info-circle"></i>
+                                            </span>
                                         </button>
                                     </div>
                                     <div id="hint-keluar-nominal" class="hidden text-[11px] font-medium bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-800/40 text-rose-800 dark:text-rose-300 p-2.5 rounded-xl">
