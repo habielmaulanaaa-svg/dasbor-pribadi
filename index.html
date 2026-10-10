@@ -873,29 +873,32 @@
         }
 
         #fab-plus-icon {
-            transition: transform 0.42s cubic-bezier(0.34, 1.45, 0.64, 1) !important;
+            transition: transform 0.44s cubic-bezier(0.34, 1.62, 0.64, 1) !important;
         }
 
-        /* Fluid Emerge Bouncing: Mobile / Android (< 640px) */
+        /* Fluid Emerge Bouncing: Mobile / Android (< 640px) - Inertial Overshoot & Elastic Rebound */
         @keyframes quickActionCardEmergeMobile {
             0% {
-                transform: translate3d(0, 26px, 0) scale(0.68);
+                transform: translate3d(0, 32px, 0) scale(0.72, 1.25);
                 opacity: 0;
             }
             48% {
-                transform: translate3d(0, -6px, 0) scale(1.05);
-                opacity: 0.95;
-            }
-            76% {
-                transform: translate3d(0, 2px, 0) scale(0.985);
+                /* Kebablasan melampaui posisi akhir & menggepeng kinetis */
+                transform: translate3d(0, -14px, 0) scale(1.12, 0.92);
                 opacity: 1;
             }
-            90% {
-                transform: translate3d(0, -0.6px, 0) scale(1.006);
+            74% {
+                /* Sentakan mundur oleh tegangan permukaan fluida */
+                transform: translate3d(0, 4px, 0) scale(0.96, 1.03);
+                opacity: 1;
+            }
+            88% {
+                /* Mikro-osilasi stabilisasi fluida */
+                transform: translate3d(0, -1.5px, 0) scale(1.01, 0.99);
                 opacity: 1;
             }
             100% {
-                transform: translate3d(0, 0, 0) scale(1);
+                transform: translate3d(0, 0, 0) scale(1, 1);
                 opacity: 1;
             }
         }
@@ -906,36 +909,39 @@
                 transform: translate3d(0, 0, 0) scale(1);
                 opacity: 1;
             }
-            25% {
-                transform: translate3d(0, -2px, 0) scale(1.02);
-                opacity: 0.95;
+            24% {
+                transform: translate3d(0, -3px, 0) scale(1.04, 0.98);
+                opacity: 0.96;
             }
             100% {
-                transform: translate3d(0, 20px, 0) scale(0.72);
+                transform: translate3d(0, 24px, 0) scale(0.68);
                 opacity: 0;
             }
         }
 
-        /* Fluid Emerge Bouncing: Desktop / Windows (>= 640px) */
+        /* Fluid Emerge Bouncing: Desktop / Windows (>= 640px) - Inertial Overshoot & Elastic Rebound */
         @keyframes quickActionCardEmergeDesktop {
             0% {
-                transform: translate3d(-26px, 0, 0) scale(0.68);
+                transform: translate3d(-32px, 0, 0) scale(1.25, 0.72);
                 opacity: 0;
             }
             48% {
-                transform: translate3d(6px, 0, 0) scale(1.05);
-                opacity: 0.95;
-            }
-            76% {
-                transform: translate3d(-2px, 0, 0) scale(0.985);
+                /* Kebablasan horizontal melampaui posisi akhir */
+                transform: translate3d(14px, 0, 0) scale(0.92, 1.12);
                 opacity: 1;
             }
-            90% {
-                transform: translate3d(0.6px, 0, 0) scale(1.006);
+            74% {
+                /* Sentakan mundur elastis */
+                transform: translate3d(-4px, 0, 0) scale(1.03, 0.96);
+                opacity: 1;
+            }
+            88% {
+                /* Mikro-osilasi stabilisasi fluida */
+                transform: translate3d(1.5px, 0, 0) scale(0.99, 1.01);
                 opacity: 1;
             }
             100% {
-                transform: translate3d(0, 0, 0) scale(1);
+                transform: translate3d(0, 0, 0) scale(1, 1);
                 opacity: 1;
             }
         }
@@ -946,32 +952,38 @@
                 transform: translate3d(0, 0, 0) scale(1);
                 opacity: 1;
             }
-            25% {
-                transform: translate3d(2px, 0, 0) scale(1.02);
-                opacity: 0.95;
+            24% {
+                transform: translate3d(3px, 0, 0) scale(0.98, 1.04);
+                opacity: 0.96;
             }
             100% {
-                transform: translate3d(-20px, 0, 0) scale(0.72);
+                transform: translate3d(-24px, 0, 0) scale(0.68);
                 opacity: 0;
             }
         }
 
-        /* Micro Spring Stagger untuk 4 item aksi di dalam kartu */
+        /* Micro Spring Stagger untuk 4 item aksi di dalam kartu (Meletus Kebablasan & Mundur) */
         @keyframes quickActionItemSpring {
             0% {
-                transform: scale(0.72) translate3d(0, 8px, 0);
+                transform: scale(0.4) translate3d(0, 16px, 0);
                 opacity: 0;
             }
-            58% {
-                transform: scale(1.06) translate3d(0, -2px, 0);
+            52% {
+                /* Kebablasan meletus keluar */
+                transform: scale(1.18, 0.92) translate3d(0, -4px, 0);
                 opacity: 1;
             }
-            80% {
-                transform: scale(0.97) translate3d(0, 1px, 0);
+            76% {
+                /* Mengempis mundur */
+                transform: scale(0.94, 1.04) translate3d(0, 2px, 0);
+                opacity: 1;
+            }
+            90% {
+                transform: scale(1.02, 0.99) translate3d(0, -0.5px, 0);
                 opacity: 1;
             }
             100% {
-                transform: scale(1) translate3d(0, 0, 0);
+                transform: scale(1, 1) translate3d(0, 0, 0);
                 opacity: 1;
             }
         }
@@ -987,7 +999,7 @@
         }
 
         #fab-speed-dial-menu.card-open {
-            animation: quickActionCardEmergeMobile 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+            animation: quickActionCardEmergeMobile 0.44s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
             pointer-events: auto !important;
         }
 
@@ -997,7 +1009,7 @@
         }
 
         #fab-speed-dial-menu.card-open .quick-action-item {
-            animation: quickActionItemSpring 0.36s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+            animation: quickActionItemSpring 0.40s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
         }
 
         #fab-speed-dial-menu.card-open .quick-action-item:nth-child(1) {
@@ -1023,7 +1035,7 @@
             }
 
             #fab-speed-dial-menu.card-open {
-                animation: quickActionCardEmergeDesktop 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+                animation: quickActionCardEmergeDesktop 0.44s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
                 pointer-events: auto !important;
             }
 
@@ -1179,21 +1191,21 @@
             z-index: 1;
             pointer-events: none;
             will-change: transform, left, width;
-            transition: left 0.34s cubic-bezier(0.22, 1, 0.36, 1), 
-                        width 0.34s cubic-bezier(0.22, 1, 0.36, 1), 
+            transition: left 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        width 0.34s cubic-bezier(0.34, 1.25, 0.64, 1), 
                         top 0.25s ease, 
                         height 0.25s ease;
             transform-origin: center center;
         }
         @keyframes navMercuryStretch {
             0% { transform: scale(1, 1); }
-            30% { transform: scale(1.10, 0.90); }
-            62% { transform: scale(0.94, 1.08); }
-            82% { transform: scale(1.03, 0.98); }
+            35% { transform: scale(1.18, 0.88); }
+            65% { transform: scale(0.92, 1.10); }
+            84% { transform: scale(1.04, 0.98); }
             100% { transform: scale(1, 1); }
         }
         #nav-liquid-mercury-pill.mercury-flow-active {
-            animation: navMercuryStretch 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+            animation: navMercuryStretch 0.40s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         /* ==========================================
@@ -1886,13 +1898,14 @@
             100% { left: 160%; opacity: 0; }
         }
         .ios-fluid-action-btn.fluid-action-surge {
-            animation: iosFluidActionSurge 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation: iosFluidActionSurge 0.44s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         @keyframes iosFluidActionSurge {
             0% { transform: scale(1, 1); }
-            30% { transform: scale(0.93, 0.96); }
-            60% { transform: scale(1.028, 1.018); }
-            82% { transform: scale(0.99, 0.995); }
+            26% { transform: scale(0.90, 0.94); } /* Kompresi elastis saat disentuh */
+            56% { transform: scale(1.08, 1.05); } /* Kebablasan melesat melar */
+            78% { transform: scale(0.97, 0.985); } /* Tersentak mundur elastis */
+            90% { transform: scale(1.01, 1.005); } /* Mikro-osilasi */
             100% { transform: scale(1, 1); }
         }
 
@@ -1988,16 +2001,19 @@
                 transform: translate3d(-50%, -130%, 0) scale(0.5, 1.6);
                 opacity: 0;
             }
-            35% {
-                transform: translate3d(-50%, 5px, 0) scale(0.92, 1.22);
+            45% {
+                /* Kebablasan jatuh melampaui posisi akhir & melebar */
+                transform: translate3d(-50%, 12px, 0) scale(1.08, 1.16);
                 opacity: 1;
             }
-            60% {
-                transform: translate3d(-50%, -2px, 0) scale(1.12, 0.90);
+            72% {
+                /* Sentakan pegas mundur ke atas */
+                transform: translate3d(-50%, -4px, 0) scale(0.97, 0.95);
                 opacity: 1;
             }
-            80% {
-                transform: translate3d(-50%, 1px, 0) scale(0.97, 1.03);
+            88% {
+                /* Mikro-osilasi stabil */
+                transform: translate3d(-50%, 1.5px, 0) scale(1.01, 1.01);
                 opacity: 1;
             }
             100% {
@@ -6013,14 +6029,14 @@
             if (animate === false) {
                 pill.style.transition = 'none';
             } else {
-                pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.30s ease, box-shadow 0.30s ease, top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.style.transition = 'left 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.32s cubic-bezier(0.34, 1.25, 0.64, 1), background-color 0.30s ease, box-shadow 0.30s ease, top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
                 pill.classList.remove('mercury-flow-active');
                 void pill.offsetWidth;
                 pill.classList.add('mercury-flow-active');
                 if (pill._flowTimer) clearTimeout(pill._flowTimer);
                 pill._flowTimer = setTimeout(function() {
                     pill.classList.remove('mercury-flow-active');
-                }, 380);
+                }, 400);
             }
 
             pill.style.left = btn.offsetLeft + 'px';
@@ -8570,14 +8586,14 @@
             if (animate === false) {
                 pill.style.transition = 'none';
             } else {
-                pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.style.transition = 'left 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.32s cubic-bezier(0.34, 1.25, 0.64, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
                 pill.classList.remove('mercury-flow-active');
                 void pill.offsetWidth;
                 pill.classList.add('mercury-flow-active');
                 if (pill._flowTimer) clearTimeout(pill._flowTimer);
                 pill._flowTimer = setTimeout(function() {
                     pill.classList.remove('mercury-flow-active');
-                }, 380);
+                }, 400);
             }
 
             pill.style.left = btn.offsetLeft + 'px';
@@ -8608,14 +8624,14 @@
             if (animate === false) {
                 pill.style.transition = 'none';
             } else {
-                pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.style.transition = 'left 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.32s cubic-bezier(0.34, 1.25, 0.64, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
                 pill.classList.remove('mercury-flow-active');
                 void pill.offsetWidth;
                 pill.classList.add('mercury-flow-active');
                 if (pill._flowTimer) clearTimeout(pill._flowTimer);
                 pill._flowTimer = setTimeout(function() {
                     pill.classList.remove('mercury-flow-active');
-                }, 380);
+                }, 400);
             }
 
             pill.style.left = btn.offsetLeft + 'px';
@@ -8675,14 +8691,14 @@
             if (animate === false) {
                 pill.style.transition = 'none';
             } else {
-                pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.30s ease, box-shadow 0.30s ease, top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.style.transition = 'left 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.32s cubic-bezier(0.34, 1.25, 0.64, 1), background-color 0.30s ease, box-shadow 0.30s ease, top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
                 pill.classList.remove('mercury-flow-active');
                 void pill.offsetWidth;
                 pill.classList.add('mercury-flow-active');
                 if (pill._flowTimer) clearTimeout(pill._flowTimer);
                 pill._flowTimer = setTimeout(function() {
                     pill.classList.remove('mercury-flow-active');
-                }, 380);
+                }, 400);
             }
 
             pill.style.left = btn.offsetLeft + 'px';
