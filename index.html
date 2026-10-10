@@ -191,13 +191,116 @@
         .tab-content.active > *:nth-child(5) { animation-delay: 0.14s; }
         .tab-content.active > *:nth-child(6) { animation-delay: 0.17s; }
 
-        .liquid-bar-masuk {
-            transform-origin: left;
-            transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        /* ========================================================
+           KAPSUL ARUS KAS: UNIFIED LIQUID VESSEL & SPECULAR GLOSS
+           ======================================================== */
+        .liquid-vessel-hull {
+            position: relative;
+            height: 24px;
+            border-radius: 9999px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.16), inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            background: #e2e8f0;
         }
-        .liquid-bar-keluar {
+        .dark .liquid-vessel-hull {
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(0, 0, 0, 0.6), 0 1px 1px rgba(255, 255, 255, 0.05);
+            background: #0d1520;
+        }
+
+        .liquid-stream-income {
+            height: 100%;
+            background: linear-gradient(180deg, #34d399 0%, #10b981 40%, #059669 100%);
+            transition: width 0.65s cubic-bezier(0.34, 1.4, 0.64, 1);
+            position: relative;
+            transform-origin: left;
+        }
+
+        .liquid-stream-expense {
+            height: 100%;
+            background: linear-gradient(180deg, #fb7185 0%, #f43f5e 40%, #e11d48 100%);
+            transition: width 0.65s cubic-bezier(0.34, 1.4, 0.64, 1);
+            position: relative;
             transform-origin: right;
-            transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .vessel-specular-gloss {
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            right: 2px;
+            height: 48%;
+            border-radius: 9999px 9999px 40% 40%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.18) 55%, transparent 100%);
+            pointer-events: none;
+            z-index: 20;
+        }
+        .dark .vessel-specular-gloss {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 55%, transparent 100%);
+        }
+
+        .vessel-specular-bottom {
+            position: absolute;
+            bottom: 1px;
+            left: 6px;
+            right: 6px;
+            height: 25%;
+            border-radius: 9999px;
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.22) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 19;
+        }
+
+        .liquid-meniscus-pin {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 13px;
+            height: 13px;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #e0e7ff 50%, #94a3b8 100%);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(0, 0, 0, 0.35);
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            z-index: 30;
+            transition: left 0.65s cubic-bezier(0.34, 1.4, 0.64, 1);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .liquid-meniscus-pin::after {
+            content: '';
+            width: 3.5px;
+            height: 3.5px;
+            border-radius: 50%;
+            background: #2563eb;
+            opacity: 0.85;
+        }
+
+        @keyframes ambientShimmer {
+            0% { transform: translateX(-150%) skewX(-20deg); opacity: 0; }
+            40% { opacity: 0.35; }
+            100% { transform: translateX(250%) skewX(-20deg); opacity: 0; }
+        }
+        .ambient-shimmer-active {
+            position: absolute;
+            inset: 0;
+            width: 40%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.45) 50%, transparent 100%);
+            animation: ambientShimmer 4.5s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 25;
+        }
+
+        @keyframes liquidPulseSurge {
+            0% { transform: scaleY(1); }
+            35% { transform: scaleY(1.1); }
+            70% { transform: scaleY(0.96); }
+            100% { transform: scaleY(1); }
+        }
+        .pulse-surge {
+            animation: liquidPulseSurge 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         /* ========================================================
@@ -3385,34 +3488,102 @@
                 <h2 class="text-2xl font-bold dark:text-white" data-i18n="finances_title">Kelola Keuangan</h2>
             </div>
             
-            <!-- WIDGET PERMANEN: STATISTIK ARUS KAS -->
+            <!-- WIDGET PERMANEN: KAPSUL ARUS KAS (UNIFIED LIQUID VESSEL) -->
             <div id="finance-widget-ringkasan" class="mb-4">
-                <div class="flex justify-between items-center mb-1.5 px-1">
-                    <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-chart-bar text-primary-500"></i> <span data-i18n="finances_cashflow_stats">Statistik Arus Kas</span>
-                    </span>
-                </div>
-                <div class="grid grid-cols-2 gap-3 mb-3 compact-gap">
-                    <div class="widget-card bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
-                        <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider" data-i18n="finances_total_income">Total Masuk</span>
-                        <span id="stat-total-masuk" data-val="0" class="text-lg font-black text-emerald-700 dark:text-emerald-300 mt-1">Rp 0</span>
-                    </div>
-                    <div class="widget-card bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-2xl p-3.5 flex flex-col shadow-sm compact-pad">
-                        <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider" data-i18n="finances_total_expense">Total Keluar</span>
-                        <span id="stat-total-keluar" data-val="0" class="text-lg font-black text-rose-700 dark:text-rose-300 mt-1">Rp 0</span>
-                    </div>
-                </div>
+                <div class="widget-card bg-white dark:bg-[#17212b] rounded-3xl p-4 sm:p-5 border border-slate-200/90 dark:border-[#242f3d]/90 shadow-sm relative overflow-hidden compact-pad">
+                    
+                    <!-- Aksen Pendaran Halus di Sudut Latar Belakang (Subtle Ambient Glow) -->
+                    <div class="absolute -top-12 -left-12 w-32 h-32 rounded-full bg-emerald-500/10 dark:bg-emerald-500/15 blur-2xl pointer-events-none"></div>
+                    <div class="absolute -bottom-12 -right-12 w-32 h-32 rounded-full bg-rose-500/10 dark:bg-rose-500/15 blur-2xl pointer-events-none"></div>
 
-                <!-- Progress Bar Rasio Finansial -->
-                <div class="widget-card bg-white dark:bg-[#17212b] p-3.5 rounded-2xl border border-slate-200 dark:border-[#242f3d] shadow-sm compact-pad">
-                    <div class="flex justify-between items-center text-[10px] font-bold text-slate-500 mb-1.5">
-                        <span data-i18n="finances_ratio_title">PEMASUKAN vs PENGELUARAN</span>
-                        <span id="ratio-text">0% / 0%</span>
+                    <!-- Header Terpadu: Judul & Badge Status Arus Kas -->
+                    <div class="flex items-center justify-between mb-3 relative z-10">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-xl bg-primary-50 dark:bg-primary-950/50 border border-primary-200/60 dark:border-primary-800/60 flex items-center justify-center text-primary-600 dark:text-primary-400 text-xs shadow-xs">
+                                <i class="fas fa-droplet text-primary-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xs font-black uppercase tracking-wider text-slate-800 dark:text-slate-100" data-i18n="finances_cashflow_capsule">Kapsul Arus Kas</h3>
+                                <p class="text-[10px] text-slate-400 font-semibold" data-i18n="finances_cashflow_desc">Keseimbangan Masuk &amp; Keluar</p>
+                            </div>
+                        </div>
+
+                        <!-- Badge Status Kesehatan Kas Dinamis -->
+                        <div id="cashflow-health-badge" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-300 shadow-xs transition-colors">
+                            <span id="cashflow-badge-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            <span id="cashflow-health-text">Surplus Sehat</span>
+                        </div>
                     </div>
-                    <div class="w-full bg-slate-100 dark:bg-[#242f3d] h-2.5 rounded-full overflow-hidden flex">
-                        <div id="bar-masuk" class="bg-emerald-500 h-full liquid-bar-masuk" style="width: 50%"></div>
-                        <div id="bar-keluar" class="bg-rose-500 h-full liquid-bar-keluar" style="width: 50%"></div>
+
+                    <!-- Dua Kolom Metrik Terintegrasi (Kiri: Masuk, Kanan: Keluar) -->
+                    <div class="grid grid-cols-2 gap-2 mb-3.5 relative z-10">
+                        <!-- Sisi Pemasukan -->
+                        <div class="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#0e1621]/60 border border-emerald-500/20 dark:border-emerald-500/20 relative overflow-hidden">
+                            <div class="flex items-center justify-between mb-0.5">
+                                <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+                                    <i class="fas fa-arrow-down-left text-[9px]"></i> <span data-i18n="finances_total_income">Total Masuk</span>
+                                </span>
+                                <span id="badge-pct-masuk" class="text-[10px] font-black text-emerald-600 dark:text-emerald-400 bg-emerald-100/70 dark:bg-emerald-900/40 px-1.5 py-0.2 rounded-md">50%</span>
+                            </div>
+                            <span id="stat-total-masuk" data-val="0" class="text-base sm:text-lg font-black text-slate-800 dark:text-white tracking-tight truncate block mt-0.5">Rp 0</span>
+                        </div>
+
+                        <!-- Sisi Pengeluaran -->
+                        <div class="p-3 rounded-2xl bg-slate-50/80 dark:bg-[#0e1621]/60 border border-rose-500/20 dark:border-rose-500/20 relative overflow-hidden text-right">
+                            <div class="flex items-center justify-between mb-0.5 flex-row-reverse">
+                                <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider flex items-center gap-1 flex-row-reverse">
+                                    <i class="fas fa-arrow-up-right text-[9px]"></i> <span data-i18n="finances_total_expense">Total Keluar</span>
+                                </span>
+                                <span id="badge-pct-keluar" class="text-[10px] font-black text-rose-600 dark:text-rose-400 bg-rose-100/70 dark:bg-rose-900/40 px-1.5 py-0.2 rounded-md">50%</span>
+                            </div>
+                            <span id="stat-total-keluar" data-val="0" class="text-base sm:text-lg font-black text-slate-800 dark:text-white tracking-tight truncate block mt-0.5">Rp 0</span>
+                        </div>
                     </div>
+
+                    <!-- TABUNG KAPSUL KACA FLUIDA (UNIFIED LIQUID VESSEL) -->
+                    <div class="relative z-10 px-0.5">
+                        <div class="flex justify-between items-center text-[10px] font-bold text-slate-400 mb-1.5 px-1">
+                            <span class="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+                                <i class="fas fa-circle text-[6px]"></i> <span data-i18n="finances_flow_fill">Mengisi Saldo</span>
+                            </span>
+                            <span id="ratio-text" class="text-slate-500 dark:text-slate-400 font-extrabold text-[10px]">
+                                50% Masuk / 50% Keluar
+                            </span>
+                            <span class="flex items-center gap-1 text-rose-600 dark:text-rose-400">
+                                <span data-i18n="finances_flow_expense">Pengeluaran</span> <i class="fas fa-circle text-[6px]"></i>
+                            </span>
+                        </div>
+
+                        <!-- Tabung Kaca / Liquid Hull -->
+                        <div id="vessel-hull" class="liquid-vessel-hull relative">
+                            <!-- Lapisan 1: Cairan Sisi Masuk (Emerald) -->
+                            <div id="bar-masuk" class="liquid-stream-income" style="width: 50%;"></div>
+
+                            <!-- Lapisan 2: Cairan Sisi Keluar (Rose) -->
+                            <div id="bar-keluar" class="liquid-stream-expense" style="width: 50%;"></div>
+
+                            <!-- Lapisan 3: Pantulan Cahaya Atas Kaca (Specular Top-Gloss) -->
+                            <div class="vessel-specular-gloss"></div>
+
+                            <!-- Lapisan 4: Pantulan Kaca Bawah (Specular Bottom) -->
+                            <div class="vessel-specular-bottom"></div>
+
+                            <!-- Lapisan 5: Meniskus Pemisah Fluida (Liquid Bubble Pin) -->
+                            <div id="meniscus-pin" class="liquid-meniscus-pin" style="left: 50%;"></div>
+
+                            <!-- Lapisan 6: Ambient Wave Shimmer (Kilau Halus Mengalir) -->
+                            <div class="ambient-shimmer-active"></div>
+                        </div>
+
+                        <!-- Info footer kecil di bawah tabung -->
+                        <div class="flex justify-between items-center text-[9.5px] text-slate-400 dark:text-slate-500 font-semibold mt-2 px-1">
+                            <span id="footer-surplus-info">Arus Kas: <strong class="text-slate-600 dark:text-slate-400">Impapas (Rp 0)</strong></span>
+                            <span class="flex items-center gap-1 text-[9px] opacity-75">
+                                <i class="fas fa-shield-halved text-[9px]"></i> <span data-i18n="finances_flow_balance">Keseimbangan Terjaga</span>
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -4100,6 +4271,11 @@
                 // Keuangan Tab
                 finances_title: "Kelola Keuangan",
                 finances_cashflow_stats: "Statistik Arus Kas",
+                finances_cashflow_capsule: "Kapsul Arus Kas",
+                finances_cashflow_desc: "Keseimbangan Masuk & Keluar",
+                finances_flow_fill: "Mengisi Saldo",
+                finances_flow_expense: "Pengeluaran",
+                finances_flow_balance: "Keseimbangan Terjaga",
                 finances_total_income: "Total Masuk",
                 finances_total_expense: "Total Keluar",
                 finances_ratio_title: "PEMASUKAN vs PENGELUARAN",
@@ -4687,6 +4863,11 @@
                 // Finances Tab
                 finances_title: "Manage Finances",
                 finances_cashflow_stats: "Cashflow Statistics",
+                finances_cashflow_capsule: "Cashflow Capsule",
+                finances_cashflow_desc: "Income & Expense Balance",
+                finances_flow_fill: "Filling Balance",
+                finances_flow_expense: "Expenses",
+                finances_flow_balance: "Balanced Cashflow",
                 finances_total_income: "Total Income",
                 finances_total_expense: "Total Expense",
                 finances_ratio_title: "INCOME vs EXPENSE",
@@ -10108,16 +10289,56 @@
 
             var totalGrup = totalMasuk + totalKeluar;
             var pctMasuk = totalGrup > 0 ? Math.round((totalMasuk / totalGrup) * 100) : 50;
-            var pctKeluar = totalGrup > 0 ? (100 - pctMasuk) : 50;
+            // Jaga minimal 5% agar selalu ada representasi fluida estetis di tabung kaca
+            pctMasuk = Math.min(95, Math.max(5, pctMasuk));
+            var pctKeluar = 100 - pctMasuk;
 
             var barM = document.getElementById('bar-masuk');
             var barK = document.getElementById('bar-keluar');
             var ratioTxt = document.getElementById('ratio-text');
+            var pin = document.getElementById('meniscus-pin');
+            var badgeM = document.getElementById('badge-pct-masuk');
+            var badgeK = document.getElementById('badge-pct-keluar');
+            var healthBadge = document.getElementById('cashflow-health-badge');
+            var healthText = document.getElementById('cashflow-health-text');
+            var badgeDot = document.getElementById('cashflow-badge-dot');
+            var surplusInfo = document.getElementById('footer-surplus-info');
+            var vesselHull = document.getElementById('vessel-hull');
+            var isEn = (dataState && dataState.language === 'en');
+
             if(barM && barK && ratioTxt) {
                 barM.style.width = pctMasuk + '%';
                 barK.style.width = pctKeluar + '%';
-                var isEn = (dataState && dataState.language === 'en');
+                if(pin) pin.style.left = pctMasuk + '%';
+                if(badgeM) badgeM.innerText = pctMasuk + '%';
+                if(badgeK) badgeK.innerText = pctKeluar + '%';
                 ratioTxt.innerText = isEn ? `${pctMasuk}% Income / ${pctKeluar}% Expense` : `${pctMasuk}% Masuk / ${pctKeluar}% Keluar`;
+            }
+
+            if(healthBadge && healthText && badgeDot && surplusInfo) {
+                var surplus = totalMasuk - totalKeluar;
+                if(surplus > 0) {
+                    healthBadge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-300 shadow-xs transition-colors';
+                    badgeDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-500';
+                    healthText.innerText = isEn ? 'Healthy Surplus' : 'Surplus Sehat';
+                    surplusInfo.innerHTML = (isEn ? 'Net Surplus: ' : 'Surplus Bersih: ') + '<strong class="text-emerald-600 dark:text-emerald-400">+' + formatRupiah(surplus) + '</strong>';
+                } else if(surplus === 0) {
+                    healthBadge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-xs transition-colors';
+                    badgeDot.className = 'w-1.5 h-1.5 rounded-full bg-slate-400';
+                    healthText.innerText = isEn ? 'Balanced' : 'Seimbang';
+                    surplusInfo.innerHTML = (isEn ? 'Cashflow: ' : 'Arus Kas: ') + '<strong class="text-slate-600 dark:text-slate-400">' + (isEn ? 'Balanced (Rp 0)' : 'Impapas (Rp 0)') + '</strong>';
+                } else {
+                    healthBadge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 shadow-xs transition-colors';
+                    badgeDot.className = 'w-1.5 h-1.5 rounded-full bg-rose-500';
+                    healthText.innerText = isEn ? 'Cash Deficit' : 'Defisit Kas';
+                    surplusInfo.innerHTML = (isEn ? 'Deficit: ' : 'Defisit: ') + '<strong class="text-rose-600 dark:text-rose-400">-' + formatRupiah(Math.abs(surplus)) + '</strong>';
+                }
+            }
+
+            if(vesselHull) {
+                vesselHull.classList.remove('pulse-surge');
+                void vesselHull.offsetWidth;
+                vesselHull.classList.add('pulse-surge');
             }
 
             renderDonutKategori();
