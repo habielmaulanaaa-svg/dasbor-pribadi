@@ -2421,6 +2421,11 @@
                 <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-600 shadow-inner"><i class="fas fa-wallet text-sm"></i></div>
                 <span data-i18n="sidebar_finance_widgets">Atur Widget Keuangan</span>
             </button>
+            <!-- 4c. Atur Shortcut Akses Cepat -->
+            <button type="button" onclick="openQuickActionManagerModal()" class="sidebar-nav-btn w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-amber-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
+                <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-500 shadow-inner"><i class="fas fa-bolt text-sm"></i></div>
+                <span data-i18n="sidebar_quick_actions">Ubah Shortcut Akses Cepat</span>
+            </button>
             <!-- 5. Analisis & Statistik Keuangan -->
             <button type="button" onclick="openAnalisisModal()" class="sidebar-nav-btn w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-sky-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
                 <div class="w-9 h-9 rounded-xl bg-sky-100 dark:bg-sky-900/50 flex items-center justify-center text-sky-500 shadow-inner"><i class="fas fa-chart-pie text-sm"></i></div>
@@ -2952,6 +2957,27 @@
             </div>
 
             <button type="button" onclick="closeBottomSheet('finance-widget-manager-modal')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md" data-i18n="widget_mgr_btn_save">Simpan Pengaturan</button>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet: Atur Shortcut Akses Cepat -->
+    <div id="quick-action-manager-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
+        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
+            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-bolt text-amber-500"></i> <span data-i18n="quick_action_mgr_title">Ubah Shortcut Akses Cepat</span></h3>
+                <button type="button" onclick="closeBottomSheet('quick-action-manager-modal')" aria-label="Tutup atur shortcut" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="flex items-center justify-between mb-3">
+                <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold" data-i18n="quick_action_mgr_desc">Pilih maksimal 4 shortcut untuk menu Akses Cepat:</p>
+                <span id="quick-action-slot-badge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/40">4/4 Terpilih</span>
+            </div>
+            
+            <div class="space-y-2 mb-4 overflow-y-auto max-h-[50vh] pr-1" id="quick-action-toggle-list">
+                <!-- Di-render dinamis oleh JS dengan checklist & nomor urut (#1, #2, #3, #4) -->
+            </div>
+
+            <button type="button" onclick="closeBottomSheet('quick-action-manager-modal')" class="w-full bg-primary-600 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md" data-i18n="widget_mgr_btn_save">Simpan Pengaturan</button>
         </div>
     </div>
 
@@ -4034,8 +4060,8 @@
                     </span>
                 </div>
 
-                <!-- 2x2 Grid Aksi -->
-                <div class="grid grid-cols-2 gap-2">
+                <!-- 2x2 Grid Aksi Dinamis -->
+                <div class="grid grid-cols-2 gap-2" id="fab-actions-grid-container">
                     <!-- 1. Catat Pemasukan -->
                     <button type="button" id="fab-btn-pemasukan" onclick="fabAction('pemasukan')" class="quick-action-item flex flex-col items-center justify-center p-2.5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/35 hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40 active:scale-95 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 transition-all text-center group">
                         <div class="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
@@ -4462,6 +4488,7 @@
                 sidebar_calendar: "Rekap Harian & Kalender",
                 sidebar_home_widgets: "Atur Widget Beranda",
                 sidebar_finance_widgets: "Atur Widget Keuangan",
+                sidebar_quick_actions: "Ubah Shortcut Akses Cepat",
                 sidebar_analysis: "Analisis & Statistik",
                 sidebar_quick_notes: "Catatan & Belanjaan",
                 sidebar_calculator: "Kalkulator & Target Impian",
@@ -4695,6 +4722,12 @@
                 widget_mgr_btn_save: "Simpan Pengaturan",
                 widget_mgr_fin_title: "Atur Widget Keuangan",
                 widget_mgr_fin_desc: "Pilih widget yang ingin ditampilkan di halaman Kelola Keuangan:",
+                quick_action_mgr_title: "Ubah Shortcut Akses Cepat",
+                quick_action_mgr_desc: "Pilih maksimal 4 shortcut untuk menu Akses Cepat:",
+                quick_action_max_toast: "Maksimal 4 shortcut!",
+                selected_label: "Terpilih",
+                move_up: "Geser ke Atas",
+                move_down: "Geser ke Bawah",
 
                 // Task & Subtask Strings
                 created_prefix: "Dibuat:",
@@ -5081,6 +5114,7 @@
                 sidebar_calendar: "Daily Recap & Calendar",
                 sidebar_home_widgets: "Manage Home Widgets",
                 sidebar_finance_widgets: "Manage Finance Widgets",
+                sidebar_quick_actions: "Customize Quick Shortcuts",
                 sidebar_analysis: "Analysis & Statistics",
                 sidebar_quick_notes: "Notes & Shopping List",
                 sidebar_calculator: "Calculator & Dream Target",
@@ -5314,6 +5348,12 @@
                 widget_mgr_btn_save: "Save Settings",
                 widget_mgr_fin_title: "Manage Finance Widgets",
                 widget_mgr_fin_desc: "Choose widgets to display on Finance screen:",
+                quick_action_mgr_title: "Customize Quick Shortcuts",
+                quick_action_mgr_desc: "Select up to 4 shortcuts for Quick Access menu:",
+                quick_action_max_toast: "Maximum 4 shortcuts allowed!",
+                selected_label: "Selected",
+                move_up: "Move Up",
+                move_down: "Move Down",
 
                 // Task & Subtask Strings
                 created_prefix: "Created:",
@@ -5657,6 +5697,7 @@
             if (typeof renderHealthScore === 'function') renderHealthScore();
             if (typeof renderDonutKategori === 'function') renderDonutKategori();
             if (typeof renderMoodAnalytics === 'function') renderMoodAnalytics();
+            if (typeof renderFabQuickActions === 'function') renderFabQuickActions();
             if (typeof updateAuthUI === 'function') updateAuthUI(currentUser);
             if (typeof checkOtaVersionNotification === 'function') checkOtaVersionNotification();
 
@@ -5738,6 +5779,7 @@
             widgetOrder: ['tabungan', 'deadline', 'reguler'],
             hiddenFinanceWidgets: ['skor_kesehatan', 'anggaran', 'alokasi'],
             financeWidgetOrder: ['dompet', 'skor_kesehatan', 'anggaran', 'alokasi', 'form_transaksi', 'riwayat'],
+            quickActionShortcuts: ['pemasukan', 'pengeluaran', 'tugas', 'catatan'],
             rekapHarian: [],
             tugas: [], 
             transaksi: [], 
@@ -6904,6 +6946,153 @@
             triggerDynamicIsland(t('toast_fin_widget_title', "Widget Keuangan"), t('toast_widget_layout_updated', "Tata letak diperbarui"), "fas fa-wallet", "bg-emerald-500/20 text-emerald-400", true);
         }
 
+        // --- FITUR: UBAH SHORTCUT AKSES CEPAT (MAKSIMAL 4 SLOT) ---
+        const MASTER_QUICK_ACTIONS = [
+            { id: 'pemasukan', labelKey: 'fab_pemasukan', defaultLabel: 'Catat Pemasukan', icon: 'fas fa-plus', bgClass: 'bg-emerald-500', textClass: 'text-emerald-600 dark:text-emerald-400', cardBg: 'bg-emerald-50/70 dark:bg-emerald-950/35 hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40 border-emerald-500/25' },
+            { id: 'pengeluaran', labelKey: 'fab_pengeluaran', defaultLabel: 'Catat Pengeluaran', icon: 'fas fa-minus', bgClass: 'bg-rose-500', textClass: 'text-rose-600 dark:text-rose-400', cardBg: 'bg-rose-50/70 dark:bg-rose-950/35 hover:bg-rose-100/60 dark:hover:bg-rose-900/40 border-rose-500/25' },
+            { id: 'tugas', labelKey: 'fab_tugas', defaultLabel: 'Tugas Baru', icon: 'fas fa-check', bgClass: 'bg-primary-500', textClass: 'text-primary-600 dark:text-primary-400', cardBg: 'bg-primary-50/70 dark:bg-primary-950/40 hover:bg-primary-100/60 dark:hover:bg-primary-900/40 border-primary-500/25' },
+            { id: 'catatan', labelKey: 'fab_catatan', defaultLabel: 'Catatan Kilat', icon: 'fas fa-bolt', bgClass: 'bg-amber-500', textClass: 'text-amber-600 dark:text-amber-400', cardBg: 'bg-amber-50/70 dark:bg-amber-950/35 hover:bg-amber-100/60 dark:hover:bg-amber-900/40 border-amber-500/25' },
+            { id: 'jurnal', labelKey: 'sidebar_journal', defaultLabel: 'Jurnal Harian', icon: 'fas fa-book', bgClass: 'bg-purple-500', textClass: 'text-purple-600 dark:text-purple-400', cardBg: 'bg-purple-50/70 dark:bg-purple-950/35 hover:bg-purple-100/60 dark:hover:bg-purple-900/40 border-purple-500/25' },
+            { id: 'kalender', labelKey: 'sidebar_calendar', defaultLabel: 'Rekap & Kalender', icon: 'fas fa-calendar-alt', bgClass: 'bg-sky-500', textClass: 'text-sky-600 dark:text-sky-400', cardBg: 'bg-sky-50/70 dark:bg-sky-950/35 hover:bg-sky-100/60 dark:hover:bg-sky-900/40 border-sky-500/25' },
+            { id: 'tabungan', labelKey: 'widget_savings_title', defaultLabel: 'Target Tabungan', icon: 'fas fa-piggy-bank', bgClass: 'bg-teal-500', textClass: 'text-teal-600 dark:text-teal-400', cardBg: 'bg-teal-50/70 dark:bg-teal-950/35 hover:bg-teal-100/60 dark:hover:bg-teal-900/40 border-teal-500/25' },
+            { id: 'analisis', labelKey: 'sidebar_analysis', defaultLabel: 'Analisis Keuangan', icon: 'fas fa-chart-pie', bgClass: 'bg-indigo-500', textClass: 'text-indigo-600 dark:text-indigo-400', cardBg: 'bg-indigo-50/70 dark:bg-indigo-950/35 hover:bg-indigo-100/60 dark:hover:bg-indigo-900/40 border-indigo-500/25' }
+        ];
+
+        function openQuickActionManagerModal() {
+            var sb = document.getElementById('sidebar');
+            if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
+            
+            if (!Array.isArray(dataState.quickActionShortcuts) || dataState.quickActionShortcuts.length === 0) {
+                dataState.quickActionShortcuts = ['pemasukan', 'pengeluaran', 'tugas', 'catatan'];
+            }
+            renderQuickActionManagerModal();
+            openBottomSheet('quick-action-manager-modal');
+        }
+
+        function renderQuickActionManagerModal() {
+            var listEl = document.getElementById('quick-action-toggle-list');
+            var slotBadge = document.getElementById('quick-action-slot-badge');
+            if (!listEl) return;
+
+            var currentShortcuts = Array.isArray(dataState.quickActionShortcuts) ? dataState.quickActionShortcuts : [];
+            if (slotBadge) {
+                slotBadge.innerText = `${currentShortcuts.length}/4 ${t('selected_label', 'Terpilih')}`;
+            }
+
+            var inactive = MASTER_QUICK_ACTIONS.filter(m => !currentShortcuts.includes(m.id));
+            var ordered = [
+                ...currentShortcuts.map(id => MASTER_QUICK_ACTIONS.find(m => m.id === id)),
+                ...inactive
+            ].filter(Boolean);
+
+            var isMax = currentShortcuts.length >= 4;
+
+            var html = '';
+            ordered.forEach(item => {
+                var isChecked = currentShortcuts.includes(item.id);
+                var orderIdx = isChecked ? currentShortcuts.indexOf(item.id) : -1;
+                var orderNum = isChecked ? (orderIdx + 1) : null;
+                var label = t(item.labelKey, item.defaultLabel);
+
+                var badgeNumHTML = isChecked 
+                    ? `<span class="w-5 h-5 rounded-full bg-amber-500 text-slate-900 text-[10px] font-black flex items-center justify-center shrink-0 shadow-xs">#${orderNum}</span>`
+                    : `<span class="w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 text-[10px] font-bold flex items-center justify-center shrink-0">-</span>`;
+
+                var isFirst = (orderIdx === 0);
+                var isLast = (orderIdx === currentShortcuts.length - 1);
+                var arrowUpDisabled = (!isChecked || isFirst);
+                var arrowDownDisabled = (!isChecked || isLast);
+
+                var arrowsHTML = `
+                <div class="flex items-center gap-0.5">
+                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', -1)" ${arrowUpDisabled ? 'disabled class="opacity-20 cursor-not-allowed text-slate-400 p-1 text-[10px]"' : 'class="text-slate-400 hover:text-amber-500 active:scale-90 p-1 text-[10px] transition-colors"'} title="${t('move_up', 'Geser ke Atas')}">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', 1)" ${arrowDownDisabled ? 'disabled class="opacity-20 cursor-not-allowed text-slate-400 p-1 text-[10px]"' : 'class="text-slate-400 hover:text-amber-500 active:scale-90 p-1 text-[10px] transition-colors"'} title="${t('move_down', 'Geser ke Bawah')}">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>`;
+
+                var checkboxDisabled = (!isChecked && isMax);
+
+                html += `
+                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border ${isChecked ? 'border-amber-500/40 dark:border-amber-500/30 bg-amber-50/20' : 'border-slate-200 dark:border-[#313f52]'} flex items-center justify-between gap-2 transition-colors">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        ${badgeNumHTML}
+                        <div class="w-7 h-7 rounded-xl ${item.bgClass} text-white flex items-center justify-center text-[11px] shrink-0 shadow-xs">
+                            <i class="${item.icon}"></i>
+                        </div>
+                        <span class="text-xs font-bold ${isChecked ? 'text-slate-800 dark:text-white' : 'text-slate-500 dark:text-slate-400'} truncate">${label}</span>
+                    </div>
+                    <div class="flex items-center gap-2.5 shrink-0">
+                        ${arrowsHTML}
+                        <input type="checkbox" ${isChecked ? 'checked' : ''} ${checkboxDisabled ? 'disabled title="' + t('quick_action_max_toast', 'Maksimal 4 shortcut!') + '"' : ''} onchange="toggleQuickActionShortcut('${item.id}', this.checked)" class="w-4 h-4 accent-amber-500 cursor-pointer ${checkboxDisabled ? 'opacity-40 cursor-not-allowed' : ''}">
+                    </div>
+                </div>`;
+            });
+
+            listEl.innerHTML = html;
+        }
+
+        function toggleQuickActionShortcut(id, isChecked) {
+            if (!Array.isArray(dataState.quickActionShortcuts)) dataState.quickActionShortcuts = [];
+            if (isChecked) {
+                if (dataState.quickActionShortcuts.length >= 4) {
+                    triggerDynamicIsland(t('quick_action_mgr_title', 'Akses Cepat'), t('quick_action_max_toast', 'Maksimal 4 shortcut!'), 'fas fa-exclamation-triangle', 'bg-amber-500/20 text-amber-400', true);
+                    renderQuickActionManagerModal();
+                    return;
+                }
+                if (!dataState.quickActionShortcuts.includes(id)) {
+                    dataState.quickActionShortcuts.push(id);
+                }
+            } else {
+                dataState.quickActionShortcuts = dataState.quickActionShortcuts.filter(k => k !== id);
+            }
+            simpanData();
+            renderQuickActionManagerModal();
+            renderFabQuickActions();
+            triggerDynamicIsland(t('quick_action_mgr_title', 'Akses Cepat'), t('toast_widget_layout_updated', 'Tata letak diperbarui'), 'fas fa-bolt', 'bg-amber-500/20 text-amber-400', true);
+        }
+
+        function moveQuickActionShortcut(id, direction) {
+            if (!Array.isArray(dataState.quickActionShortcuts)) return;
+            var idx = dataState.quickActionShortcuts.indexOf(id);
+            if (idx === -1) return;
+            var targetIdx = idx + direction;
+            if (targetIdx < 0 || targetIdx >= dataState.quickActionShortcuts.length) return;
+
+            var temp = dataState.quickActionShortcuts[idx];
+            dataState.quickActionShortcuts[idx] = dataState.quickActionShortcuts[targetIdx];
+            dataState.quickActionShortcuts[targetIdx] = temp;
+
+            simpanData();
+            renderQuickActionManagerModal();
+            renderFabQuickActions();
+        }
+
+        function renderFabQuickActions() {
+            var container = document.getElementById('fab-actions-grid-container');
+            if (!container) return;
+            var shortcuts = Array.isArray(dataState.quickActionShortcuts) && dataState.quickActionShortcuts.length > 0
+                ? dataState.quickActionShortcuts.slice(0, 4)
+                : ['pemasukan', 'pengeluaran', 'tugas', 'catatan'];
+            
+            var html = '';
+            shortcuts.forEach(id => {
+                var item = MASTER_QUICK_ACTIONS.find(m => m.id === id);
+                if (!item) return;
+                var label = t(item.labelKey, item.defaultLabel);
+                html += `
+                <button type="button" id="fab-btn-${item.id}" onclick="fabAction('${item.id}')" class="quick-action-item flex flex-col items-center justify-center p-2.5 rounded-2xl ${item.cardBg} active:scale-95 border ${item.textClass} transition-all text-center group">
+                    <div class="w-9 h-9 rounded-xl ${item.bgClass} text-white flex items-center justify-center text-xs shadow-sm mb-1.5 transition-transform group-active:scale-90">
+                        <i class="${item.icon}"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight w-full text-center">${label}</span>
+                </button>`;
+            });
+            container.innerHTML = html;
+        }
+
         // --- FITUR 1: ANALISIS & STATISTIK KEUANGAN ---
         let currentAnalisisPeriode = 'bulan-ini';
 
@@ -8023,6 +8212,20 @@
                 }, 200);
             } else if (action === 'catatan') {
                 openBottomSheet('catatan-kilat-modal');
+            } else if (action === 'jurnal') {
+                bukaJurnal();
+            } else if (action === 'kalender') {
+                openActivityCalendar();
+            } else if (action === 'tabungan') {
+                switchTab('beranda');
+                setTimeout(() => {
+                    var area = document.getElementById('tabungan-input-area');
+                    if (area && !area.classList.contains('open')) toggleInput('tabungan-input-area');
+                    var el = document.getElementById('input-tabungan-nama');
+                    if (el) { el.focus(); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+                }, 200);
+            } else if (action === 'analisis') {
+                openAnalisisModal();
             }
         }
 
@@ -11409,6 +11612,10 @@
             DEFAULT_FINANCE_WIDGETS.forEach(k => {
                 if (!dataState.financeWidgetOrder.includes(k)) dataState.financeWidgetOrder.push(k);
             });
+            if(!Array.isArray(dataState.quickActionShortcuts) || dataState.quickActionShortcuts.length === 0) {
+                dataState.quickActionShortcuts = ['pemasukan', 'pengeluaran', 'tugas', 'catatan'];
+            }
+            dataState.quickActionShortcuts = dataState.quickActionShortcuts.slice(0, 4);
             if(!Array.isArray(dataState.wallets)) dataState.wallets = [
                 { id: 'tunai', nama: 'Tunai' },
                 { id: 'bank', nama: 'Bank' },
