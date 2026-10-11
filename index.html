@@ -3053,7 +3053,13 @@
                 <!-- Di-render dinamis oleh JS dengan checklist & nomor urut (#1, #2, #3, #4) -->
             </div>
 
-            <button type="button" onclick="closeBottomSheet('quick-action-manager-modal')" class="w-full bg-primary-600 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md" data-i18n="widget_mgr_btn_save">Simpan Pengaturan</button>
+            <div class="flex items-center gap-2 pt-1">
+                <button type="button" onclick="resetQuickActionShortcuts()" class="px-4 py-2.5 bg-slate-100 dark:bg-[#242f3d] hover:bg-slate-200 dark:hover:bg-[#313f52] text-slate-700 dark:text-slate-200 rounded-2xl text-xs font-bold transition-all active:scale-95 flex items-center justify-center gap-1.5 shrink-0 border border-slate-200/60 dark:border-[#313f52]/60" title="Reset ke Shortcut Bawaan">
+                    <i class="fas fa-undo text-xs text-amber-500"></i>
+                    <span data-i18n="btn_reset_default">Reset Bawaan</span>
+                </button>
+                <button type="button" onclick="closeBottomSheet('quick-action-manager-modal')" class="flex-1 bg-primary-600 hover:bg-primary-700 active:scale-95 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md transition-all text-center" data-i18n="widget_mgr_btn_save">Simpan Pengaturan</button>
+            </div>
         </div>
     </div>
 
@@ -4830,6 +4836,8 @@
                 quick_action_mgr_title: "Shortcut Akses Cepat",
                 quick_action_mgr_desc: "Pilih maksimal 4 shortcut untuk menu Akses Cepat:",
                 quick_action_max_toast: "Maksimal 4 shortcut!",
+                btn_reset_default: "Reset Bawaan",
+                toast_quick_actions_reset: "Shortcut direset ke bawaan",
                 selected_label: "Terpilih",
                 move_up: "Geser ke Atas",
                 move_down: "Geser ke Bawah",
@@ -5457,6 +5465,8 @@
                 quick_action_mgr_title: "Quick Access Shortcuts",
                 quick_action_mgr_desc: "Select up to 4 shortcuts for Quick Access menu:",
                 quick_action_max_toast: "Maximum 4 shortcuts allowed!",
+                btn_reset_default: "Reset Default",
+                toast_quick_actions_reset: "Shortcuts reset to default",
                 selected_label: "Selected",
                 move_up: "Move Up",
                 move_down: "Move Down",
@@ -7252,6 +7262,28 @@
                 applyShortcutSwap();
                 isSwappingQuickAction = false;
             }, 330);
+        }
+
+        function resetQuickActionShortcuts() {
+            dataState.quickActionShortcuts = ['pemasukan', 'pengeluaran', 'tugas', 'catatan'];
+            simpanData();
+            renderQuickActionManagerModal();
+            renderFabQuickActions();
+
+            var listEl = document.getElementById('quick-action-toggle-list');
+            if (listEl) {
+                listEl.style.transition = 'transform 0.2s cubic-bezier(0.22, 1, 0.36, 1)';
+                listEl.style.transform = 'scale(0.985)';
+                setTimeout(() => {
+                    listEl.style.transform = '';
+                    setTimeout(() => {
+                        listEl.style.transition = '';
+                    }, 200);
+                }, 150);
+            }
+
+            if (typeof triggerHaptic === 'function') triggerHaptic('medium');
+            triggerDynamicIsland(t('quick_action_mgr_title', 'Shortcut Akses Cepat'), t('toast_quick_actions_reset', 'Shortcut direset ke bawaan'), 'fas fa-undo', 'bg-amber-500/20 text-amber-400', true);
         }
 
         function renderFabQuickActions() {
