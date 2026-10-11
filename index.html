@@ -2446,7 +2446,7 @@
             <!-- 4c. Atur Shortcut Akses Cepat -->
             <button type="button" onclick="openQuickActionManagerModal()" class="sidebar-nav-btn w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-amber-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
                 <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-500 shadow-inner"><i class="fas fa-bolt text-sm"></i></div>
-                <span data-i18n="sidebar_quick_actions">Ubah Shortcut Akses Cepat</span>
+                <span data-i18n="sidebar_quick_actions">Shortcut Akses Cepat</span>
             </button>
             <!-- 5. Analisis & Statistik Keuangan -->
             <button type="button" onclick="openAnalisisModal()" class="sidebar-nav-btn w-full flex items-center gap-3.5 px-4 py-3 bg-slate-50 dark:bg-[#242f3d]/60 hover:bg-sky-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 rounded-2xl font-bold border border-slate-200 dark:border-[#313f52] shadow-sm text-sm transition-colors">
@@ -2987,7 +2987,7 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-bolt text-amber-500"></i> <span data-i18n="quick_action_mgr_title">Ubah Shortcut Akses Cepat</span></h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-bolt text-amber-500"></i> <span data-i18n="quick_action_mgr_title">Shortcut Akses Cepat</span></h3>
                 <button type="button" onclick="closeBottomSheet('quick-action-manager-modal')" aria-label="Tutup atur shortcut" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="flex items-center justify-between mb-3">
@@ -2995,7 +2995,7 @@
                 <span id="quick-action-slot-badge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/40">4/4 Terpilih</span>
             </div>
             
-            <div class="space-y-2 mb-4 overflow-y-auto max-h-[50vh] pr-1" id="quick-action-toggle-list">
+            <div class="space-y-2 mb-4 overflow-y-auto max-h-[50vh] pr-1 overscroll-contain" id="quick-action-toggle-list">
                 <!-- Di-render dinamis oleh JS dengan checklist & nomor urut (#1, #2, #3, #4) -->
             </div>
 
@@ -4542,7 +4542,7 @@
                 sidebar_calendar: "Rekap Harian & Kalender",
                 sidebar_home_widgets: "Atur Widget Beranda",
                 sidebar_finance_widgets: "Atur Widget Keuangan",
-                sidebar_quick_actions: "Ubah Shortcut Akses Cepat",
+                sidebar_quick_actions: "Shortcut Akses Cepat",
                 sidebar_analysis: "Analisis & Statistik",
                 sidebar_quick_notes: "Catatan & Belanjaan",
                 sidebar_calculator: "Kalkulator & Target Impian",
@@ -4776,7 +4776,7 @@
                 widget_mgr_btn_save: "Simpan Pengaturan",
                 widget_mgr_fin_title: "Atur Widget Keuangan",
                 widget_mgr_fin_desc: "Pilih widget yang ingin ditampilkan di halaman Kelola Keuangan:",
-                quick_action_mgr_title: "Ubah Shortcut Akses Cepat",
+                quick_action_mgr_title: "Shortcut Akses Cepat",
                 quick_action_mgr_desc: "Pilih maksimal 4 shortcut untuk menu Akses Cepat:",
                 quick_action_max_toast: "Maksimal 4 shortcut!",
                 selected_label: "Terpilih",
@@ -5169,7 +5169,7 @@
                 sidebar_calendar: "Daily Recap & Calendar",
                 sidebar_home_widgets: "Manage Home Widgets",
                 sidebar_finance_widgets: "Manage Finance Widgets",
-                sidebar_quick_actions: "Customize Quick Shortcuts",
+                sidebar_quick_actions: "Quick Access Shortcuts",
                 sidebar_analysis: "Analysis & Statistics",
                 sidebar_quick_notes: "Notes & Shopping List",
                 sidebar_calculator: "Calculator & Dream Target",
@@ -5403,7 +5403,7 @@
                 widget_mgr_btn_save: "Save Settings",
                 widget_mgr_fin_title: "Manage Finance Widgets",
                 widget_mgr_fin_desc: "Choose widgets to display on Finance screen:",
-                quick_action_mgr_title: "Customize Quick Shortcuts",
+                quick_action_mgr_title: "Quick Access Shortcuts",
                 quick_action_mgr_desc: "Select up to 4 shortcuts for Quick Access menu:",
                 quick_action_max_toast: "Maximum 4 shortcuts allowed!",
                 selected_label: "Selected",
@@ -6840,7 +6840,27 @@
             var handle = sheet.querySelector('.drag-handle');
 
             sheet.addEventListener('touchstart', (e) => {
-                if (sheet.scrollTop > 5 && !e.target.closest('.drag-handle')) return;
+                var target = e.target;
+                var isHandle = !!target.closest('.drag-handle');
+                var isScrollable = !!target.closest('.overflow-y-auto, .overflow-y-scroll, [class*="overflow-y"]');
+                var isInteractive = !!target.closest('button, input, textarea, select, a, [role="button"], [role="checkbox"]');
+
+                // Jika menyentuh area scrollable konten atau kontrol interaktif, jangan pernah drag container modal!
+                if (!isHandle && (isScrollable || isInteractive)) {
+                    isDragging = false;
+                    return;
+                }
+
+                // Jika bukan drag handle langsung, hanya izinkan jika menyentuh area paling atas sheet (<= 55px)
+                if (!isHandle) {
+                    var sheetRect = sheet.getBoundingClientRect();
+                    var touchY = e.touches[0].clientY;
+                    if (touchY - sheetRect.top > 55) {
+                        isDragging = false;
+                        return;
+                    }
+                }
+
                 startY = e.touches[0].clientY;
                 currentY = startY;
                 isDragging = true;
@@ -6852,13 +6872,14 @@
                 if (!isDragging) return;
                 let touchY = e.touches[0].clientY;
                 let diffY = touchY - startY;
-                if (diffY > 0) {
+                if (diffY > 6) {
                     currentY = touchY;
-                    sheet.style.transform = `translate3d(0, ${diffY}px, 0)`;
+                    let dragOffset = diffY - 6;
+                    sheet.style.transform = `translate3d(0, ${dragOffset}px, 0)`;
                     // iOS Elastic Surface Membrane Stretch pada Drag Handle (Preserve Volume)
                     if (handle) {
-                        let stretchX = 1 + Math.min(diffY * 0.0025, 0.40);
-                        let compressY = Math.max(0.68, 1 - Math.min(diffY * 0.0022, 0.32));
+                        let stretchX = 1 + Math.min(dragOffset * 0.0025, 0.40);
+                        let compressY = Math.max(0.68, 1 - Math.min(dragOffset * 0.0022, 0.32));
                         handle.style.transform = `scale(${stretchX}, ${compressY})`;
                     }
                 }
@@ -6867,7 +6888,7 @@
             sheet.addEventListener('touchend', () => {
                 if (!isDragging) return;
                 isDragging = false;
-                sheet.style.transition = '';
+                sheet.style.transition = 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)';
                 if (handle) {
                     handle.style.transition = 'transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
                     handle.style.transform = 'scale(1, 1)';
@@ -6876,9 +6897,15 @@
                 var diffY = currentY - startY;
                 if (diffY > 90) {
                     closeBottomSheet(sheetBackdrop.id);
-                    setTimeout(() => { sheet.style.transform = ''; }, 300);
+                    setTimeout(() => { 
+                        sheet.style.transform = ''; 
+                        sheet.style.transition = ''; 
+                    }, 300);
                 } else {
                     sheet.style.transform = '';
+                    setTimeout(() => { 
+                        sheet.style.transition = ''; 
+                    }, 300);
                 }
                 startY = 0; currentY = 0;
             }, { passive: true });
@@ -7001,7 +7028,7 @@
             triggerDynamicIsland(t('toast_fin_widget_title', "Widget Keuangan"), t('toast_widget_layout_updated', "Tata letak diperbarui"), "fas fa-wallet", "bg-emerald-500/20 text-emerald-400", true);
         }
 
-        // --- FITUR: UBAH SHORTCUT AKSES CEPAT (MAKSIMAL 4 SLOT) ---
+        // --- FITUR: SHORTCUT AKSES CEPAT (MAKSIMAL 4 SLOT) ---
         const MASTER_QUICK_ACTIONS = [
             { id: 'pemasukan', labelKey: 'fab_pemasukan', defaultLabel: 'Catat Pemasukan', icon: 'fas fa-plus', bgClass: 'bg-emerald-500', textClass: 'text-emerald-600 dark:text-emerald-400', cardBg: 'bg-emerald-50/70 dark:bg-emerald-950/35 hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40 border-emerald-500/25' },
             { id: 'pengeluaran', labelKey: 'fab_pengeluaran', defaultLabel: 'Catat Pengeluaran', icon: 'fas fa-minus', bgClass: 'bg-rose-500', textClass: 'text-rose-600 dark:text-rose-400', cardBg: 'bg-rose-50/70 dark:bg-rose-950/35 hover:bg-rose-100/60 dark:hover:bg-rose-900/40 border-rose-500/25' },
@@ -7012,6 +7039,8 @@
             { id: 'tabungan', labelKey: 'widget_savings_title', defaultLabel: 'Target Tabungan', icon: 'fas fa-piggy-bank', bgClass: 'bg-teal-500', textClass: 'text-teal-600 dark:text-teal-400', cardBg: 'bg-teal-50/70 dark:bg-teal-950/35 hover:bg-teal-100/60 dark:hover:bg-teal-900/40 border-teal-500/25' },
             { id: 'analisis', labelKey: 'sidebar_analysis', defaultLabel: 'Analisis Keuangan', icon: 'fas fa-chart-pie', bgClass: 'bg-indigo-500', textClass: 'text-indigo-600 dark:text-indigo-400', cardBg: 'bg-indigo-50/70 dark:bg-indigo-950/35 hover:bg-indigo-100/60 dark:hover:bg-indigo-900/40 border-indigo-500/25' }
         ];
+
+        let isSwappingQuickAction = false;
 
         function openQuickActionManagerModal() {
             var sb = document.getElementById('sidebar');
@@ -7041,6 +7070,7 @@
             ].filter(Boolean);
 
             var isMax = currentShortcuts.length >= 4;
+            var totalActive = currentShortcuts.length;
 
             var html = '';
             ordered.forEach(item => {
@@ -7054,24 +7084,33 @@
                     : `<span class="w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 text-[10px] font-bold flex items-center justify-center shrink-0">-</span>`;
 
                 var isFirst = (orderIdx === 0);
-                var isLast = (orderIdx === currentShortcuts.length - 1);
-                var arrowUpDisabled = (!isChecked || isFirst);
-                var arrowDownDisabled = (!isChecked || isLast);
+                var isLast = (orderIdx === totalActive - 1);
 
-                var arrowsHTML = `
-                <div class="flex items-center gap-0.5">
-                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', -1)" ${arrowUpDisabled ? 'disabled class="opacity-20 cursor-not-allowed text-slate-400 p-1 text-[10px]"' : 'class="text-slate-400 hover:text-amber-500 active:scale-90 p-1 text-[10px] transition-colors"'} title="${t('move_up', 'Geser ke Atas')}">
+                var arrowsHTML = '';
+                if (isChecked && totalActive > 1) {
+                    var upBtn = !isFirst ? `
+                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-slate-200/70 dark:bg-[#17212b] text-slate-600 dark:text-slate-300 hover:text-amber-500 hover:bg-amber-100 dark:hover:bg-amber-950/40 active:scale-90 flex items-center justify-center text-[10px] transition-all shadow-2xs" title="${t('move_up', 'Geser ke Atas')}">
                         <i class="fas fa-chevron-up"></i>
-                    </button>
-                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', 1)" ${arrowDownDisabled ? 'disabled class="opacity-20 cursor-not-allowed text-slate-400 p-1 text-[10px]"' : 'class="text-slate-400 hover:text-amber-500 active:scale-90 p-1 text-[10px] transition-colors"'} title="${t('move_down', 'Geser ke Bawah')}">
+                    </button>` : '';
+
+                    var downBtn = !isLast ? `
+                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-slate-200/70 dark:bg-[#17212b] text-slate-600 dark:text-slate-300 hover:text-amber-500 hover:bg-amber-100 dark:hover:bg-amber-950/40 active:scale-90 flex items-center justify-center text-[10px] transition-all shadow-2xs" title="${t('move_down', 'Geser ke Bawah')}">
                         <i class="fas fa-chevron-down"></i>
-                    </button>
-                </div>`;
+                    </button>` : '';
+
+                    arrowsHTML = `
+                    <div class="flex items-center gap-1 min-w-[54px] justify-end">
+                        ${upBtn}
+                        ${downBtn}
+                    </div>`;
+                } else {
+                    arrowsHTML = `<div class="min-w-[54px]"></div>`;
+                }
 
                 var checkboxDisabled = (!isChecked && isMax);
 
                 html += `
-                <div class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border ${isChecked ? 'border-amber-500/40 dark:border-amber-500/30 bg-amber-50/20' : 'border-slate-200 dark:border-[#313f52]'} flex items-center justify-between gap-2 transition-colors">
+                <div id="quick-action-item-${item.id}" class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border ${isChecked ? 'border-amber-500/40 dark:border-amber-500/30 bg-amber-50/20' : 'border-slate-200 dark:border-[#313f52]'} flex items-center justify-between gap-2 transition-colors relative">
                     <div class="flex items-center gap-2.5 min-w-0">
                         ${badgeNumHTML}
                         <div class="w-7 h-7 rounded-xl ${item.bgClass} text-white flex items-center justify-center text-[11px] shrink-0 shadow-xs">
@@ -7093,7 +7132,7 @@
             if (!Array.isArray(dataState.quickActionShortcuts)) dataState.quickActionShortcuts = [];
             if (isChecked) {
                 if (dataState.quickActionShortcuts.length >= 4) {
-                    triggerDynamicIsland(t('quick_action_mgr_title', 'Akses Cepat'), t('quick_action_max_toast', 'Maksimal 4 shortcut!'), 'fas fa-exclamation-triangle', 'bg-amber-500/20 text-amber-400', true);
+                    triggerDynamicIsland(t('quick_action_mgr_title', 'Shortcut Akses Cepat'), t('quick_action_max_toast', 'Maksimal 4 shortcut!'), 'fas fa-exclamation-triangle', 'bg-amber-500/20 text-amber-400', true);
                     renderQuickActionManagerModal();
                     return;
                 }
@@ -7106,23 +7145,62 @@
             simpanData();
             renderQuickActionManagerModal();
             renderFabQuickActions();
-            triggerDynamicIsland(t('quick_action_mgr_title', 'Akses Cepat'), t('toast_widget_layout_updated', 'Tata letak diperbarui'), 'fas fa-bolt', 'bg-amber-500/20 text-amber-400', true);
+            triggerDynamicIsland(t('quick_action_mgr_title', 'Shortcut Akses Cepat'), t('toast_widget_layout_updated', 'Tata letak diperbarui'), 'fas fa-bolt', 'bg-amber-500/20 text-amber-400', true);
         }
 
         function moveQuickActionShortcut(id, direction) {
+            if (isSwappingQuickAction) return;
             if (!Array.isArray(dataState.quickActionShortcuts)) return;
             var idx = dataState.quickActionShortcuts.indexOf(id);
             if (idx === -1) return;
             var targetIdx = idx + direction;
             if (targetIdx < 0 || targetIdx >= dataState.quickActionShortcuts.length) return;
 
-            var temp = dataState.quickActionShortcuts[idx];
-            dataState.quickActionShortcuts[idx] = dataState.quickActionShortcuts[targetIdx];
-            dataState.quickActionShortcuts[targetIdx] = temp;
+            var targetId = dataState.quickActionShortcuts[targetIdx];
+            var cardA = document.getElementById(`quick-action-item-${id}`);
+            var cardB = document.getElementById(`quick-action-item-${targetId}`);
 
-            simpanData();
-            renderQuickActionManagerModal();
-            renderFabQuickActions();
+            const applyShortcutSwap = () => {
+                var temp = dataState.quickActionShortcuts[idx];
+                dataState.quickActionShortcuts[idx] = dataState.quickActionShortcuts[targetIdx];
+                dataState.quickActionShortcuts[targetIdx] = temp;
+
+                simpanData();
+                renderQuickActionManagerModal();
+                renderFabQuickActions();
+            };
+
+            if (!cardA || !cardB) {
+                applyShortcutSwap();
+                return;
+            }
+
+            isSwappingQuickAction = true;
+            if (typeof triggerHaptic === 'function') triggerHaptic('light');
+
+            var rectA = cardA.getBoundingClientRect();
+            var rectB = cardB.getBoundingClientRect();
+            var distA = rectB.top - rectA.top;
+            var distB = rectA.top - rectB.top;
+
+            cardA.style.transition = 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)';
+            cardB.style.transition = 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)';
+            cardA.style.zIndex = '10';
+            cardB.style.zIndex = '5';
+            cardA.style.transform = `translate3d(0, ${distA}px, 0)`;
+            cardB.style.transform = `translate3d(0, ${distB}px, 0)`;
+
+            setTimeout(() => {
+                cardA.style.transition = '';
+                cardB.style.transition = '';
+                cardA.style.transform = '';
+                cardB.style.transform = '';
+                cardA.style.zIndex = '';
+                cardB.style.zIndex = '';
+
+                applyShortcutSwap();
+                isSwappingQuickAction = false;
+            }, 330);
         }
 
         function renderFabQuickActions() {
