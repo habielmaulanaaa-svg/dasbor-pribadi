@@ -4947,6 +4947,7 @@
                 confirm_delete_journal: "Hapus jurnal ini?",
                 confirm_google_logout: "Keluar dari akun Google Anda? Data saat ini tetap tersimpan aman di perangkat ini.",
                 confirm_cloud_pull_overwrite: "Tarik data dari Cloud dan timpa data di perangkat ini? Semua data di perangkat ini akan mengikuti data Cloud.",
+                confirm_reset_shortcuts: "Kembalikan shortcut akses cepat ke pengaturan bawaan?",
 
                 // Dynamic Island Toasts & Alerts
                 toast_sub_new_title: "Langganan Baru 📅",
@@ -5576,6 +5577,7 @@
                 confirm_delete_journal: "Delete this journal entry?",
                 confirm_google_logout: "Sign out of your Google account? Your current data will remain safe on this device.",
                 confirm_cloud_pull_overwrite: "Pull data from Cloud and overwrite data on this device? All local data will match Cloud data.",
+                confirm_reset_shortcuts: "Reset quick access shortcuts to default settings?",
 
                 // Dynamic Island Toasts & Alerts
                 toast_sub_new_title: "New Subscription 📅",
@@ -7237,11 +7239,8 @@
 
                     requestAnimationFrame(() => {
                         itemsToAnimate.forEach(item => {
-                            item.el.style.transition = 'transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.36s ease';
+                            item.el.style.transition = 'transform 0.36s cubic-bezier(0.22, 1, 0.36, 1)';
                             item.el.style.transform = 'translate3d(0, 0, 0)';
-                            if (item.deltaY > 0) {
-                                item.el.style.boxShadow = '0 6px 20px -2px rgba(245, 158, 11, 0.32)';
-                            }
                         });
 
                         setTimeout(() => {
@@ -7249,7 +7248,6 @@
                                 item.el.style.transition = '';
                                 item.el.style.transform = '';
                                 item.el.style.zIndex = '';
-                                item.el.style.boxShadow = '';
                             });
                         }, 380);
                     });
@@ -7315,6 +7313,9 @@
         }
 
         function resetQuickActionShortcuts() {
+            if (!confirm(t('confirm_reset_shortcuts', 'Kembalikan shortcut akses cepat ke pengaturan bawaan?'))) {
+                return;
+            }
             dataState.quickActionShortcuts = ['pemasukan', 'pengeluaran', 'tugas', 'catatan'];
             simpanData();
             renderQuickActionManagerModal(true);
