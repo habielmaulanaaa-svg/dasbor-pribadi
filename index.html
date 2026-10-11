@@ -2547,7 +2547,7 @@
 
                     <hr class="border-slate-100 dark:border-[#242f3d]">
                     
-                    <button type="button" onclick="exportData()" class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
+                    <button type="button" onclick="bukaModalBackupSelektif()" class="w-full text-left px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d] rounded-xl text-xs font-bold flex items-center">
                         <i id="icon-download-backup" class="fas fa-download mr-2 text-primary-500"></i> <span data-i18n="settings_backup_data">Backup Data (JSON)</span>
                     </button>
                     
@@ -3041,6 +3041,146 @@
             <div class="grid grid-cols-2 gap-2 mt-auto">
                 <button type="button" onclick="saveBudgets()" class="bg-primary-600 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md hover:bg-primary-700" data-i18n="budget_btn_save">Simpan Anggaran</button>
                 <button type="button" onclick="closeBottomSheet('budget-modal')" class="bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-300 py-2.5 rounded-2xl text-xs font-bold hover:bg-slate-200" data-i18n="budget_btn_cancel">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM SHEET: CADANGKAN DATA TERPILIH (CHECKLIST MODAL) -->
+    <div id="modal-backup-selektif" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
+        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[88vh] flex flex-col">
+            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-3 shrink-0"></div>
+            
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-400 flex items-center justify-center text-sm font-black">
+                        <i class="fas fa-file-download"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-800 dark:text-white" data-i18n="backup_modal_title">Cadangkan Data Terpilih</h3>
+                        <p class="text-[10px] text-slate-400 font-medium" data-i18n="backup_modal_desc">Pilih kategori data yang ingin Anda ekspor</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeBottomSheet('modal-backup-selektif')" aria-label="Tutup cadangkan data terpilih" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-[#242f3d] transition-colors"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Tombol Aksi Cepat Pilih Semua / Batal Pilih -->
+            <div class="flex items-center justify-between gap-2 mb-3 px-0.5">
+                <span id="backup-counter-indicator" class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-i18n="backup_counter_all">Semua kategori terpilih</span>
+                <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="togglePilihSemuaBackup(true)" class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors" data-i18n="backup_btn_select_all">Pilih Semua</button>
+                    <button type="button" onclick="togglePilihSemuaBackup(false)" class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors" data-i18n="backup_btn_deselect_all">Batal Pilih</button>
+                </div>
+            </div>
+
+            <!-- Daftar Opsi Checklist Kategori Data -->
+            <div class="space-y-2 overflow-y-auto pr-1 flex-1 mb-3 select-none">
+                
+                <!-- 1. Keuangan & Saldo -->
+                <div onclick="toggleBackupItem('keuangan')" id="backup-card-keuangan" class="backup-item-card p-3 rounded-2xl border border-primary-500 dark:border-primary-500 bg-primary-50/70 dark:bg-primary-950/40 flex items-center justify-between cursor-pointer transition-all hover:bg-primary-50/40 dark:hover:bg-primary-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-backup-keuangan" checked class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 accent-primary-600 pointer-events-none" onchange="updateBackupButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-wallet text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate" data-i18n="backup_cat_finance">Keuangan &amp; Saldo</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight" data-i18n="backup_cat_finance_desc">Transaksi, saldo dompet, anggaran &amp; tagihan</p>
+                        </div>
+                    </div>
+                    <span id="badge-backup-count-keuangan" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 2. Tugas & Deadline -->
+                <div onclick="toggleBackupItem('tugas')" id="backup-card-tugas" class="backup-item-card p-3 rounded-2xl border border-primary-500 dark:border-primary-500 bg-primary-50/70 dark:bg-primary-950/40 flex items-center justify-between cursor-pointer transition-all hover:bg-primary-50/40 dark:hover:bg-primary-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-backup-tugas" checked class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 accent-primary-600 pointer-events-none" onchange="updateBackupButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-primary-100 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-tasks text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate" data-i18n="backup_cat_tasks">Tugas &amp; Catatan Deadline</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight" data-i18n="backup_cat_tasks_desc">Daftar tugas aktif, tugas selesai &amp; tenggat waktu</p>
+                        </div>
+                    </div>
+                    <span id="badge-backup-count-tugas" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 3. Target Tabungan & Impian -->
+                <div onclick="toggleBackupItem('tabungan')" id="backup-card-tabungan" class="backup-item-card p-3 rounded-2xl border border-primary-500 dark:border-primary-500 bg-primary-50/70 dark:bg-primary-950/40 flex items-center justify-between cursor-pointer transition-all hover:bg-primary-50/40 dark:hover:bg-primary-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-backup-tabungan" checked class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 accent-primary-600 pointer-events-none" onchange="updateBackupButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-bullseye text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate" data-i18n="backup_cat_savings">Target Tabungan &amp; Impian</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight" data-i18n="backup_cat_savings_desc">Seluruh tabungan impian dan progres terkumpul</p>
+                        </div>
+                    </div>
+                    <span id="badge-backup-count-tabungan" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 4. Jurnal Refleksi -->
+                <div onclick="toggleBackupItem('jurnal')" id="backup-card-jurnal" class="backup-item-card p-3 rounded-2xl border border-primary-500 dark:border-primary-500 bg-primary-50/70 dark:bg-primary-950/40 flex items-center justify-between cursor-pointer transition-all hover:bg-primary-50/40 dark:hover:bg-primary-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-backup-jurnal" checked class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 accent-primary-600 pointer-events-none" onchange="updateBackupButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-indigo-100 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-book-open text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate" data-i18n="backup_cat_journal">Catatan Jurnal Harian</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight" data-i18n="backup_cat_journal_desc">Catatan harian, refleksi diri, dan mood tracking</p>
+                        </div>
+                    </div>
+                    <span id="badge-backup-count-jurnal" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 5. Rekapitulasi Harian -->
+                <div onclick="toggleBackupItem('rekap')" id="backup-card-rekap" class="backup-item-card p-3 rounded-2xl border border-primary-500 dark:border-primary-500 bg-primary-50/70 dark:bg-primary-950/40 flex items-center justify-between cursor-pointer transition-all hover:bg-primary-50/40 dark:hover:bg-primary-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-backup-rekap" checked class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 accent-primary-600 pointer-events-none" onchange="updateBackupButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-teal-100 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
+                            <i class="fas fa-history text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate" data-i18n="backup_cat_rekap">Rekapitulasi Harian</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight" data-i18n="backup_cat_rekap_desc">Riwayat setor rekap, snapshot &amp; evaluasi harian</p>
+                        </div>
+                    </div>
+                    <span id="badge-backup-count-rekap" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0">0 Data</span>
+                </div>
+
+                <!-- 6. Pengaturan & Preferensi Tampilan -->
+                <div onclick="toggleBackupItem('pengaturan')" id="backup-card-pengaturan" class="backup-item-card p-3 rounded-2xl border border-primary-500 dark:border-primary-500 bg-primary-50/70 dark:bg-primary-950/40 flex items-center justify-between cursor-pointer transition-all hover:bg-primary-50/40 dark:hover:bg-primary-950/20">
+                    <div class="flex items-center gap-3 min-w-0 pr-2">
+                        <input type="checkbox" id="check-backup-pengaturan" checked class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 accent-primary-600 pointer-events-none" onchange="updateBackupButtonState()">
+                        <div class="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center shrink-0">
+                            <i class="fas fa-sliders-h text-xs"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate" data-i18n="backup_cat_settings">Pengaturan &amp; Preferensi</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight" data-i18n="backup_cat_settings_desc">Warna tema, mode tampilan, tata letak &amp; nama</p>
+                        </div>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-[#313f52] text-slate-600 dark:text-slate-300 shrink-0" data-i18n="backup_cat_settings_badge">Preferensi</span>
+                </div>
+
+            </div>
+
+            <!-- Catatan Informasi Aman -->
+            <div class="p-2.5 rounded-xl bg-primary-50 dark:bg-primary-950/30 border border-primary-200/80 dark:border-primary-900/40 text-[11px] text-primary-700 dark:text-primary-300 flex items-center gap-2 mb-3">
+                <i class="fas fa-info-circle shrink-0 text-primary-500"></i>
+                <span class="leading-tight" data-i18n="backup_info_note">File cadangan (JSON) dapat dipulihkan kapan saja melalui menu 'Pulihkan Data'.</span>
+            </div>
+
+            <!-- Tombol Aksi Bawah -->
+            <div class="grid grid-cols-2 gap-2 shrink-0">
+                <button type="button" onclick="closeBottomSheet('modal-backup-selektif')" class="w-full py-2.5 bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#313f52] rounded-2xl text-xs font-bold transition-colors" data-i18n="backup_btn_cancel">
+                    Batal
+                </button>
+                <button type="button" id="btn-eksekusi-backup-selektif" onclick="eksekusiBackupDataSelektif()" class="w-full py-2.5 bg-primary-600 hover:bg-primary-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-2xl text-xs font-bold shadow-md transition-all flex items-center justify-center gap-1.5">
+                    <i class="fas fa-file-download text-xs"></i> <span id="label-btn-backup-selektif" data-i18n="backup_btn_execute">Cadangkan Data</span>
+                </button>
             </div>
         </div>
     </div>
@@ -4407,6 +4547,31 @@
                 subs_btn_pay: "Bayar",
                 subs_empty_list: "Belum ada langganan atau tagihan rutin.",
 
+                // Modal Cadangan Selektif (Backup Selektif)
+                backup_modal_title: "Cadangkan Data Terpilih",
+                backup_modal_desc: "Pilih kategori data yang ingin Anda ekspor",
+                backup_counter_zero: "0 kategori terpilih",
+                backup_counter_all: "Semua kategori terpilih",
+                backup_counter_suffix: "kategori terpilih",
+                backup_btn_select_all: "Pilih Semua",
+                backup_btn_deselect_all: "Batal Pilih",
+                backup_cat_finance: "Keuangan & Saldo",
+                backup_cat_finance_desc: "Transaksi, saldo dompet, anggaran & tagihan",
+                backup_cat_tasks: "Tugas & Catatan Deadline",
+                backup_cat_tasks_desc: "Daftar tugas aktif, tugas selesai & tenggat waktu",
+                backup_cat_savings: "Target Tabungan & Impian",
+                backup_cat_savings_desc: "Seluruh tabungan impian dan progres terkumpul",
+                backup_cat_journal: "Catatan Jurnal Harian",
+                backup_cat_journal_desc: "Catatan harian, refleksi diri, dan mood tracking",
+                backup_cat_rekap: "Rekapitulasi Harian",
+                backup_cat_rekap_desc: "Riwayat setor rekap, snapshot & evaluasi harian",
+                backup_cat_settings: "Pengaturan & Preferensi",
+                backup_cat_settings_desc: "Warna tema, mode tampilan, tata letak & nama",
+                backup_cat_settings_badge: "Preferensi",
+                backup_info_note: "File cadangan (JSON) dapat dipulihkan kapan saja melalui menu 'Pulihkan Data'.",
+                backup_btn_cancel: "Batal",
+                backup_btn_execute: "Cadangkan Data",
+
                 // Modal Reset Selektif
                 reset_modal_title: "Hapus Data Terpilih",
                 reset_modal_desc: "Centang kategori data yang ingin Anda bersihkan",
@@ -4998,6 +5163,31 @@
                 subs_due_date_info: "Due on day",
                 subs_btn_pay: "Pay",
                 subs_empty_list: "No recurring subscriptions or bills yet.",
+
+                // Modal Cadangan Selektif (Backup Selektif)
+                backup_modal_title: "Backup Selected Data",
+                backup_modal_desc: "Select the data categories you wish to export",
+                backup_counter_zero: "0 categories selected",
+                backup_counter_all: "All categories selected",
+                backup_counter_suffix: "categories selected",
+                backup_btn_select_all: "Select All",
+                backup_btn_deselect_all: "Deselect All",
+                backup_cat_finance: "Finances & Balances",
+                backup_cat_finance_desc: "Transactions, wallet balances, budgets & bills",
+                backup_cat_tasks: "Tasks & Deadlines",
+                backup_cat_tasks_desc: "Active tasks, completed tasks, and due dates",
+                backup_cat_savings: "Savings Goals & Dreams",
+                backup_cat_savings_desc: "All dream savings and collected progress",
+                backup_cat_journal: "Daily Journal Entries",
+                backup_cat_journal_desc: "Daily notes, reflections, and mood tracking",
+                backup_cat_rekap: "Daily Recaps",
+                backup_cat_rekap_desc: "Submitted daily recaps, snapshots & evaluations",
+                backup_cat_settings: "Settings & Preferences",
+                backup_cat_settings_desc: "Theme color, display mode, layout & username",
+                backup_cat_settings_badge: "Preferences",
+                backup_info_note: "Backup files (.json) can be restored anytime via 'Restore Data'.",
+                backup_btn_cancel: "Cancel",
+                backup_btn_execute: "Backup Data",
 
                 // Modal Reset Selektif
                 reset_modal_title: "Selective Reset Data",
@@ -7329,20 +7519,7 @@
         }
 
         function exportData() {
-            let icon = document.getElementById('icon-download-backup');
-            if (icon) {
-                icon.classList.remove('animate-bounce-down');
-                void icon.offsetWidth;
-                icon.classList.add('animate-bounce-down');
-                setTimeout(() => icon.classList.remove('animate-bounce-down'), 400);
-            }
-            try {
-                let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataState));
-                let a = document.createElement('a');
-                a.href = dataStr; a.download = `dasbor_backup_${getRekapDateString()}.json`;
-                document.body.appendChild(a); a.click(); a.remove();
-                triggerDynamicIsland(t('toast_backup_title', "Cadangan"), t('toast_backup_desc', "Cadangan berhasil diunduh 📥"), "fas fa-download", "bg-emerald-500/20 text-emerald-400", true);
-            } catch(e) { alert(t('toast_backup_fail', "Gagal mengunduh cadangan!")); }
+            bukaModalBackupSelektif();
         }
 
         function importData(event) {
@@ -10674,6 +10851,226 @@
             refreshDynamicSkeleton();
             perbaruiTampilan();
             debouncedSyncToCloud();
+        }
+
+        // ==========================================
+        // FITUR CADANGKAN DATA TERPILIH (SELECTIVE BACKUP DATA)
+        // ==========================================
+        function bukaModalBackupSelektif() {
+            var m = document.getElementById('modal-backup-selektif');
+            if (!m) return;
+
+            var isEn = (dataState && dataState.language === 'en');
+
+            // Update badge hitungan data aktual
+            var elKeuangan = document.getElementById('badge-backup-count-keuangan');
+            if (elKeuangan) {
+                var jmlTrx = (dataState.transaksi || []).length;
+                var trxUnit = isEn ? (jmlTrx === 1 ? 'Transaction' : 'Transactions') : 'Transaksi';
+                elKeuangan.innerText = `${jmlTrx} ${trxUnit} (${formatRupiah(dataState.saldo || 0)})`;
+            }
+            var elTugas = document.getElementById('badge-backup-count-tugas');
+            if (elTugas) {
+                var jmlTugas = (dataState.tugas || []).length;
+                elTugas.innerText = `${jmlTugas} ${isEn ? 'Tasks' : 'Tugas'}`;
+            }
+            var elTabungan = document.getElementById('badge-backup-count-tabungan');
+            if (elTabungan) {
+                var jmlTab = (dataState.targetTabungan || []).length;
+                elTabungan.innerText = `${jmlTab} ${isEn ? 'Goals' : 'Target'}`;
+            }
+            var elJurnal = document.getElementById('badge-backup-count-jurnal');
+            if (elJurnal) {
+                var jmlJurnal = (dataState.jurnal || []).length;
+                elJurnal.innerText = `${jmlJurnal} ${isEn ? 'Journals' : 'Jurnal'}`;
+            }
+            var elRekap = document.getElementById('badge-backup-count-rekap');
+            if (elRekap) {
+                var jmlRekap = (dataState.rekapHarian || []).length;
+                elRekap.innerText = `${jmlRekap} ${isEn ? 'Recaps' : 'Rekap'}`;
+            }
+
+            // Set checklist awal: semua terpilih (true) agar siap unduh 1 klik
+            togglePilihSemuaBackup(true);
+            openBottomSheet('modal-backup-selektif');
+        }
+
+        function toggleBackupItem(key) {
+            triggerHaptic('light');
+            var chk = document.getElementById('check-backup-' + key);
+            var card = document.getElementById('backup-card-' + key);
+            if (!chk) return;
+            chk.checked = !chk.checked;
+            if (card) {
+                if (chk.checked) {
+                    card.classList.add('border-primary-500', 'dark:border-primary-500', 'bg-primary-50/70', 'dark:bg-primary-950/40');
+                    card.classList.remove('border-slate-200', 'dark:border-[#313f52]', 'bg-slate-50/70', 'dark:bg-[#242f3d]/50');
+                } else {
+                    card.classList.remove('border-primary-500', 'dark:border-primary-500', 'bg-primary-50/70', 'dark:bg-primary-950/40');
+                    card.classList.add('border-slate-200', 'dark:border-[#313f52]', 'bg-slate-50/70', 'dark:bg-[#242f3d]/50');
+                }
+            }
+            updateBackupButtonState();
+        }
+
+        function togglePilihSemuaBackup(pilih) {
+            triggerHaptic('light');
+            var keys = ['keuangan', 'tugas', 'tabungan', 'jurnal', 'rekap', 'pengaturan'];
+            keys.forEach(function(k) {
+                var chk = document.getElementById('check-backup-' + k);
+                var card = document.getElementById('backup-card-' + k);
+                if (chk) chk.checked = (pilih === true);
+                if (card) {
+                    if (pilih) {
+                        card.classList.add('border-primary-500', 'dark:border-primary-500', 'bg-primary-50/70', 'dark:bg-primary-950/40');
+                        card.classList.remove('border-slate-200', 'dark:border-[#313f52]', 'bg-slate-50/70', 'dark:bg-[#242f3d]/50');
+                    } else {
+                        card.classList.remove('border-primary-500', 'dark:border-primary-500', 'bg-primary-50/70', 'dark:bg-primary-950/40');
+                        card.classList.add('border-slate-200', 'dark:border-[#313f52]', 'bg-slate-50/70', 'dark:bg-[#242f3d]/50');
+                    }
+                }
+            });
+            updateBackupButtonState();
+        }
+
+        function updateBackupButtonState() {
+            var keys = ['keuangan', 'tugas', 'tabungan', 'jurnal', 'rekap', 'pengaturan'];
+            var terpilih = 0;
+            keys.forEach(function(k) {
+                var chk = document.getElementById('check-backup-' + k);
+                if (chk && chk.checked) terpilih++;
+            });
+
+            var btn = document.getElementById('btn-eksekusi-backup-selektif');
+            var lbl = document.getElementById('label-btn-backup-selektif');
+            var indicator = document.getElementById('backup-counter-indicator');
+            var isEn = (dataState && dataState.language === 'en');
+            if (indicator) {
+                if (terpilih === keys.length) {
+                    indicator.innerText = isEn ? "All categories selected" : "Semua kategori terpilih";
+                } else {
+                    indicator.innerText = isEn ? `${terpilih} categories selected` : `${terpilih} kategori terpilih`;
+                }
+            }
+            if (btn) {
+                btn.disabled = (terpilih === 0);
+            }
+            if (lbl) {
+                if (isEn) {
+                    lbl.innerText = terpilih > 0 ? (terpilih === keys.length ? 'Backup All Data' : `Backup (${terpilih} Categories)`) : 'Select Category';
+                } else {
+                    lbl.innerText = terpilih > 0 ? (terpilih === keys.length ? 'Cadangkan Semua Data' : `Cadangkan (${terpilih} Kategori)`) : 'Pilih Kategori';
+                }
+            }
+        }
+
+        function eksekusiBackupDataSelektif() {
+            var keys = ['keuangan', 'tugas', 'tabungan', 'jurnal', 'rekap', 'pengaturan'];
+            var terpilih = [];
+            keys.forEach(function(k) {
+                var chk = document.getElementById('check-backup-' + k);
+                if (chk && chk.checked) terpilih.push(k);
+            });
+
+            if (terpilih.length === 0) return;
+
+            triggerHaptic('medium');
+
+            let icon = document.getElementById('icon-download-backup');
+            if (icon) {
+                icon.classList.remove('animate-bounce-down');
+                void icon.offsetWidth;
+                icon.classList.add('animate-bounce-down');
+                setTimeout(() => icon.classList.remove('animate-bounce-down'), 400);
+            }
+
+            try {
+                // Buat salinan deep copy dari dataState untuk integritas penuh
+                var backupObj = JSON.parse(JSON.stringify(dataState));
+
+                // Jika kategori tertentu TIDAK dipilih, kosongkan data kategori tersebut
+                if (!terpilih.includes('keuangan')) {
+                    backupObj.transaksi = [];
+                    backupObj.saldo = 0;
+                    backupObj.wallets = [];
+                    backupObj.budgets = [];
+                    backupObj.subscriptions = [];
+                }
+
+                if (!terpilih.includes('tugas')) {
+                    backupObj.tugas = [];
+                    backupObj.catatanKilat = [];
+                }
+
+                if (!terpilih.includes('tabungan')) {
+                    backupObj.targetTabungan = [];
+                }
+
+                if (!terpilih.includes('jurnal')) {
+                    backupObj.jurnal = [];
+                }
+
+                if (!terpilih.includes('rekap')) {
+                    backupObj.rekapHarian = [];
+                }
+
+                if (!terpilih.includes('pengaturan')) {
+                    backupObj.userName = 'Pengguna';
+                    backupObj.compactMode = false;
+                    backupObj.cardGradient = true;
+                    backupObj.autoThemeMode = false;
+                    backupObj.themeHue = 221;
+                    backupObj.widgetOrder = ['tabungan', 'deadline', 'reguler'];
+                    backupObj.financeWidgetOrder = ['dompet', 'skor_kesehatan', 'anggaran', 'alokasi', 'form_transaksi', 'riwayat'];
+                }
+
+                // Tambahkan metadata cadangan
+                backupObj._backupMeta = {
+                    version: 2,
+                    selective: (terpilih.length < keys.length),
+                    selectedCategories: terpilih,
+                    exportedAt: new Date().toISOString()
+                };
+
+                // Nama file dinamis
+                var dateStr = getRekapDateString();
+                var fileSuffix = terpilih.length === keys.length ? 'semua' : (terpilih.length === 1 ? terpilih[0] : `${terpilih.length}_kategori`);
+                var fileName = `dasbor_backup_${fileSuffix}_${dateStr}.json`;
+
+                // Unduh file JSON
+                var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupObj, null, 2));
+                var a = document.createElement('a');
+                a.href = dataStr;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+
+                // Tutup modal backup
+                closeBottomSheet('modal-backup-selektif');
+                var sb = document.getElementById('sidebar');
+                if (sb && !sb.classList.contains('-translate-x-full')) {
+                    toggleSidebar();
+                }
+
+                // Tampilkan Toast Notifikasi Dynamic Island persis seperti saat mengaktifkan/mematikan opsi tampilan dan sistem (isSetting = true)
+                var isEn = (dataState && dataState.language === 'en');
+                var toastMsg = isEn ?
+                    (terpilih.length === keys.length ? "All data backed up successfully 📥" : `${terpilih.length} categories backed up successfully 📥`) :
+                    (terpilih.length === keys.length ? "Semua data berhasil dicadangkan 📥" : `${terpilih.length} kategori data berhasil dicadangkan 📥`);
+
+                triggerDynamicIsland(
+                    t('toast_backup_title', "Cadangan"),
+                    toastMsg,
+                    "fas fa-file-download",
+                    "bg-emerald-500/20 text-emerald-400 dark:text-emerald-500",
+                    true
+                );
+
+            } catch(e) {
+                console.error("Gagal mengekspor data cadangan:", e);
+                alert(t('toast_backup_fail', "Gagal mengunduh cadangan!"));
+            }
         }
 
         // ==========================================
