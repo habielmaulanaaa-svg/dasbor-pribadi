@@ -1329,21 +1329,22 @@
 
         /* Panah Melingkar Menarik Mundur (Clockwise) lalu Melepas Melesat Kenyal Mengikuti Arah Panah (Counter-Clockwise) */
         .anim-undo-recoil {
-            animation: undoSpringRecoil 0.52s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation: undoSpringRecoil 0.75s cubic-bezier(0.25, 1, 0.36, 1) forwards;
         }
         @keyframes undoSpringRecoil {
-            0% { transform: rotate(35deg) scale(0.82); }
-            55% { transform: rotate(-385deg) scale(1.2); }
-            80% { transform: rotate(-355deg) scale(0.96); }
+            0% { transform: rotate(24deg) scale(0.88); }
+            18% { transform: rotate(32deg) scale(0.86); }
+            68% { transform: rotate(-376deg) scale(1.1); }
+            86% { transform: rotate(-356deg) scale(0.98); }
             100% { transform: rotate(-360deg) scale(1); }
         }
 
         .anim-undo-glow {
-            animation: undoGlow 0.45s ease-out forwards;
+            animation: undoGlow 0.68s ease-out forwards;
         }
         @keyframes undoGlow {
             0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7), 0 4px 10px rgba(245, 158, 11, 0.3); }
-            60% { box-shadow: 0 0 0 9px rgba(245, 158, 11, 0), 0 6px 14px rgba(245, 158, 11, 0.2); }
+            55% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0), 0 6px 14px rgba(245, 158, 11, 0.2); }
             100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0), 0 2px 4px rgba(245, 158, 11, 0.1); }
         }
 
@@ -9402,7 +9403,7 @@
                     
                     setTimeout(() => {
                         wrapper.classList.add('completing-item');
-                    }, 180);
+                    }, 300);
 
                     setTimeout(() => {
                         targetTask.selesai = false;
@@ -9411,7 +9412,7 @@
                         simpanData();
                         lastToggledId = null;
                         triggerDynamicIsland(t('toast_task_undo_title', "Tugas Diurungkan"), `"${targetTask.nama}" ${t('toast_task_undo_suffix', 'dikembalikan ↩️')}`, "fas fa-undo", "bg-amber-500/20 text-amber-400");
-                    }, 420);
+                    }, 580);
                 }
             } else {
                 targetTask.selesai = !targetTask.selesai;
