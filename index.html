@@ -345,6 +345,16 @@
             animation: cloudSuccessMicroBounce 0.40s cubic-bezier(0.34, 1.25, 0.64, 1);
         }
 
+        /* Shake feedback bila slot shortcut sudah penuh (maks 4) */
+        @keyframes shortcutShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        .animate-shortcut-shake {
+            animation: shortcutShake 0.36s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
         #header-calendar-btn {
             transition: transform 0.54s cubic-bezier(0.34, 1.20, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease;
             will-change: transform;
@@ -7110,11 +7120,11 @@
             if (!Array.isArray(dataState.quickActionShortcuts) || dataState.quickActionShortcuts.length === 0) {
                 dataState.quickActionShortcuts = ['pemasukan', 'pengeluaran', 'tugas', 'catatan'];
             }
-            renderQuickActionManagerModal();
+            renderQuickActionManagerModal(false);
             openBottomSheet('quick-action-manager-modal');
         }
 
-        function renderQuickActionManagerModal() {
+        function renderQuickActionManagerModal(animate = false) {
             var listEl = document.getElementById('quick-action-toggle-list');
             var slotBadge = document.getElementById('quick-action-slot-badge');
             if (!listEl) return;
@@ -7122,6 +7132,17 @@
             var currentShortcuts = Array.isArray(dataState.quickActionShortcuts) ? dataState.quickActionShortcuts : [];
             if (slotBadge) {
                 slotBadge.innerText = `${currentShortcuts.length}/4 ${t('selected_label', 'Terpilih')}`;
+            }
+
+            // FLIP Phase 1: Catat posisi awal (First)
+            var firstPositions = {};
+            if (animate) {
+                listEl.querySelectorAll('.quick-action-manager-card').forEach(el => {
+                    var sid = el.getAttribute('data-shortcut-id');
+                    if (sid) {
+                        firstPositions[sid] = el.getBoundingClientRect().top;
+                    }
+                });
             }
 
             var inactive = MASTER_QUICK_ACTIONS.filter(m => !currentShortcuts.includes(m.id));
@@ -7141,7 +7162,7 @@
                 var label = t(item.labelKey, item.defaultLabel);
 
                 var badgeNumHTML = isChecked 
-                    ? `<span class="w-5 h-5 rounded-full bg-amber-500 text-slate-900 text-[10px] font-black flex items-center justify-center shrink-0 shadow-xs">#${orderNum}</span>`
+                    ? `<span class="w-5 h-5 rounded-full bg-amber-500 text-slate-900 text-[10px] font-black flex items-center justify-center shrink-0 shadow-xs transition-transform">#${orderNum}</span>`
                     : `<span class="w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 text-[10px] font-bold flex items-center justify-center shrink-0">-</span>`;
 
                 var isFirst = (orderIdx === 0);
@@ -7150,12 +7171,12 @@
                 var arrowsHTML = '';
                 if (isChecked && totalActive > 1) {
                     var upBtn = !isFirst ? `
-                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-slate-200/70 dark:bg-[#17212b] text-slate-600 dark:text-slate-300 hover:text-amber-500 hover:bg-amber-100 dark:hover:bg-amber-950/40 active:scale-90 flex items-center justify-center text-[10px] transition-all shadow-2xs" title="${t('move_up', 'Geser ke Atas')}">
+                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', -1)" class="shortcut-arrow-btn w-6 h-6 rounded-lg bg-slate-200/70 dark:bg-[#17212b] text-slate-600 dark:text-slate-300 hover:text-amber-500 hover:bg-amber-100 dark:hover:bg-amber-950/40 active:scale-90 flex items-center justify-center text-[10px] transition-all shadow-2xs" title="${t('move_up', 'Geser ke Atas')}">
                         <i class="fas fa-chevron-up"></i>
                     </button>` : '';
 
                     var downBtn = !isLast ? `
-                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-slate-200/70 dark:bg-[#17212b] text-slate-600 dark:text-slate-300 hover:text-amber-500 hover:bg-amber-100 dark:hover:bg-amber-950/40 active:scale-90 flex items-center justify-center text-[10px] transition-all shadow-2xs" title="${t('move_down', 'Geser ke Bawah')}">
+                    <button type="button" onclick="moveQuickActionShortcut('${item.id}', 1)" class="shortcut-arrow-btn w-6 h-6 rounded-lg bg-slate-200/70 dark:bg-[#17212b] text-slate-600 dark:text-slate-300 hover:text-amber-500 hover:bg-amber-100 dark:hover:bg-amber-950/40 active:scale-90 flex items-center justify-center text-[10px] transition-all shadow-2xs" title="${t('move_down', 'Geser ke Bawah')}">
                         <i class="fas fa-chevron-down"></i>
                     </button>` : '';
 
@@ -7171,7 +7192,10 @@
                 var checkboxDisabled = (!isChecked && isMax);
 
                 html += `
-                <div id="quick-action-item-${item.id}" class="p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border ${isChecked ? 'border-amber-500/40 dark:border-amber-500/30 bg-amber-50/20' : 'border-slate-200 dark:border-[#313f52]'} flex items-center justify-between gap-2 transition-colors relative">
+                <div id="quick-action-item-${item.id}"
+                     data-shortcut-id="${item.id}"
+                     onclick="handleQuickActionCardClick(event, '${item.id}')"
+                     class="quick-action-manager-card p-3 bg-slate-50 dark:bg-[#242f3d]/50 rounded-2xl border ${isChecked ? 'border-amber-500/40 dark:border-amber-500/30 bg-amber-50/20' : 'border-slate-200 dark:border-[#313f52]'} flex items-center justify-between gap-2 transition-colors relative cursor-pointer select-none active:scale-[0.99]">
                     <div class="flex items-center gap-2.5 min-w-0">
                         ${badgeNumHTML}
                         <div class="w-7 h-7 rounded-xl ${item.bgClass} text-white flex items-center justify-center text-[11px] shrink-0 shadow-xs">
@@ -7181,12 +7205,63 @@
                     </div>
                     <div class="flex items-center gap-2.5 shrink-0">
                         ${arrowsHTML}
-                        <input type="checkbox" ${isChecked ? 'checked' : ''} ${checkboxDisabled ? 'disabled title="' + t('quick_action_max_toast', 'Maksimal 4 shortcut!') + '"' : ''} onchange="toggleQuickActionShortcut('${item.id}', this.checked)" class="w-4 h-4 accent-amber-500 cursor-pointer ${checkboxDisabled ? 'opacity-40 cursor-not-allowed' : ''}">
+                        <input type="checkbox" id="chk-shortcut-${item.id}" ${isChecked ? 'checked' : ''} ${checkboxDisabled ? 'disabled title="' + t('quick_action_max_toast', 'Maksimal 4 shortcut!') + '"' : ''} onchange="toggleQuickActionShortcut('${item.id}', this.checked)" class="w-4 h-4 accent-amber-500 cursor-pointer ${checkboxDisabled ? 'opacity-40 cursor-not-allowed' : ''}">
                     </div>
                 </div>`;
             });
 
             listEl.innerHTML = html;
+
+            // FLIP Phase 2 & 3: Invert & Play
+            if (animate && Object.keys(firstPositions).length > 0) {
+                var itemsToAnimate = [];
+                listEl.querySelectorAll('.quick-action-manager-card').forEach(el => {
+                    var sid = el.getAttribute('data-shortcut-id');
+                    if (sid && firstPositions[sid] !== undefined) {
+                        var lastTop = el.getBoundingClientRect().top;
+                        var deltaY = firstPositions[sid] - lastTop;
+                        if (Math.abs(deltaY) > 0.5) {
+                            itemsToAnimate.push({ el, deltaY, sid });
+                        }
+                    }
+                });
+
+                if (itemsToAnimate.length > 0) {
+                    itemsToAnimate.forEach(item => {
+                        item.el.style.transition = 'none';
+                        item.el.style.transform = `translate3d(0, ${item.deltaY}px, 0)`;
+                        item.el.style.zIndex = item.deltaY > 0 ? '20' : '10';
+                    });
+
+                    void listEl.offsetHeight; // Force reflow layout
+
+                    requestAnimationFrame(() => {
+                        itemsToAnimate.forEach(item => {
+                            item.el.style.transition = 'transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.36s ease';
+                            item.el.style.transform = 'translate3d(0, 0, 0)';
+                            if (item.deltaY > 0) {
+                                item.el.style.boxShadow = '0 6px 20px -2px rgba(245, 158, 11, 0.32)';
+                            }
+                        });
+
+                        setTimeout(() => {
+                            itemsToAnimate.forEach(item => {
+                                item.el.style.transition = '';
+                                item.el.style.transform = '';
+                                item.el.style.zIndex = '';
+                                item.el.style.boxShadow = '';
+                            });
+                        }, 380);
+                    });
+                }
+            }
+        }
+
+        function handleQuickActionCardClick(e, id) {
+            if (e.target.closest('.shortcut-arrow-btn')) return;
+            if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') return;
+            var isChecked = Array.isArray(dataState.quickActionShortcuts) && dataState.quickActionShortcuts.includes(id);
+            toggleQuickActionShortcut(id, !isChecked);
         }
 
         function toggleQuickActionShortcut(id, isChecked) {
@@ -7194,7 +7269,13 @@
             if (isChecked) {
                 if (dataState.quickActionShortcuts.length >= 4) {
                     triggerDynamicIsland(t('quick_action_mgr_title', 'Shortcut Akses Cepat'), t('quick_action_max_toast', 'Maksimal 4 shortcut!'), 'fas fa-exclamation-triangle', 'bg-amber-500/20 text-amber-400', true);
-                    renderQuickActionManagerModal();
+                    var card = document.getElementById(`quick-action-item-${id}`);
+                    if (card) {
+                        card.classList.add('animate-shortcut-shake');
+                        setTimeout(() => card.classList.remove('animate-shortcut-shake'), 400);
+                    }
+                    var chk = document.getElementById(`chk-shortcut-${id}`);
+                    if (chk) chk.checked = false;
                     return;
                 }
                 if (!dataState.quickActionShortcuts.includes(id)) {
@@ -7204,7 +7285,7 @@
                 dataState.quickActionShortcuts = dataState.quickActionShortcuts.filter(k => k !== id);
             }
             simpanData();
-            renderQuickActionManagerModal();
+            renderQuickActionManagerModal(true);
             renderFabQuickActions();
             triggerDynamicIsland(t('quick_action_mgr_title', 'Shortcut Akses Cepat'), t('toast_widget_layout_updated', 'Tata letak diperbarui'), 'fas fa-bolt', 'bg-amber-500/20 text-amber-400', true);
         }
@@ -7217,70 +7298,27 @@
             var targetIdx = idx + direction;
             if (targetIdx < 0 || targetIdx >= dataState.quickActionShortcuts.length) return;
 
-            var targetId = dataState.quickActionShortcuts[targetIdx];
-            var cardA = document.getElementById(`quick-action-item-${id}`);
-            var cardB = document.getElementById(`quick-action-item-${targetId}`);
-
-            const applyShortcutSwap = () => {
-                var temp = dataState.quickActionShortcuts[idx];
-                dataState.quickActionShortcuts[idx] = dataState.quickActionShortcuts[targetIdx];
-                dataState.quickActionShortcuts[targetIdx] = temp;
-
-                simpanData();
-                renderQuickActionManagerModal();
-                renderFabQuickActions();
-            };
-
-            if (!cardA || !cardB) {
-                applyShortcutSwap();
-                return;
-            }
-
             isSwappingQuickAction = true;
             if (typeof triggerHaptic === 'function') triggerHaptic('light');
 
-            var rectA = cardA.getBoundingClientRect();
-            var rectB = cardB.getBoundingClientRect();
-            var distA = rectB.top - rectA.top;
-            var distB = rectA.top - rectB.top;
+            var temp = dataState.quickActionShortcuts[idx];
+            dataState.quickActionShortcuts[idx] = dataState.quickActionShortcuts[targetIdx];
+            dataState.quickActionShortcuts[targetIdx] = temp;
 
-            cardA.style.transition = 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)';
-            cardB.style.transition = 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)';
-            cardA.style.zIndex = '10';
-            cardB.style.zIndex = '5';
-            cardA.style.transform = `translate3d(0, ${distA}px, 0)`;
-            cardB.style.transform = `translate3d(0, ${distB}px, 0)`;
+            simpanData();
+            renderQuickActionManagerModal(true);
+            renderFabQuickActions();
 
             setTimeout(() => {
-                cardA.style.transition = '';
-                cardB.style.transition = '';
-                cardA.style.transform = '';
-                cardB.style.transform = '';
-                cardA.style.zIndex = '';
-                cardB.style.zIndex = '';
-
-                applyShortcutSwap();
                 isSwappingQuickAction = false;
-            }, 330);
+            }, 380);
         }
 
         function resetQuickActionShortcuts() {
             dataState.quickActionShortcuts = ['pemasukan', 'pengeluaran', 'tugas', 'catatan'];
             simpanData();
-            renderQuickActionManagerModal();
+            renderQuickActionManagerModal(true);
             renderFabQuickActions();
-
-            var listEl = document.getElementById('quick-action-toggle-list');
-            if (listEl) {
-                listEl.style.transition = 'transform 0.2s cubic-bezier(0.22, 1, 0.36, 1)';
-                listEl.style.transform = 'scale(0.985)';
-                setTimeout(() => {
-                    listEl.style.transform = '';
-                    setTimeout(() => {
-                        listEl.style.transition = '';
-                    }, 200);
-                }, 150);
-            }
 
             if (typeof triggerHaptic === 'function') triggerHaptic('medium');
             triggerDynamicIsland(t('quick_action_mgr_title', 'Shortcut Akses Cepat'), t('toast_quick_actions_reset', 'Shortcut direset ke bawaan'), 'fas fa-undo', 'bg-amber-500/20 text-amber-400', true);
@@ -8400,32 +8438,30 @@
                 var inputArea = document.getElementById('tugas-input-area');
                 if (inputArea && !inputArea.classList.contains('open')) {
                     toggleInput('tugas-input-area');
-                } else {
-                    setTimeout(() => {
-                        var el = document.getElementById('input-tugas-nama');
-                        if (el) {
-                            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
-                    }, 200);
                 }
-            } else if (action === 'pengeluaran') {
-                switchTab('keuangan');
                 setTimeout(() => {
-                    var el = document.getElementById('input-keluar-nominal');
+                    var el = document.getElementById('input-tugas-nama');
                     if (el) {
                         el.focus();
                         el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
-                }, 200);
-            } else if (action === 'pemasukan') {
+                }, 220);
+            } else if (action === 'pengeluaran' || action === 'pemasukan') {
+                if (Array.isArray(dataState.hiddenFinanceWidgets) && dataState.hiddenFinanceWidgets.includes('form_transaksi')) {
+                    dataState.hiddenFinanceWidgets = dataState.hiddenFinanceWidgets.filter(w => w !== 'form_transaksi');
+                    simpanData();
+                    if (typeof renderFinanceWidgetManagerModal === 'function') renderFinanceWidgetManagerModal();
+                    if (typeof perbaruiTampilan === 'function') perbaruiTampilan();
+                }
                 switchTab('keuangan');
                 setTimeout(() => {
-                    var el = document.getElementById('input-masuk-nominal');
+                    var inputId = (action === 'pemasukan') ? 'input-masuk-nominal' : 'input-keluar-nominal';
+                    var el = document.getElementById(inputId);
                     if (el) {
                         el.focus();
                         el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
-                }, 200);
+                }, 220);
             } else if (action === 'catatan') {
                 openBottomSheet('catatan-kilat-modal');
             } else if (action === 'jurnal') {
@@ -8433,13 +8469,32 @@
             } else if (action === 'kalender') {
                 openActivityCalendar();
             } else if (action === 'tabungan') {
+                if (Array.isArray(dataState.hiddenWidgets) && dataState.hiddenWidgets.includes('tabungan')) {
+                    dataState.hiddenWidgets = dataState.hiddenWidgets.filter(w => w !== 'tabungan');
+                    simpanData();
+                    if (typeof renderWidgetManagerModal === 'function') renderWidgetManagerModal();
+                    if (typeof perbaruiTampilan === 'function') perbaruiTampilan();
+                }
                 switchTab('beranda');
                 setTimeout(() => {
+                    var card = document.getElementById('widget-card-tabungan');
                     var area = document.getElementById('tabungan-input-area');
-                    if (area && !area.classList.contains('open')) toggleInput('tabungan-input-area');
-                    var el = document.getElementById('input-tabungan-nama');
-                    if (el) { el.focus(); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-                }, 200);
+                    if (area && !area.classList.contains('open')) {
+                        toggleInput('tabungan-input-area');
+                    }
+                    var el = document.getElementById('input-tabungan-judul');
+                    if (el) {
+                        el.focus();
+                    }
+                    var targetScroll = card || area || el;
+                    if (targetScroll) {
+                        targetScroll.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    if (card) {
+                        card.classList.add('ring-2', 'ring-teal-500/70', 'transition-all');
+                        setTimeout(() => card.classList.remove('ring-2', 'ring-teal-500/70'), 1500);
+                    }
+                }, 220);
             } else if (action === 'analisis') {
                 openAnalisisModal();
             }
@@ -8939,7 +8994,11 @@
             if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
 
-        function bukaJurnal() { toggleSidebar(); switchTab('jurnal'); }
+        function bukaJurnal() {
+            var sb = document.getElementById('sidebar');
+            if (sb && !sb.classList.contains('-translate-x-full')) toggleSidebar();
+            switchTab('jurnal');
+        }
 
         function changeThemeColor(hue) {
             document.documentElement.style.setProperty('--theme-h', hue);
