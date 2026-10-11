@@ -383,6 +383,19 @@
             color: hsl(var(--theme-h), 83%, 53%) !important;
         }
 
+        /* Panah chevron sub-tugas: konsisten hijau emerald terpadu */
+        .subtask-chevron-icon {
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease !important;
+            will-change: transform;
+        }
+        .subtask-chevron-icon.open {
+            transform: rotate(180deg);
+            color: #059669 !important;
+        }
+        .dark .subtask-chevron-icon.open {
+            color: #34d399 !important;
+        }
+
         /* TACTILE TAP (SPRING SQUISH) FEEDBACK */
         .tactile-press {
             transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), background-color 0.18s ease, border-color 0.18s ease;
@@ -10310,7 +10323,7 @@
                     <div class="flex items-center justify-between gap-2 mb-1.5">
                         <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="tactile-press inline-flex items-center gap-1.5 text-[10px] font-bold ${badgeClass} px-2.5 py-1 rounded-xl border focus:outline-none hover:opacity-90 active:scale-95 transition-all">
                             <i class="fas fa-tasks text-[9px]"></i> <span id="subtasks-count-${task.id}">${doneSt}/${totalSt} ${t('subtasks_count_label', 'Sub Tugas')}</span>
-                            <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] stack-chevron-icon shrink-0 ml-0.5 ${isAccordionOpen ? 'open' : ''}" style="${isAccordionOpen ? 'transform: rotate(180deg);' : 'transform: rotate(0deg);'}"></i>
+                            <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] subtask-chevron-icon shrink-0 ml-0.5 ${isAccordionOpen ? 'open' : ''}" style="${isAccordionOpen ? 'transform: rotate(180deg);' : 'transform: rotate(0deg);'}"></i>
                         </button>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="toggleOpsiSubtaskTanggal()" aria-label="${dataState.optSubtaskTanggalDibuat !== false ? t('subtasks_tooltip_hide_date', 'Sembunyikan Tanggal Sub Tugas') : t('subtasks_tooltip_show_date', 'Tampilkan Tanggal Sub Tugas')}" class="tactile-press text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 text-[10px] flex items-center gap-1 focus:outline-none transition-colors p-0.5" title="${dataState.optSubtaskTanggalDibuat !== false ? t('subtasks_tooltip_hide_date', 'Sembunyikan Tanggal Sub Tugas') : t('subtasks_tooltip_show_date', 'Tampilkan Tanggal Sub Tugas')}">
@@ -10329,7 +10342,7 @@
                 <div class="mt-1.5">
                     <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="tactile-press inline-flex items-center gap-1.5 text-[10px] font-semibold text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 active:scale-95 transition-all focus:outline-none">
                         <i class="fas fa-plus-circle text-[9px]"></i> ${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}
-                        <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] stack-chevron-icon shrink-0 ml-0.5 ${isAccordionOpen ? 'open' : ''}" style="${isAccordionOpen ? 'transform: rotate(180deg);' : 'transform: rotate(0deg);'}"></i>
+                        <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] subtask-chevron-icon shrink-0 ml-0.5 ${isAccordionOpen ? 'open' : ''}" style="${isAccordionOpen ? 'transform: rotate(180deg);' : 'transform: rotate(0deg);'}"></i>
                     </button>
                 </div>`;
             }
