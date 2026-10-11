@@ -1780,6 +1780,13 @@
             animation: jellyPopIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
+        .expanding-prio-capsule {
+            transition: width 0.36s cubic-bezier(0.34, 1.45, 0.64, 1), 
+                        background-color 0.25s ease, 
+                        border-color 0.25s ease, 
+                        box-shadow 0.25s ease;
+        }
+
         .prio-btn {
             position: relative;
             z-index: 1;
@@ -3531,45 +3538,42 @@
                         <label class="block text-[11px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-1.5" data-i18n="tasks_label_name">Nama Tugas Baru</label>
                         <input type="text" id="input-tugas-nama" placeholder="Ketik nama tugas di sini..." data-i18n-placeholder="tasks_placeholder_name" onkeydown="if(event.key==='Enter') tambahTugas()" class="w-full rounded-2xl px-3.5 py-2.5 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary-500 mb-3 border">
                         
-                        <!-- FAB Speed-Dial Prioritas Tugas (Gaya 1 - Hemat Ruang) -->
-                        <div class="flex items-center justify-between mb-3 relative">
-                            <div>
+                        <!-- Selektor Prioritas Tugas: Gaya 2 (Kapsul Melar Elastis / Expanding Liquid Capsule) -->
+                        <div class="flex items-center justify-between mb-3 relative min-h-[42px]">
+                            <div id="prio-label-group" class="transition-opacity duration-200">
                                 <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="tasks_label_priority">Prioritas Tugas</label>
-                                <span class="text-[10px] text-slate-400 dark:text-slate-500 font-semibold" data-i18n="tasks_prio_hint">Ketuk bola untuk mengganti prioritas</span>
+                                <span class="text-[10px] text-slate-400 dark:text-slate-500 font-semibold" data-i18n="tasks_prio_hint">Sentuh kapsul untuk memilih</span>
                             </div>
 
-                            <!-- TRIGGER FAB SPEED-DIAL -->
-                            <div class="relative">
-                                <!-- Popover Menu Melayang (Speed-Dial) -->
-                                <div id="fab-prio-popover-menu" class="absolute bottom-full right-0 mb-2 hidden flex-col items-end gap-1.5 z-30 pointer-events-auto select-none">
-                                    <!-- Opsi Tinggi -->
-                                    <button type="button" onclick="selectPrioritasFab('tinggi')" class="jelly-item-enter tactile-press flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-[#17212b] border border-red-500/40 shadow-lg text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-50 dark:hover:bg-[#242f3d]">
-                                        <span class="text-[11px] text-slate-600 dark:text-slate-300" data-i18n="priority_high_label">Tinggi</span>
-                                        <span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px] shadow-sm">🔴</span>
-                                    </button>
-                                    <!-- Opsi Sedang -->
-                                    <button type="button" onclick="selectPrioritasFab('sedang')" class="jelly-item-enter tactile-press flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-[#17212b] border border-orange-500/40 shadow-lg text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-50 dark:hover:bg-[#242f3d]" style="animation-delay: 35ms;">
-                                        <span class="text-[11px] text-slate-600 dark:text-slate-300" data-i18n="priority_medium_label">Sedang</span>
-                                        <span class="w-5 h-5 rounded-full bg-orange-500 text-white flex items-center justify-center text-[10px] shadow-sm">🟠</span>
-                                    </button>
-                                    <!-- Opsi Rendah -->
-                                    <button type="button" onclick="selectPrioritasFab('rendah')" class="jelly-item-enter tactile-press flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-[#17212b] border border-emerald-500/40 shadow-lg text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-50 dark:hover:bg-[#242f3d]" style="animation-delay: 70ms;">
-                                        <span class="text-[11px] text-slate-600 dark:text-slate-300" data-i18n="priority_low_label">Rendah</span>
-                                        <span class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] shadow-sm">🟢</span>
-                                    </button>
-                                    <!-- Opsi Biasa -->
-                                    <button type="button" onclick="selectPrioritasFab('biasa')" class="jelly-item-enter tactile-press flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-[#17212b] border border-slate-300 dark:border-slate-600 shadow-lg text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-50 dark:hover:bg-[#242f3d]" style="animation-delay: 105ms;">
-                                        <span class="text-[11px] text-slate-600 dark:text-slate-300" data-i18n="priority_normal_label">Biasa</span>
-                                        <span class="w-5 h-5 rounded-full bg-slate-400 dark:bg-slate-600 text-white flex items-center justify-center text-[10px] shadow-sm">⚪</span>
-                                    </button>
+                            <!-- Kapsul Melar Elastis (Gaya 2) -->
+                            <div id="capsule-prio-container" class="expanding-prio-capsule relative overflow-hidden bg-slate-100 dark:bg-[#0e1621] border border-slate-300 dark:border-slate-700 rounded-2xl shadow-xs transition-all flex items-center justify-end" style="width: 104px; height: 38px;">
+                                
+                                <!-- State Tertutup (Collapsed): Tampilkan 1 bola aktif saja -->
+                                <div id="capsule-prio-collapsed" onclick="expandPrioCapsule()" class="w-full h-full flex items-center justify-center gap-1.5 px-2.5 cursor-pointer select-none">
+                                    <span id="capsule-prio-active-icon" class="text-sm">⚪</span>
+                                    <span id="capsule-prio-active-label" class="text-xs font-bold text-slate-500 dark:text-slate-400">Biasa</span>
+                                    <i class="fas fa-chevron-down text-[8px] text-slate-400 ml-0.5"></i>
                                 </div>
 
-                                <!-- Tombol Utama FAB (Hanya Menampilkan 1 Bola Aktif) -->
-                                <button type="button" id="btn-prio-fab-trigger" onclick="togglePrioFabPopover()" class="tactile-press flex items-center gap-2 px-3 py-2 rounded-2xl bg-slate-100 dark:bg-[#0e1621] border border-slate-300 dark:border-[#313f52] shadow-xs text-slate-800 dark:text-white font-bold text-xs hover:border-slate-400 transition-colors">
-                                    <span id="prio-fab-trigger-icon" class="text-sm">⚪</span>
-                                    <span id="prio-fab-trigger-label" class="text-xs text-slate-500 dark:text-slate-400">Biasa</span>
-                                    <i id="prio-fab-trigger-chevron" class="fas fa-chevron-up text-[9px] text-slate-400 transition-transform duration-200"></i>
-                                </button>
+                                <!-- State Terbuka (Expanded): 4 Bola Berjajar Horizontal Ramping -->
+                                <div id="capsule-prio-expanded" class="hidden w-full h-full items-center justify-between gap-1 px-1.5 select-none">
+                                    <button type="button" onclick="selectPrioCapsule('biasa')" class="tactile-press p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center transition-transform" title="Biasa">
+                                        <span class="text-sm">⚪</span>
+                                    </button>
+                                    <button type="button" onclick="selectPrioCapsule('rendah')" class="tactile-press p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center transition-transform" title="Rendah">
+                                        <span class="text-sm">🟢</span>
+                                    </button>
+                                    <button type="button" onclick="selectPrioCapsule('sedang')" class="tactile-press p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center transition-transform" title="Sedang">
+                                        <span class="text-sm">🟠</span>
+                                    </button>
+                                    <button type="button" onclick="selectPrioCapsule('tinggi')" class="tactile-press p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center transition-transform" title="Tinggi">
+                                        <span class="text-sm">🔴</span>
+                                    </button>
+                                    <!-- Tombol Tutup Silang (✕) -->
+                                    <button type="button" onclick="collapsePrioCapsule()" class="tactile-press text-slate-400 hover:text-rose-500 p-1 text-[11px] ml-0.5" title="Tutup">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -4430,7 +4434,7 @@
                 tasks_label_name: "Nama Tugas Baru",
                 tasks_placeholder_name: "Ketik nama tugas di sini...",
                 tasks_label_priority: "Prioritas Tugas",
-                tasks_prio_hint: "Ketuk bola untuk mengganti prioritas",
+                tasks_prio_hint: "Sentuh kapsul untuk memilih",
                 priority_normal: "⚪ Biasa",
                 priority_high: "🔴 Tinggi",
                 priority_medium: "🟠 Sedang",
@@ -5057,7 +5061,7 @@
                 tasks_label_name: "New Task Name",
                 tasks_placeholder_name: "Type task title here...",
                 tasks_label_priority: "Task Priority",
-                tasks_prio_hint: "Tap ball to change priority",
+                tasks_prio_hint: "Tap capsule to choose",
                 priority_normal: "⚪ Normal",
                 priority_high: "🔴 High",
                 priority_medium: "🟠 Medium",
@@ -8374,11 +8378,10 @@
                     closeFabSpeedDial();
                 }
             }
-            if (typeof isPrioFabOpen !== 'undefined' && isPrioFabOpen) {
-                var popover = document.getElementById('fab-prio-popover-menu');
-                var trigger = document.getElementById('btn-prio-fab-trigger');
-                if (popover && trigger && !popover.contains(e.target) && !trigger.contains(e.target)) {
-                    closePrioFabPopover();
+            if (typeof isPrioCapsuleOpen !== 'undefined' && isPrioCapsuleOpen) {
+                var capsule = document.getElementById('capsule-prio-container');
+                if (capsule && !capsule.contains(e.target)) {
+                    collapsePrioCapsule();
                 }
             }
         });
@@ -9013,8 +9016,8 @@
             perbaruiTampilan();
         }
 
-        // --- PRIORITAS TUGAS: SELEKTOR GAYA 1 (FAB SPEED-DIAL MELAYANG) ---
-        let isPrioFabOpen = false;
+        // --- PRIORITAS TUGAS: SELEKTOR GAYA 2 (KAPSUL MELAR ELASTIS / EXPANDING LIQUID CAPSULE) ---
+        let isPrioCapsuleOpen = false;
 
         const PRIO_CONFIG = {
             biasa: { icon: '⚪', labelKey: 'priority_normal_label', defaultLabel: 'Biasa', borderClass: 'border-slate-300 dark:border-slate-700', textClass: 'text-slate-500 dark:text-slate-400' },
@@ -9023,63 +9026,63 @@
             tinggi: { icon: '🔴', labelKey: 'priority_high_label', defaultLabel: 'Tinggi', borderClass: 'border-red-500/50', textClass: 'text-red-500 dark:text-red-400' }
         };
 
-        function togglePrioFabPopover() {
-            isPrioFabOpen = !isPrioFabOpen;
-            var popover = document.getElementById('fab-prio-popover-menu');
-            var chevron = document.getElementById('prio-fab-trigger-chevron');
-            if (!popover || !chevron) return;
+        function expandPrioCapsule() {
+            isPrioCapsuleOpen = true;
+            var container = document.getElementById('capsule-prio-container');
+            var collapsedView = document.getElementById('capsule-prio-collapsed');
+            var expandedView = document.getElementById('capsule-prio-expanded');
+            if (!container || !collapsedView || !expandedView) return;
 
-            if (isPrioFabOpen) {
-                popover.classList.remove('hidden');
-                popover.classList.add('flex');
-                chevron.style.transform = 'rotate(180deg)';
-                if (typeof triggerHaptic === 'function') triggerHaptic('light');
-            } else {
-                popover.classList.add('hidden');
-                popover.classList.remove('flex');
-                chevron.style.transform = 'rotate(0deg)';
-            }
+            container.style.width = '188px';
+            collapsedView.classList.add('hidden');
+            expandedView.classList.remove('hidden');
+            expandedView.classList.add('flex');
+            if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
 
-        function closePrioFabPopover() {
-            isPrioFabOpen = false;
-            var popover = document.getElementById('fab-prio-popover-menu');
-            var chevron = document.getElementById('prio-fab-trigger-chevron');
-            if (popover) {
-                popover.classList.add('hidden');
-                popover.classList.remove('flex');
-            }
-            if (chevron) chevron.style.transform = 'rotate(0deg)';
+        function collapsePrioCapsule() {
+            isPrioCapsuleOpen = false;
+            var container = document.getElementById('capsule-prio-container');
+            var collapsedView = document.getElementById('capsule-prio-collapsed');
+            var expandedView = document.getElementById('capsule-prio-expanded');
+            if (!container || !collapsedView || !expandedView) return;
+
+            container.style.width = '104px';
+            expandedView.classList.add('hidden');
+            expandedView.classList.remove('flex');
+            collapsedView.classList.remove('hidden');
         }
 
         function selectPrioritas(val) {
             selectedPrioritasVal = val || 'biasa';
             var conf = PRIO_CONFIG[selectedPrioritasVal] || PRIO_CONFIG.biasa;
 
-            var iconEl = document.getElementById('prio-fab-trigger-icon');
-            var labelEl = document.getElementById('prio-fab-trigger-label');
-            var triggerBtn = document.getElementById('btn-prio-fab-trigger');
+            var iconEl = document.getElementById('capsule-prio-active-icon');
+            var labelEl = document.getElementById('capsule-prio-active-label');
+            var container = document.getElementById('capsule-prio-container');
 
             if (iconEl) iconEl.innerText = conf.icon;
             if (labelEl) {
                 labelEl.innerText = t(conf.labelKey, conf.defaultLabel);
                 labelEl.className = `text-xs font-bold ${conf.textClass}`;
             }
-            if (triggerBtn) {
-                triggerBtn.className = `tactile-press flex items-center gap-2 px-3 py-2 rounded-2xl bg-slate-100 dark:bg-[#0e1621] border ${conf.borderClass} shadow-xs text-slate-800 dark:text-white font-bold text-xs hover:border-slate-400 transition-colors`;
+            if (container) {
+                container.className = `expanding-prio-capsule relative overflow-hidden bg-slate-100 dark:bg-[#0e1621] border ${conf.borderClass} rounded-2xl shadow-xs transition-all flex items-center justify-end`;
             }
 
-            closePrioFabPopover();
+            collapsePrioCapsule();
             if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
 
-        function selectPrioritasFab(val) {
+        function selectPrioCapsule(val) {
             selectPrioritas(val);
         }
 
-        function updatePrioMercuryPill() {
-            selectPrioritas(selectedPrioritasVal || 'biasa');
-        }
+        // Backward-compatibility aliases
+        function selectPrioritasFab(val) { selectPrioritas(val); }
+        function togglePrioFabPopover() { if (isPrioCapsuleOpen) collapsePrioCapsule(); else expandPrioCapsule(); }
+        function closePrioFabPopover() { collapsePrioCapsule(); }
+        function updatePrioMercuryPill() { selectPrioritas(selectedPrioritasVal || 'biasa'); }
 
         function selectKategori(val, btn) {
             selectedKategoriVal = val;
