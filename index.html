@@ -3490,7 +3490,7 @@
 
                             <button type="button" data-prio="biasa" onclick="selectPrioritas('biasa', this)" class="prio-btn active relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_normal">⚪ Biasa</button>
                             <button type="button" data-prio="rendah" onclick="selectPrioritas('rendah', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_low">🟢 Rendah</button>
-                            <button type="button" data-prio="sedang" onclick="selectPrioritas('sedang', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_medium">🟡 Sedang</button>
+                            <button type="button" data-prio="sedang" onclick="selectPrioritas('sedang', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_medium">🟠 Sedang</button>
                             <button type="button" data-prio="tinggi" onclick="selectPrioritas('tinggi', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_high">🔴 Tinggi</button>
                         </div>
 
@@ -4353,7 +4353,7 @@
                 tasks_label_priority: "Prioritas Tugas",
                 priority_normal: "⚪ Biasa",
                 priority_high: "🔴 Tinggi",
-                priority_medium: "🟡 Sedang",
+                priority_medium: "🟠 Sedang",
                 priority_low: "🟢 Rendah",
                 tasks_label_deadline: "Tenggat Waktu / Deadline (Opsional)",
                 tasks_created_time_label: "Sertakan Waktu & Tanggal Dibuat",
@@ -4972,7 +4972,7 @@
                 tasks_label_priority: "Task Priority",
                 priority_normal: "⚪ Normal",
                 priority_high: "🔴 High",
-                priority_medium: "🟡 Medium",
+                priority_medium: "🟠 Medium",
                 priority_low: "🟢 Low",
                 tasks_label_deadline: "Due Date / Deadline (Optional)",
                 tasks_created_time_label: "Include Creation Date & Time",
@@ -8701,8 +8701,8 @@
                     shadow: isDark ? '0 4px 20px rgba(225, 29, 72, 0.6)' : '0 4px 18px rgba(244, 63, 94, 0.45)'
                 },
                 sedang: {
-                    bg: isDark ? '#d97706' : '#f59e0b',
-                    shadow: isDark ? '0 4px 20px rgba(217, 119, 6, 0.6)' : '0 4px 18px rgba(245, 158, 11, 0.45)'
+                    bg: isDark ? '#ea580c' : '#f97316',
+                    shadow: isDark ? '0 4px 20px rgba(234, 88, 12, 0.6)' : '0 4px 18px rgba(249, 115, 22, 0.45)'
                 },
                 rendah: {
                     bg: isDark ? '#059669' : '#10b981',
@@ -10195,7 +10195,7 @@
             var prioBadge = task.prioritas === 'tinggi' 
                 ? `<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 ${t('priority_high_label', 'Tinggi')}</span>` 
                 : (task.prioritas === 'sedang'
-                    ? `<span class="text-[9px] bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300 font-bold px-1.5 py-0.5 rounded-lg">🟡 ${t('priority_medium_label', 'Sedang')}</span>`
+                    ? `<span class="text-[9px] bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-300 font-bold px-1.5 py-0.5 rounded-lg">🟠 ${t('priority_medium_label', 'Sedang')}</span>`
                     : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 ${t('priority_low_label', 'Rendah')}</span>` : ''));
 
             var formattedCreatedAt = formatDisplayTaskCreatedAt(task);
@@ -10242,7 +10242,7 @@
             var prioBadge = task.prioritas === 'tinggi' 
                 ? `<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 ${t('priority_high_label', 'Tinggi')}</span>` 
                 : (task.prioritas === 'sedang'
-                    ? `<span class="text-[9px] bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300 font-bold px-1.5 py-0.5 rounded-lg">🟡 ${t('priority_medium_label', 'Sedang')}</span>`
+                    ? `<span class="text-[9px] bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-300 font-bold px-1.5 py-0.5 rounded-lg">🟠 ${t('priority_medium_label', 'Sedang')}</span>`
                     : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 ${t('priority_low_label', 'Rendah')}</span>` : ''));
 
             var formattedCreatedAt = formatDisplayTaskCreatedAt(task);
@@ -10310,7 +10310,7 @@
             var prioBadge = task.prioritas === 'tinggi'
                 ? `<span class="text-[9px] bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 font-black px-1.5 py-0.5 rounded-lg border border-red-200/60 dark:border-red-800/40">🔴 ${t('priority_high_label', 'Tinggi')}</span>`
                 : (task.prioritas === 'sedang'
-                    ? `<span class="text-[9px] bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 font-black px-1.5 py-0.5 rounded-lg border border-amber-200/60 dark:border-amber-800/40">🟡 ${t('priority_medium_label', 'Sedang')}</span>`
+                    ? `<span class="text-[9px] bg-orange-100 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 font-black px-1.5 py-0.5 rounded-lg border border-orange-200/60 dark:border-orange-800/40">🟠 ${t('priority_medium_label', 'Sedang')}</span>`
                     : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 font-black px-1.5 py-0.5 rounded-lg border border-green-200/60 dark:border-green-800/40">🟢 ${t('priority_low_label', 'Rendah')}</span>` : ''));
 
             var stylingTeks = isTaskChecked ? 'text-slate-400 dark:text-slate-500 line-through' + animStrikeClass : 'text-slate-800 dark:text-white font-bold';
