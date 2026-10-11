@@ -1780,8 +1780,55 @@
             animation: jellyPopIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
+        /* Dynamic Island 2.0: Squash & Stretch Physics & Liquid Droplet Ripple */
+        @keyframes islandSquashExpand {
+            0% { transform: scale(1, 1); }
+            25% { transform: scale(0.92, 1.08); }
+            60% { transform: scale(1.05, 0.95); }
+            82% { transform: scale(0.98, 1.01); }
+            100% { transform: scale(1, 1); }
+        }
+
+        @keyframes islandSquashCollapse {
+            0% { transform: scale(1, 1); }
+            30% { transform: scale(1.08, 0.92); }
+            70% { transform: scale(0.95, 1.04); }
+            100% { transform: scale(1, 1); }
+        }
+
+        @keyframes dropletBloom {
+            0% {
+                opacity: 0;
+                transform: scale(0.2) translate3d(12px, 0, 0);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.22) translate3d(-1px, 0, 0);
+            }
+            82% {
+                transform: scale(0.94) translate3d(0.5px, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translate3d(0, 0, 0);
+            }
+        }
+
+        .droplet-enter {
+            animation: dropletBloom 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes liquidRipple {
+            0% { transform: scale(0.8); opacity: 0.9; }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
+
+        .liquid-ripple-effect {
+            animation: liquidRipple 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
         .expanding-prio-capsule {
-            transition: width 0.36s cubic-bezier(0.34, 1.45, 0.64, 1), 
+            transition: width 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), 
                         background-color 0.25s ease, 
                         border-color 0.25s ease, 
                         box-shadow 0.25s ease;
@@ -3545,8 +3592,8 @@
                                 <span class="text-[10px] text-slate-400 dark:text-slate-500 font-semibold" data-i18n="tasks_prio_hint">Sentuh kapsul untuk memilih</span>
                             </div>
 
-                            <!-- Kapsul Melar Elastis (Gaya 2) -->
-                            <div id="capsule-prio-container" class="expanding-prio-capsule relative overflow-hidden bg-slate-100 dark:bg-[#0e1621] border border-slate-300 dark:border-slate-700 rounded-2xl shadow-xs transition-all flex items-center justify-end" style="width: 104px; height: 38px;">
+                            <!-- Kapsul Dynamic Island Spring (Gaya 2) -->
+                            <div id="capsule-prio-container" class="expanding-prio-capsule relative overflow-hidden bg-slate-100 dark:bg-[#0e1621] border border-slate-300 dark:border-slate-700 rounded-full shadow-xs transition-all flex items-center justify-end" style="width: 104px; height: 38px;">
                                 
                                 <!-- State Tertutup (Collapsed): Tampilkan 1 bola aktif saja -->
                                 <div id="capsule-prio-collapsed" onclick="expandPrioCapsule()" class="w-full h-full flex items-center justify-center gap-1.5 px-2.5 cursor-pointer select-none">
@@ -3555,22 +3602,22 @@
                                     <i class="fas fa-chevron-down text-[8px] text-slate-400 ml-0.5"></i>
                                 </div>
 
-                                <!-- State Terbuka (Expanded): 4 Bola Berjajar Horizontal Ramping -->
+                                <!-- State Terbuka (Expanded): 4 Bola Berjajar Horizontal Ramping dengan Staggered Bloom -->
                                 <div id="capsule-prio-expanded" class="hidden w-full h-full items-center justify-between gap-1 px-1.5 select-none">
-                                    <button type="button" onclick="selectPrioCapsule('biasa')" class="tactile-press p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center transition-transform" title="Biasa">
+                                    <button type="button" onclick="selectPrioCapsule('biasa', event)" class="prio-droplet-item p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center active:scale-75 transition-transform relative" style="animation-delay: 20ms;" title="Biasa">
                                         <span class="text-sm">⚪</span>
                                     </button>
-                                    <button type="button" onclick="selectPrioCapsule('rendah')" class="tactile-press p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center transition-transform" title="Rendah">
+                                    <button type="button" onclick="selectPrioCapsule('rendah', event)" class="prio-droplet-item p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center active:scale-75 transition-transform relative" style="animation-delay: 50ms;" title="Rendah">
                                         <span class="text-sm">🟢</span>
                                     </button>
-                                    <button type="button" onclick="selectPrioCapsule('sedang')" class="tactile-press p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center transition-transform" title="Sedang">
+                                    <button type="button" onclick="selectPrioCapsule('sedang', event)" class="prio-droplet-item p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center active:scale-75 transition-transform relative" style="animation-delay: 80ms;" title="Sedang">
                                         <span class="text-sm">🟠</span>
                                     </button>
-                                    <button type="button" onclick="selectPrioCapsule('tinggi')" class="tactile-press p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center transition-transform" title="Tinggi">
+                                    <button type="button" onclick="selectPrioCapsule('tinggi', event)" class="prio-droplet-item p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-xs flex items-center justify-center active:scale-75 transition-transform relative" style="animation-delay: 110ms;" title="Tinggi">
                                         <span class="text-sm">🔴</span>
                                     </button>
                                     <!-- Tombol Tutup Silang (✕) -->
-                                    <button type="button" onclick="collapsePrioCapsule()" class="tactile-press text-slate-400 hover:text-rose-500 p-1 text-[11px] ml-0.5" title="Tutup">
+                                    <button type="button" onclick="collapsePrioCapsule()" class="text-slate-400 hover:text-rose-500 p-1 text-[11px] ml-0.5 active:scale-75 transition-transform" title="Tutup">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
@@ -9033,10 +9080,20 @@
             var expandedView = document.getElementById('capsule-prio-expanded');
             if (!container || !collapsedView || !expandedView) return;
 
+            container.style.animation = 'islandSquashExpand 0.42s cubic-bezier(0.34, 1.56, 0.64, 1)';
             container.style.width = '188px';
             collapsedView.classList.add('hidden');
             expandedView.classList.remove('hidden');
             expandedView.classList.add('flex');
+
+            // Staggered bloom pada setiap droplet bola
+            var items = expandedView.querySelectorAll('.prio-droplet-item');
+            items.forEach(function(item) {
+                item.classList.remove('droplet-enter');
+                void item.offsetWidth; // force reflow
+                item.classList.add('droplet-enter');
+            });
+
             if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
 
@@ -9047,13 +9104,14 @@
             var expandedView = document.getElementById('capsule-prio-expanded');
             if (!container || !collapsedView || !expandedView) return;
 
+            container.style.animation = 'islandSquashCollapse 0.35s cubic-bezier(0.34, 1.45, 0.64, 1)';
             container.style.width = '104px';
             expandedView.classList.add('hidden');
             expandedView.classList.remove('flex');
             collapsedView.classList.remove('hidden');
         }
 
-        function selectPrioritas(val) {
+        function selectPrioritas(val, event) {
             selectedPrioritasVal = val || 'biasa';
             var conf = PRIO_CONFIG[selectedPrioritasVal] || PRIO_CONFIG.biasa;
 
@@ -9067,15 +9125,29 @@
                 labelEl.className = `text-xs font-bold ${conf.textClass}`;
             }
             if (container) {
-                container.className = `expanding-prio-capsule relative overflow-hidden bg-slate-100 dark:bg-[#0e1621] border ${conf.borderClass} rounded-2xl shadow-xs transition-all flex items-center justify-end`;
+                container.className = `expanding-prio-capsule relative overflow-hidden bg-slate-100 dark:bg-[#0e1621] border ${conf.borderClass} rounded-full shadow-xs transition-all flex items-center justify-end`;
             }
 
-            collapsePrioCapsule();
+            // Jika ada event klik pada tombol bola, buat efek cipratan riak cairan (liquid ripple)
+            if (event && event.currentTarget) {
+                var btn = event.currentTarget;
+                var ripple = document.createElement('span');
+                ripple.className = 'absolute inset-0 rounded-full bg-white/35 pointer-events-none liquid-ripple-effect';
+                btn.style.position = 'relative';
+                btn.appendChild(ripple);
+                setTimeout(function() {
+                    collapsePrioCapsule();
+                    setTimeout(function() { ripple.remove(); }, 400);
+                }, 100);
+            } else {
+                collapsePrioCapsule();
+            }
+
             if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
 
-        function selectPrioCapsule(val) {
-            selectPrioritas(val);
+        function selectPrioCapsule(val, event) {
+            selectPrioritas(val, event);
         }
 
         // Backward-compatibility aliases
