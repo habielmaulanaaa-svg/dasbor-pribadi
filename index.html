@@ -104,19 +104,19 @@
             opacity: 1;
         }
 
-        /* PURE FADE-OUT & SMOOTH HEIGHT COLLAPSE SAAT HAPUS */
+        /* PURE FADE-OUT & SMOOTH FLUID HEIGHT COLLAPSE */
         .completing-item, .removing-item {
             max-height: 0 !important;
             opacity: 0 !important;
-            transform: none !important;
+            transform: scale(0.96) translateY(-6px) !important;
             margin-top: 0 !important;
             margin-bottom: 0 !important;
             padding-top: 0 !important;
             padding-bottom: 0 !important;
             border-width: 0 !important;
             overflow: hidden !important;
-            will-change: max-height, opacity;
-            transition: opacity 0.22s ease-out, max-height 0.28s cubic-bezier(0.22, 1, 0.36, 1), margin 0.28s ease, padding 0.28s ease !important;
+            will-change: max-height, opacity, transform;
+            transition: opacity 0.24s ease-out, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), max-height 0.3s cubic-bezier(0.22, 1, 0.36, 1), margin 0.3s ease, padding 0.3s ease !important;
             pointer-events: none;
         }
 
@@ -1306,57 +1306,115 @@
             pointer-events: none;
         }
 
-        /* 3. TASK COMPLETION: LIQUID RIPPLE SPLASH & FLOATING BUBBLE */
-        .liquid-task-btn {
+        /* ========================================================
+           3. TASK COMPLETION: JELLY DROPLET SPRING & ELASTIC RECOIL
+           ======================================================== */
+        /* A. Tombol Checklist: Efek Tekan & Membal Kenyal */
+        .btn-jelly-check {
             position: relative;
-            overflow: visible !important;
+            transform-origin: center center;
+            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.4, 1), background-color 0.25s ease, border-color 0.25s ease;
+            overflow: hidden !important;
         }
-        .liquid-task-btn.animating-ripple::before {
-            content: '';
+        .btn-jelly-check:active {
+            transform: scale(0.78, 0.72) translateY(1.5px);
+        }
+
+        /* Saat di-trigger Selesai: Tetesan jeli memantul elastis (Spring Overshoot) */
+        .anim-jelly-pop {
+            animation: jellyBounce 0.48s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes jellyBounce {
+            0% { transform: scale(0.75, 0.7); }
+            45% { transform: scale(1.22, 1.18); }
+            70% { transform: scale(0.94, 0.96); }
+            88% { transform: scale(1.04, 1.02); }
+            100% { transform: scale(1, 1); }
+        }
+
+        /* Lapisan Tinta Cairan Zamrud Meluap dari Dalam (Liquid Ink Fill) */
+        .btn-jelly-check .liquid-ink-fill {
             position: absolute;
-            inset: -4px;
+            inset: 0;
+            background: radial-gradient(circle, #10b981 15%, #059669 100%);
             border-radius: 9999px;
-            border: 2px solid #10b981;
-            opacity: 0.8;
-            animation: liquidTaskWave 0.55s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+            transform: scale(0);
+            opacity: 0;
+            transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
             pointer-events: none;
         }
-        .liquid-task-btn.animating-ripple::after {
-            content: '';
-            position: absolute;
-            inset: -12px;
-            border-radius: 9999px;
-            border: 1.5px solid #34d399;
-            opacity: 0.5;
-            animation: liquidTaskWave 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) 0.05s forwards;
-            pointer-events: none;
+        .btn-jelly-check.is-completed .liquid-ink-fill {
+            transform: scale(1.05);
+            opacity: 1;
         }
-        @keyframes liquidTaskWave {
-            0% {
-                transform: scale(0.6);
-                opacity: 0.9;
-            }
-            100% {
-                transform: scale(1.65);
-                opacity: 0;
-            }
+
+        /* Pendaran Cahaya Fluida Halus di Sekitar Tombol */
+        .anim-droplet-glow {
+            animation: dropletGlow 0.45s ease-out forwards;
         }
-        .liquid-bubble-rise {
-            animation: liquidBubblePop 0.36s cubic-bezier(0.175, 0.885, 0.32, 1.35) forwards;
+        @keyframes dropletGlow {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7), 0 4px 12px rgba(16, 185, 129, 0.3); }
+            60% { box-shadow: 0 0 0 9px rgba(16, 185, 129, 0), 0 6px 16px rgba(16, 185, 129, 0.2); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0), 0 2px 6px rgba(16, 185, 129, 0.15); }
         }
-        @keyframes liquidBubblePop {
-            0% {
-                transform: scale(0.5) translateY(4px);
-                opacity: 0.4;
-            }
-            60% {
-                transform: scale(1.18) translateY(-2px);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
+
+        /* Ikon Centang: Membal Pegas (Spring Pop In) */
+        .anim-icon-pop {
+            animation: iconSpringPop 0.38s cubic-bezier(0.34, 1.6, 0.64, 1) forwards;
+        }
+        @keyframes iconSpringPop {
+            0% { transform: scale(0) rotate(-35deg); opacity: 0; }
+            65% { transform: scale(1.3) rotate(6deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* B. Tombol Undo: Elastic Spring Recoil (Sesuai Orientasi Alami Panah Counter-Clockwise) */
+        .btn-undo-spring {
+            position: relative;
+            transform-origin: center center;
+            transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.4, 1);
+            overflow: hidden !important;
+        }
+        .btn-undo-spring:active {
+            transform: scale(0.82) rotate(30deg);
+        }
+
+        /* Panah Melingkar Menarik Mundur (Clockwise) lalu Melepas Melesat Kenyal Mengikuti Arah Panah (Counter-Clockwise) */
+        .anim-undo-recoil {
+            animation: undoSpringRecoil 0.52s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes undoSpringRecoil {
+            0% { transform: rotate(35deg) scale(0.82); }
+            55% { transform: rotate(-385deg) scale(1.2); }
+            80% { transform: rotate(-355deg) scale(0.96); }
+            100% { transform: rotate(-360deg) scale(1); }
+        }
+
+        .anim-undo-glow {
+            animation: undoGlow 0.45s ease-out forwards;
+        }
+        @keyframes undoGlow {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7), 0 4px 10px rgba(245, 158, 11, 0.3); }
+            60% { box-shadow: 0 0 0 9px rgba(245, 158, 11, 0), 0 6px 14px rgba(245, 158, 11, 0.2); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0), 0 2px 4px rgba(245, 158, 11, 0.1); }
+        }
+
+        /* C. Efek Coret Teks Fluida */
+        .compact-text-title.is-struck {
+            position: relative;
+            text-decoration: line-through;
+            opacity: 0.6;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        /* D. Kartu Tugas: Fluid Drop-In Spring */
+        .card-droplet-enter {
+            animation: fluidCardDropIn 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes fluidCardDropIn {
+            0% { opacity: 0; transform: scale(0.92) translateY(-14px); }
+            65% { opacity: 1; transform: scale(1.02) translateY(2px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         /* 4. BALANCE TANK: DROPLET FUSION & LIQUID SURGE */
@@ -1511,8 +1569,8 @@
             opacity: 1;
         }
 
-        @keyframes strikeFade { 0% { opacity: 0; transform: translateX(-10px); } 100% { opacity: 1; transform: translateX(0); } }
-        .animate-strike-fade { animation: strikeFade 0.3s ease-out; }
+        @keyframes strikeFade { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+        .animate-strike-fade { animation: strikeFade 0.28s ease-out; }
 
         /* ========================================================
            BACKDROP SHIELD & MUTED LOCK-STATE (GPU-OPTIMIZED ZERO STUTTER)
@@ -9337,24 +9395,30 @@
 
             if (wrapper) {
                 if (!targetTask.selesai) {
-                    // Ceklis: Berikan feedback centang dan coret teks
+                    // Ceklis: Berikan feedback jeli memantul, luapan tinta cairan zamrud, dan centang elastis
                     var btnCheck = itemEl.querySelector('button');
+                    var icon = btnCheck ? btnCheck.querySelector('.fa-check') : null;
                     if (btnCheck) {
-                        btnCheck.className = "liquid-task-btn animating-ripple w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center liquid-bubble-rise shadow-md";
+                        btnCheck.classList.add('is-completed', 'anim-jelly-pop', 'anim-droplet-glow');
+                        btnCheck.classList.remove('border-slate-300', 'dark:border-[#313f52]', 'text-slate-400');
+                        btnCheck.classList.add('border-emerald-500', 'text-white');
+                    }
+                    if (icon) {
+                        icon.classList.add('anim-icon-pop');
                     }
                     var textTitle = itemEl.querySelector('.compact-text-title');
                     if (textTitle) {
-                        textTitle.classList.add('line-through', 'text-slate-400', 'dark:text-slate-500', 'animate-strike-fade');
+                        textTitle.classList.add('is-struck', 'line-through', 'text-slate-400', 'dark:text-slate-500');
                     }
 
                     // Kunci tinggi saat ini agar transisi max-height ke 0 berjalan mulus berapapun tingginya
                     wrapper.style.maxHeight = wrapper.offsetHeight + 'px';
                     void wrapper.offsetHeight;
 
-                    // Pure Fade-out di tempat dan tinggi menyusut
+                    // Transisi runtuh kartu fluida (organik)
                     setTimeout(() => {
                         wrapper.classList.add('completing-item');
-                    }, 60);
+                    }, 220);
 
                     setTimeout(() => {
                         targetTask.selesai = true;
@@ -9373,18 +9437,24 @@
                         } else {
                             triggerDynamicIsland(t('toast_task_completed_title', "Tugas Selesai"), `"${targetTask.nama}" ${t('toast_task_done_suffix', 'tuntas ✨')}`, "fas fa-check-circle", "bg-emerald-500/20 text-emerald-400");
                         }
-                    }, 300);
+                    }, 450);
                 } else {
-                    // Undo Tugas: Berikan tactile ripple pada tombol undo, lalu Pure Fade-Out dari daftar selesai & drop-in ke daftar aktif
+                    // Undo Tugas: Berikan recoil pada panah melingkar dan glow amber
                     var btnUndo = itemEl ? itemEl.querySelector('button') : null;
+                    var iconUndo = btnUndo ? btnUndo.querySelector('.fa-undo') : null;
                     if (btnUndo) {
-                        btnUndo.className = "liquid-task-btn animating-ripple w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center liquid-bubble-rise shadow-md";
-                        btnUndo.innerHTML = '<i class="fas fa-undo text-xs fa-spin"></i>';
+                        btnUndo.classList.add('anim-undo-glow');
+                    }
+                    if (iconUndo) {
+                        iconUndo.classList.add('anim-undo-recoil');
                     }
 
                     wrapper.style.maxHeight = wrapper.offsetHeight + 'px';
                     void wrapper.offsetHeight;
-                    wrapper.classList.add('completing-item');
+                    
+                    setTimeout(() => {
+                        wrapper.classList.add('completing-item');
+                    }, 180);
 
                     setTimeout(() => {
                         targetTask.selesai = false;
@@ -9393,7 +9463,7 @@
                         simpanData();
                         lastToggledId = null;
                         triggerDynamicIsland(t('toast_task_undo_title', "Tugas Diurungkan"), `"${targetTask.nama}" ${t('toast_task_undo_suffix', 'dikembalikan ↩️')}`, "fas fa-undo", "bg-amber-500/20 text-amber-400");
-                    }, 280);
+                    }, 420);
                 }
             } else {
                 targetTask.selesai = !targetTask.selesai;
@@ -10229,16 +10299,16 @@
 
         function generateTaskHTML(task) {
             var isJustToggled = (task.id === lastToggledId);
-            var animCheckClass = isJustToggled ? ' liquid-task-btn animating-ripple liquid-bubble-rise' : '';
-            var animStrikeClass = (task.selesai && isJustToggled) ? ' animate-strike-fade' : '';
+            var animCheckClass = isJustToggled ? ' anim-jelly-pop anim-droplet-glow' : '';
+            var animStrikeClass = (task.selesai && isJustToggled) ? ' is-struck' : '';
             var isTaskChecked = !!task.selesai;
 
             var labelSelesai = isTaskChecked 
                 ? t('task_tooltip_undo', 'Urungkan Tugas')
                 : t('task_tooltip_done', 'Tandai Selesai');
             var btnSelesai = isTaskChecked 
-                ? `<button type="button" onclick="toggleStatusTugas(${task.id})" class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-500 flex items-center justify-center${animCheckClass}" aria-label="${labelSelesai}" title="${labelSelesai}"><i class="fas fa-undo text-xs"></i></button>`
-                : `<button type="button" onclick="toggleStatusTugas(${task.id})" class="w-8 h-8 rounded-full border-2 border-slate-300 dark:border-[#313f52] text-slate-400 hover:bg-green-500 hover:text-white flex items-center justify-center transition-colors${animCheckClass}" aria-label="${labelSelesai}" title="${labelSelesai}"><i class="fas fa-check text-xs"></i></button>`;
+                ? `<button type="button" onclick="toggleStatusTugas(${task.id})" class="btn-undo-spring w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border border-amber-200/80 dark:border-amber-800/40 flex items-center justify-center${animCheckClass}" aria-label="${labelSelesai}" title="${labelSelesai}"><i class="fas fa-undo text-xs"></i></button>`
+                : `<button type="button" onclick="toggleStatusTugas(${task.id})" class="btn-jelly-check w-8 h-8 rounded-full border-2 border-slate-300 dark:border-[#313f52] text-slate-400 hover:border-emerald-500 hover:text-emerald-500 flex items-center justify-center transition-colors${animCheckClass}" aria-label="${labelSelesai}" title="${labelSelesai}"><span class="liquid-ink-fill"></span><i class="fas fa-check text-xs relative z-10 transition-transform"></i></button>`;
             
             var btnHapus = `<button type="button" onclick="hapusTugas(${task.id}, this)" class="text-slate-300 hover:text-red-500 p-1.5 focus:outline-none" aria-label="${t('task_tooltip_delete', 'Hapus Tugas')}" title="${t('task_tooltip_delete', 'Hapus Tugas')}"><i class="fas fa-trash text-xs"></i></button>`;
 
@@ -10352,7 +10422,7 @@
                 </div>`;
             }
 
-            return `<li class="swipe-wrapper relative overflow-hidden rounded-2xl">
+            return `<li class="swipe-wrapper relative overflow-hidden rounded-2xl${isJustToggled ? ' card-droplet-enter' : ''}">
                 <!-- Underlayer Peek -->
                 ${leftUnderlayerHTML}
                 <div class="swipe-underlayer-right absolute inset-y-0 right-0 w-full bg-red-500 flex items-center justify-end px-4 text-white font-black text-xs gap-1.5 opacity-0 pointer-events-none">
