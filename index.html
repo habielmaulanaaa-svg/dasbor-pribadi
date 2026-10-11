@@ -3484,13 +3484,14 @@
                         <input type="text" id="input-tugas-nama" placeholder="Ketik nama tugas di sini..." data-i18n-placeholder="tasks_placeholder_name" onkeydown="if(event.key==='Enter') tambahTugas()" class="w-full rounded-2xl px-3.5 py-2.5 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary-500 mb-3 border">
                         
                         <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="tasks_label_priority">Prioritas Tugas</label>
-                        <div id="prioritas-selector-track" class="relative grid grid-cols-3 gap-1 p-1 rounded-2xl bg-slate-100 dark:bg-[#0e1621] border border-slate-200/80 dark:border-[#313f52]/80 mb-3 select-none overflow-hidden">
+                        <div id="prioritas-selector-track" class="relative grid grid-cols-4 gap-1 p-1 rounded-2xl bg-slate-100 dark:bg-[#0e1621] border border-slate-200/80 dark:border-[#313f52]/80 mb-3 select-none overflow-hidden touch-manipulation">
                             <!-- Liquid Mercury Pill Indicator (Mengalir & Berganti Warna) -->
                             <div id="prio-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl z-0 will-change-transform"></div>
 
-                            <button type="button" data-prio="tinggi" onclick="selectPrioritas('tinggi', this)" class="prio-btn relative z-10 py-2 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_high">🔴 Tinggi</button>
-                            <button type="button" data-prio="sedang" onclick="selectPrioritas('sedang', this)" class="prio-btn active relative z-10 py-2 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_medium">🟡 Sedang</button>
-                            <button type="button" data-prio="rendah" onclick="selectPrioritas('rendah', this)" class="prio-btn relative z-10 py-2 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_low">🟢 Rendah</button>
+                            <button type="button" data-prio="biasa" onclick="selectPrioritas('biasa', this)" class="prio-btn active relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_normal">⚪ Biasa</button>
+                            <button type="button" data-prio="rendah" onclick="selectPrioritas('rendah', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_low">🟢 Rendah</button>
+                            <button type="button" data-prio="sedang" onclick="selectPrioritas('sedang', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_medium">🟡 Sedang</button>
+                            <button type="button" data-prio="tinggi" onclick="selectPrioritas('tinggi', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_high">🔴 Tinggi</button>
                         </div>
 
                         <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="tasks_label_deadline">Tenggat Waktu / Deadline (Opsional)</label>
@@ -4350,6 +4351,7 @@
                 tasks_label_name: "Nama Tugas Baru",
                 tasks_placeholder_name: "Ketik nama tugas di sini...",
                 tasks_label_priority: "Prioritas Tugas",
+                priority_normal: "⚪ Biasa",
                 priority_high: "🔴 Tinggi",
                 priority_medium: "🟡 Sedang",
                 priority_low: "🟢 Rendah",
@@ -4699,6 +4701,7 @@
                 task_tooltip_undo: "Urungkan Tugas",
                 task_tooltip_done: "Tandai Selesai",
                 task_tooltip_delete: "Hapus Tugas",
+                priority_normal_label: "Biasa",
                 priority_high_label: "Tinggi",
                 priority_medium_label: "Sedang",
                 priority_low_label: "Rendah",
@@ -4967,6 +4970,7 @@
                 tasks_label_name: "New Task Name",
                 tasks_placeholder_name: "Type task title here...",
                 tasks_label_priority: "Task Priority",
+                priority_normal: "⚪ Normal",
                 priority_high: "🔴 High",
                 priority_medium: "🟡 Medium",
                 priority_low: "🟢 Low",
@@ -5316,6 +5320,7 @@
                 task_tooltip_undo: "Undo Task",
                 task_tooltip_done: "Mark Done",
                 task_tooltip_delete: "Delete Task",
+                priority_normal_label: "Normal",
                 priority_high_label: "High",
                 priority_medium_label: "Medium",
                 priority_low_label: "Low",
@@ -5757,7 +5762,7 @@
         };
         
         let selectedMoodIcon = '😊';
-        let selectedPrioritasVal = 'sedang';
+        let selectedPrioritasVal = 'biasa';
         let selectedKategoriVal = '🍔 Makan';
         let selectedRatingRekap = 5;
         let periodeTransaksiVal = 'semua';
@@ -8408,7 +8413,7 @@
                 `;
 
                 tasks.forEach(t => {
-                    var prioText = t.prioritas === 'tinggi' ? (isEn ? 'High' : 'Tinggi') : (t.prioritas === 'rendah' ? (isEn ? 'Low' : 'Rendah') : (isEn ? 'Medium' : 'Sedang'));
+                    var prioText = t.prioritas === 'tinggi' ? (isEn ? 'High' : 'Tinggi') : (t.prioritas === 'sedang' ? (isEn ? 'Medium' : 'Sedang') : (t.prioritas === 'rendah' ? (isEn ? 'Low' : 'Rendah') : (isEn ? 'Normal' : 'Biasa')));
                     html += `
                         <div class="p-2.5 rounded-xl bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52] flex items-center justify-between shadow-xs">
                             <div class="flex items-center gap-2 min-w-0">
@@ -8670,7 +8675,7 @@
             var track = document.getElementById('prioritas-selector-track');
             if (!pill || !track) return;
             if (!btn) {
-                btn = track.querySelector('.prio-btn.active') || track.querySelector('.prio-btn[data-prio="sedang"]') || track.querySelector('.prio-btn');
+                btn = track.querySelector('.prio-btn.active') || track.querySelector('.prio-btn[data-prio="biasa"]') || track.querySelector('.prio-btn');
             }
             if (!btn) return;
 
@@ -8683,10 +8688,14 @@
                 return;
             }
 
-            var prio = btn.getAttribute('data-prio') || 'sedang';
+            var prio = btn.getAttribute('data-prio') || 'biasa';
             var isDark = document.documentElement.classList.contains('dark');
 
             var colorMap = {
+                biasa: {
+                    bg: isDark ? '#475569' : '#64748b',
+                    shadow: isDark ? '0 4px 18px rgba(71, 85, 105, 0.5)' : '0 4px 18px rgba(100, 116, 139, 0.45)'
+                },
                 tinggi: {
                     bg: isDark ? '#e11d48' : '#f43f5e',
                     shadow: isDark ? '0 4px 20px rgba(225, 29, 72, 0.6)' : '0 4px 18px rgba(244, 63, 94, 0.45)'
@@ -8701,7 +8710,7 @@
                 }
             };
 
-            var curColor = colorMap[prio] || colorMap.sedang;
+            var curColor = colorMap[prio] || colorMap.biasa;
 
             if (animate === false) {
                 pill.style.transition = 'none';
@@ -9299,13 +9308,17 @@
                 id: generateUniqueId(), 
                 nama: nama, 
                 deadline: dl || null, 
-                prioritas: selectedPrioritasVal || 'sedang',
+                prioritas: selectedPrioritasVal || 'biasa',
                 waktuDibuat: waktuDibuat,
                 waktuDibuatIso: waktuDibuatIso,
                 selesai: false,
                 subtasks: subtasks
             });
             inputNama.value = ''; inputDl.value = '';
+
+            var defaultPrioBtn = document.querySelector('#prioritas-selector-track .prio-btn[data-prio="biasa"]');
+            if (defaultPrioBtn) selectPrioritas('biasa', defaultPrioBtn);
+            else selectedPrioritasVal = 'biasa';
             
             tempSubtasks = [];
             renderTempSubtasks();
@@ -10181,7 +10194,9 @@
             var iconWarning = dlInfo.overdue ? '<i class="fas fa-exclamation-triangle mr-1"></i>' : '';
             var prioBadge = task.prioritas === 'tinggi' 
                 ? `<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 ${t('priority_high_label', 'Tinggi')}</span>` 
-                : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 ${t('priority_low_label', 'Rendah')}</span>` : '');
+                : (task.prioritas === 'sedang'
+                    ? `<span class="text-[9px] bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300 font-bold px-1.5 py-0.5 rounded-lg">🟡 ${t('priority_medium_label', 'Sedang')}</span>`
+                    : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 ${t('priority_low_label', 'Rendah')}</span>` : ''));
 
             var formattedCreatedAt = formatDisplayTaskCreatedAt(task);
             var badgeWaktuDibuat = formattedCreatedAt 
@@ -10226,7 +10241,9 @@
             if(!task || typeof task !== 'object') return '';
             var prioBadge = task.prioritas === 'tinggi' 
                 ? `<span class="text-[9px] bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 font-bold px-1.5 py-0.5 rounded-lg">🔴 ${t('priority_high_label', 'Tinggi')}</span>` 
-                : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 ${t('priority_low_label', 'Rendah')}</span>` : '');
+                : (task.prioritas === 'sedang'
+                    ? `<span class="text-[9px] bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300 font-bold px-1.5 py-0.5 rounded-lg">🟡 ${t('priority_medium_label', 'Sedang')}</span>`
+                    : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 font-bold px-1.5 py-0.5 rounded-lg">🟢 ${t('priority_low_label', 'Rendah')}</span>` : ''));
 
             var formattedCreatedAt = formatDisplayTaskCreatedAt(task);
             var badgeWaktuDibuat = formattedCreatedAt 
@@ -10291,8 +10308,10 @@
                 : '';
 
             var prioBadge = task.prioritas === 'tinggi'
-                ? `<span class="text-[9px] bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 font-black px-1.5 py-0.5 rounded-lg">🔴 ${t('priority_high_label', 'Tinggi')}</span>`
-                : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 font-black px-1.5 py-0.5 rounded-lg">🟢 ${t('priority_low_label', 'Rendah')}</span>` : '');
+                ? `<span class="text-[9px] bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 font-black px-1.5 py-0.5 rounded-lg border border-red-200/60 dark:border-red-800/40">🔴 ${t('priority_high_label', 'Tinggi')}</span>`
+                : (task.prioritas === 'sedang'
+                    ? `<span class="text-[9px] bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 font-black px-1.5 py-0.5 rounded-lg border border-amber-200/60 dark:border-amber-800/40">🟡 ${t('priority_medium_label', 'Sedang')}</span>`
+                    : (task.prioritas === 'rendah' ? `<span class="text-[9px] bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 font-black px-1.5 py-0.5 rounded-lg border border-green-200/60 dark:border-green-800/40">🟢 ${t('priority_low_label', 'Rendah')}</span>` : ''));
 
             var stylingTeks = isTaskChecked ? 'text-slate-400 dark:text-slate-500 line-through' + animStrikeClass : 'text-slate-800 dark:text-white font-bold';
             var leftUnderlayerHTML = task.selesai
@@ -10477,7 +10496,7 @@
             renderHealthScore();
 
             var aktif = [], selesai = [], dl = [], reg = [];
-            var prioWeight = { 'tinggi': 3, 'sedang': 2, 'rendah': 1 };
+            var prioWeight = { 'tinggi': 3, 'sedang': 2, 'rendah': 1, 'biasa': 0, 'netral': 0 };
             var hasAnyOverdue = false;
 
             dataState.tugas.forEach(t => {
@@ -10504,8 +10523,8 @@
             }
 
             dl.sort(function(a, b) { 
-                var pwA = prioWeight[a.prioritas || 'sedang'] || 2;
-                var pwB = prioWeight[b.prioritas || 'sedang'] || 2;
+                var pwA = prioWeight[a.prioritas] !== undefined ? prioWeight[a.prioritas] : 0;
+                var pwB = prioWeight[b.prioritas] !== undefined ? prioWeight[b.prioritas] : 0;
                 if(pwA !== pwB) return pwB - pwA;
 
                 try {
@@ -10516,8 +10535,8 @@
             });
 
             reg.sort(function(a, b) {
-                var pwA = prioWeight[a.prioritas || 'sedang'] || 2;
-                var pwB = prioWeight[b.prioritas || 'sedang'] || 2;
+                var pwA = prioWeight[a.prioritas] !== undefined ? prioWeight[a.prioritas] : 0;
+                var pwB = prioWeight[b.prioritas] !== undefined ? prioWeight[b.prioritas] : 0;
                 return pwB - pwA;
             });
 
