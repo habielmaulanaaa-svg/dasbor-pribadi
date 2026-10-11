@@ -1758,6 +1758,28 @@
             animation: prioMercuryStretch 0.38s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
+        @keyframes jellyPopIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(12px);
+            }
+            65% {
+                opacity: 1;
+                transform: scale(1.12) translateY(-2px);
+            }
+            85% {
+                transform: scale(0.96) translateY(1px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .jelly-item-enter {
+            animation: jellyPopIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
         .prio-btn {
             position: relative;
             z-index: 1;
@@ -3509,15 +3531,46 @@
                         <label class="block text-[11px] font-black uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-1.5" data-i18n="tasks_label_name">Nama Tugas Baru</label>
                         <input type="text" id="input-tugas-nama" placeholder="Ketik nama tugas di sini..." data-i18n-placeholder="tasks_placeholder_name" onkeydown="if(event.key==='Enter') tambahTugas()" class="w-full rounded-2xl px-3.5 py-2.5 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary-500 mb-3 border">
                         
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="tasks_label_priority">Prioritas Tugas</label>
-                        <div id="prioritas-selector-track" class="relative grid grid-cols-4 gap-1 p-1 rounded-2xl bg-slate-100 dark:bg-[#0e1621] border border-slate-200/80 dark:border-[#313f52]/80 mb-3 select-none overflow-hidden touch-manipulation">
-                            <!-- Liquid Mercury Pill Indicator (Mengalir & Berganti Warna) -->
-                            <div id="prio-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl z-0 will-change-transform"></div>
+                        <!-- FAB Speed-Dial Prioritas Tugas (Gaya 1 - Hemat Ruang) -->
+                        <div class="flex items-center justify-between mb-3 relative">
+                            <div>
+                                <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="tasks_label_priority">Prioritas Tugas</label>
+                                <span class="text-[10px] text-slate-400 dark:text-slate-500 font-semibold" data-i18n="tasks_prio_hint">Ketuk bola untuk mengganti prioritas</span>
+                            </div>
 
-                            <button type="button" data-prio="biasa" onclick="selectPrioritas('biasa', this)" class="prio-btn active relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_normal">⚪ Biasa</button>
-                            <button type="button" data-prio="rendah" onclick="selectPrioritas('rendah', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_low">🟢 Rendah</button>
-                            <button type="button" data-prio="sedang" onclick="selectPrioritas('sedang', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_medium">🟠 Sedang</button>
-                            <button type="button" data-prio="tinggi" onclick="selectPrioritas('tinggi', this)" class="prio-btn relative z-10 py-2 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1" data-i18n="priority_high">🔴 Tinggi</button>
+                            <!-- TRIGGER FAB SPEED-DIAL -->
+                            <div class="relative">
+                                <!-- Popover Menu Melayang (Speed-Dial) -->
+                                <div id="fab-prio-popover-menu" class="absolute bottom-full right-0 mb-2 hidden flex-col items-end gap-1.5 z-30 pointer-events-auto select-none">
+                                    <!-- Opsi Tinggi -->
+                                    <button type="button" onclick="selectPrioritasFab('tinggi')" class="jelly-item-enter tactile-press flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-[#17212b] border border-red-500/40 shadow-lg text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-50 dark:hover:bg-[#242f3d]">
+                                        <span class="text-[11px] text-slate-600 dark:text-slate-300" data-i18n="priority_high_label">Tinggi</span>
+                                        <span class="w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px] shadow-sm">🔴</span>
+                                    </button>
+                                    <!-- Opsi Sedang -->
+                                    <button type="button" onclick="selectPrioritasFab('sedang')" class="jelly-item-enter tactile-press flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-[#17212b] border border-orange-500/40 shadow-lg text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-50 dark:hover:bg-[#242f3d]" style="animation-delay: 35ms;">
+                                        <span class="text-[11px] text-slate-600 dark:text-slate-300" data-i18n="priority_medium_label">Sedang</span>
+                                        <span class="w-5 h-5 rounded-full bg-orange-500 text-white flex items-center justify-center text-[10px] shadow-sm">🟠</span>
+                                    </button>
+                                    <!-- Opsi Rendah -->
+                                    <button type="button" onclick="selectPrioritasFab('rendah')" class="jelly-item-enter tactile-press flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-[#17212b] border border-emerald-500/40 shadow-lg text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-50 dark:hover:bg-[#242f3d]" style="animation-delay: 70ms;">
+                                        <span class="text-[11px] text-slate-600 dark:text-slate-300" data-i18n="priority_low_label">Rendah</span>
+                                        <span class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] shadow-sm">🟢</span>
+                                    </button>
+                                    <!-- Opsi Biasa -->
+                                    <button type="button" onclick="selectPrioritasFab('biasa')" class="jelly-item-enter tactile-press flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-[#17212b] border border-slate-300 dark:border-slate-600 shadow-lg text-slate-800 dark:text-white text-xs font-bold hover:bg-slate-50 dark:hover:bg-[#242f3d]" style="animation-delay: 105ms;">
+                                        <span class="text-[11px] text-slate-600 dark:text-slate-300" data-i18n="priority_normal_label">Biasa</span>
+                                        <span class="w-5 h-5 rounded-full bg-slate-400 dark:bg-slate-600 text-white flex items-center justify-center text-[10px] shadow-sm">⚪</span>
+                                    </button>
+                                </div>
+
+                                <!-- Tombol Utama FAB (Hanya Menampilkan 1 Bola Aktif) -->
+                                <button type="button" id="btn-prio-fab-trigger" onclick="togglePrioFabPopover()" class="tactile-press flex items-center gap-2 px-3 py-2 rounded-2xl bg-slate-100 dark:bg-[#0e1621] border border-slate-300 dark:border-[#313f52] shadow-xs text-slate-800 dark:text-white font-bold text-xs hover:border-slate-400 transition-colors">
+                                    <span id="prio-fab-trigger-icon" class="text-sm">⚪</span>
+                                    <span id="prio-fab-trigger-label" class="text-xs text-slate-500 dark:text-slate-400">Biasa</span>
+                                    <i id="prio-fab-trigger-chevron" class="fas fa-chevron-up text-[9px] text-slate-400 transition-transform duration-200"></i>
+                                </button>
+                            </div>
                         </div>
 
                         <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="tasks_label_deadline">Tenggat Waktu / Deadline (Opsional)</label>
@@ -4377,6 +4430,7 @@
                 tasks_label_name: "Nama Tugas Baru",
                 tasks_placeholder_name: "Ketik nama tugas di sini...",
                 tasks_label_priority: "Prioritas Tugas",
+                tasks_prio_hint: "Ketuk bola untuk mengganti prioritas",
                 priority_normal: "⚪ Biasa",
                 priority_high: "🔴 Tinggi",
                 priority_medium: "🟠 Sedang",
@@ -5003,6 +5057,7 @@
                 tasks_label_name: "New Task Name",
                 tasks_placeholder_name: "Type task title here...",
                 tasks_label_priority: "Task Priority",
+                tasks_prio_hint: "Tap ball to change priority",
                 priority_normal: "⚪ Normal",
                 priority_high: "🔴 High",
                 priority_medium: "🟠 Medium",
@@ -8233,12 +8288,19 @@
             toggleFabSpeedDial();
         }
 
-        // Tutup FAB speed dial saat mengetuk area di luar dock
+        // Tutup FAB speed dial saat mengetuk area di luar dock & tutup popover prioritas tugas
         document.addEventListener('click', function(e) {
             if (isFabOpen) {
                 var dock = document.getElementById('floating-dock-container');
                 if (dock && !dock.contains(e.target)) {
                     closeFabSpeedDial();
+                }
+            }
+            if (typeof isPrioFabOpen !== 'undefined' && isPrioFabOpen) {
+                var popover = document.getElementById('fab-prio-popover-menu');
+                var trigger = document.getElementById('btn-prio-fab-trigger');
+                if (popover && trigger && !popover.contains(e.target) && !trigger.contains(e.target)) {
+                    closePrioFabPopover();
                 }
             }
         });
@@ -8873,84 +8935,72 @@
             perbaruiTampilan();
         }
 
-        function updatePrioMercuryPill(btn, animate) {
-            var pill = document.getElementById('prio-liquid-mercury-pill');
-            var track = document.getElementById('prioritas-selector-track');
-            if (!pill || !track) return;
-            if (!btn) {
-                btn = track.querySelector('.prio-btn.active') || track.querySelector('.prio-btn[data-prio="biasa"]') || track.querySelector('.prio-btn');
-            }
-            if (!btn) return;
+        // --- PRIORITAS TUGAS: SELEKTOR GAYA 1 (FAB SPEED-DIAL MELAYANG) ---
+        let isPrioFabOpen = false;
 
-            var w = btn.offsetWidth;
-            var h = btn.offsetHeight;
-            if (w === 0 || h === 0) {
-                requestAnimationFrame(function() {
-                    updatePrioMercuryPill(btn, false);
-                });
-                return;
-            }
+        const PRIO_CONFIG = {
+            biasa: { icon: '⚪', labelKey: 'priority_normal_label', defaultLabel: 'Biasa', borderClass: 'border-slate-300 dark:border-slate-700', textClass: 'text-slate-500 dark:text-slate-400' },
+            rendah: { icon: '🟢', labelKey: 'priority_low_label', defaultLabel: 'Rendah', borderClass: 'border-emerald-500/50', textClass: 'text-emerald-500 dark:text-emerald-400' },
+            sedang: { icon: '🟠', labelKey: 'priority_medium_label', defaultLabel: 'Sedang', borderClass: 'border-orange-500/50', textClass: 'text-orange-500 dark:text-orange-400' },
+            tinggi: { icon: '🔴', labelKey: 'priority_high_label', defaultLabel: 'Tinggi', borderClass: 'border-red-500/50', textClass: 'text-red-500 dark:text-red-400' }
+        };
 
-            var prio = btn.getAttribute('data-prio') || 'biasa';
-            var isDark = document.documentElement.classList.contains('dark');
+        function togglePrioFabPopover() {
+            isPrioFabOpen = !isPrioFabOpen;
+            var popover = document.getElementById('fab-prio-popover-menu');
+            var chevron = document.getElementById('prio-fab-trigger-chevron');
+            if (!popover || !chevron) return;
 
-            var colorMap = {
-                biasa: {
-                    bg: isDark ? '#475569' : '#64748b',
-                    shadow: isDark ? '0 4px 18px rgba(71, 85, 105, 0.5)' : '0 4px 18px rgba(100, 116, 139, 0.45)'
-                },
-                tinggi: {
-                    bg: isDark ? '#e11d48' : '#f43f5e',
-                    shadow: isDark ? '0 4px 20px rgba(225, 29, 72, 0.6)' : '0 4px 18px rgba(244, 63, 94, 0.45)'
-                },
-                sedang: {
-                    bg: isDark ? '#ea580c' : '#f97316',
-                    shadow: isDark ? '0 4px 20px rgba(234, 88, 12, 0.6)' : '0 4px 18px rgba(249, 115, 22, 0.45)'
-                },
-                rendah: {
-                    bg: isDark ? '#059669' : '#10b981',
-                    shadow: isDark ? '0 4px 20px rgba(5, 150, 105, 0.6)' : '0 4px 18px rgba(16, 185, 129, 0.45)'
-                }
-            };
-
-            var curColor = colorMap[prio] || colorMap.biasa;
-
-            if (animate === false) {
-                pill.style.transition = 'none';
+            if (isPrioFabOpen) {
+                popover.classList.remove('hidden');
+                popover.classList.add('flex');
+                chevron.style.transform = 'rotate(180deg)';
+                if (typeof triggerHaptic === 'function') triggerHaptic('light');
             } else {
-                pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.30s ease, box-shadow 0.30s ease, top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
-                pill.classList.remove('mercury-flow-active');
-                void pill.offsetWidth;
-                pill.classList.add('mercury-flow-active');
-                if (pill._flowTimer) clearTimeout(pill._flowTimer);
-                pill._flowTimer = setTimeout(function() {
-                    pill.classList.remove('mercury-flow-active');
-                }, 380);
+                popover.classList.add('hidden');
+                popover.classList.remove('flex');
+                chevron.style.transform = 'rotate(0deg)';
             }
-
-            pill.style.left = btn.offsetLeft + 'px';
-            pill.style.top = btn.offsetTop + 'px';
-            pill.style.width = w + 'px';
-            pill.style.height = h + 'px';
-            pill.style.backgroundColor = curColor.bg;
-            pill.style.boxShadow = curColor.shadow;
-            pill.style.opacity = '1';
         }
 
-        function selectPrioritas(val, btn) {
-            selectedPrioritasVal = val;
-            var track = document.getElementById('prioritas-selector-track');
-            if (track) {
-                track.querySelectorAll('.prio-btn').forEach(b => b.classList.remove('active'));
-            } else {
-                document.querySelectorAll('.prio-btn').forEach(b => b.classList.remove('active'));
+        function closePrioFabPopover() {
+            isPrioFabOpen = false;
+            var popover = document.getElementById('fab-prio-popover-menu');
+            var chevron = document.getElementById('prio-fab-trigger-chevron');
+            if (popover) {
+                popover.classList.add('hidden');
+                popover.classList.remove('flex');
             }
-            if (btn) {
-                void btn.offsetWidth;
-                btn.classList.add('active');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
+        }
+
+        function selectPrioritas(val) {
+            selectedPrioritasVal = val || 'biasa';
+            var conf = PRIO_CONFIG[selectedPrioritasVal] || PRIO_CONFIG.biasa;
+
+            var iconEl = document.getElementById('prio-fab-trigger-icon');
+            var labelEl = document.getElementById('prio-fab-trigger-label');
+            var triggerBtn = document.getElementById('btn-prio-fab-trigger');
+
+            if (iconEl) iconEl.innerText = conf.icon;
+            if (labelEl) {
+                labelEl.innerText = t(conf.labelKey, conf.defaultLabel);
+                labelEl.className = `text-xs font-bold ${conf.textClass}`;
             }
-            updatePrioMercuryPill(btn, true);
+            if (triggerBtn) {
+                triggerBtn.className = `tactile-press flex items-center gap-2 px-3 py-2 rounded-2xl bg-slate-100 dark:bg-[#0e1621] border ${conf.borderClass} shadow-xs text-slate-800 dark:text-white font-bold text-xs hover:border-slate-400 transition-colors`;
+            }
+
+            closePrioFabPopover();
             if (typeof triggerHaptic === 'function') triggerHaptic('light');
+        }
+
+        function selectPrioritasFab(val) {
+            selectPrioritas(val);
+        }
+
+        function updatePrioMercuryPill() {
+            selectPrioritas(selectedPrioritasVal || 'biasa');
         }
 
         function selectKategori(val, btn) {
@@ -9519,9 +9569,7 @@
             });
             inputNama.value = ''; inputDl.value = '';
 
-            var defaultPrioBtn = document.querySelector('#prioritas-selector-track .prio-btn[data-prio="biasa"]');
-            if (defaultPrioBtn) selectPrioritas('biasa', defaultPrioBtn);
-            else selectedPrioritasVal = 'biasa';
+            selectPrioritas('biasa');
             
             tempSubtasks = [];
             renderTempSubtasks();
