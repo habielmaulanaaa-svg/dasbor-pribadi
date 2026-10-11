@@ -447,6 +447,8 @@
             transform: translateY(-8px) scale(0.98);
         }
 
+        .accordion-overflow,
+        .accordion-content > .accordion-overflow,
         #settings-toggles-stack > .accordion-overflow {
             min-height: 0;
             overflow: hidden;
@@ -723,73 +725,19 @@
         }
 
         /* ==========================================
-           ANIMASI EKSPANSI AKORDEON SUB TUGAS MODERN (CSS GRID FLUID PHYSICS)
+           AKORDEON SUB TUGAS: TERPADU CSS GRID FLUID PHYSICS
            ========================================== */
         .subtasks-accordion-grid {
-            display: grid;
-            grid-template-rows: 0fr;
-            opacity: 1 !important;
-            overflow: hidden;
-            transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            will-change: grid-template-rows;
+            /* Mewarisi penuh fisika fluida CSS Grid dari .accordion-content */
         }
-        .subtasks-accordion-grid.expanded {
-            grid-template-rows: 1fr !important;
-            overflow: visible;
-        }
-        .subtasks-accordion-inner {
-            overflow: hidden;
-            min-height: 0;
-        }
-        .subtasks-accordion-grid.expanded > .subtasks-accordion-inner {
-            overflow: visible;
-        }
-        .subtasks-accordion-inner > .subtasks-content-body {
-            opacity: 1;
-            padding-top: 0.625rem;
-            margin-top: 0.5rem;
-            border-top: 1px solid rgba(241, 245, 249, 1);
-        }
-        .dark .subtasks-accordion-inner > .subtasks-content-body {
-            border-top-color: rgba(36, 47, 61, 0.8);
-        }
-
-        /* Staggered Waterfall untuk Item Sub-Tugas */
         .subtask-item-card {
-            opacity: 0;
-            transform: translateY(-12px) scale(0.975);
             transition: 
-                opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
                 background-color 0.2s ease,
-                border-color 0.2s ease;
-            will-change: opacity, transform;
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
         }
         .subtask-item-card:active {
             transform: scale(0.985);
-        }
-        .subtasks-accordion-grid.expanded .subtask-item-card {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(1) { transition-delay: 0.03s; }
-        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(2) { transition-delay: 0.07s; }
-        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(3) { transition-delay: 0.11s; }
-        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(4) { transition-delay: 0.15s; }
-        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(5) { transition-delay: 0.19s; }
-        .subtasks-accordion-grid.expanded .subtask-item-card:nth-child(n+6) { transition-delay: 0.23s; }
-
-        .subtasks-accordion-grid:not(.expanded) .subtask-item-card {
-            transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease;
-            transition-delay: 0s;
-            opacity: 0;
-            transform: translateY(-6px) scale(0.985);
-        }
-
-        /* Rotasi panah akordeon presisi & mulus tanpa over-bounce */
-        .subtasks-arrow-spring {
-            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform;
         }
 
         /* ==========================================
@@ -9177,15 +9125,15 @@
             var container = document.getElementById(`subtasks-container-${taskId}`);
             var arrow = document.getElementById(`subtasks-arrow-${taskId}`);
             if (!container) return;
-            var isExpanded = container.classList.toggle('expanded');
-            if (isExpanded) {
+            var isOpen = container.classList.toggle('open');
+            if (isOpen) {
                 activeOpenSubtasks.add(taskId);
             } else {
                 activeOpenSubtasks.delete(taskId);
             }
             if (arrow) {
-                arrow.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
-                arrow.classList.toggle('text-emerald-500', isExpanded);
+                arrow.classList.toggle('open', isOpen);
+                arrow.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
             }
             if (typeof triggerHaptic === 'function') triggerHaptic('light');
         }
@@ -9992,7 +9940,11 @@
             inputCatatan.value = '';
             if (previewEl) previewEl.classList.add('hidden');
             document.getElementById('stack-riwayat-keuangan').classList.add('open');
-            document.getElementById('icon-riwayat-keuangan').style.transform = 'rotate(180deg)';
+            var iconRk = document.getElementById('icon-riwayat-keuangan');
+            if (iconRk) {
+                iconRk.style.transform = 'rotate(180deg)';
+                iconRk.classList.add('open');
+            }
             simpanData();
             triggerBalanceTankFusion(jenis);
             
@@ -10355,12 +10307,12 @@
                 subtasksBarHTML = `
                 <div class="mt-2.5 pt-2 border-t border-slate-100 dark:border-[#242f3d]/60">
                     <div class="flex items-center justify-between gap-2 mb-1.5">
-                        <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="inline-flex items-center gap-1.5 text-[10px] font-bold ${badgeClass} px-2 py-0.5 rounded-lg border focus:outline-none hover:opacity-85 active:scale-95 transition-all">
+                        <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="tactile-press inline-flex items-center gap-1.5 text-[10px] font-bold ${badgeClass} px-2.5 py-1 rounded-xl border focus:outline-none hover:opacity-90 active:scale-95 transition-all">
                             <i class="fas fa-tasks text-[9px]"></i> <span id="subtasks-count-${task.id}">${doneSt}/${totalSt} ${t('subtasks_count_label', 'Sub Tugas')}</span>
-                            <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] subtasks-arrow-spring" style="${isAccordionOpen ? 'transform: rotate(180deg);' : 'transform: rotate(0deg);'}"></i>
+                            <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] stack-chevron-icon shrink-0 ml-0.5 ${isAccordionOpen ? 'open' : ''}" style="${isAccordionOpen ? 'transform: rotate(180deg);' : 'transform: rotate(0deg);'}"></i>
                         </button>
                         <div class="flex items-center gap-2">
-                            <button type="button" onclick="toggleOpsiSubtaskTanggal()" aria-label="${dataState.optSubtaskTanggalDibuat !== false ? t('subtasks_tooltip_hide_date', 'Sembunyikan Tanggal Sub Tugas') : t('subtasks_tooltip_show_date', 'Tampilkan Tanggal Sub Tugas')}" class="text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 text-[10px] flex items-center gap-1 focus:outline-none transition-colors p-0.5" title="${dataState.optSubtaskTanggalDibuat !== false ? t('subtasks_tooltip_hide_date', 'Sembunyikan Tanggal Sub Tugas') : t('subtasks_tooltip_show_date', 'Tampilkan Tanggal Sub Tugas')}">
+                            <button type="button" onclick="toggleOpsiSubtaskTanggal()" aria-label="${dataState.optSubtaskTanggalDibuat !== false ? t('subtasks_tooltip_hide_date', 'Sembunyikan Tanggal Sub Tugas') : t('subtasks_tooltip_show_date', 'Tampilkan Tanggal Sub Tugas')}" class="tactile-press text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 text-[10px] flex items-center gap-1 focus:outline-none transition-colors p-0.5" title="${dataState.optSubtaskTanggalDibuat !== false ? t('subtasks_tooltip_hide_date', 'Sembunyikan Tanggal Sub Tugas') : t('subtasks_tooltip_show_date', 'Tampilkan Tanggal Sub Tugas')}">
                                 <i class="${dataState.optSubtaskTanggalDibuat !== false ? 'fas fa-calendar-alt text-emerald-500' : 'far fa-calendar text-slate-400'} text-[10px]"></i>
                             </button>
                             <span id="subtasks-pct-${task.id}" class="text-[10px] font-black text-emerald-600 dark:text-emerald-400">${pct}%</span>
@@ -10374,8 +10326,9 @@
             } else if (!task.selesai && isSubtaskFeatureActive) {
                 subtasksBarHTML = `
                 <div class="mt-1.5">
-                    <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 active:scale-95 transition-all focus:outline-none">
+                    <button type="button" onclick="toggleSubtasksAccordion(${task.id})" class="tactile-press inline-flex items-center gap-1.5 text-[10px] font-semibold text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 active:scale-95 transition-all focus:outline-none">
                         <i class="fas fa-plus-circle text-[9px]"></i> ${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}
+                        <i id="subtasks-arrow-${task.id}" class="fas fa-chevron-down text-[8px] stack-chevron-icon shrink-0 ml-0.5 ${isAccordionOpen ? 'open' : ''}" style="${isAccordionOpen ? 'transform: rotate(180deg);' : 'transform: rotate(0deg);'}"></i>
                     </button>
                 </div>`;
             }
@@ -10389,31 +10342,29 @@
                 var dateBadgeHTML = `<span class="subtask-date-badge text-[9px] font-medium text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-[#1f2937] px-1.5 py-0.5 rounded-md flex items-center gap-1 shrink-0 ${isDateHidden ? 'hidden' : ''}"><i class="far fa-calendar-alt text-[8px] opacity-75"></i> ${stDate}</span>`;
 
                 subtasksListHTML += `
-                <div class="subtask-item-card flex items-center justify-between gap-2 p-1.5 px-2 bg-slate-50/90 dark:bg-[#242f3d]/60 rounded-xl border border-slate-200/70 dark:border-[#313f52]/50 text-xs shadow-2xs hover:bg-slate-100/70 dark:hover:bg-[#242f3d]/80 transition-colors">
+                <div class="waterfall-item tactile-press subtask-item-card flex items-center justify-between gap-2 p-1.5 px-2 bg-slate-50/90 dark:bg-[#242f3d]/60 rounded-xl border border-slate-200/70 dark:border-[#313f52]/50 text-xs shadow-2xs hover:bg-slate-100/70 dark:hover:bg-[#242f3d]/80 transition-colors">
                     <label class="flex items-center gap-2 cursor-pointer select-none flex-1 min-w-0">
                         <input type="checkbox" id="subtask-cb-${task.id}-${st.id}" onchange="toggleSubtask(${task.id}, ${st.id})" ${stChecked} class="w-3.5 h-3.5 rounded text-emerald-600 focus:ring-0 focus:outline-none cursor-pointer accent-emerald-500">
                         <span id="subtask-text-${task.id}-${st.id}" class="text-xs ${stTextClass} break-words">${escapeHtml(st.text)}</span>
                     </label>
                     <div class="flex items-center gap-1.5 shrink-0">
                         ${dateBadgeHTML}
-                        <button type="button" onclick="hapusSubtask(${task.id}, ${st.id})" aria-label="${t('savings_delete_tooltip', 'Hapus')}" class="text-slate-300 hover:text-red-500 active:scale-90 p-1 focus:outline-none transition-transform" title="${t('savings_delete_tooltip', 'Hapus')}"><i class="fas fa-times text-[10px]"></i></button>
+                        <button type="button" onclick="hapusSubtask(${task.id}, ${st.id})" aria-label="${t('savings_delete_tooltip', 'Hapus')}" class="tactile-press text-slate-300 hover:text-red-500 active:scale-90 p-1 focus:outline-none transition-transform" title="${t('savings_delete_tooltip', 'Hapus')}"><i class="fas fa-times text-[10px]"></i></button>
                     </div>
                 </div>`;
             });
 
             var subtasksAccordion = '';
-            if (totalSt > 0 || isSubtaskFeatureActive) {
+            if (totalSt > 0 || (!task.selesai && isSubtaskFeatureActive)) {
                 subtasksAccordion = `
-                <div id="subtasks-container-${task.id}" class="subtasks-accordion-grid ${isAccordionOpen ? 'expanded' : ''}">
-                    <div class="subtasks-accordion-inner">
-                        <div class="subtasks-content-body space-y-2">
-                            <div class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 empty:hidden touch-pan-y">
-                                ${subtasksListHTML}
-                            </div>
+                <div id="subtasks-container-${task.id}" class="accordion-content subtasks-accordion-grid ${isAccordionOpen ? 'open' : ''}">
+                    <div class="accordion-overflow min-h-0 overflow-hidden">
+                        <div class="accordion-inner space-y-1.5 pt-2 pb-1 max-h-64 overflow-y-auto pr-0.5 touch-pan-y border-t border-slate-100 dark:border-[#242f3d]/60 mt-2">
+                            ${subtasksListHTML}
                             ${(!task.selesai && isSubtaskFeatureActive) ? `
-                            <div class="flex items-center gap-1.5 pt-0.5">
+                            <div class="waterfall-item flex items-center gap-1.5 pt-0.5">
                                 <input type="text" id="input-new-subtask-${task.id}" placeholder="${t('subtasks_placeholder_inline', 'Ketik sub tugas baru...')}" onkeydown="if(event.key==='Enter'){event.preventDefault(); tambahSubtaskInline(${task.id});}" class="flex-1 rounded-xl px-2.5 py-1.5 text-xs font-medium bg-slate-100 dark:bg-[#242f3d] border border-slate-200 dark:border-[#313f52] text-slate-800 dark:text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all">
-                                <button type="button" onclick="tambahSubtaskInline(${task.id})" aria-label="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" title="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1 shadow-xs">
+                                <button type="button" onclick="tambahSubtaskInline(${task.id})" aria-label="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" title="${t('subtasks_add_btn_inline', 'Tambah Sub Tugas')}" class="tactile-press px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1 shadow-xs">
                                     <i class="fas fa-plus text-[10px]"></i>
                                 </button>
                             </div>` : ''}
