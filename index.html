@@ -1891,7 +1891,8 @@
             user-select: none;
             -webkit-user-select: none;
         }
-        #filter-liquid-mercury-pill {
+        #filter-liquid-mercury-pill,
+        #analisis-liquid-mercury-pill {
             position: absolute;
             border-radius: 12px;
             background-color: hsl(var(--theme-h), 83%, 53%);
@@ -1929,11 +1930,13 @@
             }
         }
 
-        #filter-liquid-mercury-pill.mercury-flow-active {
+        #filter-liquid-mercury-pill.mercury-flow-active,
+        #analisis-liquid-mercury-pill.mercury-flow-active {
             animation: filterMercuryStretch 0.38s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .period-btn {
+        .period-btn,
+        .analisis-periode-btn {
             position: relative;
             z-index: 1;
             background: transparent !important;
@@ -1945,13 +1948,16 @@
             user-select: none;
             -webkit-user-select: none;
         }
-        .dark .period-btn {
+        .dark .period-btn,
+        .dark .analisis-periode-btn {
             color: #94a3b8;
         }
-        .period-btn:hover {
+        .period-btn:hover,
+        .analisis-periode-btn:hover {
             color: #1e293b;
         }
-        .dark .period-btn:hover {
+        .dark .period-btn:hover,
+        .dark .analisis-periode-btn:hover {
             color: #f1f5f9;
         }
 
@@ -1961,13 +1967,14 @@
             100% { transform: scale(1.02); }
         }
 
-        .period-btn.active { 
+        .period-btn.active,
+        .analisis-periode-btn.active { 
             color: #ffffff !important; 
             font-weight: 800 !important;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
             animation: filterBtnPop 0.32s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
         }
-        .period-btn:active, .prio-btn:active, .kat-btn:active {
+        .period-btn:active, .analisis-periode-btn:active, .prio-btn:active, .kat-btn:active {
             transform: scale(0.90);
         }
         
@@ -2341,7 +2348,8 @@
                 transition: none !important;
             }
             #wallet-liquid-mercury-pill.mercury-flow-active,
-            #filter-liquid-mercury-pill.mercury-flow-active {
+            #filter-liquid-mercury-pill.mercury-flow-active,
+            #analisis-liquid-mercury-pill.mercury-flow-active {
                 animation: none !important;
             }
         }
@@ -2778,11 +2786,12 @@
                 <button type="button" onclick="closeBottomSheet('analisis-keuangan-modal')" aria-label="Tutup analisis keuangan" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
 
-            <!-- Filter Periode Analisis -->
-            <div class="flex gap-1.5 p-1 bg-slate-100 dark:bg-[#242f3d]/60 rounded-2xl mb-3 shrink-0">
-                <button type="button" onclick="filterAnalisisPeriode('bulan-ini')" id="btn-analisis-bulan-ini" class="flex-1 py-1.5 text-xs font-bold rounded-xl transition-all bg-white dark:bg-[#17212b] text-primary-600 dark:text-primary-400 shadow-xs" data-i18n="analysis_filter_this_month">Bulan Ini</button>
-                <button type="button" onclick="filterAnalisisPeriode('bulan-lalu')" id="btn-analisis-bulan-lalu" class="flex-1 py-1.5 text-xs font-bold rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:text-slate-800" data-i18n="analysis_filter_last_month">Bulan Lalu</button>
-                <button type="button" onclick="filterAnalisisPeriode('semua')" id="btn-analisis-semua" class="flex-1 py-1.5 text-xs font-bold rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:text-slate-800" data-i18n="analysis_filter_all">Semua</button>
+            <!-- Filter Periode Analisis: Liquid Mercury Pill Slider -->
+            <div id="analisis-periode-track" class="relative grid grid-cols-3 gap-1 p-1 bg-slate-100 dark:bg-[#0e1621] border border-slate-200/80 dark:border-[#313f52]/80 rounded-2xl mb-3 shrink-0 overflow-hidden select-none">
+                <div id="analisis-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl bg-primary-600 shadow-[0_3px_12px_hsl(var(--theme-h),83%,53%,0.4)] z-0 will-change-transform"></div>
+                <button type="button" onclick="filterAnalisisPeriode('bulan-ini', this)" id="btn-analisis-bulan-ini" data-periode="bulan-ini" class="analisis-periode-btn active relative z-10 py-1.5 text-xs font-black rounded-xl text-center focus:outline-none transition-colors active:scale-95 text-white" data-i18n="analysis_filter_this_month">Bulan Ini</button>
+                <button type="button" onclick="filterAnalisisPeriode('bulan-lalu', this)" id="btn-analisis-bulan-lalu" data-periode="bulan-lalu" class="analisis-periode-btn relative z-10 py-1.5 text-xs font-bold rounded-xl text-center focus:outline-none transition-colors active:scale-95 text-slate-600 dark:text-slate-400 hover:text-slate-800" data-i18n="analysis_filter_last_month">Bulan Lalu</button>
+                <button type="button" onclick="filterAnalisisPeriode('semua', this)" id="btn-analisis-semua" data-periode="semua" class="analisis-periode-btn relative z-10 py-1.5 text-xs font-bold rounded-xl text-center focus:outline-none transition-colors active:scale-95 text-slate-600 dark:text-slate-400 hover:text-slate-800" data-i18n="analysis_filter_all">Semua</button>
             </div>
 
             <div class="space-y-3 overflow-y-auto pr-1 flex-1">
@@ -2832,11 +2841,11 @@
                     </div>
                 </div>
 
-                <!-- Breakdown Ranking Bars -->
+                <!-- Breakdown Ranking Bars & Category Itemized Breakdown -->
                 <div class="p-3.5 bg-slate-50 dark:bg-[#242f3d]/60 rounded-3xl border border-slate-200/70 dark:border-[#313f52]/70 space-y-2">
                     <div class="font-bold text-xs text-slate-700 dark:text-slate-200 flex items-center justify-between">
-                        <span data-i18n="analysis_ranking_title">Peringkat Pengeluaran</span>
-                        <span class="text-[10px] text-slate-400" data-i18n="analysis_ranking_subtitle">Terbesar ke Terkecil</span>
+                        <span data-i18n="analysis_ranking_title">Rincian &amp; Peringkat Pengeluaran</span>
+                        <span class="text-[10px] text-slate-400" data-i18n="analysis_ranking_subtitle">Keterangan &amp; Nominal</span>
                     </div>
                     <div id="analisis-breakdown-bars" class="space-y-2 pt-1">
                         <!-- Progress bars rendered by JS -->
@@ -4819,8 +4828,9 @@
                 analysis_kpi_avg_daily: "Rata-rata Keluar / Hari",
                 analysis_kpi_spending_portion: "Porsi Pengeluaran per Kategori",
                 analysis_donut_center_label: "Total Biaya",
-                analysis_ranking_title: "Peringkat Pengeluaran",
-                analysis_ranking_subtitle: "Terbesar ke Terkecil",
+                analysis_ranking_title: "Rincian & Peringkat Pengeluaran",
+                analysis_ranking_subtitle: "Keterangan & Nominal",
+                analysis_income_title: "Rincian Pemasukan",
                 analysis_empty_legend: "Belum ada pengeluaran pada periode ini.",
                 analysis_empty_bars: "Belum ada catatan pengeluaran.",
                 analysis_btn_close: "Tutup",
@@ -5449,8 +5459,9 @@
                 analysis_kpi_avg_daily: "Daily Average Spending",
                 analysis_kpi_spending_portion: "Spending Breakdown by Category",
                 analysis_donut_center_label: "Total Expense",
-                analysis_ranking_title: "Expense Rankings",
-                analysis_ranking_subtitle: "Highest to Lowest",
+                analysis_ranking_title: "Expense Breakdown & Rankings",
+                analysis_ranking_subtitle: "Notes & Amounts",
+                analysis_income_title: "Income Breakdown",
                 analysis_empty_legend: "No expenses in this period.",
                 analysis_empty_bars: "No expense records yet.",
                 analysis_btn_close: "Close",
@@ -5747,6 +5758,7 @@
             if (typeof updateMoodMercuryPill === 'function') updateMoodMercuryPill(null, !!animate);
             if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, !!animate);
             if (typeof updateWalletMercuryPill === 'function') updateWalletMercuryPill(null, !!animate);
+            if (typeof updateAnalisisMercuryPill === 'function') updateAnalisisMercuryPill(null, !!animate);
         }
 
         function applyLanguageToDOM() {
@@ -7355,8 +7367,9 @@
             '🍔 Makan': '#f59e0b',
             '🚗 Transport': '#3b82f6',
             '🛍️ Belanja': '#ec4899',
+            '💡 Tagihan': '#8b5cf6',
             '📄 Tagihan': '#8b5cf6',
-            '🎉 Hiburan': '#10b981',
+            '🎉 Hiburan': '#06b6d4',
             '📁 Lainnya': '#64748b',
             '💰 Pemasukan': '#10b981'
         };
@@ -7368,8 +7381,15 @@
             if (wasSidebarOpen) toggleSidebar();
             var doOpen = () => {
                 currentAnalisisPeriode = 'bulan-ini';
-                filterAnalisisPeriode('bulan-ini');
+                var btnBulanIni = document.getElementById('btn-analisis-bulan-ini');
+                filterAnalisisPeriode('bulan-ini', btnBulanIni);
                 openBottomSheet('analisis-keuangan-modal');
+                setTimeout(function() {
+                    updateAnalisisMercuryPill(btnBulanIni, false);
+                }, 50);
+                setTimeout(function() {
+                    updateAnalisisMercuryPill(btnBulanIni, false);
+                }, 220);
             };
             if (wasSidebarOpen) {
                 setTimeout(doOpen, 120);
@@ -7378,18 +7398,80 @@
             }
         }
 
-        function filterAnalisisPeriode(periode) {
+        function updateAnalisisMercuryPill(btn, animate) {
+            var pill = document.getElementById('analisis-liquid-mercury-pill');
+            var track = document.getElementById('analisis-periode-track');
+            if (!pill || !track) return;
+            if (!btn) {
+                btn = track.querySelector('.analisis-periode-btn.active');
+            }
+            if (!btn) return;
+
+            var w = btn.offsetWidth;
+            var h = btn.offsetHeight;
+            if (w === 0 || h === 0) {
+                requestAnimationFrame(function() {
+                    updateAnalisisMercuryPill(btn, false);
+                });
+                return;
+            }
+
+            if (animate === false) {
+                pill.style.transition = 'none';
+            } else {
+                pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
+                pill.classList.remove('mercury-flow-active');
+                void pill.offsetWidth;
+                pill.classList.add('mercury-flow-active');
+                if (pill._flowTimer) clearTimeout(pill._flowTimer);
+                pill._flowTimer = setTimeout(function() {
+                    pill.classList.remove('mercury-flow-active');
+                }, 380);
+            }
+
+            pill.style.left = btn.offsetLeft + 'px';
+            pill.style.top = btn.offsetTop + 'px';
+            pill.style.width = w + 'px';
+            pill.style.height = h + 'px';
+            pill.style.opacity = '1';
+        }
+
+        function filterAnalisisPeriode(periode, clickedBtn) {
             currentAnalisisPeriode = periode;
-            ['bulan-ini', 'bulan-lalu', 'semua'].forEach(p => {
-                var btn = document.getElementById('btn-analisis-' + p);
-                if (!btn) return;
-                if (p === periode) {
-                    btn.className = 'flex-1 py-1.5 text-xs font-bold rounded-xl transition-all bg-white dark:bg-[#17212b] text-primary-600 dark:text-primary-400 shadow-xs';
+            var track = document.getElementById('analisis-periode-track');
+            var buttons = track ? track.querySelectorAll('.analisis-periode-btn') : [];
+            var targetBtn = clickedBtn || document.getElementById('btn-analisis-' + periode);
+
+            buttons.forEach(function(btn) {
+                if (btn === targetBtn || btn.getAttribute('data-periode') === periode) {
+                    btn.classList.add('active');
+                    btn.classList.add('text-white');
+                    btn.classList.remove('text-slate-600', 'dark:text-slate-400');
                 } else {
-                    btn.className = 'flex-1 py-1.5 text-xs font-bold rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:text-slate-800';
+                    btn.classList.remove('active');
+                    btn.classList.remove('text-white');
+                    btn.classList.add('text-slate-600', 'dark:text-slate-400');
                 }
             });
+
+            if (targetBtn) {
+                updateAnalisisMercuryPill(targetBtn, true);
+            }
             renderAnalisisKeuangan();
+        }
+
+        function toggleAnalisisCategoryCollapse(catIdx) {
+            var content = document.getElementById('analisis-cat-content-' + catIdx);
+            var icon = document.getElementById('analisis-cat-icon-' + catIdx);
+            if (!content) return;
+            var isOpen = content.classList.contains('open');
+            if (isOpen) {
+                content.classList.remove('open');
+                if (icon) icon.classList.remove('open');
+            } else {
+                content.classList.add('open');
+                if (icon) icon.classList.add('open');
+            }
         }
 
         function renderAnalisisKeuangan() {
@@ -7427,18 +7509,34 @@
             var totalMasuk = 0;
             var totalKeluar = 0;
             var kategoriMap = {};
+            var incomeList = [];
             var keluarCount = 0;
 
             filtered.forEach(function(t) {
                 var nom = parseFloat(t.nominal) || 0;
                 if (t.jenis === 'masuk') {
                     totalMasuk += nom;
+                    incomeList.push(t);
                 } else {
                     totalKeluar += nom;
                     keluarCount++;
                     var kat = t.kategori || '📁 Lainnya';
-                    kategoriMap[kat] = (kategoriMap[kat] || 0) + nom;
+                    if (!kategoriMap[kat]) {
+                        kategoriMap[kat] = { total: 0, items: [] };
+                    }
+                    kategoriMap[kat].total += nom;
+                    kategoriMap[kat].items.push(t);
                 }
+            });
+
+            // Urutkan item per kategori dari transaksi terbaru
+            Object.keys(kategoriMap).forEach(function(k) {
+                kategoriMap[k].items.sort(function(a, b) {
+                    return (b.id || 0) - (a.id || 0);
+                });
+            });
+            incomeList.sort(function(a, b) {
+                return (b.id || 0) - (a.id || 0);
             });
 
             var elMasuk = document.getElementById('analisis-total-masuk');
@@ -7474,7 +7572,12 @@
             if (elCenterTotal) elCenterTotal.innerText = formatRupiah(totalKeluar);
 
             var sortedKategori = Object.keys(kategoriMap).map(function(k) {
-                return { kategori: k, total: kategoriMap[k], pct: totalKeluar > 0 ? (kategoriMap[k] / totalKeluar) * 100 : 0 };
+                return { 
+                    kategori: k, 
+                    total: kategoriMap[k].total, 
+                    items: kategoriMap[k].items,
+                    pct: totalKeluar > 0 ? (kategoriMap[k].total / totalKeluar) * 100 : 0 
+                };
             }).sort(function(a, b) { return b.total - a.total; });
 
             // Render Donut SVG (viewBox 0 0 42 42, r=15.91549430918954 => Circumference 100)
@@ -7516,7 +7619,7 @@
                             <div class="flex items-center gap-1.5 p-1 rounded-lg bg-white/70 dark:bg-[#17212b]/70 border border-slate-200/50 dark:border-[#313f52]/50">
                                 <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${color}"></span>
                                 <div class="flex-1 min-w-0">
-                                    <div class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate">${getKategoriLabel(item.kategori)}</div>
+                                    <div class="text-[11px] font-bold text-slate-700 dark:text-slate-200 truncate">${escapeHtml(getKategoriLabel(item.kategori))}</div>
                                     <div class="text-[10px] text-slate-400 font-semibold">${Math.round(item.pct)}% • ${formatRupiah(item.total)}</div>
                                 </div>
                             </div>
@@ -7525,32 +7628,128 @@
                 }
             }
 
-            // Render Breakdown Ranking Bars
+            // Render Breakdown Ranking Bars & Detailed Category Containers
             var barsContainer = document.getElementById('analisis-breakdown-bars');
             if (barsContainer) {
-                if (sortedKategori.length === 0) {
-                    barsContainer.innerHTML = `<div class="text-center text-[11px] text-slate-400 py-2">${t('analysis_empty_bars', 'Belum ada catatan pengeluaran.')}</div>`;
+                if (sortedKategori.length === 0 && incomeList.length === 0) {
+                    barsContainer.innerHTML = `<div class="text-center text-[11px] text-slate-400 py-3">${t('analysis_empty_bars', 'Belum ada catatan pengeluaran.')}</div>`;
                 } else {
-                    barsContainer.innerHTML = sortedKategori.map(function(item, idx) {
-                        var color = KATEGORI_COLORS[item.kategori] || FALLBACK_CHART_COLORS[idx % FALLBACK_CHART_COLORS.length];
-                        var pctRounded = Math.round(item.pct);
-                        return `
-                            <div class="space-y-1">
-                                <div class="flex justify-between items-center text-xs font-bold">
-                                    <span class="text-slate-700 dark:text-slate-200 flex items-center gap-1">
-                                        <span>${getKategoriLabel(item.kategori)}</span>
-                                    </span>
-                                    <div class="flex items-center gap-1.5">
-                                        <span class="text-slate-800 dark:text-white font-black">${formatRupiah(item.total)}</span>
-                                        <span class="text-[10px] text-slate-400 font-semibold">(${pctRounded}%)</span>
+                    var cardsHtml = '';
+
+                    // 1. Kartu Rincian Pengeluaran per Kategori
+                    if (sortedKategori.length > 0) {
+                        cardsHtml += sortedKategori.map(function(item, idx) {
+                            var color = KATEGORI_COLORS[item.kategori] || FALLBACK_CHART_COLORS[idx % FALLBACK_CHART_COLORS.length];
+                            var pctRounded = Math.round(item.pct);
+                            var catLabel = getKategoriLabel(item.kategori);
+
+                            var itemsRowsHtml = item.items.map(function(trx) {
+                                var displayCatatan = trx.catatan || catLabel;
+                                var displayTanggal = trx.tanggal || formatTanggal(trx.isoDate) || '';
+                                var walletBadge = getWalletBadge(trx.walletId);
+                                return `
+                                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50/80 dark:bg-[#242f3d]/50 border border-slate-100 dark:border-[#313f52]/40 hover:bg-slate-100/70 dark:hover:bg-[#242f3d]/80 transition-colors">
+                                        <div class="flex items-center gap-2 min-w-0 pr-2">
+                                            <div class="min-w-0">
+                                                <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${escapeHtml(displayCatatan)}</div>
+                                                <div class="flex items-center gap-1.5 mt-0.5">
+                                                    <span class="text-[10px] text-slate-400 font-medium">${escapeHtml(displayTanggal)}</span>
+                                                    <span class="text-[9px] text-slate-300 dark:text-slate-600">•</span>
+                                                    ${walletBadge}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs font-black text-rose-600 dark:text-rose-400 shrink-0 font-mono">
+                                            -${formatRupiah(trx.nominal)}
+                                        </span>
+                                    </div>
+                                `;
+                            }).join('');
+
+                            return `
+                                <div class="rounded-2xl bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 shadow-xs overflow-hidden transition-all duration-200">
+                                    <button type="button" onclick="toggleAnalisisCategoryCollapse('${idx}')" class="w-full text-left p-3 flex flex-col gap-2 hover:bg-slate-50/80 dark:hover:bg-[#1f2d3d]/50 transition-colors focus:outline-none">
+                                        <div class="flex justify-between items-center w-full">
+                                            <div class="flex items-center gap-2 min-w-0">
+                                                <span class="w-3 h-3 rounded-full shrink-0 shadow-xs" style="background-color: ${color}"></span>
+                                                <span class="font-bold text-xs text-slate-800 dark:text-slate-100 truncate">${escapeHtml(catLabel)}</span>
+                                                <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400">${item.items.length} ${isEn ? 'records' : 'catatan'}</span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5 shrink-0">
+                                                <span class="text-xs font-black text-rose-600 dark:text-rose-400">-${formatRupiah(item.total)}</span>
+                                                <span class="text-[10px] font-bold text-slate-400">(${pctRounded}%)</span>
+                                                <i id="analisis-cat-icon-${idx}" class="fas fa-chevron-down text-[10px] text-slate-400 stack-chevron-icon open ml-1"></i>
+                                            </div>
+                                        </div>
+                                        <div class="w-full h-1.5 bg-slate-100 dark:bg-[#242f3d] rounded-full overflow-hidden">
+                                            <div class="h-full rounded-full transition-all duration-500" style="width: ${pctRounded}%; background-color: ${color}"></div>
+                                        </div>
+                                    </button>
+
+                                    <div id="analisis-cat-content-${idx}" class="accordion-content open">
+                                        <div class="accordion-inner px-3 pb-3 pt-1 border-t border-slate-100 dark:border-[#242f3d]/60 space-y-1.5">
+                                            ${itemsRowsHtml}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="w-full h-2 bg-slate-200 dark:bg-[#17212b] rounded-full overflow-hidden">
-                                    <div class="h-full rounded-full transition-all duration-500" style="width: ${pctRounded}%; background-color: ${color}"></div>
+                            `;
+                        }).join('');
+                    }
+
+                    // 2. Kartu Rincian Pemasukan (Jika ada transaksi masuk)
+                    if (incomeList.length > 0) {
+                        var incomeRowsHtml = incomeList.map(function(trx) {
+                            var displayCatatan = trx.catatan || (isEn ? 'Income' : 'Pemasukan');
+                            var displayTanggal = trx.tanggal || formatTanggal(trx.isoDate) || '';
+                            var walletBadge = getWalletBadge(trx.walletId);
+                            return `
+                                <div class="flex items-center justify-between p-2 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100/60 dark:border-emerald-900/40 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/30 transition-colors">
+                                    <div class="flex items-center gap-2 min-w-0 pr-2">
+                                        <div class="min-w-0">
+                                            <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${escapeHtml(displayCatatan)}</div>
+                                            <div class="flex items-center gap-1.5 mt-0.5">
+                                                <span class="text-[10px] text-slate-400 font-medium">${escapeHtml(displayTanggal)}</span>
+                                                <span class="text-[9px] text-slate-300 dark:text-slate-600">•</span>
+                                                ${walletBadge}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-black text-emerald-600 dark:text-emerald-400 shrink-0 font-mono">
+                                        +${formatRupiah(trx.nominal)}
+                                    </span>
+                                </div>
+                            `;
+                        }).join('');
+
+                        cardsHtml += `
+                            <div class="rounded-2xl bg-white dark:bg-[#17212b] border border-emerald-200/70 dark:border-emerald-800/50 shadow-xs overflow-hidden transition-all duration-200 mt-2">
+                                <button type="button" onclick="toggleAnalisisCategoryCollapse('income')" class="w-full text-left p-3 flex flex-col gap-2 hover:bg-emerald-50/40 dark:hover:bg-emerald-950/20 transition-colors focus:outline-none">
+                                    <div class="flex justify-between items-center w-full">
+                                        <div class="flex items-center gap-2 min-w-0">
+                                            <span class="w-3 h-3 rounded-full shrink-0 shadow-xs bg-emerald-500"></span>
+                                            <span class="font-bold text-xs text-slate-800 dark:text-slate-100 truncate">${isEn ? '💰 Income Breakdown' : '💰 Rincian Pemasukan'}</span>
+                                            <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">${incomeList.length} ${isEn ? 'records' : 'catatan'}</span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 shrink-0">
+                                            <span class="text-xs font-black text-emerald-600 dark:text-emerald-400">+${formatRupiah(totalMasuk)}</span>
+                                            <i id="analisis-cat-icon-income" class="fas fa-chevron-down text-[10px] text-slate-400 stack-chevron-icon open ml-1"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-emerald-100 dark:bg-emerald-950/50 rounded-full overflow-hidden">
+                                        <div class="h-full rounded-full bg-emerald-500 transition-all duration-500" style="width: 100%;"></div>
+                                    </div>
+                                </button>
+
+                                <div id="analisis-cat-content-income" class="accordion-content open">
+                                    <div class="accordion-inner px-3 pb-3 pt-1 border-t border-emerald-100 dark:border-emerald-900/30 space-y-1.5">
+                                        ${incomeRowsHtml}
+                                    </div>
                                 </div>
                             </div>
                         `;
-                    }).join('');
+                    }
+
+                    barsContainer.innerHTML = cardsHtml;
                 }
             }
 
@@ -12038,6 +12237,15 @@
                             }
                         });
                         roWallet.observe(walletTrack);
+                    }
+                    var analisisTrack = document.getElementById('analisis-periode-track');
+                    if (analisisTrack) {
+                        var roAnalisis = new ResizeObserver(function() {
+                            if (typeof updateAnalisisMercuryPill === 'function') {
+                                updateAnalisisMercuryPill(null, false);
+                            }
+                        });
+                        roAnalisis.observe(analisisTrack);
                     }
                 } catch(e) {}
             }
