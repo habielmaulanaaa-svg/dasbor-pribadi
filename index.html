@@ -1972,6 +1972,9 @@
             color: #ffffff !important; 
             font-weight: 800 !important;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        }
+        .period-btn.active-pop,
+        .analisis-periode-btn.active-pop {
             animation: filterBtnPop 0.32s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
         }
         .period-btn:active, .analisis-periode-btn:active, .prio-btn:active, .kat-btn:active {
@@ -2788,7 +2791,7 @@
 
             <!-- Filter Periode Analisis: Liquid Mercury Pill Slider -->
             <div id="analisis-periode-track" class="relative grid grid-cols-3 gap-1 p-1 bg-slate-100 dark:bg-[#0e1621] border border-slate-200/80 dark:border-[#313f52]/80 rounded-2xl mb-3 shrink-0 overflow-hidden select-none">
-                <div id="analisis-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl bg-primary-600 shadow-[0_3px_12px_hsl(var(--theme-h),83%,53%,0.4)] z-0 will-change-transform"></div>
+                <div id="analisis-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl bg-primary-600 shadow-[0_3px_12px_hsl(var(--theme-h),83%,53%,0.4)] z-0 will-change-transform" style="left: 4px; top: 4px; width: calc((100% - 16px) / 3); height: calc(100% - 8px); opacity: 1; transition: none;"></div>
                 <button type="button" onclick="filterAnalisisPeriode('bulan-ini', this)" id="btn-analisis-bulan-ini" data-periode="bulan-ini" class="analisis-periode-btn active relative z-10 py-1.5 text-xs font-black rounded-xl text-center focus:outline-none transition-colors active:scale-95 text-white" data-i18n="analysis_filter_this_month">Bulan Ini</button>
                 <button type="button" onclick="filterAnalisisPeriode('bulan-lalu', this)" id="btn-analisis-bulan-lalu" data-periode="bulan-lalu" class="analisis-periode-btn relative z-10 py-1.5 text-xs font-bold rounded-xl text-center focus:outline-none transition-colors active:scale-95 text-slate-600 dark:text-slate-400 hover:text-slate-800" data-i18n="analysis_filter_last_month">Bulan Lalu</button>
                 <button type="button" onclick="filterAnalisisPeriode('semua', this)" id="btn-analisis-semua" data-periode="semua" class="analisis-periode-btn relative z-10 py-1.5 text-xs font-bold rounded-xl text-center focus:outline-none transition-colors active:scale-95 text-slate-600 dark:text-slate-400 hover:text-slate-800" data-i18n="analysis_filter_all">Semua</button>
@@ -7380,16 +7383,34 @@
             var wasSidebarOpen = sb && !sb.classList.contains('-translate-x-full');
             if (wasSidebarOpen) toggleSidebar();
             var doOpen = () => {
-                currentAnalisisPeriode = 'bulan-ini';
                 var btnBulanIni = document.getElementById('btn-analisis-bulan-ini');
-                filterAnalisisPeriode('bulan-ini', btnBulanIni);
+                
+                // 1. Matikan transisi & kelas animasi pada kapsul cairan agar tidak ada pantulan mendadak saat membuka
+                var pill = document.getElementById('analisis-liquid-mercury-pill');
+                if (pill) {
+                    pill.style.transition = 'none';
+                    pill.classList.remove('mercury-flow-active');
+                    if (pill._flowTimer) {
+                        clearTimeout(pill._flowTimer);
+                        pill._flowTimer = null;
+                    }
+                }
+
+                // 2. Filter periode dengan animate = false secara eksplisit saat membuka modal
+                currentAnalisisPeriode = 'bulan-ini';
+                filterAnalisisPeriode('bulan-ini', btnBulanIni, false);
                 openBottomSheet('analisis-keuangan-modal');
+
+                // 3. Kalibrasi posisi statis tanpa animasi setelah bottom sheet tampil
+                requestAnimationFrame(function() {
+                    updateAnalisisMercuryPill(btnBulanIni, false);
+                });
                 setTimeout(function() {
                     updateAnalisisMercuryPill(btnBulanIni, false);
-                }, 50);
+                }, 80);
                 setTimeout(function() {
                     updateAnalisisMercuryPill(btnBulanIni, false);
-                }, 220);
+                }, 260);
             };
             if (wasSidebarOpen) {
                 setTimeout(doOpen, 120);
@@ -7418,6 +7439,11 @@
 
             if (animate === false) {
                 pill.style.transition = 'none';
+                pill.classList.remove('mercury-flow-active');
+                if (pill._flowTimer) {
+                    clearTimeout(pill._flowTimer);
+                    pill._flowTimer = null;
+                }
             } else {
                 pill.style.transition = 'left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1), top 0.20s ease, height 0.20s ease, opacity 0.20s ease';
                 pill.classList.remove('mercury-flow-active');
@@ -7436,26 +7462,37 @@
             pill.style.opacity = '1';
         }
 
-        function filterAnalisisPeriode(periode, clickedBtn) {
+        function filterAnalisisPeriode(periode, clickedBtn, animate) {
+            var isUserTap = (typeof animate === 'boolean') ? animate : (clickedBtn ? true : false);
+            var isSamePeriod = (currentAnalisisPeriode === periode);
             currentAnalisisPeriode = periode;
+
             var track = document.getElementById('analisis-periode-track');
             var buttons = track ? track.querySelectorAll('.analisis-periode-btn') : [];
             var targetBtn = clickedBtn || document.getElementById('btn-analisis-' + periode);
 
             buttons.forEach(function(btn) {
-                if (btn === targetBtn || btn.getAttribute('data-periode') === periode) {
+                var isTarget = (btn === targetBtn || btn.getAttribute('data-periode') === periode);
+                if (isTarget) {
                     btn.classList.add('active');
                     btn.classList.add('text-white');
                     btn.classList.remove('text-slate-600', 'dark:text-slate-400');
+                    if (isUserTap && !isSamePeriod) {
+                        btn.classList.remove('active-pop');
+                        void btn.offsetWidth;
+                        btn.classList.add('active-pop');
+                        setTimeout(function() { btn.classList.remove('active-pop'); }, 350);
+                    }
                 } else {
-                    btn.classList.remove('active');
+                    btn.classList.remove('active', 'active-pop');
                     btn.classList.remove('text-white');
                     btn.classList.add('text-slate-600', 'dark:text-slate-400');
                 }
             });
 
             if (targetBtn) {
-                updateAnalisisMercuryPill(targetBtn, true);
+                var doAnimate = isUserTap && !isSamePeriod;
+                updateAnalisisMercuryPill(targetBtn, doAnimate);
             }
             renderAnalisisKeuangan();
         }
