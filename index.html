@@ -2329,38 +2329,8 @@
             transform: scale(0.92);
         }
 
-        /* BENTO GRID REFINED JIGGLE & EDIT MODE (SUBTEL, HALUS & TIDAK TERLALU GOYANG) */
-        @keyframes bentoJiggleSubtle1 {
-            0%, 100% { transform: rotate(-0.35deg) translateY(-0.4px); }
-            50% { transform: rotate(0.35deg) translateY(0.4px); }
-        }
-        @keyframes bentoJiggleSubtle2 {
-            0%, 100% { transform: rotate(0.35deg) translateY(0.4px); }
-            50% { transform: rotate(-0.35deg) translateY(-0.4px); }
-        }
-        .bento-card-jiggle:nth-child(odd) {
-            animation: bentoJiggleSubtle1 0.32s infinite ease-in-out;
-        }
-        .bento-card-jiggle:nth-child(even) {
-            animation: bentoJiggleSubtle2 0.32s infinite ease-in-out;
-            animation-delay: 0.08s;
-        }
-        .bento-card-editing {
-            border-color: rgba(245, 158, 11, 0.45) !important;
-            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.15) !important;
-        }
-        .bento-card-editing .widget-arrange-arrows button {
-            background-color: rgba(245, 158, 11, 0.15);
-            color: #f59e0b;
-            border-radius: 8px;
-            padding: 2px 6px;
-        }
-
         /* SINKRONISASI AKSESIBILITAS SISTEM (PREFERS-REDUCED-MOTION) */
         @media (prefers-reduced-motion: reduce) {
-            .bento-card-jiggle {
-                animation: none !important;
-            }
             #dynamic-island.island-droplet-in {
                 animation: none !important;
                 transform: translate3d(-50%, 0, 0) scale(1, 1) !important;
@@ -2486,20 +2456,6 @@
             <button type="button" onclick="installPWAApp()" class="bg-primary-600 hover:bg-primary-700 text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-md transition-colors" data-i18n="pwa_banner_btn">Install</button>
             <button type="button" onclick="dismissPWABanner()" aria-label="Tutup banner instalasi" data-i18n-aria="pwa_banner_close_aria" title="Tutup" data-i18n-title="subs_btn_close" class="text-slate-400 hover:text-slate-600 p-1.5 text-xs"><i class="fas fa-times"></i></button>
         </div>
-    </div>
-
-    <!-- FLOATING BANNER TATA LETAK BERANDA (STATIS, TENANG & TIDAK BERGOYANG) -->
-    <div id="bento-layout-banner" class="fixed top-16 left-4 right-4 z-40 max-w-sm mx-auto bg-slate-900/90 dark:bg-black/90 backdrop-blur-md text-white px-4 py-2.5 rounded-2xl shadow-2xl border border-white/10 flex items-center justify-between gap-3 transition-all duration-300 ease-out transform -translate-y-24 opacity-0 pointer-events-none">
-        <div class="flex items-center gap-2.5 min-w-0">
-            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
-            <div class="flex flex-col min-w-0">
-                <span class="text-xs font-bold truncate text-amber-200" data-i18n="bento_layout_active">Mode Tata Letak Aktif</span>
-                <span class="text-[10px] text-slate-300 truncate" data-i18n="bento_layout_hint">Gunakan panah untuk memindahkan widget</span>
-            </div>
-        </div>
-        <button type="button" onclick="toggleBentoEditMode(false)" class="px-3 py-1 rounded-xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-950 font-black text-xs shrink-0 shadow-sm transition-all" data-i18n="bento_layout_done">
-            Selesai
-        </button>
     </div>
 
     <!-- OTA UPDATE NOTIFICATION (iOS DYNAMIC ISLAND CAPSULE) -->
@@ -2678,22 +2634,6 @@
                                         </div>
                                         <button type="button" onclick="event.stopPropagation(); toggleOpsiSubtaskTanggal()" id="btn-toggle-subtask-date" class="fluid-switch-btn active focus:outline-none shrink-0" aria-label="Toggle Tanggal Sub Tugas">
                                             <div id="subtask-date-switch-knob" class="fluid-switch-knob"></div>
-                                        </button>
-                                    </div>
-
-                                    <!-- 5. Toggle Efek Suara Haptik Apple Taptic -->
-                                    <div onclick="toggleTapticSoundSetting()" id="row-toggle-sound" style="touch-action: pan-y;" class="waterfall-item tactile-press py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 flex items-center justify-between cursor-pointer select-none touch-pan-y">
-                                        <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
-                                            <div class="w-7 h-7 rounded-lg bg-sky-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
-                                                <i class="fas fa-volume-up"></i>
-                                            </div>
-                                            <div class="flex flex-col min-w-0">
-                                                <span class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate" data-i18n="settings_sound_title">Suara Haptik Taptic</span>
-                                                <span class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5" data-i18n="settings_sound_desc">Efek audio micro-click mekanis pada ketukan</span>
-                                            </div>
-                                        </div>
-                                        <button type="button" onclick="event.stopPropagation(); toggleTapticSoundSetting()" id="btn-toggle-sound" class="fluid-switch-btn active focus:outline-none shrink-0" aria-label="Toggle Suara Haptik Taptic">
-                                            <div id="sound-switch-knob" class="fluid-switch-knob"></div>
                                         </button>
                                     </div>
                                 </div>
@@ -3642,14 +3582,6 @@
 
             <!-- KONTAINER WIDGET BERANDA -->
             <div id="beranda-widgets-container" class="space-y-4 mt-4 compact-gap"></div>
-
-            <!-- TOMBOL MINIMALIS ATUR TATA LETAK BENTO DI BAGIAN BAWAH BERANDA -->
-            <div class="mt-6 mb-2 flex justify-center">
-                <button type="button" onclick="toggleBentoEditMode()" id="btn-toggle-bento-layout" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-[#17212b] dark:hover:bg-[#242f3d] text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 text-[11px] font-bold border border-slate-200/80 dark:border-[#313f52]/80 shadow-xs transition-all active:scale-95">
-                    <i class="fas fa-grip-vertical text-amber-500 text-xs"></i>
-                    <span id="btn-toggle-bento-layout-text" data-i18n="home_arrange_widgets">Atur Tata Letak Beranda</span>
-                </button>
-            </div>
 
             <div class="h-28 w-full block shrink-0"></div>
         </div>
@@ -4661,14 +4593,6 @@
                 settings_autotheme_desc: "Gelap 17:00 - 05:00 WIB, Terang 05:00 - 17:00 WIB",
                 settings_subtask_date_title: "Tanggal Sub Tugas",
                 settings_subtask_date_desc: "Tampilkan tanggal pembuatan pada sub tugas",
-                settings_sound_title: "Suara Haptik Taptic",
-                settings_sound_desc: "Efek audio micro-click mekanis pada ketukan",
-                toast_sound_on: "Suara Haptik Aktif 🔊",
-                toast_sound_off: "Suara Haptik Senyap 🔇",
-                home_arrange_widgets: "Atur Tata Letak Beranda",
-                bento_layout_active: "Mode Tata Letak Aktif",
-                bento_layout_hint: "Gunakan panah untuk memindahkan widget",
-                bento_layout_done: "Selesai",
                 settings_release_notes: "Catatan Rilis",
                 settings_check_update: "Cek Pembaruan",
                 settings_cloud_sync_title: "Google Cloud Sync & Cadangan",
@@ -5300,14 +5224,6 @@
                 settings_autotheme_desc: "Dark 17:00 - 05:00 WIB, Light 05:00 - 17:00 WIB",
                 settings_subtask_date_title: "Subtask Dates",
                 settings_subtask_date_desc: "Show creation timestamp on subtasks",
-                settings_sound_title: "Taptic Haptic Sound",
-                settings_sound_desc: "Mechanical audio micro-click on tap",
-                toast_sound_on: "Haptic Sound Enabled 🔊",
-                toast_sound_off: "Haptic Sound Muted 🔇",
-                home_arrange_widgets: "Arrange Home Layout",
-                bento_layout_active: "Layout Mode Active",
-                bento_layout_hint: "Use arrows to rearrange widgets",
-                bento_layout_done: "Done",
                 settings_release_notes: "Release Notes",
                 settings_check_update: "Check Updates",
                 settings_cloud_sync_title: "Google Cloud Sync & Backup",
@@ -6259,14 +6175,12 @@
             var isCompact = Boolean(dataState.compactMode);
             var isAutoTheme = Boolean(dataState.autoThemeMode);
             var isSubtaskDate = (dataState.optSubtaskTanggalDibuat !== false);
-            var isSound = (dataState.isSoundEnabled !== false);
 
             var count = 0;
             if (isGrad) count++;
             if (isCompact) count++;
             if (isAutoTheme) count++;
             if (isSubtaskDate) count++;
-            if (isSound) count++;
 
             var badge = document.getElementById('active-toggle-count-badge');
             if (badge) {
@@ -6285,9 +6199,6 @@
 
             var rowSubtaskDate = document.getElementById('row-toggle-subtask-date');
             if (rowSubtaskDate) rowSubtaskDate.classList.toggle('waterfall-card-active', isSubtaskDate);
-
-            var rowSound = document.getElementById('row-toggle-sound');
-            if (rowSound) rowSound.classList.toggle('waterfall-card-active', isSound);
         }
 
         function toggleSettingsToggleStack() {
@@ -6493,105 +6404,9 @@
             });
         }
 
-        function toggleTapticSoundSetting() {
-            if (window.navigator && typeof window.navigator.vibrate === 'function') {
-                try { window.navigator.vibrate(8); } catch(e){}
-            }
-            var isAktif = (dataState.isSoundEnabled === undefined) ? true : dataState.isSoundEnabled;
-            isAktif = !isAktif;
-            dataState.isSoundEnabled = isAktif;
-            simpanData();
-            applyTapticSoundVisual(true);
-            updateActiveToggleCount();
-            if (isAktif) {
-                playTapticSuccess();
-            }
-            triggerDynamicIsland(
-                t('toast_appearance_title', "Tampilan"),
-                isAktif ? t('toast_sound_on', "Suara Haptik Aktif 🔊") : t('toast_sound_off', "Suara Haptik Senyap 🔇"),
-                isAktif ? "fas fa-volume-up" : "fas fa-volume-mute",
-                "bg-sky-500/20 text-sky-400",
-                true
-            );
-        }
-
-        function applyTapticSoundVisual(triggerBounce) {
-            var isSound = (dataState.isSoundEnabled !== false);
-            var knob = document.getElementById('sound-switch-knob');
-            var btn = document.getElementById('btn-toggle-sound');
-            if (btn && knob) {
-                setSwitchVisual(btn, knob, isSound, triggerBounce === true);
-            }
-        }
-
-        // ==========================================
-        // APPLE TAPTIC AUDIO MICRO-CLICK (WEB AUDIO API)
-        // ==========================================
-        var tapticAudioCtx = null;
-        function getTapticAudioContext() {
-            if (!tapticAudioCtx) {
-                var AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                if (AudioContextClass) {
-                    tapticAudioCtx = new AudioContextClass();
-                }
-            }
-            if (tapticAudioCtx && tapticAudioCtx.state === 'suspended') {
-                tapticAudioCtx.resume().catch(function(){});
-            }
-            return tapticAudioCtx;
-        }
-
-        function playTapticTick(freq, duration, type) {
-            if (dataState.isSoundEnabled === false) return;
-            try {
-                var ctx = getTapticAudioContext();
-                if (!ctx) return;
-                var osc = ctx.createOscillator();
-                var gain = ctx.createGain();
-                osc.type = type || 'sine';
-                osc.frequency.setValueAtTime(freq || 1850, ctx.currentTime);
-                var dur = duration || 0.018;
-                gain.gain.setValueAtTime(0.045, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + dur);
-            } catch(e) {}
-        }
-
-        function playTapticSuccess() {
-            if (dataState.isSoundEnabled === false) return;
-            try {
-                var ctx = getTapticAudioContext();
-                if (!ctx) return;
-                var now = ctx.currentTime;
-                [1760, 2637].forEach(function(f, i) {
-                    var osc = ctx.createOscillator();
-                    var gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(f, now + (i * 0.04));
-                    gain.gain.setValueAtTime(0.04, now + (i * 0.04));
-                    gain.gain.exponentialRampToValueAtTime(0.0001, now + (i * 0.04) + 0.09);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(now + (i * 0.04));
-                    osc.stop(now + (i * 0.04) + 0.09);
-                });
-            } catch(e) {}
-        }
-
         function triggerHaptic(type) {
-            if (dataState.isSoundEnabled === false) return;
-            if (type === 'success') {
-                playTapticSuccess();
-            } else if (type === 'error') {
-                playTapticTick(380, 0.042, 'triangle');
-            } else if (type === 'heavy' || type === 'medium') {
-                playTapticTick(1400, 0.026);
-            } else {
-                playTapticTick(1850, 0.018);
-            }
+            // Haptic feedback ditiadakan sepenuhnya sesuai preferensi pengguna
+            return;
         }
 
         // ==========================================
@@ -8607,9 +8422,6 @@
 
         function switchTab(tabId) {
             triggerHaptic('light');
-            if (tabId !== 'beranda' && typeof isBentoEditMode !== 'undefined' && isBentoEditMode) {
-                toggleBentoEditMode(false);
-            }
             var tabs = document.querySelectorAll('.tab-content');
             for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
             
@@ -9729,7 +9541,6 @@
                 return;
             }
 
-            triggerHaptic('medium');
             isSwappingWidget = true;
 
             var distA = (dir === 'up') 
@@ -11818,101 +11629,6 @@
             }
 
             container.innerHTML = widgetOrder.map(k => htmlBlocks[k] || '').join('');
-            if (typeof isBentoEditMode !== 'undefined' && isBentoEditMode) {
-                container.querySelectorAll('.widget-card').forEach(function(card) {
-                    card.classList.add('bento-card-jiggle', 'bento-card-editing');
-                });
-            }
-            initWidgetLongPress();
-        }
-
-        // ==========================================
-        // BENTO GRID REFINED JIGGLE & LAYOUT MODE
-        // ==========================================
-        var isBentoEditMode = false;
-        var bentoLongPressTimer = null;
-
-        function toggleBentoEditMode(forceState) {
-            if (typeof forceState === 'boolean') {
-                isBentoEditMode = forceState;
-            } else {
-                isBentoEditMode = !isBentoEditMode;
-            }
-
-            var banner = document.getElementById('bento-layout-banner');
-            var btnText = document.getElementById('btn-toggle-bento-layout-text');
-            var container = document.getElementById('beranda-widgets-container');
-
-            if (isBentoEditMode) {
-                if (banner) {
-                    banner.classList.remove('-translate-y-24', 'opacity-0', 'pointer-events-none');
-                    banner.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
-                }
-                if (btnText) {
-                    btnText.innerText = t('bento_layout_done', 'Selesai');
-                }
-                if (container) {
-                    container.querySelectorAll('.widget-card').forEach(function(card) {
-                        card.classList.add('bento-card-jiggle', 'bento-card-editing');
-                    });
-                }
-                triggerHaptic('medium');
-            } else {
-                if (banner) {
-                    banner.classList.add('-translate-y-24', 'opacity-0', 'pointer-events-none');
-                    banner.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
-                }
-                if (btnText) {
-                    btnText.innerText = t('home_arrange_widgets', 'Atur Tata Letak Beranda');
-                }
-                if (container) {
-                    container.querySelectorAll('.widget-card').forEach(function(card) {
-                        card.classList.remove('bento-card-jiggle', 'bento-card-editing');
-                    });
-                }
-                triggerHaptic('light');
-            }
-        }
-
-        function initWidgetLongPress() {
-            var container = document.getElementById('beranda-widgets-container');
-            if (!container) return;
-            var cards = container.querySelectorAll('.widget-card');
-            cards.forEach(function(card) {
-                if (card._bentoLongPressBound) return;
-                card._bentoLongPressBound = true;
-
-                var startX = 0, startY = 0;
-                card.addEventListener('touchstart', function(e) {
-                    if (isBentoEditMode) return;
-                    if (e.target.closest('button, input, textarea, a, select')) return;
-                    startX = e.touches[0].clientX;
-                    startY = e.touches[0].clientY;
-                    clearTimeout(bentoLongPressTimer);
-                    bentoLongPressTimer = setTimeout(function() {
-                        toggleBentoEditMode(true);
-                    }, 600);
-                }, { passive: true });
-
-                card.addEventListener('touchmove', function(e) {
-                    if (!bentoLongPressTimer) return;
-                    var dx = Math.abs(e.touches[0].clientX - startX);
-                    var dy = Math.abs(e.touches[0].clientY - startY);
-                    if (dx > 10 || dy > 10) {
-                        clearTimeout(bentoLongPressTimer);
-                        bentoLongPressTimer = null;
-                    }
-                }, { passive: true });
-
-                card.addEventListener('touchend', function() {
-                    clearTimeout(bentoLongPressTimer);
-                    bentoLongPressTimer = null;
-                });
-                card.addEventListener('touchcancel', function() {
-                    clearTimeout(bentoLongPressTimer);
-                    bentoLongPressTimer = null;
-                });
-            });
         }
 
         function simpanData() {
@@ -12308,13 +12024,11 @@
                 dataState.compactMode = false;
                 dataState.cardGradient = true;
                 dataState.autoThemeMode = false;
-                dataState.isSoundEnabled = true;
                 document.body.classList.remove('compact-mode', 'glass-mode');
                 var inputUser = document.getElementById('input-user-name');
                 if (inputUser) inputUser.value = dataState.userName;
                 resetThemeColor();
                 applyCardGradientVisual();
-                applyTapticSoundVisual(false);
                 updateActiveToggleCount();
             }
 
@@ -12451,8 +12165,6 @@
             updateOpsiSubtaskTugasUI(dataState.optSubtaskTugas !== false);
             if(dataState.optSubtaskTanggalDibuat === undefined) dataState.optSubtaskTanggalDibuat = true;
             updateOpsiSubtaskTanggalUI(dataState.optSubtaskTanggalDibuat !== false);
-            if(dataState.isSoundEnabled === undefined) dataState.isSoundEnabled = true;
-            applyTapticSoundVisual(false);
 
             if(!dataState.language || !['id', 'en'].includes(dataState.language)) dataState.language = 'id';
             applyLanguageToDOM();
@@ -12484,7 +12196,6 @@
             if (cEye) cEye.className = `fas ${iconClass} text-xs`;
 
             applyCardGradientVisual();
-            applyTapticSoundVisual(false);
             updateActiveToggleCount();
             perbaruiTampilan();
             // Jika akun Cloud tersimpan, utamakan sinkronisasi Cloud agar wawasan memakai data Cloud teranyar
