@@ -908,6 +908,121 @@
             transition: transform 0.42s cubic-bezier(0.34, 1.45, 0.64, 1) !important;
         }
 
+        /* 3D FLIP & MORPHING ANIMATION ELEGAN UNTUK IKON FAB (+ <-> MIC) */
+        @keyframes fabMorphToMic {
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+                filter: blur(0px);
+            }
+            45% {
+                transform: rotate(95deg) scale(0.55);
+                opacity: 0.15;
+                filter: blur(0.5px);
+            }
+            55% {
+                transform: rotate(95deg) scale(0.55);
+                opacity: 0.15;
+                filter: blur(0.5px);
+            }
+            100% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+                filter: blur(0px);
+            }
+        }
+
+        @keyframes fabMorphToPlus {
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+                filter: blur(0px);
+            }
+            45% {
+                transform: rotate(-95deg) scale(0.55);
+                opacity: 0.15;
+                filter: blur(0.5px);
+            }
+            55% {
+                transform: rotate(-95deg) scale(0.55);
+                opacity: 0.15;
+                filter: blur(0.5px);
+            }
+            100% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+                filter: blur(0px);
+            }
+        }
+
+        .fab-icon-morph-mic {
+            animation: fabMorphToMic 0.62s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+        }
+
+        .fab-icon-morph-plus {
+            animation: fabMorphToPlus 0.62s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+        }
+
+        /* FAB ELASTIC CHARGE (SAAT LONG PRESS SEDANG DITAHAN) */
+        .fab-charging {
+            transform: scale(0.88) !important;
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.6) !important;
+            border-color: rgba(245, 158, 11, 0.8) !important;
+            transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease !important;
+        }
+
+        /* FAB LISTENING RIPPLE SURGE */
+        @keyframes rippleRing {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.45);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1.85);
+                opacity: 0;
+            }
+        }
+
+        .ripple-wave-active {
+            position: relative;
+        }
+
+        .ripple-wave-active::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 9999px;
+            border: 2px solid #f59e0b;
+            animation: rippleRing 1.4s ease-out infinite;
+            pointer-events: none;
+        }
+
+        .ripple-wave-active::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 9999px;
+            border: 2px solid #ef4444;
+            animation: rippleRing 1.4s ease-out 0.45s infinite;
+            pointer-events: none;
+        }
+
+        /* SOUNDWAVE EQUALIZER BARS */
+        @keyframes soundWaveBar {
+            0%, 100% { height: 4px; }
+            50% { height: 18px; }
+        }
+
+        .soundwave-bar:nth-child(1) { animation: soundWaveBar 0.6s ease-in-out infinite 0.1s; }
+        .soundwave-bar:nth-child(2) { animation: soundWaveBar 0.5s ease-in-out infinite 0.25s; }
+        .soundwave-bar:nth-child(3) { animation: soundWaveBar 0.7s ease-in-out infinite 0.05s; }
+        .soundwave-bar:nth-child(4) { animation: soundWaveBar 0.55s ease-in-out infinite 0.35s; }
+        .soundwave-bar:nth-child(5) { animation: soundWaveBar 0.65s ease-in-out infinite 0.18s; }
+
         /* Fluid Emerge Bouncing: Mobile / Android (< 640px) */
         @keyframes quickActionCardEmergeMobile {
             0% {
@@ -2641,6 +2756,60 @@
                         </div>
                     </div>
 
+                    <!-- STACK AKORDEON PENGATURAN INPUT SUARA & AI NLP (GEMINI & OFFLINE) -->
+                    <div class="rounded-2xl border border-indigo-200 dark:border-indigo-900/60 overflow-hidden bg-indigo-50/40 dark:bg-indigo-950/20 shadow-xs transition-colors">
+                        <button type="button" id="btn-voice-settings-header" onclick="toggleVoiceSettingsAccordion()" class="tactile-press w-full py-2.5 px-3 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-indigo-100/50 dark:hover:bg-indigo-900/40 focus:outline-none select-none transition-colors">
+                            <div class="flex items-center gap-2 min-w-0 pr-1.5">
+                                <span class="w-6 h-6 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shadow-xs shrink-0">
+                                    <i class="fas fa-microphone-alt text-[11px]"></i>
+                                </span>
+                                <div class="flex flex-col text-left min-w-0">
+                                    <span class="tracking-tight text-slate-800 dark:text-slate-100 font-extrabold text-[12px] truncate">Input Suara &amp; NLP AI</span>
+                                    <span class="text-[9px] text-slate-400 font-medium leading-tight truncate" id="voice-settings-status-desc">Mode: Offline Smart Regex</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 shrink-0">
+                                <span id="voice-engine-badge-header" class="whitespace-nowrap shrink-0 text-[9px] bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 px-2 py-0.5 rounded-full font-black border border-emerald-200/60 dark:border-emerald-700/50 leading-none inline-flex items-center gap-1">
+                                    <i class="fas fa-bolt text-[8px]"></i> <span>Offline</span>
+                                </span>
+                                <i id="icon-voice-accordion-chevron" class="fas fa-chevron-down text-slate-400 text-[11px] transition-transform duration-300 shrink-0"></i>
+                            </div>
+                        </button>
+                        
+                        <div id="voice-settings-body" class="hidden px-3 pb-3 pt-1 space-y-2.5 border-t border-indigo-100 dark:border-indigo-900/50 bg-white/70 dark:bg-[#17212b]/80">
+                            <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed pt-1">
+                                Pilih mesin pengolah suara untuk perintah tugas &amp; keuangan. Tahan tombol <b>FAB (+)</b> selama 500ms untuk merekam suara:
+                            </p>
+
+                            <!-- Toggle Selector Mode: Offline vs Gemini -->
+                            <div class="grid grid-cols-2 gap-1.5 bg-slate-100 dark:bg-[#242f3d] p-1 rounded-xl border border-slate-200 dark:border-[#313f52]">
+                                <button type="button" onclick="selectVoiceParserMode('offline')" id="btn-voice-mode-offline" class="py-1.5 px-2 rounded-lg text-[11px] font-black transition-all bg-primary-600 text-white shadow-xs flex items-center justify-center gap-1.5">
+                                    <i class="fas fa-bolt text-[10px]"></i> <span>Offline Cerdas</span>
+                                </button>
+                                <button type="button" onclick="selectVoiceParserMode('gemini')" id="btn-voice-mode-gemini" class="py-1.5 px-2 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white transition-all flex items-center justify-center gap-1.5">
+                                    <i class="fas fa-robot text-[10px]"></i> <span>Gemini AI</span>
+                                </button>
+                            </div>
+
+                            <!-- Input API Key (Tampil bila Gemini dipilih) -->
+                            <div id="voice-gemini-key-container" class="hidden space-y-2 pt-1 border-t border-indigo-100 dark:border-indigo-900/40">
+                                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Google Gemini API Key:</label>
+                                <div class="relative">
+                                    <input type="password" id="input-voice-gemini-key" placeholder="Tempel AIzaSy... di sini" oninput="saveVoiceGeminiApiKey(this.value)" class="w-full rounded-xl px-3 py-2 text-xs font-mono font-bold bg-white dark:bg-[#242f3d] border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <button type="button" onclick="toggleVoiceApiKeyVisibility()" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs">
+                                        <i id="icon-voice-eye-key" class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-between text-[10px] text-indigo-600 dark:text-indigo-400 pt-0.5">
+                                    <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="underline font-bold hover:text-indigo-800 dark:hover:text-white flex items-center gap-1">
+                                        <i class="fas fa-external-link-alt text-[8px]"></i> <span>Dapatkan API Key Gratis</span>
+                                    </a>
+                                    <span id="voice-key-saved-indicator" class="text-emerald-500 font-bold hidden"><i class="fas fa-check"></i> Tersimpan</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-2 gap-2">
                         <button type="button" onclick="toggleChangelog()" class="text-left px-2.5 py-2 bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-[#313f52] rounded-xl text-[10px] font-bold transition-colors flex items-center gap-1.5 border border-slate-200 dark:border-[#313f52]">
                             <i class="fas fa-info-circle text-primary-500"></i> <span data-i18n="settings_release_notes">Catatan Rilis</span>
@@ -4153,6 +4322,43 @@
         </div>
     </main>
 
+    <!-- VOICE RESULT CONFIRMATION CARD (POP-UP HASIL DETEKSI SUARA) -->
+    <div id="voice-result-card" class="hidden fixed bottom-24 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl rounded-[28px] p-4 shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-slate-200/90 dark:border-[#313f52]/90 z-50 transition-all duration-300 select-none">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-[#242f3d]">
+            <div class="flex items-center gap-1.5">
+                <span id="voice-detected-tag" class="text-xs font-black text-slate-800 dark:text-white flex items-center gap-1.5">
+                    <i class="fas fa-sparkles text-amber-500"></i> Memproses Suara...
+                </span>
+            </div>
+            <div id="voice-result-engine-badge" class="flex items-center">
+                <!-- Badge engine will be injected here -->
+            </div>
+        </div>
+
+        <!-- Raw Transcribed Text Preview -->
+        <div class="py-2.5">
+            <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block mb-0.5">Kalimat Terdengar:</span>
+            <p id="voice-raw-text" class="text-xs font-bold text-slate-800 dark:text-slate-200 italic bg-slate-50 dark:bg-[#242f3d]/60 p-2.5 rounded-xl border border-slate-100 dark:border-[#313f52]/40 break-words">
+                "..."
+            </p>
+        </div>
+
+        <!-- Parsed Data Breakdown Box -->
+        <div id="voice-parsed-breakdown" class="space-y-1.5 text-xs mb-3">
+            <!-- Dynamic parsed detail injected here -->
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-2 gap-2 pt-1">
+            <button type="button" onclick="closeVoiceResultCard()" class="py-2 rounded-xl bg-slate-100 dark:bg-[#242f3d] hover:bg-slate-200 dark:hover:bg-[#313f52] text-slate-700 dark:text-slate-300 font-bold text-xs active:scale-95 transition-all text-center">
+                Batal
+            </button>
+            <button type="button" id="btn-save-voice" onclick="saveVoiceDetectedItem()" class="py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs shadow-md active:scale-95 transition-all text-center">
+                Simpan Sekarang
+            </button>
+        </div>
+    </div>
+
     <!-- FLOATING NAVIGATION DOCK -->
     <div id="floating-dock-container" class="fixed bottom-4 left-0 right-0 mx-auto z-30 flex items-center justify-center gap-2.5 max-w-fit pointer-events-auto">
         
@@ -4182,6 +4388,11 @@
 
         <!-- Container Tombol Aksi Speed Dial FAB -->
         <div class="relative">
+            <!-- Tooltip / Hint Tahan untuk Suara -->
+            <div id="fab-press-hint" class="opacity-0 pointer-events-none absolute -top-9 right-0 text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-900/90 text-amber-300 border border-amber-500/30 whitespace-nowrap transition-opacity duration-200 shadow-md z-40">
+                Tahan untuk suara...
+            </div>
+
             <!-- Menu Melayang Quick Action Card (2x2 Grid Popover) -->
             <div id="fab-speed-dial-menu" class="hidden card-closed absolute bottom-16 right-0 w-72 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl rounded-[28px] p-3 shadow-[0_16px_40px_rgba(0,0,0,0.18)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.6)] border border-slate-200/90 dark:border-[#313f52]/90 z-40 pointer-events-none select-none">
                 <!-- Header Card Mini (Bebas Dot) -->
@@ -4229,7 +4440,7 @@
             </div>
 
             <!-- Tombol FAB Utama -->
-            <button type="button" id="fab-quick-add" onclick="toggleFabSpeedDial()" aria-label="Menu Aksi Cepat Tambah Data" title="Aksi Cepat" class="w-12 h-12 rounded-full border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] text-base">
+            <button type="button" id="fab-quick-add" aria-label="Menu Aksi Cepat Tambah Data" title="Aksi Cepat" class="w-12 h-12 rounded-full border border-slate-200/80 dark:border-[#313f52]/60 text-slate-800 dark:text-white flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] text-base">
                 <i id="fab-plus-icon" class="fas fa-plus text-primary-600 dark:text-primary-400 transform transition-transform duration-300"></i>
             </button>
         </div>
@@ -12286,6 +12497,11 @@
                     }
                 } catch(e) {}
             }
+
+            // Inisialisasi Modul Input Suara Cerdas & Interaksi FAB Long-Press
+            if (typeof initVoiceFabSystem === 'function') {
+                initVoiceFabSystem();
+            }
         }
 
         function handleNativeAction(action) {
@@ -13197,6 +13413,1008 @@
                     setTimeout(processDynamicIslandQueue, 400);
                 }
             }
+        }
+
+        // ==========================================
+        // MODUL VOICE INPUT CERDAS (SPEECH-TO-TEXT & NLP AI)
+        // DUA INTERAKSI FAB: KETUK = SPEED DIAL / BATAL, TAHAN 500MS = VOICE
+        // ==========================================
+        let currentVoiceParserMode = 'offline';
+        let voiceGeminiApiKey = '';
+        let isVoiceListening = false;
+        let voiceLongPressTimer = null;
+        let isVoiceLongPressTriggered = false;
+        let voiceStartX = 0;
+        let voiceStartY = 0;
+        let voiceSpeechRecognition = null;
+        let pendingVoiceParsedData = null;
+        let voiceWasTouchAction = false;
+        let voiceTouchTimer = null;
+        let voiceSimulatedTimer = null;
+
+        function initVoiceFabSystem() {
+            try {
+                // Muat preferensi dari penyimpanan lokal
+                currentVoiceParserMode = safeStorage.getItem('dasborVoiceParserMode') || 'offline';
+                voiceGeminiApiKey = safeStorage.getItem('dasborGeminiApiKey') || '';
+
+                // Sinkronisasi status UI pengaturan
+                selectVoiceParserMode(currentVoiceParserMode, false);
+                var inputKey = document.getElementById('input-voice-gemini-key');
+                if (inputKey && voiceGeminiApiKey) {
+                    inputKey.value = voiceGeminiApiKey;
+                }
+
+                // Inisialisasi API Web Speech
+                initVoiceWebSpeechAPI();
+
+                // Setup interaksi gestur tombol FAB
+                setupVoiceFabInteraction();
+
+                // Teaser Morphing Animation saat dasbor dibuka (1.2 detik setelah load)
+                setTimeout(function() {
+                    triggerVoiceTeaserMorphing();
+                }, 1200);
+            } catch (err) {
+                console.error("Gagal inisialisasi Voice FAB System:", err);
+            }
+        }
+
+        // ==========================================
+        // ANIMASI TEASER MORPHING ELEGAN (+ -> MIC -> +)
+        // Berjalan 1.2s setelah dashboard terbuka, durasi 0.62s per transisi, jeda 2.2s
+        // ==========================================
+        function triggerVoiceTeaserMorphing() {
+            var icon = document.getElementById('fab-plus-icon');
+            var fabBtn = document.getElementById('fab-quick-add');
+            if (!icon || !fabBtn || isVoiceListening || isFabOpen) return;
+
+            // Tampilkan petunjuk Dynamic Island
+            triggerDynamicIsland("Voice Input FAB 🎙️", "Tahan tombol (+) untuk input suara cerdas", "fas fa-microphone", "bg-amber-500/20 text-amber-400", 2800, true);
+
+            // Fase 1: Flip & Morph ke Ikon Mic secara anggun & elegan (0.62s)
+            icon.classList.remove('fa-plus', 'fab-icon-morph-plus', 'text-primary-600', 'dark:text-primary-400');
+            icon.classList.add('fa-microphone', 'fab-icon-morph-mic', 'text-amber-500');
+            fabBtn.style.boxShadow = '0 0 25px rgba(245, 158, 11, 0.45)';
+
+            // Fase 2: Berhenti sejenak secara berwibawa (2.2 detik)
+            setTimeout(function() {
+                if (isVoiceListening) return; // Jangan batalkan jika user sudah menekan tombol
+                // Fase 3: Flip & Morph kembali ke Tanda Plus secara halus (0.62s)
+                icon.classList.remove('fa-microphone', 'fab-icon-morph-mic', 'text-amber-500');
+                icon.classList.add('fa-plus', 'fab-icon-morph-plus', 'text-primary-600', 'dark:text-primary-400');
+                fabBtn.style.boxShadow = '';
+            }, 2200);
+        }
+
+        // ==========================================
+        // WEB SPEECH RECOGNITION API (BAHASA INDONESIA)
+        // ==========================================
+        function initVoiceWebSpeechAPI() {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                console.warn("Browser ini belum mendukung Web Speech Recognition API secara native.");
+                return;
+            }
+
+            try {
+                voiceSpeechRecognition = new SpeechRecognition();
+                voiceSpeechRecognition.lang = 'id-ID';
+                voiceSpeechRecognition.continuous = false;
+                voiceSpeechRecognition.interimResults = false;
+                voiceSpeechRecognition.maxAlternatives = 1;
+
+                voiceSpeechRecognition.onresult = function(event) {
+                    clearTimeout(voiceSimulatedTimer);
+                    if (event.results && event.results[0] && event.results[0][0]) {
+                        var transcript = event.results[0][0].transcript;
+                        if (transcript && transcript.trim()) {
+                            processVoicePhrase(transcript.trim());
+                        }
+                    }
+                };
+
+                voiceSpeechRecognition.onerror = function(event) {
+                    clearTimeout(voiceSimulatedTimer);
+                    console.warn("Speech recognition error:", event.error);
+                    if (isVoiceListening) {
+                        setVoiceListeningVisualState(false, true);
+                        if (event.error === 'not-allowed') {
+                            triggerDynamicIsland("Izin Mikrofon Ditolak 🔒", "Aktifkan izin mikrofon di browser Anda", "fas fa-microphone-slash", "bg-rose-500/20 text-rose-400", 3000, true);
+                        } else if (event.error !== 'no-speech' && event.error !== 'aborted') {
+                            triggerDynamicIsland("Gangguan Suara ⚠️", "Gagal menangkap suara, coba lagi", "fas fa-exclamation-circle", "bg-amber-500/20 text-amber-400", 2500, true);
+                        }
+                    }
+                };
+
+                voiceSpeechRecognition.onend = function() {
+                    clearTimeout(voiceSimulatedTimer);
+                    if (isVoiceListening) {
+                        setVoiceListeningVisualState(false, true);
+                    }
+                };
+            } catch (e) {
+                console.error("Gagal menginisialisasi SpeechRecognition:", e);
+            }
+        }
+
+        // ==========================================
+        // EVENT HANDLER FAB DUAL-INTERACTION
+        // TAP CEPAT (<500ms): SPEED DIAL / BATALKAN RECORDING
+        // TAHAN (500ms): AKTIFKAN VOICE SPEECH-TO-TEXT
+        // ==========================================
+        function setupVoiceFabInteraction() {
+            var fabBtn = document.getElementById('fab-quick-add');
+            var hint = document.getElementById('fab-press-hint');
+            if (!fabBtn) return;
+
+            function handleStart(e) {
+                if (e.type === 'touchstart') {
+                    voiceWasTouchAction = true;
+                    clearTimeout(voiceTouchTimer);
+                    voiceTouchTimer = setTimeout(function() { voiceWasTouchAction = false; }, 1000);
+                } else if (voiceWasTouchAction) {
+                    return; // Mencegah emulasi mousedown ganda pada perangkat layar sentuh
+                }
+
+                isVoiceLongPressTriggered = false;
+                var pointer = e.touches ? e.touches[0] : e;
+                voiceStartX = pointer.clientX;
+                voiceStartY = pointer.clientY;
+
+                // Jika sedang mendengarkan, sentuhan ini berfungsi untuk membatalkan (cancel)
+                if (isVoiceListening) {
+                    return;
+                }
+
+                fabBtn.classList.add('fab-charging');
+                if (hint) {
+                    hint.innerText = 'Tahan untuk suara...';
+                    hint.classList.remove('opacity-0');
+                }
+
+                clearTimeout(voiceLongPressTimer);
+                voiceLongPressTimer = setTimeout(function() {
+                    // TAHAN 500ms TERCAPAI
+                    isVoiceLongPressTriggered = true;
+                    fabBtn.classList.remove('fab-charging');
+                    if (hint) hint.classList.add('opacity-0');
+
+                    if (typeof triggerHaptic === 'function') triggerHaptic('heavy');
+
+                    // Lentingan taktil membal
+                    fabBtn.style.transform = 'scale(1.12)';
+                    setTimeout(function() { fabBtn.style.transform = ''; }, 180);
+
+                    // Mulai perekaman suara
+                    startVoiceListening();
+                }, 500);
+            }
+
+            function handleMove(e) {
+                if (!voiceLongPressTimer) return;
+                var pointer = e.touches ? e.touches[0] : e;
+                var dx = Math.abs(pointer.clientX - voiceStartX);
+                var dy = Math.abs(pointer.clientY - voiceStartY);
+                if (dx > 12 || dy > 12) {
+                    // Jari bergeser, batalkan timer hold
+                    clearTimeout(voiceLongPressTimer);
+                    voiceLongPressTimer = null;
+                    fabBtn.classList.remove('fab-charging');
+                    if (hint) hint.classList.add('opacity-0');
+                }
+            }
+
+            function handleEnd(e) {
+                if (e.type !== 'touchend' && e.type !== 'touchcancel' && voiceWasTouchAction) {
+                    return;
+                }
+
+                clearTimeout(voiceLongPressTimer);
+                fabBtn.classList.remove('fab-charging');
+                if (hint && !isVoiceListening) hint.classList.add('opacity-0');
+
+                // JIKA SEDANG LISTENING LALU DIKETUK -> BATALKAN SEGERA!
+                if (isVoiceListening) {
+                    cancelVoiceListening();
+                    return;
+                }
+
+                // SHORT TAP BIASA (<500ms): Buka / Tutup Speed Dial!
+                if (!isVoiceLongPressTriggered) {
+                    toggleFabSpeedDial();
+                }
+            }
+
+            // Mobile Touch Events
+            fabBtn.addEventListener('touchstart', handleStart, { passive: true });
+            fabBtn.addEventListener('touchmove', handleMove, { passive: true });
+            fabBtn.addEventListener('touchend', handleEnd);
+            fabBtn.addEventListener('touchcancel', handleEnd);
+
+            // Desktop Mouse Events
+            fabBtn.addEventListener('mousedown', handleStart);
+            fabBtn.addEventListener('mousemove', handleMove);
+            fabBtn.addEventListener('mouseup', handleEnd);
+            fabBtn.addEventListener('mouseleave', handleEnd);
+        }
+
+        // ==========================================
+        // KONTROL STATE LISTENING & CANCEL
+        // ==========================================
+        function startVoiceListening() {
+            if (isFabOpen) closeFabSpeedDial(false);
+            if (isVoiceListening) return;
+
+            setVoiceListeningVisualState(true, true);
+            triggerDynamicIsland("Input Suara Cerdas 🎙️", "Mendengarkan... (Ketuk mic untuk batal)", "fas fa-microphone animate-pulse", "bg-rose-500/20 text-rose-500", 6000, true);
+
+            if (voiceSpeechRecognition) {
+                try {
+                    voiceSpeechRecognition.start();
+                    return;
+                } catch(e) {
+                    console.warn("Gagal memulai voiceSpeechRecognition, mencoba ulang:", e);
+                }
+            }
+
+            // Fallback simulasi jika mic browser belum aktif atau tidak didukung
+            clearTimeout(voiceSimulatedTimer);
+            voiceSimulatedTimer = setTimeout(function() {
+                if (isVoiceListening) {
+                    triggerDynamicIsland("Mikrofon Belum Mendeteksi Suara 🎙️", "Katakan perintah atau gunakan keyboard", "fas fa-info-circle", "bg-amber-500/20 text-amber-400", 2500, true);
+                    setVoiceListeningVisualState(false, true);
+                }
+            }, 6000);
+        }
+
+        function cancelVoiceListening() {
+            if (!isVoiceListening) return;
+
+            if (voiceSpeechRecognition) {
+                try { voiceSpeechRecognition.abort(); } catch(e) {}
+            }
+            clearTimeout(voiceSimulatedTimer);
+
+            // Morph kembali dari mic ke plus secara anggun
+            setVoiceListeningVisualState(false, true);
+            closeVoiceResultCard();
+            triggerDynamicIsland("Voice Input Batal ❌", "Perekaman suara dibatalkan", "fas fa-times-circle", "bg-rose-500/20 text-rose-400", 2000, true);
+        }
+
+        function setVoiceListeningVisualState(listening, animated) {
+            isVoiceListening = listening;
+            var fabBtn = document.getElementById('fab-quick-add');
+            var icon = document.getElementById('fab-plus-icon');
+            var hint = document.getElementById('fab-press-hint');
+            if (!fabBtn || !icon) return;
+
+            if (listening) {
+                fabBtn.classList.add('ripple-wave-active', 'border-amber-500');
+                if (animated) {
+                    icon.classList.remove('fa-plus', 'fab-icon-morph-plus', 'text-primary-600', 'dark:text-primary-400');
+                    icon.classList.add('fa-microphone', 'fab-icon-morph-mic', 'text-rose-500');
+                } else {
+                    icon.className = 'fas fa-microphone text-rose-500 text-base';
+                }
+                if (hint) {
+                    hint.innerText = 'Ketuk mic untuk batal';
+                    hint.classList.remove('opacity-0');
+                }
+            } else {
+                fabBtn.classList.remove('ripple-wave-active', 'border-amber-500');
+                if (animated) {
+                    icon.classList.remove('fa-microphone', 'fab-icon-morph-mic', 'text-rose-500');
+                    icon.classList.add('fa-plus', 'fab-icon-morph-plus', 'text-primary-600', 'dark:text-primary-400');
+                } else {
+                    icon.className = 'fas fa-plus text-primary-600 dark:text-primary-400 text-base';
+                }
+                if (hint) {
+                    hint.innerText = 'Tahan untuk suara...';
+                    hint.classList.add('opacity-0');
+                }
+            }
+        }
+
+        // ==========================================
+        // PENGATURAN MODE MESIN NLP (GEMINI & OFFLINE)
+        // ==========================================
+        function toggleVoiceSettingsAccordion() {
+            var body = document.getElementById('voice-settings-body');
+            var chevron = document.getElementById('icon-voice-accordion-chevron');
+            if (!body || !chevron) return;
+
+            var isHidden = body.classList.toggle('hidden');
+            chevron.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        function selectVoiceParserMode(mode, save) {
+            currentVoiceParserMode = mode;
+            if (save !== false) {
+                safeStorage.setItem('dasborVoiceParserMode', mode);
+            }
+
+            var btnOffline = document.getElementById('btn-voice-mode-offline');
+            var btnGemini = document.getElementById('btn-voice-mode-gemini');
+            var keyContainer = document.getElementById('voice-gemini-key-container');
+            var badge = document.getElementById('voice-engine-badge-header');
+            var desc = document.getElementById('voice-settings-status-desc');
+
+            if (mode === 'gemini') {
+                if (btnGemini) btnGemini.className = 'py-1.5 px-2 rounded-lg text-[11px] font-black transition-all bg-indigo-600 text-white shadow-xs flex items-center justify-center gap-1.5';
+                if (btnOffline) btnOffline.className = 'py-1.5 px-2 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white transition-all flex items-center justify-center gap-1.5';
+                if (keyContainer) keyContainer.classList.remove('hidden');
+                if (badge) {
+                    badge.className = 'whitespace-nowrap shrink-0 text-[9px] bg-indigo-100 dark:bg-indigo-900/60 text-indigo-600 dark:text-indigo-300 px-2 py-0.5 rounded-full font-black border border-indigo-200/60 dark:border-indigo-700/50 leading-none inline-flex items-center gap-1';
+                    badge.innerHTML = '<i class="fas fa-robot text-[8px]"></i> <span>Gemini AI</span>';
+                }
+                if (desc) desc.innerText = 'Mode: 🤖 Google Gemini AI';
+            } else {
+                if (btnOffline) btnOffline.className = 'py-1.5 px-2 rounded-lg text-[11px] font-black transition-all bg-primary-600 text-white shadow-xs flex items-center justify-center gap-1.5';
+                if (btnGemini) btnGemini.className = 'py-1.5 px-2 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white transition-all flex items-center justify-center gap-1.5';
+                if (keyContainer) keyContainer.classList.add('hidden');
+                if (badge) {
+                    badge.className = 'whitespace-nowrap shrink-0 text-[9px] bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 px-2 py-0.5 rounded-full font-black border border-emerald-200/60 dark:border-emerald-700/50 leading-none inline-flex items-center gap-1';
+                    badge.innerHTML = '<i class="fas fa-bolt text-[8px]"></i> <span>Offline</span>';
+                }
+                if (desc) desc.innerText = 'Mode: ⚡ Offline Smart Regex';
+            }
+        }
+
+        function saveVoiceGeminiApiKey(key) {
+            voiceGeminiApiKey = key.trim();
+            safeStorage.setItem('dasborGeminiApiKey', voiceGeminiApiKey);
+            var indicator = document.getElementById('voice-key-saved-indicator');
+            if (indicator) {
+                indicator.classList.remove('hidden');
+                setTimeout(function() { indicator.classList.add('hidden'); }, 2000);
+            }
+        }
+
+        function toggleVoiceApiKeyVisibility() {
+            var input = document.getElementById('input-voice-gemini-key');
+            var icon = document.getElementById('icon-voice-eye-key');
+            if (!input || !icon) return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        }
+
+        // ==========================================
+        // VALIDASI SEMANTIK & ANTI-JEBAKAN / NONSENSE (OFFLINE)
+        // ==========================================
+        function checkVoiceSemanticValidity(text) {
+            var lower = text.toLowerCase().trim();
+
+            // 1. Pertentangan Makna (Semantic Clash):
+            // Misalnya: 'makan tugas...', 'beli tugas...', 'jajan tugas...', 'minum pr...'
+            var consumptionClash = /\b(makan|minum|jajan|sarapan|ngemil|ngopi)\b.*\b(tugas|pr|ujian|skripsi|ulangan|makalah)\b/i;
+            var transactionClash = /\b(beli|bayar|pesan|order)\s+(tugas|pr)\b/i;
+            var hybridClash = /\bbeli\s+.*tugas\s+.*makan\b/i;
+            var invertedClash = /\b(tugas|pr)\s+(makan|minum|jajan|sarapan)\b/i;
+
+            if (consumptionClash.test(lower) || transactionClash.test(lower) || hybridClash.test(lower) || invertedClash.test(lower)) {
+                return {
+                    isValid: false,
+                    reason: 'Kalimat rancu atau tidak masuk akal. Menggabungkan aktivitas konsumsi/pembelian dengan objek tugas akademis.'
+                };
+            }
+
+            // 2. Kasus Jebakan: Dimulai dengan kata tugas/PR tanpa kata kerja transaksi, tapi ada nominal angka terselip
+            // Contoh: "tugas bahasa jawa 5ribu", "pr matematika 10rb", "tugas biologi 25k"
+            var startsWithTask = /^\s*(tugas|pr|pekerjaan rumah|makalah|skripsi|belajar|hafalan|latihan)\b/i.test(lower);
+            var hasStrongTransactionVerb = /\b(beli|bayar|jajan|terima|dikasih|gaji|honor|transfer)\b/i.test(lower);
+
+            if (startsWithTask && !hasStrongTransactionVerb) {
+                // Bersihkan angka nominal yang tersasar
+                var cleanTaskName = lower
+                    .replace(/\b\d+[\.,]?\d*\s*(ribu|rb|jt|juta|k\b)?/gi, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+
+                // Huruf pertama kapital
+                cleanTaskName = cleanTaskName.charAt(0).toUpperCase() + cleanTaskName.slice(1);
+
+                return {
+                    isValid: true,
+                    isForcedTask: true,
+                    cleanedName: cleanTaskName,
+                    ignoredNominalNote: 'Nominal angka diabaikan karena kalimat terdeteksi murni sebagai tugas sekolah.'
+                };
+            }
+
+            return { isValid: true, isForcedTask: false };
+        }
+
+        // ==========================================
+        // SMART PARSER OFFLINE SUPER REGEX (BAHASA INDONESIA)
+        // ==========================================
+        function isVoiceFinancePhrase(text) {
+            var lower = text.toLowerCase();
+
+            // 1. Kata kunci kuat pengeluaran/pemasukan
+            var strongFinanceWords = [
+                'ribu', 'juta', 'miliar', 'rb', 'jt', 'rp', 'rupiah', 'idr',
+                'ceban', 'goceng', 'goban', 'pego', 'cepek', 'seceng',
+                'jajan', 'kantin', 'beli', 'bayar', 'ngopi', 'belanja', 'traktir',
+                'terima uang', 'terima', 'dikasih uang', 'dikasih', 'diberi', 'dapat uang',
+                'uang saku', 'uang', 'duit', 'ongkos', 'ongkir', 'tarif', 'harga',
+                'gaji', 'gajian', 'honor', 'bonus', 'transfer', 'saldo', 'topup', 'top up',
+                'bensin', 'pertamax', 'pertalite', 'pulsa', 'kuota', 'tagihan',
+                'cash', 'tunai', 'kembalian', 'sedekah', 'infaq', 'donasi'
+            ];
+
+            for (var i = 0; i < strongFinanceWords.length; i++) {
+                if (lower.includes(strongFinanceWords[i])) return true;
+            }
+
+            // 2. Pola angka berakhiran k, rb, ribu, jt, juta (e.g. 50k, 25rb, 5ribu)
+            if (/\b\d+[\.,]?\d*\s*(ribu|rb|jt|juta|k\b)/i.test(lower)) return true;
+
+            // 3. Bare currency or numbers >= 500
+            if (/(rp\s*[\d\.]+|\b\d{4,}\b)/i.test(lower)) return true;
+
+            return false;
+        }
+
+        function extractVoiceNominal(rawText) {
+            var text = rawText.toLowerCase();
+
+            // 1. Slang nominal Indonesia
+            if (/\bseceng\b/i.test(text)) return 1000;
+            if (/\bgoceng\b/i.test(text)) return 5000;
+            if (/\bceban\b/i.test(text)) return 10000;
+            if (/\bpego\b/i.test(text)) return 150000;
+            if (/\bgoban\b/i.test(text)) return 50000;
+            if (/\bcepek\b/i.test(text)) return 100000;
+            if (/\bsetengah\s*juta\b/i.test(text)) return 500000;
+            if (/\bsejuta\b/i.test(text)) return 1000000;
+            if (/\bseribu\b/i.test(text)) return 1000;
+
+            // 2. Juta patterns: "2.5 juta", "2,5jt", "2jt", "10 juta"
+            var jtMatch = text.match(/(\d+(?:[\.,]\d+)?)\s*(?:juta|jt)\b/i);
+            if (jtMatch) {
+                var numJt = parseFloat(jtMatch[1].replace(',', '.'));
+                if (!isNaN(numJt)) return Math.round(numJt * 1000000);
+            }
+
+            // 3. Ribu/k/rb patterns: "5ribu", "10 rb", "25k", "50 ribu"
+            var rbMatch = text.match(/(\d+(?:[\.,]\d+)?)\s*(?:ribu|rb|k\b)/i);
+            if (rbMatch) {
+                var numRb = parseFloat(rbMatch[1].replace(',', '.'));
+                if (!isNaN(numRb)) return Math.round(numRb * 1000);
+            }
+
+            // 4. Kata bilangan dasar Indonesia + ribu/juta
+            var wordNominals = [
+                { regex: /(seratus|100)\s*(?:ribu|rb)/i, val: 100000 },
+                { regex: /(tujuh puluh lima|75)\s*(?:ribu|rb)/i, val: 75000 },
+                { regex: /(lima puluh|50)\s*(?:ribu|rb)/i, val: 50000 },
+                { regex: /(empat puluh|40)\s*(?:ribu|rb)/i, val: 40000 },
+                { regex: /(tiga puluh lima|35)\s*(?:ribu|rb)/i, val: 35000 },
+                { regex: /(tiga puluh|30)\s*(?:ribu|rb)/i, val: 30000 },
+                { regex: /(dua puluh lima|25)\s*(?:ribu|rb)/i, val: 25000 },
+                { regex: /(dua puluh|20)\s*(?:ribu|rb)/i, val: 20000 },
+                { regex: /(lima belas|15)\s*(?:ribu|rb)/i, val: 15000 },
+                { regex: /(sepuluh|10)\s*(?:ribu|rb)/i, val: 10000 },
+                { regex: /(delapan|8)\s*(?:ribu|rb)/i, val: 8000 },
+                { regex: /(tujuh|7)\s*(?:ribu|rb)/i, val: 7000 },
+                { regex: /(enam|6)\s*(?:ribu|rb)/i, val: 6000 },
+                { regex: /(lima|5)\s*(?:ribu|rb)/i, val: 5000 },
+                { regex: /(empat|4)\s*(?:ribu|rb)/i, val: 4000 },
+                { regex: /(tiga|3)\s*(?:ribu|rb)/i, val: 3000 },
+                { regex: /(dua|2)\s*(?:ribu|rb)/i, val: 2000 },
+                { regex: /(satu|1)\s*(?:ribu|rb)/i, val: 1000 }
+            ];
+            for (var w = 0; w < wordNominals.length; w++) {
+                if (wordNominals[w].regex.test(text)) return wordNominals[w].val;
+            }
+
+            // 5. Bare Rupiah prefix: "rp 50.000", "rp5000", "rp. 10.000"
+            var rpMatch = text.match(/rp\.?\s*(\d[\d\.,]*)/i);
+            if (rpMatch) {
+                var cleanRp = rpMatch[1].replace(/[\.,]/g, '');
+                var numR = parseInt(cleanRp, 10);
+                if (!isNaN(numR) && numR > 0) return numR;
+            }
+
+            // 6. Angka bertitik: e.g. "50.000", "10.000", "1.000.000"
+            var dotNumMatch = text.match(/\b\d{1,3}(?:\.\d{3})+\b/);
+            if (dotNumMatch) {
+                var cleanDot = dotNumMatch[0].replace(/\./g, '');
+                var numD = parseInt(cleanDot, 10);
+                if (!isNaN(numD) && numD > 0) return numD;
+            }
+
+            // 7. Angka mentah (>= 500): e.g. "5000", "10000", "25000"
+            var bareNumMatch = text.match(/\b\d{4,9}\b/);
+            if (bareNumMatch) {
+                var numB = parseInt(bareNumMatch[0], 10);
+                if (!isNaN(numB)) return numB;
+            }
+
+            return 10000;
+        }
+
+        function determineVoiceFinanceJenis(text) {
+            var lower = text.toLowerCase();
+            var incomePatterns = [
+                /\bterima\b/i,
+                /\bditerima\b/i,
+                /\bdapat\s*uang\b/i,
+                /\bdikasih\b/i,
+                /\bdiberi\b/i,
+                /\buang\s*saku\b/i,
+                /\bgaji\b/i,
+                /\bgajian\b/i,
+                /\bhonor\b/i,
+                /\bbonus\b/i,
+                /\bpemasukan\b/i,
+                /\bmasuk\b/i,
+                /\bkembalian\b/i,
+                /\bomset\b/i,
+                /\blaba\b/i,
+                /\buntung\b/i,
+                /\bcair\b/i,
+                /\btransferan\b/i,
+                /\bdikirimi\b/i,
+                /\btransfer\s*dari\b/i
+            ];
+            for (var p = 0; p < incomePatterns.length; p++) {
+                if (incomePatterns[p].test(lower)) return 'masuk';
+            }
+            return 'keluar';
+        }
+
+        function determineVoiceFinanceCategory(text, jenis) {
+            var lower = text.toLowerCase();
+
+            if (/(makan|minum|kopi|ngopi|jajan|kantin|warteg|padang|bakso|mie|ayam|snack|camilan|sarapan|lunch|dinner|resto|kafe|cafe|gorengan|roti|jus)/i.test(lower)) {
+                return '🍔 Makan';
+            }
+            if (/(bensin|pertamax|pertalite|solar|gojek|grab|maxim|ojek|angkot|bus|kereta|krl|mrt|tol|parkir|tambal ban|cuci motor|cuci mobil|helm|oli)/i.test(lower)) {
+                return '🚗 Transport';
+            }
+            if (/(baju|celana|sepatu|tas|belanja|shopee|tokopedia|lazada|tiktok shop|indomaret|alfamart|supermarket|mall|beli di|toko|skincare|buku)/i.test(lower)) {
+                return '🛍️ Belanja';
+            }
+            if (/(listrik|pln|pdam|air|wifi|indihome|pulsa|kuota|paket data|bpjs|kontrakan|kos|kost|iuran|tagihan|langganan|netflix|spotify)/i.test(lower)) {
+                return '💡 Tagihan';
+            }
+            if (/(gaji|honor|freelance|proyek|bonus|dividen|pesangon|side income)/i.test(lower)) {
+                return '💼 Gaji';
+            }
+
+            if (jenis === 'masuk') {
+                return '📁 Pemasukan';
+            }
+            return '📁 Lainnya';
+        }
+
+        function determineVoiceFinanceWallet(text) {
+            var lower = text.toLowerCase();
+            if (/(bank|bca|mandiri|bri|bni|bsi|jago|jenius|atm|transfer)/i.test(lower)) return 'Bank';
+            if (/(ewallet|e-wallet|gopay|ovo|dana|shopeepay|linkaja|qris)/i.test(lower)) return 'E-Wallet';
+            return 'Tunai';
+        }
+
+        function cleanVoiceFinanceDescription(rawText) {
+            var clean = rawText
+                .replace(/\b(catat|catatkan|masukkan|tolong|coba)\b/gi, '')
+                .replace(/\b(ribu|juta|rb|jt|k|ceban|goceng|goban|pego|cepek)\b/gi, '')
+                .replace(/\b(rp\.?|\d+[\.,]?\d*)\b/gi, '')
+                .replace(/\b(tunai|lewat bank|lewat gopay|lewat ovo|lewat dana|lewat ewallet|pake qris|pakai qris)\b/gi, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            if (clean.length > 0) {
+                clean = clean.charAt(0).toUpperCase() + clean.slice(1);
+            } else {
+                clean = rawText;
+            }
+            return clean;
+        }
+
+        function parseVoiceFinanceText(rawText) {
+            var jenis = determineVoiceFinanceJenis(rawText);
+            var nominal = extractVoiceNominal(rawText);
+            var kategori = determineVoiceFinanceCategory(rawText, jenis);
+            var wallet = determineVoiceFinanceWallet(rawText);
+            var catatan = cleanVoiceFinanceDescription(rawText);
+
+            return {
+                type: 'keuangan',
+                rawText: rawText,
+                jenis: jenis,
+                nominal: nominal,
+                kategori: kategori,
+                wallet: wallet,
+                catatan: catatan
+            };
+        }
+
+        function parseVoiceTaskText(rawText) {
+            var text = rawText.toLowerCase();
+
+            var prio = 'biasa';
+            if (/(tinggi|penting|urgent|segera|kritis|harus)/i.test(text)) prio = 'tinggi';
+            else if (/(sedang|menengah)/i.test(text)) prio = 'sedang';
+
+            var deadline = null;
+            if (/besok/i.test(text)) {
+                var jamMatch = text.match(/jam\s*(\d+)/i);
+                if (jamMatch) {
+                    deadline = `Besok, ${jamMatch[1]}:00`;
+                } else if (/sore/i.test(text)) {
+                    deadline = 'Besok sore';
+                } else if (/pagi/i.test(text)) {
+                    deadline = 'Besok pagi';
+                } else if (/malam/i.test(text)) {
+                    deadline = 'Besok malam';
+                } else {
+                    deadline = 'Besok';
+                }
+            } else if (/malam ini/i.test(text)) {
+                deadline = 'Hari ini, 21:00';
+            } else if (/hari ini/i.test(text)) {
+                deadline = 'Hari ini';
+            }
+
+            var cleanName = rawText
+                .replace(/\bprioritas\s*(tinggi|sedang|biasa|rendah)\b/gi, '')
+                .replace(/\bdeadline\s*(besok(?:\s+(?:pagi|siang|sore|malam))?|malam ini|hari ini)\b/gi, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            if (cleanName.length > 0) {
+                cleanName = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+            }
+
+            return {
+                type: 'tugas',
+                rawText: rawText,
+                nama: cleanName || rawText,
+                prio: prio,
+                deadline: deadline
+            };
+        }
+
+        function parseIndonesianVoicePhraseOffline(rawText) {
+            // 1. Cek validitas semantik & deteksi anomali/jebakan
+            var semanticCheck = checkVoiceSemanticValidity(rawText);
+
+            if (!semanticCheck.isValid) {
+                return {
+                    type: 'invalid',
+                    rawText: rawText,
+                    alasan: semanticCheck.reason
+                };
+            }
+
+            // 2. Jika dipaksa sebagai Tugas murni (nominal angka tersasar diabaikan)
+            if (semanticCheck.isForcedTask) {
+                var baseTask = parseVoiceTaskText(rawText);
+                baseTask.nama = semanticCheck.cleanedName || baseTask.nama;
+                baseTask.ignoredNominalNote = semanticCheck.ignoredNominalNote;
+                return baseTask;
+            }
+
+            // 3. Klasifikasi standar
+            if (isVoiceFinancePhrase(rawText)) {
+                return parseVoiceFinanceText(rawText);
+            } else {
+                return parseVoiceTaskText(rawText);
+            }
+        }
+
+        // ==========================================
+        // PARSER GOOGLE GEMINI AI (CLOUD API)
+        // ==========================================
+        async function parseVoiceWithGeminiAI(phrase, apiKey) {
+            var endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+            var prompt = `Anda adalah asisten parsing AI untuk aplikasi Dasbor Pribadi berbahasa Indonesia.
+Tugas Anda: Ekstrak kalimat suara pengguna menjadi JSON terstruktur yang valid.
+
+Kalimat suara pengguna: "${phrase}"
+
+Kategori Transaksi yang Tersedia:
+- "🍔 Makan" (makan, minum, jajan, ngopi, kantin, camilan, sarapan, dll)
+- "🚗 Transport" (bensin, pertamax, pertalite, gojek, grab, parkir, tol, servis, ojek, dll)
+- "🛍️ Belanja" (belanja pakaian, barang, checkout toko, marketplace, dll)
+- "💡 Tagihan" (listrik, pln, wifi, pulsa, kuota, pdam, kos, sewa, dll)
+- "💼 Gaji" (gaji, honor, freelance, proyek, bonus, dividen)
+- "📁 Pemasukan" (pemasukan umum, terima uang, dapat uang saku dari orang tua/teman, transfer masuk)
+- "📁 Lainnya" (pengeluaran atau transaksi lainnya)
+
+Kategori Dompet: "Tunai", "Bank", "E-Wallet" (default "Tunai" bila tidak disebut).
+
+Instruksi Analisis:
+1. ATURAN VALIDASI SEMANTIK (PENTING):
+   - Jika kalimat mengandung pertentangan makna atau tidak masuk akal (oxymoron / rancu), misalnya:
+     "makan tugas bahasa inggris", "beli tugas makan siang", "jajan tugas fisika", "minum pr kimia"
+     Maka KEMBALIKAN:
+     {"type":"invalid","alasan":"Kalimat rancu atau tidak masuk akal karena menggabungkan aktivitas konsumsi/pembelian dengan objek tugas akademis."}
+   - Jika kalimat jelas-jelas tentang Tugas / PR sekolah/kuliah namun diakhiri nominal uang tanpa kata transaksi (misalnya "tugas bahasa jawa 5ribu", "pr matematika 10ribu"):
+     Maka KELOMPOKKAN SEBAGAI "tugas", abaikan nominal uangnya, dan bersihkan nama tugasnya menjadi "Tugas bahasa jawa":
+     {"type":"tugas","nama":"Tugas bahasa jawa","prio":"biasa","deadline":null,"ignoredNominalNote":"Nominal angka diabaikan karena kalimat terdeteksi murni sebagai tugas sekolah."}
+
+2. Bila "type" = "keuangan":
+   - "jenis": "keluar" (pengeluaran/beli/bayar/jajan) ATAU "masuk" (pemasukan/terima uang/dikasih uang/gaji/bonus/transfer masuk)
+   - "nominal": integer nominal Rupiah (contoh: "5ribu" -> 5000, "10ribu" -> 10000, "25rb" -> 25000, "ceban" -> 10000, "50k" -> 50000, "1.5jt" -> 1500000)
+   - "kategori": salah satu kategori di atas yang paling tepat
+   - "wallet": "Tunai" | "Bank" | "E-Wallet"
+   - "catatan": nama/deskripsi ringkas dan rapi (contoh: "Jajan di kantin", "Terima uang dari teman", "Beli bensin pertamax")
+
+3. Bila "type" = "tugas":
+   - "nama": nama tugas bersih
+   - "prio": "tinggi" | "sedang" | "biasa"
+   - "deadline": string deadline singkat jika ada (misal "Besok sore", "Malam ini, 21:00") atau null
+
+KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
+{"type":"keuangan","jenis":"keluar","nominal":5000,"kategori":"🍔 Makan","wallet":"Tunai","catatan":"Jajan di kantin"}`;
+
+            var response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        temperature: 0.1
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                var errData = await response.json().catch(function() { return {}; });
+                throw new Error(errData.error?.message || `HTTP ${response.status}`);
+            }
+
+            var data = await response.json();
+            var textContent = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!textContent) throw new Error("Format respons Gemini tidak valid");
+
+            var parsed = JSON.parse(textContent.trim());
+            parsed.rawText = phrase;
+            return parsed;
+        }
+
+        // ==========================================
+        // PROSES HASIL SUARA & TAMPILKAN KARTU KONFIRMASI
+        // ==========================================
+        async function processVoicePhrase(phrase) {
+            // Kembalikan ikon FAB ke tanda plus dengan animasi halus
+            setVoiceListeningVisualState(false, true);
+
+            var parsed = null;
+            var engineUsed = 'offline';
+
+            if (currentVoiceParserMode === 'gemini' && voiceGeminiApiKey.trim()) {
+                triggerDynamicIsland("AI NLP Engine 🤖", "Menganalisis dengan Google Gemini AI...", "fas fa-robot animate-spin", "bg-indigo-500/20 text-indigo-400", 5000, true);
+                try {
+                    parsed = await parseVoiceWithGeminiAI(phrase, voiceGeminiApiKey.trim());
+                    engineUsed = 'gemini';
+                } catch (err) {
+                    console.warn("Gemini AI API Error, beralih ke Smart Regex:", err);
+                    triggerDynamicIsland("Gemini sibuk/gagal, beralih ke Smart Regex ⚡", "Memproses offline", "fas fa-bolt", "bg-amber-500/20 text-amber-400", 2500, true);
+                    parsed = parseIndonesianVoicePhraseOffline(phrase);
+                    engineUsed = 'offline-fallback';
+                }
+            } else {
+                parsed = parseIndonesianVoicePhraseOffline(phrase);
+                engineUsed = 'offline';
+            }
+
+            pendingVoiceParsedData = parsed;
+
+            var card = document.getElementById('voice-result-card');
+            var rawEl = document.getElementById('voice-raw-text');
+            var breakdownEl = document.getElementById('voice-parsed-breakdown');
+            var tagEl = document.getElementById('voice-detected-tag');
+            var engineBadgeEl = document.getElementById('voice-result-engine-badge');
+            var btnSave = document.getElementById('btn-save-voice');
+            var btnCancel = card ? card.querySelector('button[onclick="closeVoiceResultCard()"]') : null;
+
+            if (rawEl) rawEl.innerText = `"${phrase}"`;
+
+            // Badge engine info
+            if (engineBadgeEl) {
+                if (engineUsed === 'gemini') {
+                    engineBadgeEl.innerHTML = '<span class="px-2 py-0.5 rounded-full text-[9px] bg-indigo-100 dark:bg-indigo-900/60 text-indigo-600 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-700/50 font-black flex items-center gap-1"><i class="fas fa-robot text-[8px]"></i> Gemini AI</span>';
+                } else if (engineUsed === 'offline') {
+                    engineBadgeEl.innerHTML = '<span class="px-2 py-0.5 rounded-full text-[9px] bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-700/50 font-black flex items-center gap-1"><i class="fas fa-bolt text-[8px]"></i> Offline Regex</span>';
+                } else {
+                    engineBadgeEl.innerHTML = '<span class="px-2 py-0.5 rounded-full text-[9px] bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-300 border border-amber-200/60 dark:border-amber-700/50 font-black flex items-center gap-1"><i class="fas fa-exclamation-triangle text-[8px]"></i> Fallback Offline</span>';
+                }
+            }
+
+            // KASUS 1: KALIMAT RANCU / INVALID (TIDAK BISA DISIMPAN)
+            if (parsed.type === 'invalid') {
+                if (tagEl) tagEl.innerHTML = '<span class="text-rose-500 font-black flex items-center gap-1.5"><i class="fas fa-exclamation-triangle"></i> Perintah Tidak Jelas / Rancu</span>';
+
+                if (breakdownEl) {
+                    breakdownEl.innerHTML = `
+                        <div class="p-3 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-700 dark:text-rose-300 text-xs space-y-2">
+                            <div class="flex items-center gap-1.5 font-black text-rose-600 dark:text-rose-400">
+                                <i class="fas fa-ban"></i> Tidak Dapat Disimpan
+                            </div>
+                            <p class="text-[11px] text-slate-700 dark:text-slate-300 leading-relaxed">
+                                ${parsed.alasan || 'Sistem mendeteksi pertentangan makna dalam ucapan Anda. Kalimat ini bukan transaksi yang sah maupun tugas yang valid.'}
+                            </p>
+                            <div class="text-[10px] text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 p-2 rounded-xl border border-amber-200 dark:border-amber-900/50">
+                                💡 <b>Saran:</b> Ucapkan tugas secara mandiri (misal: <i>"Kerjakan tugas bahasa inggris"</i>) atau transaksi secara wajar (misal: <i>"Beli makan siang 25 ribu"</i>).
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Ubah tombol aksi menjadi tombol 'Tutup / Coba Lagi'
+                if (btnCancel) btnCancel.classList.add('hidden');
+                if (btnSave) {
+                    btnSave.className = 'col-span-2 py-2 rounded-xl bg-slate-200 dark:bg-[#242f3d] hover:bg-slate-300 dark:hover:bg-[#313f52] text-slate-800 dark:text-slate-200 font-bold text-xs active:scale-95 transition-all text-center';
+                    btnSave.innerText = 'Mengerti, Coba Lagi';
+                    btnSave.onclick = closeVoiceResultCard;
+                }
+
+                if (card) card.classList.remove('hidden');
+                triggerDynamicIsland("Perintah Tidak Jelas ⚠️", "Kalimat tidak masuk akal atau kontradiktif", "fas fa-exclamation-triangle", "bg-rose-500/20 text-rose-400", 3000, true);
+                return;
+            }
+
+            // KASUS NORMAL: KEMBALIKAN TOMBOL AKSI KE TOMBOL SIMPAN
+            if (btnCancel) btnCancel.classList.remove('hidden');
+            if (btnSave) {
+                btnSave.className = 'py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs shadow-md active:scale-95 transition-all text-center';
+                btnSave.innerText = 'Simpan Sekarang';
+                btnSave.onclick = saveVoiceDetectedItem;
+            }
+
+            // KASUS 2: TRANSAKSI KEUANGAN
+            if (parsed.type === 'keuangan') {
+                if (tagEl) tagEl.innerHTML = '<i class="fas fa-coins text-amber-500"></i> <span class="font-bold">Transaksi Keuangan</span>';
+                var isInc = parsed.jenis === 'masuk';
+                if (breakdownEl) {
+                    breakdownEl.innerHTML = `
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-100 dark:bg-[#242f3d]">
+                            <span class="text-slate-500 dark:text-slate-400 font-semibold">Nominal &amp; Jenis:</span>
+                            <span class="font-black ${isInc ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
+                                ${isInc ? '+' : '-'} Rp ${(parsed.nominal || 0).toLocaleString('id-ID')} (${isInc ? 'Pemasukan' : 'Pengeluaran'})
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-100 dark:bg-[#242f3d]">
+                            <span class="text-slate-500 dark:text-slate-400 font-semibold">Catatan:</span>
+                            <span class="font-bold text-slate-800 dark:text-white truncate max-w-[170px]">${parsed.catatan || parsed.rawText}</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-100 dark:bg-[#242f3d]">
+                            <span class="text-slate-500 dark:text-slate-400 font-semibold">Kategori &amp; Dompet:</span>
+                            <span class="font-bold text-slate-800 dark:text-white">${parsed.kategori} • ${parsed.wallet}</span>
+                        </div>
+                    `;
+                }
+            } 
+            // KASUS 3: TUGAS BARU
+            else {
+                if (tagEl) tagEl.innerHTML = '<i class="fas fa-check-circle text-primary-500"></i> <span class="font-bold">Tugas Baru</span>';
+                var prioBadge = parsed.prio === 'tinggi' ? 'bg-rose-100 dark:bg-rose-900/60 text-rose-600 dark:text-rose-400' : (parsed.prio === 'sedang' ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-400' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300');
+                
+                var noticeHtml = '';
+                if (parsed.ignoredNominalNote) {
+                    noticeHtml = `
+                        <div class="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 text-[10px] text-amber-800 dark:text-amber-300 font-bold flex items-center gap-1.5">
+                            <i class="fas fa-shield-alt text-amber-500"></i> ${parsed.ignoredNominalNote}
+                        </div>
+                    `;
+                }
+
+                if (breakdownEl) {
+                    breakdownEl.innerHTML = `
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-100 dark:bg-[#242f3d]">
+                            <span class="text-slate-500 dark:text-slate-400 font-semibold">Nama Tugas:</span>
+                            <span class="font-black text-slate-800 dark:text-white truncate max-w-[170px]">${parsed.nama || parsed.rawText}</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-100 dark:bg-[#242f3d]">
+                            <span class="text-slate-500 dark:text-slate-400 font-semibold">Prioritas &amp; Deadline:</span>
+                            <span class="font-bold text-slate-800 dark:text-white flex items-center gap-1.5">
+                                <span class="px-1.5 py-0.5 rounded ${prioBadge} text-[9px] uppercase font-black">${parsed.prio}</span>
+                                ${parsed.deadline ? `<span class="text-xs">• ${parsed.deadline}</span>` : ''}
+                            </span>
+                        </div>
+                        ${noticeHtml}
+                    `;
+                }
+            }
+
+            if (card) card.classList.remove('hidden');
+            triggerDynamicIsland("Hasil Terdeteksi! 🎯", "Periksa rincian data lalu ketuk Simpan", "fas fa-check-circle", "bg-emerald-500/20 text-emerald-400", 3500, true);
+        }
+
+        function closeVoiceResultCard() {
+            var card = document.getElementById('voice-result-card');
+            if (card) card.classList.add('hidden');
+            pendingVoiceParsedData = null;
+
+            // Kembalikan tombol ke kondisi simpan normal
+            var btnSave = document.getElementById('btn-save-voice');
+            var btnCancel = card ? card.querySelector('button[onclick="closeVoiceResultCard()"]') : null;
+            if (btnCancel) btnCancel.classList.remove('hidden');
+            if (btnSave) {
+                btnSave.className = 'py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs shadow-md active:scale-95 transition-all text-center';
+                btnSave.innerText = 'Simpan Sekarang';
+                btnSave.onclick = saveVoiceDetectedItem;
+            }
+        }
+
+        function saveVoiceDetectedItem() {
+            if (!pendingVoiceParsedData) return;
+
+            if (pendingVoiceParsedData.type === 'keuangan') {
+                var targetWallet = 'tunai';
+                if (pendingVoiceParsedData.wallet === 'Bank') targetWallet = 'bank';
+                else if (pendingVoiceParsedData.wallet === 'E-Wallet') targetWallet = 'ewallet';
+
+                var kat = pendingVoiceParsedData.kategori;
+                if (!kat) {
+                    kat = (pendingVoiceParsedData.jenis === 'masuk') ? '💰 Pemasukan' : '📁 Lainnya';
+                }
+
+                dataState.transaksi.push({
+                    id: generateUniqueId(),
+                    jenis: pendingVoiceParsedData.jenis,
+                    nominal: pendingVoiceParsedData.nominal || 0,
+                    catatan: pendingVoiceParsedData.catatan || pendingVoiceParsedData.rawText,
+                    walletId: targetWallet,
+                    kategori: kat,
+                    isoDate: getRekapDateString(),
+                    tanggal: getWibDate().toLocaleDateString(getAppLocale(), { day: 'numeric', month: 'short' })
+                });
+
+                simpanData();
+                if (typeof triggerBalanceTankFusion === 'function') {
+                    triggerBalanceTankFusion(pendingVoiceParsedData.jenis);
+                }
+
+                var isInc = pendingVoiceParsedData.jenis === 'masuk';
+                triggerDynamicIsland(
+                    "Transaksi Tersimpan ✅",
+                    `${isInc ? '+' : '-'} Rp ${(pendingVoiceParsedData.nominal || 0).toLocaleString('id-ID')} (${pendingVoiceParsedData.catatan || 'Transaksi'})`,
+                    "fas fa-coins",
+                    "bg-emerald-500/20 text-emerald-400",
+                    2500,
+                    true
+                );
+            } else if (pendingVoiceParsedData.type === 'tugas') {
+                var waktuDibuat = getWibDate().toLocaleTimeString(getAppLocale(), { hour: '2-digit', minute: '2-digit' });
+                var waktuDibuatIso = getWibDate().toISOString();
+
+                dataState.tugas.push({
+                    id: generateUniqueId(),
+                    nama: pendingVoiceParsedData.nama || pendingVoiceParsedData.rawText,
+                    deadline: pendingVoiceParsedData.deadline || null,
+                    prioritas: pendingVoiceParsedData.prio || 'biasa',
+                    waktuDibuat: waktuDibuat,
+                    waktuDibuatIso: waktuDibuatIso,
+                    selesai: false,
+                    subtasks: []
+                });
+
+                simpanData();
+
+                triggerDynamicIsland(
+                    "Tugas Tersimpan ✅",
+                    pendingVoiceParsedData.nama || "Tugas baru berhasil ditambahkan",
+                    "fas fa-check-circle",
+                    "bg-primary-500/20 text-primary-400",
+                    2500,
+                    true
+                );
+            }
+
+            closeVoiceResultCard();
         }
 
         setTimeout(dismissSkeleton, 1200);
