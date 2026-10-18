@@ -963,6 +963,34 @@
             animation: fabMorphToPlus 0.62s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
         }
 
+        /* ANIMASI FLUIDA & BOUNCY ELASTIK POP-UP SUARA (SQUASH & STRETCH) */
+        @keyframes voiceFluidSpringPop {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, 48px, 0) scale(0.82, 1.18);
+            }
+            40% {
+                opacity: 1;
+                transform: translate3d(0, -12px, 0) scale(1.08, 0.94);
+            }
+            68% {
+                transform: translate3d(0, 4px, 0) scale(0.97, 1.02);
+            }
+            85% {
+                transform: translate3d(0, -2px, 0) scale(1.01, 0.99);
+            }
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0) scale(1, 1);
+            }
+        }
+
+        .voice-card-fluid-bounce {
+            animation: voiceFluidSpringPop 0.52s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+            transform-origin: bottom center;
+            will-change: transform, opacity;
+        }
+
         /* FAB ELASTIC CHARGE (SAAT LONG PRESS SEDANG DITAHAN) */
         .fab-charging {
             transform: scale(0.88) !important;
@@ -2668,7 +2696,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.2.2 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.2.3 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -2751,69 +2779,58 @@
                                             <div id="subtask-date-switch-knob" class="fluid-switch-knob"></div>
                                         </button>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- STACK AKORDEON PENGATURAN INPUT SUARA & AI NLP (GEMINI & OFFLINE) -->
-                    <div class="rounded-2xl border border-indigo-200 dark:border-indigo-900/60 overflow-hidden bg-indigo-50/40 dark:bg-indigo-950/20 shadow-xs transition-colors">
-                        <button type="button" id="btn-voice-settings-header" onclick="toggleVoiceSettingsAccordion()" class="w-full py-2.5 px-3 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-indigo-100/50 dark:hover:bg-indigo-900/40 focus:outline-none select-none transition-colors">
-                            <div class="flex items-center gap-2 min-w-0 pr-1.5">
-                                <span class="w-6 h-6 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shadow-xs shrink-0">
-                                    <i class="fas fa-microphone-alt text-[11px]"></i>
-                                </span>
-                                <div class="flex flex-col text-left min-w-0">
-                                    <span class="tracking-tight text-slate-800 dark:text-slate-100 font-extrabold text-[12px] truncate">Input Suara &amp; NLP AI</span>
-                                    <span class="text-[9px] text-slate-400 font-medium leading-tight truncate" id="voice-settings-status-desc">Mode: Offline Smart Regex</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-1.5 shrink-0">
-                                <span id="voice-engine-badge-header" class="whitespace-nowrap shrink-0 text-[9px] bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 px-2 py-0.5 rounded-full font-black border border-emerald-200/60 dark:border-emerald-700/50 leading-none inline-flex items-center gap-1">
-                                    <i class="fas fa-bolt text-[8px]"></i> <span>Offline</span>
-                                </span>
-                                <i id="icon-voice-accordion-chevron" class="fas fa-chevron-down text-slate-400 text-[11px] transition-transform duration-300 shrink-0"></i>
-                            </div>
-                        </button>
-                        
-                        <div id="voice-settings-body" class="accordion-content" style="touch-action: pan-y;">
-                            <div class="accordion-overflow min-h-0 overflow-hidden">
-                                <div class="accordion-inner px-3 pb-3 pt-1 space-y-2.5 border-t border-indigo-100 dark:border-indigo-900/50 bg-white/70 dark:bg-[#17212b]/80">
-                                    <p class="waterfall-item text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed pt-1">
-                                        Pilih mesin pengolah suara untuk perintah tugas &amp; keuangan. Tahan tombol <b>FAB (+)</b> selama 500ms untuk merekam suara:
-                                    </p>
-
-                                    <!-- Toggle Selector Mode: Offline vs Gemini -->
-                                    <div class="waterfall-item grid grid-cols-2 gap-1.5 bg-slate-100 dark:bg-[#242f3d] p-1 rounded-xl border border-slate-200 dark:border-[#313f52]">
-                                        <button type="button" onclick="selectVoiceParserMode('offline')" id="btn-voice-mode-offline" class="py-1.5 px-2 rounded-lg text-[11px] font-black transition-all bg-primary-600 text-white shadow-xs flex items-center justify-center gap-1.5">
-                                            <i class="fas fa-bolt text-[10px]"></i> <span>Offline Cerdas</span>
-                                        </button>
-                                        <button type="button" onclick="selectVoiceParserMode('gemini')" id="btn-voice-mode-gemini" class="py-1.5 px-2 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white transition-all flex items-center justify-center gap-1.5">
-                                            <i class="fas fa-robot text-[10px]"></i> <span>Gemini AI</span>
-                                        </button>
-                                    </div>
-
-                                    <!-- Input API Key (Tampil bila Gemini dipilih) -->
-                                    <div id="voice-gemini-key-container" class="waterfall-item hidden space-y-2 pt-1 border-t border-indigo-100 dark:border-indigo-900/40">
-                                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Google Gemini API Key:</label>
-                                        <div class="relative">
-                                            <input type="password" id="input-voice-gemini-key" placeholder="Tempel AIzaSy... di sini" oninput="saveVoiceGeminiApiKey(this.value)" class="w-full rounded-xl px-3 py-2 text-xs font-mono font-bold bg-white dark:bg-[#242f3d] border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                            <button type="button" onclick="toggleVoiceApiKeyVisibility()" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs">
-                                                <i id="icon-voice-eye-key" class="fas fa-eye"></i>
-                                            </button>
-                                        </div>
-                                        <div class="flex items-center justify-between text-[10px] text-indigo-600 dark:text-indigo-400 pt-0.5">
-                                            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="underline font-bold hover:text-indigo-800 dark:hover:text-white flex items-center gap-1">
-                                                <i class="fas fa-external-link-alt text-[8px]"></i> <span>Dapatkan API Key Gratis</span>
-                                            </a>
-                                            <div class="flex items-center gap-2">
-                                                <button type="button" onclick="testGeminiApiKey()" class="px-2 py-0.5 rounded-lg bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-900/60 dark:hover:bg-indigo-800 text-indigo-700 dark:text-indigo-300 font-bold transition-colors flex items-center gap-1 active:scale-95">
-                                                    <i class="fas fa-vial text-[9px]"></i> <span>Tes API Key</span>
-                                                </button>
-                                                <span id="voice-key-saved-indicator" class="text-emerald-500 font-bold hidden"><i class="fas fa-check"></i> Tersimpan</span>
+                                    <!-- 5. Opsi Mesin Input Suara & NLP AI (Offline vs Gemini) -->
+                                    <div class="waterfall-item py-2 px-2.5 bg-white/90 dark:bg-[#17212b]/90 rounded-xl border border-slate-200/80 dark:border-[#313f52]/80 space-y-2 select-none touch-pan-y">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2.5 min-w-0 pr-2 pointer-events-none">
+                                                <div class="w-7 h-7 rounded-lg bg-indigo-500 flex items-center justify-center text-white text-[11px] shadow-xs shrink-0">
+                                                    <i class="fas fa-microphone-alt"></i>
+                                                </div>
+                                                <div class="flex flex-col min-w-0">
+                                                    <span class="text-[11.5px] font-bold text-slate-800 dark:text-slate-100 truncate">Mesin Suara &amp; AI</span>
+                                                    <span class="text-[9px] text-slate-400 font-medium leading-tight mt-0.5" id="voice-settings-status-desc">Mode: Offline Smart Regex</span>
+                                                </div>
+                                            </div>
+                                            <div class="shrink-0">
+                                                <span id="voice-engine-badge-header" class="whitespace-nowrap shrink-0 text-[9px] bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 px-2 py-0.5 rounded-full font-black border border-emerald-200/60 dark:border-emerald-700/50 leading-none inline-flex items-center gap-1">
+                                                    <i class="fas fa-bolt text-[8px]"></i> <span>Offline</span>
+                                                </span>
                                             </div>
                                         </div>
-                                        <div id="voice-key-test-status" class="hidden text-[10px] font-bold p-2 rounded-xl border"></div>
+
+                                        <!-- Toggle Selector Mode: Offline vs Gemini -->
+                                        <div class="grid grid-cols-2 gap-1.5 bg-slate-100 dark:bg-[#242f3d] p-1 rounded-xl border border-slate-200 dark:border-[#313f52]">
+                                            <button type="button" onclick="selectVoiceParserMode('offline')" id="btn-voice-mode-offline" class="py-1.5 px-2 rounded-lg text-[11px] font-black transition-all bg-primary-600 text-white shadow-xs flex items-center justify-center gap-1.5">
+                                                <i class="fas fa-bolt text-[10px]"></i> <span>Offline Cerdas</span>
+                                            </button>
+                                            <button type="button" onclick="selectVoiceParserMode('gemini')" id="btn-voice-mode-gemini" class="py-1.5 px-2 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white transition-all flex items-center justify-center gap-1.5">
+                                                <i class="fas fa-robot text-[10px]"></i> <span>Gemini AI</span>
+                                            </button>
+                                        </div>
+
+                                        <!-- Input API Key (Tampil bila Gemini dipilih) -->
+                                        <div id="voice-gemini-key-container" class="hidden space-y-2 pt-1.5 border-t border-slate-100 dark:border-[#242f3d]">
+                                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Google Gemini API Key:</label>
+                                            <div class="relative">
+                                                <input type="password" id="input-voice-gemini-key" placeholder="Tempel AIzaSy... di sini" oninput="saveVoiceGeminiApiKey(this.value)" class="w-full rounded-xl px-3 py-2 text-xs font-mono font-bold bg-slate-50 dark:bg-[#242f3d] border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                                <button type="button" onclick="toggleVoiceApiKeyVisibility()" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs">
+                                                    <i id="icon-voice-eye-key" class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                            <div class="flex items-center justify-between text-[10px] text-indigo-600 dark:text-indigo-400 pt-0.5">
+                                                <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="underline font-bold hover:text-indigo-800 dark:hover:text-white flex items-center gap-1">
+                                                    <i class="fas fa-external-link-alt text-[8px]"></i> <span>Dapatkan Key Gratis</span>
+                                                </a>
+                                                <div class="flex items-center gap-2">
+                                                    <button type="button" onclick="testGeminiApiKey()" class="px-2 py-0.5 rounded-lg bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-900/60 dark:hover:bg-indigo-800 text-indigo-700 dark:text-indigo-300 font-bold transition-colors flex items-center gap-1 active:scale-95">
+                                                        <i class="fas fa-vial text-[9px]"></i> <span>Tes API Key</span>
+                                                    </button>
+                                                    <span id="voice-key-saved-indicator" class="text-emerald-500 font-bold hidden"><i class="fas fa-check"></i> Tersimpan</span>
+                                                </div>
+                                            </div>
+                                            <div id="voice-key-test-status" class="hidden text-[10px] font-bold p-2 rounded-xl border"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2914,10 +2931,35 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> <span data-i18n="changelog_title">Catatan Pembaruan v1.2.2 (Stable)</span></h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> <span data-i18n="changelog_title">Catatan Pembaruan v1.2.3 (Stable)</span></h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" aria-label="Tutup catatan pembaruan" data-i18n-aria="changelog_aria_close" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v1.2.3 (Stable) -->
+                <div class="p-3.5 bg-gradient-to-br from-amber-50 via-orange-50 to-primary-50 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-primary-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-crown text-amber-500 text-xs"></i> <span>Rilis Utama • v1.2.3 (Stable)</span></span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 px-2 py-0.5 rounded-full shadow-xs">Voice Polish &amp; Fluid Pop</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Backdrop Suara Bebas Blur Konsisten, Menu Pengaturan Suara Terpadu, Preview Suara Real-time, dan Animasi Pop-up Membal Elastis</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
+                            <i class="fas fa-magic text-amber-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Pop-up Bebas Blur &amp; Membal Elastik:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Latar belakang pop-up suara kini serasi dengan modal lainnya tanpa efek blur. Kartu hasil suara memiliki efek cairan spring membal yang halus dan dapat ditutup otomatis saat mengetuk di luar area.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
+                            <i class="fas fa-sliders-h text-primary-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Pengaturan Terpadu &amp; Live Preview:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Opsi mesin suara dan API key dipindahkan rapi ke dalam tumpukan akordeon "Opsi Tampilan &amp; Sistem". Kata-kata yang diucapkan langsung tampil secara live di Dynamic Island.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v1.2.2 (Stable) -->
                 <div class="p-3.5 bg-gradient-to-br from-amber-50 via-orange-50 to-primary-50 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-primary-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -4357,11 +4399,11 @@
         </div>
     </main>
 
-    <!-- VOICE RESULT BACKDROP (TUTUP OTOMATIS SAAT KETUK LUAR KONTAINER) -->
-    <div id="voice-result-backdrop" onclick="closeVoiceResultCard()" class="hidden fixed inset-0 z-40 bg-black/25 dark:bg-black/50 backdrop-blur-[2px] transition-opacity duration-300"></div>
+    <!-- VOICE RESULT BACKDROP (TUTUP OTOMATIS SAAT KETUK LUAR KONTAINER - BEBAS BLUR) -->
+    <div id="voice-result-backdrop" onclick="closeVoiceResultCard()" class="hidden fixed inset-0 z-40 bg-black/60 dark:bg-black/75 transition-opacity duration-300"></div>
 
-    <!-- VOICE RESULT CONFIRMATION CARD (POP-UP HASIL DETEKSI SUARA) -->
-    <div id="voice-result-card" class="hidden fixed bottom-24 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl rounded-[28px] p-4 shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-slate-200/90 dark:border-[#313f52]/90 z-50 transition-all duration-300 select-none">
+    <!-- VOICE RESULT CONFIRMATION CARD (POP-UP HASIL DETEKSI SUARA - BEBAS BLUR & FLUID BOUNCY) -->
+    <div id="voice-result-card" class="hidden fixed bottom-24 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 bg-white dark:bg-[#17212b] rounded-[28px] p-4 shadow-[0_20px_50px_rgba(0,0,0,0.35)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-slate-200/90 dark:border-[#313f52]/90 z-50 select-none">
         <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-[#242f3d]">
             <div class="flex items-center gap-1.5">
                 <span id="voice-detected-tag" class="text-xs font-black text-slate-800 dark:text-white flex items-center gap-1.5">
@@ -13429,7 +13471,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.2.2 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.2.3 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
@@ -13569,16 +13611,35 @@
                 voiceSpeechRecognition = new SpeechRecognition();
                 voiceSpeechRecognition.lang = 'id-ID';
                 voiceSpeechRecognition.continuous = false;
-                voiceSpeechRecognition.interimResults = false;
+                voiceSpeechRecognition.interimResults = true;
                 voiceSpeechRecognition.maxAlternatives = 1;
 
                 voiceSpeechRecognition.onresult = function(event) {
                     clearTimeout(voiceSimulatedTimer);
-                    if (event.results && event.results[0] && event.results[0][0]) {
-                        var transcript = event.results[0][0].transcript;
-                        if (transcript && transcript.trim()) {
-                            processVoicePhrase(transcript.trim());
+                    var interimTranscript = '';
+                    var finalTranscript = '';
+
+                    for (var i = event.resultIndex; i < event.results.length; ++i) {
+                        var res = event.results[i];
+                        if (res.isFinal) {
+                            finalTranscript += res[0].transcript;
+                        } else {
+                            interimTranscript += res[0].transcript;
                         }
+                    }
+
+                    var currentSpoken = (finalTranscript || interimTranscript || '').trim();
+                    if (currentSpoken) {
+                        var hintEl = document.getElementById('fab-press-hint');
+                        if (hintEl) {
+                            hintEl.innerText = `"${currentSpoken}"`;
+                            hintEl.classList.remove('opacity-0');
+                        }
+                        triggerDynamicIsland("Mendengarkan 🎙️", `"${currentSpoken}"`, "fas fa-microphone text-rose-500 animate-pulse", "bg-rose-500/20 text-rose-300", 3500, true);
+                    }
+
+                    if (finalTranscript && finalTranscript.trim()) {
+                        processVoicePhrase(finalTranscript.trim());
                     }
                 };
 
@@ -14443,6 +14504,9 @@ KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
 
                 if (card) {
                     card.classList.remove('hidden');
+                    card.classList.remove('voice-card-fluid-bounce');
+                    void card.offsetWidth;
+                    card.classList.add('voice-card-fluid-bounce');
                     var backdrop = document.getElementById('voice-result-backdrop');
                     if (backdrop) backdrop.classList.remove('hidden');
                     setTimeout(function() {
@@ -14518,6 +14582,9 @@ KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
 
             if (card) {
                 card.classList.remove('hidden');
+                card.classList.remove('voice-card-fluid-bounce');
+                void card.offsetWidth;
+                card.classList.add('voice-card-fluid-bounce');
                 var backdrop = document.getElementById('voice-result-backdrop');
                 if (backdrop) backdrop.classList.remove('hidden');
                 setTimeout(function() {
@@ -14538,7 +14605,10 @@ KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
         function closeVoiceResultCard() {
             var card = document.getElementById('voice-result-card');
             var backdrop = document.getElementById('voice-result-backdrop');
-            if (card) card.classList.add('hidden');
+            if (card) {
+                card.classList.remove('voice-card-fluid-bounce');
+                card.classList.add('hidden');
+            }
             if (backdrop) backdrop.classList.add('hidden');
             document.removeEventListener('pointerdown', handleVoiceCardOutsideClick);
             pendingVoiceParsedData = null;
