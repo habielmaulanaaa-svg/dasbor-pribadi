@@ -2668,7 +2668,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.1.5 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.2.0 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -2904,10 +2904,35 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> <span data-i18n="changelog_title">Catatan Pembaruan v1.1.6 (Stable)</span></h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> <span data-i18n="changelog_title">Catatan Pembaruan v1.2.0 (Stable)</span></h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" aria-label="Tutup catatan pembaruan" data-i18n-aria="changelog_aria_close" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
+                <!-- Milestone v1.2.0 (Stable) -->
+                <div class="p-3.5 bg-gradient-to-br from-amber-50 via-orange-50 to-primary-50 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-primary-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-crown text-amber-500 text-xs"></i> <span>Rilis Utama • v1.2.0 (Stable)</span></span>
+                        <span class="text-[9px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 px-2 py-0.5 rounded-full shadow-xs">Voice FAB &amp; Gemini AI</span>
+                    </div>
+                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Input Suara Cerdas FAB Long-Press, Animasi Teaser 0.62s, Gemini AI NLP Hibrida, dan Sinkronisasi Token Otomatis ke Cloud</p>
+                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
+                            <i class="fas fa-microphone text-amber-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Interaksi FAB Suara &amp; Teaser 0.62s:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Tahan FAB 500ms untuk merekam suara bahasa Indonesia. Ketukan singkat saat mic aktif langsung membatalkan rekaman. Lengkap dengan animasi 3D teaser saat dasbor dibuka.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
+                            <i class="fas fa-cloud-upload-alt text-primary-500 mt-0.5 text-xs shrink-0"></i>
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-white">Gemini AI &amp; Cloud Auto-Sync:</span>
+                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Ekstraksi transaksi/tugas cerdas dengan Gemini AI &amp; Super Regex (slang nominal ceban/goceng &amp; anti-jebakan). API Key tersinkronkan otomatis antar-perangkat via Firebase.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Milestone v1.1.6 (Stable) -->
                 <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-primary-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-primary-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
@@ -13077,6 +13102,24 @@
                                     document.documentElement.classList.remove('dark');
                                     safeStorage.setItem('dasborDarkMode', 'light');
                                 }
+                            // Sinkronkan Gemini API Key & Preferensi Mesin Suara dari Cloud
+                            var cloudApiKey = remote.geminiApiKey || (remote.dataState && remote.dataState.geminiApiKey);
+                            if (cloudApiKey) {
+                                voiceGeminiApiKey = cloudApiKey;
+                                safeStorage.setItem('dasborGeminiApiKey', voiceGeminiApiKey);
+                                dataState.geminiApiKey = voiceGeminiApiKey;
+                                var inputVoiceKey = document.getElementById('input-voice-gemini-key');
+                                if (inputVoiceKey) inputVoiceKey.value = voiceGeminiApiKey;
+                            }
+
+                            var cloudVoiceMode = remote.voiceParserMode || (remote.dataState && remote.dataState.voiceParserMode);
+                            if (cloudVoiceMode) {
+                                currentVoiceParserMode = cloudVoiceMode;
+                                safeStorage.setItem('dasborVoiceParserMode', currentVoiceParserMode);
+                                dataState.voiceParserMode = currentVoiceParserMode;
+                                if (typeof selectVoiceParserMode === 'function') {
+                                    selectVoiceParserMode(currentVoiceParserMode, false);
+                                }
                             }
 
                             safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
@@ -13138,8 +13181,18 @@
 
             if (!dataState.updatedAt) dataState.updatedAt = Date.now();
 
+            // Sinkronkan token Gemini & mode parser suara ke dataState & Firestore
+            if (typeof voiceGeminiApiKey !== 'undefined' && voiceGeminiApiKey) {
+                dataState.geminiApiKey = voiceGeminiApiKey;
+            }
+            if (typeof currentVoiceParserMode !== 'undefined' && currentVoiceParserMode) {
+                dataState.voiceParserMode = currentVoiceParserMode;
+            }
+
             const payload = {
                 dataState: dataState,
+                geminiApiKey: (typeof voiceGeminiApiKey !== 'undefined' && voiceGeminiApiKey) || (dataState && dataState.geminiApiKey) || '',
+                voiceParserMode: (typeof currentVoiceParserMode !== 'undefined' && currentVoiceParserMode) || (dataState && dataState.voiceParserMode) || 'offline',
                 themeHue: safeStorage.getItem('dasborHue') || (dataState && dataState.themeHue) || '221',
                 darkMode: (dataState && dataState.darkMode) || safeStorage.getItem('dasborDarkMode') || 'light',
                 lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
@@ -13361,7 +13414,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.1.6 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.2.0 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
@@ -13434,9 +13487,9 @@
 
         function initVoiceFabSystem() {
             try {
-                // Muat preferensi dari penyimpanan lokal
-                currentVoiceParserMode = safeStorage.getItem('dasborVoiceParserMode') || 'offline';
-                voiceGeminiApiKey = safeStorage.getItem('dasborGeminiApiKey') || '';
+                // Muat preferensi dari penyimpanan lokal atau dataState
+                currentVoiceParserMode = safeStorage.getItem('dasborVoiceParserMode') || (typeof dataState !== 'undefined' && dataState && dataState.voiceParserMode) || 'offline';
+                voiceGeminiApiKey = safeStorage.getItem('dasborGeminiApiKey') || (typeof dataState !== 'undefined' && dataState && dataState.geminiApiKey) || '';
 
                 // Sinkronisasi status UI pengaturan
                 selectVoiceParserMode(currentVoiceParserMode, false);
@@ -13732,6 +13785,14 @@
             currentVoiceParserMode = mode;
             if (save !== false) {
                 safeStorage.setItem('dasborVoiceParserMode', mode);
+                if (typeof dataState !== 'undefined' && dataState) {
+                    dataState.voiceParserMode = mode;
+                    dataState.updatedAt = Date.now();
+                    safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+                    if (typeof debouncedSyncToCloud === 'function') {
+                        debouncedSyncToCloud();
+                    }
+                }
             }
 
             var btnOffline = document.getElementById('btn-voice-mode-offline');
@@ -13764,6 +13825,14 @@
         function saveVoiceGeminiApiKey(key) {
             voiceGeminiApiKey = key.trim();
             safeStorage.setItem('dasborGeminiApiKey', voiceGeminiApiKey);
+            if (typeof dataState !== 'undefined' && dataState) {
+                dataState.geminiApiKey = voiceGeminiApiKey;
+                dataState.updatedAt = Date.now();
+                safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
+                if (typeof debouncedSyncToCloud === 'function') {
+                    debouncedSyncToCloud();
+                }
+            }
             var indicator = document.getElementById('voice-key-saved-indicator');
             if (indicator) {
                 indicator.classList.remove('hidden');
