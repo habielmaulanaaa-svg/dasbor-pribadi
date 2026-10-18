@@ -2668,7 +2668,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.2.1 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.2.2 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -2758,7 +2758,7 @@
 
                     <!-- STACK AKORDEON PENGATURAN INPUT SUARA & AI NLP (GEMINI & OFFLINE) -->
                     <div class="rounded-2xl border border-indigo-200 dark:border-indigo-900/60 overflow-hidden bg-indigo-50/40 dark:bg-indigo-950/20 shadow-xs transition-colors">
-                        <button type="button" id="btn-voice-settings-header" onclick="toggleVoiceSettingsAccordion()" class="tactile-press w-full py-2.5 px-3 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-indigo-100/50 dark:hover:bg-indigo-900/40 focus:outline-none select-none transition-colors">
+                        <button type="button" id="btn-voice-settings-header" onclick="toggleVoiceSettingsAccordion()" class="w-full py-2.5 px-3 flex items-center justify-between font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-indigo-100/50 dark:hover:bg-indigo-900/40 focus:outline-none select-none transition-colors">
                             <div class="flex items-center gap-2 min-w-0 pr-1.5">
                                 <span class="w-6 h-6 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shadow-xs shrink-0">
                                     <i class="fas fa-microphone-alt text-[11px]"></i>
@@ -2776,35 +2776,45 @@
                             </div>
                         </button>
                         
-                        <div id="voice-settings-body" class="hidden px-3 pb-3 pt-1 space-y-2.5 border-t border-indigo-100 dark:border-indigo-900/50 bg-white/70 dark:bg-[#17212b]/80">
-                            <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed pt-1">
-                                Pilih mesin pengolah suara untuk perintah tugas &amp; keuangan. Tahan tombol <b>FAB (+)</b> selama 500ms untuk merekam suara:
-                            </p>
+                        <div id="voice-settings-body" class="accordion-content" style="touch-action: pan-y;">
+                            <div class="accordion-overflow min-h-0 overflow-hidden">
+                                <div class="accordion-inner px-3 pb-3 pt-1 space-y-2.5 border-t border-indigo-100 dark:border-indigo-900/50 bg-white/70 dark:bg-[#17212b]/80">
+                                    <p class="waterfall-item text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed pt-1">
+                                        Pilih mesin pengolah suara untuk perintah tugas &amp; keuangan. Tahan tombol <b>FAB (+)</b> selama 500ms untuk merekam suara:
+                                    </p>
 
-                            <!-- Toggle Selector Mode: Offline vs Gemini -->
-                            <div class="grid grid-cols-2 gap-1.5 bg-slate-100 dark:bg-[#242f3d] p-1 rounded-xl border border-slate-200 dark:border-[#313f52]">
-                                <button type="button" onclick="selectVoiceParserMode('offline')" id="btn-voice-mode-offline" class="py-1.5 px-2 rounded-lg text-[11px] font-black transition-all bg-primary-600 text-white shadow-xs flex items-center justify-center gap-1.5">
-                                    <i class="fas fa-bolt text-[10px]"></i> <span>Offline Cerdas</span>
-                                </button>
-                                <button type="button" onclick="selectVoiceParserMode('gemini')" id="btn-voice-mode-gemini" class="py-1.5 px-2 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white transition-all flex items-center justify-center gap-1.5">
-                                    <i class="fas fa-robot text-[10px]"></i> <span>Gemini AI</span>
-                                </button>
-                            </div>
+                                    <!-- Toggle Selector Mode: Offline vs Gemini -->
+                                    <div class="waterfall-item grid grid-cols-2 gap-1.5 bg-slate-100 dark:bg-[#242f3d] p-1 rounded-xl border border-slate-200 dark:border-[#313f52]">
+                                        <button type="button" onclick="selectVoiceParserMode('offline')" id="btn-voice-mode-offline" class="py-1.5 px-2 rounded-lg text-[11px] font-black transition-all bg-primary-600 text-white shadow-xs flex items-center justify-center gap-1.5">
+                                            <i class="fas fa-bolt text-[10px]"></i> <span>Offline Cerdas</span>
+                                        </button>
+                                        <button type="button" onclick="selectVoiceParserMode('gemini')" id="btn-voice-mode-gemini" class="py-1.5 px-2 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white transition-all flex items-center justify-center gap-1.5">
+                                            <i class="fas fa-robot text-[10px]"></i> <span>Gemini AI</span>
+                                        </button>
+                                    </div>
 
-                            <!-- Input API Key (Tampil bila Gemini dipilih) -->
-                            <div id="voice-gemini-key-container" class="hidden space-y-2 pt-1 border-t border-indigo-100 dark:border-indigo-900/40">
-                                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Google Gemini API Key:</label>
-                                <div class="relative">
-                                    <input type="password" id="input-voice-gemini-key" placeholder="Tempel AIzaSy... di sini" oninput="saveVoiceGeminiApiKey(this.value)" class="w-full rounded-xl px-3 py-2 text-xs font-mono font-bold bg-white dark:bg-[#242f3d] border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                    <button type="button" onclick="toggleVoiceApiKeyVisibility()" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs">
-                                        <i id="icon-voice-eye-key" class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                <div class="flex items-center justify-between text-[10px] text-indigo-600 dark:text-indigo-400 pt-0.5">
-                                    <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="underline font-bold hover:text-indigo-800 dark:hover:text-white flex items-center gap-1">
-                                        <i class="fas fa-external-link-alt text-[8px]"></i> <span>Dapatkan API Key Gratis</span>
-                                    </a>
-                                    <span id="voice-key-saved-indicator" class="text-emerald-500 font-bold hidden"><i class="fas fa-check"></i> Tersimpan</span>
+                                    <!-- Input API Key (Tampil bila Gemini dipilih) -->
+                                    <div id="voice-gemini-key-container" class="waterfall-item hidden space-y-2 pt-1 border-t border-indigo-100 dark:border-indigo-900/40">
+                                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Google Gemini API Key:</label>
+                                        <div class="relative">
+                                            <input type="password" id="input-voice-gemini-key" placeholder="Tempel AIzaSy... di sini" oninput="saveVoiceGeminiApiKey(this.value)" class="w-full rounded-xl px-3 py-2 text-xs font-mono font-bold bg-white dark:bg-[#242f3d] border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                            <button type="button" onclick="toggleVoiceApiKeyVisibility()" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs">
+                                                <i id="icon-voice-eye-key" class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="flex items-center justify-between text-[10px] text-indigo-600 dark:text-indigo-400 pt-0.5">
+                                            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="underline font-bold hover:text-indigo-800 dark:hover:text-white flex items-center gap-1">
+                                                <i class="fas fa-external-link-alt text-[8px]"></i> <span>Dapatkan API Key Gratis</span>
+                                            </a>
+                                            <div class="flex items-center gap-2">
+                                                <button type="button" onclick="testGeminiApiKey()" class="px-2 py-0.5 rounded-lg bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-900/60 dark:hover:bg-indigo-800 text-indigo-700 dark:text-indigo-300 font-bold transition-colors flex items-center gap-1 active:scale-95">
+                                                    <i class="fas fa-vial text-[9px]"></i> <span>Tes API Key</span>
+                                                </button>
+                                                <span id="voice-key-saved-indicator" class="text-emerald-500 font-bold hidden"><i class="fas fa-check"></i> Tersimpan</span>
+                                            </div>
+                                        </div>
+                                        <div id="voice-key-test-status" class="hidden text-[10px] font-bold p-2 rounded-xl border"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2904,14 +2914,14 @@
         <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
             <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> <span data-i18n="changelog_title">Catatan Pembaruan v1.2.1 (Stable)</span></h3>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> <span data-i18n="changelog_title">Catatan Pembaruan v1.2.2 (Stable)</span></h3>
                 <button type="button" onclick="closeBottomSheet('changelog-modal')" aria-label="Tutup catatan pembaruan" data-i18n-aria="changelog_aria_close" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <!-- Milestone v1.2.1 (Stable) -->
+                <!-- Milestone v1.2.2 (Stable) -->
                 <div class="p-3.5 bg-gradient-to-br from-amber-50 via-orange-50 to-primary-50 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-primary-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-crown text-amber-500 text-xs"></i> <span>Rilis Utama • v1.2.1 (Stable)</span></span>
+                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-crown text-amber-500 text-xs"></i> <span>Rilis Utama • v1.2.2 (Stable)</span></span>
                         <span class="text-[9px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 px-2 py-0.5 rounded-full shadow-xs">Voice FAB &amp; Gemini AI</span>
                     </div>
                     <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Input Suara Cerdas FAB Long-Press, Animasi Teaser 0.62s, Gemini AI NLP Hibrida, dan Sinkronisasi Token Otomatis ke Cloud</p>
@@ -4346,6 +4356,9 @@
             <div class="h-28 w-full block shrink-0"></div>
         </div>
     </main>
+
+    <!-- VOICE RESULT BACKDROP (TUTUP OTOMATIS SAAT KETUK LUAR KONTAINER) -->
+    <div id="voice-result-backdrop" onclick="closeVoiceResultCard()" class="hidden fixed inset-0 z-40 bg-black/25 dark:bg-black/50 backdrop-blur-[2px] transition-opacity duration-300"></div>
 
     <!-- VOICE RESULT CONFIRMATION CARD (POP-UP HASIL DETEKSI SUARA) -->
     <div id="voice-result-card" class="hidden fixed bottom-24 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl rounded-[28px] p-4 shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-slate-200/90 dark:border-[#313f52]/90 z-50 transition-all duration-300 select-none">
@@ -13416,7 +13429,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.2.1 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.2.2 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
@@ -13779,8 +13792,60 @@
             var chevron = document.getElementById('icon-voice-accordion-chevron');
             if (!body || !chevron) return;
 
-            var isHidden = body.classList.toggle('hidden');
-            chevron.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+            var isOpen = body.classList.toggle('open');
+            chevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+            if (typeof triggerHaptic === 'function') triggerHaptic('light');
+        }
+
+        async function testGeminiApiKey() {
+            var keyInput = document.getElementById('input-voice-gemini-key');
+            var key = (keyInput ? keyInput.value : voiceGeminiApiKey) || voiceGeminiApiKey || '';
+            key = key.trim().replace(/^["']|["']$/g, '');
+            var statusEl = document.getElementById('voice-key-test-status');
+            if (!statusEl) return;
+
+            statusEl.classList.remove('hidden');
+
+            if (!key) {
+                statusEl.className = 'text-[10px] text-rose-600 dark:text-rose-400 font-bold p-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 block';
+                statusEl.innerHTML = '<i class="fas fa-exclamation-circle mr-1"></i> Masukkan API Key Google Gemini terlebih dahulu!';
+                return;
+            }
+
+            statusEl.className = 'text-[10px] text-indigo-600 dark:text-indigo-400 font-bold p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/50 block';
+            statusEl.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Menguji koneksi ke Google Gemini AI...';
+
+            try {
+                var res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(key)}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: 'Balas hanya kata: OK' }] }]
+                    })
+                });
+
+                if (!res.ok) {
+                    var errObj = await res.json().catch(function() { return {}; });
+                    var msg = errObj.error?.message || `HTTP ${res.status}`;
+                    throw new Error(msg);
+                }
+
+                statusEl.className = 'text-[10px] text-emerald-600 dark:text-emerald-400 font-bold p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 block';
+                statusEl.innerHTML = '<i class="fas fa-check-circle mr-1 text-emerald-500"></i> Koneksi Sukses! API Key valid & siap memproses suara dengan Gemini AI.';
+                if (typeof triggerDynamicIsland === 'function') {
+                    triggerDynamicIsland("API Key Valid ✨", "Terhubung dengan Google Gemini AI", "fas fa-check-circle", "bg-emerald-500/20 text-emerald-400", 3000, true);
+                }
+            } catch (err) {
+                var cleanErr = err.message || String(err);
+                if (cleanErr.includes('API_KEY_INVALID') || cleanErr.includes('API key not valid')) {
+                    cleanErr = 'API Key tidak valid. Pastikan Anda menyalin seluruh token dari Google AI Studio.';
+                }
+                statusEl.className = 'text-[10px] text-rose-600 dark:text-rose-400 font-bold p-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 block break-words';
+                statusEl.innerHTML = `<i class="fas fa-times-circle mr-1 text-rose-500"></i> Tes Gagal: ${escapeHtml(cleanErr)}`;
+                if (typeof triggerDynamicIsland === 'function') {
+                    triggerDynamicIsland("Tes API Gagal ⚠️", cleanErr, "fas fa-exclamation-triangle", "bg-rose-500/20 text-rose-400", 4000, true);
+                }
+            }
         }
 
         function selectVoiceParserMode(mode, save) {
@@ -14186,7 +14251,8 @@
         // PARSER GOOGLE GEMINI AI (CLOUD API)
         // ==========================================
         async function parseVoiceWithGeminiAI(phrase, apiKey) {
-            var endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+            var cleanKey = (apiKey || '').trim().replace(/^["']|["']$/g, '');
+            if (!cleanKey) throw new Error("API Key Gemini kosong");
 
             var prompt = `Anda adalah asisten parsing AI untuk aplikasi Dasbor Pribadi berbahasa Indonesia.
 Tugas Anda: Ekstrak kalimat suara pengguna menjadi JSON terstruktur yang valid.
@@ -14212,7 +14278,7 @@ Instruksi Analisis:
      {"type":"invalid","alasan":"Kalimat rancu atau tidak masuk akal karena menggabungkan aktivitas konsumsi/pembelian dengan objek tugas akademis."}
    - Jika kalimat jelas-jelas tentang Tugas / PR sekolah/kuliah namun diakhiri nominal uang tanpa kata transaksi (misalnya "tugas bahasa jawa 5ribu", "pr matematika 10ribu"):
      Maka KELOMPOKKAN SEBAGAI "tugas", abaikan nominal uangnya, dan bersihkan nama tugasnya menjadi "Tugas bahasa jawa":
-     {"type":"tugas","nama":"Tugas bahasa jawa","prio":"biasa","deadline":null,"ignoredNominalNote":"Nominal angka diabaikan karena kalimat terdeteksi murni sebagai tugas sekolah."}
+     {"type":"tugas","nama":"Tugas bahasa jawa","prio":"biasa","deadline":null}
 
 2. Bila "type" = "keuangan":
    - "jenis": "keluar" (pengeluaran/beli/bayar/jajan) ATAU "masuk" (pemasukan/terima uang/dikasih uang/gaji/bonus/transfer masuk)
@@ -14229,28 +14295,60 @@ Instruksi Analisis:
 KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
 {"type":"keuangan","jenis":"keluar","nominal":5000,"kategori":"🍔 Makan","wallet":"Tunai","catatan":"Jajan di kantin"}`;
 
-            var response = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: {
-                        responseMimeType: "application/json",
-                        temperature: 0.1
-                    }
-                })
-            });
+            var modelsToTry = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-pro'];
+            var response = null;
+            var lastErr = null;
 
-            if (!response.ok) {
-                var errData = await response.json().catch(function() { return {}; });
-                throw new Error(errData.error?.message || `HTTP ${response.status}`);
+            for (var m = 0; m < modelsToTry.length; m++) {
+                var modelName = modelsToTry[m];
+                var endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${encodeURIComponent(cleanKey)}`;
+                try {
+                    response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            generationConfig: {
+                                responseMimeType: "application/json",
+                                temperature: 0.1
+                            }
+                        })
+                    });
+
+                    if (response.ok) break;
+
+                    var errData = await response.json().catch(function() { return {}; });
+                    var errMsg = errData.error?.message || `HTTP ${response.status}`;
+                    lastErr = new Error(errMsg);
+
+                    if (response.status !== 404) {
+                        throw lastErr;
+                    }
+                } catch (fetchErr) {
+                    lastErr = fetchErr;
+                    if (m === modelsToTry.length - 1 || (fetchErr.message && !fetchErr.message.includes('404'))) {
+                        throw lastErr;
+                    }
+                }
+            }
+
+            if (!response || !response.ok) {
+                throw (lastErr || new Error("Gagal memanggil Google Gemini AI"));
             }
 
             var data = await response.json();
             var textContent = data.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!textContent) throw new Error("Format respons Gemini tidak valid");
+            if (!textContent) throw new Error("Format respons Gemini kosong");
 
-            var parsed = JSON.parse(textContent.trim());
+            // PENTING: Bersihkan markdown backticks ```json ... ``` bila disertakan oleh model
+            var cleanJson = textContent.trim();
+            if (cleanJson.startsWith('```')) {
+                cleanJson = cleanJson.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+            }
+            var jsonMatch = cleanJson.match(/\{[\s\S]*\}/);
+            if (jsonMatch) cleanJson = jsonMatch[0];
+
+            var parsed = JSON.parse(cleanJson);
             parsed.rawText = phrase;
             return parsed;
         }
@@ -14264,6 +14362,8 @@ KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
 
             var parsed = null;
             var engineUsed = 'offline';
+            var lastVoiceEngineError = '';
+            var cleanErrMsg = '';
 
             if (currentVoiceParserMode === 'gemini' && voiceGeminiApiKey.trim()) {
                 triggerDynamicIsland("AI NLP Engine 🤖", "Menganalisis dengan Google Gemini AI...", "fas fa-robot animate-spin", "bg-indigo-500/20 text-indigo-400", 5000, true);
@@ -14272,7 +14372,16 @@ KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
                     engineUsed = 'gemini';
                 } catch (err) {
                     console.warn("Gemini AI API Error, beralih ke Smart Regex:", err);
-                    triggerDynamicIsland("Gemini sibuk/gagal, beralih ke Smart Regex ⚡", "Memproses offline", "fas fa-bolt", "bg-amber-500/20 text-amber-400", 2500, true);
+                    lastVoiceEngineError = err.message || String(err);
+                    cleanErrMsg = lastVoiceEngineError;
+                    if (cleanErrMsg.includes('API_KEY_INVALID') || cleanErrMsg.includes('API key not valid')) {
+                        cleanErrMsg = 'API Key Gemini tidak valid (400)';
+                    } else if (cleanErrMsg.includes('429') || cleanErrMsg.toLowerCase().includes('quota') || cleanErrMsg.toLowerCase().includes('resource_exhausted')) {
+                        cleanErrMsg = 'Kuota Gemini habis (429)';
+                    } else if (cleanErrMsg.includes('Failed to fetch')) {
+                        cleanErrMsg = 'Koneksi jaringan Gemini terputus';
+                    }
+                    triggerDynamicIsland("Fallback Offline ⚡", cleanErrMsg, "fas fa-bolt", "bg-amber-500/20 text-amber-400", 3500, true);
                     parsed = parseIndonesianVoicePhraseOffline(phrase);
                     engineUsed = 'offline-fallback';
                 }
@@ -14300,7 +14409,7 @@ KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
                 } else if (engineUsed === 'offline') {
                     engineBadgeEl.innerHTML = '<span class="px-2 py-0.5 rounded-full text-[9px] bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-700/50 font-black flex items-center gap-1"><i class="fas fa-bolt text-[8px]"></i> Offline Regex</span>';
                 } else {
-                    engineBadgeEl.innerHTML = '<span class="px-2 py-0.5 rounded-full text-[9px] bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-300 border border-amber-200/60 dark:border-amber-700/50 font-black flex items-center gap-1"><i class="fas fa-exclamation-triangle text-[8px]"></i> Fallback Offline</span>';
+                    engineBadgeEl.innerHTML = `<span title="${escapeHtml(lastVoiceEngineError)}" class="px-2 py-0.5 rounded-full text-[9px] bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-300 border border-amber-200/60 dark:border-amber-700/50 font-black flex items-center gap-1 cursor-pointer"><i class="fas fa-exclamation-triangle text-[8px]"></i> Fallback Offline</span>`;
                 }
             }
 
@@ -14332,7 +14441,14 @@ KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
                     btnSave.onclick = closeVoiceResultCard;
                 }
 
-                if (card) card.classList.remove('hidden');
+                if (card) {
+                    card.classList.remove('hidden');
+                    var backdrop = document.getElementById('voice-result-backdrop');
+                    if (backdrop) backdrop.classList.remove('hidden');
+                    setTimeout(function() {
+                        document.addEventListener('pointerdown', handleVoiceCardOutsideClick);
+                    }, 100);
+                }
                 triggerDynamicIsland("Perintah Tidak Jelas ⚠️", "Kalimat tidak masuk akal atau kontradiktif", "fas fa-exclamation-triangle", "bg-rose-500/20 text-rose-400", 3000, true);
                 return;
             }
@@ -14372,15 +14488,6 @@ KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
             else {
                 if (tagEl) tagEl.innerHTML = '<i class="fas fa-check-circle text-primary-500"></i> <span class="font-bold">Tugas Baru</span>';
                 var prioBadge = parsed.prio === 'tinggi' ? 'bg-rose-100 dark:bg-rose-900/60 text-rose-600 dark:text-rose-400' : (parsed.prio === 'sedang' ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-400' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300');
-                
-                var noticeHtml = '';
-                if (parsed.ignoredNominalNote) {
-                    noticeHtml = `
-                        <div class="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 text-[10px] text-amber-800 dark:text-amber-300 font-bold flex items-center gap-1.5">
-                            <i class="fas fa-shield-alt text-amber-500"></i> ${parsed.ignoredNominalNote}
-                        </div>
-                    `;
-                }
 
                 if (breakdownEl) {
                     breakdownEl.innerHTML = `
@@ -14395,18 +14502,45 @@ KEMBALIKAN HANYA JSON MURNI TANPA MARKDOWN BACKTICKS:
                                 ${parsed.deadline ? `<span class="text-xs">• ${parsed.deadline}</span>` : ''}
                             </span>
                         </div>
-                        ${noticeHtml}
                     `;
                 }
             }
 
-            if (card) card.classList.remove('hidden');
+            // Jika dialihkan ke offline fallback, berikan informasi ringkas
+            if (engineUsed === 'offline-fallback' && breakdownEl) {
+                breakdownEl.innerHTML += `
+                    <div class="p-2 rounded-xl bg-amber-50/90 dark:bg-amber-950/40 border border-amber-200/70 dark:border-amber-900/40 text-[10px] text-amber-800 dark:text-amber-300 flex items-start gap-1.5 leading-tight mt-1">
+                        <i class="fas fa-info-circle text-amber-500 mt-0.5 shrink-0 text-[10px]"></i>
+                        <div><span class="font-bold">Info Mesin:</span> Gemini gagal (${escapeHtml(cleanErrMsg || 'Koneksi/Key')}), otomatis dialihkan ke Offline Regex agar data tetap tersimpan.</div>
+                    </div>
+                `;
+            }
+
+            if (card) {
+                card.classList.remove('hidden');
+                var backdrop = document.getElementById('voice-result-backdrop');
+                if (backdrop) backdrop.classList.remove('hidden');
+                setTimeout(function() {
+                    document.addEventListener('pointerdown', handleVoiceCardOutsideClick);
+                }, 100);
+            }
             triggerDynamicIsland("Hasil Terdeteksi! 🎯", "Periksa rincian data lalu ketuk Simpan", "fas fa-check-circle", "bg-emerald-500/20 text-emerald-400", 3500, true);
+        }
+
+        function handleVoiceCardOutsideClick(e) {
+            var card = document.getElementById('voice-result-card');
+            if (!card || card.classList.contains('hidden')) return;
+            if (!card.contains(e.target)) {
+                closeVoiceResultCard();
+            }
         }
 
         function closeVoiceResultCard() {
             var card = document.getElementById('voice-result-card');
+            var backdrop = document.getElementById('voice-result-backdrop');
             if (card) card.classList.add('hidden');
+            if (backdrop) backdrop.classList.add('hidden');
+            document.removeEventListener('pointerdown', handleVoiceCardOutsideClick);
             pendingVoiceParsedData = null;
 
             // Kembalikan tombol ke kondisi simpan normal
