@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lifehub-pwa-v1-2-7-stable';
+const CACHE_NAME = 'lifehub-pwa-v1-2-8-stable';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

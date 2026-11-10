@@ -177,7 +177,7 @@
                 height: 100dvh;
                 background-color: #ffffff;
                 border-right: 1px solid rgba(226, 232, 240, 0.85);
-                z-index: 45;
+                z-index: 50;
                 transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
                 will-change: width, box-shadow;
                 overflow-x: hidden;
@@ -230,19 +230,27 @@
                 margin-bottom: 0.25rem;
             }
 
-            /* Penyesuaian layout konten utama pada Desktop */
+            /* Penyesuaian layout konten utama & header pada Desktop */
             #app-header {
-                padding-left: calc(72px + 1.25rem) !important;
-            }
-            #main-container {
-                padding-left: calc(72px + 1.25rem) !important;
-                padding-bottom: 2.5rem !important;
-                max-width: 1400px;
-                margin-left: auto;
-                margin-right: auto;
+                margin-left: 72px !important;
+                width: calc(100% - 72px) !important;
+                padding-left: 1.5rem !important;
+                padding-right: 1.5rem !important;
             }
             #header-bars-btn {
                 display: none !important;
+            }
+            #main-container {
+                margin-left: 72px !important;
+                width: calc(100% - 72px) !important;
+                max-width: none !important;
+                padding: 1.5rem 1.5rem 3rem 1.5rem !important;
+            }
+            .tab-content {
+                width: 100% !important;
+                max-width: 1080px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
             }
             #sidebar, #sidebar-overlay {
                 display: none !important;
@@ -2814,7 +2822,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.2.7 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.2.8 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -3948,33 +3956,44 @@
     <div id="printable-report-area" class="hidden p-6 bg-white text-slate-900"></div>
 
     <!-- HEADER ATAS BERSIH -->
-    <header id="app-header" class="bg-[#263D26] text-white p-4 shadow-md z-30 flex justify-between items-center shrink-0 sticky top-0">
-        <div class="flex items-center gap-2.5">
-            <!-- Logo Brand LifeHub (Dapat ditekan untuk membuka navigasi menu) - Standalone Tanpa Outline Kotak -->
-            <button id="header-bars-btn" type="button" onclick="toggleSidebar()" aria-label="Menu LifeHub" data-i18n-aria="header_bars_aria" title="Menu LifeHub" class="tactile-press flex items-center justify-center active:scale-90 transition-transform duration-150 focus:outline-none select-none p-0.5">
-                <svg class="w-8 h-8 shrink-0 drop-shadow-sm hover:scale-105 transition-transform duration-150" viewBox="16 15 69 73" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Top Rounded Triangle -->
-                    <path d="M 50 17 C 53.2 17 55.2 20.2 56.8 23.4 L 66.8 44.2 C 68.4 47.4 66.2 51 62.6 51 L 37.4 51 C 33.8 51 31.6 47.4 33.2 44.2 L 43.2 23.4 C 44.8 20.2 46.8 17 50 17 Z" fill="#EDD330" />
-                    <!-- Bottom Left Circle -->
-                    <circle cx="33" cy="71.5" r="15.5" fill="#EDD330" />
-                    <!-- Bottom Right Rounded Square -->
-                    <rect x="52.5" y="56" width="31" height="31" rx="7" fill="#EDD330" />
-                </svg>
-            </button>
-            <button id="header-back-btn" type="button" onclick="switchTab('beranda')" aria-label="Kembali ke Beranda" data-i18n-aria="header_back_tooltip" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none mr-0.5" title="Kembali ke Beranda" data-i18n-title="header_back_tooltip"><i class="fas fa-arrow-left"></i></button>
-            <h1 id="header-title" onclick="toggleSidebar()" class="cursor-pointer text-xl font-black tracking-tight leading-none drop-shadow-xs transition-opacity duration-300 flex items-center select-none active:scale-95" data-i18n-html="app_title">
-                <span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span>
-            </h1>
-        </div>
-        <div class="flex items-center">
-            <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" data-i18n-aria="calendar_title" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 flex items-center justify-center text-white text-xs transition-all duration-300 shadow-xs shrink-0" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
-                <i class="fas fa-calendar-alt"></i>
-            </button>
-            <div id="header-cloud-wrapper" class="header-cloud-sync-container">
-                <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" class="flex items-center gap-1.5 px-3 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 transition-all text-xs font-bold text-white focus:outline-none shadow-xs whitespace-nowrap select-none shrink-0" title="Status Cloud &amp; Akun">
-                    <i class="fas fa-cloud text-xs" id="header-cloud-status-icon"></i>
-                    <span id="header-user-badge-text" class="text-[11px] font-semibold tracking-wide">Cloud</span>
+    <header id="app-header" class="bg-[#263D26] text-white p-4 shadow-md z-30 shrink-0 sticky top-0 transition-all duration-200">
+        <div class="w-full max-w-[1080px] mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2.5">
+                <!-- Logo Brand LifeHub (Mobile Only) - Standalone Tanpa Outline Kotak -->
+                <button id="header-bars-btn" type="button" onclick="toggleSidebar()" aria-label="Menu LifeHub" data-i18n-aria="header_bars_aria" title="Menu LifeHub" class="tactile-press flex items-center justify-center active:scale-90 transition-transform duration-150 focus:outline-none select-none p-0.5">
+                    <svg class="w-8 h-8 shrink-0 drop-shadow-sm hover:scale-105 transition-transform duration-150" viewBox="16 15 69 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Top Rounded Triangle -->
+                        <path d="M 50 17 C 53.2 17 55.2 20.2 56.8 23.4 L 66.8 44.2 C 68.4 47.4 66.2 51 62.6 51 L 37.4 51 C 33.8 51 31.6 47.4 33.2 44.2 L 43.2 23.4 C 44.8 20.2 46.8 17 50 17 Z" fill="#EDD330" />
+                        <!-- Bottom Left Circle -->
+                        <circle cx="33" cy="71.5" r="15.5" fill="#EDD330" />
+                        <!-- Bottom Right Rounded Square -->
+                        <rect x="52.5" y="56" width="31" height="31" rx="7" fill="#EDD330" />
+                    </svg>
                 </button>
+                <button id="header-back-btn" type="button" onclick="switchTab('beranda')" aria-label="Kembali ke Beranda" data-i18n-aria="header_back_tooltip" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none mr-0.5" title="Kembali ke Beranda" data-i18n-title="header_back_tooltip"><i class="fas fa-arrow-left"></i></button>
+                
+                <!-- Judul Brand Mobile -->
+                <h1 id="header-title" onclick="toggleSidebar()" class="md:hidden cursor-pointer text-xl font-black tracking-tight leading-none drop-shadow-xs transition-opacity duration-300 flex items-center select-none active:scale-95" data-i18n-html="app_title">
+                    <span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span>
+                </h1>
+
+                <!-- Breadcrumb Khusus Desktop (Mencegah Duplikasi Logo/Nama & Menampilkan Halaman Aktif) -->
+                <div class="hidden md:flex items-center gap-2 select-none">
+                    <span class="text-xs font-bold uppercase tracking-wider text-white/50">LifeHub</span>
+                    <span class="text-white/30 text-xs font-semibold">/</span>
+                    <span id="header-desktop-tab-title" class="text-lg font-black tracking-tight text-white">Dashboard</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" data-i18n-aria="calendar_title" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 flex items-center justify-center text-white text-xs transition-all duration-300 shadow-xs shrink-0" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
+                    <i class="fas fa-calendar-alt"></i>
+                </button>
+                <div id="header-cloud-wrapper" class="header-cloud-sync-container">
+                    <button type="button" onclick="toggleSidebar()" id="header-account-btn" aria-label="Status Cloud &amp; Akun" class="flex items-center gap-1.5 px-3 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 transition-all text-xs font-bold text-white focus:outline-none shadow-xs whitespace-nowrap select-none shrink-0" title="Status Cloud &amp; Akun">
+                        <i class="fas fa-cloud text-xs" id="header-cloud-status-icon"></i>
+                        <span id="header-user-badge-text" class="text-[11px] font-semibold tracking-wide">Cloud</span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -5105,7 +5124,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "LifeHub Premium v1.2.7 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.2.8 (Stable)",
                 settings_tap_outside_close: "Ketuk di luar untuk menutup",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
@@ -5736,7 +5755,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "LifeHub Premium v1.2.7 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.2.8 (Stable)",
                 settings_tap_outside_close: "Tap outside to close",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
@@ -8901,6 +8920,18 @@
 
                 updateMercuryPill(tabId, true);
                 updateDesktopSidebarActive(tabId);
+            }
+
+            // Update desktop breadcrumb label di header
+            var desktopTabTitle = document.getElementById('header-desktop-tab-title');
+            if (desktopTabTitle) {
+                var tabTitleMap = {
+                    'beranda': 'Dashboard',
+                    'keuangan': 'Keuangan',
+                    'tugas': 'Tugas & Target',
+                    'jurnal': 'Catatan & Jurnal'
+                };
+                desktopTabTitle.textContent = tabTitleMap[tabId] || 'Dashboard';
             }
 
             var taskInput = document.getElementById('tugas-input-area');
@@ -13723,7 +13754,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.2.7 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.2.8 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
