@@ -1,6 +1,6 @@
 {
   "name": "lifehub-premium",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "private": true,
   "description": "LifeHub - Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi offline-first dengan sinkronisasi cloud.",
   "scripts": {

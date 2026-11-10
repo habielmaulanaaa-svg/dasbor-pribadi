@@ -2822,7 +2822,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.2.8 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.2.9 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -3826,9 +3826,9 @@
         <div class="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-1">
             
             <!-- Header Brand LifeHub -->
-            <div class="flex items-center gap-3 py-2 px-1 mb-2 border-b border-slate-100 dark:border-[#242f3d]/60 cursor-pointer" onclick="switchTab('beranda')" title="LifeHub">
+            <div class="flex items-center gap-2.5 py-2 px-1 mb-2 border-b border-slate-100 dark:border-[#242f3d]/60 cursor-pointer" onclick="switchTab('beranda')" title="LifeHub">
                 <!-- Squircle Logo Badge Identik -->
-                <div class="w-11 h-11 rounded-2xl bg-[#263D26] flex items-center justify-center shadow-xs shrink-0 mx-auto transition-transform hover:scale-105">
+                <div class="w-10 h-10 rounded-xl bg-[#263D26] flex items-center justify-center shadow-xs shrink-0 transition-transform hover:scale-105">
                     <svg class="w-7 h-7 drop-shadow-xs" viewBox="16 15 69 73" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M 50 17 C 53.2 17 55.2 20.2 56.8 23.4 L 66.8 44.2 C 68.4 47.4 66.2 51 62.6 51 L 37.4 51 C 33.8 51 31.6 47.4 33.2 44.2 L 43.2 23.4 C 44.8 20.2 46.8 17 50 17 Z" fill="#EDD330" />
                         <circle cx="33" cy="71.5" r="15.5" fill="#EDD330" />
@@ -3937,7 +3937,7 @@
         <div class="p-3 border-t border-slate-200/80 dark:border-[#242f3d] bg-slate-50/70 dark:bg-[#0e1621]/40 shrink-0">
             <div class="flex items-center gap-3 w-full">
                 <!-- Avatar Lingkaran Inisial Nama -->
-                <div id="desktop-profile-avatar" onclick="toggleSettings()" class="w-10 h-10 rounded-full bg-[#263D26] text-[#EDD330] flex items-center justify-center font-black text-sm shrink-0 shadow-xs cursor-pointer active:scale-95 transition-transform mx-auto">
+                <div id="desktop-profile-avatar" onclick="toggleSettings()" class="w-10 h-10 rounded-full bg-[#263D26] text-[#EDD330] flex items-center justify-center font-black text-sm shrink-0 shadow-xs cursor-pointer active:scale-95 transition-transform">
                     H
                 </div>
                 <!-- Detail Profil & Tombol Edit (Muncul saat Hover) -->
@@ -5124,7 +5124,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "LifeHub Premium v1.2.8 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.2.9 (Stable)",
                 settings_tap_outside_close: "Ketuk di luar untuk menutup",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
@@ -5755,7 +5755,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "LifeHub Premium v1.2.8 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.2.9 (Stable)",
                 settings_tap_outside_close: "Tap outside to close",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
@@ -13754,7 +13754,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.2.8 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.2.9 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
