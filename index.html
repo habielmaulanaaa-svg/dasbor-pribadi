@@ -178,7 +178,7 @@
                 background-color: #ffffff;
                 border-right: 1px solid rgba(226, 232, 240, 0.85);
                 z-index: 50;
-                transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                transition: width 0.28s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.28s cubic-bezier(0.2, 0, 0, 1);
                 will-change: width, box-shadow;
                 overflow-x: hidden;
                 overflow-y: auto;
@@ -192,15 +192,15 @@
                 box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.18), 0 0 1px rgba(0, 0, 0, 0.08);
             }
             html.dark #desktop-sidebar:hover {
-                box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.4);
+                box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.65), 0 0 1px rgba(0, 0, 0, 0.4);
             }
 
             /* Efek kemunculan teks halus saat kursor diarahkan ke side navigasi */
             .desktop-sidebar-expand-only {
                 opacity: 0;
                 visibility: hidden;
-                transform: translateX(-6px);
-                transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+                transform: translateX(-8px);
+                transition: opacity 0.22s cubic-bezier(0.2, 0, 0, 1), transform 0.22s cubic-bezier(0.2, 0, 0, 1), visibility 0.22s ease;
                 white-space: nowrap;
                 pointer-events: none;
             }
@@ -214,28 +214,28 @@
 
             .desktop-sidebar-section-title {
                 opacity: 0;
-                max-height: 0;
+                visibility: hidden;
+                transform: translateX(-6px);
+                height: 20px;
+                line-height: 20px;
                 overflow: hidden;
-                padding-top: 0;
-                padding-bottom: 0;
-                margin-bottom: 0;
-                transition: opacity 0.2s ease, max-height 0.2s ease, padding 0.2s ease, margin 0.2s ease;
+                margin-top: 0.35rem;
+                margin-bottom: 0.25rem;
+                transition: opacity 0.2s cubic-bezier(0.2, 0, 0, 1), transform 0.2s cubic-bezier(0.2, 0, 0, 1), visibility 0.2s ease;
                 white-space: nowrap;
+                pointer-events: none;
             }
             #desktop-sidebar:hover .desktop-sidebar-section-title {
                 opacity: 1;
-                max-height: 28px;
-                padding-top: 0.5rem;
-                padding-bottom: 0.25rem;
-                margin-bottom: 0.25rem;
+                visibility: visible;
+                transform: translateX(0);
+                pointer-events: auto;
+                transition-delay: 0.03s;
             }
 
-            /* Penyesuaian layout konten utama & header pada Desktop */
+            /* Penyesuaian layout konten utama & header pada Desktop (Hilangkan bar atas persis Gambar 4) */
             #app-header {
-                margin-left: 72px !important;
-                width: calc(100% - 72px) !important;
-                padding-left: 1.5rem !important;
-                padding-right: 1.5rem !important;
+                display: none !important;
             }
             #header-bars-btn {
                 display: none !important;
@@ -244,7 +244,7 @@
                 margin-left: 72px !important;
                 width: calc(100% - 72px) !important;
                 max-width: none !important;
-                padding: 1.5rem 1.5rem 3rem 1.5rem !important;
+                padding: 1.5rem 2rem 3rem 2rem !important;
             }
             .tab-content {
                 width: 100% !important;
@@ -2822,7 +2822,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.3.0 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.3.1 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -3918,7 +3918,7 @@
 
             <!-- Footer Modal -->
             <div class="p-4 border-t border-slate-100 dark:border-[#242f3d] flex items-center justify-between shrink-0 bg-slate-50 dark:bg-[#0e1621]/50">
-                <span class="text-[11px] font-semibold text-slate-400">LifeHub Premium v1.3.0</span>
+                <span class="text-[11px] font-semibold text-slate-400">LifeHub Premium v1.3.1</span>
                 <button type="button" onclick="tutupModalPengaturanAkun()" class="px-4 py-1.5 bg-slate-200 dark:bg-[#242f3d] hover:bg-slate-300 dark:hover:bg-[#313f52] text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition-colors">
                     Selesai
                 </button>
@@ -3930,12 +3930,12 @@
     <aside id="desktop-sidebar" class="hidden md:flex flex-col justify-between select-none" aria-label="Navigasi Desktop LifeHub">
         
         <!-- Bagian Atas: Brand & Menu -->
-        <div class="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-1">
+        <div class="flex-1 overflow-y-auto overflow-x-hidden px-3.5 py-3 space-y-1">
             
             <!-- Header Brand LifeHub -->
-            <div class="flex items-center gap-2.5 py-2 px-1 mb-2 border-b border-slate-100 dark:border-[#242f3d]/60 cursor-pointer" onclick="switchTab('beranda')" title="LifeHub">
-                <!-- Squircle Logo Badge Identik -->
-                <div class="w-10 h-10 rounded-xl bg-[#263D26] flex items-center justify-center shadow-xs shrink-0 transition-transform hover:scale-105">
+            <div class="flex items-center gap-2.5 py-1 mb-2 border-b border-slate-100 dark:border-[#242f3d]/60 cursor-pointer" onclick="switchTab('beranda')" title="LifeHub">
+                <!-- Squircle Logo Badge Identik 44x44 Simetris -->
+                <div class="w-11 h-11 rounded-2xl bg-[#263D26] flex items-center justify-center shadow-xs shrink-0 transition-transform hover:scale-105">
                     <svg class="w-7 h-7 drop-shadow-xs" viewBox="16 15 69 73" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M 50 17 C 53.2 17 55.2 20.2 56.8 23.4 L 66.8 44.2 C 68.4 47.4 66.2 51 62.6 51 L 37.4 51 C 33.8 51 31.6 47.4 33.2 44.2 L 43.2 23.4 C 44.8 20.2 46.8 17 50 17 Z" fill="#EDD330" />
                         <circle cx="33" cy="71.5" r="15.5" fill="#EDD330" />
@@ -3943,53 +3943,57 @@
                     </svg>
                 </div>
                 <!-- Brand Text (Muncul Halus saat Hover) -->
-                <div class="desktop-sidebar-expand-only min-w-0 flex flex-col justify-center">
-                    <span class="text-xl font-black tracking-tight leading-none text-slate-900 dark:text-white">Life<span class="text-[#6F9435] dark:text-[#A7B92A]">Hub</span></span>
-                    <span class="text-[10.5px] font-medium text-slate-400 dark:text-slate-400 tracking-normal mt-0.5">Meadow Productivity</span>
+                <div class="desktop-sidebar-expand-only min-w-0 flex flex-col justify-center ml-2.5">
+                    <span class="text-lg font-black tracking-tight leading-none text-slate-900 dark:text-white">Life<span class="text-[#6F9435] dark:text-[#A7B92A]">Hub</span></span>
+                    <span class="text-[10px] font-medium text-slate-400 dark:text-slate-400 tracking-normal mt-0.5">Meadow Productivity</span>
                 </div>
+                <!-- Tombol Pintas Kalender di Sidebar Desktop -->
+                <button type="button" onclick="event.stopPropagation(); openActivityCalendar()" class="desktop-sidebar-expand-only ml-auto w-8 h-8 rounded-xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-400 flex items-center justify-center text-xs transition-colors shrink-0" title="Kalender Aktivitas">
+                    <i class="fas fa-calendar-alt"></i>
+                </button>
             </div>
 
             <!-- SECTION: MENU UTAMA (4 FITUR TERKUNCI) -->
-            <div class="desktop-sidebar-section-title text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 flex items-center justify-between">
+            <div class="desktop-sidebar-section-title text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1 flex items-center justify-between">
                 <span>Menu Utama</span>
                 <span class="text-[9px] font-bold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950/50 px-1.5 py-0.2 rounded-md"><i class="fas fa-lock text-[8px]"></i> 4 Terkunci</span>
             </div>
 
             <nav class="space-y-1" id="desktop-pinned-nav-container">
                 <!-- 1. Dashboard (Beranda) - Locked -->
-                <button type="button" onclick="switchTab('beranda')" id="desktop-nav-beranda" data-tab="beranda" data-color="text-white" class="desktop-menu-item active flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 bg-[#263D26] text-white shadow-xs">
-                    <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-white">
+                <button type="button" onclick="switchTab('beranda')" id="desktop-nav-beranda" data-tab="beranda" data-color="text-[#6F9435]" class="desktop-menu-item active flex items-center h-11 rounded-2xl w-full text-left transition-colors duration-200 bg-[#263D26] text-white shadow-xs">
+                    <div class="desktop-icon-box w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 text-white">
                         <i class="fas fa-chart-pie text-base"></i>
                     </div>
-                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1 text-white">Dashboard</span>
-                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-[#EDD330]/80 shrink-0 ml-auto" title="Terkunci"></i>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1 text-white ml-2.5">Dashboard</span>
+                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-[#EDD330]/80 shrink-0 mr-2" title="Terkunci"></i>
                 </button>
 
                 <!-- 2. Keuangan - Locked -->
-                <button type="button" onclick="switchTab('keuangan')" id="desktop-nav-keuangan" data-tab="keuangan" data-color="text-[#6F9435]" class="desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60">
-                    <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-[#6F9435]">
+                <button type="button" onclick="switchTab('keuangan')" id="desktop-nav-keuangan" data-tab="keuangan" data-color="text-[#6F9435]" class="desktop-menu-item flex items-center h-11 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60">
+                    <div class="desktop-icon-box w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 text-[#6F9435]">
                         <i class="fas fa-wallet text-base"></i>
                     </div>
-                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1">Keuangan</span>
-                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 ml-auto" title="Terkunci"></i>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1 ml-2.5">Keuangan</span>
+                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 mr-2" title="Terkunci"></i>
                 </button>
 
                 <!-- 3. Tugas & Target - Locked -->
-                <button type="button" onclick="switchTab('tugas')" id="desktop-nav-tugas" data-tab="tugas" data-color="text-[#8AA62E]" class="desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60">
-                    <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-[#8AA62E]">
+                <button type="button" onclick="switchTab('tugas')" id="desktop-nav-tugas" data-tab="tugas" data-color="text-[#8AA62E]" class="desktop-menu-item flex items-center h-11 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60">
+                    <div class="desktop-icon-box w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 text-[#8AA62E]">
                         <i class="fas fa-list-check text-base"></i>
                     </div>
-                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1">Tugas &amp; Target</span>
-                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 ml-auto" title="Terkunci"></i>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1 ml-2.5">Tugas &amp; Target</span>
+                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 mr-2" title="Terkunci"></i>
                 </button>
 
                 <!-- 4. Catatan / Jurnal - Locked -->
-                <button type="button" onclick="switchTab('jurnal')" id="desktop-nav-jurnal" data-tab="jurnal" data-color="text-[#6F9435]" class="desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60">
-                    <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-[#6F9435]">
+                <button type="button" onclick="switchTab('jurnal')" id="desktop-nav-jurnal" data-tab="jurnal" data-color="text-[#6F9435]" class="desktop-menu-item flex items-center h-11 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60">
+                    <div class="desktop-icon-box w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 text-[#6F9435]">
                         <i class="fas fa-sticky-note text-base"></i>
                     </div>
-                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1">Catatan</span>
-                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 ml-auto" title="Terkunci"></i>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1 ml-2.5">Catatan</span>
+                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 mr-2" title="Terkunci"></i>
                 </button>
             </nav>
 
@@ -4008,47 +4012,47 @@
             <hr class="border-slate-200/80 dark:border-[#242f3d] my-2.5 mx-1" />
 
             <!-- SECTION: MANAJEMEN DATA -->
-            <div class="desktop-sidebar-section-title text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2">
+            <div class="desktop-sidebar-section-title text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1">
                 Manajemen Data
             </div>
 
             <nav class="space-y-1">
                 <!-- 1. Ekspor Backup -->
-                <button type="button" onclick="exportData()" title="Ekspor Backup" class="desktop-action-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
-                    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center shrink-0 group-hover:text-primary-600 transition-colors">
+                <button type="button" onclick="exportData()" title="Ekspor Backup" class="desktop-action-item flex items-center h-11 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
+                    <div class="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center shrink-0 group-hover:text-primary-600 transition-colors">
                         <i class="fas fa-file-export text-xs"></i>
                     </div>
-                    <span class="desktop-sidebar-expand-only font-bold text-xs text-slate-700 dark:text-slate-200">Ekspor Backup</span>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs text-slate-700 dark:text-slate-200 ml-2.5">Ekspor Backup</span>
                 </button>
 
                 <!-- 2. Impor JSON -->
-                <button type="button" onclick="document.getElementById('desktop-import-input').click()" title="Impor JSON" class="desktop-action-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
-                    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center shrink-0 group-hover:text-primary-600 transition-colors">
+                <button type="button" onclick="document.getElementById('desktop-import-input').click()" title="Impor JSON" class="desktop-action-item flex items-center h-11 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
+                    <div class="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center shrink-0 group-hover:text-primary-600 transition-colors">
                         <i class="fas fa-file-import text-xs"></i>
                     </div>
-                    <span class="desktop-sidebar-expand-only font-bold text-xs text-slate-700 dark:text-slate-200">Impor JSON</span>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs text-slate-700 dark:text-slate-200 ml-2.5">Impor JSON</span>
                 </button>
                 <input type="file" id="desktop-import-input" accept=".json" onchange="importData(event)" class="hidden">
 
                 <!-- 3. Reset Data -->
-                <button type="button" onclick="bukaModalResetSelektif()" title="Reset Data" class="desktop-action-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors group">
-                    <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <button type="button" onclick="bukaModalResetSelektif()" title="Reset Data" class="desktop-action-item flex items-center h-11 rounded-2xl w-full text-left text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors group">
+                    <div class="w-11 h-11 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                         <i class="fas fa-trash-alt text-xs"></i>
                     </div>
-                    <span class="desktop-sidebar-expand-only font-bold text-xs text-rose-600 dark:text-rose-400">Reset Data</span>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs text-rose-600 dark:text-rose-400 ml-2.5">Reset Data</span>
                 </button>
             </nav>
         </div>
 
         <!-- Bagian Bawah: Profil Pengguna & Pengaturan Akun -->
-        <div class="p-3 border-t border-slate-200/80 dark:border-[#242f3d] bg-slate-50/70 dark:bg-[#0e1621]/40 shrink-0">
+        <div class="px-3.5 py-3 border-t border-slate-200/80 dark:border-[#242f3d] bg-slate-50/70 dark:bg-[#0e1621]/40 shrink-0">
             <div class="flex items-center gap-2.5 w-full">
-                <!-- Avatar Lingkaran Inisial / Foto Google -->
-                <div id="desktop-profile-avatar" onclick="bukaModalPengaturanAkun()" title="Pengaturan Akun &amp; Profil" class="w-10 h-10 rounded-full bg-[#263D26] text-[#EDD330] flex items-center justify-center font-black text-sm shrink-0 shadow-xs cursor-pointer active:scale-95 transition-transform overflow-hidden relative">
+                <!-- Avatar Lingkaran Inisial / Foto Google Simetris -->
+                <div id="desktop-profile-avatar" onclick="bukaModalPengaturanAkun()" title="Pengaturan Akun &amp; Profil" class="w-11 h-11 rounded-2xl bg-[#263D26] text-[#EDD330] flex items-center justify-center font-black text-sm shrink-0 shadow-xs cursor-pointer active:scale-95 transition-transform overflow-hidden relative">
                     P
                 </div>
                 <!-- Detail Profil & Tombol Edit (Muncul saat Hover) -->
-                <div class="desktop-sidebar-expand-only flex items-center justify-between min-w-0 flex-1">
+                <div class="desktop-sidebar-expand-only flex items-center justify-between min-w-0 flex-1 ml-0.5">
                     <div class="min-w-0 pr-1 cursor-pointer" onclick="bukaModalPengaturanAkun()" title="Buka Pengaturan Akun">
                         <div id="desktop-profile-name" class="font-bold text-xs text-slate-800 dark:text-slate-100 truncate">Pengguna</div>
                         <div id="desktop-profile-subtitle" class="text-[10px] font-medium text-slate-400 dark:text-slate-500 truncate">Pengaturan Akun</div>
@@ -4062,8 +4066,8 @@
     </aside>
     <div id="printable-report-area" class="hidden p-6 bg-white text-slate-900"></div>
 
-    <!-- HEADER ATAS BERSIH -->
-    <header id="app-header" class="bg-[#263D26] text-white p-4 shadow-md z-30 shrink-0 sticky top-0 transition-all duration-200">
+    <!-- HEADER ATAS BERSIH (HANYA MUNCUL DI MOBILE / ANDROID, DISEMBUNYIKAN DI DESKTOP SESUAI GAMBAR 4) -->
+    <header id="app-header" class="md:hidden bg-[#263D26] text-white p-4 shadow-md z-30 shrink-0 sticky top-0 transition-all duration-200">
         <div class="w-full max-w-[1080px] mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2.5">
                 <!-- Logo Brand LifeHub (Mobile Only) - Standalone Tanpa Outline Kotak -->
@@ -4083,13 +4087,6 @@
                 <h1 id="header-title" onclick="toggleSidebar()" class="md:hidden cursor-pointer text-xl font-black tracking-tight leading-none drop-shadow-xs transition-opacity duration-300 flex items-center select-none active:scale-95" data-i18n-html="app_title">
                     <span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span>
                 </h1>
-
-                <!-- Breadcrumb Khusus Desktop (Mencegah Duplikasi Logo/Nama & Menampilkan Halaman Aktif) -->
-                <div class="hidden md:flex items-center gap-2 select-none">
-                    <span class="text-xs font-bold uppercase tracking-wider text-white/50">LifeHub</span>
-                    <span class="text-white/30 text-xs font-semibold">/</span>
-                    <span id="header-desktop-tab-title" class="text-lg font-black tracking-tight text-white">Dashboard</span>
-                </div>
             </div>
             <div class="flex items-center gap-2">
                 <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" data-i18n-aria="calendar_title" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 flex items-center justify-center text-white text-xs transition-all duration-300 shadow-xs shrink-0" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
@@ -4125,46 +4122,82 @@
                 </div>
             </div>
 
-            <!-- Judul Halaman -->
-            <div class="flex items-center justify-between mb-4">
+            <!-- Judul Halaman Mobile (Disembunyikan di Desktop agar Kartu Saldo langsung di paling atas persis Gambar 4) -->
+            <div class="flex items-center justify-between mb-4 md:hidden">
                 <div class="flex items-center gap-2">
                     <span class="w-2 h-6 bg-primary-500 rounded-full"></span>
                     <h2 class="text-2xl font-bold dark:text-white" data-i18n="home_summary_title">Ringkasan Hari Ini</h2>
                 </div>
             </div>
             
-            <!-- KARTU SALDO DENGAN WARNA CERAH 100% SENADA DENGAN TEMA UTAMA -->
-            <div class="relative mb-4">
+            <!-- KARTU SALDO DENGAN DESAIN PERSIS GAMBAR 3 & PENEMPATAN PERSIS GAMBAR 4 -->
+            <div class="relative mb-5">
                 <!-- Layer Glow Berpendar yang 100% Mengikuti Warna Tema -->
                 <div id="ambient-glow-aura" class="ambient-glow absolute -inset-1.5 rounded-3xl blur-xl transition-opacity duration-300 pointer-events-none"></div>
                 
                 <!-- Wadah Kartu Saldo -->
-                <div id="saldo-card-bg" class="relative rounded-3xl p-6 text-white shadow-lg overflow-hidden compact-pad border border-white/20">
+                <div id="saldo-card-bg" class="relative rounded-3xl p-5 sm:p-6 text-white shadow-lg overflow-hidden compact-pad border border-white/15 bg-gradient-to-br from-[#1d331d] via-[#263D26] to-[#3a5522]">
                     <!-- Layer Gradasi Khusus yang Crossfade Halus Tanpa Kedip -->
                     <div id="saldo-card-gradient-overlay" class="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-300 ease-in-out"></div>
+
+                    <!-- Ambient Glow Halus di Top-Right persis Gambar 3 -->
+                    <div class="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-[#6F9435]/25 blur-2xl pointer-events-none"></div>
 
                     <!-- Tetesan Fluida Masuk / Keluar (Liquid Droplet Fusion) -->
                     <div id="balance-fusion-droplet"></div>
 
-
-                    <!-- Ikon Dompet Latar Belakang -->
-                    <i class="fas fa-wallet absolute -right-4 -bottom-4 text-7xl opacity-20 transform -rotate-12 pointer-events-none z-0"></i>
+                    <!-- Ikon Dompet Latar Belakang Halus -->
+                    <i class="fas fa-wallet absolute -right-4 -bottom-4 text-7xl opacity-10 transform -rotate-12 pointer-events-none z-0"></i>
                     
-                    <!-- Konten Kartu Saldo di Layer Depan -->
+                    <!-- Konten Kartu Saldo di Layer Depan (Sesuai Gambar 3) -->
                     <div class="relative z-10">
-                        <div class="flex justify-between items-center mb-1">
-                            <p class="text-white/90 text-sm font-semibold flex items-center gap-2">
-                                <span data-i18n="home_balance_title">Total Saldo Tersedia</span>
-                                <button type="button" onclick="togglePrivacyMode()" aria-label="Sembunyikan atau tampilkan saldo" title="Sembunyikan/Tampilkan Saldo" class="opacity-80 hover:opacity-100 focus:outline-none"><i id="card-eye-icon" class="fas fa-eye text-xs"></i></button>
-                            </p>
+                        <!-- Top Row: Logo Badge + LifeHub Brand di Kiri, + Entri Baru di Kanan -->
+                        <div class="flex items-center justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shadow-xs shrink-0 backdrop-blur-xs">
+                                    <svg class="w-5 h-5 drop-shadow-xs" viewBox="16 15 69 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M 50 17 C 53.2 17 55.2 20.2 56.8 23.4 L 66.8 44.2 C 68.4 47.4 66.2 51 62.6 51 L 37.4 51 C 33.8 51 31.6 47.4 33.2 44.2 L 43.2 23.4 C 44.8 20.2 46.8 17 50 17 Z" fill="#EDD330" />
+                                        <circle cx="33" cy="71.5" r="15.5" fill="#EDD330" />
+                                        <rect x="52.5" y="56" width="31" height="31" rx="7" fill="#EDD330" />
+                                    </svg>
+                                </div>
+                                <span class="text-base font-black tracking-tight text-white leading-none">Life<span class="text-[#EDD330]">Hub</span></span>
+                            </div>
+
+                            <!-- Tombol + Entri Baru -->
+                            <button type="button" onclick="switchTab('keuangan')" class="tactile-press inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#6F9435] hover:bg-[#80aa3b] active:scale-95 text-white text-xs font-bold shadow-xs transition-all cursor-pointer">
+                                <i class="fas fa-plus text-[10px]"></i>
+                                <span>Entri Baru</span>
+                            </button>
                         </div>
-                        <h3 id="stat-saldo" data-val="0" onclick="runSmartInsightsSequence(true)" title="Ketuk untuk memutar ulang Wawasan Pintar" class="text-3xl font-black tracking-tight cursor-pointer select-none active:opacity-90">Rp 0</h3>
-                        
-                        <!-- WADAH WAWASAN PINTAR BERGILIR (SMART INSIGHTS CAPSULE) -->
-                        <div id="saldo-smart-insight-container" class="mt-2.5 overflow-hidden transition-all duration-500 ease-in-out opacity-0 max-h-0">
-                            <div id="saldo-smart-insight-pill" onclick="runSmartInsightsSequence(true)" title="Ketuk untuk putar ulang wawasan" data-i18n-title="home_insights_tap" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/25 dark:bg-black/40 border border-white/25 text-white text-[11px] font-semibold transition-opacity duration-400 shadow-xs cursor-pointer active:scale-95">
-                                <i id="saldo-smart-insight-icon" class="fas fa-lightbulb text-amber-300 text-xs"></i>
-                                <span id="saldo-smart-insight-text" class="truncate max-w-[270px]"></span>
+
+                        <!-- Middle Row: SALDO KAS UTAMA & Nominal -->
+                        <div class="my-3">
+                            <p class="text-[11px] font-black uppercase tracking-wider text-emerald-200/80 mb-1 flex items-center gap-2">
+                                <span>SALDO KAS UTAMA</span>
+                                <button type="button" onclick="togglePrivacyMode()" aria-label="Sembunyikan atau tampilkan saldo" title="Sembunyikan/Tampilkan Saldo" class="opacity-70 hover:opacity-100 transition-opacity focus:outline-none">
+                                    <i id="card-eye-icon" class="fas fa-eye text-xs text-white/80"></i>
+                                </button>
+                            </p>
+                            <h3 id="stat-saldo" data-val="0" onclick="runSmartInsightsSequence(true)" title="Ketuk untuk memutar ulang Wawasan Pintar" class="text-3xl sm:text-4xl font-black tracking-tight cursor-pointer select-none active:opacity-90 text-white">Rp 0</h3>
+                        </div>
+
+                        <!-- Garis Pembatas Tipis Elegan (Sesuai Gambar 3) -->
+                        <div class="border-t border-white/10 my-3.5"></div>
+
+                        <!-- Bottom Row: Pill Dompet Pribadi & Smart Insight Capsule -->
+                        <div class="flex items-center justify-between flex-wrap gap-2 pt-0.5">
+                            <div onclick="switchTab('keuangan')" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/20 hover:bg-black/30 border border-white/10 text-white text-xs font-semibold cursor-pointer transition-colors active:scale-95">
+                                <i class="fas fa-wallet text-[#EDD330] text-xs"></i>
+                                <span>Dompet Pribadi</span>
+                            </div>
+                            
+                            <!-- WADAH WAWASAN PINTAR BERGILIR (SMART INSIGHTS CAPSULE) -->
+                            <div id="saldo-smart-insight-container" class="overflow-hidden transition-all duration-500 ease-in-out opacity-0 max-h-0">
+                                <div id="saldo-smart-insight-pill" onclick="runSmartInsightsSequence(true)" title="Ketuk untuk putar ulang wawasan" data-i18n-title="home_insights_tap" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 dark:bg-black/40 border border-white/20 text-white text-[11px] font-semibold transition-opacity duration-400 shadow-xs cursor-pointer active:scale-95">
+                                    <i id="saldo-smart-insight-icon" class="fas fa-lightbulb text-[#EDD330] text-xs"></i>
+                                    <span id="saldo-smart-insight-text" class="truncate max-w-[240px]"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -5226,7 +5259,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "LifeHub Premium v1.3.0 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.1 (Stable)",
                 settings_tap_outside_close: "Ketuk di luar untuk menutup",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
@@ -5857,7 +5890,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "LifeHub Premium v1.3.0 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.1 (Stable)",
                 settings_tap_outside_close: "Tap outside to close",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
@@ -6798,13 +6831,13 @@
 
             if (card) {
                 if (isGrad) {
-                    card.style.background = 'linear-gradient(135deg, #6F9435 0%, #263D26 100%)';
-                    card.style.borderColor = 'rgba(237, 211, 48, 0.35)';
-                    card.style.boxShadow = '0 20px 25px -5px rgba(38, 61, 38, 0.45), 0 0 20px rgba(237, 211, 48, 0.2)';
+                    card.style.background = 'radial-gradient(circle at 85% 15%, rgba(111, 148, 53, 0.35) 0%, transparent 45%), linear-gradient(135deg, #1b2f1b 0%, #263D26 60%, #3a5522 100%)';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                    card.style.boxShadow = '0 15px 30px -5px rgba(20, 35, 20, 0.45), 0 0 1px rgba(255, 255, 255, 0.1)';
                 } else {
-                    card.style.background = '#6F9435';
-                    card.style.borderColor = '#48641F';
-                    card.style.boxShadow = '0 10px 15px -3px rgba(38, 61, 38, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+                    card.style.background = '#263D26';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                    card.style.boxShadow = '0 10px 15px -3px rgba(20, 35, 20, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
                 }
             }
 
@@ -9102,16 +9135,19 @@
                 if (!btn) return;
                 var iconBox = btn.querySelector('.desktop-icon-box');
                 var text = btn.querySelector('.desktop-sidebar-expand-only');
+                var pinIcon = btn.querySelector('.fa-thumbtack');
                 var defaultColor = btn.getAttribute('data-color') || 'text-[#6F9435]';
                 
                 if (key === tabId) {
-                    btn.className = 'desktop-menu-item active flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 bg-[#263D26] text-white shadow-xs';
-                    if (iconBox) iconBox.className = 'desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-white';
-                    if (text) text.className = 'desktop-sidebar-expand-only font-bold text-xs flex-1 text-white';
+                    btn.className = 'desktop-menu-item active flex items-center h-11 rounded-2xl w-full text-left transition-colors duration-200 bg-[#263D26] text-white shadow-xs';
+                    if (iconBox) iconBox.className = 'desktop-icon-box w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 text-white';
+                    if (text) text.className = 'desktop-sidebar-expand-only font-bold text-xs flex-1 text-white ml-2.5';
+                    if (pinIcon) pinIcon.className = 'desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-[#EDD330]/80 shrink-0 mr-2';
                 } else {
-                    btn.className = 'desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60';
-                    if (iconBox) iconBox.className = 'desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ' + defaultColor;
-                    if (text) text.className = 'desktop-sidebar-expand-only font-bold text-xs flex-1 text-slate-700 dark:text-slate-200';
+                    btn.className = 'desktop-menu-item flex items-center h-11 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60';
+                    if (iconBox) iconBox.className = 'desktop-icon-box w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 ' + defaultColor;
+                    if (text) text.className = 'desktop-sidebar-expand-only font-bold text-xs flex-1 text-slate-700 dark:text-slate-200 ml-2.5';
+                    if (pinIcon) pinIcon.className = 'desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 mr-2';
                 }
             });
         }
@@ -9190,12 +9226,12 @@
                 var feat = EXTRA_PINNABLE_FEATURES.find(f => f.id === featId);
                 if (!feat) return;
                 html += `
-                    <button type="button" onclick="${feat.action}" title="${feat.label}" class="desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
-                        <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${feat.color}">
+                    <button type="button" onclick="${feat.action}" title="${feat.label}" class="desktop-menu-item flex items-center h-11 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
+                        <div class="desktop-icon-box w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 ${feat.color}">
                             <i class="${feat.icon} text-base"></i>
                         </div>
-                        <span class="desktop-sidebar-expand-only font-bold text-xs flex-1 text-slate-800 dark:text-slate-200 truncate">${feat.label}</span>
-                        <i onclick="event.stopPropagation(); togglePinFitur('${feat.id}');" class="desktop-sidebar-expand-only fas fa-times text-[10px] text-slate-300 hover:text-rose-500 dark:text-slate-600 dark:hover:text-rose-400 p-1 shrink-0 ml-auto transition-colors" title="Lepas Pin"></i>
+                        <span class="desktop-sidebar-expand-only font-bold text-xs flex-1 text-slate-800 dark:text-slate-200 truncate ml-2.5">${feat.label}</span>
+                        <i onclick="event.stopPropagation(); togglePinFitur('${feat.id}');" class="desktop-sidebar-expand-only fas fa-times text-[10px] text-slate-300 hover:text-rose-500 dark:text-slate-600 dark:hover:text-rose-400 p-1 shrink-0 mr-2 transition-colors" title="Lepas Pin"></i>
                     </button>
                 `;
             });
@@ -13982,7 +14018,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.3.0 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.3.1 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
