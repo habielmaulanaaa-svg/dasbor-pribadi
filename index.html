@@ -82,8 +82,8 @@
         html.dark {
             color-scheme: dark;
         }
-        /* SUPRESI TOTAL SEMUA TOAST NOTIFIKASI */
-        #dynamic-island, #ota-update-toast {
+        /* SUPRESI TOTAL SEMUA TOAST & BANNER INSTALL APLIKASI */
+        #dynamic-island, #ota-update-toast, #pwa-install-banner {
             display: none !important;
             visibility: hidden !important;
             pointer-events: none !important;
@@ -2703,8 +2703,8 @@
         </div>
     </div>
 
-    <!-- PWA INSTALL PROMPT BANNER -->
-    <div id="pwa-install-banner" class="fixed top-16 left-4 right-4 z-40 bg-white dark:bg-[#17212b] border border-primary-500/40 rounded-3xl p-3.5 shadow-2xl flex items-center justify-between transition-all duration-300 transform -translate-y-24 opacity-0 pointer-events-none">
+    <!-- PWA INSTALL PROMPT BANNER (Dinonaktifkan Permanen) -->
+    <div id="pwa-install-banner" class="hidden fixed top-16 left-4 right-4 z-40 bg-white dark:bg-[#17212b] border border-primary-500/40 rounded-3xl p-3.5 shadow-2xl flex items-center justify-between transition-all duration-300 transform -translate-y-24 opacity-0 pointer-events-none" style="display: none !important;">
         <div class="flex items-center gap-3 min-w-0">
             <div class="w-10 h-10 rounded-2xl bg-primary-600 text-white flex items-center justify-center text-lg font-black shadow-md shrink-0">
                 D
@@ -2822,7 +2822,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.2.9 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.3.0 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -3741,7 +3741,7 @@
 
 
     <!-- MODAL: KELOLA PIN MENU (SISTEM PIN FITUR DESKTOP & MOBILE) -->
-    <div id="modal-pin-fitur" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-center justify-center p-4 hidden">
+    <div id="modal-pin-fitur" onclick="if(event.target === this) tutupModalPinFitur()" class="fixed inset-0 bg-black/60 dark:bg-black/75 z-[9999] flex items-center justify-center p-4 hidden transition-opacity duration-200">
         <div class="bg-white dark:bg-[#17212b] rounded-3xl w-full max-w-md shadow-2xl border border-slate-200/80 dark:border-[#313f52]/80 overflow-hidden transform transition-all duration-300 scale-95 opacity-0" id="modal-pin-fitur-box">
             <!-- Header Modal -->
             <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-[#242f3d]">
@@ -3813,6 +3813,113 @@
 
             <div class="p-3 border-t border-slate-100 dark:border-[#242f3d] bg-slate-50/70 dark:bg-[#0e1621]/40 flex justify-end">
                 <button type="button" onclick="tutupModalPinFitur()" class="px-4 py-2 bg-[#263D26] hover:bg-[#324f32] text-white text-xs font-bold rounded-xl shadow-xs transition-colors">
+                    Selesai
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: PENGATURAN AKUN GOOGLE & PROFIL PENGGUNA -->
+    <div id="modal-pengaturan-akun" onclick="if(event.target === this) tutupModalPengaturanAkun()" class="fixed inset-0 bg-black/60 dark:bg-black/75 z-[9999] flex items-center justify-center p-4 hidden transition-opacity duration-200">
+        <div class="bg-white dark:bg-[#17212b] rounded-3xl w-full max-w-lg shadow-2xl border border-slate-200/80 dark:border-[#313f52]/80 overflow-hidden transform transition-all duration-300 scale-95 opacity-0 flex flex-col max-h-[88vh]" id="modal-pengaturan-akun-box">
+            <!-- Header Modal -->
+            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-[#242f3d] shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-primary-100 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 flex items-center justify-center">
+                        <i class="fas fa-user-gear text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-sm text-slate-800 dark:text-slate-100">Pengaturan Akun &amp; Profil</h3>
+                        <p class="text-[10px] text-slate-400 font-medium">Kelola akun Google, nama, dan preferensi</p>
+                    </div>
+                </div>
+                <button type="button" onclick="tutupModalPengaturanAkun()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 text-sm rounded-lg hover:bg-slate-100 dark:hover:bg-[#242f3d] transition-colors"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Body Modal (Scrollable) -->
+            <div class="p-5 space-y-4 overflow-y-auto flex-1 overscroll-contain">
+                <!-- 1. KARTU AKUN GOOGLE (RENDER DINAMIS) -->
+                <div id="modal-account-google-card" class="bg-slate-50 dark:bg-[#0e1621]/40 p-4 rounded-2xl border border-slate-200/80 dark:border-[#242f3d]">
+                    <!-- Konten status Google di-render oleh renderDesktopAccountModalContent() -->
+                </div>
+
+                <!-- 2. UBAH NAMA PENGGUNA / PROFIL -->
+                <div class="bg-slate-50 dark:bg-[#0e1621]/40 p-4 rounded-2xl border border-slate-200/80 dark:border-[#242f3d] space-y-2.5">
+                    <div class="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+                        <i class="fas fa-id-card text-[11px] text-[#A7B92A]"></i>
+                        <span>Nama Profil Pengguna</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="modal-input-username" placeholder="Masukkan nama Anda..." class="flex-1 bg-white dark:bg-[#17212b] border border-slate-200 dark:border-[#313f52] rounded-xl px-3.5 py-2 text-xs font-bold text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500">
+                        <button type="button" onclick="simpanNamaPenggunaModal()" class="bg-primary-600 hover:bg-primary-700 active:scale-95 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 shrink-0">
+                            <i class="fas fa-check text-[10px]"></i>
+                            <span>Simpan</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. PREFERENSI SISTEM & TAMPILAN -->
+                <div class="bg-slate-50 dark:bg-[#0e1621]/40 p-4 rounded-2xl border border-slate-200/80 dark:border-[#242f3d] space-y-2.5">
+                    <div class="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+                        <i class="fas fa-sliders-h text-[11px] text-[#A7B92A]"></i>
+                        <span>Preferensi Tampilan</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div onclick="toggleCardGradient()" class="flex items-center justify-between p-2.5 bg-white dark:bg-[#17212b] rounded-xl border border-slate-200/80 dark:border-[#313f52] cursor-pointer hover:bg-slate-50 dark:hover:bg-[#242f3d]/60 transition-colors">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-[11px] shadow-xs">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Gradasi Saldo</div>
+                                    <div class="text-[10px] text-slate-400">Efek pendaran warna cerah pada kartu</div>
+                                </div>
+                            </div>
+                            <button type="button" onclick="event.stopPropagation(); toggleCardGradient()" class="fluid-switch-btn active focus:outline-none shrink-0" aria-label="Toggle Gradasi Saldo">
+                                <div class="fluid-switch-knob"></div>
+                            </button>
+                        </div>
+
+                        <div onclick="toggleCompactMode()" class="flex items-center justify-between p-2.5 bg-white dark:bg-[#17212b] rounded-xl border border-slate-200/80 dark:border-[#313f52] cursor-pointer hover:bg-slate-50 dark:hover:bg-[#242f3d]/60 transition-colors">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-7 h-7 rounded-lg bg-emerald-500 flex items-center justify-center text-white text-[11px] shadow-xs">
+                                    <i class="fas fa-compress-alt"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Mode Ramping (Compact)</div>
+                                    <div class="text-[10px] text-slate-400">Tampilan kartu padat &amp; ringkas</div>
+                                </div>
+                            </div>
+                            <button type="button" onclick="event.stopPropagation(); toggleCompactMode()" class="fluid-switch-btn focus:outline-none shrink-0" aria-label="Toggle Mode Ramping">
+                                <div class="fluid-switch-knob"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. MANAJEMEN CADANGAN (BACKUP / RESTORE) -->
+                <div class="bg-slate-50 dark:bg-[#0e1621]/40 p-4 rounded-2xl border border-slate-200/80 dark:border-[#242f3d] space-y-2">
+                    <div class="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+                        <i class="fas fa-database text-[11px] text-[#A7B92A]"></i>
+                        <span>Cadangan &amp; Pemulihan Data</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="exportData()" class="flex items-center justify-center gap-2 py-2 px-3 bg-white dark:bg-[#17212b] hover:bg-slate-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[#313f52] rounded-xl text-xs font-bold shadow-xs transition-colors">
+                            <i class="fas fa-download text-primary-600 text-xs"></i>
+                            <span>Cadangkan JSON</span>
+                        </button>
+                        <button type="button" onclick="document.getElementById('importFile').click()" class="flex items-center justify-center gap-2 py-2 px-3 bg-white dark:bg-[#17212b] hover:bg-slate-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[#313f52] rounded-xl text-xs font-bold shadow-xs transition-colors">
+                            <i class="fas fa-upload text-indigo-600 text-xs"></i>
+                            <span>Pulihkan JSON</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="p-4 border-t border-slate-100 dark:border-[#242f3d] flex items-center justify-between shrink-0 bg-slate-50 dark:bg-[#0e1621]/50">
+                <span class="text-[11px] font-semibold text-slate-400">LifeHub Premium v1.3.0</span>
+                <button type="button" onclick="tutupModalPengaturanAkun()" class="px-4 py-1.5 bg-slate-200 dark:bg-[#242f3d] hover:bg-slate-300 dark:hover:bg-[#313f52] text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition-colors">
                     Selesai
                 </button>
             </div>
@@ -3935,18 +4042,18 @@
 
         <!-- Bagian Bawah: Profil Pengguna & Pengaturan Akun -->
         <div class="p-3 border-t border-slate-200/80 dark:border-[#242f3d] bg-slate-50/70 dark:bg-[#0e1621]/40 shrink-0">
-            <div class="flex items-center gap-3 w-full">
-                <!-- Avatar Lingkaran Inisial Nama -->
-                <div id="desktop-profile-avatar" onclick="toggleSettings()" class="w-10 h-10 rounded-full bg-[#263D26] text-[#EDD330] flex items-center justify-center font-black text-sm shrink-0 shadow-xs cursor-pointer active:scale-95 transition-transform">
-                    H
+            <div class="flex items-center gap-2.5 w-full">
+                <!-- Avatar Lingkaran Inisial / Foto Google -->
+                <div id="desktop-profile-avatar" onclick="bukaModalPengaturanAkun()" title="Pengaturan Akun &amp; Profil" class="w-10 h-10 rounded-full bg-[#263D26] text-[#EDD330] flex items-center justify-center font-black text-sm shrink-0 shadow-xs cursor-pointer active:scale-95 transition-transform overflow-hidden relative">
+                    P
                 </div>
                 <!-- Detail Profil & Tombol Edit (Muncul saat Hover) -->
                 <div class="desktop-sidebar-expand-only flex items-center justify-between min-w-0 flex-1">
-                    <div class="min-w-0 pr-1 cursor-pointer" onclick="toggleSettings()">
-                        <div id="desktop-profile-name" class="font-bold text-xs text-slate-800 dark:text-slate-100 truncate">Habil</div>
-                        <div class="text-[10px] font-medium text-slate-400 dark:text-slate-500 truncate">Pengaturan Akun</div>
+                    <div class="min-w-0 pr-1 cursor-pointer" onclick="bukaModalPengaturanAkun()" title="Buka Pengaturan Akun">
+                        <div id="desktop-profile-name" class="font-bold text-xs text-slate-800 dark:text-slate-100 truncate">Pengguna</div>
+                        <div id="desktop-profile-subtitle" class="text-[10px] font-medium text-slate-400 dark:text-slate-500 truncate">Pengaturan Akun</div>
                     </div>
-                    <button type="button" onclick="toggleSettings()" aria-label="Buka Pengaturan" class="text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 p-1.5 text-xs shrink-0 transition-colors">
+                    <button type="button" onclick="event.stopPropagation(); bukaModalPengaturanAkun()" aria-label="Buka Pengaturan Akun" title="Ubah Profil &amp; Akun" class="text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 p-2 -mr-1 text-xs shrink-0 transition-colors cursor-pointer active:scale-90 focus:outline-none">
                         <i class="fas fa-pen-to-square"></i>
                     </button>
                 </div>
@@ -4869,15 +4976,10 @@
             }
         }
 
-        // Tangkap event instalasi browser (Chrome Android WebAPK)
+        // Tangkap event instalasi browser (Prompt banner disupresi penuh)
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            var banner = document.getElementById('pwa-install-banner');
-            if (banner && !sessionStorage.getItem('pwa_banner_dismissed')) {
-                banner.classList.remove('-translate-y-24', 'opacity-0', 'pointer-events-none');
-                banner.classList.add('translate-y-0', 'opacity-100');
-            }
         });
 
         function installPWAApp() {
@@ -5124,7 +5226,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "LifeHub Premium v1.2.9 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.0 (Stable)",
                 settings_tap_outside_close: "Ketuk di luar untuk menutup",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
@@ -5755,7 +5857,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "LifeHub Premium v1.2.9 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.0 (Stable)",
                 settings_tap_outside_close: "Tap outside to close",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
@@ -9101,11 +9203,135 @@
         }
 
         function updateDesktopProfileUI() {
-            var u = (dataState && dataState.userName) ? dataState.userName.trim() : 'Habil';
+            var user = (typeof currentUser !== 'undefined' && currentUser) ? currentUser : (typeof getCachedUser === 'function' ? getCachedUser() : null);
             var nameEl = document.getElementById('desktop-profile-name');
             var avatarEl = document.getElementById('desktop-profile-avatar');
-            if (nameEl) nameEl.innerText = u || 'Habil';
-            if (avatarEl) avatarEl.innerText = (u ? u.charAt(0).toUpperCase() : 'H');
+            var subtitleEl = document.getElementById('desktop-profile-subtitle');
+
+            if (user && user.uid) {
+                var displayName = user.displayName || (dataState && dataState.userName) || 'Pengguna Google';
+                var photoUrl = user.photoURL || ('https://ui-avatars.com/api/?name=' + encodeURIComponent(displayName) + '&background=263D26&color=EDD330');
+                var email = user.email ? (typeof maskEmail === 'function' ? maskEmail(user.email) : user.email) : 'Akun Google Aktif';
+
+                if (nameEl) nameEl.textContent = displayName;
+                if (subtitleEl) subtitleEl.textContent = email;
+                if (avatarEl) {
+                    avatarEl.innerHTML = `<img src="${photoUrl}" alt="${displayName}" class="w-full h-full rounded-full object-cover border border-[#6F9435]/60 shadow-xs" referrerpolicy="no-referrer" onerror="this.onerror=null; this.parentElement.innerText='${displayName.charAt(0).toUpperCase()}';">`;
+                    avatarEl.className = "w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-xs cursor-pointer active:scale-95 transition-transform overflow-hidden relative";
+                }
+            } else {
+                var localName = (dataState && dataState.userName && dataState.userName.trim()) ? dataState.userName.trim() : 'Pengguna';
+                var initial = localName.charAt(0).toUpperCase();
+
+                if (nameEl) nameEl.textContent = localName;
+                if (subtitleEl) subtitleEl.textContent = 'Pengaturan Akun';
+                if (avatarEl) {
+                    avatarEl.innerText = initial;
+                    avatarEl.className = "w-10 h-10 rounded-full bg-[#263D26] text-[#EDD330] flex items-center justify-center font-black text-sm shrink-0 shadow-xs cursor-pointer active:scale-95 transition-transform";
+                }
+            }
+        }
+
+        function bukaModalPengaturanAkun() {
+            var modal = document.getElementById('modal-pengaturan-akun');
+            var box = document.getElementById('modal-pengaturan-akun-box');
+            var inputName = document.getElementById('modal-input-username');
+            if (!modal || !box) return;
+
+            renderDesktopAccountModalContent();
+            if (inputName) {
+                inputName.value = (dataState && dataState.userName) ? dataState.userName : '';
+            }
+
+            modal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            });
+        }
+
+        function tutupModalPengaturanAkun() {
+            var modal = document.getElementById('modal-pengaturan-akun');
+            var box = document.getElementById('modal-pengaturan-akun-box');
+            if (!modal || !box) return;
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function simpanNamaPenggunaModal() {
+            var inputName = document.getElementById('modal-input-username');
+            if (!inputName) return;
+            var val = inputName.value.trim();
+            if (val) {
+                dataState.userName = val;
+                simpanData();
+                updateDesktopProfileUI();
+                var mainNameInput = document.getElementById('input-user-name');
+                if (mainNameInput) mainNameInput.value = val;
+                triggerDynamicIsland("Profil Diperbarui", "Nama pengguna berhasil disimpan", "fas fa-check", "bg-emerald-500/20 text-emerald-400", false);
+            }
+        }
+
+        function renderDesktopAccountModalContent() {
+            var container = document.getElementById('modal-account-google-card');
+            if (!container) return;
+            var user = (typeof currentUser !== 'undefined' && currentUser) ? currentUser : (typeof getCachedUser === 'function' ? getCachedUser() : null);
+
+            if (user && user.uid) {
+                var photoUrl = user.photoURL || ('https://ui-avatars.com/api/?name=' + encodeURIComponent(user.displayName || 'User') + '&background=263D26&color=EDD330');
+                var name = typeof escapeHtml === 'function' ? escapeHtml(user.displayName || (dataState && dataState.userName) || 'Pengguna Google') : (user.displayName || 'Pengguna Google');
+                var email = typeof escapeHtml === 'function' && typeof maskEmail === 'function' ? escapeHtml(maskEmail(user.email || '')) : (user.email || '');
+
+                container.innerHTML = `
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="relative shrink-0">
+                            <img src="${photoUrl}" alt="Avatar Google" class="w-11 h-11 rounded-full object-cover border-2 border-emerald-500 shadow-sm" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='icon-192.png';">
+                            <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#17212b]"></span>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-sm font-black text-slate-800 dark:text-slate-100 truncate">${name}</div>
+                            <div class="text-xs text-slate-400 font-medium truncate">${email}</div>
+                            <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
+                                <i class="fas fa-check-circle text-[9px]"></i> Akun Google Terhubung &amp; Cloud Aktif
+                            </span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="manualSyncCloud()" class="flex items-center justify-center gap-1.5 py-2 px-3 bg-primary-600 hover:bg-primary-700 active:scale-95 text-white rounded-xl text-xs font-bold transition-all shadow-xs">
+                            <i class="fas fa-cloud-arrow-down text-xs"></i>
+                            <span>Tarik Data Cloud</span>
+                        </button>
+                        <button type="button" onclick="logoutGoogle(); tutupModalPengaturanAkun();" class="flex items-center justify-center gap-1.5 py-2 px-3 bg-rose-50 dark:bg-rose-950/30 hover:bg-rose-100 dark:hover:bg-rose-900/40 text-rose-600 dark:text-rose-400 rounded-xl text-xs font-bold transition-all border border-rose-200/60 dark:border-rose-900/50">
+                            <i class="fas fa-sign-out-alt text-xs"></i>
+                            <span>Keluar Akun</span>
+                        </button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-2xl bg-amber-100 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-base shrink-0">
+                            <i class="fas fa-cloud-slash"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Mode Penyimpanan Lokal</div>
+                            <div class="text-[10px] text-slate-400">Data tersimpan di perangkat ini. Masuk dengan Google untuk sinkronisasi otomatis.</div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="loginWithGoogle(); tutupModalPengaturanAkun();" class="w-full flex items-center justify-center gap-2.5 py-2.5 px-4 bg-white dark:bg-[#17212b] hover:bg-slate-50 dark:hover:bg-[#242f3d] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[#313f52] rounded-xl text-xs font-bold shadow-xs transition-all active:scale-95">
+                        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                        </svg>
+                        <span>Masuk dengan Akun Google</span>
+                    </button>
+                `;
+            }
         }
 
         // ==========================================
@@ -13136,6 +13362,8 @@
                 if (headerIcon) headerIcon.className = "fas fa-check-circle text-xs text-emerald-300";
                 if (headerText) headerText.innerText = "Cloud";
             }
+            if (typeof updateDesktopProfileUI === 'function') updateDesktopProfileUI();
+            if (typeof renderDesktopAccountModalContent === 'function') renderDesktopAccountModalContent();
         }
 
         let _cloudHideTimeout = null;
@@ -13754,7 +13982,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.2.9 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.3.0 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
