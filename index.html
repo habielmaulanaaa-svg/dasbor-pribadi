@@ -2822,7 +2822,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.3.1 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.3.2 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -3918,7 +3918,7 @@
 
             <!-- Footer Modal -->
             <div class="p-4 border-t border-slate-100 dark:border-[#242f3d] flex items-center justify-between shrink-0 bg-slate-50 dark:bg-[#0e1621]/50">
-                <span class="text-[11px] font-semibold text-slate-400">LifeHub Premium v1.3.1</span>
+                <span class="text-[11px] font-semibold text-slate-400">LifeHub Premium v1.3.2</span>
                 <button type="button" onclick="tutupModalPengaturanAkun()" class="px-4 py-1.5 bg-slate-200 dark:bg-[#242f3d] hover:bg-slate-300 dark:hover:bg-[#313f52] text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition-colors">
                     Selesai
                 </button>
@@ -5259,7 +5259,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "LifeHub Premium v1.3.1 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.2 (Stable)",
                 settings_tap_outside_close: "Ketuk di luar untuk menutup",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
@@ -5890,7 +5890,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "LifeHub Premium v1.3.1 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.2 (Stable)",
                 settings_tap_outside_close: "Tap outside to close",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
@@ -8666,12 +8666,59 @@
             applyCardGradientVisual();
         }
 
+        function parseTaskDeadlineDate(deadline) {
+            if (!deadline) return null;
+            if (deadline instanceof Date) return isNaN(deadline.getTime()) ? null : deadline;
+            if (typeof deadline !== 'string') return null;
+            var clean = deadline.trim();
+            if (!clean) return null;
+
+            // 1. Format ISO YYYY-MM-DD (termasuk jika ada jam / T)
+            if (/^\d{4}-\d{2}-\d{2}/.test(clean)) {
+                var cleanDate = clean.split('T')[0].split(' ')[0];
+                var parts = cleanDate.split('-');
+                if (parts.length === 3) {
+                    var y = parseInt(parts[0], 10);
+                    var m = parseInt(parts[1], 10) - 1;
+                    var d = parseInt(parts[2], 10);
+                    var dt = new Date(y, m, d);
+                    if (!isNaN(dt.getTime())) return dt;
+                }
+            }
+
+            // 2. Format Relatif Bahasa Indonesia (Besok, Lusa, Hari Ini)
+            var lower = clean.toLowerCase();
+            var now = typeof getWibDate === 'function' ? getWibDate() : new Date();
+            now.setHours(0, 0, 0, 0);
+
+            if (lower.includes('besok')) {
+                return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+            }
+            if (lower.includes('lusa')) {
+                return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2);
+            }
+            if (lower.includes('hari ini') || lower.includes('malam ini') || lower.includes('sore ini') || lower.includes('pagi ini')) {
+                return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            }
+
+            // 3. Fallback konstruktor Date bawaan
+            var direct = new Date(clean);
+            if (!isNaN(direct.getTime())) {
+                return direct;
+            }
+
+            return null;
+        }
+
         function getDeadlineStatus(deadline) {
             var isEn = (dataState && dataState.language === 'en');
             if(!deadline) return { status: 'aman', label: isEn ? 'Safe' : 'Aman', diffDays: 0, daysLate: 0, overdue: false, text: '' };
             var today = getWibDate(); today.setHours(0,0,0,0);
-            var parts = deadline.split('-');
-            var dlDate = new Date(parts[0], parts[1] - 1, parts[2]); dlDate.setHours(0,0,0,0);
+            var dlDate = parseTaskDeadlineDate(deadline);
+            if (!dlDate) {
+                return { status: 'aman', label: isEn ? 'Safe' : 'Aman', diffDays: 0, daysLate: 0, overdue: false, text: deadline };
+            }
+            dlDate.setHours(0,0,0,0);
             var diffDays = Math.round((dlDate - today) / (1000 * 60 * 60 * 24));
 
             if (diffDays < 0) {
@@ -11750,16 +11797,13 @@
             if(!task || typeof task !== 'object') return '';
             var dlInfo = getDeadlineStatus(task.deadline);
 
-            var tglNum = '-';
-            var blnStr = '-';
-            try {
-                var parts = task.deadline.split('-');
-                var dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
-                if(!isNaN(dateObj.getTime())) {
-                    tglNum = dateObj.getDate();
-                    blnStr = dateObj.toLocaleDateString(getAppLocale(), { month: 'short' });
-                }
-            } catch(e) {}
+            var tglNum = null;
+            var blnStr = null;
+            var dateObj = parseTaskDeadlineDate(task.deadline);
+            if (dateObj && !isNaN(dateObj.getTime())) {
+                tglNum = dateObj.getDate();
+                blnStr = dateObj.toLocaleDateString(getAppLocale(), { month: 'short' });
+            }
 
             var iconWarning = dlInfo.overdue ? '<i class="fas fa-exclamation-triangle mr-1"></i>' : '';
             var prioBadge = task.prioritas === 'tinggi' 
@@ -11790,10 +11834,21 @@
                 </div>`;
             }
 
-            return `<div class="flex items-start gap-4 p-3 ${dlInfo.bgClass} rounded-2xl border shadow-sm compact-pad">
-                <div class="w-11 h-11 rounded-xl bg-white dark:bg-[#242f3d] text-slate-700 dark:text-slate-200 flex flex-col items-center justify-center shrink-0 shadow-sm">
+            var badgeIconBox = '';
+            if (tglNum !== null && blnStr) {
+                badgeIconBox = `
                     <span class="text-[9px] font-bold uppercase leading-none">${blnStr}</span>
                     <span class="text-base font-black leading-none mt-1 ${dlInfo.overdue ? 'text-red-600 dark:text-red-400' : ''}">${tglNum}</span>
+                `;
+            } else {
+                badgeIconBox = `
+                    <i class="fas fa-calendar-alt text-lg text-primary-500 dark:text-primary-400"></i>
+                `;
+            }
+
+            return `<div class="flex items-start gap-4 p-3 ${dlInfo.bgClass} rounded-2xl border shadow-sm compact-pad">
+                <div class="w-11 h-11 rounded-xl bg-white dark:bg-[#242f3d] text-slate-700 dark:text-slate-200 flex flex-col items-center justify-center shrink-0 shadow-sm">
+                    ${badgeIconBox}
                 </div>
                 <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-1.5 flex-wrap">
@@ -12098,8 +12153,10 @@
                 if(pwA !== pwB) return pwB - pwA;
 
                 try {
-                    var da = new Date(a.deadline.split('-')[0], a.deadline.split('-')[1]-1, a.deadline.split('-')[2]).getTime();
-                    var db = new Date(b.deadline.split('-')[0], b.deadline.split('-')[1]-1, b.deadline.split('-')[2]).getTime();
+                    var dtA = parseTaskDeadlineDate(a.deadline);
+                    var dtB = parseTaskDeadlineDate(b.deadline);
+                    var da = dtA ? dtA.getTime() : 0;
+                    var db = dtB ? dtB.getTime() : 0;
                     return da - db;
                 } catch(e) { return 0; }
             });
@@ -14018,7 +14075,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.3.1 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.3.2 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
