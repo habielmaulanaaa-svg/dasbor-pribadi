@@ -2822,7 +2822,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.3.3 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.3.4 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -4064,7 +4064,7 @@
 
             <!-- Footer Modal -->
             <div class="p-4 border-t border-slate-100 dark:border-[#242f3d] flex items-center justify-between shrink-0 bg-slate-50 dark:bg-[#0e1621]/50">
-                <span class="text-[11px] font-semibold text-slate-400">LifeHub Premium v1.3.3 (Stable)</span>
+                <span class="text-[11px] font-semibold text-slate-400">LifeHub Premium v1.3.4 (Stable)</span>
                 <button type="button" onclick="tutupModalPengaturanAkun()" class="px-5 py-2 bg-[#263D26] hover:bg-[#324f32] text-white font-bold text-xs rounded-xl shadow-xs transition-colors">
                     Selesai
                 </button>
@@ -4166,36 +4166,44 @@
                 Sistem &amp; Data
             </div>
 
-            <nav class="space-y-1">
+            <nav class="space-y-2.5 pt-1">
                 <!-- 1. Setelan & Tampilan Sistem -->
-                <button type="button" onclick="bukaModalPengaturanAkun()" title="Setelan &amp; Tampilan Sistem" class="desktop-action-item flex items-center h-11 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
-                    <div class="w-11 h-11 rounded-2xl bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <i class="fas fa-sliders-h text-sm"></i>
+                <button type="button" onclick="bukaModalPengaturanAkun()" title="Setelan &amp; Tampilan Sistem" class="desktop-action-item flex items-center h-10 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
+                    <div class="w-11 flex items-center justify-center shrink-0">
+                        <div class="w-7 h-7 rounded-xl bg-primary-100/70 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 flex items-center justify-center group-hover:scale-105 transition-transform shadow-2xs">
+                            <i class="fas fa-sliders-h text-[11px]"></i>
+                        </div>
                     </div>
                     <span class="desktop-sidebar-expand-only font-bold text-xs text-slate-700 dark:text-slate-200 ml-2.5">Setelan &amp; Tampilan</span>
                 </button>
 
                 <!-- 2. Ekspor Backup -->
-                <button type="button" onclick="exportData()" title="Ekspor Backup" class="desktop-action-item flex items-center h-11 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
-                    <div class="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center shrink-0 group-hover:text-primary-600 transition-colors">
-                        <i class="fas fa-file-export text-xs"></i>
+                <button type="button" onclick="exportData()" title="Ekspor Backup" class="desktop-action-item flex items-center h-10 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
+                    <div class="w-11 flex items-center justify-center shrink-0">
+                        <div class="w-7 h-7 rounded-xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center group-hover:text-primary-600 transition-colors shadow-2xs">
+                            <i class="fas fa-file-export text-[11px]"></i>
+                        </div>
                     </div>
                     <span class="desktop-sidebar-expand-only font-bold text-xs text-slate-700 dark:text-slate-200 ml-2.5">Ekspor Backup</span>
                 </button>
 
                 <!-- 3. Impor JSON -->
-                <button type="button" onclick="document.getElementById('desktop-import-input').click()" title="Impor JSON" class="desktop-action-item flex items-center h-11 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
-                    <div class="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center shrink-0 group-hover:text-primary-600 transition-colors">
-                        <i class="fas fa-file-import text-xs"></i>
+                <button type="button" onclick="document.getElementById('desktop-import-input').click()" title="Impor JSON" class="desktop-action-item flex items-center h-10 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
+                    <div class="w-11 flex items-center justify-center shrink-0">
+                        <div class="w-7 h-7 rounded-xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center group-hover:text-primary-600 transition-colors shadow-2xs">
+                            <i class="fas fa-file-import text-[11px]"></i>
+                        </div>
                     </div>
                     <span class="desktop-sidebar-expand-only font-bold text-xs text-slate-700 dark:text-slate-200 ml-2.5">Impor JSON</span>
                 </button>
                 <input type="file" id="desktop-import-input" accept=".json" onchange="importData(event)" class="hidden">
 
                 <!-- 4. Reset Data -->
-                <button type="button" onclick="bukaModalResetSelektif()" title="Reset Data" class="desktop-action-item flex items-center h-11 rounded-2xl w-full text-left text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors group">
-                    <div class="w-11 h-11 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        <i class="fas fa-trash-alt text-xs"></i>
+                <button type="button" onclick="bukaModalResetSelektif()" title="Reset Data" class="desktop-action-item flex items-center h-10 rounded-2xl w-full text-left text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors group">
+                    <div class="w-11 flex items-center justify-center shrink-0">
+                        <div class="w-7 h-7 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-500 flex items-center justify-center group-hover:scale-105 transition-transform shadow-2xs">
+                            <i class="fas fa-trash-alt text-[11px]"></i>
+                        </div>
                     </div>
                     <span class="desktop-sidebar-expand-only font-bold text-xs text-rose-600 dark:text-rose-400 ml-2.5">Reset Data</span>
                 </button>
@@ -5417,7 +5425,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "LifeHub Premium v1.3.3 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.4 (Stable)",
                 settings_tap_outside_close: "Ketuk di luar untuk menutup",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
@@ -6048,7 +6056,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "LifeHub Premium v1.3.3 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.4 (Stable)",
                 settings_tap_outside_close: "Tap outside to close",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
@@ -14365,7 +14373,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.3.3 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.3.4 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
