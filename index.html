@@ -2822,7 +2822,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.3.4 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.3.5 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -4064,7 +4064,7 @@
 
             <!-- Footer Modal -->
             <div class="p-4 border-t border-slate-100 dark:border-[#242f3d] flex items-center justify-between shrink-0 bg-slate-50 dark:bg-[#0e1621]/50">
-                <span class="text-[11px] font-semibold text-slate-400">LifeHub Premium v1.3.4 (Stable)</span>
+                <span class="text-[11px] font-semibold text-slate-400">LifeHub Premium v1.3.5 (Stable)</span>
                 <button type="button" onclick="tutupModalPengaturanAkun()" class="px-5 py-2 bg-[#263D26] hover:bg-[#324f32] text-white font-bold text-xs rounded-xl shadow-xs transition-colors">
                     Selesai
                 </button>
@@ -4096,10 +4096,6 @@
                 <!-- Tombol Pintas Kalender di Sidebar Desktop -->
                 <button type="button" onclick="event.stopPropagation(); openActivityCalendar()" class="desktop-sidebar-expand-only ml-auto w-8 h-8 rounded-xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-400 flex items-center justify-center text-xs transition-colors shrink-0" title="Kalender Aktivitas">
                     <i class="fas fa-calendar-alt"></i>
-                </button>
-                <!-- Tombol Pintas Setelan di Header Sidebar Desktop -->
-                <button type="button" onclick="event.stopPropagation(); bukaModalPengaturanAkun()" class="desktop-sidebar-expand-only ml-1 w-8 h-8 rounded-xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 hover:text-primary-600 dark:text-slate-400 dark:hover:text-primary-400 flex items-center justify-center text-xs transition-colors shrink-0" title="Setelan &amp; Pengaturan">
-                    <i class="fas fa-cog"></i>
                 </button>
             </div>
 
@@ -5425,7 +5421,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "LifeHub Premium v1.3.4 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.5 (Stable)",
                 settings_tap_outside_close: "Ketuk di luar untuk menutup",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
@@ -6056,7 +6052,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "LifeHub Premium v1.3.4 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.3.5 (Stable)",
                 settings_tap_outside_close: "Tap outside to close",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
@@ -14373,7 +14369,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.3.4 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.3.5 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
