@@ -1,8 +1,8 @@
 {
-  "name": "dasbor-pribadi-premium",
-  "version": "1.1.6",
+  "name": "lifehub-premium",
+  "version": "1.2.6",
   "private": true,
-  "description": "Dasbor Pribadi - Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi offline-first dengan sinkronisasi cloud.",
+  "description": "LifeHub - Aplikasi manajemen keuangan, tabungan, impian, dan produktivitas pribadi offline-first dengan sinkronisasi cloud.",
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",

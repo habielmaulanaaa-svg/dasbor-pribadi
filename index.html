@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#2563eb" id="meta-theme-color">
+    <meta name="theme-color" content="#263D26" id="meta-theme-color">
     
     <!-- SECURITY: CONTENT SECURITY POLICY (CSP) -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.gstatic.com https://apis.google.com https://accounts.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob: https://*.googleusercontent.com https://ui-avatars.com https://raw.githubusercontent.com https://habielmaulanaaa-svg.github.io; connect-src 'self' https://*.firestore.googleapis.com https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://api.github.com https://raw.githubusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com https://*.firebaseapp.com; base-uri 'self'; object-src 'none';">
@@ -24,10 +24,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Dasbor">
+    <meta name="apple-mobile-web-app-title" content="LifeHub">
     <link rel="apple-touch-icon" href="icon-192.png">
     
-    <title>Dasbor Pribadi Premium</title>
+    <title>LifeHub Premium</title>
     <!-- Tailwind CSS (Local Bundle for 100% Offline PWA Support) -->
     <script src="tailwind.js"></script>
     <script>
@@ -37,17 +37,23 @@
                 extend: {
                     colors: {
                         primary: {
-                            50: 'hsl(var(--theme-h), 80%, 95%)',
-                            100: 'hsl(var(--theme-h), 80%, 90%)',
-                            200: 'hsl(var(--theme-h), 80%, 80%)',
-                            300: 'hsl(var(--theme-h), 80%, 70%)',
-                            400: 'hsl(var(--theme-h), 83%, 65%)',
-                            500: 'hsl(var(--theme-h), 83%, 58%)',
-                            600: 'hsl(var(--theme-h), 83%, 53%)',
-                            700: 'hsl(var(--theme-h), 83%, 43%)',
-                            800: 'hsl(var(--theme-h), 80%, 25%)',
-                            900: 'hsl(var(--theme-h), 80%, 15%)',
-                            950: 'hsl(var(--theme-h), 80%, 8%)',
+                            50: '#F5F7EE',
+                            100: '#E8EED9',
+                            200: '#D2DFB7',
+                            300: '#B9CF91',
+                            400: '#A7B92A', // Meadow Herb / Lime (#A7B92A)
+                            500: '#6F9435', // Lush Foliage Meadow Green (#6F9435 - Brand Primary)
+                            600: '#5C7E29',
+                            700: '#48641F',
+                            800: '#354B17',
+                            900: '#263D26', // Deep Meadow Pine (#263D26)
+                            950: '#152415',
+                        },
+                        meadow: {
+                            dark: '#263D26',
+                            green: '#6F9435',
+                            lime: '#A7B92A',
+                            glow: '#EDD330'
                         }
                     }
                 }
@@ -64,11 +70,24 @@
     
     <style>
         :root { 
-            --theme-h: 221; 
+            --color-meadow-dark: #263D26;
+            --color-meadow-green: #6F9435;
+            --color-meadow-lime: #A7B92A;
+            --color-meadow-glow: #EDD330;
+            --theme-h: 83; 
+            --theme-s: 47%;
+            --theme-l: 39%;
             color-scheme: light;
         }
         html.dark {
             color-scheme: dark;
+        }
+        /* SUPRESI TOTAL SEMUA TOAST NOTIFIKASI */
+        #dynamic-island, #ota-update-toast {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            opacity: 0 !important;
         }
         * { 
             -webkit-font-smoothing: antialiased; 
@@ -132,6 +151,108 @@
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             contain: layout paint;
+        }
+
+        /* ========================================================
+           RESPONSIVE DUAL-VIEW: DESKTOP SIDEBAR & ANDROID DOCK
+           ======================================================== */
+        @media (min-width: 768px) {
+            /* 1. Hilangkan Floating Bottom Dock & FAB di Desktop */
+            #floating-dock-container {
+                display: none !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
+            }
+
+            /* 2. Side Navigation Desktop yang Merekah Halus saat Hover */
+            #desktop-sidebar {
+                display: flex !important;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 72px;
+                height: 100vh;
+                height: 100dvh;
+                background-color: #ffffff;
+                border-right: 1px solid rgba(226, 232, 240, 0.85);
+                z-index: 45;
+                transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                will-change: width, box-shadow;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+            html.dark #desktop-sidebar {
+                background-color: #17212b;
+                border-right: 1px solid rgba(49, 63, 82, 0.7);
+            }
+            #desktop-sidebar:hover {
+                width: 256px;
+                box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.18), 0 0 1px rgba(0, 0, 0, 0.08);
+            }
+            html.dark #desktop-sidebar:hover {
+                box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.4);
+            }
+
+            /* Efek kemunculan teks halus saat kursor diarahkan ke side navigasi */
+            .desktop-sidebar-expand-only {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateX(-6px);
+                transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+                white-space: nowrap;
+                pointer-events: none;
+            }
+            #desktop-sidebar:hover .desktop-sidebar-expand-only {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(0);
+                pointer-events: auto;
+                transition-delay: 0.04s;
+            }
+
+            .desktop-sidebar-section-title {
+                opacity: 0;
+                max-height: 0;
+                overflow: hidden;
+                padding-top: 0;
+                padding-bottom: 0;
+                margin-bottom: 0;
+                transition: opacity 0.2s ease, max-height 0.2s ease, padding 0.2s ease, margin 0.2s ease;
+                white-space: nowrap;
+            }
+            #desktop-sidebar:hover .desktop-sidebar-section-title {
+                opacity: 1;
+                max-height: 28px;
+                padding-top: 0.5rem;
+                padding-bottom: 0.25rem;
+                margin-bottom: 0.25rem;
+            }
+
+            /* Penyesuaian layout konten utama pada Desktop */
+            #app-header {
+                padding-left: calc(72px + 1.25rem) !important;
+            }
+            #main-container {
+                padding-left: calc(72px + 1.25rem) !important;
+                padding-bottom: 2.5rem !important;
+                max-width: 1400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #header-bars-btn {
+                display: none !important;
+            }
+            #sidebar, #sidebar-overlay {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #desktop-sidebar {
+                display: none !important;
+            }
         }
 
 
@@ -390,7 +511,7 @@
         }
         .stack-chevron-icon.open {
             transform: rotate(180deg);
-            color: hsl(var(--theme-h), 83%, 53%) !important;
+            color: #6F9435 !important;
         }
 
         /* Panah chevron sub-tugas: konsisten hijau emerald terpadu */
@@ -484,13 +605,13 @@
 
         /* CARD ACTIVE HIGHLIGHT STATE */
         .waterfall-card-active {
-            border-color: hsla(var(--theme-h), 83%, 53%, 0.5) !important;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
-            box-shadow: 0 2px 10px -2px hsla(var(--theme-h), 83%, 53%, 0.15) !important;
+            border-color: rgba(111, 148, 53, 0.5) !important;
+            background: linear-gradient(135deg, rgba(111, 148, 53, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+            box-shadow: 0 2px 10px -2px rgba(111, 148, 53, 0.15) !important;
         }
         .dark .waterfall-card-active {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.18) 0%, rgba(23, 33, 43, 0.95) 100%) !important;
-            box-shadow: 0 4px 14px -3px hsla(var(--theme-h), 83%, 53%, 0.25) !important;
+            background: linear-gradient(135deg, rgba(38, 61, 38, 0.4) 0%, rgba(23, 33, 43, 0.95) 100%) !important;
+            box-shadow: 0 4px 14px -3px rgba(38, 61, 38, 0.35) !important;
         }
 
         /* Badge Aktif Statis & Kalem (Zero Bounce) */
@@ -791,9 +912,9 @@
             border-color: rgba(71, 85, 105, 0.55);
         }
         .fluid-switch-btn.active {
-            background-color: hsl(var(--theme-h), 83%, 53%);
-            border-color: hsl(var(--theme-h), 83%, 45%);
-            box-shadow: 0 0 12px hsl(var(--theme-h), 83%, 53%, 0.38);
+            background-color: #6F9435;
+            border-color: #5C7E29;
+            box-shadow: 0 0 12px rgba(111, 148, 53, 0.38);
         }
 
         .fluid-switch-knob {
@@ -1210,10 +1331,10 @@
 
         /* Dark mode palette backup untuk opsi Tugas Baru */
         .dark #fab-btn-tugas {
-            background-color: hsla(var(--theme-h), 80%, 10%, 0.45) !important;
+            background-color: rgba(38, 61, 38, 0.6) !important;
         }
         .dark #fab-btn-tugas:hover {
-            background-color: hsla(var(--theme-h), 80%, 15%, 0.6) !important;
+            background-color: rgba(38, 61, 38, 0.8) !important;
         }
 
         /* ==========================================
@@ -1349,8 +1470,8 @@
         #nav-liquid-mercury-pill {
             position: absolute;
             border-radius: 9999px;
-            background-color: hsl(var(--theme-h), 83%, 53%);
-            box-shadow: 0 4px 18px hsl(var(--theme-h), 83%, 53%, 0.45);
+            background-color: #6F9435;
+            box-shadow: 0 4px 18px rgba(111, 148, 53, 0.45);
             z-index: 1;
             pointer-events: none;
             will-change: transform, left, width;
@@ -1630,7 +1751,7 @@
         }
         #saldo-card-bg.jelly-pulse-tap {
             animation: jellyCardPulse 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            box-shadow: 0 12px 34px hsl(var(--theme-h), 83%, 53%, 0.45) !important;
+            box-shadow: 0 12px 34px rgba(111, 148, 53, 0.45) !important;
         }
         #saldo-card-bg.jelly-pulse-solid {
             animation: jellyCardPulse 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -1675,7 +1796,7 @@
             position: absolute;
             inset: 0;
             border-radius: inherit;
-            background: radial-gradient(circle at var(--fluid-x, 50%) var(--fluid-y, 50%), hsl(var(--theme-h), 83%, 53%, 0.14) 0%, transparent 75%);
+            background: radial-gradient(circle at var(--fluid-x, 50%) var(--fluid-y, 50%), rgba(111, 148, 53, 0.14) 0%, transparent 75%);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.25s ease;
@@ -1732,9 +1853,9 @@
             backface-visibility: hidden;
         }
         #btn-settings-toggle.active {
-            box-shadow: 0 0 0 3px hsla(var(--theme-h), 83%, 53%, 0.45), 0 6px 16px -4px rgba(37, 99, 235, 0.25) !important;
+            box-shadow: 0 0 0 3px rgba(167, 185, 42, 0.45), 0 6px 16px -4px rgba(38, 61, 38, 0.25) !important;
             transform: scale(1.05) translateZ(0);
-            border-color: hsl(var(--theme-h), 83%, 53%) !important;
+            border-color: #6F9435 !important;
         }
 
         /* TOMBOL NAVIGASI BELAKANG KETIKA TERKUNCI (BEBAS DARI HEAVY FILTER: GRAYSCALE) */
@@ -1772,16 +1893,6 @@
         }
 
 
-        /* Slider Custom */
-        #theme-color-slider {
-            background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
-            appearance: none; border-radius: 8px; outline: none; touch-action: none;
-        }
-        #theme-color-slider::-webkit-slider-thumb {
-            appearance: none; width: 22px; height: 22px; border-radius: 50%;
-            background: #fff; border: 3px solid hsl(var(--theme-h), 83%, 53%);
-            box-shadow: 0 0 5px rgba(0,0,0,0.3); cursor: pointer;
-        }
 
         /* MOOD SELECTOR: LIQUID MERCURY SLIDING INDICATOR */
         #mood-selector-track {
@@ -1794,8 +1905,8 @@
             position: absolute;
             border-radius: 14px;
             background-color: #ffffff;
-            border: 2px solid hsl(var(--theme-h), 83%, 53%);
-            box-shadow: 0 4px 16px -2px hsla(var(--theme-h), 83%, 53%, 0.35);
+            border: 2px solid #6F9435;
+            box-shadow: 0 4px 16px -2px rgba(111, 148, 53, 0.35);
             z-index: 0;
             pointer-events: none;
             will-change: left, width, top, height, opacity, transform;
@@ -1832,7 +1943,7 @@
         }
         .dark #mood-liquid-mercury-pill {
             background-color: #242f3d;
-            border-color: hsl(var(--theme-h), 83%, 53%);
+            border-color: #6F9435;
             box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.45);
         }
 
@@ -2038,8 +2149,8 @@
         #analisis-liquid-mercury-pill {
             position: absolute;
             border-radius: 12px;
-            background-color: hsl(var(--theme-h), 83%, 53%);
-            box-shadow: 0 4px 16px hsl(var(--theme-h), 83%, 53%, 0.45);
+            background-color: #6F9435;
+            box-shadow: 0 4px 16px rgba(111, 148, 53, 0.45);
             pointer-events: none;
             z-index: 0;
             will-change: left, width, top, height, opacity, transform;
@@ -2571,8 +2682,8 @@
         </script>
     </div>
 
-    <!-- DYNAMIC ISLAND / SMART PILL STATUS CAPSULE -->
-    <div id="dynamic-island" class="fixed top-3.5 left-1/2 z-[99999] max-w-[92vw] pointer-events-none">
+    <!-- DYNAMIC ISLAND / SMART PILL STATUS CAPSULE (Dinonaktifkan Sepenuhnya) -->
+    <div id="dynamic-island" class="hidden fixed top-3.5 left-1/2 z-[99999] max-w-[92vw] pointer-events-none" style="display: none !important;">
         <div id="island-pill-box" class="bg-slate-900/90 dark:bg-white/95 text-white dark:text-slate-900 backdrop-blur-xl px-4 py-2 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.3)] border border-white/20 dark:border-slate-800/20 flex items-center gap-2.5 text-xs font-bold">
             <div id="island-icon" class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 dark:text-emerald-600 text-xs shrink-0">
                 <i class="fas fa-check-circle"></i>
@@ -2601,8 +2712,8 @@
         </div>
     </div>
 
-    <!-- OTA UPDATE NOTIFICATION (iOS DYNAMIC ISLAND CAPSULE) -->
-    <div id="ota-update-toast" onclick="openBottomSheet('changelog-modal'); dismissOtaToast();" class="fixed top-3 left-1/2 -translate-x-1/2 z-[99998] max-w-[94vw] w-auto cursor-pointer transform scale-0 opacity-0 -translate-y-6 transition-all duration-500 ease-out">
+    <!-- OTA UPDATE NOTIFICATION (Dinonaktifkan Sepenuhnya) -->
+    <div id="ota-update-toast" class="hidden fixed top-3 left-1/2 -translate-x-1/2 z-[99998] max-w-[94vw] w-auto cursor-pointer transform scale-0 opacity-0 -translate-y-6 transition-all duration-500 ease-out" style="display: none !important;">
         <div class="bg-slate-900/95 dark:bg-[#17212b]/95 text-white backdrop-blur-2xl px-3.5 py-2 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.35)] border border-primary-500/40 flex items-center gap-2.5 active:scale-95 transition-transform">
             <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-primary-600 to-indigo-500 flex items-center justify-center text-white text-xs shadow-md shrink-0">
                 <i class="fas fa-rocket text-xs text-amber-300"></i>
@@ -2625,9 +2736,18 @@
 
     <!-- Sidebar Samping -->
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 sm:w-80 md:w-[340px] bg-white dark:bg-[#17212b] shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 flex flex-col">
-        <div class="bg-primary-600 p-5 text-white flex justify-between items-center shrink-0 shadow-md relative z-10">
-            <h2 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-layer-group"></i> <span data-i18n="sidebar_menu_title">Menu Dasbor</span></h2>
-            <button type="button" onclick="toggleSidebar()" aria-label="Tutup navigasi sidebar" data-i18n-aria="sidebar_close_aria" title="Tutup navigasi" data-i18n-title="sidebar_close_aria" class="text-primary-200 hover:text-white text-2xl focus:outline-none"><i class="fas fa-times"></i></button>
+        <div class="bg-[#263D26] p-5 text-white flex justify-between items-center shrink-0 shadow-md relative z-10">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center p-1.5 shadow-xs shrink-0">
+                    <svg class="w-full h-full drop-shadow-xs" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 50 17 C 53.2 17 55.2 20.2 56.8 23.4 L 66.8 44.2 C 68.4 47.4 66.2 51 62.6 51 L 37.4 51 C 33.8 51 31.6 47.4 33.2 44.2 L 43.2 23.4 C 44.8 20.2 46.8 17 50 17 Z" fill="#EDD330" />
+                        <circle cx="33" cy="71.5" r="15.5" fill="#EDD330" />
+                        <rect x="52.5" y="56" width="31" height="31" rx="7" fill="#EDD330" />
+                    </svg>
+                </div>
+                <h2 class="font-black text-lg tracking-tight leading-none"><span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span></h2>
+            </div>
+            <button type="button" onclick="toggleSidebar()" aria-label="Tutup navigasi sidebar" data-i18n-aria="sidebar_close_aria" title="Tutup navigasi" data-i18n-title="sidebar_close_aria" class="text-white/70 hover:text-white text-2xl focus:outline-none"><i class="fas fa-times"></i></button>
         </div>
         
         <!-- SEKSI AKUN GOOGLE & CLOUD SYNC -->
@@ -2696,7 +2816,7 @@
                 <!-- Pop-up Menu Pengaturan (Mobile Scroll Optimized) -->
                 <div id="settings-menu" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;" class="absolute bottom-16 left-2 right-2 w-[calc(100%-1rem)] bg-white dark:bg-[#17212b] border border-slate-200/80 dark:border-[#313f52]/80 rounded-3xl shadow-xl p-4 z-30 origin-bottom-left max-h-[84vh] overflow-y-auto overscroll-contain space-y-2.5 pb-20 touch-pan-y">
                     <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider" data-i18n="settings_system_appearance">Sistem &amp; Tampilan</div>
-                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">Dasbor Pribadi Premium v1.2.4 (Stable)</span></div>
+                    <div id="settings-app-version" class="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500"></i> <span data-i18n="settings_app_name_version">LifeHub Premium v1.2.6 (Stable)</span></div>
                     
                     <!-- STACK AKORDEON TOGGLE OPSI & PREFERENSI TAMPILAN TERPADU (OPSI A: WATERFALL CASCADE) -->
                     <div class="rounded-2xl border border-slate-200 dark:border-[#313f52] overflow-hidden bg-slate-100/70 dark:bg-[#242f3d]/60 shadow-xs transition-colors">
@@ -2837,12 +2957,10 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-2">
-                        <button type="button" onclick="toggleChangelog()" class="text-left px-2.5 py-2 bg-slate-100 dark:bg-[#242f3d] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-[#313f52] rounded-xl text-[10px] font-bold transition-colors flex items-center gap-1.5 border border-slate-200 dark:border-[#313f52]">
-                            <i class="fas fa-info-circle text-primary-500"></i> <span data-i18n="settings_release_notes">Catatan Rilis</span>
-                        </button>
-                        <button type="button" onclick="forceCheckAppUpdate()" class="text-left px-2.5 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/50 rounded-xl text-[10px] font-bold transition-colors flex items-center gap-1.5 border border-primary-200 dark:border-primary-800">
-                            <i class="fas fa-sync-alt text-primary-500" id="icon-check-update"></i> <span data-i18n="settings_check_update">Cek Pembaruan</span>
+                    <div>
+                        <button type="button" onclick="forceCheckAppUpdate()" class="w-full text-left px-3 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/50 rounded-xl text-xs font-bold transition-colors flex items-center justify-between border border-primary-200 dark:border-primary-800">
+                            <span class="flex items-center gap-2"><i class="fas fa-sync-alt text-primary-500" id="icon-check-update"></i> <span data-i18n="settings_check_update">Cek Pembaruan</span></span>
+                            <i class="fas fa-redo-alt text-[10px] text-primary-400"></i>
                         </button>
                     </div>
                     
@@ -2853,15 +2971,7 @@
                         <input type="text" id="input-user-name" placeholder="Nama Anda..." data-i18n-placeholder="settings_placeholder_name" oninput="changeUserName(this.value)" class="w-full border rounded-xl px-2.5 py-1.5 text-xs font-bold focus:outline-none">
                     </div>
                     
-                    <hr class="border-slate-100 dark:border-[#242f3d]">
-                    
-                    <div>
-                        <div class="flex justify-between items-center mb-1.5">
-                            <label class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"><i class="fas fa-palette mr-1 text-primary-500"></i> <span data-i18n="settings_theme_color">Warna Tema</span></label>
-                            <button type="button" onclick="resetThemeColor()" class="text-[9px] bg-slate-200 dark:bg-[#242f3d] text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-lg font-bold hover:bg-slate-300" data-i18n="settings_btn_reset_theme">RESET</button>
-                        </div>
-                        <input type="range" min="0" max="360" value="221" class="w-full h-2 rounded-lg cursor-pointer" id="theme-color-slider" oninput="changeThemeColor(this.value)">
-                    </div>
+
 
                     <hr class="border-slate-100 dark:border-[#242f3d]">
                     
@@ -2888,11 +2998,7 @@
                         <i class="fas fa-external-link-alt text-[10px] text-slate-400"></i>
                     </a>
 
-                    <!-- Kontak & Feedback (Dipindahkan ke paling bawah) -->
-                    <div class="mt-2 pt-2 border-t border-slate-100 dark:border-[#242f3d] text-center">
-                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5" data-i18n="settings_contact_feedback">Kontak &amp; Feedback</p>
-                        <a href="mailto:habielmaulanaaa@gmail.com" class="text-[10px] font-bold text-primary-500 bg-primary-50 dark:bg-primary-900/30 px-2 py-1 rounded-lg block">habielmaulanaaa@gmail.com</a>
-                    </div>
+
 
                     <!-- SELEKTOR BAHASA (BILINGUAL i18n ID & EN - DIPINDAHKAN DI BAWAH EMAIL FEEDBACK, TANPA BENDERA) -->
                     <div class="bg-slate-100/80 dark:bg-[#242f3d]/70 rounded-2xl p-2 border border-slate-200/80 dark:border-[#313f52]/80 mt-2">
@@ -2927,127 +3033,7 @@
     </aside>
 
     <!-- BOTTOM SHEETS -->
-    <div id="changelog-modal" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-end justify-center">
-        <div class="bottom-sheet-content w-full max-w-lg bg-white dark:bg-[#17212b] rounded-t-[32px] p-5 shadow-2xl border-t border-slate-200/80 dark:border-[#313f52]/80 max-h-[85vh] flex flex-col">
-            <div class="drag-handle w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mb-4 shrink-0"></div>
-            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-[#242f3d]">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2"><i class="fas fa-crown text-amber-500"></i> <span data-i18n="changelog_title">Catatan Pembaruan v1.2.4 (Stable)</span></h3>
-                <button type="button" onclick="closeBottomSheet('changelog-modal')" aria-label="Tutup catatan pembaruan" data-i18n-aria="changelog_aria_close" class="text-slate-400 hover:text-slate-600 p-1"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 overflow-y-auto pr-1">
-                <!-- Milestone v1.2.4 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-amber-50 via-orange-50 to-primary-50 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-primary-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-crown text-amber-500 text-xs"></i> <span>Patch Rilis • v1.2.4 (Stable)</span></span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 px-2 py-0.5 rounded-full shadow-xs">Voice Sensitivity &amp; Clean UI</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Sensitivitas Ketukan FAB Murni, Penekanan Hint Saat Tap Biasa, dan Antarmuka Suara Bebas Toast Mengambang</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
-                            <i class="fas fa-hand-pointer text-amber-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Sensitivitas Tap FAB Instan:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Ketukan biasa membuka menu Aksi Cepat secara instan tanpa memicu tulisan tooltip atau animasi tahan suara.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
-                            <i class="fas fa-comment-slash text-primary-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Perekaman Suara Bersih Tanpa Toast:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Toast notifikasi di bagian atas layar dinonaktifkan saat Anda berbicara sehingga tampilan tetap bersih dan fokus.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.2.3 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-amber-50 via-orange-50 to-primary-50 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-primary-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-crown text-amber-500 text-xs"></i> <span>Rilis Utama • v1.2.3 (Stable)</span></span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 px-2 py-0.5 rounded-full shadow-xs">Voice Polish &amp; Fluid Pop</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Backdrop Suara Bebas Blur Konsisten, Menu Pengaturan Suara Terpadu, Preview Suara Real-time, dan Animasi Pop-up Membal Elastis</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
-                            <i class="fas fa-magic text-amber-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Pop-up Bebas Blur &amp; Membal Elastik:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Latar belakang pop-up suara kini serasi dengan modal lainnya tanpa efek blur. Kartu hasil suara memiliki efek cairan spring membal yang halus dan dapat ditutup otomatis saat mengetuk di luar area.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
-                            <i class="fas fa-sliders-h text-primary-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Pengaturan Terpadu &amp; Live Preview:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Opsi mesin suara dan API key dipindahkan rapi ke dalam tumpukan akordeon "Opsi Tampilan &amp; Sistem". Kata-kata yang diucapkan langsung tampil secara live di Dynamic Island.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.2.2 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-amber-50 via-orange-50 to-primary-50 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-primary-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5"><i class="fas fa-crown text-amber-500 text-xs"></i> <span>Rilis Utama • v1.2.2 (Stable)</span></span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 px-2 py-0.5 rounded-full shadow-xs">Voice FAB &amp; Gemini AI</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug">Input Suara Cerdas FAB Long-Press, Animasi Teaser 0.62s, Gemini AI NLP Hibrida, dan Sinkronisasi Token Otomatis ke Cloud</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
-                            <i class="fas fa-microphone text-amber-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Interaksi FAB Suara &amp; Teaser 0.62s:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Tahan FAB 500ms untuk merekam suara bahasa Indonesia. Ketukan singkat saat mic aktif langsung membatalkan rekaman. Lengkap dengan animasi 3D teaser saat dasbor dibuka.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-amber-100 dark:border-amber-900/40">
-                            <i class="fas fa-cloud-upload-alt text-primary-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white">Gemini AI &amp; Cloud Auto-Sync:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5">Ekstraksi transaksi/tugas cerdas dengan Gemini AI &amp; Super Regex (slang nominal ceban/goceng &amp; anti-jebakan). API Key tersinkronkan otomatis antar-perangkat via Firebase.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone v1.1.6 (Stable) -->
-                <div class="p-3.5 bg-gradient-to-br from-emerald-50 via-teal-50 to-primary-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-primary-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5"><i class="fas fa-shield-alt text-emerald-500 text-xs"></i> <span data-i18n="changelog_badge_patch">Patch Rilis • v1.1.6 (Stable)</span></span>
-                        <span class="text-[9px] font-black bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-2 py-0.5 rounded-full shadow-xs" data-i18n="changelog_badge_tag">UI Polish &amp; Smart Sync</span>
-                    </div>
-                    <p class="font-bold text-slate-800 dark:text-white text-xs leading-snug" data-i18n="changelog_summary">Penyempurnaan Formulir Tugas, Auto-Reconnect Cloud, Toggle Sub-Tugas, dan Antarmuka Jurnal Dinamis</p>
-                    <div class="space-y-2 text-[11px] text-slate-700 dark:text-slate-300">
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-tasks text-emerald-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white" data-i18n="changelog_p1_title">Tugas &amp; Sub-Tugas:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5" data-i18n="changelog_p1_desc">Outline formulir tugas kini tampil rapi tanpa terpotong. Menghadirkan saklar on/off fluida pada sub-tugas dan mengeliminasi animasi ombak berulang.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 bg-white/70 dark:bg-[#17212b]/60 p-2 rounded-xl border border-emerald-100 dark:border-emerald-900/40">
-                            <i class="fas fa-sync-alt text-teal-500 mt-0.5 text-xs shrink-0"></i>
-                            <div>
-                                <span class="font-bold text-slate-800 dark:text-white" data-i18n="changelog_p2_title">Sinkronisasi Cloud &amp; Jurnal:</span>
-                                <p class="text-slate-600 dark:text-slate-400 mt-0.5" data-i18n="changelog_p2_desc">Koneksi cloud kini otomatis terhubung kembali saat Wi-Fi menyala. Tombol catat jurnal kini adaptif dan judul header Dasbor bebas duplikasi.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tautan Arsip Catatan Rilis GitHub -->
-                <div class="p-3 bg-slate-50 dark:bg-[#1f2c3d]/60 rounded-2xl border border-dashed border-slate-200 dark:border-[#313f52] text-center space-y-1.5">
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400">
-                        <i class="fab fa-github text-slate-700 dark:text-slate-300 mr-1"></i> <span data-i18n="changelog_archive_desc">Catatan rilis versi-versi terdahulu tersimpan rapi di GitHub Releases.</span>
-                    </p>
-                    <a href="https://github.com/habielmaulanaaa-svg/dasbor-pribadi/releases" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 dark:text-primary-400 hover:underline">
-                        <span data-i18n="changelog_archive_link">Buka Arsip Catatan Rilis</span> <i class="fas fa-external-link-alt text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-            <button type="button" onclick="closeBottomSheet('changelog-modal')" class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white py-2.5 rounded-2xl text-xs font-bold shadow-md transition-colors" data-i18n="changelog_btn_close">Tutup Catatan</button>
-        </div>
-    </div>
+    <div id="changelog-modal" class="hidden" style="display: none !important;"></div>
 
 
 
@@ -3062,7 +3048,7 @@
 
             <!-- Filter Periode Analisis: Liquid Mercury Pill Slider -->
             <div id="analisis-periode-track" class="relative grid grid-cols-3 gap-1 p-1 bg-slate-100 dark:bg-[#0e1621] border border-slate-200/80 dark:border-[#313f52]/80 rounded-2xl mb-3 shrink-0 overflow-hidden select-none">
-                <div id="analisis-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl bg-primary-600 shadow-[0_3px_12px_hsl(var(--theme-h),83%,53%,0.4)] z-0 will-change-transform" style="left: 4px; top: 4px; width: calc((100% - 16px) / 3); height: calc(100% - 8px); opacity: 1; transition: none;"></div>
+                <div id="analisis-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl bg-primary-600 shadow-[0_3px_12px_rgba(111,148,53,0.4)] z-0 will-change-transform" style="left: 4px; top: 4px; width: calc((100% - 16px) / 3); height: calc(100% - 8px); opacity: 1; transition: none;"></div>
                 <button type="button" onclick="filterAnalisisPeriode('bulan-ini', this)" id="btn-analisis-bulan-ini" data-periode="bulan-ini" class="analisis-periode-btn active relative z-10 py-1.5 text-xs font-black rounded-xl text-center focus:outline-none transition-colors active:scale-95 text-white" data-i18n="analysis_filter_this_month">Bulan Ini</button>
                 <button type="button" onclick="filterAnalisisPeriode('bulan-lalu', this)" id="btn-analisis-bulan-lalu" data-periode="bulan-lalu" class="analisis-periode-btn relative z-10 py-1.5 text-xs font-bold rounded-xl text-center focus:outline-none transition-colors active:scale-95 text-slate-600 dark:text-slate-400 hover:text-slate-800" data-i18n="analysis_filter_last_month">Bulan Lalu</button>
                 <button type="button" onclick="filterAnalisisPeriode('semua', this)" id="btn-analisis-semua" data-periode="semua" class="analisis-periode-btn relative z-10 py-1.5 text-xs font-bold rounded-xl text-center focus:outline-none transition-colors active:scale-95 text-slate-600 dark:text-slate-400 hover:text-slate-800" data-i18n="analysis_filter_all">Semua</button>
@@ -3748,15 +3734,241 @@
 
 
 
-    <!-- AREA CETAK LAPORAN TERSEMBUNYI -->
+    <!-- MODAL: KELOLA PIN MENU (SISTEM PIN FITUR DESKTOP & MOBILE) -->
+    <div id="modal-pin-fitur" class="bottom-sheet-backdrop fixed inset-0 bg-black/60 dark:bg-black/75 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-[#17212b] rounded-3xl w-full max-w-md shadow-2xl border border-slate-200/80 dark:border-[#313f52]/80 overflow-hidden transform transition-all duration-300 scale-95 opacity-0" id="modal-pin-fitur-box">
+            <!-- Header Modal -->
+            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-[#242f3d]">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-primary-100 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 flex items-center justify-center">
+                        <i class="fas fa-thumbtack text-xs"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-sm text-slate-800 dark:text-slate-100">Kelola Pin Menu</h3>
+                        <p class="text-[10px] text-slate-400 font-medium">Sematkan menu favorit di side navigasi</p>
+                    </div>
+                </div>
+                <button type="button" onclick="tutupModalPinFitur()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 text-sm"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="p-4 space-y-4 max-h-[70vh] overflow-y-auto">
+                <!-- Seksi Fitur Terkunci (4 Utama) -->
+                <div>
+                    <div class="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 flex items-center gap-1.5">
+                        <i class="fas fa-lock text-[9px] text-[#A7B92A]"></i>
+                        <span>Fitur Terkunci (Permanen)</span>
+                    </div>
+                    <div class="space-y-1.5 bg-slate-50 dark:bg-[#0e1621]/40 p-2.5 rounded-2xl border border-slate-200/70 dark:border-[#242f3d]">
+                        <!-- Beranda -->
+                        <div class="flex items-center justify-between py-1.5 px-2">
+                            <div class="flex items-center gap-2.5">
+                                <i class="fas fa-chart-pie text-emerald-600 text-xs w-4"></i>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">Dashboard (Beranda)</span>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-2 py-0.5 rounded-full"><i class="fas fa-lock text-[8px]"></i> Terkunci</span>
+                        </div>
+                        <!-- Keuangan -->
+                        <div class="flex items-center justify-between py-1.5 px-2">
+                            <div class="flex items-center gap-2.5">
+                                <i class="fas fa-wallet text-[#6F9435] text-xs w-4"></i>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">Keuangan</span>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-2 py-0.5 rounded-full"><i class="fas fa-lock text-[8px]"></i> Terkunci</span>
+                        </div>
+                        <!-- Tugas -->
+                        <div class="flex items-center justify-between py-1.5 px-2">
+                            <div class="flex items-center gap-2.5">
+                                <i class="fas fa-list-check text-[#8AA62E] text-xs w-4"></i>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">Tugas &amp; Target</span>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-2 py-0.5 rounded-full"><i class="fas fa-lock text-[8px]"></i> Terkunci</span>
+                        </div>
+                        <!-- Jurnal -->
+                        <div class="flex items-center justify-between py-1.5 px-2">
+                            <div class="flex items-center gap-2.5">
+                                <i class="fas fa-sticky-note text-[#6F9435] text-xs w-4"></i>
+                                <span class="text-xs font-bold text-slate-700 dark:text-slate-200">Catatan (Jurnal)</span>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-2 py-0.5 rounded-full"><i class="fas fa-lock text-[8px]"></i> Terkunci</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seksi Fitur Tambahan yang Bisa Disematkan -->
+                <div>
+                    <div class="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+                        Pilihan Fitur Tambahan untuk Disematkan
+                    </div>
+                    <div class="space-y-2" id="pin-extra-features-list">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 border-t border-slate-100 dark:border-[#242f3d] bg-slate-50/70 dark:bg-[#0e1621]/40 flex justify-end">
+                <button type="button" onclick="tutupModalPinFitur()" class="px-4 py-2 bg-[#263D26] hover:bg-[#324f32] text-white text-xs font-bold rounded-xl shadow-xs transition-colors">
+                    Selesai
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DESKTOP COLLAPSIBLE SIDEBAR (TAMPILAN KHUSUS DESKTOP) -->
+    <aside id="desktop-sidebar" class="hidden md:flex flex-col justify-between select-none" aria-label="Navigasi Desktop LifeHub">
+        
+        <!-- Bagian Atas: Brand & Menu -->
+        <div class="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-1">
+            
+            <!-- Header Brand LifeHub -->
+            <div class="flex items-center gap-3 py-2 px-1 mb-2 border-b border-slate-100 dark:border-[#242f3d]/60">
+                <!-- Squircle Logo Badge Identik -->
+                <div class="w-11 h-11 rounded-2xl bg-[#263D26] flex items-center justify-center p-2 shadow-xs shrink-0 mx-auto cursor-pointer" onclick="switchTab('beranda')" title="LifeHub">
+                    <svg class="w-full h-full drop-shadow-xs" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 50 17 C 53.2 17 55.2 20.2 56.8 23.4 L 66.8 44.2 C 68.4 47.4 66.2 51 62.6 51 L 37.4 51 C 33.8 51 31.6 47.4 33.2 44.2 L 43.2 23.4 C 44.8 20.2 46.8 17 50 17 Z" fill="#EDD330" />
+                        <circle cx="33" cy="71.5" r="15.5" fill="#EDD330" />
+                        <rect x="52.5" y="56" width="31" height="31" rx="7" fill="#EDD330" />
+                    </svg>
+                </div>
+                <!-- Brand Text (Muncul Halus saat Hover) -->
+                <div class="desktop-sidebar-expand-only min-w-0 flex flex-col justify-center cursor-pointer" onclick="switchTab('beranda')">
+                    <span class="text-lg font-black tracking-tight leading-none text-slate-900 dark:text-white">Life<span class="text-[#6F9435] dark:text-[#A7B92A]">Hub</span></span>
+                    <span class="text-[10px] font-medium text-slate-400 dark:text-slate-400 tracking-normal mt-0.5">Meadow Productivity</span>
+                </div>
+            </div>
+
+            <!-- SECTION: MENU UTAMA (4 FITUR TERKUNCI) -->
+            <div class="desktop-sidebar-section-title text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 flex items-center justify-between">
+                <span>Menu Utama</span>
+                <span class="text-[9px] font-bold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950/50 px-1.5 py-0.2 rounded-md"><i class="fas fa-lock text-[8px]"></i> 4 Terkunci</span>
+            </div>
+
+            <nav class="space-y-1" id="desktop-pinned-nav-container">
+                <!-- 1. Dashboard (Beranda) - Locked -->
+                <button type="button" onclick="switchTab('beranda')" id="desktop-nav-beranda" data-tab="beranda" data-color="text-white" class="desktop-menu-item active flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 bg-[#263D26] text-white shadow-xs">
+                    <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-white">
+                        <i class="fas fa-chart-pie text-base"></i>
+                    </div>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1 text-white">Dashboard</span>
+                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-[#EDD330]/80 shrink-0 ml-auto" title="Terkunci"></i>
+                </button>
+
+                <!-- 2. Keuangan - Locked -->
+                <button type="button" onclick="switchTab('keuangan')" id="desktop-nav-keuangan" data-tab="keuangan" data-color="text-[#6F9435]" class="desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60">
+                    <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-[#6F9435]">
+                        <i class="fas fa-wallet text-base"></i>
+                    </div>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1">Keuangan</span>
+                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 ml-auto" title="Terkunci"></i>
+                </button>
+
+                <!-- 3. Tugas & Target - Locked -->
+                <button type="button" onclick="switchTab('tugas')" id="desktop-nav-tugas" data-tab="tugas" data-color="text-[#8AA62E]" class="desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60">
+                    <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-[#8AA62E]">
+                        <i class="fas fa-list-check text-base"></i>
+                    </div>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1">Tugas &amp; Target</span>
+                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 ml-auto" title="Terkunci"></i>
+                </button>
+
+                <!-- 4. Catatan / Jurnal - Locked -->
+                <button type="button" onclick="switchTab('jurnal')" id="desktop-nav-jurnal" data-tab="jurnal" data-color="text-[#6F9435]" class="desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60">
+                    <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-[#6F9435]">
+                        <i class="fas fa-sticky-note text-base"></i>
+                    </div>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs flex-1">Catatan</span>
+                    <i class="desktop-sidebar-expand-only fas fa-thumbtack text-[9px] text-slate-300 dark:text-slate-600 shrink-0 ml-auto" title="Terkunci"></i>
+                </button>
+            </nav>
+
+            <!-- Container Fitur Pin Tambahan (Dinamis dari Kelola Pin) -->
+            <div id="desktop-custom-pinned-container" class="space-y-1"></div>
+
+            <!-- Tombol Kelola Pin (Muncul saat hover) -->
+            <div class="desktop-sidebar-expand-only pt-1">
+                <button type="button" onclick="bukaModalPinFitur()" class="w-full text-left px-3 py-1.5 rounded-xl text-[11px] font-bold text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100/80 dark:hover:bg-[#242f3d]/60 flex items-center gap-2 transition-colors">
+                    <i class="fas fa-thumbtack text-[10px]"></i>
+                    <span>Kelola Pin Menu</span>
+                </button>
+            </div>
+
+            <!-- Garis Pemisah Antar Seksi -->
+            <hr class="border-slate-200/80 dark:border-[#242f3d] my-2.5 mx-1" />
+
+            <!-- SECTION: MANAJEMEN DATA -->
+            <div class="desktop-sidebar-section-title text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2">
+                Manajemen Data
+            </div>
+
+            <nav class="space-y-1">
+                <!-- 1. Ekspor Backup -->
+                <button type="button" onclick="exportData()" title="Ekspor Backup" class="desktop-action-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
+                    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center shrink-0 group-hover:text-primary-600 transition-colors">
+                        <i class="fas fa-file-export text-xs"></i>
+                    </div>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs text-slate-700 dark:text-slate-200">Ekspor Backup</span>
+                </button>
+
+                <!-- 2. Impor JSON -->
+                <button type="button" onclick="document.getElementById('desktop-import-input').click()" title="Impor JSON" class="desktop-action-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
+                    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#242f3d] text-slate-500 dark:text-slate-400 flex items-center justify-center shrink-0 group-hover:text-primary-600 transition-colors">
+                        <i class="fas fa-file-import text-xs"></i>
+                    </div>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs text-slate-700 dark:text-slate-200">Impor JSON</span>
+                </button>
+                <input type="file" id="desktop-import-input" accept=".json" onchange="importData(event)" class="hidden">
+
+                <!-- 3. Reset Data -->
+                <button type="button" onclick="bukaModalResetSelektif()" title="Reset Data" class="desktop-action-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors group">
+                    <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                        <i class="fas fa-trash-alt text-xs"></i>
+                    </div>
+                    <span class="desktop-sidebar-expand-only font-bold text-xs text-rose-600 dark:text-rose-400">Reset Data</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Bagian Bawah: Profil Pengguna & Pengaturan Akun -->
+        <div class="p-3 border-t border-slate-200/80 dark:border-[#242f3d] bg-slate-50/70 dark:bg-[#0e1621]/40 shrink-0">
+            <div class="flex items-center gap-3 w-full">
+                <!-- Avatar Lingkaran Inisial Nama -->
+                <div id="desktop-profile-avatar" onclick="toggleSettings()" class="w-10 h-10 rounded-full bg-[#263D26] text-[#EDD330] flex items-center justify-center font-black text-sm shrink-0 shadow-xs cursor-pointer active:scale-95 transition-transform mx-auto">
+                    H
+                </div>
+                <!-- Detail Profil & Tombol Edit (Muncul saat Hover) -->
+                <div class="desktop-sidebar-expand-only flex items-center justify-between min-w-0 flex-1">
+                    <div class="min-w-0 pr-1 cursor-pointer" onclick="toggleSettings()">
+                        <div id="desktop-profile-name" class="font-bold text-xs text-slate-800 dark:text-slate-100 truncate">Habil</div>
+                        <div class="text-[10px] font-medium text-slate-400 dark:text-slate-500 truncate">Pengaturan Akun</div>
+                    </div>
+                    <button type="button" onclick="toggleSettings()" aria-label="Buka Pengaturan" class="text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 p-1.5 text-xs shrink-0 transition-colors">
+                        <i class="fas fa-pen-to-square"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </aside>
     <div id="printable-report-area" class="hidden p-6 bg-white text-slate-900"></div>
 
     <!-- HEADER ATAS BERSIH -->
-    <header id="app-header" class="bg-primary-600 text-white p-4 shadow-md z-30 flex justify-between items-center shrink-0 sticky top-0">
-        <div class="flex items-center gap-3">
-            <button id="header-bars-btn" type="button" onclick="toggleSidebar()" aria-label="Buka navigasi sidebar" data-i18n-aria="header_bars_aria" title="Menu Navigasi" data-i18n-title="sidebar_menu_title" class="text-white hover:text-primary-200 text-xl focus:outline-none"><i class="fas fa-bars"></i></button>
-            <button id="header-back-btn" type="button" onclick="switchTab('beranda')" aria-label="Kembali ke Beranda" data-i18n-aria="header_back_tooltip" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none" title="Kembali ke Beranda" data-i18n-title="header_back_tooltip"><i class="fas fa-arrow-left"></i></button>
-            <h1 id="header-title" class="text-xl font-bold tracking-wide transition-opacity duration-300" data-i18n="app_title">Dasbor</h1>
+    <header id="app-header" class="bg-[#263D26] text-white p-4 shadow-md z-30 flex justify-between items-center shrink-0 sticky top-0">
+        <div class="flex items-center gap-2.5">
+            <!-- Logo Brand LifeHub (Dapat ditekan untuk membuka navigasi menu) -->
+            <button id="header-bars-btn" type="button" onclick="toggleSidebar()" aria-label="Menu LifeHub" data-i18n-aria="header_bars_aria" title="Menu LifeHub" class="tactile-press flex items-center justify-center active:scale-95 transition-transform duration-150 focus:outline-none select-none">
+                <div class="w-9 h-9 rounded-2xl bg-white/10 dark:bg-white/10 border border-white/15 flex items-center justify-center shadow-xs backdrop-blur-md p-1.5 shrink-0 hover:bg-white/15 transition-colors">
+                    <svg class="w-full h-full drop-shadow-xs" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Top Rounded Triangle -->
+                        <path d="M 50 17 C 53.2 17 55.2 20.2 56.8 23.4 L 66.8 44.2 C 68.4 47.4 66.2 51 62.6 51 L 37.4 51 C 33.8 51 31.6 47.4 33.2 44.2 L 43.2 23.4 C 44.8 20.2 46.8 17 50 17 Z" fill="#EDD330" />
+                        <!-- Bottom Left Circle -->
+                        <circle cx="33" cy="71.5" r="15.5" fill="#EDD330" />
+                        <!-- Bottom Right Rounded Square -->
+                        <rect x="52.5" y="56" width="31" height="31" rx="7" fill="#EDD330" />
+                    </svg>
+                </div>
+            </button>
+            <button id="header-back-btn" type="button" onclick="switchTab('beranda')" aria-label="Kembali ke Beranda" data-i18n-aria="header_back_tooltip" class="hidden text-white hover:text-primary-200 text-xl focus:outline-none mr-0.5" title="Kembali ke Beranda" data-i18n-title="header_back_tooltip"><i class="fas fa-arrow-left"></i></button>
+            <h1 id="header-title" onclick="toggleSidebar()" class="cursor-pointer text-xl font-black tracking-tight leading-none drop-shadow-xs transition-opacity duration-300 flex items-center select-none active:scale-95" data-i18n-html="app_title">
+                <span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span>
+            </h1>
         </div>
         <div class="flex items-center">
             <button type="button" onclick="openActivityCalendar()" id="header-calendar-btn" aria-label="Kalender Aktivitas &amp; Keuangan" data-i18n-aria="calendar_title" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 flex items-center justify-center text-white text-xs transition-all duration-300 shadow-xs shrink-0" title="Kalender Aktivitas &amp; Keuangan" data-i18n-title="calendar_title">
@@ -4339,7 +4551,7 @@
                     </div>
                     <!-- Filter Rentang Waktu Transaksi dengan Liquid Mercury Indicator (Grid 5 Kolom Merata & Pas) -->
                     <div id="filter-transaksi-track" class="relative grid grid-cols-5 gap-1 mb-2 p-1 rounded-2xl bg-slate-100 dark:bg-[#111923] border border-slate-200/80 dark:border-[#242f3d]">
-                        <div id="filter-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl bg-primary-600 shadow-[0_3px_12px_hsl(var(--theme-h),83%,53%,0.4)] z-0"></div>
+                        <div id="filter-liquid-mercury-pill" class="absolute pointer-events-none rounded-xl bg-primary-600 shadow-[0_3px_12px_rgba(111,148,53,0.4)] z-0"></div>
                         <button type="button" onclick="setPeriodeTransaksi('semua', this)" class="period-btn active relative z-10 text-[10px] font-bold py-1.5 px-0.5 rounded-xl text-center truncate" data-i18n="finances_filter_all">Semua</button>
                         <button type="button" onclick="setPeriodeTransaksi('hari-ini', this)" class="period-btn relative z-10 text-[10px] font-bold py-1.5 px-0.5 rounded-xl text-center truncate" data-i18n="finances_filter_today">Hari Ini</button>
                         <button type="button" onclick="setPeriodeTransaksi('minggu-ini', this)" class="period-btn relative z-10 text-[10px] font-bold py-1.5 px-0.5 rounded-xl text-center truncate" data-i18n="finances_filter_week">Minggu Ini</button>
@@ -4470,7 +4682,7 @@
         <!-- Kapsul Dok Utama -->
         <nav id="bottom-nav-dock" class="relative flex items-center gap-1 p-1.5 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.18)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.55)] border border-slate-200/80 dark:border-[#313f52]/60 overflow-hidden">
             <!-- Fluid Mercury Blob Indicator Pill -->
-            <div id="nav-liquid-mercury-pill" class="absolute pointer-events-none rounded-full bg-primary-600 shadow-[0_4px_18px_hsl(var(--theme-h),83%,53%,0.45)] z-0 will-change-transform"></div>
+            <div id="nav-liquid-mercury-pill" class="absolute pointer-events-none rounded-full bg-primary-600 shadow-[0_4px_18px_rgba(111,148,53,0.45)] z-0 will-change-transform"></div>
 
             <!-- Tab Beranda -->
             <button type="button" onclick="switchTab('beranda')" id="nav-beranda" class="nav-item relative z-10 flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs text-white">
@@ -4766,7 +4978,7 @@
         const I18N = {
             id: {
                 // Header & Navigasi
-                app_title: "Dasbor",
+                app_title: '<span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span>',
                 nav_beranda: "Beranda",
                 nav_tugas: "Tugas",
                 nav_keuangan: "Uang",
@@ -4897,7 +5109,7 @@
                 // Pengaturan & Sistem
                 settings_system_appearance: "Sistem & Tampilan",
                 settings_language: "Pilihan Bahasa / Language",
-                settings_app_name_version: "Dasbor Pribadi Premium v1.1.5 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.2.6 (Stable)",
                 settings_tap_outside_close: "Ketuk di luar untuk menutup",
                 settings_options_stack: "Opsi Tampilan & Sistem",
                 settings_active_badge: "Aktif",
@@ -5397,7 +5609,7 @@
             },
             en: {
                 // Header & Navigation
-                app_title: "Dashboard",
+                app_title: '<span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span>',
                 nav_beranda: "Home",
                 nav_tugas: "Tasks",
                 nav_keuangan: "Finances",
@@ -5528,7 +5740,7 @@
                 // Settings & System
                 settings_system_appearance: "System & Appearance",
                 settings_language: "Language Options",
-                settings_app_name_version: "Dasbor Pribadi Premium v1.1.5 (Stable)",
+                settings_app_name_version: "LifeHub Premium v1.2.6 (Stable)",
                 settings_tap_outside_close: "Tap outside to close",
                 settings_options_stack: "Display & System Options",
                 settings_active_badge: "Active",
@@ -6286,109 +6498,12 @@
         let islandOutTimeout = null;
 
         function triggerDynamicIsland(title, msg, iconClass, iconColor, duration, isSetting = false) {
-            // Dukungan jika isSetting dilewatkan pada argumen ke-5 (misal jika duration tidak diisi / bernilai boolean)
-            if (typeof duration === 'boolean') {
-                isSetting = duration;
-                duration = 2300;
-            }
-
-            // ATURAN BARU: Toast notifikasi HANYA ditampilkan saat mengubah Pengaturan / Sistem (isSetting === true).
-            // Saat menambah tugas, keuangan, maupun aktivitas pembuatan konten di dasbor, toast ditiadakan
-            // karena kartu data langsung muncul di layar dan proses penyimpanan sudah divisualisasikan oleh indikator cloud header.
-            if (!isSetting) return;
-
-            if (isOtaToastActive) return; // Menunggu notifikasi pembaruan OTA selesai jika sedang tayang
-
-            var island = document.getElementById('dynamic-island');
-            var pillBox = document.getElementById('island-pill-box');
-            var textBox = document.getElementById('island-text-box');
-            var tEl = document.getElementById('island-title');
-            var mEl = document.getElementById('island-msg');
-            var iEl = document.getElementById('island-icon');
-            if (!island || !tEl || !mEl) return;
-
-            var finalTitle = title || "Aktivitas";
-            var finalMsg = msg || "Aksi berhasil";
-            var finalIconClass = iconClass || "fas fa-check-circle";
-            var finalIconColor = iconColor || "bg-emerald-500/20 text-emerald-400 dark:text-emerald-600";
-            var finalDuration = duration || 2300;
-
-            // Jika sedang dalam proses animasi keluar (retract), batalkan segera
-            if (islandOutTimeout) {
-                clearTimeout(islandOutTimeout);
-                islandOutTimeout = null;
-            }
-
-            // Periksa apakah island saat ini benar-benar sedang tampil penuh di layar
-            var isCurrentlyVisible = isIslandActive && island.classList.contains('island-droplet-in') && !island.classList.contains('island-droplet-out');
-
-            // Hapus kelas animasi keluar agar tidak tertinggal
-            island.classList.remove('island-droplet-out');
-
-            // Update konten teks dan ikon seketika
-            tEl.innerText = finalTitle;
-            mEl.innerText = finalMsg;
-            if (iEl) {
-                iEl.className = `w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 ${finalIconColor}`;
-                iEl.innerHTML = `<i class="${finalIconClass}"></i>`;
-                iEl.classList.remove('island-icon-pop');
-                void iEl.offsetWidth;
-                iEl.classList.add('island-icon-pop');
-            }
-
-            if (!isCurrentlyVisible) {
-                // Keadaan 1: Kapsul belum muncul atau sedang retract -> Jalankan animasi tetesan turun penuh (Drop-In)
-                island.classList.remove('island-droplet-in');
-                if (pillBox) pillBox.classList.remove('island-morph-pulse');
-                if (textBox) textBox.classList.remove('island-text-swap');
-                void island.offsetWidth; // Force synchronous reflow
-                island.classList.add('island-droplet-in');
-                isIslandActive = true;
-            } else {
-                // Keadaan 2: Kapsul SUDAH terlihat di layar -> Animasi Denyut Cairan Bouncy Jelly & Slide Teks (Anti-Hilang)
-                if (pillBox) {
-                    pillBox.classList.remove('island-morph-pulse');
-                    void pillBox.offsetWidth;
-                    pillBox.classList.add('island-morph-pulse');
-                }
-
-                if (textBox) {
-                    textBox.classList.remove('island-text-swap');
-                    void textBox.offsetWidth;
-                    textBox.classList.add('island-text-swap');
-                }
-            }
-
-            // Reset timer penutupan: diperpanjang kembali dari 0 setiap kali aksi baru ditekan
-            if (islandTimeout) clearTimeout(islandTimeout);
-            islandTimeout = setTimeout(() => {
-                closeDynamicIsland();
-            }, finalDuration);
+            // Semua toast notifikasi ditiadakan sepenuhnya sesuai instruksi pengguna
+            return;
         }
 
         function closeDynamicIsland() {
-            var island = document.getElementById('dynamic-island');
-            var pillBox = document.getElementById('island-pill-box');
-            var textBox = document.getElementById('island-text-box');
-            var iEl = document.getElementById('island-icon');
-            if (!island || !isIslandActive) {
-                isIslandActive = false;
-                return;
-            }
-
-            island.classList.remove('island-droplet-in');
-            if (pillBox) pillBox.classList.remove('island-morph-pulse');
-            if (textBox) textBox.classList.remove('island-text-swap');
-            if (iEl) iEl.classList.remove('island-icon-pop');
-
-            island.classList.add('island-droplet-out');
-
-            if (islandOutTimeout) clearTimeout(islandOutTimeout);
-            islandOutTimeout = setTimeout(() => {
-                island.classList.remove('island-droplet-out');
-                isIslandActive = false;
-                islandOutTimeout = null;
-            }, 350);
+            return;
         }
 
         function getAppLocale() {
@@ -6396,7 +6511,8 @@
         }
 
         function showToast(message) {
-            triggerDynamicIsland(t('toast_notification', "Pemberitahuan"), message, "fas fa-bell", "bg-primary-500/20 text-primary-400");
+            // Semua toast notifikasi ditiadakan sepenuhnya sesuai instruksi pengguna
+            return;
         }
 
         const idrCurrencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
@@ -6565,13 +6681,13 @@
 
             if (card) {
                 if (isGrad) {
-                    card.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 62%) 0%, hsl(var(--theme-h), 83%, 53%) 100%)';
-                    card.style.borderColor = 'rgba(255, 255, 255, 0.25)';
-                    card.style.boxShadow = '0 20px 25px -5px hsl(var(--theme-h), 83%, 53%, 0.35)';
+                    card.style.background = 'linear-gradient(135deg, #6F9435 0%, #263D26 100%)';
+                    card.style.borderColor = 'rgba(237, 211, 48, 0.35)';
+                    card.style.boxShadow = '0 20px 25px -5px rgba(38, 61, 38, 0.45), 0 0 20px rgba(237, 211, 48, 0.2)';
                 } else {
-                    card.style.background = 'hsl(var(--theme-h), 83%, 53%)';
-                    card.style.borderColor = 'hsl(var(--theme-h), 83%, 45%)';
-                    card.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+                    card.style.background = '#6F9435';
+                    card.style.borderColor = '#48641F';
+                    card.style.boxShadow = '0 10px 15px -3px rgba(38, 61, 38, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
                 }
             }
 
@@ -6582,9 +6698,9 @@
             if (aura) {
                 if (isGrad) {
                     aura.style.display = 'block';
-                    aura.style.background = 'linear-gradient(135deg, hsl(var(--theme-h), 85%, 60%), hsl(var(--theme-h), 90%, 48%))';
+                    aura.style.background = 'radial-gradient(circle, rgba(237, 211, 48, 0.55) 0%, rgba(167, 185, 42, 0.35) 45%, rgba(111, 148, 53, 0.12) 80%, transparent 100%)';
                     aura.style.animation = 'ambientPulse 4s ease-in-out infinite';
-                    aura.style.opacity = '0.55';
+                    aura.style.opacity = '0.7';
                 } else {
                     aura.style.display = 'none';
                     aura.style.animation = 'none';
@@ -6753,8 +6869,8 @@
 
             var colorMap = {
                 semua: {
-                    bg: isDark ? 'hsl(var(--theme-h, 217), var(--theme-s, 80%), 46%)' : 'hsl(var(--theme-h, 217), var(--theme-s, 90%), 54%)',
-                    shadow: isDark ? '0 4px 20px hsla(var(--theme-h, 217), var(--theme-s, 90%), 50%, 0.55)' : '0 4px 18px hsla(var(--theme-h, 217), var(--theme-s, 90%), 50%, 0.42)'
+                    bg: isDark ? '#5D7F2A' : '#6F9435',
+                    shadow: isDark ? '0 4px 20px rgba(93, 127, 42, 0.55)' : '0 4px 18px rgba(111, 148, 53, 0.42)'
                 },
                 tunai: {
                     bg: isDark ? '#059669' : '#10b981',
@@ -7316,9 +7432,8 @@
         }
 
         function toggleChangelog() {
-            var m = document.getElementById('changelog-modal');
-            if (m.classList.contains('active')) closeBottomSheet('changelog-modal');
-            else openBottomSheet('changelog-modal');
+            // Catatan rilis ditiadakan
+            return;
         }
 
         var rekapTargetDateIso = null;
@@ -8509,6 +8624,7 @@
         function changeUserName(newName) { 
             dataState.userName = newName; 
             simpanData(); 
+            updateDesktopProfileUI();
         }
 
         function showDynamicGreeting() {
@@ -8521,7 +8637,7 @@
             setTimeout(() => {
                 h.classList.add('opacity-0');
                 setTimeout(() => { 
-                    h.innerText = t('app_title', 'Dasbor');
+                    h.innerHTML = '<span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span>';
                     h.classList.remove('opacity-0'); 
                 }, 350); 
             }, 3200); 
@@ -8758,7 +8874,8 @@
                 }
                 if (backBtn) backBtn.classList.remove('hidden');
                 if (barsBtn) barsBtn.classList.add('hidden');
-                if (hTitle) hTitle.innerText = t('app_title', 'Dasbor');
+                if (hTitle) hTitle.innerHTML = '<span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span>';
+                updateDesktopSidebarActive('jurnal');
             } else {
                 if (floatingDock) {
                     floatingDock.classList.remove('hidden');
@@ -8769,7 +8886,7 @@
                 }
                 if (backBtn) backBtn.classList.add('hidden');
                 if (barsBtn) barsBtn.classList.remove('hidden');
-                if (hTitle) hTitle.innerText = t('app_title', 'Dasbor');
+                if (hTitle) hTitle.innerHTML = '<span class="text-white">Life</span><span class="text-[#EDD330]">Hub</span>';
 
                 var tabKeys = ['beranda', 'tugas', 'keuangan'];
                 for (var j = 0; j < tabKeys.length; j++) {
@@ -8787,6 +8904,7 @@
                 }
 
                 updateMercuryPill(tabId, true);
+                updateDesktopSidebarActive(tabId);
             }
 
             var taskInput = document.getElementById('tugas-input-area');
@@ -8835,6 +8953,132 @@
                     updateMoodMercuryPill(null, false);
                 }, 120);
             }
+        }
+
+        // ==========================================
+        // MODUL DESKTOP SIDEBAR & SISTEM PIN FITUR
+        // ==========================================
+        const EXTRA_PINNABLE_FEATURES = [
+            { id: 'kalender', label: 'Rekap Harian & Kalender', icon: 'fas fa-calendar-alt', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-950/30', action: 'openActivityCalendar()' },
+            { id: 'wrapped', label: 'Kilas Balik Tahunan', icon: 'fas fa-trophy', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-950/30', action: 'openYearlyWrapped()' },
+            { id: 'impian', label: 'Kalkulator & Target Impian', icon: 'fas fa-bullseye', color: 'text-indigo-500', bg: 'bg-indigo-50 dark:bg-indigo-950/30', action: "switchTab('beranda'); setTimeout(openImpianModal, 150);" },
+            { id: 'analisis', label: 'Analisis & Statistik', icon: 'fas fa-chart-line', color: 'text-sky-500', bg: 'bg-sky-50 dark:bg-sky-950/30', action: 'openAnalisisModal()' },
+            { id: 'catatan_kilat', label: 'Catatan & Belanjaan', icon: 'fas fa-clipboard-check', color: 'text-rose-500', bg: 'bg-rose-50 dark:bg-rose-950/30', action: "openBottomSheet('catatan-kilat-modal')" }
+        ];
+
+        function updateDesktopSidebarActive(tabId) {
+            var navTabs = ['beranda', 'keuangan', 'tugas', 'jurnal'];
+            navTabs.forEach(function(key) {
+                var btn = document.getElementById('desktop-nav-' + key);
+                if (!btn) return;
+                var iconBox = btn.querySelector('.desktop-icon-box');
+                var text = btn.querySelector('.desktop-sidebar-expand-only');
+                var defaultColor = btn.getAttribute('data-color') || 'text-[#6F9435]';
+                
+                if (key === tabId) {
+                    btn.className = 'desktop-menu-item active flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 bg-[#263D26] text-white shadow-xs';
+                    if (iconBox) iconBox.className = 'desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-white';
+                    if (text) text.className = 'desktop-sidebar-expand-only font-bold text-xs flex-1 text-white';
+                } else {
+                    btn.className = 'desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left transition-colors duration-200 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60';
+                    if (iconBox) iconBox.className = 'desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ' + defaultColor;
+                    if (text) text.className = 'desktop-sidebar-expand-only font-bold text-xs flex-1 text-slate-700 dark:text-slate-200';
+                }
+            });
+        }
+
+        function bukaModalPinFitur() {
+            var modal = document.getElementById('modal-pin-fitur');
+            var box = document.getElementById('modal-pin-fitur-box');
+            if (!modal || !box) return;
+            renderPinExtraFeaturesList();
+            modal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            });
+        }
+
+        function tutupModalPinFitur() {
+            var modal = document.getElementById('modal-pin-fitur');
+            var box = document.getElementById('modal-pin-fitur-box');
+            if (!modal || !box) return;
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function togglePinFitur(featId) {
+            if (!dataState.pinnedMenuFeatures) dataState.pinnedMenuFeatures = [];
+            var idx = dataState.pinnedMenuFeatures.indexOf(featId);
+            if (idx > -1) {
+                dataState.pinnedMenuFeatures.splice(idx, 1);
+            } else {
+                dataState.pinnedMenuFeatures.push(featId);
+            }
+            simpanData();
+            renderPinExtraFeaturesList();
+            renderDesktopCustomPinned();
+        }
+
+        function renderPinExtraFeaturesList() {
+            var container = document.getElementById('pin-extra-features-list');
+            if (!container) return;
+            var pinned = dataState.pinnedMenuFeatures || [];
+            var html = '';
+            EXTRA_PINNABLE_FEATURES.forEach(function(feat) {
+                var isPinned = pinned.includes(feat.id);
+                html += `
+                    <div class="flex items-center justify-between p-2.5 rounded-2xl border ${isPinned ? 'border-primary-500/50 bg-primary-50/30 dark:bg-primary-950/20' : 'border-slate-200/80 dark:border-[#313f52] bg-white dark:bg-[#242f3d]/50'} transition-all">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-xl ${feat.bg} flex items-center justify-center ${feat.color} shadow-xs">
+                                <i class="${feat.icon} text-xs"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-100">${feat.label}</span>
+                        </div>
+                        <button type="button" onclick="togglePinFitur('${feat.id}')" class="px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all ${isPinned ? 'bg-primary-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white'}">
+                            <i class="fas fa-thumbtack text-[10px] ${isPinned ? 'transform rotate-45' : ''}"></i>
+                            <span>${isPinned ? 'Disematkan' : 'Sematkan'}</span>
+                        </button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderDesktopCustomPinned() {
+            var container = document.getElementById('desktop-custom-pinned-container');
+            if (!container) return;
+            var pinned = dataState.pinnedMenuFeatures || [];
+            if (pinned.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            var html = '';
+            pinned.forEach(function(featId) {
+                var feat = EXTRA_PINNABLE_FEATURES.find(f => f.id === featId);
+                if (!feat) return;
+                html += `
+                    <button type="button" onclick="${feat.action}" title="${feat.label}" class="desktop-menu-item flex items-center gap-3 px-2 py-2 rounded-2xl w-full text-left text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242f3d]/60 transition-colors group">
+                        <div class="desktop-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${feat.color}">
+                            <i class="${feat.icon} text-base"></i>
+                        </div>
+                        <span class="desktop-sidebar-expand-only font-bold text-xs flex-1 text-slate-800 dark:text-slate-200 truncate">${feat.label}</span>
+                        <i onclick="event.stopPropagation(); togglePinFitur('${feat.id}');" class="desktop-sidebar-expand-only fas fa-times text-[10px] text-slate-300 hover:text-rose-500 dark:text-slate-600 dark:hover:text-rose-400 p-1 shrink-0 ml-auto transition-colors" title="Lepas Pin"></i>
+                    </button>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function updateDesktopProfileUI() {
+            var u = (dataState && dataState.userName) ? dataState.userName.trim() : 'Habil';
+            var nameEl = document.getElementById('desktop-profile-name');
+            var avatarEl = document.getElementById('desktop-profile-avatar');
+            if (nameEl) nameEl.innerText = u || 'Habil';
+            if (avatarEl) avatarEl.innerText = (u ? u.charAt(0).toUpperCase() : 'H');
         }
 
         // ==========================================
@@ -9554,26 +9798,15 @@
         }
 
         function changeThemeColor(hue) {
-            document.documentElement.style.setProperty('--theme-h', hue);
+            // Tema permanen Meadow Glow (#263D26, #6F9435, #A7B92A, #EDD330)
+            document.documentElement.style.setProperty('--theme-h', '83');
             var m = document.getElementById('meta-theme-color');
-            if(m) m.setAttribute("content", `hsl(${hue}, 85%, 42%)`);
-            
+            if(m) m.setAttribute("content", "#263D26");
             applyCardGradientVisual();
-
-            clearTimeout(saveHueTimeout);
-            saveHueTimeout = setTimeout(() => {
-                safeStorage.setItem('dasborHue', hue);
-                dataState.themeHue = hue;
-                dataState.updatedAt = Date.now();
-                safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
-                debouncedSyncToCloud();
-            }, 300);
         }
 
         function resetThemeColor() {
-            document.getElementById('theme-color-slider').value = 221;
-            changeThemeColor(221);
-            triggerDynamicIsland(t('settings_theme_color', "Warna"), t('toast_theme_reset_desc', "Tema direset ke biru bawaan"), "fas fa-palette", "bg-primary-500/20 text-primary-400", true);
+            changeThemeColor(83);
         }
 
         // ZERO-LAG 120 FPS DARK MODE SWITCH
@@ -12422,12 +12655,9 @@
             }
             refreshDynamicSkeleton();
 
-            var savedHue = safeStorage.getItem('dasborHue') || (dataState && dataState.themeHue);
-            if(savedHue) {
-                document.documentElement.style.setProperty('--theme-h', savedHue);
-                var slider = document.getElementById('theme-color-slider');
-                if (slider) slider.value = savedHue;
-            }
+            safeStorage.removeItem('dasborHue');
+            if (dataState) dataState.themeHue = '83';
+            document.documentElement.style.setProperty('--theme-h', '83');
             
             if(!Array.isArray(dataState.tugas)) dataState.tugas = [];
             if(!Array.isArray(dataState.jurnal)) dataState.jurnal = [];
@@ -12470,7 +12700,8 @@
                 '🍔 Makan': 0, '🚗 Transport': 0, '🛍️ Belanja': 0, '💡 Tagihan': 0, '📁 Lainnya': 0
             };
             if(!Array.isArray(dataState.subscriptions)) dataState.subscriptions = [];
-            if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
+            if(!Array.isArray(dataState.pinnedMenuFeatures)) dataState.pinnedMenuFeatures = [];
+            if(dataState.userName === undefined) dataState.userName = 'Habil'; 
             if(dataState.isPrivacyMode === undefined) dataState.isPrivacyMode = false;
             if(dataState.compactMode === undefined) dataState.compactMode = false;
             if(dataState.autoThemeMode === undefined) dataState.autoThemeMode = false;
@@ -12545,6 +12776,9 @@
                 var activeTabEl = document.querySelector('.tab-content.active');
                 var activeTabKey = activeTabEl ? activeTabEl.id : 'beranda';
                 updateMercuryPill(activeTabKey, false);
+                updateDesktopSidebarActive(activeTabKey);
+                renderDesktopCustomPinned();
+                updateDesktopProfileUI();
                 updateFilterMercuryPill(null, false);
                 updateMoodMercuryPill(null, false);
                 if (typeof updatePrioMercuryPill === 'function') updatePrioMercuryPill(null, false);
@@ -13162,14 +13396,9 @@
                             if(dataState.userName === undefined) dataState.userName = 'Pengguna'; 
                             if(dataState.saldo === undefined) dataState.saldo = 0;
 
-                            var hueFromCloud = remote.themeHue || (dataState && dataState.themeHue);
-                            if (hueFromCloud) {
-                                safeStorage.setItem('dasborHue', hueFromCloud);
-                                dataState.themeHue = hueFromCloud;
-                                document.documentElement.style.setProperty('--theme-h', hueFromCloud);
-                                const slider = document.getElementById('theme-color-slider');
-                                if (slider) slider.value = hueFromCloud;
-                            }
+                            safeStorage.removeItem('dasborHue');
+                            dataState.themeHue = '83';
+                            document.documentElement.style.setProperty('--theme-h', '83');
 
                             if (dataState.autoThemeMode) {
                                 applyAutoThemeClock();
@@ -13207,7 +13436,9 @@
                             safeStorage.setItem('dasborSolidV2', JSON.stringify(dataState));
 
                             const inputName = document.getElementById('input-user-name');
-                            if (inputName) inputName.value = dataState.userName || currentUser.displayName || 'Pengguna';
+                            if (inputName) inputName.value = dataState.userName || currentUser.displayName || 'Habil';
+                            updateDesktopProfileUI();
+                            renderDesktopCustomPinned();
 
                             if (dataState.compactMode) document.body.classList.add('compact-mode');
                             else document.body.classList.remove('compact-mode');
@@ -13275,7 +13506,7 @@
                 dataState: dataState,
                 geminiApiKey: (typeof voiceGeminiApiKey !== 'undefined' && voiceGeminiApiKey) || (dataState && dataState.geminiApiKey) || '',
                 voiceParserMode: (typeof currentVoiceParserMode !== 'undefined' && currentVoiceParserMode) || (dataState && dataState.voiceParserMode) || 'offline',
-                themeHue: safeStorage.getItem('dasborHue') || (dataState && dataState.themeHue) || '221',
+                themeHue: '83',
                 darkMode: (dataState && dataState.darkMode) || safeStorage.getItem('dasborDarkMode') || 'light',
                 lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
                 userEmail: currentUser.email || '',
@@ -13496,7 +13727,7 @@
             if (typeof checkNetworkStateProbe === 'function') checkNetworkStateProbe();
         });
 
-        const CURRENT_APP_VERSION = 'v1.2.4 (Stable)';
+        const CURRENT_APP_VERSION = 'v1.2.6 (Stable)';
         let otaAutoDismissTimer = null;
 
         function checkOtaUpdateNow() {
@@ -13508,46 +13739,21 @@
             var verDisplay = document.getElementById('settings-app-version');
 
             if (verDisplay) {
-                verDisplay.innerHTML = `<i class="fas fa-shield-alt text-emerald-500"></i> Dasbor Pribadi Premium ${CURRENT_APP_VERSION} (PWA)`;
+                verDisplay.innerHTML = `<i class="fas fa-shield-alt text-emerald-500"></i> LifeHub Premium ${CURRENT_APP_VERSION} (PWA)`;
             }
 
             var toastBadge = document.getElementById('ota-toast-version-badge');
             if (toastBadge) toastBadge.innerText = CURRENT_APP_VERSION;
 
-            // Tampilkan notifikasi jika ada pembaruan versi baru (hanya sekali tampil per versi!)
+            // Catat ke penyimpanan tanpa menampilkan toast apapun
             if (lastSeen !== CURRENT_APP_VERSION) {
-                isOtaToastActive = true; // Kunci antrean notifikasi agar tidak bertabrakan
-                setTimeout(function() {
-                    var toast = document.getElementById('ota-update-toast');
-                    if (toast) {
-                        // Animasi iOS Dynamic Island: turun & mengembang lembut dari atas layar
-                        toast.classList.remove('scale-0', 'opacity-0', '-translate-y-6');
-                        toast.classList.add('scale-100', 'opacity-100', 'translate-y-0');
-
-                        // Auto-dismiss cepat (4 detik) agar tidak mengganggu
-                        otaAutoDismissTimer = setTimeout(dismissOtaToast, 4000);
-                    }
-                }, 1400);
-
-                // Catat ke penyimpanan agar HANYA DITAMPILKAN SATU KALI SAJA
                 safeStorage.setItem('dasborLastSeenVersion', CURRENT_APP_VERSION);
             }
         }
 
         function dismissOtaToast() {
             if (otaAutoDismissTimer) clearTimeout(otaAutoDismissTimer);
-            var toast = document.getElementById('ota-update-toast');
-            if (toast) {
-                // Animasi menyusut kembali ke atas khas iOS capsule
-                toast.classList.remove('scale-100', 'opacity-100', 'translate-y-0');
-                toast.classList.add('scale-0', 'opacity-0', '-translate-y-6');
-            }
-            if (isOtaToastActive) {
-                isOtaToastActive = false;
-                if (typeof processDynamicIslandQueue === 'function') {
-                    setTimeout(processDynamicIslandQueue, 400);
-                }
-            }
+            isOtaToastActive = false;
         }
 
         // ==========================================

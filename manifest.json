@@ -1,13 +1,13 @@
 {
-  "name": "Dasbor Pribadi",
-  "short_name": "Dasbor",
-  "description": "Aplikasi Manajemen Tugas, Keuangan, dan Jurnal Harian Pribadi",
+  "name": "LifeHub",
+  "short_name": "LifeHub",
+  "description": "LifeHub - Aplikasi Manajemen Tugas, Keuangan, dan Jurnal Harian Pribadi",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#0e1621",
-  "theme_color": "#2563eb",
+  "theme_color": "#263D26",
   "icons": [
     {
       "src": "icon-192.png",
